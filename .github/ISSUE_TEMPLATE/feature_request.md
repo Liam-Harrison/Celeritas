@@ -1,6 +1,6 @@
 ---
-name: Feature request
-about: Suggest an for the game
+name: Feature Request
+about: Suggest a feature for the game.
 title: "[REQUEST]"
 labels: feature
 assignees: ''
