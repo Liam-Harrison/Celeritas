@@ -27,5 +27,30 @@ namespace Celeritas
 		/// Path to the streaming assets folder.
 		/// </summary>
 		public static readonly string STREAMING_ASSETS = Application.streamingAssetsPath;
+
+		/// <summary>
+		/// The label used for the ship data type in the addresable system.
+		/// </summary>
+		public const string SHIP_TAG = "Ships";
+
+		/// <summary>
+		/// The label used for the weapon data type in the addresable system.
+		/// </summary>
+		public const string WEAPON_TAG = "Weapons";
+
+		/// <summary>
+		/// The label used for the module data type in the addresable system.
+		/// </summary>
+		public const string MODULE_TAG = "Modules";
+
+		/// <summary>
+		/// The label used for the projectile data type in the addresable system.
+		/// </summary>
+		public const string PROJECTILE_TAG = "Projectiles";
+
+		/// <summary>
+		/// The label used for the modifier data type in the addresable system.
+		/// </summary>
+		public const string MODIFIERS_TAG = "Modifiers";
 	}
 }

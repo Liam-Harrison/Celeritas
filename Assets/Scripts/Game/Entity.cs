@@ -29,12 +29,28 @@ namespace Celeritas.Game
 		public virtual ScriptableObject Data { get; protected set; }
 
 		/// <summary>
+		/// The time this entity was created.
+		/// </summary>
+		public float Spawned { get; private set; }
+
+		/// <summary>
+		/// How long in seconds since this entity was spawned.
+		/// </summary>
+		public float TimeAlive { get => Time.time - Spawned; }
+
+		/// <summary>
+		/// Get the 2D position of this entity.
+		/// </summary>
+		public Vector3 Position { get => Vector3.ProjectOnPlane(transform.position, Vector3.forward); }
+
+		/// <summary>
 		/// Called to initalize this entity with its appropriate data.
 		/// </summary>
 		/// <param name="data">The data to associate this entity with.</param>
 		public virtual void Initalize(ScriptableObject data)
 		{
 			Data = data;
+			Spawned = Time.time;
 			IsInitalized = true;
 		}
 	}

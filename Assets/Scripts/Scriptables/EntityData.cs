@@ -1,10 +1,14 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Celeritas.Scriptables
 {
-	public class EntityData : ScriptableObject
+	/// <summary>
+	/// Provides common functionality for entity data types.
+	/// </summary>
+	public abstract class EntityData : ScriptableObject
 	{
-		[SerializeField] protected string title;
+		[SerializeField, Title("Common")] protected string title;
 		[SerializeField] protected GameObject prefab;
 
 		/// <summary>

@@ -10,6 +10,22 @@ namespace Celeritas.Scriptables
 	[CreateAssetMenu(fileName = "New Projectile", menuName = "Celeritas/New Projectile", order = 40)]
 	public class ProjectileData : EntityData
 	{
+		[SerializeField]
+		private float speed;
+
+		[SerializeField]
+		private bool moveToTarget;
+
+		/// <summary>
+		/// The speed of this projectile.
+		/// </summary>
+		public float Speed { get => speed; }
+
+		/// <summary>
+		/// Does this projectile move towards the weapon target.
+		/// </summary>
+		public bool MoveToTarget { get => moveToTarget; }
+
 		protected virtual void OnValidate()
 		{
 			if (prefab != null && prefab.HasComponent<ProjectileEntity>() == false)

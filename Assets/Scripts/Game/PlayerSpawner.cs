@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Celeritas.Game
 {
+	/// <summary>
+	/// Spawns and manages a player ship and its controller.
+	/// </summary>
 	public class PlayerSpawner : MonoBehaviour
 	{
 		[SerializeField, Title("Settings")] private ShipData ship;

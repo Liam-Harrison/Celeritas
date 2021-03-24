@@ -7,6 +7,9 @@ using UnityEngine.AddressableAssets;
 
 namespace Celeritas.Game.Entities
 {
+	/// <summary>
+	/// Manages and controls the creation of game entites.
+	/// </summary>
 	public class EntityManager : Singleton<EntityManager>
 	{
 		private readonly List<ShipData> ships = new List<ShipData>();
@@ -15,33 +18,34 @@ namespace Celeritas.Game.Entities
 		private readonly List<ModifierData> modifiers = new List<ModifierData>();
 		private readonly List<ProjectileData> projectiles = new List<ProjectileData>();
 
-		private const string SHIP_TAG = "Ships";
-		private const string WEAPON_TAG = "Weapons";
-		private const string MODULE_TAG = "Modules";
-		private const string PROJECTILE_TAG = "Projectiles";
-		private const string MODIFIERS_TAG = "Modifiers";
-
 		public static Action OnLoadedAssets;
-
-		private Transform parent;
 
 		protected override void Awake()
 		{
 			base.Awake();
 			StartCoroutine(LoadAssets());
-			parent = new GameObject("Entities").transform;
-			parent.transform.position = Vector3.zero;
-			parent.transform.rotation = Quaternion.identity;
-			parent.transform.localScale = Vector3.one;
+		}
+
+		/// <summary>
+		/// Create and initalize the entity of a specified type.
+		/// </summary>
+		/// <typeparam name="T">The <seealso cref="Entity"/> type to create.</typeparam>
+		/// <param name="data">The data to attatch to the entity.</param>
+		/// <returns>Returns the created and initalized entity.</returns>
+		public static T InstantiateEntity<T>(EntityData data) where T: Entity
+		{
+			var comp = Instantiate(data.Prefab).GetComponent<T>();
+			comp.Initalize(data);
+			return comp;
 		}
 
 		private IEnumerator LoadAssets()
 		{
-			yield return LoadTags(ships, SHIP_TAG);
-			yield return LoadTags(weapons, WEAPON_TAG);
-			yield return LoadTags(modules, MODULE_TAG);
-			yield return LoadTags(projectiles, PROJECTILE_TAG);
-			yield return LoadTags(modifiers, MODIFIERS_TAG);
+			yield return LoadTags(ships, Constants.SHIP_TAG);
+			yield return LoadTags(weapons, Constants.WEAPON_TAG);
+			yield return LoadTags(modules, Constants.MODULE_TAG);
+			yield return LoadTags(projectiles, Constants.PROJECTILE_TAG);
+			yield return LoadTags(modifiers, Constants.MODIFIERS_TAG);
 
 			OnLoadedAssets?.Invoke();
 		}
@@ -59,13 +63,6 @@ namespace Celeritas.Game.Entities
 					list.Add(item);
 				}
 			}
-		}
-
-		public static T InstantiateEntity<T>(EntityData data) where T: Entity
-		{
-			var comp = Instantiate(data.Prefab).GetComponent<T>();
-			comp.Initalize(data);
-			return comp;
 		}
 	}
 }

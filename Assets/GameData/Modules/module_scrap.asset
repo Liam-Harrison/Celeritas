@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 964ba3942b684a84d8afc3e63f6671fd, type: 3}
-  m_Name: Bullet
+  m_Script: {fileID: 11500000, guid: e81afd5e3fc38f04a85d551b5ddbf13e, type: 3}
+  m_Name: module_scrap
   m_EditorClassIdentifier: 
   title: 
   prefab: {fileID: 0}
+  size: 0

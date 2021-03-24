@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e81afd5e3fc38f04a85d551b5ddbf13e, type: 3}
-  m_Name: Scrap
+  m_Script: {fileID: 11500000, guid: 964ba3942b684a84d8afc3e63f6671fd, type: 3}
+  m_Name: projectile_bullet_tracking
   m_EditorClassIdentifier: 
-  title: 
-  size: 0
-  prefab: {fileID: 0}
+  title: Bullet
+  prefab: {fileID: 3926678570621491624, guid: 1a538d99c8e63fb40bfa767a3969f370, type: 3}
+  speed: 10
+  moveToTarget: 1

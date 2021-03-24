@@ -22,22 +22,22 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Ships
-    m_MainAsset: {fileID: 11400000, guid: 2354894fc65befa43a573e4e81bedc30, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 2354894fc65befa43a573e4e81bedc30, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 4823060fc78e6b74fbcc700c5aac91e9
     m_Address: Weapons/Gun.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Weapons
-    m_MainAsset: {fileID: 11400000, guid: 4823060fc78e6b74fbcc700c5aac91e9, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 4823060fc78e6b74fbcc700c5aac91e9, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 341054bb030d7954ea09976c07126d5b
     m_Address: Projectiles/Bullet.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Projectiles
-    m_MainAsset: {fileID: 11400000, guid: 341054bb030d7954ea09976c07126d5b, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 341054bb030d7954ea09976c07126d5b, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 551f9815f83843c4083869b9cc522d52
     m_Address: Modules/Scrap.asset
     m_ReadOnly: 0
@@ -52,6 +52,13 @@ MonoBehaviour:
     - Modifiers
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: e3a3987ff95275a4db9d1035ff111bc3
+    m_Address: Assets/GameData/Projectiles/projectile_bullet_tracking.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Projectiles
+    m_MainAsset: {fileID: 11400000, guid: e3a3987ff95275a4db9d1035ff111bc3, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: e3a3987ff95275a4db9d1035ff111bc3, type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 586fbc35d44629b4bae51c87ba516ab4, type: 2}
   m_SchemaSet:
