@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08bd6193cb3e8a341bdbd9edcfe09d53, type: 3}
+  m_Name: weapon_gun
+  m_EditorClassIdentifier: 
+  title: Gun
+  prefab: {fileID: 295091177937448622, guid: 8575da7781b02e94ca294b90d11ccb57, type: 3}
+  size: 0
+  projectile: {fileID: 11400000, guid: 341054bb030d7954ea09976c07126d5b, type: 2}
+  aims: 1
+  aimSpeed: 5
