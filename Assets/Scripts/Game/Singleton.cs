@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Celeritas.Game
@@ -9,13 +10,6 @@ namespace Celeritas.Game
 	/// <typeparam name="T">Type of your class instance.</typeparam>
 	public abstract class Singleton<T> : MonoBehaviour where T: Singleton<T>
 	{
-		/// <summary>
-		/// An event which allows an instance to notify subscribers of changes
-		/// to its state.
-		/// </summary>
-		/// <param name="sender">The instance whose state has changed</param>
-		public delegate void StateHandeler(T sender);
-
 		/// <summary>
 		/// Get the current instance of this class.
 		/// </summary>
@@ -35,12 +29,12 @@ namespace Celeritas.Game
 		/// <summary>
 		/// An event which is fired when the instance is created.
 		/// </summary>
-		public static event StateHandeler OnCreated;
+		public static event Action<T> OnCreated;
 
 		/// <summary>
 		/// An event which is fired when the instance is destroyed.
 		/// </summary>
-		public static event StateHandeler OnDestroyed;
+		public static event Action<T> OnDestroyed;
 
 		private static T instance = null;
 

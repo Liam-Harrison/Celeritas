@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
+  m_Name: AddressableAssetSettings
+  m_EditorClassIdentifier: 
+  m_DefaultGroup: 98e62bfd6e8e376459f9e50ecec0a120
+  m_OptimizeCatalogSize: 0
+  m_BuildRemoteCatalog: 0
+  m_BundleLocalCatalog: 0
+  m_DisableCatalogUpdateOnStart: 0
+  m_IgnoreUnsupportedFilesInBuild: 0
+  m_UniqueBundleIds: 0
+  m_maxConcurrentWebRequests: 500
+  m_ContiguousBundles: 0
+  m_RemoteCatalogBuildPath:
+    m_Id: 1f71713bdb7491b418c9c99f551c18cf
+  m_RemoteCatalogLoadPath:
+    m_Id: 0444efa715031014cb7ddfd70ba2caea
+  m_overridePlayerVersion: 
+  m_GroupAssets:
+  - {fileID: 11400000, guid: 256ae04a1108d274da854b8b9e6dbc3d, type: 2}
+  - {fileID: 11400000, guid: 44f6a6067108cd74091cf2836605f1f7, type: 2}
+  m_BuildSettings:
+    m_CompileScriptsInVirtualMode: 0
+    m_CleanupStreamingAssetsAfterBuilds: 1
+    m_LogResourceManagerExceptions: 1
+    m_BundleBuildPath: Temp/com.unity.addressables/AssetBundles
+  m_ProfileSettings:
+    m_Profiles:
+    - m_InheritedParent: 
+      m_Id: d7d8c2177558ebd48a1b844e9e501dbb
+      m_ProfileName: Default
+      m_Values:
+      - m_Id: 5ef27a44a14ed56489e073dfeb0e334c
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: e9784f6365af02049a0b6362eb0b3956
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: b6d4717ce2fb24d489977c598e52b979
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: 1f71713bdb7491b418c9c99f551c18cf
+        m_Value: ServerData/[BuildTarget]
+      - m_Id: 0444efa715031014cb7ddfd70ba2caea
+        m_Value: http://localhost/[BuildTarget]
+    m_ProfileEntryNames:
+    - m_Id: 5ef27a44a14ed56489e073dfeb0e334c
+      m_Name: BuildTarget
+      m_InlineUsage: 0
+    - m_Id: e9784f6365af02049a0b6362eb0b3956
+      m_Name: LocalBuildPath
+      m_InlineUsage: 0
+    - m_Id: b6d4717ce2fb24d489977c598e52b979
+      m_Name: LocalLoadPath
+      m_InlineUsage: 0
+    - m_Id: 1f71713bdb7491b418c9c99f551c18cf
+      m_Name: RemoteBuildPath
+      m_InlineUsage: 0
+    - m_Id: 0444efa715031014cb7ddfd70ba2caea
+      m_Name: RemoteLoadPath
+      m_InlineUsage: 0
+    m_ProfileVersion: 1
+  m_LabelTable:
+    m_LabelNames:
+    - default
+    - Ships
+    - Weapons
+    - Modules
+    - Projectiles
+    - Modifiers
+  m_SchemaTemplates: []
+  m_GroupTemplateObjects:
+  - {fileID: 11400000, guid: d895491b3ebd0584d8f3cd8bf826a710, type: 2}
+  m_InitializationObjects: []
+  m_CertificateHandlerType:
+    m_AssemblyName: 
+    m_ClassName: 
+  m_ActivePlayerDataBuilderIndex: 3
+  m_DataBuilders:
+  - {fileID: 11400000, guid: e6ef3c9faa53b594b8e8cdcd20b26e19, type: 2}
+  - {fileID: 11400000, guid: 433a3556ff3542141bc3878f431ffe14, type: 2}
+  - {fileID: 11400000, guid: 60f69e7b410a995459a10151d67b919c, type: 2}
+  - {fileID: 11400000, guid: 0d2b1e1abd2b57348b25e16351ebaae4, type: 2}
+  m_ActiveProfileId: d7d8c2177558ebd48a1b844e9e501dbb
+  m_HostingServicesManager:
+    m_HostingServiceInfos: []
+    m_Settings: {fileID: 11400000}
+    m_NextInstanceId: 0
+    m_RegisteredServiceTypeRefs: []

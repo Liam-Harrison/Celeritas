@@ -1,3 +1,4 @@
+using Celeritas.Extensions;
 using UnityEngine;
 
 namespace Celeritas.Game
@@ -7,8 +8,34 @@ namespace Celeritas.Game
 	/// </summary>
 	public class Entity : MonoBehaviour
 	{
-		public Vector3 Up { get => Vector3.ProjectOnPlane(transform.up, Vector3.forward); }
+		/// <summary>
+		/// Get the entities game up direction vector.
+		/// </summary>
+		public Vector3 Up { get => transform.up.RemoveAxes(z: true); }
 
-		public Vector3 Right { get => Vector3.ProjectOnPlane(transform.right, Vector3.forward); }
+		/// <summary>
+		/// Get the entities game right direction vector.
+		/// </summary>
+		public Vector3 Right { get => transform.right.RemoveAxes(z: true); }
+
+		/// <summary>
+		/// Is this entity initalized.
+		/// </summary>
+		public bool IsInitalized { get; protected set; } = false;
+
+		/// <summary>
+		/// The data associated with this entity.
+		/// </summary>
+		public virtual ScriptableObject Data { get; protected set; }
+
+		/// <summary>
+		/// Called to initalize this entity with its appropriate data.
+		/// </summary>
+		/// <param name="data">The data to associate this entity with.</param>
+		public virtual void Initalize(ScriptableObject data)
+		{
+			Data = data;
+			IsInitalized = true;
+		}
 	}
 }

@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 98e62bfd6e8e376459f9e50ecec0a120
+  m_SerializeEntries:
+  - m_GUID: 2354894fc65befa43a573e4e81bedc30
+    m_Address: Ships/MediumShip
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ships
+    m_MainAsset: {fileID: 11400000, guid: 2354894fc65befa43a573e4e81bedc30, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 2354894fc65befa43a573e4e81bedc30, type: 2}
+  - m_GUID: 4823060fc78e6b74fbcc700c5aac91e9
+    m_Address: Weapons/Gun.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Weapons
+    m_MainAsset: {fileID: 11400000, guid: 4823060fc78e6b74fbcc700c5aac91e9, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 4823060fc78e6b74fbcc700c5aac91e9, type: 2}
+  - m_GUID: 341054bb030d7954ea09976c07126d5b
+    m_Address: Projectiles/Bullet.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Projectiles
+    m_MainAsset: {fileID: 11400000, guid: 341054bb030d7954ea09976c07126d5b, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 341054bb030d7954ea09976c07126d5b, type: 2}
+  - m_GUID: 551f9815f83843c4083869b9cc522d52
+    m_Address: Modules/Scrap.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Modules
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 5331c5309009e944887deac5ad192a6e
+    m_Address: Assets/GameData/Modifiers/AttackSpeed.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Modifiers
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 586fbc35d44629b4bae51c87ba516ab4, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: cf046c1786ad9054ba681d8532aa1f31, type: 2}
+    - {fileID: 11400000, guid: a6162fdb9ebdd2c4d8373df7a20a56b7, type: 2}
