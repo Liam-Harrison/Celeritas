@@ -30,6 +30,7 @@ namespace Celeritas.Game.Entities
 		{
 			var projectile = EntityManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile);
 			projectile.transform.CopyTransform(projectileSpawn);
+			projectile.transform.position = projectile.transform.position.RemoveAxes(z: true, normalize: false);
 			projectile.SetOwner(this);
 		}
 	}

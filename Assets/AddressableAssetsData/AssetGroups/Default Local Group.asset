@@ -22,8 +22,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Ships
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 2354894fc65befa43a573e4e81bedc30, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 2354894fc65befa43a573e4e81bedc30, type: 2}
   - m_GUID: 4823060fc78e6b74fbcc700c5aac91e9
     m_Address: Weapons/Gun.asset
     m_ReadOnly: 0
@@ -45,20 +45,34 @@ MonoBehaviour:
     - Modules
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: 5331c5309009e944887deac5ad192a6e
-    m_Address: Assets/GameData/Modifiers/AttackSpeed.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Modifiers
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: e3a3987ff95275a4db9d1035ff111bc3
     m_Address: Assets/GameData/Projectiles/projectile_bullet_tracking.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Projectiles
-    m_MainAsset: {fileID: 11400000, guid: e3a3987ff95275a4db9d1035ff111bc3, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: e3a3987ff95275a4db9d1035ff111bc3, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 4b0c118e18691544ba6eecd57abc7a5c
+    m_Address: Assets/GameData/Effects/effect_chase_fast.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Modifiers
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 922abbef8ae38a54da55d963727be36a
+    m_Address: Assets/GameData/Effects/effect_chaser.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Effects
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 67f86974e1781764a87ea5cf2b3cc25d
+    m_Address: Assets/GameData/Weapons/weapon_gun_tracking.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Weapons
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 586fbc35d44629b4bae51c87ba516ab4, type: 2}
   m_SchemaSet:
