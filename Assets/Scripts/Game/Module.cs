@@ -1,6 +1,7 @@
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Celeritas.Game
@@ -21,6 +22,9 @@ namespace Celeritas.Game
 
 		[SerializeField, ShowIf(nameof(useDefault))]
 		private ModuleData defaultModule;
+
+		[SerializeField, ShowIf(nameof(useDefault))]
+		private EffectData[] defaultEffects;
 
 		/// <summary>
 		/// The size of this module.
@@ -52,6 +56,7 @@ namespace Celeritas.Game
 			if (useDefault)
 			{
 				SetModule(defaultModule);
+				AttatchedModule.Effects.AddRange(defaultEffects);
 			}
 		}
 
@@ -64,6 +69,10 @@ namespace Celeritas.Game
 			Ship = ship;
 		}
 
+		/// <summary>
+		/// Set the current module to be of the new provided data.
+		/// </summary>
+		/// <param name="module">The module data to set.</param>
 		public void SetModule(ModuleData module)
 		{
 			if (IsWeapon && ((module is WeaponData) == false))
