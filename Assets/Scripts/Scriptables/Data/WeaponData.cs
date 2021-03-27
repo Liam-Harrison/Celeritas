@@ -1,8 +1,7 @@
-using UnityEngine;
 using Celeritas.Extensions;
 using Celeritas.Game.Entities;
 using Sirenix.OdinInspector;
-using UnityEngine.AddressableAssets;
+using UnityEngine;
 
 namespace Celeritas.Scriptables
 {
@@ -15,7 +14,7 @@ namespace Celeritas.Scriptables
 		[SerializeField, Title("Projectile")] private ProjectileData projectile;
 
 		[SerializeField, Title("Aimming")] private bool aims;
-		[SerializeField, ShowIf(nameof(aims))] private float aimSpeed;
+		[SerializeField, ShowIf(nameof(aims))] private float angPerSec;
 
 		/// <summary>
 		/// Get the projectile attatched to this weapon.
@@ -30,7 +29,7 @@ namespace Celeritas.Scriptables
 		/// <summary>
 		/// The speed this weapon aims at.
 		/// </summary>
-		public float AimSpeed { get => aimSpeed; }
+		public float AimSpeed { get => angPerSec; }
 
 		protected override void OnValidate()
 		{

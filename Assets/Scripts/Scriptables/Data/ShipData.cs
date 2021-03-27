@@ -32,34 +32,38 @@ namespace Celeritas.Scriptables
 		}
 	}
 
+	/// <summary>
+	/// Movement settings for the ship full. Cannot be changed, see <seealso cref="MovementModifier"/>
+	/// on the ship itself to increase or decrease movement.
+	/// </summary>
 	[System.Serializable]
 	public struct MovementSettings
 	{
-		[SerializeField, MinMaxSlider(0, 300, showFields: true), Title("Rotation")]
+		[MinMaxSlider(0, 300, showFields: true), Title("Rotation")]
 		public Vector2 torquePerSec;
 
 		[SerializeField]
 		public AnimationCurve rotationCurve;
 
-		[SerializeField, PropertyRange(0, 100)]
+		[PropertyRange(0, 100)]
 		public float angularDrag;
 
-		[SerializeField, PropertyRange(0, 180)]
+		[PropertyRange(0, 180)]
 		public float rotationMaximum;
 
-		[SerializeField, PropertyRange(0, 1000), PropertySpace, Title("Translation")]
+		[PropertyRange(0, 1000), PropertySpace, Title("Translation")]
 		public float forwardForcePerSec;
 
-		[SerializeField, PropertyRange(0, 1000)]
+		[PropertyRange(0, 1000)]
 		public float sideForcePerSec;
 
-		[SerializeField, PropertyRange(0, 1000)]
+		[PropertyRange(0, 1000)]
 		public float backForcePerSec;
 
-		[SerializeField, PropertyRange(0, 100)]
+		[PropertyRange(0, 100)]
 		public float mass;
 
-		[SerializeField, PropertyRange(0, 1), Title("Aiming")]
+		[PropertyRange(0, 1), Title("Aiming")]
 		public float aimDeadzone;
 	}
 }
