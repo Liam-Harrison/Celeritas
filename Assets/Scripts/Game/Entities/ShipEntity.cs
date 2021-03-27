@@ -14,6 +14,9 @@ namespace Celeritas.Game.Entities
 		[SerializeField, Title("Modules")]
 		private Module[] modules;
 
+		[SerializeField]
+		private MovementModifier movementModifiers = new MovementModifier { back = 1, forward = 1, rotation = 1, side = 1 };
+
 		/// <summary>
 		/// The modules attatched to this ship.
 		/// </summary>
@@ -78,11 +81,14 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public Vector3 Velocity { get; private set; }
 
+		/// <inheritdoc/>
+		public override SystemTargets TargetType { get => SystemTargets.Ship; }
+
 		/// <summary>
 		/// Initalize this entity.
 		/// </summary>
 		/// <param name="data"></param>
-		public override void Initalize(ScriptableObject data)
+		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectCollection> effects = null)
 		{
 			Rigidbody = GetComponent<Rigidbody2D>();
 			ShipData = data as ShipData;
@@ -91,20 +97,21 @@ namespace Celeritas.Game.Entities
 
 			foreach (var module in modules)
 			{
-				module.AttatchTo(this);
+				module.Initalize(this);
 			}
 
-			base.Initalize(data);
+			base.Initalize(data, owner, effects);
 		}
 
-		protected virtual void Update()
+		protected override void Update()
 		{
 			if (!IsInitalized)
 				return;
 
 			TranslationLogic();
 			RotationLogic();
-			WeaponAim();
+
+			base.Update();
 		}
 
 		protected virtual void OnDrawGizmosSelected()
@@ -148,18 +155,6 @@ namespace Celeritas.Game.Entities
 			}
 		}
 
-		private void WeaponAim()
-		{
-			foreach (var weapon in WeaponEntities)
-			{
-				if (weapon.WeaponData.Aims)
-				{
-					var dir = Target - weapon.Position;
-					weapon.transform.rotation = Quaternion.LookRotation(dir, Vector3.back);
-				}
-			}
-		}
-
 		protected void ApplyRigidbodySettings()
 		{
 			Rigidbody.gravityScale = 0;
@@ -167,4 +162,24 @@ namespace Celeritas.Game.Entities
 			Rigidbody.mass = ShipData.MovementSettings.mass;
 		}
 	}
+
+	/// <summary>
+	/// Modifies existing ship paramaters.
+	/// </summary>
+	[System.Serializable]
+	public struct MovementModifier
+	{
+		[PropertyRange(0, 4), Title("Movement Modifiers")]
+		public float forward;
+
+		[PropertyRange(0, 4)]
+		public float side;
+
+		[PropertyRange(0, 4)]
+		public float back;
+
+		[PropertyRange(0, 4)]
+		public float rotation;
+	}
+
 }

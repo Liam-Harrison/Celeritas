@@ -1,15 +1,16 @@
 using Celeritas.Game;
 using Celeritas.Game.Entities;
+using Celeritas.Scriptables.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Celeritas.Scriptables
+namespace Celeritas.Scriptables.Systems
 {
 	/// <summary>
 	/// Contains the instanced information for a chase modifier.
 	/// </summary>
 	[CreateAssetMenu(fileName = "New Chase Modifier", menuName = "Celeritas/Modifiers/Chase")]
-	public class ChaseTargetModifier : ModifierData
+	public class ChaseTargetSystem : ModifierSystem, IEntityUpdated
 	{
 		[SerializeField, Title("Chase Settings")]
 		private float angPerSec;
@@ -19,32 +20,16 @@ namespace Celeritas.Scriptables
 		/// </summary>
 		public float AngPerSec { get => angPerSec; }
 
-		public override void OnEntityCreated(Entity target)
-		{
-
-		}
-
-		public override void OnEntityDestroyed(Entity target)
-		{
-
-		}
-
-		public override void OnEntityHit(Entity target, Entity other)
-		{
-
-		}
-
-		public override void OnEntityUpdated(Entity target)
+		public void OnEntityUpdated(Entity target)
 		{
 			var projectile = target as ProjectileEntity;
-			var d = projectile.Weapon.AttatchedModule.Ship.Target - target.transform.position;
-			d = d.normalized;
+			var dir = (projectile.Weapon.AttatchedModule.Ship.Target - target.transform.position).normalized;
 
-			if (Vector3.Dot(target.transform.forward, d) >= 0.95)
+			if (Vector3.Dot(target.transform.forward, dir) >= 0.95)
 				return;
 
 			var angle = AngPerSec * Time.smoothDeltaTime;
-			if (Vector3.Dot(target.transform.right, d) < 0)
+			if (Vector3.Dot(target.transform.right, dir) < 0)
 			{
 				angle = -angle;
 			}
