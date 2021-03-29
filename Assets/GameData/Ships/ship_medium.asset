@@ -41,9 +41,9 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     angularDrag: 5
-    rotationMaximum: 60
-    forwardForcePerSec: 75
-    sideForcePerSec: 75
+    rotationMaximum: 145.5
+    forwardForcePerSec: 280
+    sideForcePerSec: 284
     backForcePerSec: 75
     mass: 1
     aimDeadzone: 0.995

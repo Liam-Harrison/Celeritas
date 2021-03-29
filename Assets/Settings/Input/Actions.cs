@@ -219,6 +219,33 @@ namespace Celeritas
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Main Menu"",
+            ""id"": ""15725cda-cadf-4db7-b73b-3a8ee29e94ce"",
+            ""actions"": [
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""b251042d-e7c3-410e-bdf9-6e91aafb5c86"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a83073d8-67ad-4eff-b035-4e6df2fbaf6c"",
+                    ""path"": ""*/{Submit}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls"",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -256,6 +283,9 @@ namespace Celeritas
             m_Console_UpBuffer = m_Console.FindAction("UpBuffer", throwIfNotFound: true);
             m_Console_DownBuffer = m_Console.FindAction("DownBuffer", throwIfNotFound: true);
             m_Console_Focus = m_Console.FindAction("Focus", throwIfNotFound: true);
+            // Main Menu
+            m_MainMenu = asset.FindActionMap("Main Menu", throwIfNotFound: true);
+            m_MainMenu_Start = m_MainMenu.FindAction("Start", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -407,6 +437,39 @@ namespace Celeritas
             }
         }
         public ConsoleActions @Console => new ConsoleActions(this);
+
+        // Main Menu
+        private readonly InputActionMap m_MainMenu;
+        private IMainMenuActions m_MainMenuActionsCallbackInterface;
+        private readonly InputAction m_MainMenu_Start;
+        public struct MainMenuActions
+        {
+            private @Actions m_Wrapper;
+            public MainMenuActions(@Actions wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Start => m_Wrapper.m_MainMenu_Start;
+            public InputActionMap Get() { return m_Wrapper.m_MainMenu; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(MainMenuActions set) { return set.Get(); }
+            public void SetCallbacks(IMainMenuActions instance)
+            {
+                if (m_Wrapper.m_MainMenuActionsCallbackInterface != null)
+                {
+                    @Start.started -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnStart;
+                    @Start.performed -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnStart;
+                    @Start.canceled -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnStart;
+                }
+                m_Wrapper.m_MainMenuActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Start.started += instance.OnStart;
+                    @Start.performed += instance.OnStart;
+                    @Start.canceled += instance.OnStart;
+                }
+            }
+        }
+        public MainMenuActions @MainMenu => new MainMenuActions(this);
         private int m_ControlsSchemeIndex = -1;
         public InputControlScheme ControlsScheme
         {
@@ -428,6 +491,10 @@ namespace Celeritas
             void OnUpBuffer(InputAction.CallbackContext context);
             void OnDownBuffer(InputAction.CallbackContext context);
             void OnFocus(InputAction.CallbackContext context);
+        }
+        public interface IMainMenuActions
+        {
+            void OnStart(InputAction.CallbackContext context);
         }
     }
 }
