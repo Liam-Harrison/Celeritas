@@ -26,10 +26,10 @@ namespace Celeritas.Scriptables
 		[SerializeField]
 		protected List<ModifierSystem> systems;
 
-		protected Action<Entity> onCreated;
-		protected Action<Entity> onDestroyed;
-		protected Action<Entity> onUpdated;
-		protected Action<Entity, Entity> onHit;
+		protected Action<Entity, ushort> onCreated;
+		protected Action<Entity, ushort> onDestroyed;
+		protected Action<Entity, ushort> onUpdated;
+		protected Action<Entity, Entity, ushort> onHit;
 
 		protected virtual void OnEnable()
 		{
@@ -110,36 +110,36 @@ namespace Celeritas.Scriptables
 		/// Update the provided entity against this effect when updated.
 		/// </summary>
 		/// <param name="entity">The entity to update.</param>
-		public void UpdateEntity(Entity entity)
+		public void UpdateEntity(Entity entity, ushort level)
 		{
 			if (!IsValidEntity(entity))
 				return;
 
-			onUpdated?.Invoke(entity);
+			onUpdated?.Invoke(entity, level);
 		}
 
 		/// <summary>
 		/// Update the provided entity against this effect when created.
 		/// </summary>
 		/// <param name="entity">The entity to update when created.</param>
-		public void CreateEntity(Entity entity)
+		public void CreateEntity(Entity entity, ushort level)
 		{
 			if (!IsValidEntity(entity))
 				return;
 
-			onCreated?.Invoke(entity);
+			onCreated?.Invoke(entity, level);
 		}
 
 		/// <summary>
 		/// Update the provided entity against this effect when destroyed.
 		/// </summary>
 		/// <param name="entity">The entity to update when destroyed.</param>
-		public void DestroyEntity(Entity entity)
+		public void DestroyEntity(Entity entity, ushort level)
 		{
 			if (!IsValidEntity(entity))
 				return;
 
-			onDestroyed?.Invoke(entity);
+			onDestroyed?.Invoke(entity, level);
 		}
 
 		/// <summary>
@@ -147,12 +147,12 @@ namespace Celeritas.Scriptables
 		/// </summary>
 		/// <param name="entity">The subject entity.</param>
 		/// <param name="other">The other entity hit.</param>
-		public void HitEntity(Entity entity, Entity other)
+		public void HitEntity(Entity entity, Entity other, ushort level)
 		{
 			if (!IsValidEntity(entity))
 				return;
 
-			onHit?.Invoke(entity, other);
+			onHit?.Invoke(entity, other, level);
 		}
 
 		private bool IsValidEntity(Entity entity)
@@ -166,7 +166,7 @@ namespace Celeritas.Scriptables
 			if (entity is WeaponEntity && !targets.HasFlag(SystemTargets.Weapon))
 				return false;
 
-			if (entity is ModuleEntity && !targets.HasFlag(SystemTargets.Module))
+			if (entity is ModuleEntity && !(entity is WeaponEntity) && !targets.HasFlag(SystemTargets.Module))
 				return false;
 
 			return true;

@@ -63,7 +63,7 @@ namespace Celeritas.Game.Entities
 		/// <typeparam name="T">The <seealso cref="Entity"/> type to create.</typeparam>
 		/// <param name="data">The data to attatch to the entity.</param>
 		/// <returns>Returns the created and initalized entity.</returns>
-		public static T InstantiateEntity<T>(EntityData data, Entity owner = null, IList<EffectCollection> effects = null) where T: Entity
+		public static T InstantiateEntity<T>(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null) where T: Entity
 		{
 			var comp = Instantiate(data.Prefab).GetComponent<T>();
 			comp.Initalize(data, owner, effects);

@@ -88,7 +88,7 @@ namespace Celeritas.Game.Entities
 		/// Initalize this entity.
 		/// </summary>
 		/// <param name="data"></param>
-		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectCollection> effects = null)
+		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null)
 		{
 			Rigidbody = GetComponent<Rigidbody2D>();
 			ShipData = data as ShipData;

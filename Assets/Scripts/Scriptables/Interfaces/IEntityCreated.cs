@@ -11,6 +11,7 @@ namespace Celeritas.Scriptables.Interfaces
 		/// Called when the entity is created.
 		/// </summary>
 		/// <param name="entity">The target entity.</param>
-		void OnEntityCreated(Entity entity);
+		/// <param name="level">The level of this effect.</param>
+		void OnEntityCreated(Entity entity, ushort level);
 	}
 }

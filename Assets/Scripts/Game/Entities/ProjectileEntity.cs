@@ -22,7 +22,7 @@ namespace Celeritas.Game.Entities
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Projectile; }
 
-		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectCollection> effects = null)
+		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null)
 		{
 			ProjectileData = data as ProjectileData;
 			Weapon = owner as WeaponEntity;

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ee0d4ee51750af45b7430210d4a5dbd, type: 3}
-  m_Name: effect_chaser
+  m_Name: effect_chaser_slow
   m_EditorClassIdentifier: 
   title: Chaser
-  targets: 1
+  targets: 9
   stacks: 0
   systems:
-  - {fileID: 11400000, guid: 4b0c118e18691544ba6eecd57abc7a5c, type: 2}
+  - {fileID: 11400000, guid: 6fc6ceeed9b4e674c9b57228da627b67, type: 2}

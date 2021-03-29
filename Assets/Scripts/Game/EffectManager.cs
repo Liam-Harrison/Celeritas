@@ -1,31 +1,48 @@
 using Celeritas.Scriptables;
-using System.Collections;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Celeritas.Game
 {
+	/// <summary>
+	/// Allows classes to access the properties of the Effect Manager.
+	/// </summary>
 	public interface IEffectManager
 	{
-		public IReadOnlyList<EffectCollection> Effects { get; }
+		public IReadOnlyList<EffectWrapper> EffectWrappers { get; }
 
 		public SystemTargets TargetType { get; }
 
-		EffectCollection[] EffectsCopy { get; }
+		EffectWrapper[] EffectWrapperCopy { get; }
 
-		void AddEffect(EffectCollection effect);
+		void AddEffect(EffectWrapper wrapper);
 
-		void AddEffectRange(IList<EffectCollection> effects);
+		void AddEffectRange(IList<EffectWrapper> wrappers);
 
 		void ClearEffects();
 	}
 
+	/// <summary>
+	/// Wraps an effect collection and allows you to modify the level of the collection.
+	/// </summary>
+	[System.Serializable]
+	public struct EffectWrapper
+	{
+		[Title("Effect Settings"), PropertyRange(1, 5)]
+		public ushort Level;
+		public EffectCollection EffectCollection;
+	}
+
+	/// <summary>
+	/// Manages an list of effect collections and their systems.
+	/// </summary>
 	public class EffectManager : IEffectManager
 	{
-		private readonly List<EffectCollection> effects = new List<EffectCollection>();
+		private readonly List<EffectWrapper> effects = new List<EffectWrapper>();
 		private SystemTargets targetType;
 
-		public EffectManager(SystemTargets target, IList<EffectCollection> effects = null)
+		public EffectManager(SystemTargets target, IList<EffectWrapper> effects = null)
 		{
 			targetType = target;
 			AddEffectRange(effects);
@@ -34,12 +51,12 @@ namespace Celeritas.Game
 		/// <summary>
 		/// Current effects in this collection.
 		/// </summary>
-		public IReadOnlyList<EffectCollection> Effects { get => effects.AsReadOnly(); }
+		public IReadOnlyList<EffectWrapper> EffectWrappers { get => effects.AsReadOnly(); }
 
 		/// <summary>
 		/// Get a copy of effects in this collection.
 		/// </summary>
-		public EffectCollection[] EffectsCopy { get => effects.ToArray(); }
+		public EffectWrapper[] EffectWrapperCopy { get => effects.ToArray(); }
 
 		/// <summary>
 		/// The target type of these effects.
@@ -49,21 +66,21 @@ namespace Celeritas.Game
 		/// <summary>
 		/// Add a new effect collection.
 		/// </summary>
-		/// <param name="effect">The effect collection to add.</param>
-		public void AddEffect(EffectCollection effect)
+		/// <param name="wrapper">The effect collection to add.</param>
+		public void AddEffect(EffectWrapper wrapper)
 		{
-			if (!effect.Targets.HasFlag(TargetType))
+			if (!wrapper.EffectCollection.Targets.HasFlag(TargetType))
 			{
-				Debug.LogError($"Tried to add an effect (<color=\"orange\">{effect.Title}</color>) to an entity whose type (<color=\"orange\">{TargetType}</color>) is not " +
-					$"supported by the effect collection (<color=\"orange\">{effect.Targets}</color>), If the system supports this type add it as a target to the collection. Otherwise remove the effect collection.");
+				Debug.LogError($"Tried to add an effect (<color=\"orange\">{wrapper.EffectCollection.Title}</color>) to an entity whose type (<color=\"orange\">{TargetType}</color>) is not " +
+					$"supported by the effect collection (<color=\"orange\">{wrapper.EffectCollection.Targets}</color>), If the system supports this type add it as a target to the collection. Otherwise remove the effect collection.");
 			}
-			else if (effect.Stacks || !effects.Contains(effect))
+			else if (wrapper.EffectCollection.Stacks || !effects.Contains(wrapper))
 			{
-				effects.Add(effect);
+				effects.Add(wrapper);
 			}
 			else
 			{
-				Debug.LogError($"Tried to add effect colltion which does not stack (<color=\"orange\">{effect.Title}</color>) to an entity who already has this system.");
+				Debug.LogError($"Tried to add effect colltion which does not stack (<color=\"orange\">{wrapper.EffectCollection.Title}</color>) to an entity who already has this system.");
 			}
 		}
 
@@ -71,7 +88,7 @@ namespace Celeritas.Game
 		/// Add a collection of effects.
 		/// </summary>
 		/// <param name="effects">The collection of effects to add.</param>
-		public void AddEffectRange(IList<EffectCollection> effects)
+		public void AddEffectRange(IList<EffectWrapper> effects)
 		{
 			if (effects == null)
 				return;
