@@ -51,11 +51,6 @@ namespace Celeritas
 		/// <summary>
 		/// The label used for the modifier data type in the addresable system.
 		/// </summary>
-		public const string SYSTEMS_TAG = "Systems";
-
-		/// <summary>
-		/// The label used for the modifier effect type in the addresable system.
-		/// </summary>
-		public const string EFFECTS_TAG = "Effects";
+		public const string MODIFIERS_TAG = "Modifiers";
 	}
 }

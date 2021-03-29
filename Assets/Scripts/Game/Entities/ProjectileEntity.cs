@@ -1,5 +1,4 @@
 using Celeritas.Scriptables;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Celeritas.Game.Entities
@@ -14,37 +13,33 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public ProjectileData ProjectileData { get; private set; }
 
-		/// <summary>
-		/// The weapon this projectile was fired from.
-		/// </summary>
 		public WeaponEntity Weapon { get; private set; }
 
-		/// <inheritdoc/>
-		public override SystemTargets TargetType { get => SystemTargets.Projectile; }
-
-		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectCollection> effects = null)
+		public override void Initalize(ScriptableObject data)
 		{
 			ProjectileData = data as ProjectileData;
-			Weapon = owner as WeaponEntity;
-			base.Initalize(data, owner, effects);
+			base.Initalize(data);
 		}
 
-		private void OnTriggerEnter(Collider other)
+		/// <summary>
+		/// Set the owner of this projectile.
+		/// </summary>
+		/// <param name="entity">The weapon entity who fired this projectile.</param>
+		public void SetOwner(WeaponEntity entity)
 		{
-			var entity = other.GetComponent<Entity>();
-			if (entity != null)
+			Weapon = entity;
+		}
+
+		protected virtual void Update()
+		{
+			if (ProjectileData.MoveToTarget)
 			{
-				OnEntityHit(this, entity);
+				transform.forward = Vector3.Lerp(transform.forward, (Weapon.AttatchedModule.Ship.Target - transform.position).normalized, 6f * Time.smoothDeltaTime);
 			}
-		}
 
-		protected override void Update()
-		{
 			transform.position += transform.forward * ProjectileData.Speed * Time.smoothDeltaTime;
 
-			if (TimeAlive >= ProjectileData.Lifetime) Destroy(gameObject);
-
-			base.Update();
+			if (TimeAlive >= 2) Destroy(gameObject);
 		}
 	}
 }

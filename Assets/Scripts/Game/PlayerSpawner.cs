@@ -15,9 +15,9 @@ namespace Celeritas.Game
 
 		private void Awake()
 		{
-			EntityDataManager.OnLoadedAssets += () =>
+			EntityManager.OnLoadedAssets += () =>
 			{
-				var s = EntityDataManager.InstantiateEntity<ShipEntity>(ship);
+				var s = EntityManager.InstantiateEntity<ShipEntity>(ship);
 				s.gameObject.AddComponent<PlayerController>();
 			};
 		}

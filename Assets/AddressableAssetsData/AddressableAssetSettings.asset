@@ -74,8 +74,7 @@ MonoBehaviour:
     - Weapons
     - Modules
     - Projectiles
-    - Effects
-    - Systems
+    - Modifiers
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: d895491b3ebd0584d8f3cd8bf826a710, type: 2}

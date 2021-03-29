@@ -14,7 +14,7 @@ namespace Celeritas.Scriptables
 		private float speed;
 
 		[SerializeField]
-		private float lifetime;
+		private bool moveToTarget;
 
 		/// <summary>
 		/// The speed of this projectile.
@@ -22,9 +22,9 @@ namespace Celeritas.Scriptables
 		public float Speed { get => speed; }
 
 		/// <summary>
-		/// The lifetime of this projectile.
+		/// Does this projectile move towards the weapon target.
 		/// </summary>
-		public float Lifetime { get => lifetime; }
+		public bool MoveToTarget { get => moveToTarget; }
 
 		protected virtual void OnValidate()
 		{

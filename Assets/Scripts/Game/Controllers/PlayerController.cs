@@ -42,6 +42,7 @@ namespace Celeritas.Game.Controllers
 		{
 			var target = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 			Entity.Target = Vector3.ProjectOnPlane(target, Vector3.forward);
+
 			Entity.Translation = locomotion;
 		}
 
