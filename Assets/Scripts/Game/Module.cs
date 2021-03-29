@@ -1,6 +1,8 @@
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Celeritas.Game
@@ -14,13 +16,21 @@ namespace Celeritas.Game
 		private ModuleSize size;
 
 		[SerializeField]
+		[InfoBox("Provided default module type does not match designed type.", InfoMessageType.Error,
+			VisibleIf = "@this.module != null && this.module is WeaponData != isWeapon")]
 		private bool isWeapon;
 
 		[SerializeField, Title("Module")]
-		private bool useDefault;
+		private bool hasDefaultModule;
 
-		[SerializeField, ShowIf(nameof(useDefault))]
-		private ModuleData defaultModule;
+		[SerializeField, ShowIf(nameof(hasDefaultModule))]
+		private ModuleData module;
+
+		[SerializeField, ShowIf(nameof(hasDefaultModule)), Title("Module Effects")]
+		private EffectCollection[] moduleEffects;
+
+		[SerializeField, ShowIf("@this.module != null && this.module is WeaponData"), Title("Projectile Effects")]
+		private EffectCollection[] projectileEffects;
 
 		/// <summary>
 		/// The size of this module.
@@ -47,24 +57,25 @@ namespace Celeritas.Game
 		/// </summary>
 		public bool HasModuleAttatched { get => AttatchedModule != null; }
 
-		private void Awake()
+		/// <summary>
+		/// Initalize this module and attach it to a ship.
+		/// </summary>
+		/// <param name="ship">The ship to attach to.</param>
+		public void Initalize(ShipEntity ship)
 		{
-			if (useDefault)
+			Ship = ship;
+
+			if (hasDefaultModule)
 			{
-				SetModule(defaultModule);
+				SetModule(module, moduleEffects);
 			}
 		}
 
 		/// <summary>
-		/// Attatch this module to an owner ship.
+		/// Set the current module to be of the new provided data.
 		/// </summary>
-		/// <param name="ship">The ship to attach to.</param>
-		public void AttatchTo(ShipEntity ship)
-		{
-			Ship = ship;
-		}
-
-		public void SetModule(ModuleData module)
+		/// <param name="module">The module data to set.</param>
+		public void SetModule(ModuleData module, EffectCollection[] effects = null)
 		{
 			if (IsWeapon && ((module is WeaponData) == false))
 			{
@@ -80,8 +91,13 @@ namespace Celeritas.Game
 			if (AttatchedModule != null)
 				Destroy(AttatchedModule);
 
-			AttatchedModule = EntityManager.InstantiateEntity<ModuleEntity>(defaultModule);
+			AttatchedModule = EntityDataManager.InstantiateEntity<ModuleEntity>(module, Ship, effects);
 			AttatchedModule.AttatchTo(this);
+
+			if (AttatchedModule is WeaponEntity weapon)
+			{
+				weapon.WeaponEffects.AddEffectRange(projectileEffects);
+			}
 		}
 	}
 }

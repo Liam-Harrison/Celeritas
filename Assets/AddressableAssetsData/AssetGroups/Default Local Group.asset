@@ -17,48 +17,48 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 98e62bfd6e8e376459f9e50ecec0a120
   m_SerializeEntries:
-  - m_GUID: 2354894fc65befa43a573e4e81bedc30
-    m_Address: Ships/MediumShip
+  - m_GUID: 19722365bce9d96449c10417a95275b2
+    m_Address: Assets/GameData/Effect Collection
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Effects
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 51a02f38bc1a7264eb24e35ad2fd13a2
+    m_Address: Assets/GameData/Ships
     m_ReadOnly: 0
     m_SerializedLabels:
     - Ships
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 4823060fc78e6b74fbcc700c5aac91e9
-    m_Address: Weapons/Gun.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Weapons
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 341054bb030d7954ea09976c07126d5b
-    m_Address: Projectiles/Bullet.asset
+    m_MainAsset: {fileID: 102900000, guid: 51a02f38bc1a7264eb24e35ad2fd13a2, type: 3}
+    m_TargetAsset: {fileID: 102900000, guid: 51a02f38bc1a7264eb24e35ad2fd13a2, type: 3}
+  - m_GUID: 3f28c0b0ad811b64eb0de0faa862387c
+    m_Address: Assets/GameData/Projectiles
     m_ReadOnly: 0
     m_SerializedLabels:
     - Projectiles
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: 551f9815f83843c4083869b9cc522d52
-    m_Address: Modules/Scrap.asset
+  - m_GUID: f7102c95dfddad04e8c5f29e7a998ce5
+    m_Address: Assets/GameData/Modules
     m_ReadOnly: 0
     m_SerializedLabels:
     - Modules
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: 5331c5309009e944887deac5ad192a6e
-    m_Address: Assets/GameData/Modifiers/AttackSpeed.asset
+  - m_GUID: 575ba6128c116ea4e8f90edcb8a6e629
+    m_Address: Assets/GameData/Systems
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Modifiers
+    - Systems
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: e3a3987ff95275a4db9d1035ff111bc3
-    m_Address: Assets/GameData/Projectiles/projectile_bullet_tracking.asset
+  - m_GUID: 87f32fb008e20e44d8c5235366b9aff8
+    m_Address: Assets/GameData/Weapons
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Projectiles
-    m_MainAsset: {fileID: 11400000, guid: e3a3987ff95275a4db9d1035ff111bc3, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: e3a3987ff95275a4db9d1035ff111bc3, type: 2}
+    - Weapons
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 586fbc35d44629b4bae51c87ba516ab4, type: 2}
   m_SchemaSet:

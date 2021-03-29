@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6367e6054670d88498ddbfcee0d27f08, type: 3}
-  m_Name: modifier_attack_speed
+  m_Script: {fileID: 11500000, guid: 3ee0d4ee51750af45b7430210d4a5dbd, type: 3}
+  m_Name: effect_chaser
   m_EditorClassIdentifier: 
-  title: 
+  title: Chaser
+  targets: 1
+  stacks: 0
+  systems:
+  - {fileID: 11400000, guid: 4b0c118e18691544ba6eecd57abc7a5c, type: 2}

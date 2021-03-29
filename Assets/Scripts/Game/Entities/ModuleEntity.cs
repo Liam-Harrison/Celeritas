@@ -1,4 +1,5 @@
 using Celeritas.Scriptables;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Celeritas.Game.Entities
@@ -28,10 +29,13 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public Module AttatchedModule { get; private set; }
 
-		public override void Initalize(ScriptableObject data)
+		/// <inheritdoc/>
+		public override SystemTargets TargetType { get => SystemTargets.Module; }
+
+		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectCollection> effects = null)
 		{
 			ModuleData = data as ModuleData;
-			base.Initalize(data);
+			base.Initalize(data, owner, effects);
 		}
 
 		/// <summary>

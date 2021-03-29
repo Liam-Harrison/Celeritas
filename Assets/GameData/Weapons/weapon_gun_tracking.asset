@@ -15,6 +15,6 @@ MonoBehaviour:
   title: Gun
   prefab: {fileID: 295091177937448622, guid: 8575da7781b02e94ca294b90d11ccb57, type: 3}
   size: 0
-  projectile: {fileID: 11400000, guid: e3a3987ff95275a4db9d1035ff111bc3, type: 2}
+  projectile: {fileID: 11400000, guid: 341054bb030d7954ea09976c07126d5b, type: 2}
   aims: 1
-  aimSpeed: 5
+  angPerSec: 120
