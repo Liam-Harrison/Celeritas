@@ -11,6 +11,7 @@ namespace Celeritas.Scriptables.Interfaces
 		/// Called when the entity is destroyed.
 		/// </summary>
 		/// <param name="entity">The target entity.</param>
-		void OnEntityDestroyed(Entity entity);
+		/// <param name="level">The level of this effect.</param>
+		void OnEntityDestroyed(Entity entity, ushort level);
 	}
 }

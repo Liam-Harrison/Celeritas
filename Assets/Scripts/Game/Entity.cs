@@ -1,5 +1,4 @@
 using Celeritas.Extensions;
-using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,15 +57,15 @@ namespace Celeritas.Game
 
 		private EffectManager effectManager;
 
-		public IReadOnlyList<EffectCollection> Effects => ((IEffectManager)effectManager).Effects;
+		public IReadOnlyList<EffectWrapper> EffectWrappers => ((IEffectManager)effectManager).EffectWrappers;
 
-		public EffectCollection[] EffectsCopy => ((IEffectManager)effectManager).EffectsCopy;
+		public EffectWrapper[] EffectWrapperCopy => ((IEffectManager)effectManager).EffectWrapperCopy;
 
 		/// <summary>
 		/// Called to initalize this entity with its appropriate data.
 		/// </summary>
 		/// <param name="data">The data to associate this entity with.</param>
-		public virtual void Initalize(ScriptableObject data, Entity owner = null, IList<EffectCollection> effects = null)
+		public virtual void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null)
 		{
 			Data = data;
 			Spawned = Time.time;
@@ -102,9 +101,9 @@ namespace Celeritas.Game
 		/// <param name="entity">The entity to update against effects.</param>
 		public void OnEntityCreated(Entity entity)
 		{
-			foreach (var effect in Effects)
+			foreach (var wrapper in EffectWrappers)
 			{
-				effect.CreateEntity(entity);
+				wrapper.EffectCollection.CreateEntity(entity, wrapper.Level);
 			}
 		}
 
@@ -114,9 +113,9 @@ namespace Celeritas.Game
 		/// <param name="entity">The entity to update against effects.</param>
 		public void OnEntityDestroyed(Entity entity)
 		{
-			foreach (var effect in Effects)
+			foreach (var wrapper in EffectWrappers)
 			{
-				effect.DestroyEntity(entity);
+				wrapper.EffectCollection.DestroyEntity(entity, wrapper.Level);
 			}
 		}
 
@@ -127,9 +126,9 @@ namespace Celeritas.Game
 		/// <param name="other">The other entity.</param>
 		public void OnEntityHit(Entity entity, Entity other)
 		{
-			foreach (var effect in Effects)
+			foreach (var wrapper in EffectWrappers)
 			{
-				effect.HitEntity(entity, other);
+				wrapper.EffectCollection.HitEntity(entity, other, wrapper.Level);
 			}
 		}
 
@@ -139,20 +138,20 @@ namespace Celeritas.Game
 		/// <param name="entity">The entity to update against effects.</param>
 		public void OnEntityUpdated(Entity entity)
 		{
-			foreach (var effect in Effects)
+			foreach (var wrapper in EffectWrappers)
 			{
-				effect.UpdateEntity(entity);
+				wrapper.EffectCollection.UpdateEntity(entity, wrapper.Level);
 			}
 		}
 
-		public void AddEffect(EffectCollection effect)
+		public void AddEffect(EffectWrapper wrapper)
 		{
-			((IEffectManager)effectManager).AddEffect(effect);
+			((IEffectManager)effectManager).AddEffect(wrapper);
 		}
 
-		public void AddEffectRange(IList<EffectCollection> effects)
+		public void AddEffectRange(IList<EffectWrapper> wrappers)
 		{
-			((IEffectManager)effectManager).AddEffectRange(effects);
+			((IEffectManager)effectManager).AddEffectRange(wrappers);
 		}
 
 		public void ClearEffects()

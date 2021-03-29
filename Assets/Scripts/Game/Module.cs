@@ -1,8 +1,6 @@
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Celeritas.Game
@@ -20,17 +18,17 @@ namespace Celeritas.Game
 			VisibleIf = "@this.module != null && this.module is WeaponData != isWeapon")]
 		private bool isWeapon;
 
-		[SerializeField, Title("Module")]
+		[SerializeField, Title("Module"), DisableInPlayMode, InfoBox("Cannot modify in playmode.", VisibleIf = "@UnityEngine.Application.isPlaying")]
 		private bool hasDefaultModule;
 
-		[SerializeField, ShowIf(nameof(hasDefaultModule))]
+		[SerializeField, ShowIf(nameof(hasDefaultModule)), DisableInPlayMode]
 		private ModuleData module;
 
-		[SerializeField, ShowIf(nameof(hasDefaultModule)), Title("Module Effects")]
-		private EffectCollection[] moduleEffects;
+		[SerializeField, ShowIf(nameof(hasDefaultModule)), Title("Module Effects"), DisableInPlayMode]
+		private EffectWrapper[] moduleEffects;
 
-		[SerializeField, ShowIf("@this.module != null && this.module is WeaponData"), Title("Projectile Effects")]
-		private EffectCollection[] projectileEffects;
+		[SerializeField, ShowIf("@this.module != null && this.module is WeaponData"), Title("Projectile Effects"), DisableInPlayMode]
+		private EffectWrapper[] projectileEffects;
 
 		/// <summary>
 		/// The size of this module.
@@ -64,7 +62,7 @@ namespace Celeritas.Game
 		public void Initalize(ShipEntity ship)
 		{
 			Ship = ship;
-
+			
 			if (hasDefaultModule)
 			{
 				SetModule(module, moduleEffects);
@@ -75,7 +73,7 @@ namespace Celeritas.Game
 		/// Set the current module to be of the new provided data.
 		/// </summary>
 		/// <param name="module">The module data to set.</param>
-		public void SetModule(ModuleData module, EffectCollection[] effects = null)
+		public void SetModule(ModuleData module, EffectWrapper[] effects = null)
 		{
 			if (IsWeapon && ((module is WeaponData) == false))
 			{

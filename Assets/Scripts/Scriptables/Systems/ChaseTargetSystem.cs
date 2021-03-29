@@ -15,26 +15,55 @@ namespace Celeritas.Scriptables.Systems
 		[SerializeField, Title("Chase Settings")]
 		private float angPerSec;
 
+		[SerializeField]
+		private float angPerLevel;
+
 		/// <summary>
 		/// The change in angle per second this modifier applies.
 		/// </summary>
 		public float AngPerSec { get => angPerSec; }
 
-		public void OnEntityUpdated(Entity target)
-		{
-			var projectile = target as ProjectileEntity;
-			var dir = (projectile.Weapon.AttatchedModule.Ship.Target - target.transform.position).normalized;
+		/// <summary>
+		/// How much the angle per second increases per level.
+		/// </summary>
+		public float AngPerLevel { get => angPerLevel; }
 
-			if (Vector3.Dot(target.transform.forward, dir) >= 0.95)
+		/// <inheritdoc/>
+		public override SystemTargets Targets => SystemTargets.Projectile | SystemTargets.Weapon;
+
+		/// <inheritdoc/>
+		public override bool Stacks => false;
+
+		public void OnEntityUpdated(Entity entity, ushort level)
+		{
+			Vector3 target;
+			
+			if (entity is ProjectileEntity projectile)
+			{
+				target = projectile.Weapon.AttatchedModule.Ship.Target;
+			}
+			else if (entity is WeaponEntity weapon)
+			{
+				target = weapon.AttatchedModule.Ship.Target;
+			}
+			else
+			{
+				Debug.LogError($"Type {entity.GetType().Name} not supported on {nameof(ChaseTargetSystem)}");
+				return;
+			}
+
+			var dir = (target - entity.transform.position).normalized;
+
+			if (Vector3.Dot(entity.transform.forward, dir) >= 0.95)
 				return;
 
-			var angle = AngPerSec * Time.smoothDeltaTime;
-			if (Vector3.Dot(target.transform.right, dir) < 0)
+			var angle = (AngPerSec + AngPerLevel * level) * Time.smoothDeltaTime;
+			if (Vector3.Dot(entity.transform.right, dir) < 0)
 			{
 				angle = -angle;
 			}
 
-			target.transform.rotation *= Quaternion.Euler(0, angle, 0);
+			entity.transform.rotation *= Quaternion.Euler(0, angle, 0);
 		}
 	}
 }

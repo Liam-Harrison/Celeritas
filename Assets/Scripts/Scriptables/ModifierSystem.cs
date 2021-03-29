@@ -25,12 +25,6 @@ namespace Celeritas.Scriptables
 		[SerializeField, Title("Generic")]
 		protected string title;
 
-		[SerializeField]
-		private SystemTargets targetTypes;
-
-		[SerializeField]
-		private bool stacks;
-
 		/// <summary>
 		/// The title of the modifier.
 		/// </summary>
@@ -39,12 +33,13 @@ namespace Celeritas.Scriptables
 		/// <summary>
 		/// Does this modifier stack with other copies of itself.
 		/// </summary>
-		public bool Stacks { get => stacks; }
+		public abstract bool Stacks { get; }
 
 		/// <summary>
 		/// Get the targets for this system.
 		/// </summary>
-		public SystemTargets Targets { get => targetTypes; }
+
+		public abstract SystemTargets Targets { get; }
 
 		/// <summary>
 		/// Check if this system includes a specific target.
@@ -53,7 +48,7 @@ namespace Celeritas.Scriptables
 		/// <returns>Returns true if the target is present, otherwise false.</returns>
 		public bool ContainsTarget(SystemTargets target)
 		{
-			return targetTypes.HasFlag(target);;
+			return Targets.HasFlag(target);;
 		}
 	}
 }

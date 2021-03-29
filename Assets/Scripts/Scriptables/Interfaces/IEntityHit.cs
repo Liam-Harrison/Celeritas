@@ -12,6 +12,7 @@ namespace Celeritas.Scriptables.Interfaces
 		/// </summary>
 		/// <param name="entity">The target entity.</param>
 		/// <param name="other">The other entity hit.</param>
-		void OnEntityHit(Entity entity, Entity other);
+		/// <param name="level">The level of this effect.</param>
+		void OnEntityHit(Entity entity, Entity other, ushort level);
 	}
 }
