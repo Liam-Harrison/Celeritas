@@ -7,7 +7,8 @@ namespace Celeritas.Game.Controllers
 	/// <summary>
 	/// Routes player input to a targeted ship Entity.
 	/// </summary>
-	public class PlayerController : MonoBehaviour, Actions.IBasicActions
+	[RequireComponent(typeof(ShipEntity))]
+	public class PlayerController : Singleton<PlayerController>, Actions.IBasicActions
 	{
 		private Actions.BasicActions actions = default;
 		private Camera _camera;
@@ -15,15 +16,19 @@ namespace Celeritas.Game.Controllers
 		/// <summary>
 		/// The ship entity that this controller is attatched to.
 		/// </summary>
-		public ShipEntity Entity { get; private set; }
+		public ShipEntity ShipEntity { get; private set; }
 
-		protected virtual void Awake()
+		protected override void Awake()
 		{
 			actions = new Actions.BasicActions(new Actions());
 			actions.SetCallbacks(this);
-			Entity = GetComponent<ShipEntity>();
+
+			ShipEntity = GetComponent<ShipEntity>();
+
 			_camera = Camera.main;
 			_camera.GetComponent<Cinemachine.CinemachineVirtualCamera>().Follow = transform;
+
+			base.Awake();
 		}
 
 		protected virtual void OnEnable()
@@ -41,15 +46,15 @@ namespace Celeritas.Game.Controllers
 		protected void Update()
 		{
 			var target = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-			Entity.Target = Vector3.ProjectOnPlane(target, Vector3.forward);
-			Entity.Translation = locomotion;
+			ShipEntity.Target = Vector3.ProjectOnPlane(target, Vector3.forward);
+			ShipEntity.Translation = locomotion;
 		}
 
 		public void OnFire(InputAction.CallbackContext context)
 		{
 			if (context.performed)
 			{
-				foreach (var weapon in Entity.WeaponEntities)
+				foreach (var weapon in ShipEntity.WeaponEntities)
 				{
 					weapon.Firing = true;
 				}

@@ -23,5 +23,16 @@ namespace Celeritas.Extensions
 			if (z) vector.z = 0;
 			return normalize ? vector.normalized : vector;
 		}
+
+		/// <summary>
+		/// Get a point on a circle with the specificed radius of the provided vector.
+		/// </summary>
+		/// <param name="vector">The provided vector.</param>
+		/// <param name="radius">The radius of the circle.</param>
+		/// <returns>Returns a random point on the circle around the vector.</returns>
+		public static Vector3 RandomPointOnCircle(this Vector3 vector, float radius)
+		{
+			return vector + (Quaternion.Euler(0, 0, Random.Range(0, 360)) * new Vector3(radius, 0, 0));
+		}
 	}
 }
