@@ -15,7 +15,12 @@ namespace Celeritas.Game.Entities
 		private Module[] modules;
 
 		[SerializeField]
-		private MovementModifier movementModifiers = new MovementModifier { back = 1, forward = 1, rotation = 1, side = 1 };
+		private MovementModifier movementModifier = new MovementModifier { back = 1, forward = 1, rotation = 1, side = 1 };
+
+		/// <summary>
+		/// The movement modifier used by this ship.
+		/// </summary>
+		public MovementModifier MovementModifier { get => movementModifier; }
 
 		/// <summary>
 		/// The modules attatched to this ship.
@@ -126,10 +131,10 @@ namespace Celeritas.Game.Entities
 
 		private void TranslationLogic()
 		{
-			Velocity = Up * ((Mathf.Max(Translation.y, 0) * ShipData.MovementSettings.forwardForcePerSec) +
-							(Mathf.Min(Translation.y, 0) * ShipData.MovementSettings.backForcePerSec)) * Time.smoothDeltaTime;
+			Velocity = Up * ((Mathf.Max(Translation.y, 0) * ShipData.MovementSettings.forwardForcePerSec * movementModifier.forward) +
+							(Mathf.Min(Translation.y, 0) * ShipData.MovementSettings.backForcePerSec * movementModifier.back)) * Time.smoothDeltaTime;
 
-			Velocity += Right * Translation.x * ShipData.MovementSettings.sideForcePerSec * Time.smoothDeltaTime;
+			Velocity += Right * Translation.x * ShipData.MovementSettings.sideForcePerSec * movementModifier.side * Time.smoothDeltaTime;
 
 			Rigidbody.AddForce(Velocity, ForceMode2D.Force);
 		}
@@ -141,7 +146,7 @@ namespace Celeritas.Game.Entities
 
 			if (dot < ShipData.MovementSettings.aimDeadzone)
 			{
-				var torquePerSec = ShipData.MovementSettings.torquePerSec;
+				var torquePerSec = ShipData.MovementSettings.torquePerSec * movementModifier.rotation;
 				var torque = Mathf.Lerp(torquePerSec.x, torquePerSec.y, ShipData.MovementSettings.rotationCurve.Evaluate(Mathf.InverseLerp(1, -1, dot))) * Time.smoothDeltaTime;
 
 				if (Vector3.Dot(Right, dir) >= 0)
@@ -180,6 +185,11 @@ namespace Celeritas.Game.Entities
 
 		[PropertyRange(0, 4)]
 		public float rotation;
+
+		public void SetForward(float value)
+		{
+			forward = Mathf.Clamp(value, 0, 4);
+		}
 	}
 
 }

@@ -20,6 +20,8 @@ namespace Celeritas.Game
 
 		void AddEffectRange(IList<EffectWrapper> wrappers);
 
+		void RemoveEffect(EffectWrapper wrapper);
+
 		void ClearEffects();
 	}
 
@@ -105,6 +107,18 @@ namespace Celeritas.Game
 		public void ClearEffects()
 		{
 			effects.Clear();
+		}
+
+		/// <summary>
+		/// Remove the listed effect from the collection.
+		/// </summary>
+		/// <param name="wrapper">The wrapper to remove.</param>
+		public void RemoveEffect(EffectWrapper wrapper)
+		{
+			if (effects.Contains(wrapper))
+			{
+				effects.Remove(wrapper);
+			}
 		}
 	}
 }

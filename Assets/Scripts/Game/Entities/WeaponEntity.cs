@@ -1,10 +1,7 @@
 using Celeritas.Extensions;
 using Celeritas.Scriptables;
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using Sirenix.OdinInspector;
 
 
 namespace Celeritas.Game.Entities
@@ -17,8 +14,6 @@ namespace Celeritas.Game.Entities
 		[SerializeField]
 		private Transform projectileSpawn;
 
-		private List<EffectWrapper> projectileEffects = new List<EffectWrapper>();
-
 		/// <summary>
 		/// Get the effect manager for the weapons on this entity.
 		/// </summary>
@@ -28,11 +23,6 @@ namespace Celeritas.Game.Entities
 		/// The attatched weapon data.
 		/// </summary>
 		public WeaponData WeaponData { get; private set; }
-
-		/// <summary>
-		/// The effects on this weapon which will be added to projectiles.
-		/// </summary>
-		public IReadOnlyList<EffectWrapper> ProjectileEffects { get => projectileEffects.AsReadOnly(); }
 
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Weapon; }
@@ -75,7 +65,7 @@ namespace Celeritas.Game.Entities
 
 		private void TryToFire()
 		{
-			if (Time.time >= lastFired + WeaponData.RateOfFire)
+			if (Time.time >= lastFired + (1f / WeaponData.RateOfFire))
 			{
 				Fire();
 				lastFired = Time.time;

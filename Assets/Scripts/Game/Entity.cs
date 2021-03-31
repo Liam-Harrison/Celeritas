@@ -147,16 +147,38 @@ namespace Celeritas.Game
 		public void AddEffect(EffectWrapper wrapper)
 		{
 			((IEffectManager)effectManager).AddEffect(wrapper);
+			wrapper.EffectCollection.OnAdded(this, wrapper.Level);
 		}
 
 		public void AddEffectRange(IList<EffectWrapper> wrappers)
 		{
 			((IEffectManager)effectManager).AddEffectRange(wrappers);
+
+			if (wrappers != null)
+			{
+				foreach (var effect in wrappers)
+				{
+					effect.EffectCollection.OnAdded(this, effect.Level);
+				}
+			}
 		}
 
 		public void ClearEffects()
 		{
+			var effects = EffectWrapperCopy;
+
 			((IEffectManager)effectManager).ClearEffects();
+
+			foreach (var effect in effects)
+			{
+				effect.EffectCollection.OnRemoved(this, effect.Level);
+			}
+		}
+
+		public void RemoveEffect(EffectWrapper wrapper)
+		{
+			((IEffectManager)effectManager).RemoveEffect(wrapper);
+			wrapper.EffectCollection.OnRemoved(this, wrapper.Level);
 		}
 	}
 }
