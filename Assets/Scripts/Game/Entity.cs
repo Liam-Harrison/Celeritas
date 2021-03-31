@@ -1,5 +1,6 @@
 using Celeritas.Extensions;
 using Celeritas.Scriptables;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,13 @@ namespace Celeritas.Game
 	/// </summary>
 	public abstract class Entity : MonoBehaviour, IEffectManager
 	{
+		// top of the ShipEntity.cs
+		[SerializeField]
+		private bool hasDefaultEffects;
+
+		[SerializeField, ShowIf(nameof(hasDefaultEffects))]
+		private EffectWrapper[] defaultEffects;
+
 		/// <summary>
 		/// Get the entities game up direction vector.
 		/// </summary>
@@ -77,6 +85,18 @@ namespace Celeritas.Game
 			AddEffectRange(effects);
 
 			OnEntityCreated(this);
+
+			if (hasDefaultEffects)
+			{
+				foreach (var effect in defaultEffects)
+				{
+					Debug.Log(effect);
+					Debug.Log(effects);
+					effects.Add(effect);
+				}
+			}
+
+			//base.Initalize(data, owner, effects);
 		}
 
 		protected virtual void OnDestroy()
