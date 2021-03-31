@@ -1,7 +1,9 @@
 using Celeritas.Extensions;
 using Celeritas.Scriptables;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Celeritas.Game.Entities
 {
@@ -50,14 +52,28 @@ namespace Celeritas.Game.Entities
 			base.Update();
 		}
 
-		/// <summary>
-		/// Fire the provided projectile from this weapon.
-		/// </summary>
 		public void Fire()
 		{
 			var projectile = EntityDataManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile, this, WeaponEffects.EffectWrapperCopy);
 			projectile.transform.CopyTransform(projectileSpawn);
 			projectile.transform.position = projectile.transform.position.RemoveAxes(z: true, normalize: false);
 		}
+
+		public bool firing = false;
+		/// <summary>
+		/// Fire the provided projectile from this weapon.
+		/// </summary>
+		public IEnumerator FireCoroutine()
+		{
+			while (firing)
+			{
+				var projectile = EntityDataManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile, this, WeaponEffects.EffectsCopy);
+				projectile.transform.CopyTransform(projectileSpawn);
+				projectile.transform.position = projectile.transform.position.RemoveAxes(z: true, normalize: false);
+				yield return new WaitForSeconds(1 / WeaponData.RateOfFire);
+			}
+
+		}
+
 	}
 }
