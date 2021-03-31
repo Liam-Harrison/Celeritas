@@ -51,9 +51,7 @@ namespace Celeritas.Game.Controllers
 			{
 				foreach (var weapon in Entity.WeaponEntities)
 				{
-					//weapon.Fire();
 					weapon.firing = true;
-					StartCoroutine(weapon.FireCoroutine());
 				}
 			}
 
