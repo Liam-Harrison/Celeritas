@@ -51,7 +51,7 @@ namespace Celeritas.Game.Controllers
 			{
 				foreach (var weapon in Entity.WeaponEntities)
 				{
-					weapon.firing = true;
+					weapon.Firing = true;
 				}
 			}
 
@@ -59,7 +59,7 @@ namespace Celeritas.Game.Controllers
 			{
 				foreach (var weapon in Entity.WeaponEntities)
 				{
-					weapon.firing = false;
+					weapon.Firing = false;
 				}
 			}
 		}

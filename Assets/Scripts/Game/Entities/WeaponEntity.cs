@@ -49,7 +49,7 @@ namespace Celeritas.Game.Entities
 		/// <summary>
 		/// Is the weapon firing?
 		/// </summary>
-		public bool firing { get; set; }
+		public bool Firing { get; set; }
 
 		protected override void Update()
 		{
@@ -58,7 +58,7 @@ namespace Celeritas.Game.Entities
 
 			base.Update();
 
-			if (firing)
+			if (Firing)
 			{
 				TryToFire();
 			}
