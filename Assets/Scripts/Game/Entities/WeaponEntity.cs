@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Sirenix.OdinInspector;
+
 
 namespace Celeritas.Game.Entities
 {
@@ -44,8 +46,11 @@ namespace Celeritas.Game.Entities
 			base.Initalize(data, owner, effects);
 		}
 
-		public bool firing = false;
-		
+		/// <summary>
+		/// Is the weapon firing?
+		/// </summary>
+		public bool firing { get; set; }
+
 		protected override void Update()
 		{
 			if (!IsInitalized)
