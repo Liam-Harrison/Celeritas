@@ -14,7 +14,7 @@ namespace Celeritas.Scriptables.Systems
 	/// ie. how many projectiles fire per 'fire' command
 	/// </summary>
 	[CreateAssetMenu(fileName = "Projectile Count Modifier", menuName= "Celeritas/Modifiers/Projectile Count")]
-	public class ModifyProjectileCount : ModifierSystem, IEntityUpdated
+	public class ModifyProjectileCount : ModifierSystem, IEntityCreated
 	{
 		[SerializeField, Title("Extra Projectile Count")]
 		private uint extraProjectileCount;
@@ -37,9 +37,34 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityCreated(Entity entity, ushort level)
 		{
 			Debug.Log("woof");
+
+			// when one bullet is instantiated
+			// instantiate X others, where X = extraProjectileCount + level * countPerLevel
+
+			ProjectileEntity projectile = (ProjectileEntity)entity;
+			WeaponEntity weapon = projectile.Weapon;
+			
+
+			// copy projectile effects, remove the projectile count effect
+
+			/*EffectWrapper[] desiredEffects = weapon.WeaponEffects.EffectWrapperCopy;
+			foreach(EffectWrapper w in desiredEffects)
+			{
+				if (w.EffectCollection.Systems.Contains(this))
+				{
+					w.EffectCollection.Systems.Remove(this);
+				}
+			}*/
+
+			// projectile count is a weapon effect, does not seem to move into projectile?
+			// So this should theoretically avoid recursion
+			// just do 1 extra projectile for now, for testing.
+			// copying weapon's fire method.
+
+			//weapon.Fire();
 		}
 	}
 }

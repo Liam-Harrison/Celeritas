@@ -85,16 +85,10 @@ namespace Celeritas.Game
 			AddEffectRange(effects);
 
 			OnEntityCreated();
-
 			if (hasDefaultEffects)
 			{
-				foreach (var effect in defaultEffects)
-				{
-					Debug.Log(effect);
-					Debug.Log(effects);
-					effects.Add(effect);
-				}
-			}
+				AddEffectRange(defaultEffects);
+			}		
 		}
 
 		protected virtual void OnDestroy()
