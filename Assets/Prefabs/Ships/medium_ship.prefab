@@ -47,6 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5a191211b85ecc4e8e3dd17c21431c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasDefaultEffects: 1
+  defaultEffects:
+  - Level: 1
+    EffectCollection: {fileID: 11400000, guid: 8645631192f52a047a8d95f5bd52de4f, type: 2}
   modules:
   - {fileID: 3912116814696063671}
   - {fileID: 4293004831541093639}
@@ -234,7 +238,9 @@ MonoBehaviour:
   moduleEffects:
   - Level: 1
     EffectCollection: {fileID: 11400000, guid: 4f42264387040ca449cb3add683feec6, type: 2}
-  projectileEffects: []
+  projectileEffects:
+  - Level: 1
+    EffectCollection: {fileID: 11400000, guid: e3f09900eaa4ffc48af44e95219ce278, type: 2}
 --- !u!1 &6803760354808902825
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,3 +292,5 @@ MonoBehaviour:
   projectileEffects:
   - Level: 3
     EffectCollection: {fileID: 11400000, guid: 922abbef8ae38a54da55d963727be36a, type: 2}
+  - Level: 1
+    EffectCollection: {fileID: 11400000, guid: e3f09900eaa4ffc48af44e95219ce278, type: 2}
