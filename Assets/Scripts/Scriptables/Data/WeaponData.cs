@@ -12,14 +12,20 @@ namespace Celeritas.Scriptables
 	public class WeaponData : ModuleData
 	{
 		[SerializeField, Title("Projectile")] private ProjectileData projectile;
+		[SerializeField, Title("RateOfFire")] private uint rateOfFire;
 
-		[SerializeField, Title("Aimming")] private bool aims;
+		[SerializeField, Title("Aiming")] private bool aims;
 		[SerializeField, ShowIf(nameof(aims))] private float angPerSec;
 
 		/// <summary>
 		/// Get the projectile attatched to this weapon.
 		/// </summary>
 		public ProjectileData Projectile { get => projectile; }
+
+		/// <summary>
+		/// The speed this weapon fires at.
+		/// </summary>
+		public float RateOfFire { get => rateOfFire; }
 
 		/// <summary>
 		/// Get if this weapon aims or not.
@@ -30,6 +36,8 @@ namespace Celeritas.Scriptables
 		/// The speed this weapon aims at.
 		/// </summary>
 		public float AimSpeed { get => angPerSec; }
+
+
 
 		protected override void OnValidate()
 		{

@@ -33,7 +33,7 @@ namespace Celeritas.Scriptables
 	}
 
 	/// <summary>
-	/// Movement settings for the ship full. Cannot be changed, see <seealso cref="MovementModifier"/>
+	/// Movement settings for the ship hull. Cannot be changed, see <seealso cref="MovementModifier"/>
 	/// on the ship itself to increase or decrease movement.
 	/// </summary>
 	[System.Serializable]

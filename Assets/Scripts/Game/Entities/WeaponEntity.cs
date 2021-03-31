@@ -1,7 +1,11 @@
 using Celeritas.Extensions;
 using Celeritas.Scriptables;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Sirenix.OdinInspector;
+
 
 namespace Celeritas.Game.Entities
 {
@@ -42,22 +46,41 @@ namespace Celeritas.Game.Entities
 			base.Initalize(data, owner, effects);
 		}
 
+		/// <summary>
+		/// Is the weapon firing?
+		/// </summary>
+		public bool Firing { get; set; }
+
 		protected override void Update()
 		{
 			if (!IsInitalized)
 				return;
 
 			base.Update();
+
+			if (Firing)
+			{
+				TryToFire();
+			}
 		}
 
-		/// <summary>
-		/// Fire the provided projectile from this weapon.
-		/// </summary>
-		public void Fire()
+		private void Fire()
 		{
 			var projectile = EntityDataManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile, this, WeaponEffects.EffectWrapperCopy);
 			projectile.transform.CopyTransform(projectileSpawn);
 			projectile.transform.position = projectile.transform.position.RemoveAxes(z: true, normalize: false);
 		}
+
+		private float lastFired = 0.0f;
+
+		private void TryToFire()
+		{
+			if (Time.time >= lastFired + WeaponData.RateOfFire)
+			{
+				Fire();
+				lastFired = Time.time;
+			}
+		}
+
 	}
 }
