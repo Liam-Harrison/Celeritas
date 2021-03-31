@@ -292,5 +292,3 @@ MonoBehaviour:
   projectileEffects:
   - Level: 3
     EffectCollection: {fileID: 11400000, guid: 922abbef8ae38a54da55d963727be36a, type: 2}
-  - Level: 1
-    EffectCollection: {fileID: 11400000, guid: e3f09900eaa4ffc48af44e95219ce278, type: 2}
