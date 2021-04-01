@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: effect_ship_speed_forward_fast
   m_EditorClassIdentifier: 
   title: 
-  targets: 0
+  targets: 4
   stacks: 0
-  systems: []
+  systems:
+  - {fileID: 11400000, guid: 5dd414c50e1b1d14baff1364584fa03e, type: 2}

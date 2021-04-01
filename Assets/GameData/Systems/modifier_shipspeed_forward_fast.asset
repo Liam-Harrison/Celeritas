@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: modifier_shipspeed_forward_fast
   m_EditorClassIdentifier: 
   title: 
-  shipSpeedModifier: 1.5
-  addMovementPerLevel: 0.2
+  shipSpeedModifier: 5
+  addMovementPerLevel: 0
