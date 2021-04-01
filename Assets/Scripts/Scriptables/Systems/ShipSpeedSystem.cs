@@ -54,7 +54,7 @@ namespace Celeritas.Scriptables.Systems
 				ship.MovementModifier.Side += amount;
 
 			if (affectedDirections.HasFlag(ShipDirections.Back))
-				ship.MovementModifier.Forward += amount;
+				ship.MovementModifier.Back += amount;
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, ushort level)
@@ -68,7 +68,7 @@ namespace Celeritas.Scriptables.Systems
 				ship.MovementModifier.Side -= amount;
 
 			if (affectedDirections.HasFlag(ShipDirections.Back))
-				ship.MovementModifier.Forward -= amount;
+				ship.MovementModifier.Back -= amount;
 		}
 	}
 }

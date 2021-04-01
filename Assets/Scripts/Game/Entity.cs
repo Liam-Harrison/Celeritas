@@ -161,14 +161,12 @@ namespace Celeritas.Game
 
 		public void ClearEffects()
 		{
-			var effects = EffectWrapperCopy;
-
-			((IEffectManager)effectManager).ClearEffects();
-
-			foreach (var effect in effects)
+			foreach (var effect in EffectWrapperCopy)
 			{
 				effect.EffectCollection.OnRemoved(this, effect.Level);
 			}
+
+			((IEffectManager)effectManager).ClearEffects();
 		}
 
 		public void RemoveEffect(EffectWrapper wrapper)

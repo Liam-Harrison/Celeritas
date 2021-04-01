@@ -176,36 +176,36 @@ namespace Celeritas.Game.Entities
 	{
 		private const int RANGE = 4;
 
-		[SerializeField, PropertyRange(0, RANGE), DisableInPlayMode, Title("Movement Modifiers")]
+		[SerializeField, PropertyRange(-1, RANGE), DisableInPlayMode, Title("Movement Modifiers")]
 		private float forward = 1;
 
-		[SerializeField, PropertyRange(0, RANGE), DisableInPlayMode]
+		[SerializeField, PropertyRange(-1, RANGE), DisableInPlayMode]
 		private float side = 1;
 
-		[SerializeField, PropertyRange(0, RANGE), DisableInPlayMode]
+		[SerializeField, PropertyRange(-1, RANGE), DisableInPlayMode]
 		private float back = 1;
 
-		[SerializeField, PropertyRange(0, RANGE), DisableInPlayMode]
+		[SerializeField, PropertyRange(-1, RANGE), DisableInPlayMode]
 		private float rotation = 1;
 
 		/// <summary>
 		/// The forward modifier of this ship.
 		/// </summary>
-		public float Forward { get => forward; set => forward = Mathf.Clamp(value, 0, RANGE); }
+		public float Forward { get => forward; set => forward = Mathf.Clamp(value, -1, RANGE); }
 
 		/// <summary>
 		/// The side modifier of this ship.
 		/// </summary>
-		public float Side { get => side; set => side = Mathf.Clamp(value, 0, RANGE); }
+		public float Side { get => side; set => side = Mathf.Clamp(value, -1, RANGE); }
 
 		/// <summary>
 		/// The back modifier of this ship.
 		/// </summary>
-		public float Back { get => back; set => back = Mathf.Clamp(value, 0, RANGE); }
+		public float Back { get => back; set => back = Mathf.Clamp(value, -1, RANGE); }
 
 		/// <summary>
 		/// The rotation modifier of this ship.
 		/// </summary>
-		public float Rotation { get => rotation; set => rotation = Mathf.Clamp(value, 0, RANGE); }
+		public float Rotation { get => rotation; set => rotation = Mathf.Clamp(value, -1, RANGE); }
 	}
 }

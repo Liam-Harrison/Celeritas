@@ -11,6 +11,7 @@ namespace Celeritas.Scriptables.Interfaces
 		/// Called when the weapon entity is fired.
 		/// </summary>
 		/// <param name="entity">The target weapon entity.</param>
+		/// <param name="projectile">The fired projectile entity.</param>
 		/// <param name="level">The level of this effect.</param>
 		void OnEntityFired(WeaponEntity entity, ProjectileEntity projectile, ushort level);
 	}
