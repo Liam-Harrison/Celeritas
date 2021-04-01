@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a48abbb10664e34ab742efc2ebc0bf0, type: 3}
   m_Name: modifier_shipspeed_forward_fast
   m_EditorClassIdentifier: 
-  title: 
-  shipSpeedModifier: 5
+  title: Ship Speed Modifier
+  shipSpeedModifier: 2
   addMovementPerLevel: 0

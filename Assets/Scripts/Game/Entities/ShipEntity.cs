@@ -15,7 +15,20 @@ namespace Celeritas.Game.Entities
 		private Module[] modules;
 
 		[SerializeField]
+		private MovementModifier baseMovementModifiers = new MovementModifier { back = 1, forward = 1, rotation = 1, side = 1 };
+
+		[SerializeField]
 		private MovementModifier movementModifiers = new MovementModifier { back = 1, forward = 1, rotation = 1, side = 1 };
+
+		/// <summary>
+		/// Stock movement modifiers (without modules affecting them)
+		/// </summary>
+		public MovementModifier BaseMovementModifier { get => baseMovementModifiers; }
+
+		/// <summary>
+		/// Applied movement modifiers (with modules affecting them)
+		/// </summary>
+		public MovementModifier MovementModifiers { get => movementModifiers; set { movementModifiers = value; } }
 
 		/// <summary>
 		/// The modules attatched to this ship.
