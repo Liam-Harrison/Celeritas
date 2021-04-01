@@ -54,13 +54,6 @@ namespace Celeritas.Game.Entities
 			}
 		}
 
-		private void Fire()
-		{
-			var projectile = EntityDataManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile, this, WeaponEffects.EffectWrapperCopy);
-			projectile.transform.CopyTransform(projectileSpawn);
-			projectile.transform.position = projectile.transform.position.RemoveAxes(z: true, normalize: false);
-		}
-
 		private float lastFired = 0.0f;
 
 		private void TryToFire()
@@ -72,5 +65,23 @@ namespace Celeritas.Game.Entities
 			}
 		}
 
+		private void Fire()
+		{
+			var projectile = EntityDataManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile, this, WeaponEffects.EffectWrapperCopy);
+			projectile.transform.CopyTransform(projectileSpawn);
+			projectile.transform.position = projectile.transform.position.RemoveAxes(z: true, normalize: false);
+			OnWeaponFired(projectile);
+		}
+
+		/// <summary>
+		/// Fire events for systems.
+		/// </summary>
+		private void OnWeaponFired(ProjectileEntity projectile)
+		{
+			foreach (var wrapper in EffectWrappers)
+			{
+				wrapper.EffectCollection.OnFired(this, projectile, wrapper.Level);
+			}
+		}
 	}
 }

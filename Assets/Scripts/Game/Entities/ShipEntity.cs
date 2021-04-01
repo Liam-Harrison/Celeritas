@@ -15,7 +15,7 @@ namespace Celeritas.Game.Entities
 		private Module[] modules;
 
 		[SerializeField]
-		private MovementModifier movementModifier = new MovementModifier { back = 1, forward = 1, rotation = 1, side = 1 };
+		private MovementModifier movementModifier;
 
 		/// <summary>
 		/// The movement modifier used by this ship.
@@ -131,10 +131,10 @@ namespace Celeritas.Game.Entities
 
 		private void TranslationLogic()
 		{
-			Velocity = Up * ((Mathf.Max(Translation.y, 0) * ShipData.MovementSettings.forwardForcePerSec * movementModifier.forward) +
-							(Mathf.Min(Translation.y, 0) * ShipData.MovementSettings.backForcePerSec * movementModifier.back)) * Time.smoothDeltaTime;
+			Velocity = Up * ((Mathf.Max(Translation.y, 0) * ShipData.MovementSettings.forwardForcePerSec * movementModifier.Forward) +
+							(Mathf.Min(Translation.y, 0) * ShipData.MovementSettings.backForcePerSec * movementModifier.Back)) * Time.smoothDeltaTime;
 
-			Velocity += Right * Translation.x * ShipData.MovementSettings.sideForcePerSec * movementModifier.side * Time.smoothDeltaTime;
+			Velocity += Right * Translation.x * ShipData.MovementSettings.sideForcePerSec * movementModifier.Side * Time.smoothDeltaTime;
 
 			Rigidbody.AddForce(Velocity, ForceMode2D.Force);
 		}
@@ -146,7 +146,7 @@ namespace Celeritas.Game.Entities
 
 			if (dot < ShipData.MovementSettings.aimDeadzone)
 			{
-				var torquePerSec = ShipData.MovementSettings.torquePerSec * movementModifier.rotation;
+				var torquePerSec = ShipData.MovementSettings.torquePerSec * movementModifier.Rotation;
 				var torque = Mathf.Lerp(torquePerSec.x, torquePerSec.y, ShipData.MovementSettings.rotationCurve.Evaluate(Mathf.InverseLerp(1, -1, dot))) * Time.smoothDeltaTime;
 
 				if (Vector3.Dot(Right, dir) >= 0)
@@ -172,24 +172,40 @@ namespace Celeritas.Game.Entities
 	/// Modifies existing ship paramaters.
 	/// </summary>
 	[System.Serializable]
-	public struct MovementModifier
+	public class MovementModifier
 	{
-		[PropertyRange(0, 4), Title("Movement Modifiers")]
-		public float forward;
+		private const int RANGE = 4;
 
-		[PropertyRange(0, 4)]
-		public float side;
+		[SerializeField, PropertyRange(0, RANGE), DisableInPlayMode, Title("Movement Modifiers")]
+		private float forward = 1;
 
-		[PropertyRange(0, 4)]
-		public float back;
+		[SerializeField, PropertyRange(0, RANGE), DisableInPlayMode]
+		private float side = 1;
 
-		[PropertyRange(0, 4)]
-		public float rotation;
+		[SerializeField, PropertyRange(0, RANGE), DisableInPlayMode]
+		private float back = 1;
 
-		public void SetForward(float value)
-		{
-			forward = Mathf.Clamp(value, 0, 4);
-		}
+		[SerializeField, PropertyRange(0, RANGE), DisableInPlayMode]
+		private float rotation = 1;
+
+		/// <summary>
+		/// The forward modifier of this ship.
+		/// </summary>
+		public float Forward { get => forward; set => forward = Mathf.Clamp(value, 0, RANGE); }
+
+		/// <summary>
+		/// The side modifier of this ship.
+		/// </summary>
+		public float Side { get => side; set => side = Mathf.Clamp(value, 0, RANGE); }
+
+		/// <summary>
+		/// The back modifier of this ship.
+		/// </summary>
+		public float Back { get => back; set => back = Mathf.Clamp(value, 0, RANGE); }
+
+		/// <summary>
+		/// The rotation modifier of this ship.
+		/// </summary>
+		public float Rotation { get => rotation; set => rotation = Mathf.Clamp(value, 0, RANGE); }
 	}
-
 }

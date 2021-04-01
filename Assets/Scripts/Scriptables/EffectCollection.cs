@@ -31,6 +31,7 @@ namespace Celeritas.Scriptables
 		protected Action<Entity, ushort> onAdded;
 		protected Action<Entity, ushort> onRemoved;
 		protected Action<Entity, ushort> onUpdated;
+		protected Action<WeaponEntity, ProjectileEntity, ushort> onFired;
 		protected Action<Entity, Entity, ushort> onHit;
 
 		protected virtual void OnEnable()
@@ -178,12 +179,26 @@ namespace Celeritas.Scriptables
 		/// </summary>
 		/// <param name="entity">The subject entity.</param>
 		/// <param name="other">The other entity hit.</param>
+		/// <param name="level">The level of the effect.</param>
 		public void HitEntity(Entity entity, Entity other, ushort level)
 		{
 			if (!IsValidEntity(entity))
 				return;
 
 			onHit?.Invoke(entity, other, level);
+		}
+
+		/// <summary>
+		/// Update the provided entity against this effect when fired.
+		/// </summary>
+		/// <param name="entity">The subject entity.</param>
+		/// <param name="level">The level of the effect.</param>
+		public void OnFired(WeaponEntity entity, ProjectileEntity projectile, ushort level)
+		{
+			if (!IsValidEntity(entity))
+				return;
+
+			onFired?.Invoke(entity, projectile, level);
 		}
 
 		private bool IsValidEntity(Entity entity)
@@ -211,6 +226,7 @@ namespace Celeritas.Scriptables
 			onHit = null;
 			onAdded = null;
 			onRemoved = null;
+			onFired = null;
 
 			foreach (var modifier in systems)
 			{
@@ -237,6 +253,9 @@ namespace Celeritas.Scriptables
 
 			if (system is IEntityEffectRemoved removed)
 				onRemoved += removed.OnEntityEffectRemoved;
+
+			if (system is IEntityFired fired)
+				onFired += fired.OnEntityFired;
 		}
 
 		private void RemoveModifierSystemListeners(ModifierSystem system)
@@ -258,6 +277,9 @@ namespace Celeritas.Scriptables
 
 			if (system is IEntityEffectRemoved removed)
 				onRemoved -= removed.OnEntityEffectRemoved;
+
+			if (system is IEntityFired fired)
+				onFired -= fired.OnEntityFired;
 		}
 	}
 }

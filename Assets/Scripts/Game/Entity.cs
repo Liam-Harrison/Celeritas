@@ -76,7 +76,7 @@ namespace Celeritas.Game
 			ClearEffects();
 			AddEffectRange(effects);
 
-			OnEntityCreated(this);
+			OnEntityCreated();
 		}
 
 		protected virtual void OnDestroy()
@@ -84,7 +84,7 @@ namespace Celeritas.Game
 			if (!IsInitalized)
 				return;
 
-			OnEntityDestroyed(this);
+			OnEntityDestroyed();
 		}
 
 		protected virtual void Update()
@@ -92,55 +92,51 @@ namespace Celeritas.Game
 			if (!IsInitalized)
 				return;
 
-			OnEntityUpdated(this);
+			OnEntityUpdated();
 		}
 
 		/// <summary>
 		/// Update effects for this entity when created.
 		/// </summary>
-		/// <param name="entity">The entity to update against effects.</param>
-		public void OnEntityCreated(Entity entity)
+		public void OnEntityCreated()
 		{
 			foreach (var wrapper in EffectWrappers)
 			{
-				wrapper.EffectCollection.CreateEntity(entity, wrapper.Level);
+				wrapper.EffectCollection.CreateEntity(this, wrapper.Level);
 			}
 		}
 
 		/// <summary>
 		/// Update effects for this entity when destroyed.
 		/// </summary>
-		/// <param name="entity">The entity to update against effects.</param>
-		public void OnEntityDestroyed(Entity entity)
+		public void OnEntityDestroyed()
 		{
 			foreach (var wrapper in EffectWrappers)
 			{
-				wrapper.EffectCollection.DestroyEntity(entity, wrapper.Level);
+				wrapper.EffectCollection.DestroyEntity(this, wrapper.Level);
 			}
 		}
 
 		/// <summary>
 		/// Update effects for this entity when hit.
 		/// </summary>
-		/// <param name="entity">The target entity.</param>
 		/// <param name="other">The other entity.</param>
-		public void OnEntityHit(Entity entity, Entity other)
+		public void OnEntityHit(Entity other)
 		{
 			foreach (var wrapper in EffectWrappers)
 			{
-				wrapper.EffectCollection.HitEntity(entity, other, wrapper.Level);
+				wrapper.EffectCollection.HitEntity(this, other, wrapper.Level);
 			}
 		}
 
 		/// <summary>
 		/// Update effects for this entity when updated.
 		/// </summary>
-		/// <param name="entity">The entity to update against effects.</param>
-		public void OnEntityUpdated(Entity entity)
+		public void OnEntityUpdated()
 		{
 			foreach (var wrapper in EffectWrappers)
 			{
-				wrapper.EffectCollection.UpdateEntity(entity, wrapper.Level);
+				wrapper.EffectCollection.UpdateEntity(this, wrapper.Level);
 			}
 		}
 
