@@ -34,7 +34,7 @@ namespace Celeritas.Game.Entities
 			var entity = other.GetComponent<Entity>();
 			if (entity != null)
 			{
-				OnEntityHit(this, entity);
+				OnEntityHit(entity);
 			}
 		}
 

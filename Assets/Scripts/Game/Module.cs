@@ -27,7 +27,7 @@ namespace Celeritas.Game
 		[SerializeField, ShowIf(nameof(hasDefaultModule)), Title("Module Effects"), DisableInPlayMode]
 		private EffectWrapper[] moduleEffects;
 
-		[SerializeField, ShowIf("@this.module != null && this.module is WeaponData"), Title("Projectile Effects"), DisableInPlayMode]
+		[SerializeField, ShowIf("@this.module != null && this.module is WeaponData && this.hasDefaultModule && this.isWeapon"), Title("Projectile Effects"), DisableInPlayMode]
 		private EffectWrapper[] projectileEffects;
 
 		/// <summary>

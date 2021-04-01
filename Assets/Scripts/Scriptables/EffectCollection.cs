@@ -28,7 +28,10 @@ namespace Celeritas.Scriptables
 
 		protected Action<Entity, ushort> onCreated;
 		protected Action<Entity, ushort> onDestroyed;
+		protected Action<Entity, ushort> onAdded;
+		protected Action<Entity, ushort> onRemoved;
 		protected Action<Entity, ushort> onUpdated;
+		protected Action<WeaponEntity, ProjectileEntity, ushort> onFired;
 		protected Action<Entity, Entity, ushort> onHit;
 
 		protected virtual void OnEnable()
@@ -110,6 +113,7 @@ namespace Celeritas.Scriptables
 		/// Update the provided entity against this effect when updated.
 		/// </summary>
 		/// <param name="entity">The entity to update.</param>
+		/// <param name="level">The level of the effect.</param>
 		public void UpdateEntity(Entity entity, ushort level)
 		{
 			if (!IsValidEntity(entity))
@@ -122,6 +126,7 @@ namespace Celeritas.Scriptables
 		/// Update the provided entity against this effect when created.
 		/// </summary>
 		/// <param name="entity">The entity to update when created.</param>
+		/// <param name="level">The level of the effect.</param>
 		public void CreateEntity(Entity entity, ushort level)
 		{
 			if (!IsValidEntity(entity))
@@ -134,6 +139,7 @@ namespace Celeritas.Scriptables
 		/// Update the provided entity against this effect when destroyed.
 		/// </summary>
 		/// <param name="entity">The entity to update when destroyed.</param>
+		/// <param name="level">The level of the effect.</param>
 		public void DestroyEntity(Entity entity, ushort level)
 		{
 			if (!IsValidEntity(entity))
@@ -143,16 +149,56 @@ namespace Celeritas.Scriptables
 		}
 
 		/// <summary>
+		/// Updated the provided entity against this effect when the effect is added.
+		/// </summary>
+		/// <param name="entity">The entity who had this effect added to.</param>
+		/// <param name="level">The level of the effect.</param>
+		public void OnAdded(Entity entity, ushort level)
+		{
+			if (!IsValidEntity(entity))
+				return;
+
+			onAdded?.Invoke(entity, level);
+		}
+
+		/// <summary>
+		/// Updated the provided entity against this effect when the effect is removed.
+		/// </summary>
+		/// <param name="entity">The entity who had this effect added to.</param>
+		/// <param name="level">The level of the effect.</param>
+		public void OnRemoved(Entity entity, ushort level)
+		{
+			if (!IsValidEntity(entity))
+				return;
+
+			onRemoved?.Invoke(entity, level);
+		}
+
+		/// <summary>
 		/// Update the provided entity against this effect when hit.
 		/// </summary>
 		/// <param name="entity">The subject entity.</param>
 		/// <param name="other">The other entity hit.</param>
+		/// <param name="level">The level of the effect.</param>
 		public void HitEntity(Entity entity, Entity other, ushort level)
 		{
 			if (!IsValidEntity(entity))
 				return;
 
 			onHit?.Invoke(entity, other, level);
+		}
+
+		/// <summary>
+		/// Update the provided entity against this effect when fired.
+		/// </summary>
+		/// <param name="entity">The subject entity.</param>
+		/// <param name="level">The level of the effect.</param>
+		public void OnFired(WeaponEntity entity, ProjectileEntity projectile, ushort level)
+		{
+			if (!IsValidEntity(entity))
+				return;
+
+			onFired?.Invoke(entity, projectile, level);
 		}
 
 		private bool IsValidEntity(Entity entity)
@@ -178,6 +224,9 @@ namespace Celeritas.Scriptables
 			onDestroyed = null;
 			onUpdated = null;
 			onHit = null;
+			onAdded = null;
+			onRemoved = null;
+			onFired = null;
 
 			foreach (var modifier in systems)
 			{
@@ -198,6 +247,15 @@ namespace Celeritas.Scriptables
 
 			if (system is IEntityHit hit)
 				onHit += hit.OnEntityHit;
+
+			if (system is IEntityEffectAdded added)
+				onAdded += added.OnEntityEffectAdded;
+
+			if (system is IEntityEffectRemoved removed)
+				onRemoved += removed.OnEntityEffectRemoved;
+
+			if (system is IEntityFired fired)
+				onFired += fired.OnEntityFired;
 		}
 
 		private void RemoveModifierSystemListeners(ModifierSystem system)
@@ -213,6 +271,15 @@ namespace Celeritas.Scriptables
 
 			if (system is IEntityHit hit)
 				onHit -= hit.OnEntityHit;
+
+			if (system is IEntityEffectAdded added)
+				onAdded -= added.OnEntityEffectAdded;
+
+			if (system is IEntityEffectRemoved removed)
+				onRemoved -= removed.OnEntityEffectRemoved;
+
+			if (system is IEntityFired fired)
+				onFired -= fired.OnEntityFired;
 		}
 	}
 }
