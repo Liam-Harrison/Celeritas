@@ -16,11 +16,11 @@ namespace Celeritas.Scriptables.Systems
 	{
 
 		[SerializeField, Title("Ship Speed")]
-		//private MovementModifierForModule shipSpeedModifier;
+		//private MovementModifier shipSpeedModifier;
 		private float shipSpeedModifier;
 
 		[SerializeField]
-		//private MovementModifierForModule addMovementModifier;
+		//private MovementModifier addMovementModifier;
 		private float addMovementPerLevel;
 
 		//[SerializeField, Title("Ship Turning Speed")]
@@ -30,13 +30,13 @@ namespace Celeritas.Scriptables.Systems
 		//private float shipTurningSpeedAddPerLevel;
 
 		/// <summary>
-		/// How much the ship speed will be modified at level 0. (multiplier)
+		/// How much the ship speed will be modified at level 0. (adds)
 		/// </summary>
 		public float ShipSpeedModifier {get => shipSpeedModifier; }
 		/// <summary>
 		/// How much the ship speed will increase per level
 		/// </summary>
-		public float AddMovementPerLevel { get => AddMovementPerLevel;  }
+		public float AddMovementModifier { get => addMovementPerLevel;  }
 
 		//public float ShipTurningSpeedModifier { get => shipTurningSpeedModifier; }
 		//public float ShipTurningSpeedAddPerLevel { get => shipTurningSpeedAddPerLevel; }
@@ -50,26 +50,24 @@ namespace Celeritas.Scriptables.Systems
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{
 			ShipEntity shipEntity = (ShipEntity)entity;
-			/*float forward = shipSpeedModifier.forward + (level * addMovementModifier.forward);
-			float side = shipSpeedModifier.side + (level * addMovementModifier.side);
-			float back = shipSpeedModifier.back + (level * addMovementModifier.back);
-			float rotation = shipSpeedModifier.rotation + (level * addMovementModifier.rotation);
-
-			Vector3 toAddForce = shipEntity.Right * shipEntity.Translation.x * side *Time.smoothDeltaTime;
-			toAddForce += shipEntity.Up * ((Mathf.Max(shipEntity.Translation.y, 0) * forward) +
-							(Mathf.Min(shipEntity.Translation.y, 0) * back)) * Time.smoothDeltaTime;
-
-			shipEntity.Rigidbody.AddForce(toAddForce);*/
-
-			// todo: torque
 
 			float forceMultiplier = shipSpeedModifier + (level * addMovementPerLevel);
 
 			shipEntity.Rigidbody.AddForce(shipEntity.Velocity * forceMultiplier, ForceMode2D.Force);
 
-			//float torqueMultiplier = shipTurningSpeedAddPerLevel + (level * shipTurningSpeedAddPerLevel);
-			//shipEntity.
-			//shipEntity.Rigidbody.AddTorque(shipEntity.Velocity * torqueMultiplier, ForceMode2D.Force);
+			// below is for allowing modification of each aspect of motion individually (doesn't seem to work though)
+			
+			/*	
+			MovementModifier toApply = new MovementModifier {
+				back = shipEntity.BaseMovementModifier.back + shipSpeedModifier.back + (level * addMovementModifier.back),
+				forward = shipEntity.BaseMovementModifier.forward + shipSpeedModifier.forward + (level * addMovementModifier.forward),
+				rotation = shipEntity.BaseMovementModifier.rotation + shipSpeedModifier.rotation + (level * addMovementModifier.rotation),
+				side = shipEntity.BaseMovementModifier.side + shipSpeedModifier.side + (level * addMovementModifier.side)
+			};
+			// needs to not over ride the ship's original movement modifiers.
+			shipEntity.MovementModifiers = toApply;
+			*/
+
 		}
 
 		/// <summary>

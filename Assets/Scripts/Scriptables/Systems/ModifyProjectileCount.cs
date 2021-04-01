@@ -39,7 +39,7 @@ namespace Celeritas.Scriptables.Systems
 
 		public void OnEntityCreated(Entity entity, ushort level)
 		{
-			Debug.Log("woof");
+			//Debug.Log("woof");
 
 			// when one bullet is instantiated
 			// instantiate X others, where X = extraProjectileCount + level * countPerLevel
