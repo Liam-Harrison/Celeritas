@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: modifier_ship_back_speed
   m_EditorClassIdentifier: 
   title: 
-  affectedDirections: 0
-  amount: 0
-  amountExtraPerLevel: 0
+  affectedDirections: 4
+  amount: 1.4
+  amountExtraPerLevel: 0.265

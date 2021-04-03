@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3dccb59d4d889940a15f8e3926b549d, type: 3}
-  m_Name: New Ship Speed Modifier
+  m_Name: modifier_ship_forward_fast
   m_EditorClassIdentifier: 
-  title: 
-  affectedDirections: 0
-  amount: 0
+  title: Ship Speed Forward
+  affectedDirections: 1
+  amount: 2.24
+  amountExtraPerLevel: 0

@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ee0d4ee51750af45b7430210d4a5dbd, type: 3}
-  m_Name: effect_ship_strafe_fast
+  m_Name: effect_ship_speed_strafe_fast
   m_EditorClassIdentifier: 
-  title: 
-  targets: 0
+  title: Ship Strafe Speed
+  targets: 4
   stacks: 0
-  systems: []
+  systems:
+  - {fileID: 11400000, guid: e34869a3594fc0d4d86d4bf2fc854bc5, type: 2}

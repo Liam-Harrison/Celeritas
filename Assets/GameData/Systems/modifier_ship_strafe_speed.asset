@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3dccb59d4d889940a15f8e3926b549d, type: 3}
   m_Name: modifier_ship_strafe_speed
   m_EditorClassIdentifier: 
-  title: 
-  affectedDirections: 0
-  amount: 0
+  title: Ship Strafe Speed
+  affectedDirections: 2
+  amount: 3.02
+  amountExtraPerLevel: 0

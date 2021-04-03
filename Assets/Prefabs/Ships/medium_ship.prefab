@@ -238,9 +238,9 @@ MonoBehaviour:
   moduleEffects:
   - Level: 1
     EffectCollection: {fileID: 11400000, guid: 4f42264387040ca449cb3add683feec6, type: 2}
-  projectileEffects:
   - Level: 1
     EffectCollection: {fileID: 11400000, guid: e3f09900eaa4ffc48af44e95219ce278, type: 2}
+  projectileEffects: []
 --- !u!1 &6803760354808902825
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +288,9 @@ MonoBehaviour:
   isWeapon: 1
   hasDefaultModule: 1
   module: {fileID: 11400000, guid: 4823060fc78e6b74fbcc700c5aac91e9, type: 2}
-  moduleEffects: []
+  moduleEffects:
+  - Level: 1
+    EffectCollection: {fileID: 11400000, guid: e3f09900eaa4ffc48af44e95219ce278, type: 2}
   projectileEffects:
   - Level: 3
     EffectCollection: {fileID: 11400000, guid: 922abbef8ae38a54da55d963727be36a, type: 2}
