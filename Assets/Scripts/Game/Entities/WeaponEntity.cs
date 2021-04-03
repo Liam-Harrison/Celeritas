@@ -14,6 +14,8 @@ namespace Celeritas.Game.Entities
 		[SerializeField]
 		private Transform projectileSpawn;
 
+		private uint rateOfFire;
+
 		/// <summary>
 		/// Get the effect manager for the weapons on this entity.
 		/// </summary>
@@ -24,12 +26,20 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public WeaponData WeaponData { get; private set; }
 
+		public uint RateOfFire { get=> rateOfFire; set => rateOfFire = value; }
+
+		/// <summary>
+		/// Where the weapon's projectiles will spawn
+		/// </summary>
+		public Transform ProjectileSpawn { get => projectileSpawn; }
+
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Weapon; }
 
 		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null)
 		{
 			WeaponData = data as WeaponData;
+			rateOfFire = WeaponData.RateOfFire;
 
 			WeaponEffects = new EffectManager(SystemTargets.Projectile);
 
@@ -58,7 +68,7 @@ namespace Celeritas.Game.Entities
 
 		private void TryToFire()
 		{
-			if (Time.time >= lastFired + (1f / WeaponData.RateOfFire))
+			if (Time.time >= lastFired + (1f / rateOfFire))
 			{
 				Fire();
 				lastFired = Time.time;

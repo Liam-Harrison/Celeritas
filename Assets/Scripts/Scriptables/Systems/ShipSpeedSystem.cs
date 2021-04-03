@@ -27,6 +27,9 @@ namespace Celeritas.Scriptables.Systems
 		[SerializeField, PropertyRange(0, 4), InfoBox("Percentage to add, 1 (default ship speed) + 1 (value) = 2 (200% ship speed)")]
 		private float amount;
 
+		[SerializeField, PropertyRange(0, 2), InfoBox("Percentage extra to add per level")]
+		private float amountExtraPerLevel;
+
 		/// <summary>
 		/// Get the directions this effect manipulates.
 		/// </summary>
@@ -37,6 +40,11 @@ namespace Celeritas.Scriptables.Systems
 		/// </summary>
 		public float Amount { get => amount; }
 
+		/// <summary>
+		/// How much extra the ship speed is modifier per level
+		/// </summary>
+		public float AmountExtraPerLevel { get => amountExtraPerLevel; }
+
 		/// <inheritdoc/>
 		public override bool Stacks => true;
 
@@ -45,16 +53,20 @@ namespace Celeritas.Scriptables.Systems
 
 		public void OnEntityEffectAdded(Entity entity, ushort level)
 		{
+			// TODO: may need to update effect when system levels up, depending on how game loop works.
+			// otherwise effects may not reflect levels
+
 			var ship = entity as ShipEntity;
+			float amountToAdd = amount + (level * amountExtraPerLevel);
 
 			if (affectedDirections.HasFlag(ShipDirections.Forward))
-				ship.MovementModifier.Forward += amount;
+				ship.MovementModifier.Forward += amountToAdd;
 
 			if (affectedDirections.HasFlag(ShipDirections.Side))
-				ship.MovementModifier.Side += amount;
+				ship.MovementModifier.Side += amountToAdd;
 
 			if (affectedDirections.HasFlag(ShipDirections.Back))
-				ship.MovementModifier.Back += amount;
+				ship.MovementModifier.Back += amountToAdd;
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, ushort level)
