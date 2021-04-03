@@ -22,12 +22,12 @@ public class WeaponRateOfFire : ModifierSystem, IEntityEffectAdded, IEntityEffec
 	public void OnEntityEffectAdded(Entity entity, ushort level)
 	{
 		WeaponEntity weapon = (WeaponEntity)entity;
-		weapon.WeaponData.RateOfFire += rateOfFire + (level * rateOfFireToAddPerLevel);
+		weapon.RateOfFire += rateOfFire + (level * rateOfFireToAddPerLevel);
 	}
 
 	public void OnEntityEffectRemoved(Entity entity, ushort level)
 	{
 		WeaponEntity weapon = (WeaponEntity)entity;
-		weapon.WeaponData.RateOfFire -= rateOfFire + (level * rateOfFireToAddPerLevel);
+		weapon.RateOfFire -= rateOfFire + (level * rateOfFireToAddPerLevel);
 	}
 }

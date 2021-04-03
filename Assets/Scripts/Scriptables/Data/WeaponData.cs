@@ -25,7 +25,7 @@ namespace Celeritas.Scriptables
 		/// <summary>
 		/// The speed this weapon fires at.
 		/// </summary>
-		public uint RateOfFire { get => rateOfFire; set { rateOfFire = value; } }
+		public uint RateOfFire { get => rateOfFire; }
 
 		/// <summary>
 		/// Get if this weapon aims or not.
