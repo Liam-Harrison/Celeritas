@@ -24,6 +24,11 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public WeaponData WeaponData { get; private set; }
 
+		/// <summary>
+		/// Where the weapon's projectiles will spawn
+		/// </summary>
+		public Transform ProjectileSpawn { get => projectileSpawn; }
+
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Weapon; }
 

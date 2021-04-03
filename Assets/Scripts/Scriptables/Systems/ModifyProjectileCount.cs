@@ -6,6 +6,7 @@ using UnityEngine;
 using Celeritas.Game;
 using Celeritas.Game.Entities;
 using System.Linq;
+using Celeritas.Extensions;
 
 namespace Celeritas.Scriptables.Systems
 {
@@ -14,13 +15,19 @@ namespace Celeritas.Scriptables.Systems
 	/// ie. how many projectiles fire per 'fire' command
 	/// </summary>
 	[CreateAssetMenu(fileName = "Projectile Count Modifier", menuName= "Celeritas/Modifiers/Projectile Count")]
-	public class ModifyProjectileCount : ModifierSystem, IEntityCreated
+	public class ModifyProjectileCount : ModifierSystem, IEntityFired
 	{
 		[SerializeField, Title("Extra Projectile Count")]
 		private uint extraProjectileCount;
 
 		[SerializeField]
 		private uint extraProjectilesPerLevel;
+
+		[SerializeField]
+		private float spreadScale = 0.5f; // default
+
+		[SerializeField]
+		private bool randomSpread;
 
 		/// <summary>
 		/// How many extra projectiles will be fired per 'fire' command
@@ -35,36 +42,33 @@ namespace Celeritas.Scriptables.Systems
 
 		public override bool Stacks => false;
 
-		public override SystemTargets Targets => SystemTargets.Projectile;
+		public override SystemTargets Targets => SystemTargets.Weapon;
 
-		public void OnEntityCreated(Entity entity, ushort level)
+
+		public void OnEntityFired(WeaponEntity entity, ProjectileEntity projectile, ushort level)
 		{
-			//Debug.Log("woof");
+			uint numberOfExtraProjectiles = extraProjectileCount + (level * extraProjectilesPerLevel);
 
-			// when one bullet is instantiated
-			// instantiate X others, where X = extraProjectileCount + level * countPerLevel
-
-			ProjectileEntity projectile = (ProjectileEntity)entity;
-			WeaponEntity weapon = projectile.Weapon;
-			
-
-			// copy projectile effects, remove the projectile count effect
-
-			/*EffectWrapper[] desiredEffects = weapon.WeaponEffects.EffectWrapperCopy;
-			foreach(EffectWrapper w in desiredEffects)
+			Vector3 bulletAlignment = new Vector3(spreadScale, spreadScale, 0);
+			for (int i = 0; i < numberOfExtraProjectiles; i++)
 			{
-				if (w.EffectCollection.Systems.Contains(this))
+				float position = i - (numberOfExtraProjectiles / 2);
+				// to address the '0' position projectile lying directly on top of originally shot projectile:
+				if (position < 0.00001 && position > -0.00001)
 				{
-					w.EffectCollection.Systems.Remove(this);
+					position = numberOfExtraProjectiles / 2;
 				}
-			}*/
-
-			// projectile count is a weapon effect, does not seem to move into projectile?
-			// So this should theoretically avoid recursion
-			// just do 1 extra projectile for now, for testing.
-			// copying weapon's fire method.
-
-			//weapon.Fire();
+					
+				var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectile.ProjectileData, entity, projectile.EffectWrapperCopy);
+				toFire.transform.CopyTransform(entity.ProjectileSpawn);
+				if (randomSpread) { 
+					bulletAlignment = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+					position += Random.Range(-1f, 1f);
+				}
+				toFire.transform.Translate(bulletAlignment.normalized * position * spreadScale);
+				toFire.transform.position = toFire.transform.position.RemoveAxes(z: true, normalize: false);
+			}
+			
 		}
 	}
 }
