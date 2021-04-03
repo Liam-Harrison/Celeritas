@@ -50,11 +50,11 @@ MonoBehaviour:
   hasDefaultEffects: 1
   defaultEffects:
   - Level: 1
-    EffectCollection: {fileID: 11400000, guid: 8645631192f52a047a8d95f5bd52de4f, type: 2}
+    EffectCollection: {fileID: 11400000, guid: b5a7799e420c4cf40bbcdbe0932ea6da, type: 2}
   modules:
   - {fileID: 3912116814696063671}
   - {fileID: 4293004831541093639}
-  movementModifiers:
+  movementModifier:
     forward: 1
     side: 1
     back: 1

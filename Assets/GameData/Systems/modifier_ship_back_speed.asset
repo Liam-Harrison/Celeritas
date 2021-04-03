@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a48abbb10664e34ab742efc2ebc0bf0, type: 3}
-  m_Name: modifier_shipspeed_forward_fast
+  m_Script: {fileID: 11500000, guid: b3dccb59d4d889940a15f8e3926b549d, type: 3}
+  m_Name: modifier_ship_back_speed
   m_EditorClassIdentifier: 
-  title: Ship Speed Modifier
-  shipSpeedModifier: 2
-  addMovementPerLevel: 0
+  title: 
+  affectedDirections: 0
+  amount: 0
+  amountExtraPerLevel: 0
