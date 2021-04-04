@@ -167,20 +167,17 @@ namespace Celeritas.Game
 				wrapper.EffectCollection.HitEntity(this, other, wrapper.Level);
 			}
 
+			damageEntity(other);
+		}
+
+		protected virtual void damageEntity(Entity other) {
 			// implement damage after wrapper effects, just in case they make modifications
 			if (other.Health != null)
 			{
-				Debug.Log("Damaging a thing with " + damage + " damage. Health = "+other.Health.CurrentHealth);
+				Debug.Log("Damaging a thing with " + damage + " damage. Health = " + other.Health.CurrentHealth);
 				other.Health.Damage(damage);
 				if (other.Health.IsDead())
 					other.Dead = true;
-			}
-
-			if (this is ProjectileEntity) {
-				Debug.Log("woof");
-				if (((ProjectileEntity)this).IAmDestroyedOnHit) {
-					dead = true;
-				}
 			}
 		}
 
@@ -194,9 +191,9 @@ namespace Celeritas.Game
 				wrapper.EffectCollection.UpdateEntity(this, wrapper.Level);
 			}
 			if (dead) {
-				Debug.Log(string.Format("$ is dead", this));
+				Debug.Log(string.Format("{0} is dead", this));
 				OnEntityDestroyed();
-				//OnDestroy();
+				OnDestroy();
 				
 				Destroy(gameObject);
 			}

@@ -10,9 +10,9 @@ namespace Celeritas.Game.Entities
 	public class ProjectileEntity : Entity
 	{
 		// this is a variable as modifiers may need to change this (eg piercing bullets)
-		private bool iAmDestroyedOnHit;
+		private bool iAmDestroyedOnHit; // default
 
-		private bool iWillDamageOwnerShip = false; // default
+		private bool damageOwnerShip = false; // default
 
 		/// <summary>
 		/// The attatched projectile data.
@@ -29,11 +29,6 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public bool IAmDestroyedOnHit;
 
-		/// <summary>
-		/// Whether this projectile will damage the ship that is shooting it
-		/// </summary>
-		public bool IWillDamageOwnerShip { get => iWillDamageOwnerShip; set => iWillDamageOwnerShip = value; }
-
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Projectile; }
 
@@ -44,6 +39,26 @@ namespace Celeritas.Game.Entities
 			iAmDestroyedOnHit = ProjectileData.IAmDestroyedOnHit;
 			Weapon = owner as WeaponEntity;
 			base.Initalize(data, owner, effects);
+		}
+
+		protected override void damageEntity(Entity other)
+		{
+
+			// check if other is owner ship
+			if (damageOwnerShip == false && other is ShipEntity)
+			{
+				ShipEntity ship = (ShipEntity)other;
+				if (ship.WeaponEntities.Contains(this.Weapon))
+				{
+					// return without doing damage
+					return;
+				}
+			}
+
+			if (iAmDestroyedOnHit)
+				this.Dead = true;
+
+			base.damageEntity(other);
 		}
 
 		/*
