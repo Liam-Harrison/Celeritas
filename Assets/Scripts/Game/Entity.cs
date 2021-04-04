@@ -152,6 +152,9 @@ namespace Celeritas.Game
 		/// <param name="other">The other entity.</param>
 		public void OnEntityHit(Entity other)
 		{
+			// note: this is hitting the other entity
+			Debug.Log("woof");
+
 			foreach (var wrapper in EffectWrappers)
 			{
 				wrapper.EffectCollection.HitEntity(this, other, wrapper.Level);
@@ -159,7 +162,10 @@ namespace Celeritas.Game
 
 			// implement damage after wrapper effects, just in case they make modifications
 			if (other.Health != null)
+			{
+				Debug.Log("Damaging a thing with " + damage + " damage");
 				other.Health.Damage(damage);
+			}
 		}
 
 		/// <summary>
