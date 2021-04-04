@@ -25,6 +25,7 @@ namespace Celeritas.Game.Entities
 		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null)
 		{
 			ProjectileData = data as ProjectileData;
+			damage = ProjectileData.Damage;
 			Weapon = owner as WeaponEntity;
 			base.Initalize(data, owner, effects);
 		}

@@ -16,6 +16,9 @@ namespace Celeritas.Scriptables
 		[SerializeField]
 		private float lifetime;
 
+		[SerializeField]
+		private uint damage;
+
 		/// <summary>
 		/// The speed of this projectile.
 		/// </summary>
@@ -25,6 +28,11 @@ namespace Celeritas.Scriptables
 		/// The lifetime of this projectile.
 		/// </summary>
 		public float Lifetime { get => lifetime; }
+
+		/// <summary>
+		/// How much damage this projectile does when it hits another entity
+		/// </summary>
+		public uint Damage { get => damage; }
 
 		protected virtual void OnValidate()
 		{

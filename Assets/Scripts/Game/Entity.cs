@@ -18,6 +18,23 @@ namespace Celeritas.Game
 		[SerializeField, ShowIf(nameof(hasDefaultEffects))]
 		private EffectWrapper[] defaultEffects;
 
+		[SerializeField]
+		protected EntityHealth health;
+
+		[SerializeField]
+		protected uint damage = 0; // default
+
+		/// <summary>
+		/// The entity's health data
+		/// </summary>
+		public EntityHealth Health { get => health; }
+
+		/// <summary>
+		/// How much damage this entity does to another
+		/// when it hits
+		/// </summary>
+		public uint Damage { get => damage; }
+
 		/// <summary>
 		/// Get the entities game up direction vector.
 		/// </summary>
@@ -139,6 +156,10 @@ namespace Celeritas.Game
 			{
 				wrapper.EffectCollection.HitEntity(this, other, wrapper.Level);
 			}
+
+			// implement damage after wrapper effects, just in case they make modifications
+			if (other.Health != null)
+				other.Health.Damage(damage);
 		}
 
 		/// <summary>
@@ -185,6 +206,50 @@ namespace Celeritas.Game
 		{
 			((IEffectManager)effectManager).RemoveEffect(wrapper);
 			wrapper.EffectCollection.OnRemoved(this, wrapper.Level);
+		}
+	}
+
+	/// <summary>
+	/// Provides information on how much health an entity has
+	/// </summary>
+	[System.Serializable]
+	public class EntityHealth
+	{
+		private uint maxHealth;
+		private uint currentHealth;
+
+		/// <summary>
+		/// The entity's maximum health
+		/// </summary>
+		public uint MaxHealth { get => maxHealth; }
+
+		/// <summary>
+		/// The entity's current health
+		/// </summary>
+		public uint CurrentHealth { get => currentHealth; }
+
+		public EntityHealth(uint startingHealth) {
+			maxHealth = startingHealth;
+			currentHealth = startingHealth;
+		}
+
+		/// <summary>
+		/// Checks whether the entity is dead, returns true if so
+		/// </summary>
+		/// <returns>true if entity is dead (ie, current health == 0)</returns>
+		public bool IsDead() {
+			if (currentHealth < 1)
+				return true;
+			else
+				return false;
+		}
+
+		/// <summary>
+		/// damages entity's health equal to the passed amount
+		/// </summary>
+		/// <param name="amount">Amount to damage entity with</param>
+		public void Damage(uint amount) {
+			currentHealth -= amount;
 		}
 	}
 }
