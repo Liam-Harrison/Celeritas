@@ -79,6 +79,7 @@ namespace Celeritas.Game.Entities
 		{
 			var projectile = EntityDataManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile, this, WeaponEffects.EffectWrapperCopy);
 			projectile.transform.CopyTransform(projectileSpawn);
+
 			projectile.transform.position = projectile.transform.position.RemoveAxes(z: true, normalize: false);
 			OnWeaponFired(projectile);
 		}

@@ -19,6 +19,9 @@ namespace Celeritas.Scriptables
 		[SerializeField]
 		private uint damage;
 
+		[SerializeField]
+		private bool iAmDestroyedOnHit;
+
 		/// <summary>
 		/// The speed of this projectile.
 		/// </summary>
@@ -33,6 +36,12 @@ namespace Celeritas.Scriptables
 		/// How much damage this projectile does when it hits another entity
 		/// </summary>
 		public uint Damage { get => damage; }
+
+		/// <summary>
+		/// Whether the projectile is destroyed when hitting something else
+		/// (true = yes it will be destroyed)
+		/// </summary>
+		public bool IAmDestroyedOnHit { get => iAmDestroyedOnHit; }
 
 		protected virtual void OnValidate()
 		{

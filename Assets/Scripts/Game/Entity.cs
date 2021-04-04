@@ -1,4 +1,5 @@
 using Celeritas.Extensions;
+using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
@@ -18,8 +19,10 @@ namespace Celeritas.Game
 		[SerializeField, ShowIf(nameof(hasDefaultEffects))]
 		private EffectWrapper[] defaultEffects;
 
-		[SerializeField]
+		//[SerializeField]
 		protected EntityHealth health;
+
+		private bool dead;
 
 		[SerializeField]
 		protected uint damage = 0; // default
@@ -34,6 +37,11 @@ namespace Celeritas.Game
 		/// when it hits
 		/// </summary>
 		public uint Damage { get => damage; }
+
+		/// <summary>
+		/// Whether or not this entity is dead (ie, destroyed & should be removed from the screen)
+		/// </summary>
+		public bool Dead { get => dead; set => dead = value; }
 
 		/// <summary>
 		/// Get the entities game up direction vector.
@@ -153,7 +161,6 @@ namespace Celeritas.Game
 		public void OnEntityHit(Entity other)
 		{
 			// note: this is hitting the other entity
-			Debug.Log("woof");
 
 			foreach (var wrapper in EffectWrappers)
 			{
@@ -163,8 +170,17 @@ namespace Celeritas.Game
 			// implement damage after wrapper effects, just in case they make modifications
 			if (other.Health != null)
 			{
-				Debug.Log("Damaging a thing with " + damage + " damage");
+				Debug.Log("Damaging a thing with " + damage + " damage. Health = "+other.Health.CurrentHealth);
 				other.Health.Damage(damage);
+				if (other.Health.IsDead())
+					other.Dead = true;
+			}
+
+			if (this is ProjectileEntity) {
+				Debug.Log("woof");
+				if (((ProjectileEntity)this).IAmDestroyedOnHit) {
+					dead = true;
+				}
 			}
 		}
 
@@ -176,6 +192,13 @@ namespace Celeritas.Game
 			foreach (var wrapper in EffectWrappers)
 			{
 				wrapper.EffectCollection.UpdateEntity(this, wrapper.Level);
+			}
+			if (dead) {
+				Debug.Log(string.Format("$ is dead", this));
+				OnEntityDestroyed();
+				//OnDestroy();
+				
+				Destroy(gameObject);
 			}
 		}
 
@@ -221,7 +244,10 @@ namespace Celeritas.Game
 	[System.Serializable]
 	public class EntityHealth
 	{
+		[SerializeField, PropertyRange(1, 100), Title("Max Health")]
 		private uint maxHealth;
+
+		[SerializeField, PropertyRange(1, 100), Title("Current Health")]
 		private uint currentHealth;
 
 		/// <summary>
