@@ -17,4 +17,4 @@ MonoBehaviour:
   speed: 10
   lifetime: 3
   damage: 2
-  iAmDestroyedOnHit: 1
+  destroyedOnHit: 1
