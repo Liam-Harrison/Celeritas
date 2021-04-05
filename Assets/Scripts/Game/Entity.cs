@@ -160,7 +160,7 @@ namespace Celeritas.Game
 		/// <param name="other">The other entity.</param>
 		public void OnEntityHit(Entity other)
 		{
-			// note: this is hitting the other entity
+			// note: 'this' is hitting the other entity
 
 			foreach (var wrapper in EffectWrappers)
 			{
@@ -170,11 +170,15 @@ namespace Celeritas.Game
 			damageEntity(other);
 		}
 
-		protected virtual void damageEntity(Entity other) {
-			// implement damage after wrapper effects, just in case they make modifications
+		/// <summary>
+		/// damages other entity with this entity's 'damage' amount.
+		/// virtual so this method may be overridden by child classes (eg, projectile)
+		/// </summary>
+		/// <param name="other">The entity being damaged</param>
+		protected virtual void damageEntity(Entity other)
+		{
 			if (other.Health != null)
 			{
-				Debug.Log("Damaging a thing with " + damage + " damage. Health = " + other.Health.CurrentHealth);
 				other.Health.Damage(damage);
 				if (other.Health.IsDead())
 					other.Dead = true;
@@ -190,8 +194,8 @@ namespace Celeritas.Game
 			{
 				wrapper.EffectCollection.UpdateEntity(this, wrapper.Level);
 			}
+			// destroy entity if it is dead
 			if (dead) {
-				Debug.Log(string.Format("{0} is dead", this));
 				OnEntityDestroyed();
 				OnDestroy();
 				

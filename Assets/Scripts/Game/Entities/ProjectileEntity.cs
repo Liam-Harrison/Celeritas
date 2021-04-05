@@ -10,7 +10,7 @@ namespace Celeritas.Game.Entities
 	public class ProjectileEntity : Entity
 	{
 		// this is a variable as modifiers may need to change this (eg piercing bullets)
-		private bool iAmDestroyedOnHit; // default
+		private bool destroyedOnHit;
 
 		private bool damageOwnerShip = false; // default
 
@@ -27,7 +27,12 @@ namespace Celeritas.Game.Entities
 		/// <summary>
 		/// Whether the projectile is destroyed on hitting another entity
 		/// </summary>
-		public bool IAmDestroyedOnHit;
+		public bool DestroyedOnHit { get => destroyedOnHit; }
+
+		/// <summary>
+		/// Whether the projectile will damage the ship that owns the weapon that shoots it
+		/// </summary>
+		public bool DamageOwnerShip {get => damageOwnerShip; }
 
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Projectile; }
@@ -36,7 +41,7 @@ namespace Celeritas.Game.Entities
 		{
 			ProjectileData = data as ProjectileData;
 			damage = ProjectileData.Damage;
-			iAmDestroyedOnHit = ProjectileData.IAmDestroyedOnHit;
+			destroyedOnHit = ProjectileData.IAmDestroyedOnHit;
 			Weapon = owner as WeaponEntity;
 			base.Initalize(data, owner, effects);
 		}
@@ -44,7 +49,7 @@ namespace Celeritas.Game.Entities
 		protected override void damageEntity(Entity other)
 		{
 
-			// check if other is owner ship
+			// check if other is owner ship. Return & do no damage if it is owner & damageOwnerShip is false
 			if (damageOwnerShip == false && other is ShipEntity)
 			{
 				ShipEntity ship = (ShipEntity)other;
@@ -55,21 +60,12 @@ namespace Celeritas.Game.Entities
 				}
 			}
 
-			if (iAmDestroyedOnHit)
+			if (destroyedOnHit)
 				this.Dead = true;
 
+			// parent implements damage calculations
 			base.damageEntity(other);
 		}
-
-		/*
-		private void OnTriggerEnter(Collider other)
-		{
-			var entity = other.GetComponent<Entity>();
-			if (entity != null)
-			{
-				OnEntityHit(entity);
-			}
-		}*/
 
 		private void OnTriggerEnter2D(Collider2D other)
 		{
