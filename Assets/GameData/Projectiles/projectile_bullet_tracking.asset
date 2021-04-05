@@ -15,5 +15,6 @@ MonoBehaviour:
   title: Bullet
   prefab: {fileID: 3926678570621491624, guid: 1a538d99c8e63fb40bfa767a3969f370, type: 3}
   speed: 10
-  moveToTarget: 1
   lifetime: 3
+  damage: 2
+  destroyedOnHit: 1

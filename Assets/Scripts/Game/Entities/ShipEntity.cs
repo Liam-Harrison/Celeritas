@@ -98,6 +98,8 @@ namespace Celeritas.Game.Entities
 			Rigidbody = GetComponent<Rigidbody2D>();
 			ShipData = data as ShipData;
 
+			health = new EntityHealth(ShipData.StartingHealth);
+
 			ApplyRigidbodySettings();
 
 			foreach (var module in modules)

@@ -9,6 +9,11 @@ namespace Celeritas.Game.Entities
 	/// </summary>
 	public class ProjectileEntity : Entity
 	{
+		// this is a variable as modifiers may need to change this (eg piercing bullets)
+		private bool destroyedOnHit;
+
+		private bool damageOwnerShip = false; // default
+
 		/// <summary>
 		/// The attatched projectile data.
 		/// </summary>
@@ -19,19 +24,52 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public WeaponEntity Weapon { get; private set; }
 
+		/// <summary>
+		/// Whether the projectile is destroyed on hitting another entity
+		/// </summary>
+		public bool DestroyedOnHit { get => destroyedOnHit; }
+
+		/// <summary>
+		/// Whether the projectile will damage the ship that owns the weapon that shoots it
+		/// </summary>
+		public bool DamageOwnerShip {get => damageOwnerShip; }
+
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Projectile; }
 
 		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null)
 		{
 			ProjectileData = data as ProjectileData;
+			damage = ProjectileData.Damage;
+			destroyedOnHit = ProjectileData.DestroyedOnHit;
 			Weapon = owner as WeaponEntity;
 			base.Initalize(data, owner, effects);
 		}
 
-		private void OnTriggerEnter(Collider other)
+		protected override void DamageEntity(Entity other)
 		{
-			var entity = other.GetComponent<Entity>();
+
+			// check if other is owner ship. Return & do no damage if it is owner & damageOwnerShip is false
+			if (damageOwnerShip == false && other is ShipEntity)
+			{
+				ShipEntity ship = (ShipEntity)other;
+				if (ship.WeaponEntities.Contains(this.Weapon))
+				{
+					// return without doing damage
+					return;
+				}
+			}
+
+			if (destroyedOnHit)
+				this.Dead = true;
+
+			// parent implements damage calculations
+			base.DamageEntity(other);
+		}
+
+		private void OnTriggerEnter2D(Collider2D other)
+		{
+			var entity = other.gameObject.GetComponentInParent<Entity>();
 			if (entity != null)
 			{
 				OnEntityHit(entity);
