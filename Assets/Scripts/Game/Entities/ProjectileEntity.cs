@@ -46,7 +46,7 @@ namespace Celeritas.Game.Entities
 			base.Initalize(data, owner, effects);
 		}
 
-		protected override void damageEntity(Entity other)
+		protected override void DamageEntity(Entity other)
 		{
 
 			// check if other is owner ship. Return & do no damage if it is owner & damageOwnerShip is false
@@ -64,7 +64,7 @@ namespace Celeritas.Game.Entities
 				this.Dead = true;
 
 			// parent implements damage calculations
-			base.damageEntity(other);
+			base.DamageEntity(other);
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)

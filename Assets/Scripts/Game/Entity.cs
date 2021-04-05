@@ -167,7 +167,7 @@ namespace Celeritas.Game
 				wrapper.EffectCollection.HitEntity(this, other, wrapper.Level);
 			}
 
-			damageEntity(other);
+			DamageEntity(other);
 		}
 
 		/// <summary>
@@ -175,7 +175,7 @@ namespace Celeritas.Game
 		/// virtual so this method may be overridden by child classes (eg, projectile)
 		/// </summary>
 		/// <param name="other">The entity being damaged</param>
-		protected virtual void damageEntity(Entity other)
+		protected virtual void DamageEntity(Entity other)
 		{
 			if (other.Health != null)
 			{
@@ -196,9 +196,6 @@ namespace Celeritas.Game
 			}
 			// destroy entity if it is dead
 			if (dead) {
-				OnEntityDestroyed();
-				OnDestroy();
-				
 				Destroy(gameObject);
 			}
 		}
