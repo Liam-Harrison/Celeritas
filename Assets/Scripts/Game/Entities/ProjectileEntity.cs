@@ -41,7 +41,7 @@ namespace Celeritas.Game.Entities
 		{
 			ProjectileData = data as ProjectileData;
 			damage = ProjectileData.Damage;
-			destroyedOnHit = ProjectileData.IAmDestroyedOnHit;
+			destroyedOnHit = ProjectileData.DestroyedOnHit;
 			Weapon = owner as WeaponEntity;
 			base.Initalize(data, owner, effects);
 		}
