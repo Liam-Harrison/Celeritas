@@ -17,6 +17,9 @@ namespace Celeritas.Scriptables
 		[SerializeField, Title("Aiming")] private bool aims;
 		[SerializeField, ShowIf(nameof(aims))] private float angPerSec;
 
+		[SerializeField, Title("Charge")] private bool charge;
+		[SerializeField, ShowIf(nameof(charge))] private float maxCharge;
+
 		/// <summary>
 		/// Get the projectile attatched to this weapon.
 		/// </summary>
@@ -36,6 +39,16 @@ namespace Celeritas.Scriptables
 		/// The speed this weapon aims at.
 		/// </summary>
 		public float AimSpeed { get => angPerSec; }
+
+		/// <summary>
+		/// Is this a charge weapon?
+		/// </summary>
+		public bool Charge { get => charge; }
+
+		/// <summary>
+		/// The maximum limit to charge to.
+		/// </summary>
+		public float MaxCharge { get => maxCharge; }
 
 
 
