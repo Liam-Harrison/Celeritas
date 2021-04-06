@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasDefaultEffects: 0
   defaultEffects: []
-  damage: 1
+  damage: 0
   projectileSpawn: {fileID: 61269802584779653}
 --- !u!1 &2203390795770951947
 GameObject:
