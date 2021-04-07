@@ -17,7 +17,7 @@ namespace Celeritas.Scriptables
 		private float lifetime;
 
 		[SerializeField]
-		private uint damage;
+		private int damage;
 
 		[SerializeField]
 		private bool destroyedOnHit;
@@ -35,7 +35,7 @@ namespace Celeritas.Scriptables
 		/// <summary>
 		/// How much damage this projectile does when it hits another entity
 		/// </summary>
-		public uint Damage { get => damage; }
+		public int Damage { get => damage; }
 
 		/// <summary>
 		/// Whether the projectile is destroyed when hitting something else
