@@ -27,13 +27,13 @@ namespace Celeritas.Scriptables.Systems {
 		/// <summary>
 		/// How much extra percent damage the projectile gets from this modifier initially
 		/// </summary>
-		public float Percentage { get; }
+		public float Percentage { get => percentage; }
 
 		/// <summary>
 		/// How much extra percent damage the projectile gets from this modifier, per level
 		/// So total extra percent damage == (Percentage) + (PercentageExtraLevel * level)
 		/// </summary>
-		public float PercentageExtraPerLevel { get; }
+		public float PercentageExtraPerLevel { get => percentageExtraPerLevel; }
 
 		public void OnEntityEffectAdded(Entity entity, ushort level)
 		{
