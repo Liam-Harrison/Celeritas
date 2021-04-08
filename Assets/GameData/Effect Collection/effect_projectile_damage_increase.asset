@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 964ba3942b684a84d8afc3e63f6671fd, type: 3}
-  m_Name: projectile_bullet_tracking
+  m_Script: {fileID: 11500000, guid: 3ee0d4ee51750af45b7430210d4a5dbd, type: 3}
+  m_Name: effect_projectile_damage_increase
   m_EditorClassIdentifier: 
-  title: Bullet
-  prefab: {fileID: 3926678570621491624, guid: 1a538d99c8e63fb40bfa767a3969f370, type: 3}
-  speed: 10
-  lifetime: 3
-  damage: 5
-  destroyedOnHit: 1
+  title: Increase Projectile Damage - Stock
+  targets: 1
+  stacks: 0
+  systems:
+  - {fileID: 11400000, guid: 0c9b9a53ff2db214bb78c3b66e0baf86, type: 2}

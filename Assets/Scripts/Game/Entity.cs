@@ -25,7 +25,7 @@ namespace Celeritas.Game
 		private bool dead;
 
 		[SerializeField]
-		protected uint damage = 0; // default
+		protected int damage = 0; // default
 
 		/// <summary>
 		/// The entity's health data
@@ -36,7 +36,7 @@ namespace Celeritas.Game
 		/// How much damage this entity does to another
 		/// when it hits
 		/// </summary>
-		public uint Damage { get => damage; }
+		public int Damage { get => damage; set => damage = value; }
 
 		/// <summary>
 		/// Whether or not this entity is dead (ie, destroyed & should be removed from the screen)
@@ -246,7 +246,7 @@ namespace Celeritas.Game
 		private uint maxHealth;
 
 		[SerializeField, PropertyRange(1, 100), Title("Current Health")]
-		private uint currentHealth;
+		private int currentHealth;
 
 		/// <summary>
 		/// The entity's maximum health
@@ -256,11 +256,11 @@ namespace Celeritas.Game
 		/// <summary>
 		/// The entity's current health
 		/// </summary>
-		public uint CurrentHealth { get => currentHealth; }
+		public int CurrentHealth { get => currentHealth; }
 
 		public EntityHealth(uint startingHealth) {
 			maxHealth = startingHealth;
-			currentHealth = startingHealth;
+			currentHealth = (int)startingHealth;
 		}
 
 		/// <summary>
@@ -278,7 +278,7 @@ namespace Celeritas.Game
 		/// damages entity's health equal to the passed amount
 		/// </summary>
 		/// <param name="amount">Amount to damage entity with</param>
-		public void Damage(uint amount) {
+		public void Damage(int amount) {
 			currentHealth -= amount;
 		}
 	}
