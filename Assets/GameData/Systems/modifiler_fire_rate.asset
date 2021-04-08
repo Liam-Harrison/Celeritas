@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa6d427f78d674049b9f4a9949b025a9, type: 3}
-  m_Name: weapon_rate_of_fire
+  m_Name: modifiler_fire_rate
   m_EditorClassIdentifier: 
-  title: 
-  rateOfFire: 10
-  rateOfFireToAddPerLevel: 1
+  title: Fire Rate
+  percentage: 0.25
+  percentageExtraPerLevel: 0.25
