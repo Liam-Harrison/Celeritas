@@ -22,12 +22,9 @@ public class WeaponRateOfFire : ModifierSystem, IEntityEffectAdded, IEntityEffec
 	public void OnEntityEffectAdded(Entity entity, ushort level)
 	{
 		WeaponEntity weapon = (WeaponEntity)entity;
-		Debug.Log(weapon.RateOfFire);
 		float totalPercent = percentage + (level * percentageExtraPerLevel);
-		Debug.Log("adding percent: " + totalPercent);
 		float amountToAdd = totalPercent * weapon.RateOfFire;
 		weapon.RateOfFire += (uint)(amountToAdd);
-		Debug.Log(weapon.RateOfFire);
 	}
 
 	public void OnEntityEffectRemoved(Entity entity, ushort level)
