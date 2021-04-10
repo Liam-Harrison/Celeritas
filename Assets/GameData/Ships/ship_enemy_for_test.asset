@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ship_enemy_for_test
   m_EditorClassIdentifier: 
   title: 
-  prefab: {fileID: 2516558698829045457, guid: b446706955a35834c903d52b0b890fcb, type: 3}
+  prefab: {fileID: 3479353834198126800, guid: d98daaa080e7a5843ada6b83bbd58340, type: 3}
   movementSettings:
     torquePerSec: {x: 0, y: 0}
     rotationCurve:
