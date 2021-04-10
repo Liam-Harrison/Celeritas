@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: modifier_chase_slow
   m_EditorClassIdentifier: 
   title: Chase Slow
-  targetTypes: 9
-  stacks: 0
   angPerSec: 60
+  angPerLevel: 0
+  maximumAngle: 45

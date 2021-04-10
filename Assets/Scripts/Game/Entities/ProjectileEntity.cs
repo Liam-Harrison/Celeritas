@@ -48,12 +48,10 @@ namespace Celeritas.Game.Entities
 
 		protected override void DamageEntity(Entity other)
 		{
-
 			// check if other is owner ship. Return & do no damage if it is owner & damageOwnerShip is false
-			if (damageOwnerShip == false && other is ShipEntity)
+			if (damageOwnerShip == false && other is ShipEntity ship)
 			{
-				ShipEntity ship = (ShipEntity)other;
-				if (ship.WeaponEntities.Contains(this.Weapon))
+				if (ship.WeaponEntities.Contains(Weapon))
 				{
 					// return without doing damage
 					return;
@@ -61,7 +59,7 @@ namespace Celeritas.Game.Entities
 			}
 
 			if (destroyedOnHit)
-				this.Dead = true;
+				Dead = true;
 
 			// parent implements damage calculations
 			base.DamageEntity(other);
@@ -78,7 +76,7 @@ namespace Celeritas.Game.Entities
 
 		protected override void Update()
 		{
-			transform.position += transform.forward * ProjectileData.Speed * Time.smoothDeltaTime;
+			Position += Forward * ProjectileData.Speed * Time.smoothDeltaTime;
 
 			if (TimeAlive >= ProjectileData.Lifetime) Destroy(gameObject);
 

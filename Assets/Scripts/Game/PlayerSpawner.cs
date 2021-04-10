@@ -1,8 +1,10 @@
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
+using Celeritas.Extensions;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Celeritas.AI;
 
 namespace Celeritas.Game
 {
@@ -11,7 +13,8 @@ namespace Celeritas.Game
 	/// </summary>
 	public class PlayerSpawner : MonoBehaviour
 	{
-		[SerializeField, Title("Settings")] private ShipData ship;
+		[SerializeField, Title("Settings")]
+		private ShipData ship;
 
 		private void Awake()
 		{

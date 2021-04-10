@@ -15,3 +15,4 @@ MonoBehaviour:
   title: Chase Fast
   angPerSec: 180
   angPerLevel: 50
+  maximumAngle: 45

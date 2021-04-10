@@ -18,6 +18,9 @@ namespace Celeritas.Scriptables.Systems
 		[SerializeField]
 		private float angPerLevel;
 
+		[SerializeField, PropertyRange(0, 180)]
+		private float maximumAngle = 180;
+
 		/// <summary>
 		/// The change in angle per second this modifier applies.
 		/// </summary>
@@ -27,6 +30,11 @@ namespace Celeritas.Scriptables.Systems
 		/// How much the angle per second increases per level.
 		/// </summary>
 		public float AngPerLevel { get => angPerLevel; }
+
+		/// <summary>
+		/// The maximum angle this chase can move relative to world.
+		/// </summary>
+		public float MaximumAngle { get => maximumAngle; }
 
 		/// <inheritdoc/>
 		public override SystemTargets Targets => SystemTargets.Projectile | SystemTargets.Weapon;
@@ -52,18 +60,30 @@ namespace Celeritas.Scriptables.Systems
 				return;
 			}
 
-			var dir = (target - entity.transform.position).normalized;
+			var dir = (target - entity.Position).normalized;
 
-			if (Vector3.Dot(entity.transform.forward, dir) >= 0.95)
+			if (Vector3.Dot(entity.Forward, dir) >= 0.975)
 				return;
 
 			var angle = (AngPerSec + AngPerLevel * level) * Time.smoothDeltaTime;
-			if (Vector3.Dot(entity.transform.right, dir) < 0)
+			if (Vector3.Dot(entity.Right, dir) > 0)
 			{
 				angle = -angle;
 			}
 
-			entity.transform.rotation *= Quaternion.Euler(0, angle, 0);
+			var remainder = Mathf.Abs(entity.transform.rotation.eulerAngles.z) - MaximumAngle;
+
+			var rotation = entity.transform.localRotation * Quaternion.Euler(0, 0, angle);
+
+			if (entity is WeaponEntity && Mathf.Abs(Mathf.DeltaAngle(0, rotation.eulerAngles.z)) > MaximumAngle)
+			{
+				if (rotation.eulerAngles.z < 180)
+					rotation = Quaternion.Euler(0, 0, MaximumAngle);
+				else
+					rotation = Quaternion.Euler(0, 0, -MaximumAngle);
+			}
+
+			entity.transform.localRotation = rotation;
 		}
 	}
 }

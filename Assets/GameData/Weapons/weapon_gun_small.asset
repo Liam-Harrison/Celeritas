@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08bd6193cb3e8a341bdbd9edcfe09d53, type: 3}
-  m_Name: weapon_gun
+  m_Name: weapon_gun_small
   m_EditorClassIdentifier: 
   title: Gun
-  prefab: {fileID: 295091177937448622, guid: 8575da7781b02e94ca294b90d11ccb57, type: 3}
+  prefab: {fileID: 295091177937448622, guid: f4b1f66dc9010454fb3319fdeee508f9, type: 3}
   size: 0
-  projectile: {fileID: 11400000, guid: e3a3987ff95275a4db9d1035ff111bc3, type: 2}
-  rateOfFire: 2
-  aims: 0
-  angPerSec: 0
+  projectile: {fileID: 11400000, guid: 341054bb030d7954ea09976c07126d5b, type: 2}
+  rateOfFire: 1
+  charge: 0
+  maxCharge: 0
