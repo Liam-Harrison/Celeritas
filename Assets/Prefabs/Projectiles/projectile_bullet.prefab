@@ -47,11 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasDefaultEffects: 0
   defaultEffects: []
-  health:
-    maxHealth: 0
-    currentHealth: 0
-  damage: 0
-  IAmDestroyedOnHit: 0
+  damage: 1
 --- !u!58 &1259930903223334323
 CircleCollider2D:
   m_ObjectHideFlags: 0

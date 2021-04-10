@@ -15,6 +15,7 @@ namespace Celeritas.Game.Entities
 		private Transform projectileSpawn;
 
 		private uint rateOfFire;
+		private float maxCharge = 10.0f;
 
 		/// <summary>
 		/// Get the effect manager for the weapons on this entity.
@@ -40,6 +41,7 @@ namespace Celeritas.Game.Entities
 		{
 			WeaponData = data as WeaponData;
 			rateOfFire = WeaponData.RateOfFire;
+			maxCharge = WeaponData.MaxCharge;
 
 			WeaponEffects = new EffectManager(SystemTargets.Projectile);
 
@@ -50,6 +52,11 @@ namespace Celeritas.Game.Entities
 		/// Is the weapon firing?
 		/// </summary>
 		public bool Firing { get; set; }
+
+		/// <summary>
+		/// Weapon's current charge level
+		/// </summary>
+		public float Charge { get; set; } = 0.0f;
 
 		protected override void Update()
 		{
@@ -62,20 +69,35 @@ namespace Celeritas.Game.Entities
 			{
 				TryToFire();
 			}
+
+			if (Firing == false && Charge > 0)
+			{
+				Fire();
+				Charge = 0.0f;
+			}
 		}
 
 		private float lastFired = 0.0f;
 
-		private void TryToFire()
+		protected virtual void TryToFire()
 		{
-			if (Time.time >= lastFired + (1f / rateOfFire))
+			if (WeaponData.Charge)
+			{
+				Charge += (1f / rateOfFire);
+				if (Charge > maxCharge)
+				{
+					Charge = maxCharge;
+				}
+				//TODO: add animation to show weapon is charging (see: git issue #35)
+			}
+			else if (Time.time >= lastFired + (1f / rateOfFire))
 			{
 				Fire();
 				lastFired = Time.time;
 			}
 		}
 
-		private void Fire()
+		protected virtual void Fire()
 		{
 			var projectile = EntityDataManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile, this, WeaponEffects.EffectWrapperCopy);
 			projectile.transform.CopyTransform(projectileSpawn);
