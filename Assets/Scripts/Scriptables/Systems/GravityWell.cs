@@ -56,25 +56,22 @@ namespace Celeritas.Scriptables.Systems {
 			foreach (Collider2D collider in withinRange)
 			{
 				Rigidbody2D rigidBody = collider.attachedRigidbody;
-				try
+				if (rigidBody == null)
+					continue;
+
+				var foreignShip = rigidBody.GetComponent<ShipEntity>(); // other ship
+
+				if (foreignShip != null)
 				{
-					var foreignShip = rigidBody.GetComponent<ShipEntity>(); // other ship
+					// apply force to pull ship towards ownerShip (or push if multiplier is negative)
+					Vector2 betweenShips = (ownerShip.transform.position - foreignShip.transform.position);
+					Vector2 directionToPull = betweenShips.normalized;
 
-					if (foreignShip != null)
-					{
-						// apply force to pull ship towards ownerShip (or push if multiplier is negative)
-						Vector2 betweenShips = (ownerShip.transform.position - foreignShip.transform.position);
-						Vector2 directionToPull = betweenShips.normalized;
+					float curveMultiplier = forceVariation.Evaluate(betweenShips.magnitude);
 
-						float curveMultiplier = forceVariation.Evaluate(betweenShips.magnitude);
+					float levelMultiplier = 1 + (level * extraForceMultiplierPerLevel);
 
-						float levelMultiplier = 1 + (level * extraForceMultiplierPerLevel);
-
-						rigidBody.AddForce(directionToPull * curveMultiplier * levelMultiplier * flatForceMultiplier * Time.smoothDeltaTime, ForceMode2D.Force);
-					}
-				}
-				catch (NullReferenceException) {
-					// do nothing - just means the entity was not a ship
+					rigidBody.AddForce(directionToPull * curveMultiplier * levelMultiplier * flatForceMultiplier * Time.smoothDeltaTime, ForceMode2D.Force);
 				}
 			}
 		}
