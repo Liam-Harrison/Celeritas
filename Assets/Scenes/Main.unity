@@ -946,7 +946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17a8ab5e0aac8845b1f5b03451d8f68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ship: {fileID: 11400000, guid: 2354894fc65befa43a573e4e81bedc30, type: 2}
+  ship: {fileID: 11400000, guid: 9e00513c9edd509458118ac7439b759a, type: 2}
 --- !u!1 &1566487629
 GameObject:
   m_ObjectHideFlags: 0

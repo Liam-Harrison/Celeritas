@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6d427f78d674049b9f4a9949b025a9, type: 3}
-  m_Name: weapon_rate_of_fire
+  m_Script: {fileID: 11500000, guid: 3ee0d4ee51750af45b7430210d4a5dbd, type: 3}
+  m_Name: effect_weapon_projectile_count_volley
   m_EditorClassIdentifier: 
-  title: 
-  rateOfFire: 10
-  rateOfFireToAddPerLevel: 1
+  title: Weapon Projectile Count - Volley
+  targets: 8
+  stacks: 0
+  systems:
+  - {fileID: 11400000, guid: 903796174b94aa64c91263d06939d9e6, type: 2}

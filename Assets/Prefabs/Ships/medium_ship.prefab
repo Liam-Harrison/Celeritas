@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2516558698829045460}
   - component: {fileID: 1338593059165622246}
   - component: {fileID: 2516558698829045451}
+  - component: {fileID: -7701307220355281892}
   m_Layer: 0
   m_Name: medium_ship
   m_TagString: Untagged
@@ -51,6 +52,8 @@ MonoBehaviour:
   defaultEffects:
   - Level: 1
     EffectCollection: {fileID: 11400000, guid: b5a7799e420c4cf40bbcdbe0932ea6da, type: 2}
+  - Level: 0
+    EffectCollection: {fileID: 11400000, guid: 2be226002fc1da741a7b9d3682128d92, type: 2}
   damage: 0
   modules:
   - {fileID: 3912116814696063671}
@@ -81,6 +84,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!70 &-7701307220355281892
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2516558698829045457}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.5, y: 1}
+  m_Direction: 0
 --- !u!1 &2516558699759650295
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +258,7 @@ MonoBehaviour:
   moduleEffects:
   - Level: 1
     EffectCollection: {fileID: 11400000, guid: 4f42264387040ca449cb3add683feec6, type: 2}
-  - Level: 1
+  - Level: 0
     EffectCollection: {fileID: 11400000, guid: e3f09900eaa4ffc48af44e95219ce278, type: 2}
   projectileEffects: []
 --- !u!1 &6803760354808902825
@@ -290,7 +309,7 @@ MonoBehaviour:
   hasDefaultModule: 1
   module: {fileID: 11400000, guid: 4823060fc78e6b74fbcc700c5aac91e9, type: 2}
   moduleEffects:
-  - Level: 1
+  - Level: 0
     EffectCollection: {fileID: 11400000, guid: e3f09900eaa4ffc48af44e95219ce278, type: 2}
   - Level: 1
     EffectCollection: {fileID: 11400000, guid: df06f026a5531b3439a3e0d8dd20f7b3, type: 2}

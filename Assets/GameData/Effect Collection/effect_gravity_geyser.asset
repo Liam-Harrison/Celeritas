@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae3e4c46078bf474ba0c760ccbaa737b, type: 3}
-  m_Name: modifier_increase_projectile_count
+  m_Script: {fileID: 11500000, guid: 3ee0d4ee51750af45b7430210d4a5dbd, type: 3}
+  m_Name: effect_gravity_geyser
   m_EditorClassIdentifier: 
-  title: Modify Projectile Count
-  extraProjectileCount: 1
-  extraProjectilesPerLevel: 1
-  spreadScale: 0.5
-  randomSpread: 0
+  title: Gravity Geyser - push enemies away
+  targets: 4
+  stacks: 0
+  systems:
+  - {fileID: 11400000, guid: 9df3111a750dedc479365ce637266f9d, type: 2}

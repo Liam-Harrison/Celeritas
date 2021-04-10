@@ -31,7 +31,7 @@ namespace Celeritas.Game
 	[System.Serializable]
 	public struct EffectWrapper
 	{
-		[Title("Effect Settings"), PropertyRange(1, 5)]
+		[Title("Effect Settings"), PropertyRange(0, 5)]
 		public ushort Level;
 		public EffectCollection EffectCollection;
 	}

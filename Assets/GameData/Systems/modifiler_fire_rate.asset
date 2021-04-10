@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ee0d4ee51750af45b7430210d4a5dbd, type: 3}
-  m_Name: efect_increase_projectile_count
+  m_Script: {fileID: 11500000, guid: fa6d427f78d674049b9f4a9949b025a9, type: 3}
+  m_Name: modifiler_fire_rate
   m_EditorClassIdentifier: 
-  title: 
-  targets: 8
-  stacks: 0
-  systems:
-  - {fileID: 11400000, guid: 903796174b94aa64c91263d06939d9e6, type: 2}
+  title: Fire Rate
+  percentage: 0.25
+  percentageExtraPerLevel: 0.25
