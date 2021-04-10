@@ -2,6 +2,8 @@ using Celeritas.Scriptables;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -51,10 +53,12 @@ namespace Celeritas.Game.Entities
 
 		public static Action OnLoadedAssets;
 
+		public bool Loaded { get; private set; } = false;
+
 		protected override void Awake()
 		{
 			base.Awake();
-			StartCoroutine(LoadAssets());
+			LoadAssets();
 		}
 
 		/// <summary>
@@ -70,30 +74,34 @@ namespace Celeritas.Game.Entities
 			return comp;
 		}
 
-		private IEnumerator LoadAssets()
+		private async void LoadAssets()
 		{
-			yield return LoadTags(ships, Constants.SHIP_TAG);
-			yield return LoadTags(weapons, Constants.WEAPON_TAG);
-			yield return LoadTags(modules, Constants.MODULE_TAG);
-			yield return LoadTags(projectiles, Constants.PROJECTILE_TAG);
-			yield return LoadTags(systems, Constants.SYSTEMS_TAG);
-			yield return LoadTags(effectColletions, Constants.EFFECTS_TAG);
+			Loaded = false;
 
+			Stopwatch watch = new Stopwatch();
+			watch.Start();
+			await LoadTags(ships, Constants.SHIP_TAG);
+			await LoadTags(weapons, Constants.WEAPON_TAG);
+			await LoadTags(modules, Constants.MODULE_TAG);
+			await LoadTags(projectiles, Constants.PROJECTILE_TAG);
+			await LoadTags(systems, Constants.SYSTEMS_TAG);
+			await LoadTags(effectColletions, Constants.EFFECTS_TAG);
+			watch.Stop();
+			UnityEngine.Debug.Log($"load took: {watch.ElapsedMilliseconds}ms");
+
+			Loaded = true;
 			OnLoadedAssets?.Invoke();
 		}
 
-		private IEnumerator LoadTags<T>(IList<T> list, string tag)
+		private async Task LoadTags<T>(IList<T> list, string tag)
 		{
 			var handle = Addressables.LoadAssetsAsync<T>(tag, (_) => { });
 
-			yield return handle;
+			await handle.Task;
 
-			if (handle.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
+			foreach (var item in handle.Result)
 			{
-				foreach (var item in handle.Result)
-				{
-					list.Add(item);
-				}
+				list.Add(item);
 			}
 		}
 	}

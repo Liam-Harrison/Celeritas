@@ -16,22 +16,12 @@ namespace Celeritas.Game
 		[SerializeField, Title("Settings")]
 		private ShipData ship;
 
-		[SerializeField]
-		private ShipData[] aiShips;
-
 		private void Awake()
 		{
 			EntityDataManager.OnLoadedAssets += () =>
 			{
 				var s = EntityDataManager.InstantiateEntity<ShipEntity>(ship);
 				s.gameObject.AddComponent<PlayerController>();
-
-				for (int i = 0; i < aiShips.Length; i++)
-				{
-					var ai = EntityDataManager.InstantiateEntity<ShipEntity>(aiShips[i]);
-					ai.transform.position = transform.position.RandomPointOnCircle(5f);
-					ai.gameObject.AddComponent<AIBasicChase>();
-				}
 			};
 		}
 	}

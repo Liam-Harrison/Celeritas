@@ -18,5 +18,12 @@ namespace Celeritas.AI
 		{
 			ShipEntity = GetComponent<ShipEntity>();
 		}
+
+		protected virtual void FixedUpdate()
+		{
+			if (EntityDataManager.Instance.ini)
+		}
+
+		protected abstract void AIUpdate();
 	}
 }

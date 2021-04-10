@@ -62,7 +62,7 @@ namespace Celeritas.Game.Controllers
 
 			if (context.canceled)
 			{
-				foreach (var weapon in Entity.WeaponEntities)
+				foreach (var weapon in ShipEntity.WeaponEntities)
 				{
 					weapon.Firing = false;
 				}
