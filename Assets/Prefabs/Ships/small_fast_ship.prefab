@@ -55,7 +55,7 @@ MonoBehaviour:
     forward: 1
     side: 1
     back: 1
-    rotation: 1
+    rotation: 0.25
 --- !u!50 &2516558698829045451
 Rigidbody2D:
   serializedVersion: 4
@@ -232,5 +232,7 @@ MonoBehaviour:
   isWeapon: 1
   hasDefaultModule: 1
   module: {fileID: 11400000, guid: 588cf5ead9a699545869a7dc1f8876ad, type: 2}
-  moduleEffects: []
+  moduleEffects:
+  - Level: 0
+    EffectCollection: {fileID: 11400000, guid: 922abbef8ae38a54da55d963727be36a, type: 2}
   projectileEffects: []

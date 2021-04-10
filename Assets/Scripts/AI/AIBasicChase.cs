@@ -28,11 +28,19 @@ namespace Celeritas.AI
 		/// <inheritdoc/>
 		protected override void AIUpdate()
 		{
+			if (PlayerController.Instance == null)
+				return;
+
 			var player = PlayerController.Instance.ShipEntity.Position;
 			var delta = ShipEntity.Position - player;
 
 			Goal = player + (delta.normalized * Range);
 			Target = PlayerController.Instance.ShipEntity.Position;
+
+			foreach (var weapon in ShipEntity.WeaponEntities)
+			{
+				weapon.Firing = Vector3.Dot(weapon.Forward, (Target - weapon.Position).normalized) > 0.9f;
+			}
 		}
 	}
 }
