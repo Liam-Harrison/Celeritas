@@ -3,38 +3,36 @@ using UnityEngine;
 
 namespace Celeritas.AI
 {
+	/// <summary>
+	/// A basic AI module which follows the player and keeps a specfic distance.
+	/// </summary>
 	public class AIBasicChase : AIBase
 	{
 		/// <summary>
 		/// The range this AI will keep from the player.
 		/// </summary>
-		public const float RANGE = 5f;
+		public float Range { get; set; } = 4f;
 
-		private Vector3 goal;
+		/// <inheritdoc/>
+		public override float Deadzone => 1f;
 
 		protected virtual void OnDrawGizmos()
 		{
 			Gizmos.color = Color.white;
 			Gizmos.DrawLine(transform.position, transform.position + ShipEntity.Translation);
-			Gizmos.DrawWireSphere(transform.position, RANGE);
+			Gizmos.DrawWireSphere(transform.position, Range);
 			Gizmos.color = Color.green;
-			Gizmos.DrawLine(transform.position, goal);
+			Gizmos.DrawLine(transform.position, Goal);
 		}
 
+		/// <inheritdoc/>
 		protected override void AIUpdate()
 		{
-			var delta = transform.position - PlayerController.Instance.transform.position;
-			if (delta.magnitude > RANGE)
-			{
-				goal = PlayerController.Instance.transform.position + (delta.normalized * RANGE);
-				ShipEntity.Translation = (goal - transform.position).normalized;
-			}
-			else
-			{
-				ShipEntity.Translation = Vector3.zero;
-			}
+			var player = PlayerController.Instance.ShipEntity.Position;
+			var delta = ShipEntity.Position - player;
 
-			ShipEntity.Target = PlayerController.Instance.transform.position;
+			Goal = player + (delta.normalized * Range);
+			Target = PlayerController.Instance.ShipEntity.Position;
 		}
 	}
 }

@@ -44,14 +44,31 @@ namespace Celeritas.Game
 		public bool Dead { get => dead; set => dead = value; }
 
 		/// <summary>
-		/// Get the entities game up direction vector.
+		/// Get or set the entities game up direction vector.
 		/// </summary>
-		public Vector3 Up { get => transform.up.RemoveAxes(z: true); }
+		public Vector3 Forward
+		{
+			get => transform.up.RemoveAxes(z: true);
+			set => transform.up = value;
+		}
 
 		/// <summary>
-		/// Get the entities game right direction vector.
+		/// Get or set the entities game right direction vector.
 		/// </summary>
-		public Vector3 Right { get => transform.right.RemoveAxes(z: true); }
+		public Vector3 Right
+		{
+			get => transform.right.RemoveAxes(z: true);
+			set => transform.right = value;
+		}
+
+		/// <summary>
+		/// Get or set the entities world position.
+		/// </summary>
+		public Vector3 Position
+		{
+			get => Vector3.ProjectOnPlane(transform.position, Vector3.forward);
+			set => transform.position = value;
+		}
 
 		/// <summary>
 		/// Is this entity initalized.
@@ -72,11 +89,6 @@ namespace Celeritas.Game
 		/// How long in seconds since this entity was spawned.
 		/// </summary>
 		public float TimeAlive { get => Time.time - Spawned; }
-
-		/// <summary>
-		/// Get the 2D position of this entity.
-		/// </summary>
-		public Vector3 Position { get => Vector3.ProjectOnPlane(transform.position, Vector3.forward); }
 
 		/// <summary>
 		/// The owner of this entity.
@@ -126,7 +138,7 @@ namespace Celeritas.Game
 
 		protected virtual void Update()
 		{
-			if (!IsInitalized)
+			if (this == null || !IsInitalized)
 				return;
 
 			OnEntityUpdated();

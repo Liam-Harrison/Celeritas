@@ -128,12 +128,12 @@ namespace Celeritas.Game.Entities
 			Gizmos.color = Color.white;
 			Gizmos.DrawLine(transform.position, Target);
 			Gizmos.color = Color.yellow;
-			Gizmos.DrawLine(transform.position, transform.position + Up);
+			Gizmos.DrawLine(transform.position, transform.position + Forward);
 		}
 
 		private void TranslationLogic()
 		{
-			Velocity = Up * ((Mathf.Max(Translation.y, 0) * ShipData.MovementSettings.forwardForcePerSec * movementModifier.Forward) +
+			Velocity = Forward * ((Mathf.Max(Translation.y, 0) * ShipData.MovementSettings.forwardForcePerSec * movementModifier.Forward) +
 							(Mathf.Min(Translation.y, 0) * ShipData.MovementSettings.backForcePerSec * movementModifier.Back)) * Time.smoothDeltaTime;
 
 			Velocity += Right * Translation.x * ShipData.MovementSettings.sideForcePerSec * movementModifier.Side * Time.smoothDeltaTime;
@@ -144,7 +144,7 @@ namespace Celeritas.Game.Entities
 		private void RotationLogic()
 		{
 			var dir = (Target - transform.position).normalized;
-			var dot = Vector3.Dot(Up, dir);
+			var dot = Vector3.Dot(Forward, dir);
 
 			if (dot < ShipData.MovementSettings.aimDeadzone)
 			{

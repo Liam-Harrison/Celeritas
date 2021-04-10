@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 109501728297139554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.047, z: 0.343}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3126610872183460878}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 3126610872183460878}
   - component: {fileID: 344424410848038372}
   m_Layer: 0
-  m_Name: small_weapon_gun
+  m_Name: weapon_gun_small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,6 +75,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02f66742312f564981c4afbf046ac96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasDefaultEffects: 0
+  defaultEffects: []
+  damage: 0
   projectileSpawn: {fileID: 2290273869816000492}
 --- !u!1 &1012961668822416307
 GameObject:
@@ -102,8 +105,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012961668822416307}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.025, z: 0.1}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.2}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0}
+  m_LocalScale: {x: 0.05, y: 0.1, z: 0.05}
   m_Children: []
   m_Father: {fileID: 3126610872183460878}
   m_RootOrder: 0
