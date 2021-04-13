@@ -1,3 +1,4 @@
+using Celeritas.AI;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
@@ -86,6 +87,16 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public Vector3 Velocity { get; private set; }
 
+		/// <summary>
+		/// Get the AI attatched to this ship, if any.
+		/// </summary>
+		public AIBase AttatchedAI { get; private set; }
+
+		/// <summary>
+		/// Check if this ship entity has an AI attatched.
+		/// </summary>
+		public bool HasAIAttatched { get => AttatchedAI != null; }
+
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Ship; }
 
@@ -97,8 +108,7 @@ namespace Celeritas.Game.Entities
 		{
 			Rigidbody = GetComponent<Rigidbody2D>();
 			ShipData = data as ShipData;
-
-			health = new EntityHealth(ShipData.StartingHealth);
+			Health = new EntityHealth(ShipData.StartingHealth);
 
 			ApplyRigidbodySettings();
 
@@ -129,6 +139,11 @@ namespace Celeritas.Game.Entities
 			Gizmos.DrawLine(transform.position, Target);
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawLine(transform.position, transform.position + Forward);
+		}
+
+		public void AttatchToAI(AIBase ai)
+		{
+			AttatchedAI = ai;
 		}
 
 		private void TranslationLogic()
