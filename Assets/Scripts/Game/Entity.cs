@@ -1,7 +1,7 @@
 using Celeritas.Extensions;
-using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,25 +12,19 @@ namespace Celeritas.Game
 	/// </summary>
 	public abstract class Entity : MonoBehaviour, IEffectManager
 	{
-		// top of the ShipEntity.cs
 		[SerializeField]
 		private bool hasDefaultEffects;
 
 		[SerializeField, ShowIf(nameof(hasDefaultEffects))]
 		private EffectWrapper[] defaultEffects;
 
-		//[SerializeField]
-		protected EntityHealth health;
-
-		private bool dead;
-
 		[SerializeField]
-		protected int damage = 0; // default
+		protected int damage = 0;
 
 		/// <summary>
 		/// The entity's health data
 		/// </summary>
-		public EntityHealth Health { get => health; }
+		public EntityHealth Health { get; protected set; }
 
 		/// <summary>
 		/// How much damage this entity does to another
@@ -41,7 +35,7 @@ namespace Celeritas.Game
 		/// <summary>
 		/// Whether or not this entity is dead (ie, destroyed & should be removed from the screen)
 		/// </summary>
-		public bool Dead { get => dead; set => dead = value; }
+		public bool Died { get; set; } = false;
 
 		/// <summary>
 		/// Get or set the entities game up direction vector.
@@ -100,6 +94,11 @@ namespace Celeritas.Game
 		/// </summary>
 		public abstract SystemTargets TargetType { get; }
 
+		/// <summary>
+		/// Invoked when this Entity is destroyed.
+		/// </summary>
+		public event Action<Entity> OnDestroyed;
+
 		private EffectManager effectManager;
 
 		public IReadOnlyList<EffectWrapper> EffectWrappers => ((IEffectManager)effectManager).EffectWrappers;
@@ -141,13 +140,20 @@ namespace Celeritas.Game
 			if (this == null || !IsInitalized)
 				return;
 
-			OnEntityUpdated();
+			if (Died)
+			{
+				Destroy(gameObject);
+			}
+			else
+			{
+				OnEntityUpdated();
+			}
 		}
 
 		/// <summary>
 		/// Update effects for this entity when created.
 		/// </summary>
-		public void OnEntityCreated()
+		protected void OnEntityCreated()
 		{
 			foreach (var wrapper in EffectWrappers)
 			{
@@ -158,19 +164,20 @@ namespace Celeritas.Game
 		/// <summary>
 		/// Update effects for this entity when destroyed.
 		/// </summary>
-		public void OnEntityDestroyed()
+		protected void OnEntityDestroyed()
 		{
 			foreach (var wrapper in EffectWrappers)
 			{
 				wrapper.EffectCollection.DestroyEntity(this, wrapper.Level);
 			}
+			OnDestroyed?.Invoke(this);
 		}
 
 		/// <summary>
 		/// Update effects for this entity when hit.
 		/// </summary>
 		/// <param name="other">The other entity.</param>
-		public void OnEntityHit(Entity other)
+		protected void OnEntityHit(Entity other)
 		{
 			// note: 'this' is hitting the other entity
 
@@ -180,6 +187,17 @@ namespace Celeritas.Game
 			}
 
 			DamageEntity(other);
+		}
+
+		/// <summary>
+		/// Update effects for this entity when updated.
+		/// </summary>
+		protected void OnEntityUpdated()
+		{
+			foreach (var wrapper in EffectWrappers)
+			{
+				wrapper.EffectCollection.UpdateEntity(this, wrapper.Level);
+			}
 		}
 
 		/// <summary>
@@ -193,22 +211,7 @@ namespace Celeritas.Game
 			{
 				other.Health.Damage(damage);
 				if (other.Health.IsDead())
-					other.Dead = true;
-			}
-		}
-
-		/// <summary>
-		/// Update effects for this entity when updated.
-		/// </summary>
-		public void OnEntityUpdated()
-		{
-			foreach (var wrapper in EffectWrappers)
-			{
-				wrapper.EffectCollection.UpdateEntity(this, wrapper.Level);
-			}
-			// destroy entity if it is dead
-			if (dead) {
-				Destroy(gameObject);
+					other.Died = true;
 			}
 		}
 

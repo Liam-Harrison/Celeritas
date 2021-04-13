@@ -51,15 +51,15 @@ namespace Celeritas.AI
 		private void InternalAIUpdate()
 		{
 			var gDelta = Goal - transform.position;
-			var gDir = gDelta.normalized;
 			var gMag = gDelta.magnitude;
 
 			if (gMag > Deadzone)
 			{
+				var gDir = gDelta.normalized;
 				var fwd = Vector3.Dot(ShipEntity.Forward, gDir);
 				var right = Vector3.Dot(ShipEntity.Right, gDir);
 
-				ShipEntity.Translation = (Vector3.up * fwd) + (Vector3.right * right);
+				ShipEntity.Translation = ((Vector3.up * fwd) + (Vector3.right * right)).normalized;
 			}
 			else
 			{
