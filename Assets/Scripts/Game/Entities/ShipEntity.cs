@@ -17,6 +17,22 @@ namespace Celeritas.Game.Entities
 		[SerializeField]
 		private MovementModifier movementModifier;
 
+		[SerializeField]
+		protected EntityStatBar health;
+
+		[SerializeField]
+		protected EntityStatBar shield;
+
+		/// <summary>
+		/// The entity's health data
+		/// </summary>
+		public EntityStatBar Health { get => health; }
+
+		/// <summary>
+		/// The entity's shield data
+		/// </summary>
+		public EntityStatBar Shield { get => shield; }
+
 		/// <summary>
 		/// The movement modifier used by this ship.
 		/// </summary>
@@ -98,7 +114,9 @@ namespace Celeritas.Game.Entities
 			Rigidbody = GetComponent<Rigidbody2D>();
 			ShipData = data as ShipData;
 
-			health = new EntityHealth(ShipData.StartingHealth);
+			health = new EntityStatBar(ShipData.StartingHealth);
+
+			shield = new EntityStatBar(ShipData.StartingShield);
 
 			ApplyRigidbodySettings();
 
@@ -119,6 +137,37 @@ namespace Celeritas.Game.Entities
 			RotationLogic();
 
 			base.Update();
+		}
+
+		protected override void TakeDamage(Entity attackingEntity)
+		{
+			// as projectile is the only entity that does damage right now, check its type
+			// might want to implement this as an interface later (IDoDamage)
+			if (attackingEntity is ProjectileEntity projectile)
+			{
+				base.TakeDamage(attackingEntity);
+
+				int damageAmount = projectile.Damage;
+
+				// if damage will go beyond shields
+				if (damageAmount > shield.CurrentValue)
+				{
+					// reduce damage by shield amount, reduce shield to 0
+					damageAmount -= shield.CurrentValue;
+					shield.Damage(shield.CurrentValue);
+
+					// damage health with remaining amount
+					health.Damage(damageAmount);
+				}
+				else
+				{	// damage won't go beyond shields
+					shield.Damage(damageAmount);
+				}
+
+				if (health.IsEmpty())
+					Dead = true;
+
+			}
 		}
 
 		protected virtual void OnDrawGizmosSelected()

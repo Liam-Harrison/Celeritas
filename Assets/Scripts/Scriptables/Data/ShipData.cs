@@ -16,6 +16,8 @@ namespace Celeritas.Scriptables
 
 		[SerializeField, TitleGroup("Starting Health")] private uint startingHealth;
 
+		[SerializeField, TitleGroup("Starting Shield")] private uint startingShield;
+
 		/// <summary>
 		/// The movement settings for this ship.
 		/// </summary>
@@ -25,6 +27,11 @@ namespace Celeritas.Scriptables
 		/// How much health the entity starts with (== max health and == current health)
 		/// </summary>
 		public uint StartingHealth { get => startingHealth; }
+
+		/// <summary>
+		/// How much shield the entity starts with
+		/// </summary>
+		public uint StartingShield { get => startingShield; }
 
 		protected virtual void OnValidate()
 		{
