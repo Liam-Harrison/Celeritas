@@ -18,24 +18,11 @@ namespace Celeritas.Game
 		[SerializeField, ShowIf(nameof(hasDefaultEffects))]
 		private EffectWrapper[] defaultEffects;
 
-		[SerializeField]
-		protected int damage = 0;
-
 		/// <summary>
 		/// Does this entity belong to the player?
 		/// </summary>
 		public bool IsPlayer { get; private set; }
-
-		/// <summary>
-		/// The entity's health data
-		/// </summary>
-		public EntityHealth Health { get; protected set; }
-
-		/// <summary>
-		/// How much damage this entity does to another
-		/// when it hits
-		/// </summary>
-		public int Damage { get => damage; set => damage = value; }
+		private bool dead;
 
 		/// <summary>
 		/// Whether or not this entity is dead (ie, destroyed & should be removed from the screen)
@@ -188,7 +175,7 @@ namespace Celeritas.Game
 		/// Update effects for this entity when hit.
 		/// </summary>
 		/// <param name="other">The other entity.</param>
-		protected void OnEntityHit(Entity other)
+		public virtual void OnEntityHit(Entity other)
 		{
 			// note: 'this' is hitting the other entity
 
@@ -197,7 +184,7 @@ namespace Celeritas.Game
 				wrapper.EffectCollection.HitEntity(this, other, wrapper.Level);
 			}
 
-			DamageEntity(other);
+			other.TakeDamage(this);
 		}
 
 		/// <summary>
@@ -211,19 +198,12 @@ namespace Celeritas.Game
 			}
 		}
 
-		/// <summary>
-		/// damages other entity with this entity's 'damage' amount.
-		/// virtual so this method may be overridden by child classes (eg, projectile)
+		/// Logic for this entity being damaged by another entity
 		/// </summary>
-		/// <param name="other">The entity being damaged</param>
-		protected virtual void DamageEntity(Entity other)
+		/// <param name="attackingEntity">the entity that is attacking this entity</param>
+		protected virtual void TakeDamage(Entity attackingEntity)
 		{
-			if (other.Health != null)
-			{
-				other.Health.Damage(damage);
-				if (other.Health.IsDead())
-					other.Died = true;
-			}
+			// by default, entities have no health, so this does nothing. Will be overridden by children.
 		}
 
 		public void AddEffect(EffectWrapper wrapper)
@@ -266,46 +246,46 @@ namespace Celeritas.Game
 	/// Provides information on how much health an entity has
 	/// </summary>
 	[System.Serializable]
-	public class EntityHealth
+	public class EntityStatBar
 	{
 		[SerializeField, PropertyRange(1, 100), Title("Max Health")]
-		private uint maxHealth;
+		private uint maxValue;
 
 		[SerializeField, PropertyRange(1, 100), Title("Current Health")]
-		private int currentHealth;
+		private int currentValue;
 
 		/// <summary>
 		/// The entity's maximum health
 		/// </summary>
-		public uint MaxHealth { get => maxHealth; }
+		public uint MaxValue { get => maxValue; }
 
 		/// <summary>
 		/// The entity's current health
 		/// </summary>
-		public int CurrentHealth { get => currentHealth; }
+		public int CurrentValue { get => currentValue; }
 
-		public EntityHealth(uint startingHealth) {
-			maxHealth = startingHealth;
-			currentHealth = (int)startingHealth;
+		public EntityStatBar(uint startingValue) {
+			maxValue = startingValue;
+			currentValue = (int)startingValue;
 		}
 
 		/// <summary>
-		/// Checks whether the entity is dead, returns true if so
+		/// Checks whether the stat is empty or not, returns true if so
 		/// </summary>
-		/// <returns>true if entity is dead (ie, current health == 0)</returns>
-		public bool IsDead() {
-			if (currentHealth < 1)
+		/// <returns>true if bar is empty (ie, current value == 0). If health, entity is dead.</returns>
+		public bool IsEmpty() {
+			if (currentValue < 1)
 				return true;
 			else
 				return false;
 		}
 
 		/// <summary>
-		/// damages entity's health equal to the passed amount
+		/// damages entity's stat equal to the passed amount
 		/// </summary>
 		/// <param name="amount">Amount to damage entity with</param>
 		public void Damage(int amount) {
-			currentHealth -= amount;
+			currentValue -= amount;
 		}
 	}
 }
