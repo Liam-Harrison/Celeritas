@@ -116,6 +116,8 @@ namespace Celeritas.Game.Entities
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Ship; }
 
+		private GameObject healthBar; //test
+
 		/// <summary>
 		/// Initalize this entity.
 		/// </summary>
@@ -137,6 +139,10 @@ namespace Celeritas.Game.Entities
 			{
 				module.Initalize(this);
 			}
+
+			healthBar = CombatHUDManager.Instance.CreateHealthBarThatFollowsShip(this);
+
+			base.Initalize(data, owner, effects);
 		}
 
 		protected override void Update()
@@ -147,13 +153,14 @@ namespace Celeritas.Game.Entities
 			TranslationLogic();
 			RotationLogic();
 
+			healthBar.transform.position = transform.position;
+
 			base.Update();
 		}
 
 		protected override void TakeDamage(Entity attackingEntity)
 		{
 			// as projectile is the only entity that does damage right now, check its type
-			// might want to implement this as an interface later (IDoDamage)
 			if (attackingEntity is ProjectileEntity projectile)
 			{
 				base.TakeDamage(attackingEntity);
