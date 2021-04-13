@@ -12,7 +12,7 @@ public class StatBar : MonoBehaviour
 {
 	public Slider slider;
 
-	public GameObject statBar; // the whole healthbar object
+	//public GameObject statBar; // the whole healthbar object
 
 	private EntityStatBar entityStats; // the entity's stat information
 
