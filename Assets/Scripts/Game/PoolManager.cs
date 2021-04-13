@@ -6,7 +6,7 @@ namespace Celeritas.Game
 	{
 		public GameObject Instantiate(GameObject prefab, Transform transform)
 		{
-			return Instantiate(prefab, transform);
+			return Object.Instantiate(prefab, transform);
 		}
 
 		public void Destroy(GameObject item)

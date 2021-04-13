@@ -32,10 +32,10 @@ namespace Celeritas.Game.Entities
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Module; }
 
-		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null)
+		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
 		{
 			ModuleData = data as ModuleData;
-			base.Initalize(data, owner, effects);
+			base.Initalize(data, owner, effects, forceIsPlayer);
 		}
 
 		/// <summary>

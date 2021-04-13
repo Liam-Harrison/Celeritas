@@ -20,11 +20,6 @@ namespace Celeritas.Game
 				if (instance == null)
 				{
 					instance = FindObjectOfType<T>();
-					if (instance == null)
-					{
-						instance = new GameObject().AddComponent<T>();
-						instance.gameObject.name = nameof(T);
-					}
 				}
 				return instance;
 			}
@@ -52,15 +47,8 @@ namespace Celeritas.Game
 
 		protected virtual void Awake()
 		{
-			if (instance != null)
-			{
-				Debug.LogError($"Created an instance of {nameof(T)} when an instance was still registered.");
-			}
-			else
-			{
-				instance = this as T;
-				OnCreated?.Invoke(instance);
-			}
+			instance = this as T;
+			OnCreated?.Invoke(instance);
 		}
 
 		protected virtual void OnDestroy()

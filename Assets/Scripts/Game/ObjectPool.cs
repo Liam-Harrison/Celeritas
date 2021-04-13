@@ -50,8 +50,9 @@ namespace Celeritas.Game
 			if (pool.Count == 0)
 			{
 				var item = PoolManager.Instance.Instantiate(prefab, parent).GetComponent<T>();
-				item.gameObject.SetActive(false);
+				item.gameObject.SetActive(true);
 				item.OnSpawned();
+				active.Add(item);
 				return item;
 			}
 			else
@@ -59,6 +60,7 @@ namespace Celeritas.Game
 				var item = pool[0];
 				pool.RemoveAt(0);
 				active.Add(item);
+				item.gameObject.SetActive(true);
 				item.OnSpawned();
 				return item;
 			}
@@ -70,9 +72,9 @@ namespace Celeritas.Game
 		/// <param name="item">The object to release.</param>
 		public void ReleasePooledObject(T item)
 		{
+			item.gameObject.SetActive(false);
 			if (active.Contains(item))
 			{
-				item.gameObject.SetActive(false);
 				active.Remove(item);
 				pool.Add(item);
 				item.OnDespawned();

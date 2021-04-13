@@ -1,71 +1,84 @@
+using Celeritas.Extensions;
 using Celeritas.Game;
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Celeritas.UI
 {
 	/// <summary>
-	/// Types of markers avalaible to the UI.
+	/// Manages the UI and game-logic of a minimap.
 	/// </summary>
-	public enum MarkerType
-	{
-		Player,
-		Enemy
-	}
-
 	public class Minimap : MonoBehaviour
 	{
-		[SerializeField]
-		private PlayerController ship;
+		[SerializeField, Title("Minimap Settings")]
+		private float worldRadius = 10;
 
-		[SerializeField]
-		private float radius = 10;
+		[SerializeField, InfoBox("UI Radius will be half your minimaps diamater, minus some extra for the border of the image.")]
+		private float uiRadius = 128;
 
-		[SerializeField]
-		private float pxRadius = 128;
-
-		[SerializeField]
+		[SerializeField, PropertySpace(20)]
 		private GameObject markerPrefab;
 
 		[SerializeField]
-		private ObjectPool<MinimapMarker> markers;
+		private ObjectPool<MinimapMarker> pooledMarkers;
+
+		private Vector3 center;
 
 		private void Awake()
 		{
-			markers = new ObjectPool<MinimapMarker>(markerPrefab, transform);
+			pooledMarkers = new ObjectPool<MinimapMarker>(markerPrefab, transform);
+			EntityDataManager.OnCreatedEntity += OnCreatedEntity;
+		}
+
+		private void OnDestroy()
+		{
+			EntityDataManager.OnCreatedEntity -= OnCreatedEntity;
 		}
 
 		private void Update()
 		{
-			foreach (var marker in markers.ActiveObjects)
+			if (PlayerController.Exists)
+				center = PlayerController.Instance.ShipEntity.Position;
+
+			for (int i = 0; i < pooledMarkers.ActiveObjects.Count; i++)
 			{
-				marker.
+				var marker = pooledMarkers.ActiveObjects[i];
+
+				if (marker.Entity == null)
+				{
+					pooledMarkers.ReleasePooledObject(marker);
+					continue;
+				}
+
+				marker.RectTransform.anchoredPosition = GetPosition(center, marker.Entity.Position);
 			}
-			marker.anchoredPosition = GetPosition(ship.transform.position);
 		}
 
-		public void TrackEntity(Entity ship, MarkerType type)
+		/// <summary>
+		/// Track an entity in the minimap.
+		/// </summary>
+		/// <param name="entity">The entity to track.</param>
+		public void TrackEntity(Entity entity)
 		{
-			markers.GetPooledObject().Initalize(ship, type);
+			var marker = pooledMarkers.GetPooledObject();
+			marker.Initalize(entity);
+			marker.RectTransform.anchoredPosition = GetPosition(center, marker.Entity.Position);
 		}
 
-		private Vector3 GetPosition(Vector3 target)
+		private void OnCreatedEntity(Entity entity)
 		{
-			var dir = target.normalized;
-			var p = Mathf.Clamp01(target.magnitude / radius);
-
-			return dir * p * pxRadius;
+			TrackEntity(entity);
 		}
 
-		private void OnDrawGizmos()
+		private Vector3 GetPosition(Vector3 center, Vector3 target)
 		{
-			Gizmos.color = Color.green;
-			Gizmos.DrawWireSphere(ship.transform.position, radius);
-			Gizmos.color = Color.yellow;
-			Gizmos.DrawWireSphere(Vector3.zero, radius * 1.1f);
-			Gizmos.color = Color.red;
-			Gizmos.DrawWireSphere(Vector3.zero, radius);
+			var delta = target - center;
+			var dir = delta.normalized;
+			var p = Mathf.Clamp01(delta.magnitude / worldRadius);
+
+			return dir * p * uiRadius;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using Celeritas.Game;
 using Celeritas.Game.Interfaces;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,28 +8,26 @@ namespace Celeritas.UI
 {
 	class MinimapMarker : MonoBehaviour, IPooledObject
 	{
-		[SerializeField]
+		[SerializeField, Title("Minimap Marker Settings")]
 		private Image sprite;
 
 		[SerializeField]
-		private Color playerColor;
+		private Color playerColor = Color.white;
 
 		[SerializeField]
-		private Color enemyColor;
+		private Color enemyColor = Color.white;
 
 		public Entity Entity { get; private set; }
 
-		public MarkerType MarkerType { get; private set; }
-
 		public RectTransform RectTransform { get; private set; }
 
-		public void Initalize(Entity entity, MarkerType marker)
+		public void Initalize(Entity entity)
 		{
 			Entity = entity;
 
-			if (marker == MarkerType.Player)
+			if (entity.IsPlayer)
 				sprite.color = playerColor;
-			else if (marker == MarkerType.Enemy)
+			else
 				sprite.color = enemyColor;
 		}
 
