@@ -1,101 +1,61 @@
-using Celeritas.Controllers;
-using Cinemachine;
+using Celeritas.Game;
+using Celeritas.Game.Controllers;
+using Celeritas.Game.Entities;
 using UnityEngine;
 
 namespace Celeritas.UI
 {
+	/// <summary>
+	/// Types of markers avalaible to the UI.
+	/// </summary>
+	public enum MarkerType
+	{
+		Player,
+		Enemy
+	}
+
 	public class Minimap : MonoBehaviour
 	{
 		[SerializeField]
-		private ShipController ship;
+		private PlayerController ship;
+
 		[SerializeField]
 		private float radius = 10;
+
 		[SerializeField]
 		private float pxRadius = 128;
-		[SerializeField]
-		private RectTransform marker;
-		[SerializeField]
-		private Font font;
-		[SerializeField]
-		private Transform[] boxes;
-		[SerializeField]
-		private RectTransform[] markers;
 
-		float playerP;
+		[SerializeField]
+		private GameObject markerPrefab;
+
+		[SerializeField]
+		private ObjectPool<MinimapMarker> markers;
+
+		private void Awake()
+		{
+			markers = new ObjectPool<MinimapMarker>(markerPrefab, transform);
+		}
 
 		private void Update()
 		{
+			foreach (var marker in markers.ActiveObjects)
+			{
+				marker.
+			}
 			marker.anchoredPosition = GetPosition(ship.transform.position);
+		}
 
-			for (int i = 0; i < boxes.Length; i++)
-			{
-				markers[i].anchoredPosition = GetPosition(boxes[i].position);
-			}
-
-			var dir = ship.transform.position.normalized;
-			var p = playerP = ship.transform.position.magnitude / radius;
-
-			if (p > 1.1f)
-			{
-				var cam = Camera.main.transform.GetComponent<CinemachineVirtualCamera>();
-
-				dir = -dir;
-				p = 1 - (p - 1);
-
-				var old = ship.transform.position;
-				ship.transform.position = dir * p * radius;
-
-				var delta = ship.transform.position - old;
-				cam.OnTargetObjectWarped(ship.transform, delta);
-
-				//for (int i = 0; i < boxes.Length; i++)
-				//{
-				//	boxes[i].position += delta;
-				//}
-			}
-
-			for (int i = 0; i < boxes.Length; i++)
-			{
-				var d = boxes[i].position - ship.transform.position;
-				var pd = d.magnitude / radius;
-
-				if (pd > 1)
-				{
-					var n = d.normalized;
-					pd = 1 - (pd - 1);
-
-					var pos = new Vector3();
-
-					//if (Vector3.Dot(Vector3.right, n) > 0f)
-					//{
-
-					//	boxes[i].position = ship.transform.position + (-n * pd * radius);
-					//}
-
-					boxes[i].position = ship.transform.position - (Vector3.Reflect(n, Vector3.up) * d.magnitude);
-
-					//boxes[i].position = ship.transform.position + (-n * pd * radius);
-				}
-			}
+		public void TrackEntity(Entity ship, MarkerType type)
+		{
+			markers.GetPooledObject().Initalize(ship, type);
 		}
 
 		private Vector3 GetPosition(Vector3 target)
 		{
 			var dir = target.normalized;
-			var p = target.magnitude / radius;
-
-			if (p > 1)
-			{
-				dir = -dir;
-				p = 1 - (p - 1);
-			}
+			var p = Mathf.Clamp01(target.magnitude / radius);
 
 			return dir * p * pxRadius;
-		}
-
-		private void OnGUI()
-		{
-			GUI.Label(new Rect(8, 4, 512, 26), $"P: {playerP:0.00}");
 		}
 
 		private void OnDrawGizmos()

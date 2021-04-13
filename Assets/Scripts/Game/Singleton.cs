@@ -15,7 +15,19 @@ namespace Celeritas.Game
 		/// </summary>
 		public static T Instance
 		{
-			get => instance;
+			get
+			{
+				if (instance == null)
+				{
+					instance = FindObjectOfType<T>();
+					if (instance == null)
+					{
+						instance = new GameObject().AddComponent<T>();
+						instance.gameObject.name = nameof(T);
+					}
+				}
+				return instance;
+			}
 		}
 
 		/// <summary>
