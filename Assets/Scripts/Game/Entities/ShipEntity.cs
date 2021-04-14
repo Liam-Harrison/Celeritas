@@ -105,8 +105,6 @@ namespace Celeritas.Game.Entities
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Ship; }
 
-		private GameObject healthBar; //test
-
 		/// <summary>
 		/// Initalize this entity.
 		/// </summary>
@@ -127,8 +125,6 @@ namespace Celeritas.Game.Entities
 				module.Initalize(this);
 			}
 
-			healthBar = CombatHUDManager.Instance.CreateHealthBarThatFollowsShip(this);
-
 			base.Initalize(data, owner, effects);
 		}
 
@@ -139,8 +135,6 @@ namespace Celeritas.Game.Entities
 
 			TranslationLogic();
 			RotationLogic();
-
-			healthBar.transform.position = transform.position;
 
 			base.Update();
 		}

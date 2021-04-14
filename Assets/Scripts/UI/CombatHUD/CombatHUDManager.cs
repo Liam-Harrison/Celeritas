@@ -12,11 +12,13 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	public StatBar playerMainShieldBar; // main shield bar for player
 
 	private ShipEntity playerShip;
-	private List<GameObject> followingHealthBars; // maybe put into ShipEntity instead?
+	private List<MovingStatBar> movingStatBars; // stat bars that follow ship entities
 
 	protected override void Awake()
 	{
 		base.Awake();
+
+		movingStatBars = new List<MovingStatBar>();
 
 	}
 
@@ -32,25 +34,42 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 
 			CreateHealthBarThatFollowsShip(playerShip);
 		}
+
+		foreach (MovingStatBar statBar in movingStatBars)
+		{
+			statBar.UpdateLocation();
+		}
 	}
 
 	/// <summary>
 	/// creates a health bar that will follow ship entities around
 	/// </summary>
-	public GameObject CreateHealthBarThatFollowsShip(ShipEntity ship)
+	public void CreateHealthBarThatFollowsShip(ShipEntity ship)
 	{
 		var healthBar = new GameObject();
 		healthBar.transform.SetParent(GameObject.FindObjectOfType<Canvas>().gameObject.transform, false);
 		healthBar.transform.localPosition = ship.transform.position;
 
-		Image bigBar = healthBar.AddComponent<Image>();
-		bigBar.rectTransform.sizeDelta = new Vector2(150, 15);
+		var healthBorder = new GameObject();
+		healthBorder.transform.SetParent(healthBar.transform, false);
+		Image bigBar = healthBorder.AddComponent<Image>();
+		bigBar.rectTransform.sizeDelta = new Vector2(9, 9); // wrong
 
-		Image smallBar = healthBar.AddComponent<Image>();
-		//smallBar.rectTransform.sizeDelta = new Vector2(150, 15);
-		//smallBar.color = Color.red;
+		var healthFill = new GameObject();
+		healthFill.transform.SetParent(healthBar.transform, false);
+		Image smallBar = healthFill.AddComponent<Image>();
+		smallBar.rectTransform.sizeDelta = new Vector2(20, 5);
+		smallBar.color = Color.red;
 
-		return healthBar;
+		Slider slider = healthBar.AddComponent<Slider>();
+		slider.fillRect = smallBar.rectTransform;
 
+		MovingStatBar toAdd = healthBar.AddComponent<MovingStatBar>();
+		toAdd.Ship = ship;
+		toAdd.StatBar = healthBar;
+		toAdd.EntityStats = ship.Health; // todo: add shield too
+		toAdd.slider = slider;
+
+		movingStatBars.Add(toAdd);
 	}
 }
