@@ -567,7 +567,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 640456416}
-  statBar: {fileID: 640456413}
 --- !u!114 &640456416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1408,7 +1407,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 1231162922}
-  statBar: {fileID: 0}
 --- !u!1 &1365698828
 GameObject:
   m_ObjectHideFlags: 0
