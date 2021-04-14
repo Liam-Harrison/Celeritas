@@ -1,8 +1,14 @@
 using Celeritas.AI;
 using Celeritas.Scriptables;
+using Celeritas.Game.Entities;
+using Celeritas.Game.Controllers;
+using Celeritas.Game;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 namespace Celeritas.Game.Entities
 {
@@ -12,6 +18,7 @@ namespace Celeritas.Game.Entities
 	[RequireComponent(typeof(Rigidbody2D))]
 	public class ShipEntity : Entity
 	{
+
 		[SerializeField, Title("Modules")]
 		private Module[] modules;
 
@@ -38,6 +45,14 @@ namespace Celeritas.Game.Entities
 		/// The movement modifier used by this ship.
 		/// </summary>
 		public MovementModifier MovementModifier { get => movementModifier; }
+
+		[SerializeField]
+		private LootConfig lootConfig;
+
+		/// <summary>
+		/// The loot drop rate of the ship.
+		/// </summary>
+		public LootConfig LootConfig { get => lootConfig; }
 
 		/// <summary>
 		/// The modules attatched to this ship.
@@ -234,6 +249,24 @@ namespace Celeritas.Game.Entities
 			Rigidbody.angularDrag = ShipData.MovementSettings.angularDrag;
 			Rigidbody.mass = ShipData.MovementSettings.mass;
 		}
+
+		private void OnShipDeath()
+		{
+			
+			//float gain = LootConfig.Gain;
+			//bool isBoss = LootConfig.IsBoss;
+			public LootController lootController;
+
+			LootController.Instance.LootDrop(gain, isBoss, "EnemyShip");
+
+			/*EntityDataManager.OnLoadedAssets += () =>
+			{
+				var s = EntityDataManager.GetComponent<LootController>();
+
+				LootController lootController = s.LootDrop();
+				lootController.LootDrop(gain, isBoss, "EnemyShip");
+			}; */
+		}
 	}
 
 	/// <summary>
@@ -276,4 +309,29 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public float Rotation { get => rotation; set => rotation = Mathf.Clamp(value, -1, RANGE); }
 	}
+
+	/// <summary>
+	/// Determines the value and chance of item drops.
+	/// </summary>
+	[System.Serializable]
+	public class LootConfig
+	{
+		private const int RANGE = 100;
+
+		[SerializeField, PropertyRange(0, RANGE), DisableInPlayMode, Title("Item Drop Modifiers")]
+		private float gain = 1;
+
+		[SerializeField, DisableInPlayMode, Title("Is Enemy Boss")]
+		private bool isBoss = false;
+
+		/// <summary>
+		/// The base loot value of the ship.
+		/// </summary>
+		public float Gain { get => gain; set => gain = Mathf.Clamp(value, 0, RANGE); }
+		
+		/// <summary>
+		/// Check if enemy is a boss to modify drops.
+		/// </summary>
+		public bool IsBoss { get => isBoss; set => isBoss = value; }
+    }
 }

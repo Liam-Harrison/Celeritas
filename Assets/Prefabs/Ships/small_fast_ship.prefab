@@ -56,6 +56,9 @@ MonoBehaviour:
     side: 1
     back: 1
     rotation: 0.25
+  lootConfig:
+    gain: 1
+    IsBoss: 0
 --- !u!50 &2516558698829045451
 Rigidbody2D:
   serializedVersion: 4
