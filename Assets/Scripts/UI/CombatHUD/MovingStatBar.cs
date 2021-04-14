@@ -6,16 +6,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Stat bar that can be moved around
+/// Used for 'floating' stat bars that follow ships around
+/// 
+/// Logic for changing the bar's fill color (to make it easier as its a prefab)
+/// and updating the bar to follow a target ship is contained here.
+/// </summary>
 public class MovingStatBar : StatBar, IPooledObject
 {
 	private ShipEntity ship; // the ship this bar's position is locked onto.
 
 	public ShipEntity Ship { get => ship; set => ship = value; }
 
-	public Color barFillColor = Color.red;
+	[SerializeField]
+	private Color barFillColor = Color.red;
 
 	[SerializeField]
-	public Vector3 displacement; // from centre of ship (eg move bar up or down)
+	private Vector3 displacement; // from centre of ship (eg move bar up or down)
 
 	public void OnDespawned(){ }
 
@@ -27,10 +35,15 @@ public class MovingStatBar : StatBar, IPooledObject
 		slider = GetComponent<Slider>();
 		EntityStats = toTrack;
 
+		// update fill bar colour. 
 		Image[] images = GetComponentsInChildren<Image>();
 		images[1].color = barFillColor;
 	}
 
+	/// <summary>
+	/// Update the location of the floating bar, so it will follow its ship.
+	/// Also factors in displacement, so it ca
+	/// </summary>
 	public void UpdateLocation()
     {
 		if (ship != null) // to avoid errors when ship is destroyed
