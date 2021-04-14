@@ -1420,6 +1420,7 @@ GameObject:
   - component: {fileID: 1365698831}
   - component: {fileID: 1365698832}
   - component: {fileID: 1365698833}
+  - component: {fileID: 1365698834}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -1493,6 +1494,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 244078c54b6bc4d408c281699b3336ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1365698834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365698828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810c274393548be418afbc4c9825b366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMainHealthBar: {fileID: 1231162923}
+  playerMainShieldBar: {fileID: 640456415}
 --- !u!1 &1381102356
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,11 +1601,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1381102356}
   m_CullTransparentMesh: 1
-  m_Script: {fileID: 11500000, guid: 810c274393548be418afbc4c9825b366, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerMainHealthBar: {fileID: 1231162923}
-  playerMainShieldBar: {fileID: 640456415}
 --- !u!1 &1566487629
 GameObject:
   m_ObjectHideFlags: 0

@@ -177,7 +177,7 @@ namespace Celeritas.Game.Entities
 				}
 
 				if (health.IsEmpty())
-					Dead = true;
+					Died = true;
 
 			}
 		}

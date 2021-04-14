@@ -32,13 +32,14 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 
 			playerMainShieldBar.EntityStats = playerShip.Shield;
 
-			CreateHealthBarThatFollowsShip(playerShip);
+			//CreateHealthBarThatFollowsShip(playerShip);
 		}
 
+		/*
 		foreach (MovingStatBar statBar in movingStatBars)
 		{
 			statBar.UpdateLocation();
-		}
+		}*/
 	}
 
 	/// <summary>
