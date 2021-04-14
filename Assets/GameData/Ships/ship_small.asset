@@ -48,4 +48,4 @@ MonoBehaviour:
     mass: 0.5
     aimDeadzone: 0.995
   startingHealth: 50
-  startingShield: 0
+  startingShield: 30

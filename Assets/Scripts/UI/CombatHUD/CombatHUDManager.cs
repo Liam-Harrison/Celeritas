@@ -9,33 +9,36 @@ using UnityEngine.UI;
 
 public class CombatHUDManager : Singleton<CombatHUDManager>
 {
-	public StatBar playerMainHealthBar; // main health bar at the bottom of the screen
-	public StatBar playerMainShieldBar; // main shield bar for player
-
-	[SerializeField, PropertySpace(20)]
-	public GameObject floatingHealthBarPrefab;
-
-	[SerializeField, PropertySpace(20)]
-	public GameObject floatingShieldBarPrefab;
-
-	public GameObject canvas;
-
-	private ShipEntity playerShip;
-	//private List<MovingStatBar> movingStatBars; 
+	[SerializeField]
+	private StatBar playerMainHealthBar; // main health bar at the bottom of the screen
 
 	[SerializeField]
-	private ObjectPool<MovingStatBar> pooledFloatingStatBars; // stat bars that follow ship entities
+	private StatBar playerMainShieldBar; // main shield bar for player
+
+	[SerializeField, PropertySpace(20)]
+	private GameObject floatingHealthBarPrefab;
+
+	[SerializeField, PropertySpace(20)]
+	private GameObject floatingShieldBarPrefab;
+
+	[SerializeField]
+	private GameObject canvas;
+
+	// stat bars that follow ship entities
+	[SerializeField]
+	private ObjectPool<MovingStatBar> pooledFloatingHealthStatBars; 
 
 	[SerializeField]
 	private ObjectPool<MovingStatBar> pooledFloatingShieldStatBars;
+
 	protected override void Awake()
 	{
 		base.Awake();
 
-		pooledFloatingStatBars = new ObjectPool<MovingStatBar>(floatingHealthBarPrefab, transform);
+		pooledFloatingHealthStatBars = new ObjectPool<MovingStatBar>(floatingHealthBarPrefab, transform);
 		pooledFloatingShieldStatBars = new ObjectPool<MovingStatBar>(floatingShieldBarPrefab, transform);
-		// todo: automatically add health bar to new ships, too.
 
+		// trigger this class's 'OnCreatedEntity' when that event occurs in EntityDataManager
 		EntityDataManager.OnCreatedEntity += OnCreatedEntity;
 
 	}
@@ -51,13 +54,19 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 		if (entity is ShipEntity ship)
 		{
 			AddFloatingHealthBarToShip(ship);
-			AddFloatingShieldBarToShip(ship);
+
+			// don't add shield stat bar to ships without any shield.
+			if (! ship.Shield.IsEmpty())
+				AddFloatingShieldBarToShip(ship);
 		}
 	}
 
+	private ShipEntity playerShip;
+
 	private void Update()
 	{
-		// setup main health bar for player
+
+		// if just starting, link stationary stat bars to PlayerShip
 		if (playerShip == null && PlayerController.Instance != null) {
 			playerShip = PlayerController.Instance.ShipEntity;
 
@@ -67,28 +76,29 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 
 		}
 
-		updateStatBarPool(pooledFloatingStatBars);
-		updateStatBarPool(pooledFloatingShieldStatBars);
+		// update floating health bars every loop (so they can follow their ships)
+		UpdateStatBarPool(pooledFloatingHealthStatBars);
+		UpdateStatBarPool(pooledFloatingShieldStatBars);
 
 	}
 
-	public void AddFloatingHealthBarToShip(ShipEntity ship)
+	private void AddFloatingHealthBarToShip(ShipEntity ship)
 	{
-		var healthBar = pooledFloatingStatBars.GetPooledObject();
+		var healthBar = pooledFloatingHealthStatBars.GetPooledObject();
 		healthBar.Initalize(ship, ship.Health);
 		healthBar.transform.SetParent(canvas.transform);
 	}
 
-	public void AddFloatingShieldBarToShip(ShipEntity ship)
+	private void AddFloatingShieldBarToShip(ShipEntity ship)
 	{
 		var shieldBar = pooledFloatingShieldStatBars.GetPooledObject();
 		shieldBar.Initalize(ship, ship.Shield);
 		shieldBar.transform.SetParent(canvas.transform);
 	}
 
-	private void updateStatBarPool(ObjectPool<MovingStatBar> toUpdate) {
+	private void UpdateStatBarPool(ObjectPool<MovingStatBar> toUpdate) {
 		//foreach (var statBar in toUpdate.ActiveObjects)
-		for (int i=0; i<toUpdate.ActiveObjects.Count; i++)
+		for (int i = 0; i < toUpdate.ActiveObjects.Count; i++)
 		{
 			var statBar = toUpdate.ActiveObjects[i];
 

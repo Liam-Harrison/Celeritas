@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 1572684416099981056}
-  barFillColor: {r: 0, g: 0.990566, b: 0.10599209, a: 1}
+  barFillColor: {r: 0.7803922, g: 0, b: 0.04705883, a: 1}
   displacement: {x: 0, y: 1, z: 0}
 --- !u!222 &6346066122534703327
 CanvasRenderer:

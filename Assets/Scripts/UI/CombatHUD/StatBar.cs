@@ -10,20 +10,15 @@ using UnityEngine.UI;
 /// </summary>
 public class StatBar : MonoBehaviour
 {
-	public Slider slider;
-
-	//public GameObject statBar; // the whole healthbar object
+	[SerializeField]
+	protected Slider slider;
 
 	private EntityStatBar entityStats; // the entity's stat information
-
-	//private Vector3 position;
 
 	/// <summary>
 	/// The health that this HealthBar is displaying
 	/// </summary>
 	public EntityStatBar EntityStats { get => entityStats; set => entityStats = value; }
-
-	//public Vector3 Position { get => position; set => position = value; }
 
     // Update is called once per frame
     void Update()
@@ -32,8 +27,6 @@ public class StatBar : MonoBehaviour
 			slider.maxValue = entityStats.MaxValue;
 			slider.value = entityStats.CurrentValue;
 		}
-
-		//statBar.transform.position = position;
 	}
 
 }
