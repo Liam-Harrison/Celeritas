@@ -1,6 +1,7 @@
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 namespace Celeritas.Game.Entities
@@ -9,7 +10,7 @@ namespace Celeritas.Game.Entities
 	{
 		public void LootDrop(float dropValue, bool isBoss, string dropType)
 		{
-
+			Debug.Log(dropValue + " and " + isBoss + " and " + dropType);
 		}
 	}
 }
