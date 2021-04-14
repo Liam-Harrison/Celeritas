@@ -22,6 +22,11 @@ namespace Celeritas.Game
 		protected int damage = 0;
 
 		/// <summary>
+		/// Does this entity belong to the player?
+		/// </summary>
+		public bool IsPlayer { get; private set; }
+
+		/// <summary>
 		/// The entity's health data
 		/// </summary>
 		public EntityHealth Health { get; protected set; }
@@ -109,11 +114,17 @@ namespace Celeritas.Game
 		/// Called to initalize this entity with its appropriate data.
 		/// </summary>
 		/// <param name="data">The data to associate this entity with.</param>
-		public virtual void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null)
+		public virtual void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
 		{
 			Data = data;
 			Spawned = Time.time;
+			Owner = owner;
 			IsInitalized = true;
+
+			if (forceIsPlayer)
+				IsPlayer = true;
+			else if (owner != null)
+				IsPlayer = owner.IsPlayer;
 
 			effectManager = new EffectManager(TargetType);
 

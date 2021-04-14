@@ -104,8 +104,10 @@ namespace Celeritas.Game.Entities
 		/// Initalize this entity.
 		/// </summary>
 		/// <param name="data"></param>
-		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null)
+		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
 		{
+			base.Initalize(data, owner, effects, forceIsPlayer);
+
 			Rigidbody = GetComponent<Rigidbody2D>();
 			ShipData = data as ShipData;
 			Health = new EntityHealth(ShipData.StartingHealth);
@@ -116,8 +118,6 @@ namespace Celeritas.Game.Entities
 			{
 				module.Initalize(this);
 			}
-
-			base.Initalize(data, owner, effects);
 		}
 
 		protected override void Update()

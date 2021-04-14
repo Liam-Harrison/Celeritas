@@ -37,7 +37,7 @@ namespace Celeritas.Game.Entities
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Weapon; }
 
-		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null)
+		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
 		{
 			WeaponData = data as WeaponData;
 			rateOfFire = WeaponData.RateOfFire;
@@ -45,7 +45,7 @@ namespace Celeritas.Game.Entities
 
 			WeaponEffects = new EffectManager(SystemTargets.Projectile);
 
-			base.Initalize(data, owner, effects);
+			base.Initalize(data, owner, effects, forceIsPlayer);
 		}
 
 		/// <summary>
