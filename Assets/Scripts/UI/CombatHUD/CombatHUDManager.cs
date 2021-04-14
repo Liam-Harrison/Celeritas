@@ -1,6 +1,7 @@
 using Celeritas.Game;
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,15 +12,47 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	public StatBar playerMainHealthBar; // main health bar at the bottom of the screen
 	public StatBar playerMainShieldBar; // main shield bar for player
 
-	private ShipEntity playerShip;
-	private List<MovingStatBar> movingStatBars; // stat bars that follow ship entities
+	[SerializeField, PropertySpace(20)]
+	public GameObject floatingHealthBarPrefab;
 
+	[SerializeField, PropertySpace(20)]
+	public GameObject floatingShieldBarPrefab;
+
+	public GameObject canvas;
+
+	private ShipEntity playerShip;
+	//private List<MovingStatBar> movingStatBars; 
+
+	[SerializeField]
+	private ObjectPool<MovingStatBar> pooledFloatingStatBars; // stat bars that follow ship entities
+
+	[SerializeField]
+	private ObjectPool<MovingStatBar> pooledFloatingShieldStatBars;
 	protected override void Awake()
 	{
 		base.Awake();
 
-		movingStatBars = new List<MovingStatBar>();
+		pooledFloatingStatBars = new ObjectPool<MovingStatBar>(floatingHealthBarPrefab, transform);
+		pooledFloatingShieldStatBars = new ObjectPool<MovingStatBar>(floatingShieldBarPrefab, transform);
+		// todo: automatically add health bar to new ships, too.
 
+		EntityDataManager.OnCreatedEntity += OnCreatedEntity;
+
+	}
+
+	protected override void OnDestroy()
+	{
+		EntityDataManager.OnCreatedEntity -= OnCreatedEntity;
+		base.OnDestroy();
+	}
+
+	private void OnCreatedEntity(Entity entity)
+	{
+		if (entity is ShipEntity ship)
+		{
+			AddFloatingHealthBarToShip(ship);
+			AddFloatingShieldBarToShip(ship);
+		}
 	}
 
 	private void Update()
@@ -32,45 +65,41 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 
 			playerMainShieldBar.EntityStats = playerShip.Shield;
 
-			//CreateHealthBarThatFollowsShip(playerShip);
 		}
 
-		/*
-		foreach (MovingStatBar statBar in movingStatBars)
-		{
-			statBar.UpdateLocation();
-		}*/
+		updateStatBarPool(pooledFloatingStatBars);
+		updateStatBarPool(pooledFloatingShieldStatBars);
+
 	}
 
-	/// <summary>
-	/// creates a health bar that will follow ship entities around
-	/// </summary>
-	public void CreateHealthBarThatFollowsShip(ShipEntity ship)
+	public void AddFloatingHealthBarToShip(ShipEntity ship)
 	{
-		var healthBar = new GameObject();
-		healthBar.transform.SetParent(GameObject.FindObjectOfType<Canvas>().gameObject.transform, false);
-		healthBar.transform.localPosition = ship.transform.position;
-
-		var healthBorder = new GameObject();
-		healthBorder.transform.SetParent(healthBar.transform, false);
-		Image bigBar = healthBorder.AddComponent<Image>();
-		bigBar.rectTransform.sizeDelta = new Vector2(9, 9); // wrong
-
-		var healthFill = new GameObject();
-		healthFill.transform.SetParent(healthBar.transform, false);
-		Image smallBar = healthFill.AddComponent<Image>();
-		smallBar.rectTransform.sizeDelta = new Vector2(20, 5);
-		smallBar.color = Color.red;
-
-		Slider slider = healthBar.AddComponent<Slider>();
-		slider.fillRect = smallBar.rectTransform;
-
-		MovingStatBar toAdd = healthBar.AddComponent<MovingStatBar>();
-		toAdd.Ship = ship;
-		toAdd.StatBar = healthBar;
-		toAdd.EntityStats = ship.Health; // todo: add shield too
-		toAdd.slider = slider;
-
-		movingStatBars.Add(toAdd);
+		var healthBar = pooledFloatingStatBars.GetPooledObject();
+		healthBar.Initalize(ship, ship.Health);
+		healthBar.transform.SetParent(canvas.transform);
 	}
+
+	public void AddFloatingShieldBarToShip(ShipEntity ship)
+	{
+		var shieldBar = pooledFloatingShieldStatBars.GetPooledObject();
+		shieldBar.Initalize(ship, ship.Shield);
+		shieldBar.transform.SetParent(canvas.transform);
+	}
+
+	private void updateStatBarPool(ObjectPool<MovingStatBar> toUpdate) {
+		//foreach (var statBar in toUpdate.ActiveObjects)
+		for (int i=0; i<toUpdate.ActiveObjects.Count; i++)
+		{
+			var statBar = toUpdate.ActiveObjects[i];
+
+			if (statBar.Ship.Died || statBar.Ship == null)
+			{
+				toUpdate.ReleasePooledObject(statBar);
+				continue;
+			}
+
+			statBar.UpdateLocation();
+		}
+	}
+
 }
