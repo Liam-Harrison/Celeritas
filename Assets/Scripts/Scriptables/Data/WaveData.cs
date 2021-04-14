@@ -11,11 +11,11 @@ namespace Celeritas.Scriptables
 	[CreateAssetMenu(fileName = "New Wave", menuName = "Celeritas/New Wave", order = 30)]
 	public class WaveData : ModuleData
 	{
-		[SerializeField, Title("EnemyShips")] private uint enemyShips;
+		[SerializeField, Title("EnemyShips")] private ShipData[] enemyShips;
 
 		/// <summary>
-		/// The number of enemy ships in the wave.
+		/// The enemy ships in the wave.
 		/// </summary>
-		public uint EnemyShips { get => enemyShips; }
+		public ShipData[] EnemyShips { get => enemyShips; }
 	}
 }
