@@ -11,10 +11,6 @@ namespace Celeritas.Scriptables
 	[CreateAssetMenu(fileName = "HullData", menuName = "Celeritas/New Hull")]
 	public class HullData : SerializedScriptableObject
 	{
-
-		[InfoBox("Data Associated with the layout of ship hulls and it's module inventory"), PropertyOrder(-10), OnInspectorGUI]
-		private void OdinMessage() { }
-
         [InfoBox("This field must be an odd number",InfoMessageType.Error, "@!isOdd(this.LayoutResolution)")]
         [OnValueChanged(nameof(onLayoutResolutionChange))]
         [Range(3, 15)]
