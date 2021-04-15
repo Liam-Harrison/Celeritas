@@ -2746,6 +2746,8 @@ MonoBehaviour:
     capacity: 10
   abilityBar: {fileID: 1841221395}
   defaultAbilityIcon: {fileID: 21300000, guid: 90856b338da0de040bdaba99d967d93c, type: 3}
+  mouseTexture: {fileID: 2800000, guid: c5ad3231282606649a5797462b94d484, type: 3}
+  floatingNotificationPrefab: {fileID: 4507332763464691178, guid: 43656d6eb104d4e488341fd34ae92eea, type: 3}
 --- !u!1 &1381102356
 GameObject:
   m_ObjectHideFlags: 0

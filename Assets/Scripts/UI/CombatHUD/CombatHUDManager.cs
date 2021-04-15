@@ -37,6 +37,12 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	[SerializeField]
 	private Sprite defaultAbilityIcon;
 
+	[SerializeField]
+	private Texture2D mouseTexture;
+
+	[SerializeField]
+	private GameObject floatingNotificationPrefab;
+
 	/*
 	[SerializeField]
 	private Color mouseCrosshairColour;
@@ -62,6 +68,19 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 		// trigger this class's 'OnCreatedEntity' when that event occurs in EntityDataManager
 		EntityDataManager.OnCreatedEntity += OnCreatedEntity;
 
+		// https://docs.unity3d.com/ScriptReference/Cursor.SetCursor.html
+		Cursor.SetCursor(mouseTexture, Vector2.zero, CursorMode.Auto);
+	}
+
+	/// <summary>
+	/// Display a notification to the player, via a temporary message
+	/// </summary>
+	/// <param name="message"></param>
+	public void PrintNotification(string message)
+	{
+		GameObject toPrint = Object.Instantiate<GameObject>(floatingNotificationPrefab, canvas.transform);
+		toPrint.transform.SetParent(canvas.transform);
+		toPrint.GetComponent<Text>().text = message;
 	}
 
 	private void Start()
@@ -71,6 +90,8 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 		{
 			abilityBar.AddAbility(abilities[i], i);
 		}
+
+		PrintNotification("Hello hello!! c:");
 	}
 
 	protected override void OnDestroy()
@@ -153,7 +174,7 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	private List<DummyAbility> GenerateDummyAbilities()
 	{
 		List<DummyAbility> toReturn = new List<DummyAbility>();
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			DummyAbility toAdd = new DummyAbility((i+1)+"");
 			toAdd.icon = defaultAbilityIcon;
