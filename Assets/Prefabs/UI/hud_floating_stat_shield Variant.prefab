@@ -9,11 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -5255976969162271044, guid: 6933640b8b2ed2a48ae09baa478c6960, type: 3}
       propertyPath: barFillColor.b
-      value: 0.8117648
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5255976969162271044, guid: 6933640b8b2ed2a48ae09baa478c6960, type: 3}
       propertyPath: barFillColor.g
-      value: 0.5647059
+      value: 0.64705884
       objectReference: {fileID: 0}
     - target: {fileID: -5255976969162271044, guid: 6933640b8b2ed2a48ae09baa478c6960, type: 3}
       propertyPath: barFillColor.r

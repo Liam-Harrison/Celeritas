@@ -11,6 +11,8 @@ public class UIAbilitySlot : MonoBehaviour
 
 	public string InputButtonText { get => ability.inputButton; set => ability.inputButton = value; }
 
+	public Sprite Icon { get => ability.icon; set => ability.icon = value; }
+
 	// todo: icon
 
 	/// <summary>
@@ -21,6 +23,9 @@ public class UIAbilitySlot : MonoBehaviour
 		gameObject.SetActive(true);
 		Text inputButtonText = gameObject.GetComponentInChildren<Text>();
 		inputButtonText.text = InputButtonText;
+		//Image image = gameObject.GetComponentInChildren<Image>();
+		GameObject image = transform.Find("Icon").gameObject;
+		image.GetComponent<Image>().sprite = Icon;
 	}
 
 	public void Empty()

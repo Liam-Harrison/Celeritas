@@ -15,7 +15,7 @@ public class DummyAbility
 
 	public string inputButton; // used to activate ability
 
-	// icon?
+	public Sprite icon;
 
 	// cooldown
 

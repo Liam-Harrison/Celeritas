@@ -34,6 +34,9 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	[SerializeField]
 	private AbilityBar abilityBar;
 
+	[SerializeField]
+	private Sprite defaultAbilityIcon;
+
 	/*
 	[SerializeField]
 	private Color mouseCrosshairColour;
@@ -152,7 +155,9 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 		List<DummyAbility> toReturn = new List<DummyAbility>();
 		for (int i = 0; i < 3; i++)
 		{
-			toReturn.Add(new DummyAbility(""+i));
+			DummyAbility toAdd = new DummyAbility((i+1)+"");
+			toAdd.icon = defaultAbilityIcon;
+			toReturn.Add(toAdd);
 		}
 		toReturn[1].inputButton = "shift";
 		return toReturn;

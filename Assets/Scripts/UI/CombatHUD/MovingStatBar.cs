@@ -36,9 +36,9 @@ public class MovingStatBar : StatBar, IPooledObject
 		EntityStats = toTrack;
 
 		// update fill bar colour.
-		// todo: fix this atrocity, sarah
-		Image[] images = GetComponentsInChildren<Image>();
-		images[1].color = barFillColor;
+		GameObject fillBar = transform.Find("BarFill").gameObject;
+		Image image = fillBar.GetComponent<Image>();
+		image.color = barFillColor;
 	}
 
 	/// <summary>
