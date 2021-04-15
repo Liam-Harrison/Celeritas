@@ -20,8 +20,13 @@ public class StatBar : MonoBehaviour
 	/// </summary>
 	public EntityStatBar EntityStats { get => entityStats; set => entityStats = value; }
 
-    // Update is called once per frame
-    void Update()
+	private void Start()
+	{
+
+	}
+
+	// Update is called once per frame
+	void Update()
     {
 		if (entityStats != null) { 
 			slider.maxValue = entityStats.MaxValue;

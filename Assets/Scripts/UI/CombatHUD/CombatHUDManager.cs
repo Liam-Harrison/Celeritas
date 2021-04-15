@@ -31,6 +31,20 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	[SerializeField]
 	private ObjectPool<MovingStatBar> pooledFloatingShieldStatBars;
 
+	[SerializeField]
+	private AbilityBar abilityBar;
+
+	/*
+	[SerializeField]
+	private Color mouseCrosshairColour;
+
+	[SerializeField]
+	private Material material; // for mouse crosshair*/
+
+	//private AimingRecticle mouseCrosshair;
+
+	private ShipEntity playerShip;
+
 	protected override void Awake()
 	{
 		base.Awake();
@@ -38,15 +52,34 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 		pooledFloatingHealthStatBars = new ObjectPool<MovingStatBar>(floatingHealthBarPrefab, transform);
 		pooledFloatingShieldStatBars = new ObjectPool<MovingStatBar>(floatingShieldBarPrefab, transform);
 
+		//mouseCrosshair = gameObject.AddComponent<AimingRecticle>();
+		//mouseCrosshair.Material = material;
+		//mouseCrosshair.Colour = mouseCrosshairColour;
+
 		// trigger this class's 'OnCreatedEntity' when that event occurs in EntityDataManager
 		EntityDataManager.OnCreatedEntity += OnCreatedEntity;
 
+	}
+
+	private void Start()
+	{
+		List<DummyAbility> abilities = GenerateDummyAbilities();
+		for (int i = 0; i < abilities.Count; i++)
+		{
+			abilityBar.AddAbility(abilities[i], i);
+		}
 	}
 
 	protected override void OnDestroy()
 	{
 		EntityDataManager.OnCreatedEntity -= OnCreatedEntity;
 		base.OnDestroy();
+	}
+
+	private void OnPostRender()
+	{
+		//Debug.Log("boop");
+		//mouseCrosshair.Draw(playerShip);
 	}
 
 	private void OnCreatedEntity(Entity entity)
@@ -61,8 +94,6 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 		}
 	}
 
-	private ShipEntity playerShip;
-
 	private void Update()
 	{
 
@@ -73,13 +104,13 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 			playerMainHealthBar.EntityStats = playerShip.Health;
 
 			playerMainShieldBar.EntityStats = playerShip.Shield;
-
 		}
 
 		// update floating health bars every loop (so they can follow their ships)
 		UpdateStatBarPool(pooledFloatingHealthStatBars);
 		UpdateStatBarPool(pooledFloatingShieldStatBars);
 
+		//mouseCrosshair.Draw(playerShip);
 	}
 
 	private void AddFloatingHealthBarToShip(ShipEntity ship)
@@ -110,6 +141,21 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 
 			statBar.UpdateLocation();
 		}
+	}
+
+	/// <summary>
+	/// For testing HUD only
+	/// </summary>
+	/// <returns></returns>
+	private List<DummyAbility> GenerateDummyAbilities()
+	{
+		List<DummyAbility> toReturn = new List<DummyAbility>();
+		for (int i = 0; i < 3; i++)
+		{
+			toReturn.Add(new DummyAbility(""+i));
+		}
+		toReturn[1].inputButton = "shift";
+		return toReturn;
 	}
 
 }
