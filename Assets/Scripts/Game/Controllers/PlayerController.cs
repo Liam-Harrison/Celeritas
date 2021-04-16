@@ -11,7 +11,7 @@ namespace Celeritas.Game.Controllers
 	public class PlayerController : Singleton<PlayerController>, Actions.IBasicActions
 	{
 		private Actions.BasicActions actions = default;
-		// private Camera _camera;
+		private Camera _camera;
 
 		/// <summary>
 		/// The ship entity that this controller is attatched to.
@@ -25,7 +25,7 @@ namespace Celeritas.Game.Controllers
 
 			ShipEntity = GetComponent<ShipEntity>();
 
-			// _camera = Camera.main;
+			_camera = Camera.main;
 
 			base.Awake();
 		}
@@ -44,8 +44,8 @@ namespace Celeritas.Game.Controllers
 
 		protected void Update()
 		{
-			// var target = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-			// ShipEntity.Target = Vector3.ProjectOnPlane(target, Vector3.forward);
+			var target = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+			ShipEntity.Target = Vector3.ProjectOnPlane(target, Vector3.forward);
 			ShipEntity.Translation = locomotion;
 		}
 
@@ -80,7 +80,6 @@ namespace Celeritas.Game.Controllers
 				if (StateManager.IsInState(StateManager.States.PLAY))
 				{
 					StateManager.ChangeTo(StateManager.States.BUILD);
-					Debug.Log("BUILD");
 				}
 				else
 				{

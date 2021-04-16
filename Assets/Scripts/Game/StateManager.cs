@@ -1,36 +1,66 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using Celeritas.Game;
 
-namespace Celeritas.Game
+/// <summary>
+/// A Global instance which determined what state the game is currently in eg, Play, Build, Boss, Spacestation.
+/// States are managed using the Animator assigned to it. Each state/action in the Animator controller needs to include
+/// The StateManagerBehaviour script.
+/// </summary>
+public class StateManager : Singleton<StateManager>
 {
-    public class StateManager : Singleton<StateManager>
-    {
-        public static class States {
-            public const string BUILD = "Build";
-            public const string PLAY = "Play";
-        }
+	/// <summary>
+	/// States that match the names of actions inside the animator.
+	/// </summary>
+	public enum States
+	{
+		BUILD,
+		PLAY,
+		WAVE,
+		BOSS,
+		SPACE_STATION
+	}
 
-        public delegate void StateChanged();
-        public static event StateChanged OnStateChanged;
-        
-        public static Animator animator;
-        [Required]
-        public Animator baseAnimator;
+	// Inspector
+	[Required]
+	[SerializeField]
+	private Animator baseAnimator;
 
-        private void Start() {
-            animator = baseAnimator;
-        }
+	// Internal
+	private static Animator animator;
 
-        public static bool IsInState(string state) {
-            return animator.GetCurrentAnimatorStateInfo(0).IsName(state);
-        }
+	private void Start()
+	{
+		animator = baseAnimator;
+	}
 
-        public static void StateHasChange() { OnStateChanged(); }
+	/// <summary>
+	/// Checks what state the manager is currently in
+	/// </summary>
+	/// <returns>True if it matches the specified state, otherwise false</returns>
+	public static bool IsInState(States state)
+	{
+		string stateEnumString = States.GetName(typeof(States), state);
+		return animator.GetCurrentAnimatorStateInfo(0).IsName(stateEnumString);
+	}
 
-        public static void ChangeTo(string state) {
-            animator.Play(state);
-        }
-    }
+	public delegate void StateChanged();
+	public static event StateChanged onStateChanged;
+	/// <summary>
+	/// Triggers the onStateChanged Event
+	/// </summary>
+	public static void onStateChangedTrigger()
+	{
+		if (onStateChanged != null) onStateChanged();
+	}
+
+	/// <summary>
+	/// Changes the game state to the specified
+	/// </summary>
+	public static void ChangeTo(States state)
+	{
+		string stateEnumString = States.GetName(typeof(States), state);
+		animator.Play(stateEnumString);
+	}
 }
+
