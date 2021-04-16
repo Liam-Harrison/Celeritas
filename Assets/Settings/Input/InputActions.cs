@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Settings/Input/Actions.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Settings/Input/InputActions.inputactions'
 
 using System;
 using System.Collections;
@@ -8,13 +8,13 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace Celeritas
 {
-    public class @Actions : IInputActionCollection, IDisposable
+    public class @InputActions : IInputActionCollection, IDisposable
     {
         public InputActionAsset asset { get; }
-        public @Actions()
+        public @InputActions()
         {
             asset = InputActionAsset.FromJson(@"{
-    ""name"": ""Actions"",
+    ""name"": ""InputActions"",
     ""maps"": [
         {
             ""name"": ""Basic"",
@@ -330,8 +330,8 @@ namespace Celeritas
         private readonly InputAction m_Basic_Build;
         public struct BasicActions
         {
-            private @Actions m_Wrapper;
-            public BasicActions(@Actions wrapper) { m_Wrapper = wrapper; }
+            private @InputActions m_Wrapper;
+            public BasicActions(@InputActions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Locomotion => m_Wrapper.m_Basic_Locomotion;
             public InputAction @Fire => m_Wrapper.m_Basic_Fire;
             public InputAction @Build => m_Wrapper.m_Basic_Build;
@@ -381,8 +381,8 @@ namespace Celeritas
         private readonly InputAction m_Console_Focus;
         public struct ConsoleActions
         {
-            private @Actions m_Wrapper;
-            public ConsoleActions(@Actions wrapper) { m_Wrapper = wrapper; }
+            private @InputActions m_Wrapper;
+            public ConsoleActions(@InputActions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Toggle => m_Wrapper.m_Console_Toggle;
             public InputAction @Submit => m_Wrapper.m_Console_Submit;
             public InputAction @UpBuffer => m_Wrapper.m_Console_UpBuffer;

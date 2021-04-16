@@ -7,6 +7,13 @@ using UnityEngine;
 
 namespace Celeritas.Game
 {
+	public enum EntityType
+	{
+		Projectile,
+		Ship,
+
+	}
+
 	/// <summary>
 	/// The Entity class provides basic functionality for on-screen objects.
 	/// </summary>
