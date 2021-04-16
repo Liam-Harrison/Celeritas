@@ -20,6 +20,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Build",
+                    "type": "Button",
+                    "id": "fdcd68aa-06d0-413e-a8e8-edf15859db7b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -97,6 +105,17 @@
                     "processors": "",
                     "groups": "Controls",
                     "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "28225b8e-9b6a-4d82-b798-e4cbcc3d429c",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Build",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
