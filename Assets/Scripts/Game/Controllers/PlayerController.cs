@@ -26,7 +26,6 @@ namespace Celeritas.Game.Controllers
 			ShipEntity = GetComponent<ShipEntity>();
 
 			_camera = Camera.main;
-			_camera.GetComponent<Cinemachine.CinemachineVirtualCamera>().Follow = transform;
 
 			base.Awake();
 		}
@@ -72,6 +71,21 @@ namespace Celeritas.Game.Controllers
 		public void OnLocomotion(InputAction.CallbackContext context)
 		{
 			locomotion = context.ReadValue<Vector2>();
+		}
+
+		public void OnBuild(InputAction.CallbackContext context)
+		{
+			if (context.canceled)
+			{
+				if (StateManager.IsInState(StateManager.States.PLAY))
+				{
+					StateManager.ChangeTo(StateManager.States.BUILD);
+				}
+				else
+				{
+					StateManager.ChangeTo(StateManager.States.PLAY);
+				}
+			}
 		}
 	}
 }

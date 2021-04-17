@@ -20,6 +20,8 @@ namespace Celeritas.Game
 			{
 				var s = EntityDataManager.InstantiateEntity<ShipEntity>(ship, forceIsPlayer: true);
 				s.gameObject.AddComponent<PlayerController>();
+				s.transform.position = transform.position;
+				transform.parent = s.transform;
 			};
 		}
 	}
