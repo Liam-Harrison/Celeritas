@@ -17,5 +17,16 @@ namespace Celeritas.Extensions
 		{
 			return gameObject.GetComponent<T>() != null;
 		}
+
+		/// <summary>
+		/// Check if this has the specified component attatched to it.
+		/// </summary>
+		/// <typeparam name="T">The component type to check for.</typeparam>
+		/// <param name="component">The target component.</param>
+		/// <returns>Returns true if component was found, otherwise false.</returns>
+		public static bool HasComponent<T>(this Component component) where T : Component
+		{
+			return component.GetComponent<T>() != null;
+		}
 	}
 }

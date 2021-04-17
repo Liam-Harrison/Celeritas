@@ -51,7 +51,9 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public IReadOnlyList<EffectCollection> EffectCollections { get => effectColletions.AsReadOnly(); }
 
-		public static Action OnLoadedAssets;
+		public static event Action OnLoadedAssets;
+
+		public static event Action<Entity> OnCreatedEntity;
 
 		public bool Loaded { get; private set; } = false;
 
@@ -67,11 +69,12 @@ namespace Celeritas.Game.Entities
 		/// <typeparam name="T">The <seealso cref="Entity"/> type to create.</typeparam>
 		/// <param name="data">The data to attatch to the entity.</param>
 		/// <returns>Returns the created and initalized entity.</returns>
-		public static T InstantiateEntity<T>(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null) where T: Entity
+		public static T InstantiateEntity<T>(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false) where T: Entity
 		{
-			var comp = Instantiate(data.Prefab).GetComponent<T>();
-			comp.Initalize(data, owner, effects);
-			return comp;
+			var entity = Instantiate(data.Prefab).GetComponent<T>();
+			entity.Initalize(data, owner, effects, forceIsPlayer);
+			OnCreatedEntity?.Invoke(entity);
+			return entity;
 		}
 
 		private async void LoadAssets()

@@ -15,7 +15,14 @@ namespace Celeritas.Game
 		/// </summary>
 		public static T Instance
 		{
-			get => instance;
+			get
+			{
+				if (instance == null)
+				{
+					instance = FindObjectOfType<T>();
+				}
+				return instance;
+			}
 		}
 
 		/// <summary>
@@ -40,15 +47,8 @@ namespace Celeritas.Game
 
 		protected virtual void Awake()
 		{
-			if (instance != null)
-			{
-				Debug.LogError($"Created an instance of {nameof(T)} when an instance was still registered.");
-			}
-			else
-			{
-				instance = this as T;
-				OnCreated?.Invoke(instance);
-			}
+			instance = this as T;
+			OnCreated?.Invoke(instance);
 		}
 
 		protected virtual void OnDestroy()

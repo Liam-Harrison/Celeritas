@@ -1,7 +1,7 @@
 using Celeritas.Extensions;
-using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,36 +12,22 @@ namespace Celeritas.Game
 	/// </summary>
 	public abstract class Entity : MonoBehaviour, IEffectManager
 	{
-		// top of the ShipEntity.cs
 		[SerializeField]
 		private bool hasDefaultEffects;
 
 		[SerializeField, ShowIf(nameof(hasDefaultEffects))]
 		private EffectWrapper[] defaultEffects;
 
-		//[SerializeField]
-		protected EntityHealth health;
-
+		/// <summary>
+		/// Does this entity belong to the player?
+		/// </summary>
+		public bool IsPlayer { get; private set; }
 		private bool dead;
-
-		[SerializeField]
-		protected int damage = 0; // default
-
-		/// <summary>
-		/// The entity's health data
-		/// </summary>
-		public EntityHealth Health { get => health; }
-
-		/// <summary>
-		/// How much damage this entity does to another
-		/// when it hits
-		/// </summary>
-		public int Damage { get => damage; set => damage = value; }
 
 		/// <summary>
 		/// Whether or not this entity is dead (ie, destroyed & should be removed from the screen)
 		/// </summary>
-		public bool Dead { get => dead; set => dead = value; }
+		public bool Died { get; set; } = false;
 
 		/// <summary>
 		/// Get or set the entities game up direction vector.
@@ -100,6 +86,11 @@ namespace Celeritas.Game
 		/// </summary>
 		public abstract SystemTargets TargetType { get; }
 
+		/// <summary>
+		/// Invoked when this Entity is destroyed.
+		/// </summary>
+		public event Action<Entity> OnDestroyed;
+
 		private EffectManager effectManager;
 
 		public IReadOnlyList<EffectWrapper> EffectWrappers => ((IEffectManager)effectManager).EffectWrappers;
@@ -110,11 +101,17 @@ namespace Celeritas.Game
 		/// Called to initalize this entity with its appropriate data.
 		/// </summary>
 		/// <param name="data">The data to associate this entity with.</param>
-		public virtual void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null)
+		public virtual void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
 		{
 			Data = data;
 			Spawned = Time.time;
+			Owner = owner;
 			IsInitalized = true;
+
+			if (forceIsPlayer)
+				IsPlayer = true;
+			else if (owner != null)
+				IsPlayer = owner.IsPlayer;
 
 			effectManager = new EffectManager(TargetType);
 
@@ -141,13 +138,20 @@ namespace Celeritas.Game
 			if (this == null || !IsInitalized)
 				return;
 
-			OnEntityUpdated();
+			if (Died)
+			{
+				Destroy(gameObject);
+			}
+			else
+			{
+				OnEntityUpdated();
+			}
 		}
 
 		/// <summary>
 		/// Update effects for this entity when created.
 		/// </summary>
-		public void OnEntityCreated()
+		protected void OnEntityCreated()
 		{
 			foreach (var wrapper in EffectWrappers)
 			{
@@ -158,19 +162,20 @@ namespace Celeritas.Game
 		/// <summary>
 		/// Update effects for this entity when destroyed.
 		/// </summary>
-		public void OnEntityDestroyed()
+		protected void OnEntityDestroyed()
 		{
 			foreach (var wrapper in EffectWrappers)
 			{
 				wrapper.EffectCollection.DestroyEntity(this, wrapper.Level);
 			}
+			OnDestroyed?.Invoke(this);
 		}
 
 		/// <summary>
 		/// Update effects for this entity when hit.
 		/// </summary>
 		/// <param name="other">The other entity.</param>
-		public void OnEntityHit(Entity other)
+		public virtual void OnEntityHit(Entity other)
 		{
 			// note: 'this' is hitting the other entity
 
@@ -179,37 +184,26 @@ namespace Celeritas.Game
 				wrapper.EffectCollection.HitEntity(this, other, wrapper.Level);
 			}
 
-			DamageEntity(other);
-		}
-
-		/// <summary>
-		/// damages other entity with this entity's 'damage' amount.
-		/// virtual so this method may be overridden by child classes (eg, projectile)
-		/// </summary>
-		/// <param name="other">The entity being damaged</param>
-		protected virtual void DamageEntity(Entity other)
-		{
-			if (other.Health != null)
-			{
-				other.Health.Damage(damage);
-				if (other.Health.IsDead())
-					other.Dead = true;
-			}
+			other.TakeDamage(this);
 		}
 
 		/// <summary>
 		/// Update effects for this entity when updated.
 		/// </summary>
-		public void OnEntityUpdated()
+		protected void OnEntityUpdated()
 		{
 			foreach (var wrapper in EffectWrappers)
 			{
 				wrapper.EffectCollection.UpdateEntity(this, wrapper.Level);
 			}
-			// destroy entity if it is dead
-			if (dead) {
-				Destroy(gameObject);
-			}
+		}
+
+		/// Logic for this entity being damaged by another entity
+		/// </summary>
+		/// <param name="attackingEntity">the entity that is attacking this entity</param>
+		protected virtual void TakeDamage(Entity attackingEntity)
+		{
+			// by default, entities have no health, so this does nothing. Will be overridden by children.
 		}
 
 		public void AddEffect(EffectWrapper wrapper)
@@ -252,46 +246,46 @@ namespace Celeritas.Game
 	/// Provides information on how much health an entity has
 	/// </summary>
 	[System.Serializable]
-	public class EntityHealth
+	public class EntityStatBar
 	{
 		[SerializeField, PropertyRange(1, 100), Title("Max Health")]
-		private uint maxHealth;
+		private uint maxValue;
 
 		[SerializeField, PropertyRange(1, 100), Title("Current Health")]
-		private int currentHealth;
+		private int currentValue;
 
 		/// <summary>
 		/// The entity's maximum health
 		/// </summary>
-		public uint MaxHealth { get => maxHealth; }
+		public uint MaxValue { get => maxValue; }
 
 		/// <summary>
 		/// The entity's current health
 		/// </summary>
-		public int CurrentHealth { get => currentHealth; }
+		public int CurrentValue { get => currentValue; }
 
-		public EntityHealth(uint startingHealth) {
-			maxHealth = startingHealth;
-			currentHealth = (int)startingHealth;
+		public EntityStatBar(uint startingValue) {
+			maxValue = startingValue;
+			currentValue = (int)startingValue;
 		}
 
 		/// <summary>
-		/// Checks whether the entity is dead, returns true if so
+		/// Checks whether the stat is empty or not, returns true if so
 		/// </summary>
-		/// <returns>true if entity is dead (ie, current health == 0)</returns>
-		public bool IsDead() {
-			if (currentHealth < 1)
+		/// <returns>true if bar is empty (ie, current value == 0). If health, entity is dead.</returns>
+		public bool IsEmpty() {
+			if (currentValue < 1)
 				return true;
 			else
 				return false;
 		}
 
 		/// <summary>
-		/// damages entity's health equal to the passed amount
+		/// damages entity's stat equal to the passed amount
 		/// </summary>
 		/// <param name="amount">Amount to damage entity with</param>
 		public void Damage(int amount) {
-			currentHealth -= amount;
+			currentValue -= amount;
 		}
 	}
 }

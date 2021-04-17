@@ -14,6 +14,15 @@ namespace Celeritas.Game.Entities
 
 		private bool damageOwnerShip = false; // default
 
+		[SerializeField]
+		protected int damage;
+
+		/// <summary>
+		/// How much damage this entity does to another
+		/// when it hits
+		/// </summary>
+		public int Damage { get => damage; set => damage = value; }
+
 		/// <summary>
 		/// The attatched projectile data.
 		/// </summary>
@@ -37,16 +46,16 @@ namespace Celeritas.Game.Entities
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Projectile; }
 
-		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null)
+		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
 		{
 			ProjectileData = data as ProjectileData;
 			damage = ProjectileData.Damage;
 			destroyedOnHit = ProjectileData.DestroyedOnHit;
 			Weapon = owner as WeaponEntity;
-			base.Initalize(data, owner, effects);
+			base.Initalize(data, owner, effects, forceIsPlayer);
 		}
 
-		protected override void DamageEntity(Entity other)
+		public override void OnEntityHit(Entity other)
 		{
 			// check if other is owner ship. Return & do no damage if it is owner & damageOwnerShip is false
 			if (damageOwnerShip == false && other is ShipEntity ship)
@@ -59,10 +68,10 @@ namespace Celeritas.Game.Entities
 			}
 
 			if (destroyedOnHit)
-				Dead = true;
+				Died = true;
 
 			// parent implements damage calculations
-			base.DamageEntity(other);
+			base.OnEntityHit(other);
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)

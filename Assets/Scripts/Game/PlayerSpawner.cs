@@ -1,10 +1,8 @@
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
-using Celeritas.Extensions;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Celeritas.AI;
 
 namespace Celeritas.Game
 {
@@ -20,7 +18,7 @@ namespace Celeritas.Game
 		{
 			EntityDataManager.OnLoadedAssets += () =>
 			{
-				var s = EntityDataManager.InstantiateEntity<ShipEntity>(ship);
+				var s = EntityDataManager.InstantiateEntity<ShipEntity>(ship, forceIsPlayer: true);
 				s.gameObject.AddComponent<PlayerController>();
 				s.transform.position = transform.position;
 				transform.parent = s.transform;

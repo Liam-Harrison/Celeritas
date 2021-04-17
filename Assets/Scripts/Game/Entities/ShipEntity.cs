@@ -1,3 +1,4 @@
+using Celeritas.AI;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
@@ -16,6 +17,22 @@ namespace Celeritas.Game.Entities
 
 		[SerializeField]
 		private MovementModifier movementModifier;
+
+		[SerializeField]
+		protected EntityStatBar health;
+
+		[SerializeField]
+		protected EntityStatBar shield;
+
+		/// <summary>
+		/// The entity's health data
+		/// </summary>
+		public EntityStatBar Health { get => health; }
+
+		/// <summary>
+		/// The entity's shield data
+		/// </summary>
+		public EntityStatBar Shield { get => shield; }
 
 		/// <summary>
 		/// The movement modifier used by this ship.
@@ -86,6 +103,16 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public Vector3 Velocity { get; private set; }
 
+		/// <summary>
+		/// Get the AI attatched to this ship, if any.
+		/// </summary>
+		public AIBase AttatchedAI { get; private set; }
+
+		/// <summary>
+		/// Check if this ship entity has an AI attatched.
+		/// </summary>
+		public bool HasAIAttatched { get => AttatchedAI != null; }
+
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Ship; }
 
@@ -93,12 +120,16 @@ namespace Celeritas.Game.Entities
 		/// Initalize this entity.
 		/// </summary>
 		/// <param name="data"></param>
-		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null)
+		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
 		{
+			base.Initalize(data, owner, effects, forceIsPlayer);
+
 			Rigidbody = GetComponent<Rigidbody2D>();
 			ShipData = data as ShipData;
 
-			health = new EntityHealth(ShipData.StartingHealth);
+			health = new EntityStatBar(ShipData.StartingHealth);
+
+			shield = new EntityStatBar(ShipData.StartingShield);
 
 			ApplyRigidbodySettings();
 
@@ -121,6 +152,36 @@ namespace Celeritas.Game.Entities
 			base.Update();
 		}
 
+		protected override void TakeDamage(Entity attackingEntity)
+		{
+			// as projectile is the only entity that does damage right now, check its type
+			if (attackingEntity is ProjectileEntity projectile)
+			{
+				base.TakeDamage(attackingEntity);
+
+				int damageAmount = projectile.Damage;
+
+				// if damage will go beyond shields
+				if (damageAmount > shield.CurrentValue)
+				{
+					// reduce damage by shield amount, reduce shield to 0
+					damageAmount -= shield.CurrentValue;
+					shield.Damage(shield.CurrentValue);
+
+					// damage health with remaining amount
+					health.Damage(damageAmount);
+				}
+				else
+				{	// damage won't go beyond shields
+					shield.Damage(damageAmount);
+				}
+
+				if (health.IsEmpty())
+					Died = true;
+
+			}
+		}
+
 		protected virtual void OnDrawGizmosSelected()
 		{
 			Gizmos.color = Color.green;
@@ -129,6 +190,11 @@ namespace Celeritas.Game.Entities
 			Gizmos.DrawLine(transform.position, Target);
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawLine(transform.position, transform.position + Forward);
+		}
+
+		public void AttatchToAI(AIBase ai)
+		{
+			AttatchedAI = ai;
 		}
 
 		private void TranslationLogic()
