@@ -7,22 +7,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages the majority of in-combat HUD interface.
+/// Responsibilities include:
+/// - displaying notifications & messages to the player via PrintNotification
+/// - setting up stationary health/shield bars for player
+/// - setting up & managing floating health/shield bars for all ships
+/// - putting abilities into the AbilityBar (logic prone to change prior to integration w ability logic)
+///	- setting up the mouse cursor
+/// </summary>
 public class CombatHUDManager : Singleton<CombatHUDManager>
 {
+	[SerializeField]
+	private GameObject canvas;
+
 	[SerializeField]
 	private StatBar playerMainHealthBar; // main health bar at the bottom of the screen
 
 	[SerializeField]
 	private StatBar playerMainShieldBar; // main shield bar for player
 
-	[SerializeField, PropertySpace(20)]
+	/// <summary>
+	/// 'floating' bars are the bars that follow ships around.
+	/// </summary>
+	[SerializeField]
 	private GameObject floatingHealthBarPrefab;
 
-	[SerializeField, PropertySpace(20)]
-	private GameObject floatingShieldBarPrefab;
-
 	[SerializeField]
-	private GameObject canvas;
+	private GameObject floatingShieldBarPrefab;
 
 	// stat bars that follow ship entities
 	[SerializeField]
@@ -34,23 +46,16 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	[SerializeField]
 	private AbilityBar abilityBar;
 
+	// just used for dummy ability display right now
 	[SerializeField]
 	private Sprite defaultAbilityIcon;
 
 	[SerializeField]
 	private Texture2D mouseTexture;
 
+	// used for 'PrintNotification'.
 	[SerializeField]
 	private GameObject floatingNotificationPrefab;
-
-	/*
-	[SerializeField]
-	private Color mouseCrosshairColour;
-
-	[SerializeField]
-	private Material material; // for mouse crosshair*/
-
-	//private AimingRecticle mouseCrosshair;
 
 	private ShipEntity playerShip;
 
@@ -61,10 +66,6 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 		pooledFloatingHealthStatBars = new ObjectPool<MovingStatBar>(floatingHealthBarPrefab, transform);
 		pooledFloatingShieldStatBars = new ObjectPool<MovingStatBar>(floatingShieldBarPrefab, transform);
 
-		//mouseCrosshair = gameObject.AddComponent<AimingRecticle>();
-		//mouseCrosshair.Material = material;
-		//mouseCrosshair.Colour = mouseCrosshairColour;
-
 		// trigger this class's 'OnCreatedEntity' when that event occurs in EntityDataManager
 		EntityDataManager.OnCreatedEntity += OnCreatedEntity;
 
@@ -73,7 +74,7 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	}
 
 	/// <summary>
-	/// Display a notification to the player, via a temporary message
+	/// Display a notification to the player, via a temporary message tha displays above their ship.
 	/// </summary>
 	/// <param name="message"></param>
 	public void PrintNotification(string message)
@@ -91,6 +92,7 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 			abilityBar.AddAbility(abilities[i], i);
 		}
 
+		// just showing/testing how to notify the player via the HUDManager -- delete when integrated with loot pickup
 		PrintNotification("Hello hello!! c:");
 	}
 
@@ -100,11 +102,7 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 		base.OnDestroy();
 	}
 
-	private void OnPostRender()
-	{
-		//Debug.Log("boop");
-		//mouseCrosshair.Draw(playerShip);
-	}
+	private void OnPostRender(){}
 
 	private void OnCreatedEntity(Entity entity)
 	{
@@ -133,10 +131,12 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 		// update floating health bars every loop (so they can follow their ships)
 		UpdateStatBarPool(pooledFloatingHealthStatBars);
 		UpdateStatBarPool(pooledFloatingShieldStatBars);
-
-		//mouseCrosshair.Draw(playerShip);
 	}
 
+	/// <summary>
+	/// Add a health bar to the provided ship, that will follow it around closely
+	/// </summary>
+	/// <param name="ship">The ship the bar will follow & whose healthbar the bar will show</param>
 	private void AddFloatingHealthBarToShip(ShipEntity ship)
 	{
 		var healthBar = pooledFloatingHealthStatBars.GetPooledObject();
@@ -152,7 +152,6 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	}
 
 	private void UpdateStatBarPool(ObjectPool<MovingStatBar> toUpdate) {
-		//foreach (var statBar in toUpdate.ActiveObjects)
 		for (int i = 0; i < toUpdate.ActiveObjects.Count; i++)
 		{
 			var statBar = toUpdate.ActiveObjects[i];

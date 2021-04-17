@@ -29,6 +29,11 @@ public class MovingStatBar : StatBar, IPooledObject
 
 	public void OnSpawned(){ }
 
+	/// <summary>
+	/// Setup the MovingStatBar
+	/// </summary>
+	/// <param name="shipToFollow">The ship the stat bar will follow</param>
+	/// <param name="toTrack">The stats the bar will display</param>
 	public void Initalize(ShipEntity shipToFollow, EntityStatBar toTrack)
 	{
 		ship = shipToFollow;

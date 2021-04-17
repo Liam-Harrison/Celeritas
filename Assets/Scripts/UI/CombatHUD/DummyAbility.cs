@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// A pretend ability for the HUD design
+/// A pretend ability for the HUD design.
+/// Should be deleted after HUD is integrated with Active Ability logic
 /// </summary>
 public class DummyAbility
 {
-
 	public DummyAbility(string inputButtonString)
 	{
 		inputButton = inputButtonString;

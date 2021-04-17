@@ -13,6 +13,7 @@ public class AimingLine : MonoBehaviour
 {
 	private LineRenderer line;
 
+	// Displacement is to centre the line, so it points to the middle of the mouse cursor sprite.
 	[SerializeField, Title("To allow line to intersect centre of cursor")]
 	private float xDisplacementFromCursorCentre;
 
@@ -38,28 +39,10 @@ public class AimingLine : MonoBehaviour
 		line.SetPosition(0, playerShip.transform.position);
 		Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 		mousePosition.z = line.transform.position.z;
-		// these additions are for the aiming sprite that is being used.
+
+		// these additions to centre the line 
 		mousePosition.x += xDisplacementFromCursorCentre;
 		mousePosition.y += yDisplacementFromCursonCentre;
 		line.SetPosition(1, mousePosition);
-		//DrawLineBetweenTwoPoints(playerShip.transform.position, Mouse.current.position.ReadValue());
 	}
-
-	/*
-	private void DrawLineBetweenTwoPoints(Vector3 start, Vector3 end)
-	{
-		// From https://docs.unity3d.com/ScriptReference/GL.LINES.html
-
-		GL.PushMatrix();
-		material.SetPass(0);
-		GL.LoadOrtho();
-
-		GL.Begin(GL.LINES);
-		GL.Color(colour);
-		GL.Vertex(start);
-		GL.Vertex(new Vector3(end.x / Screen.width, end.y / Screen.height, 0));
-		GL.End();
-
-		GL.PopMatrix();
-	}*/
 }

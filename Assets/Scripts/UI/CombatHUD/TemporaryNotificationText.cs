@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Logic for moving a text component slightly, while making it fade.
+/// Used for displaying temporary notifications to the player, via PrintNotification in HUDManager.
+/// </summary>
 public class TemporaryNotificationText : MonoBehaviour
 {
 	[SerializeField, Title("Time for message to last")]
