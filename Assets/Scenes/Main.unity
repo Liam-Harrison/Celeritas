@@ -2550,7 +2550,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 724e3f4c6c7472f4e948d055a055ef4e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.125
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3167,6 +3167,7 @@ GameObject:
   - component: {fileID: 1365698834}
   - component: {fileID: 1365698829}
   - component: {fileID: 1365698836}
+  - component: {fileID: 1365698832}
   - component: {fileID: 1365698833}
   - component: {fileID: 1365698835}
   - component: {fileID: 1365698831}
@@ -3235,6 +3236,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1365698832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365698828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4f715dfe672db24da4d34874eb9c47a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1365698833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3585,9 +3598,9 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 60.000004
+  field of view: 40
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
