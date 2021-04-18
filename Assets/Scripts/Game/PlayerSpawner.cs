@@ -11,6 +11,7 @@ namespace Celeritas.Game
 	/// </summary>
 	public class PlayerSpawner : MonoBehaviour
 	{
+		[PreviewField]
 		[SerializeField, Title("Settings")]
 		private ShipData ship;
 
