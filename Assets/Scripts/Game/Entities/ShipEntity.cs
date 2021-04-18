@@ -12,6 +12,13 @@ using UnityEngine.UI;
 
 namespace Celeritas.Game.Entities
 {
+	[System.Serializable]
+	public enum DropType
+	{
+		Ship,
+		Boss,
+		Asteroid
+	}
 	/// <summary>
 	/// The game entity for a ship.
 	/// </summary>
@@ -58,6 +65,14 @@ namespace Celeritas.Game.Entities
 		/// The modules attatched to this ship.
 		/// </summary>
 		public Module[] Modules { get => modules; }
+
+		[SerializeField, DisableInPlayMode]
+		private DropType dropType;
+
+		/// <summary>
+		/// The item drop information of the ship.
+		/// </summary>
+		public DropType DropType { get => dropType; }
 
 		/// <summary>
 		/// Get all the module entities attatched to this ship.
@@ -167,6 +182,13 @@ namespace Celeritas.Game.Entities
 			base.Update();
 		}
 
+		protected override void OnDestroy()
+		{
+			GenerateLootDrop();
+
+			base.OnDestroy();
+		}
+
 		protected override void TakeDamage(Entity attackingEntity)
 		{
 			// as projectile is the only entity that does damage right now, check its type
@@ -250,22 +272,16 @@ namespace Celeritas.Game.Entities
 			Rigidbody.mass = ShipData.MovementSettings.mass;
 		}
 
-		private void OnShipDeath()
+		private void GenerateLootDrop()
 		{
-			
-			//float gain = LootConfig.Gain;
-			//bool isBoss = LootConfig.IsBoss;
-			public LootController lootController;
+			float gain = LootConfig.Gain;
+			dropType = DropType.Ship;
 
-			LootController.Instance.LootDrop(gain, isBoss, "EnemyShip");
 
-			/*EntityDataManager.OnLoadedAssets += () =>
+			if (gain != 0)
 			{
-				var s = EntityDataManager.GetComponent<LootController>();
-
-				LootController lootController = s.LootDrop();
-				lootController.LootDrop(gain, isBoss, "EnemyShip");
-			}; */
+				LootController.Instance.LootDrop(gain, dropType, Position);
+			}
 		}
 	}
 
@@ -333,5 +349,5 @@ namespace Celeritas.Game.Entities
 		/// Check if enemy is a boss to modify drops.
 		/// </summary>
 		public bool IsBoss { get => isBoss; set => isBoss = value; }
-    }
+	}
 }

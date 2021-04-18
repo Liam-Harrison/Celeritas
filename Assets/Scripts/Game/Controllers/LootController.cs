@@ -1,8 +1,3 @@
-using Celeritas.Extensions;
-using Celeritas.Game;
-using Celeritas.Game.Controllers;
-using Celeritas.Game.Entities;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Celeritas.Game.Entities
@@ -19,16 +14,14 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public int RareMetals { get; private set; }
 
-		public void LootDrop(float dropValue, bool isBoss, string dropType, Vector3 dropLocation)
+		public void LootDrop(float dropValue, DropType dropType, Vector3 dropLocation)
 		{
-			if (dropType == "EnemyShip")
-            {
-				float lootRoll = Random.Range(100, 10100);
-				lootRoll = (lootRoll - 100);
-				lootRoll = (lootRoll / 100);
+			if (dropType == DropType.Ship)
+			{
+				float lootRoll = GenerateRandomValue();
 
-				if (dropValue > lootRoll)
-                {
+				if (lootRoll < dropValue)
+				{
 					ModuleComponents = ModuleComponents + 1;
 					Debug.Log("Module dropped! You now have: " + ModuleComponents);
 
@@ -36,13 +29,11 @@ namespace Celeritas.Game.Entities
 				}
 			}
 
-			if (dropType == "Asteroid")
+			if (dropType == DropType.Asteroid)
 			{
-				float lootRoll = Random.Range(100, 10100);
-				lootRoll = (lootRoll - 100);
-				lootRoll = (lootRoll / 100);
+				float lootRoll = GenerateRandomValue();
 
-				if (dropValue > lootRoll)
+				if (lootRoll < dropValue)
 				{
 					RareMetals = RareMetals + Random.Range(1, 10);
 					Debug.Log("Rare metals dropped! You now have: " + RareMetals);
@@ -50,6 +41,13 @@ namespace Celeritas.Game.Entities
 					//var drop = EntityDataManager.InstantiateEntity<*LOOT DROP VISUAL*>;
 				}
 			}
+		}
+
+		public float GenerateRandomValue()
+		{
+			float roll = Random.Range(0f, 100f);
+
+			return roll;
 		}
 	}
 }
