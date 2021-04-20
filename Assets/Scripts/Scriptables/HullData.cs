@@ -21,13 +21,17 @@ namespace Celeritas.Scriptables
 
         [HorizontalGroup("Split", 0.5f)]
         [BoxGroup("Split/Ship Layout")]
+        [SerializeField]
 		[TableMatrix(HorizontalTitle = "Left of ship", VerticalTitle = "Back of ship",SquareCells = true, DrawElementMethod = "onHullLayoutDraw")]
-		public bool[,] HullLayout = new bool[BaseLayoutResolution,BaseLayoutResolution];
+		private bool[,] hullLayout = new bool[BaseLayoutResolution,BaseLayoutResolution];
 
         [BoxGroup("Split/Ship Modules")]
+        [SerializeField]
 		[TableMatrix(HorizontalTitle = "Left of ship", VerticalTitle = "Back of ship", SquareCells = true, DrawElementMethod = nameof(DrawModulePreview))]
-		public ModuleData[,] HullModules = new ModuleData[BaseLayoutResolution, BaseLayoutResolution];
+		private ModuleData[,] hullModules = new ModuleData[BaseLayoutResolution, BaseLayoutResolution];
 
+        public bool[,] HullLayout { get => hullLayout; }
+        public ModuleData[,] HullModules { get => hullModules; }
         
 		private ModuleData DrawModulePreview(Rect rect, ModuleData value, int x, int y)
 		{
@@ -69,8 +73,8 @@ namespace Celeritas.Scriptables
 
         private void onLayoutResolutionChange(int value) {
             if (isOdd(value)) {                
-                this.HullLayout = new bool[LayoutResolution ,LayoutResolution];
-                this.HullModules = new ModuleData[LayoutResolution, LayoutResolution];
+                this.hullLayout = new bool[LayoutResolution ,LayoutResolution];
+                this.hullModules = new ModuleData[LayoutResolution, LayoutResolution];
             }
         }
 

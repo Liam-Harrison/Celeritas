@@ -29,6 +29,10 @@ namespace Celeritas.Scriptables
 		[SerializeField, TextArea, HideLabel]
 		private string description;
 
+		[SerializeField]
+		private GameObject hullRoom;
+
+		public GameObject HullRoom { get => hullRoom; }
 
 		[SerializeField] protected ModuleSize size;
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.032628704, g: 0.03350488, b: 0.044535667, a: 1}
+  m_IndirectSpecularColor: {r: 0.03268691, g: 0.033572547, b: 0.044599794, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -650,6 +650,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ui_console
       objectReference: {fileID: 0}
+    - target: {fileID: 3667696407076179152, guid: fd7c17f1fbc086f4eb86a05e4794993d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -18.000122
+      objectReference: {fileID: 0}
     - target: {fileID: 4262880646223294123, guid: fd7c17f1fbc086f4eb86a05e4794993d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -15.185059
@@ -1005,6 +1009,10 @@ PrefabInstance:
       propertyPath: playerMainShieldBar
       value: 
       objectReference: {fileID: 640456415}
+    - target: {fileID: 4477257796416552749, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: aiShips.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4477257796416552756, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: m_Name
       value: Managers
@@ -1128,7 +1136,7 @@ PrefabInstance:
       objectReference: {fileID: 1365698838}
     - target: {fileID: 5641295165554848373, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 0
+      value: 1.6114932e-38
       objectReference: {fileID: 0}
     - target: {fileID: 5641295165554848373, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_BoundingSphereOverride.x
@@ -1136,11 +1144,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5641295165554848373, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 0
+      value: 5.6e-44
       objectReference: {fileID: 0}
     - target: {fileID: 5641295165554848373, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 0
+      value: 7.0366745e+22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}

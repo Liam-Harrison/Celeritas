@@ -10,6 +10,9 @@ using Sirenix.OdinInspector;
 public class HullManager : MonoBehaviour
 {
 	// Inspector
+	[SerializeField]
+	private GameObject iconPlane;
+
 	[OnValueChanged(nameof(onAnyDataChanged))]
 	public GameObject HullWall;
 
@@ -84,8 +87,9 @@ public class HullManager : MonoBehaviour
 
 	private void PlaceWalls(int x, int y, Direction dir, GameObject group)
 	{
-		int center = y - (Hull.HullLayout.GetLength(1) - 1) / 2;
-		var wall = Instantiate(HullWall, new Vector3(transform.position.x + x, transform.position.y, transform.position.z + center), Quaternion.identity);
+		int centerY = y - Hull.HullLayout.GetLength(1) / 2;
+		var coords = transform.position + new Vector3(x, 0, centerY);
+		var wall = Instantiate(HullWall, coords, Quaternion.identity);
 		wall.transform.parent = group.gameObject.transform;
 		// Wall prefabs should start facing the east direction so no condition is required.
 		switch (dir)
@@ -113,14 +117,30 @@ public class HullManager : MonoBehaviour
 
 	private void PlaceFloor(int x, int y, GameObject group)
 	{
-		int center = y - Hull.HullLayout.GetLength(1) / 2;
-		var wall = Instantiate(HullFloor, new Vector3(transform.position.x + x, transform.position.y, transform.position.z + center), Quaternion.identity);
+		int centerY = y - Hull.HullLayout.GetLength(1) / 2;
+		var coords = transform.position + new Vector3(x, 0, centerY);
+		var wall = Instantiate(HullFloor, coords, Quaternion.identity);
 		wall.transform.parent = group.gameObject.transform;
+	}
+
+	private void PlaceModules(int x, int y)
+	{
+		var moduleData = Hull.HullModules[x, y];
+		if (moduleData != null && moduleData.HullRoom != null)
+		{
+			int centerY = y - Hull.HullModules.GetLength(1) / 2;
+			var coords = transform.position + new Vector3(x, 0, centerY);
+			var module = Instantiate(moduleData.HullRoom, coords, Quaternion.identity);
+			var icon = Instantiate(iconPlane, coords + new Vector3(0,1,0), Quaternion.identity);
+			icon.transform.parent = group.gameObject.transform;
+			icon.GetComponent<SpriteRenderer>().sprite = moduleData.icon;
+			module.transform.parent = group.gameObject.transform;
+		}
 	}
 
 	private void PlaceObjectsAt(int x, int y)
 	{
-		if (Hull.HullLayout[x, y])
+		if (Hull.HullLayout[x, y] == true)
 		{
 			PlaceFloor(x, y, group);
 			foreach (KeyValuePair<Direction, Vector2> pair in DirectionMap)
@@ -140,7 +160,7 @@ public class HullManager : MonoBehaviour
 				{
 					PlaceWalls(x, y, pair.Key, group);
 				}
-
+				PlaceModules(x, y);
 			}
 		}
 	}
