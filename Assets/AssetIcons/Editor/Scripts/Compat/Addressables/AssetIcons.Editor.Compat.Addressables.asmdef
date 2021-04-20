@@ -1,0 +1,28 @@
+{
+    "name": "AssetIcons.Editor.Compat.Addressables",
+    "references": [
+        "GUID:aa8d2aa0bc6b5bb42949ea3cc7f6bc5c",
+        "GUID:9b003ba122da8ab449f904e2f68e0463",
+        "GUID:9e24947de15b9834991c9d8411ea37cf",
+        "GUID:84651a3751eca9349aac36a66bba901b"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "ASSETICONS_ADDRESSABLES"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.unity.addressables",
+            "expression": "0.0",
+            "define": "ASSETICONS_ADDRESSABLES"
+        }
+    ],
+    "noEngineReferences": false
+}
