@@ -49,7 +49,7 @@ namespace Celeritas
 		public const string PROJECTILE_TAG = "Projectiles";
 
 		/// <summary>
-		/// The label used for the modifier data type in the addresable system.
+		/// The label used for systems in the addresable system.
 		/// </summary>
 		public const string SYSTEMS_TAG = "Systems";
 
@@ -57,5 +57,20 @@ namespace Celeritas
 		/// The label used for the modifier effect type in the addresable system.
 		/// </summary>
 		public const string EFFECTS_TAG = "Effects";
+
+		/// <summary>
+		/// The label used for the hulls in the addresable system.
+		/// </summary>
+		public const string HULL_TAG = "Hulls";
+
+		/// <summary>
+		/// The label used for actions in the addresable system.
+		/// </summary>
+		public const string ACTION_TAG = "Actions";
+
+		/// <summary>
+		/// The label used for waves in the addresable system.
+		/// </summary>
+		public const string WAVES_TAG = "Waves";
 	}
 }

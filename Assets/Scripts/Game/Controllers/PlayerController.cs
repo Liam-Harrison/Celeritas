@@ -77,15 +77,20 @@ namespace Celeritas.Game.Controllers
 		{
 			if (context.canceled)
 			{
-				if (StateManager.IsInState(StateManager.States.PLAY))
+				if (CameraStateManager.IsInState(CameraStateManager.States.PLAY))
 				{
-					StateManager.ChangeTo(StateManager.States.BUILD);
+					CameraStateManager.ChangeTo(CameraStateManager.States.BUILD);
 				}
 				else
 				{
-					StateManager.ChangeTo(StateManager.States.PLAY);
+					CameraStateManager.ChangeTo(CameraStateManager.States.PLAY);
 				}
 			}
+		}
+
+		public void OnAction(InputAction.CallbackContext context)
+		{
+			ShipEntity.UseActions();
 		}
 	}
 }

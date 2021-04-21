@@ -1,5 +1,5 @@
 {
-    "name": "Actions",
+    "name": "InputActions",
     "maps": [
         {
             "name": "Basic",
@@ -25,6 +25,14 @@
                     "name": "Build",
                     "type": "Button",
                     "id": "fdcd68aa-06d0-413e-a8e8-edf15859db7b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Action",
+                    "type": "Button",
+                    "id": "a8104ea1-d7a9-4a37-b683-cf4214f4c126",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -116,6 +124,17 @@
                     "processors": "",
                     "groups": "Controls",
                     "action": "Build",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ba885465-5fae-4a0d-8e35-508be89fad19",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

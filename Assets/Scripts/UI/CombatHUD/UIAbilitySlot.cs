@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+using Celeritas.Game.Actions;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using Sirenix.OdinInspector;
 
 /// <summary>
 /// Represents a single square that displays ability icon/controls in the HUD.
@@ -9,53 +10,51 @@ using UnityEngine.UI;
 /// </summary>
 public class UIAbilitySlot : MonoBehaviour
 {
-	private DummyAbility ability; // that is stored in this ability slot
+	/// <summary>
+	/// Get the action linked to this UI slot.
+	/// </summary>
+	public GameAction LinkedAction { get; private set; }
+
+	[SerializeField, Title("Assignments")]
+	private Image icon;
+
+	[SerializeField]
+	private TextMeshProUGUI label;
+
+	[SerializeField]
+	private TextMeshProUGUI key;
+
+	[SerializeField]
+	private TextMeshProUGUI time;
 
 	/// <summary>
-	/// The ability that is being represented by this HUD element
+	/// Link this slot to an action.
 	/// </summary>
-	public DummyAbility Ability { get => ability; set => ability = value; }
-
-	/// <summary>
-	/// Used to display what input button should be used to activate the ability
-	/// </summary>
-	public string InputButtonText { get => ability.inputButton; set => ability.inputButton = value; }
-
-	/// <summary>
-	/// The icon associated with the ability
-	/// </summary>
-	public Sprite Icon { get => ability.icon; set => ability.icon = value; }
-
-	/// <summary>
-	/// Setup gameobject using current Ability information
-	/// </summary>
-	public void Initalize()
+	/// <param name="action">The action to link this to.</param>
+	public void LinkToAction(GameAction action)
 	{
-		gameObject.SetActive(true);
-		Text inputButtonText = gameObject.GetComponentInChildren<Text>();
-		inputButtonText.text = InputButtonText;
-		GameObject image = transform.Find("Icon").gameObject;
-		image.GetComponent<Image>().sprite = Icon;
+		LinkedAction = action;
+
+		icon.sprite = action.Data.Icon;
+		label.text = action.Data.Title;
+		key.text = "F";
+		time.text = "0.0";
 	}
 
 	/// <summary>
 	/// Used when the Slot has no active ability to display
 	/// Makes the ability slot invisible
 	/// </summary>
-	public void Empty()
+	public void Hide()
 	{
 		gameObject.SetActive(false);
 	}
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	private void Update()
+	{
+		if (LinkedAction == null)
+			return;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+		time.text = $"{LinkedAction.TimeLeftOnCooldown:0.0}";
+	}
 }

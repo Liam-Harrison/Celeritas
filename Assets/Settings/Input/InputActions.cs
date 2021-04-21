@@ -43,6 +43,14 @@ namespace Celeritas
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Action"",
+                    ""type"": ""Button"",
+                    ""id"": ""a8104ea1-d7a9-4a37-b683-cf4214f4c126"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -131,6 +139,17 @@ namespace Celeritas
                     ""processors"": """",
                     ""groups"": ""Controls"",
                     ""action"": ""Build"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ba885465-5fae-4a0d-8e35-508be89fad19"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls"",
+                    ""action"": ""Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -269,6 +288,7 @@ namespace Celeritas
             m_Basic_Locomotion = m_Basic.FindAction("Locomotion", throwIfNotFound: true);
             m_Basic_Fire = m_Basic.FindAction("Fire", throwIfNotFound: true);
             m_Basic_Build = m_Basic.FindAction("Build", throwIfNotFound: true);
+            m_Basic_Action = m_Basic.FindAction("Action", throwIfNotFound: true);
             // Console
             m_Console = asset.FindActionMap("Console", throwIfNotFound: true);
             m_Console_Toggle = m_Console.FindAction("Toggle", throwIfNotFound: true);
@@ -328,6 +348,7 @@ namespace Celeritas
         private readonly InputAction m_Basic_Locomotion;
         private readonly InputAction m_Basic_Fire;
         private readonly InputAction m_Basic_Build;
+        private readonly InputAction m_Basic_Action;
         public struct BasicActions
         {
             private @InputActions m_Wrapper;
@@ -335,6 +356,7 @@ namespace Celeritas
             public InputAction @Locomotion => m_Wrapper.m_Basic_Locomotion;
             public InputAction @Fire => m_Wrapper.m_Basic_Fire;
             public InputAction @Build => m_Wrapper.m_Basic_Build;
+            public InputAction @Action => m_Wrapper.m_Basic_Action;
             public InputActionMap Get() { return m_Wrapper.m_Basic; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -353,6 +375,9 @@ namespace Celeritas
                     @Build.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnBuild;
                     @Build.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnBuild;
                     @Build.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnBuild;
+                    @Action.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnAction;
+                    @Action.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnAction;
+                    @Action.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnAction;
                 }
                 m_Wrapper.m_BasicActionsCallbackInterface = instance;
                 if (instance != null)
@@ -366,6 +391,9 @@ namespace Celeritas
                     @Build.started += instance.OnBuild;
                     @Build.performed += instance.OnBuild;
                     @Build.canceled += instance.OnBuild;
+                    @Action.started += instance.OnAction;
+                    @Action.performed += instance.OnAction;
+                    @Action.canceled += instance.OnAction;
                 }
             }
         }
@@ -449,6 +477,7 @@ namespace Celeritas
             void OnLocomotion(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
             void OnBuild(InputAction.CallbackContext context);
+            void OnAction(InputAction.CallbackContext context);
         }
         public interface IConsoleActions
         {

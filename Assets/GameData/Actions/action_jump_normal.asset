@@ -9,6 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd81b5bd11bd4b140b3e3c07cc255976, type: 3}
-  m_Name: New Action
+  m_Script: {fileID: 11500000, guid: ddf418b5c3709064d8bf3c50102b40e1, type: 3}
+  m_Name: action_jump_normal
   m_EditorClassIdentifier: 
+  title: Jump
+  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  cooldownSeconds: 4
+  distance: 10

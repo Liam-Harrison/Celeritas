@@ -1,6 +1,4 @@
-using Celeritas.Game;
-using System.Collections;
-using System.Collections.Generic;
+using Celeritas.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,12 +18,6 @@ public class StatBar : MonoBehaviour
 	/// </summary>
 	public EntityStatBar EntityStats { get => entityStats; set => entityStats = value; }
 
-	private void Start()
-	{
-
-	}
-
-	// Update is called once per frame
 	void Update()
     {
 		if (entityStats != null) { 
