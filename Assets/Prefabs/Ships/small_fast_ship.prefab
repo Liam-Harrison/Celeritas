@@ -48,7 +48,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasDefaultEffects: 0
   defaultEffects: []
-  damage: 0
   modules:
   - {fileID: 4293004831541093639}
   movementModifier:
@@ -56,9 +55,16 @@ MonoBehaviour:
     side: 1
     back: 1
     rotation: 0.25
+  health:
+    maxValue: 0
+    currentValue: 0
+  shield:
+    maxValue: 0
+    currentValue: 0
   lootConfig:
-    gain: 100
+    gain: 0.5
     isBoss: 0
+  dropType: 0
 --- !u!50 &2516558698829045451
 Rigidbody2D:
   serializedVersion: 4

@@ -15,7 +15,8 @@ MonoBehaviour:
   title: 
   prefab: {fileID: 0}
   size: 0
-  enemyShips:
-  - {fileID: 11400000, guid: 6da1c5143303b944f8679554970f1f9d, type: 2}
+  shipPool:
   - {fileID: 11400000, guid: 6da1c5143303b944f8679554970f1f9d, type: 2}
   - {fileID: 11400000, guid: 2354894fc65befa43a573e4e81bedc30, type: 2}
+  isBoss: 0
+  bossShip: {fileID: 0}
