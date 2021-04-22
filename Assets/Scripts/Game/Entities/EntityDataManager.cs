@@ -20,6 +20,9 @@ namespace Celeritas.Game.Entities
 		private readonly List<ModifierSystem> systems = new List<ModifierSystem>();
 		private readonly List<ProjectileData> projectiles = new List<ProjectileData>();
 		private readonly List<EffectCollection> effectColletions = new List<EffectCollection>();
+		private readonly List<ActionData> actions = new List<ActionData>();
+		private readonly List<HullData> hulls = new List<HullData>();
+		private readonly List<WaveData> waves = new List<WaveData>();
 
 		/// <summary>
 		/// All loaded ship data entries.
@@ -50,6 +53,21 @@ namespace Celeritas.Game.Entities
 		/// All loaded effect collection entries.
 		/// </summary>
 		public IReadOnlyList<EffectCollection> EffectCollections { get => effectColletions.AsReadOnly(); }
+
+		/// <summary>
+		/// All the action entries.
+		/// </summary>
+		public IReadOnlyList<ActionData> Actions { get => actions.AsReadOnly(); }
+
+		/// <summary>
+		/// All the hull entries.
+		/// </summary>
+		public IReadOnlyList<HullData> Hulls { get => hulls.AsReadOnly(); }
+
+		/// <summary>
+		/// All the wave entries.
+		/// </summary>
+		public IReadOnlyList<WaveData> Waves { get => waves.AsReadOnly(); }
 
 		public static event Action OnLoadedAssets;
 
@@ -83,12 +101,17 @@ namespace Celeritas.Game.Entities
 
 			Stopwatch watch = new Stopwatch();
 			watch.Start();
+
 			await LoadTags(ships, Constants.SHIP_TAG);
 			await LoadTags(weapons, Constants.WEAPON_TAG);
 			await LoadTags(modules, Constants.MODULE_TAG);
 			await LoadTags(projectiles, Constants.PROJECTILE_TAG);
 			await LoadTags(systems, Constants.SYSTEMS_TAG);
 			await LoadTags(effectColletions, Constants.EFFECTS_TAG);
+			await LoadTags(hulls, Constants.HULL_TAG);
+			await LoadTags(actions, Constants.ACTION_TAG);
+			await LoadTags(waves, Constants.WAVES_TAG);
+
 			watch.Stop();
 			UnityEngine.Debug.Log($"load took: {watch.ElapsedMilliseconds}ms");
 

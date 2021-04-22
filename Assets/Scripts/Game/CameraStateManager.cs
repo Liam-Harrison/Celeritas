@@ -1,13 +1,14 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 using Celeritas.Game;
+using Cinemachine;
 
 /// <summary>
 /// A Global instance which determined what state the game is currently in eg, Play, Build, Boss, Spacestation.
 /// States are managed using the Animator assigned to it. Each state/action in the Animator controller needs to include
 /// The StateManagerBehaviour script.
 /// </summary>
-public class StateManager : Singleton<StateManager>
+public class CameraStateManager : Singleton<CameraStateManager>
 {
 	/// <summary>
 	/// States that match the names of actions inside the animator.
@@ -21,17 +22,21 @@ public class StateManager : Singleton<StateManager>
 		SPACE_STATION
 	}
 
-	// Inspector
-	[Required]
-	[SerializeField]
+	[SerializeField, Required]
 	private Animator baseAnimator;
 
-	// Internal
+	public CinemachineVirtualCamera Camera => cinemachineStateDriver.LiveChild as CinemachineVirtualCamera;
+
 	private static Animator animator;
 
-	private void Start()
+	private CinemachineStateDrivenCamera cinemachineStateDriver;
+
+	protected override void Awake()
 	{
 		animator = baseAnimator;
+		cinemachineStateDriver = GetComponent<CinemachineStateDrivenCamera>();
+
+		base.Awake();
 	}
 
 	/// <summary>

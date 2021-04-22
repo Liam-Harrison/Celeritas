@@ -45,12 +45,12 @@ public class HullBuilder : MonoBehaviour
 
 	private void OnEnable()
 	{
-		StateManager.onStateChanged += HideHullIfNotInBuildMode;
+		CameraStateManager.onStateChanged += HideHullIfNotInBuildMode;
 	}
 
 	private void OnDisable()
 	{
-		StateManager.onStateChanged -= HideHullIfNotInBuildMode;
+		CameraStateManager.onStateChanged -= HideHullIfNotInBuildMode;
 	}
 
 
@@ -146,7 +146,7 @@ public class HullBuilder : MonoBehaviour
 
 	private void HideHullIfNotInBuildMode()
 	{
-		group.SetActive(StateManager.IsInState(StateManager.States.BUILD) ? true : false);
+		group.SetActive(CameraStateManager.IsInState(CameraStateManager.States.BUILD) ? true : false);
 	}
 
 	private void onAnyDataChanged()

@@ -1,4 +1,4 @@
-using System.Collections;
+using Celeritas.Game.Actions;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,56 +12,30 @@ using UnityEngine;
 /// </summary>
 public class AbilityBar : MonoBehaviour
 {
+	[SerializeField]
+	private GameObject abilityPrefab;
 
-	private List<UIAbilitySlot> abilitySlots; // UIAbilitySlot manage the ability slot GameObjects
+	public List<UIAbilitySlot> AbilitySlots { get; private set; } = new List<UIAbilitySlot>();
 
-	private void Awake()
+	public void LinkAction(GameAction action)
 	{
-		abilitySlots = new List<UIAbilitySlot>();
+		var slot = Instantiate(abilityPrefab, transform).GetComponent<UIAbilitySlot>();
 
-		// UI slots are not pre-fabs, as then we can move the slots around as we see fit.
-		UIAbilitySlot[] slots = GetComponentsInChildren<UIAbilitySlot>();
-		abilitySlots.AddRange(slots);
+		slot.LinkToAction(action);
 
-		foreach (UIAbilitySlot slot in abilitySlots)
+		AbilitySlots.Add(slot);
+	}
+
+	public void UnlinkAction(GameAction action)
+	{
+		for (int i = 0; i < AbilitySlots.Count; i++)
 		{
-			slot.Empty();
+			if (AbilitySlots[i].LinkedAction == action)
+			{
+				Destroy(AbilitySlots[i].gameObject);
+				AbilitySlots.RemoveAt(i);
+				return;
+			}
 		}
-
-	}
-
-	// Start is called before the first frame update
-	void Start()
-    {
-
-	}
-
-	// Update is called once per frame
-	void Update()
-    {
-        
-    }
-
-	/// <summary>
-	/// Add an ability to the StatBar at the given index
-	/// Index reflects the AbilitySlot number (in the Unity Hierarchy view)
-	/// So an ability put into index 2 will display at the same point as AbilitySlot3.
-	/// (ui_console/Canvas/AbilityBar/<AbilitySlots>)
-	/// </summary>
-	/// <param name="toAdd">Ability to add to the AbilityBar</param>
-	/// <param name="index">Index of the HUD AbilitySlot you want the ability to be added to.</param>
-	public void AddAbility(DummyAbility toAdd, int index)
-	{
-		abilitySlots[index].Ability = toAdd;
-		abilitySlots[index].Initalize();
-	}
-
-	/// <summary>
-	/// Empty the ability slot at the given index
-	/// </summary>
-	/// <param name="index">Index of the HUD AbilitySlot you want the ability to be removed from.</param>
-	private void RemoveAbility(int index)
-	{
-		abilitySlots[index].Empty();
 	}
 }

@@ -1,8 +1,6 @@
-using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Game.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
+using Celeritas.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
