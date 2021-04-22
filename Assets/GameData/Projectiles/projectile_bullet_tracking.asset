@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: projectile_bullet_tracking
   m_EditorClassIdentifier: 
   title: Bullet
-  prefab: {fileID: 3926678570621491624, guid: 1a538d99c8e63fb40bfa767a3969f370, type: 3}
+  prefab: {fileID: 3324253997330418440, guid: 89d6d1dbe2c56d84b9c53c39d1d04afe, type: 3}
   speed: 10
   lifetime: 3
   damage: 5
