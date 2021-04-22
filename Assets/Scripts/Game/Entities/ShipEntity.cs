@@ -106,7 +106,12 @@ namespace Celeritas.Game.Entities
 		/// The ships hull data.
 		/// </summary>
 		public HullManager HullManager { get; private set; }
-
+		
+		/// <summary>
+		/// All the Engine Particles attatched to this ship.
+		/// </summary>
+		public List<Transform> EngineParticles;
+		
 		/// <summary>
 		/// The attatched ship data.
 		/// </summary>
@@ -165,6 +170,8 @@ namespace Celeritas.Game.Entities
 			}
 
 			base.Initalize(data, owner, effects);
+
+			AddDescendantEngineParticles("EngineParticle", transform);
 		}
 
 		protected override void Update()
@@ -238,6 +245,7 @@ namespace Celeritas.Game.Entities
 			Velocity += Vector3.right * Translation.x * ShipData.MovementSettings.sideForcePerSec * movementModifier.Side * Time.smoothDeltaTime;
 
 			Rigidbody.AddForce(Velocity, ForceMode2D.Force);
+			EngineLogic();
 		}
 
 		private void RotationLogic()
@@ -261,7 +269,45 @@ namespace Celeritas.Game.Entities
 			}
 		}
 
-		protected void ApplyRigidbodySettings()
+		private void EngineLogic()
+		{
+			float HighestVelocity;
+			float LowestVelocity;
+			int ParticleEmission;
+
+			HighestVelocity = Mathf.Max(Mathf.Max(Translation.x, Translation.y), Translation.z);
+			LowestVelocity = Mathf.Min(Mathf.Min(Translation.x, Translation.y), Translation.z);
+			LowestVelocity = Mathf.Abs(LowestVelocity);
+			HighestVelocity = Mathf.Max(HighestVelocity, LowestVelocity);
+			HighestVelocity = (HighestVelocity * 100);
+			ParticleEmission = (int)HighestVelocity;
+
+			Debug.Log(EngineParticles.Count);
+
+			foreach (Transform Particle in EngineParticles)
+			{
+				var ParticleSystem = Particle.GetComponent<ParticleSystem>().emission;
+				ParticleSystem.rateOverTime = ParticleEmission;
+			}
+
+		}
+
+		private void AddDescendantEngineParticles (string tag, Transform parent)
+		{
+			List<Transform> LocalParticles = new List<Transform>();
+
+			foreach(Transform child in parent)
+			{
+				if (child.gameObject.tag == tag & child.gameObject.GetComponent(typeof(ParticleSystem)) != null)
+				{
+					EngineParticles.Add(child);
+				}
+				AddDescendantEngineParticles(tag, child);
+			}
+			//EngineParticles = LocalParticles;
+		}
+
+protected void ApplyRigidbodySettings()
 		{
 			Rigidbody.gravityScale = 0;
 			Rigidbody.angularDrag = ShipData.MovementSettings.angularDrag;
