@@ -3,6 +3,7 @@ using Sirenix.Utilities;
 using UnityEditor;
 using Sirenix.Utilities.Editor;
 using Celeritas.Extensions;
+using UnityEngine;
 
 namespace Celeritas.Scriptables
 {
