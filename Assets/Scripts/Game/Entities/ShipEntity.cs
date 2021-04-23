@@ -26,47 +26,6 @@ namespace Celeritas.Game.Entities
 	[RequireComponent(typeof(Rigidbody2D))]
 	public class ShipEntity : Entity
 	{
-		[Title("Inventory")]
-		[TableMatrix(SquareCells = true, DrawElementMethod = nameof(DrawModulePreview))]
-		[SerializeField]
-		private ModuleData[,] inventory = new ModuleData[8, 2];
-
-		private static ModuleData DrawModulePreview(Rect rect, ModuleData value)
-		{
-			
-			if (value != null)
-			{
-				Texture2D preview = textureFromSprite(value.icon);
-				value = (ModuleData)SirenixEditorFields.UnityPreviewObjectField(rect, value, preview, typeof(ModuleData));
-				// UnityEditor.EditorGUI.DrawPreviewTexture(rect.AddX(20).SetSize(rect.size.x - 20, rect.size.y), preview);
-			} else {
-				value = (ModuleData)SirenixEditorFields.UnityPreviewObjectField(rect, value, typeof(ModuleData));
-			}
-			return value;
-		}
-
-		private static Texture2D textureFromSprite(Sprite sprite)
-		{
-			if (sprite.rect.width != sprite.texture.width)
-			{
-				Texture2D newText = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height, TextureFormat.ARGB32, false);
-				Color[] newColors = sprite.texture.GetPixels((int)sprite.textureRect.x,
-															 (int)sprite.textureRect.y,
-															 (int)sprite.textureRect.width,
-															 (int)sprite.textureRect.height);
-				newText.SetPixels(newColors);
-				newText.filterMode = FilterMode.Point;
-				newText.Apply();
-				return newText;
-			}
-			else
-				return sprite.texture;
-		}
-
-		[SerializeField, Title("Hull")]
-		private HullManager hullManager;
-
-
 		[SerializeField, Title("Modules")]
 		private Module[] modules;
 

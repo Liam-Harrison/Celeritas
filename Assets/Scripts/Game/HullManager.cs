@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Celeritas.Scriptables;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System;
+using Celeritas.Extensions;
 
 /// <summary>
 /// Uses HullData to generate and manage an in-game hull
@@ -13,20 +15,26 @@ public class HullManager : MonoBehaviour
 	[SerializeField]
 	private GameObject iconPlane;
 
+	[SerializeField]
 	[OnValueChanged(nameof(onAnyDataChanged))]
-	public GameObject HullWall;
+	private GameObject HullWall;
 
+	[SerializeField]
 	[OnValueChanged(nameof(onAnyDataChanged))]
-	public GameObject HullFloor;
+	private GameObject HullFloor;
 
 	[Space]
 	[AssetList]
-	[PreviewField(50)]
+	[SerializeField]
 	[OnValueChanged(nameof(onAnyDataChanged))]
-	public HullData Hull;
+	private HullData hullData;
 
 	// Internal
-	public GameObject group; // Public for persitence in editor and playmode
+	private GameObject hullGroup;
+	private GameObject moduleGroup;
+	private GameObject wallGroup;
+	private GameObject floorGroup;
+
 	private enum Direction
 	{
 		North,
@@ -34,7 +42,7 @@ public class HullManager : MonoBehaviour
 		South,
 		West
 	}
-
+	
 	private Dictionary<Direction, Vector2> DirectionMap = new Dictionary<Direction, Vector2> {
 			{Direction.North, new Vector2(0,1) },
 			{Direction.East, new Vector2(1,0) },
@@ -42,9 +50,17 @@ public class HullManager : MonoBehaviour
 			{Direction.West, new Vector2(-1,0) },
 		};
 
+	// Properties
+
+	/// <summary>
+	/// Grabs the ship's hull data scriptable object.
+	/// </summary>
+	public HullData HullData { get => hullData; }
+
 	private void Start()
-	{
-		Generate();
+	{	
+		GenerateAll();
+		if (Application.isPlaying) HideHullIfNotInBuildMode();
 	}
 
 	private void OnEnable()
@@ -57,37 +73,122 @@ public class HullManager : MonoBehaviour
 		StateManager.onStateChanged -= HideHullIfNotInBuildMode;
 	}
 
-
-	[Button("Re-Generate")]
-	public void Generate()
+	private void SetupMasterGroup()
 	{
-		if (group != null) DestroyImmediate(group.gameObject);
-		group = new GameObject("Hull");
-		group.transform.position = transform.position;
-		group.transform.parent = transform;
-		if (Application.isPlaying) HideHullIfNotInBuildMode();
-		GenerateHullFromLayout();
-		group.transform.rotation = transform.rotation;
+		if (hullGroup == null)
+		{
+			hullGroup = new GameObject(nameof(hullGroup));
+			hullGroup.transform.position = transform.position;
+			hullGroup.transform.parent = transform;
+		}
 	}
 
-	private void GenerateHullFromLayout()
+	/// <summary>
+	/// Generates ship hull walls.
+	/// </summary>
+	[ButtonGroup]
+	public void GenerateWalls()
 	{
-		if (Hull != null)
+		SetupMasterGroup();
+		if (wallGroup != null) DestroyImmediate(wallGroup.gameObject);
+		wallGroup = new GameObject(nameof(wallGroup));
+		wallGroup.transform.position = transform.position;
+		wallGroup.transform.parent = hullGroup.transform;
+
+		hullData.HullLayout.ForEach((x, y) =>
 		{
-			for (int x = 0; x < Hull.HullLayout.GetLength(0); x++)
+			if (hullData.HullLayout[x, y] == true)
 			{
-				for (int y = 0; y < Hull.HullLayout.GetLength(1); y++)
+				foreach (KeyValuePair<Direction, Vector2> pair in DirectionMap)
 				{
-					PlaceObjectsAt(x, y);
+					int newX = x + (int)pair.Value.x;
+					int newY = y + (int)pair.Value.y;
+					// Check if edge (No tiles)
+					if (newX >= 0 && newX < hullData.HullLayout.GetLength(0) && newY >= 0 && newY < hullData.HullLayout.GetLength(1))
+					{
+						bool cell = hullData.HullLayout[newX, newY];
+						if (cell == false) // If there is space
+						{
+							PlaceWalls(x, y, pair.Key, wallGroup);
+						}
+					}
+					else
+					{
+						PlaceWalls(x, y, pair.Key, wallGroup);
+					}
 				}
 			}
-		}
+		});
 
+		wallGroup.transform.rotation = transform.rotation;
+	}
+
+	/// <summary>
+	/// Generates ship hull floors.
+	/// </summary>
+	[ButtonGroup]
+	private void GenerateFloor()
+	{
+		SetupMasterGroup();
+		if (floorGroup != null) DestroyImmediate(floorGroup.gameObject);
+		floorGroup = new GameObject(nameof(floorGroup));
+		floorGroup.transform.position = transform.position;
+		floorGroup.transform.parent = hullGroup.transform;
+
+		hullData.HullLayout.ForEach((x, y) =>
+		{
+			if (hullData.HullLayout[x, y] == true)
+			{
+				PlaceFloor(x, y, floorGroup);
+			}
+		});
+
+		floorGroup.transform.rotation = transform.rotation;
+	}
+
+	/// <summary>
+	/// Generates ship hull module rooms.
+	/// </summary>
+	[ButtonGroup]
+	private void GenerateModules()
+	{
+		SetupMasterGroup();
+		if (moduleGroup != null) DestroyImmediate(moduleGroup.gameObject);
+		moduleGroup = new GameObject(nameof(moduleGroup));
+		moduleGroup.transform.position = transform.position;
+		moduleGroup.transform.parent = hullGroup.transform;
+
+		hullData.HullLayout.ForEach((x, y) =>
+		{
+			if (hullData.HullLayout[x, y] == true)
+			{
+				PlaceModules(x, y, moduleGroup);
+
+			}
+		});
+
+		moduleGroup.transform.rotation = transform.rotation;
+	}
+
+	/// <summary>
+	/// Generates ship hull floor, walls and modules.
+	/// </summary>
+	[Button("Generate All", ButtonSizes.Large)]
+	public void GenerateAll()
+	{
+		GenerateFloor();
+		GenerateWalls();
+		GenerateModules();
+	}
+
+	[Button]
+	private void ClearAll() {
+		if (hullGroup != null) DestroyImmediate(hullGroup.gameObject);
 	}
 
 	private void PlaceWalls(int x, int y, Direction dir, GameObject group)
 	{
-		int centerY = y - Hull.HullLayout.GetLength(1) / 2;
+		int centerY = y - hullData.HullLayout.GetLength(1) / 2;
 		var coords = transform.position + new Vector3(x, 0, centerY);
 		var wall = Instantiate(HullWall, coords, Quaternion.identity);
 		wall.transform.parent = group.gameObject.transform;
@@ -117,62 +218,39 @@ public class HullManager : MonoBehaviour
 
 	private void PlaceFloor(int x, int y, GameObject group)
 	{
-		int centerY = y - Hull.HullLayout.GetLength(1) / 2;
+		int centerY = y - hullData.HullLayout.GetLength(1) / 2;
 		var coords = transform.position + new Vector3(x, 0, centerY);
 		var wall = Instantiate(HullFloor, coords, Quaternion.identity);
-		wall.transform.parent = group.gameObject.transform;
+		GameObject locationGroup = new GameObject($"[{x},{y}]");
+		wall.transform.parent = locationGroup.transform;
+		locationGroup.transform.parent = group.transform;
 	}
 
-	private void PlaceModules(int x, int y)
+	private void PlaceModules(int x, int y, GameObject group)
 	{
-		var moduleData = Hull.HullModules[x, y];
+		var moduleData = hullData.HullModules[x, y];
 		if (moduleData != null && moduleData.HullRoom != null)
 		{
-			int centerY = y - Hull.HullModules.GetLength(1) / 2;
+			int centerY = y - hullData.HullModules.GetLength(1) / 2;
 			var coords = transform.position + new Vector3(x, 0, centerY);
 			var module = Instantiate(moduleData.HullRoom, coords, Quaternion.identity);
-			var icon = Instantiate(iconPlane, coords + new Vector3(0,1,0), Quaternion.identity);
-			icon.transform.parent = group.gameObject.transform;
+			var icon = Instantiate(iconPlane, coords + new Vector3(0, 1, 0), Quaternion.identity);
+			icon.transform.parent = module.transform;
 			icon.GetComponent<SpriteRenderer>().sprite = moduleData.icon;
-			module.transform.parent = group.gameObject.transform;
-		}
-	}
-
-	private void PlaceObjectsAt(int x, int y)
-	{
-		if (Hull.HullLayout[x, y] == true)
-		{
-			PlaceFloor(x, y, group);
-			foreach (KeyValuePair<Direction, Vector2> pair in DirectionMap)
-			{
-				int newX = x + (int)pair.Value.x;
-				int newY = y + (int)pair.Value.y;
-				// Check if edge (No tiles)
-				if (newX >= 0 && newX < Hull.HullLayout.GetLength(0) && newY >= 0 && newY < Hull.HullLayout.GetLength(1))
-				{
-					bool cell = Hull.HullLayout[newX, newY];
-					if (cell == false) // If there is space
-					{
-						PlaceWalls(x, y, pair.Key, group);
-					}
-				}
-				else
-				{
-					PlaceWalls(x, y, pair.Key, group);
-				}
-				PlaceModules(x, y);
-			}
+			GameObject locationGroup = new GameObject($"[{x},{y}]");
+			module.transform.parent = locationGroup.transform;
+			locationGroup.transform.parent = group.transform;
 		}
 	}
 
 	private void HideHullIfNotInBuildMode()
 	{
-		group.SetActive(StateManager.IsInState(StateManager.States.BUILD) ? true : false);
+		hullGroup.SetActive(StateManager.IsInState(StateManager.States.BUILD) ? true : false);
 	}
 
 	private void onAnyDataChanged()
 	{
-		Generate();
+		GenerateAll();
 	}
 }
 
