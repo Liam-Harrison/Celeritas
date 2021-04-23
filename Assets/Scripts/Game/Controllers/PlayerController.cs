@@ -8,9 +8,9 @@ namespace Celeritas.Game.Controllers
 	/// Routes player input to a targeted ship Entity.
 	/// </summary>
 	[RequireComponent(typeof(ShipEntity))]
-	public class PlayerController : Singleton<PlayerController>, Actions.IBasicActions
+	public class PlayerController : Singleton<PlayerController>, InputActions.IBasicActions
 	{
-		private Actions.BasicActions actions = default;
+		private InputActions.BasicActions actions = default;
 		private Camera _camera;
 
 		/// <summary>
@@ -20,7 +20,7 @@ namespace Celeritas.Game.Controllers
 
 		protected override void Awake()
 		{
-			actions = new Actions.BasicActions(new Actions());
+			actions = new InputActions.BasicActions(new InputActions());
 			actions.SetCallbacks(this);
 
 			ShipEntity = GetComponent<ShipEntity>();
@@ -77,15 +77,20 @@ namespace Celeritas.Game.Controllers
 		{
 			if (context.canceled)
 			{
-				if (StateManager.IsInState(StateManager.States.PLAY))
+				if (CameraStateManager.IsInState(CameraStateManager.States.PLAY))
 				{
-					StateManager.ChangeTo(StateManager.States.BUILD);
+					CameraStateManager.ChangeTo(CameraStateManager.States.BUILD);
 				}
 				else
 				{
-					StateManager.ChangeTo(StateManager.States.PLAY);
+					CameraStateManager.ChangeTo(CameraStateManager.States.PLAY);
 				}
 			}
+		}
+
+		public void OnAction(InputAction.CallbackContext context)
+		{
+			ShipEntity.UseActions();
 		}
 	}
 }

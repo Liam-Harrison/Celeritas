@@ -55,11 +55,7 @@ namespace Celeritas.AI
 
 			if (gMag > Deadzone)
 			{
-				var gDir = gDelta.normalized;
-				var fwd = Vector3.Dot(ShipEntity.Forward, gDir);
-				var right = Vector3.Dot(ShipEntity.Right, gDir);
-
-				ShipEntity.Translation = ((Vector3.up * fwd) + (Vector3.right * right)).normalized;
+				ShipEntity.Translation = gDelta.normalized;
 			}
 			else
 			{

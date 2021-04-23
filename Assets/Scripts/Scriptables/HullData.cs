@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEditor;
@@ -9,7 +6,7 @@ using Celeritas.Extensions;
 
 namespace Celeritas.Scriptables
 {
-    [InlineEditor]
+	[InlineEditor]
 	[CreateAssetMenu(fileName = "HullData", menuName = "Celeritas/New Hull")]
 	public class HullData : SerializedScriptableObject
 	{
@@ -72,16 +69,18 @@ namespace Celeritas.Scriptables
             }
         }
 
-        private static bool onHullLayoutDraw(Rect rect, bool value) {
-            if (Event.current.type == EventType.MouseDown && rect.Contains(Event.current.mousePosition)) {
+        private static bool onHullLayoutDraw(Rect rect, bool value)
+		{
+			if (Event.current.type == EventType.MouseDown && rect.Contains(Event.current.mousePosition)) {
                 value = !value;
                 GUI.changed = true;
                 Event.current.Use();
             }
 
-            UnityEditor.EditorGUI.DrawRect(rect.Padding(1), value ? new Color(1f,1f,1f,1f) : new Color(0f,0f,0f,0f));
-
-            return value;
+#if UNITY_EDITOR
+			UnityEditor.EditorGUI.DrawRect(rect.Padding(1), value ? new Color(1f,1f,1f,1f) : new Color(0f,0f,0f,0f));
+#endif
+			return value;
         }
 	}
 

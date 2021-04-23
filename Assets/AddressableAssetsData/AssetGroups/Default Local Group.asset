@@ -29,8 +29,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Ships
-    m_MainAsset: {fileID: 102900000, guid: 51a02f38bc1a7264eb24e35ad2fd13a2, type: 3}
-    m_TargetAsset: {fileID: 102900000, guid: 51a02f38bc1a7264eb24e35ad2fd13a2, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 3f28c0b0ad811b64eb0de0faa862387c
     m_Address: Assets/GameData/Projectiles
     m_ReadOnly: 0
@@ -57,6 +57,27 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Weapons
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 2f421e2cde4772b408c5a15e3cccc537
+    m_Address: Assets/GameData/Hulls
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hulls
+    m_MainAsset: {fileID: 102900000, guid: 2f421e2cde4772b408c5a15e3cccc537, type: 3}
+    m_TargetAsset: {fileID: 102900000, guid: 2f421e2cde4772b408c5a15e3cccc537, type: 3}
+  - m_GUID: f11829cc8deea4c41be25b27a39eadac
+    m_Address: Assets/GameData/Actions
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Actions
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 363a1365e8a1bbd4a9414b4cde36b410
+    m_Address: Assets/GameData/Waves
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Waves
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0

@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace Celeritas.Game.Console
 {
-	public class DebugConsole : Singleton<DebugConsole>, Actions.IConsoleActions
+	public class DebugConsole : Singleton<DebugConsole>, InputActions.IConsoleActions
 	{
 		/// <summary>
 		/// A container for meta data about every entry in the console.
@@ -60,7 +60,7 @@ namespace Celeritas.Game.Console
 
 		private LoopingArray<Entry> Buffer { get; set; }
 		private List<string> entryBuffer = new List<string>();
-		private Actions.ConsoleActions actions = default;
+		private InputActions.ConsoleActions actions = default;
 
 		protected override void Awake()
 		{
@@ -68,7 +68,7 @@ namespace Celeritas.Game.Console
 
 			DontDestroyOnLoad(this);
 
-			actions = new Actions.ConsoleActions(new Actions());
+			actions = new InputActions.ConsoleActions(new InputActions());
 			actions.SetCallbacks(this);
 			actions.Enable();
 

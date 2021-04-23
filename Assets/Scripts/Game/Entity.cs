@@ -1,4 +1,5 @@
 using Celeritas.Extensions;
+using Celeritas.Game.Actions;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System;
@@ -22,7 +23,6 @@ namespace Celeritas.Game
 		/// Does this entity belong to the player?
 		/// </summary>
 		public bool IsPlayer { get; private set; }
-		private bool dead;
 
 		/// <summary>
 		/// Whether or not this entity is dead (ie, destroyed & should be removed from the screen)
@@ -91,16 +91,42 @@ namespace Celeritas.Game
 		/// </summary>
 		public event Action<Entity> OnDestroyed;
 
-		private EffectManager effectManager;
-
-		public IReadOnlyList<EffectWrapper> EffectWrappers => ((IEffectManager)effectManager).EffectWrappers;
-
-		public EffectWrapper[] EffectWrapperCopy => ((IEffectManager)effectManager).EffectWrapperCopy;
+		/// <summary>
+		/// Get all the actions on this entity.
+		/// </summary>
+		public IReadOnlyList<GameAction> Actions { get => actions.AsReadOnly(); }
 
 		/// <summary>
-		/// Called to initalize this entity with its appropriate data.
+		/// Get a readonly list of all the effects on this entity.
 		/// </summary>
-		/// <param name="data">The data to associate this entity with.</param>
+		public IReadOnlyList<EffectWrapper> EffectWrappers => effectManager.EffectWrappers;
+
+		/// <summary>
+		/// Get a copy of all effects on this entity.
+		/// </summary>
+		public EffectWrapper[] EffectWrapperCopy => effectManager.EffectWrapperCopy;
+
+		private readonly List<GameAction> actions = new List<GameAction>();
+
+		private EffectManager effectManager;
+
+		/// <summary>
+		/// Invoked when an action is added.
+		/// </summary>
+		public event Action<GameAction> OnActionAdded;
+
+		/// <summary>
+		/// Invoked when an action is removed.
+		/// </summary>
+		public event Action<GameAction> OnActionRemoved;
+
+		/// <summary>
+		/// Initalize this entity.
+		/// </summary>
+		/// <param name="data">The data to attatch this entity to.</param>
+		/// <param name="owner">The owner to attatch this entity to, optional.</param>
+		/// <param name="effects">The effects to add to this entity, optional.</param>
+		/// <param name="forceIsPlayer">Force this entity to belong to the player, optional.</param>
 		public virtual void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
 		{
 			Data = data;
@@ -115,11 +141,11 @@ namespace Celeritas.Game
 
 			effectManager = new EffectManager(TargetType);
 
-			ClearEffects();
-			AddEffectRange(effects);
+			effectManager.ClearEffects();
+			effectManager.AddEffectRange(effects);
 			if (hasDefaultEffects)
 			{
-				AddEffectRange(defaultEffects);
+				effectManager.AddEffectRange(defaultEffects);
 			}
 
 			OnEntityCreated();	
@@ -172,6 +198,69 @@ namespace Celeritas.Game
 		}
 
 		/// <summary>
+		/// Add a new action onto this entity.
+		/// </summary>
+		/// <param name="action">The action to add.</param>
+		public void AddAction(GameAction action)
+		{
+			if (!action.Targets.HasFlag(TargetType))
+			{
+				Debug.LogError($"Tried to add an action (<color=\"orange\">{action.Data.Title}</color>) to an entity whose type (<color=\"orange\">{TargetType}</color>) is not " +
+					$"supported by the action (<color=\"orange\">{action.Targets}</color>).");
+				return;
+			}
+			actions.Add(action);
+		}
+
+		/// <summary>
+		/// Add an action of a certain data type to this entity.
+		/// </summary>
+		/// <param name="data">The action data type to add.</param>
+		public GameAction AddAction(ActionData data)
+		{
+			var created = Activator.CreateInstance(data.ActionType);
+			if (created is GameAction action)
+			{
+				action.Initialize(data, IsPlayer, this);
+				actions.Add(action);
+				OnActionAdded?.Invoke(action);
+				return action;
+			}
+
+			Debug.LogError($"Could not create a script instance from action data <color=\"orange\">{data.Title}</color>", data);
+			return null;
+		}
+
+		/// <summary>
+		/// Remove an action from the entity.
+		/// </summary>
+		/// <param name="action">The action to remove.</param>
+		public void RemoveAction(GameAction action)
+		{
+			if (actions.Contains(action))
+			{
+				actions.Remove(action);
+				OnActionRemoved?.Invoke(action);
+			}
+		}
+
+		/// <summary>
+		/// Activate all actions on this entity.
+		/// </summary>
+		public void UseActions()
+		{
+			foreach (var action in actions)
+			{
+				UseAction(action);
+			}
+		}
+
+		private void UseAction(GameAction action)
+		{
+			action.ExecuteAction(this);
+		}
+
+		/// <summary>
 		/// Update effects for this entity when hit.
 		/// </summary>
 		/// <param name="other">The other entity.</param>
@@ -204,88 +293,6 @@ namespace Celeritas.Game
 		protected virtual void TakeDamage(Entity attackingEntity)
 		{
 			// by default, entities have no health, so this does nothing. Will be overridden by children.
-		}
-
-		public void AddEffect(EffectWrapper wrapper)
-		{
-			((IEffectManager)effectManager).AddEffect(wrapper);
-			wrapper.EffectCollection.OnAdded(this, wrapper.Level);
-		}
-
-		public void AddEffectRange(IList<EffectWrapper> wrappers)
-		{
-			((IEffectManager)effectManager).AddEffectRange(wrappers);
-
-			if (wrappers != null)
-			{
-				foreach (var effect in wrappers)
-				{
-					effect.EffectCollection.OnAdded(this, effect.Level);
-				}
-			}
-		}
-
-		public void ClearEffects()
-		{
-			foreach (var effect in EffectWrapperCopy)
-			{
-				effect.EffectCollection.OnRemoved(this, effect.Level);
-			}
-
-			((IEffectManager)effectManager).ClearEffects();
-		}
-
-		public void RemoveEffect(EffectWrapper wrapper)
-		{
-			((IEffectManager)effectManager).RemoveEffect(wrapper);
-			wrapper.EffectCollection.OnRemoved(this, wrapper.Level);
-		}
-	}
-
-	/// <summary>
-	/// Provides information on how much health an entity has
-	/// </summary>
-	[System.Serializable]
-	public class EntityStatBar
-	{
-		[SerializeField, PropertyRange(1, 100), Title("Max Health")]
-		private uint maxValue;
-
-		[SerializeField, PropertyRange(1, 100), Title("Current Health")]
-		private int currentValue;
-
-		/// <summary>
-		/// The entity's maximum health
-		/// </summary>
-		public uint MaxValue { get => maxValue; }
-
-		/// <summary>
-		/// The entity's current health
-		/// </summary>
-		public int CurrentValue { get => currentValue; }
-
-		public EntityStatBar(uint startingValue) {
-			maxValue = startingValue;
-			currentValue = (int)startingValue;
-		}
-
-		/// <summary>
-		/// Checks whether the stat is empty or not, returns true if so
-		/// </summary>
-		/// <returns>true if bar is empty (ie, current value == 0). If health, entity is dead.</returns>
-		public bool IsEmpty() {
-			if (currentValue < 1)
-				return true;
-			else
-				return false;
-		}
-
-		/// <summary>
-		/// damages entity's stat equal to the passed amount
-		/// </summary>
-		/// <param name="amount">Amount to damage entity with</param>
-		public void Damage(int amount) {
-			currentValue -= amount;
 		}
 	}
 }

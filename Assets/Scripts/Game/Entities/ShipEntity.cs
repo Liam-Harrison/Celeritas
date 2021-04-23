@@ -1,15 +1,8 @@
 using Celeritas.AI;
 using Celeritas.Scriptables;
-using Celeritas.Game.Entities;
-using Celeritas.Game.Controllers;
-using Celeritas.Game;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
-using Sirenix.Utilities;
-using Sirenix.Utilities.Editor;
 
 namespace Celeritas.Game.Entities
 {
@@ -151,10 +144,7 @@ namespace Celeritas.Game.Entities
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Ship; }
 
-		/// <summary>
-		/// Initalize this entity.
-		/// </summary>
-		/// <param name="data"></param>
+		/// <inheritdoc/>
 		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
 		{
 			base.Initalize(data, owner, effects, forceIsPlayer);
@@ -241,10 +231,10 @@ namespace Celeritas.Game.Entities
 
 		private void TranslationLogic()
 		{
-			Velocity = Forward * ((Mathf.Max(Translation.y, 0) * ShipData.MovementSettings.forwardForcePerSec * movementModifier.Forward) +
+			Velocity = Vector3.up * ((Mathf.Max(Translation.y, 0) * ShipData.MovementSettings.forwardForcePerSec * movementModifier.Forward) +
 							(Mathf.Min(Translation.y, 0) * ShipData.MovementSettings.backForcePerSec * movementModifier.Back)) * Time.smoothDeltaTime;
 
-			Velocity += Right * Translation.x * ShipData.MovementSettings.sideForcePerSec * movementModifier.Side * Time.smoothDeltaTime;
+			Velocity += Vector3.right * Translation.x * ShipData.MovementSettings.sideForcePerSec * movementModifier.Side * Time.smoothDeltaTime;
 
 			Rigidbody.AddForce(Velocity, ForceMode2D.Force);
 		}
@@ -281,7 +271,6 @@ namespace Celeritas.Game.Entities
 		{
 			float gain = LootConfig.Gain;
 			dropType = DropType.Ship;
-
 
 			if (gain != 0)
 			{

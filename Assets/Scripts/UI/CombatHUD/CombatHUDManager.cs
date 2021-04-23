@@ -1,8 +1,6 @@
 using Celeritas.Game;
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
-using Sirenix.OdinInspector;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -53,11 +51,12 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	[SerializeField]
 	private Texture2D mouseTexture;
 
-	// used for 'PrintNotification'.
 	[SerializeField]
 	private GameObject floatingNotificationPrefab;
 
 	private ShipEntity playerShip;
+
+	public AbilityBar AbilityBar { get => abilityBar; }
 
 	protected override void Awake()
 	{
@@ -69,7 +68,6 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 		// trigger this class's 'OnCreatedEntity' when that event occurs in EntityDataManager
 		EntityDataManager.OnCreatedEntity += OnCreatedEntity;
 
-		// https://docs.unity3d.com/ScriptReference/Cursor.SetCursor.html
 		Cursor.SetCursor(mouseTexture, Vector2.zero, CursorMode.Auto);
 	}
 
@@ -79,19 +77,13 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	/// <param name="message"></param>
 	public void PrintNotification(string message)
 	{
-		GameObject toPrint = Object.Instantiate<GameObject>(floatingNotificationPrefab, canvas.transform);
+		GameObject toPrint = Instantiate(floatingNotificationPrefab, canvas.transform);
 		toPrint.transform.SetParent(canvas.transform);
 		toPrint.GetComponent<Text>().text = message;
 	}
 
 	private void Start()
 	{
-		List<DummyAbility> abilities = GenerateDummyAbilities();
-		for (int i = 0; i < abilities.Count; i++)
-		{
-			abilityBar.AddAbility(abilities[i], i);
-		}
-
 		// just showing/testing how to notify the player via the HUDManager -- delete when integrated with loot pickup
 		PrintNotification("Hello hello!! c:");
 	}
@@ -101,8 +93,6 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 		EntityDataManager.OnCreatedEntity -= OnCreatedEntity;
 		base.OnDestroy();
 	}
-
-	private void OnPostRender(){}
 
 	private void OnCreatedEntity(Entity entity)
 	{
@@ -118,7 +108,6 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 
 	private void Update()
 	{
-
 		// if just starting, link stationary stat bars to PlayerShip
 		if (playerShip == null && PlayerController.Instance != null) {
 			playerShip = PlayerController.Instance.ShipEntity;
@@ -165,22 +154,4 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 			statBar.UpdateLocation();
 		}
 	}
-
-	/// <summary>
-	/// For testing HUD only
-	/// </summary>
-	/// <returns></returns>
-	private List<DummyAbility> GenerateDummyAbilities()
-	{
-		List<DummyAbility> toReturn = new List<DummyAbility>();
-		for (int i = 0; i < 4; i++)
-		{
-			DummyAbility toAdd = new DummyAbility((i+1)+"");
-			toAdd.icon = defaultAbilityIcon;
-			toReturn.Add(toAdd);
-		}
-		toReturn[1].inputButton = "shift";
-		return toReturn;
-	}
-
 }
