@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c025da834488194fa3e034d7dd7c194, type: 3}
+  m_Name: AssetIcon Resources (Dark)
+  m_EditorClassIdentifier: 
+  sampleImage: {fileID: 21300014, guid: 13699c70ebaae9240ad8a214cb0c1663, type: 3}
+  updaterIcon: {fileID: 2800000, guid: 88ecdd86e9305ed498bbd19b4aa73417, type: 3}
+  circleTexture: {fileID: 2800000, guid: 0f7c6356d0958284389f6878f9ca0afc, type: 3}
+  normalVersionColor: {r: 0.39607847, g: 0.4784314, b: 0.7607844, a: 1}
+  futureVersionColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  normalVersionLineColor: {r: 0.28568888, g: 0.34899348, b: 0.5660378, a: 1}
+  futureVersionLineColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
+  normalVersionBackgroundColor: {r: 0.36058205, g: 0.43729663, b: 0.6886792, a: 0.13333334}
+  currentVersionBackgroundColor: {r: 0.36058205, g: 0.43729663, b: 0.6886792, a: 0.13333334}
+  futureVersionBackgroundColor: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 0.16862746}
+  normalVersionBackgroundHoverColor: {r: 0.21440013, g: 0.31160048, b: 0.6226415,
+    a: 0.1882353}
+  currentVersionBackgroundHoverColor: {r: 0.21440013, g: 0.31160048, b: 0.6226415,
+    a: 0.1882353}
+  futureVersionBackgroundHoverColor: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 0.3254902}
+  unityLogo: {fileID: 2800000, guid: 98731d7b57a33584eaf262d57b606f26, type: 3}
+  githubLogo: {fileID: 2800000, guid: 083f11318893b5b4fa6dd9826cb856bf, type: 3}
+  crossIcon: {fileID: 2800000, guid: 0d4aa1b98be5c3f47a87ba39ba6222d6, type: 3}
+  crossNormalColour: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
+  emojisBackground: {fileID: 2800000, guid: 632fda00e812d964e9bd06cb4ff8fdb9, type: 3}
+  emojisForRatings:
+  - {fileID: 2800000, guid: 236241f5cfd2a9d4aa6fee209a4d4ae2, type: 3}
+  - {fileID: 2800000, guid: f273670669c378f4d8207597e6b3e9cb, type: 3}
+  - {fileID: 2800000, guid: 813ca76fa46689440a78c4b6c39ddc81, type: 3}
+  - {fileID: 2800000, guid: e56067c33783aef468e4a1378da4e67f, type: 3}
+  - {fileID: 2800000, guid: 7f56c47d13988344c9670a58aafadb3a, type: 3}
+  starBackground: {fileID: 2800000, guid: 69a32148c4c97a24da12cddcbae76b8c, type: 3}
+  starIcon: {fileID: 2800000, guid: be9a43b9990c2c243a133da0b81dc08f, type: 3}
+  logoColor: {r: 0.83699995, g: 0.83699995, b: 0.83699995, a: 1}
+  starNormalColor: {r: 0.49803922, g: 0.49803922, b: 0.49803922, a: 1}
+  starHighlightedColor: {r: 0.94509804, g: 0.68235296, b: 0.15294118, a: 1}

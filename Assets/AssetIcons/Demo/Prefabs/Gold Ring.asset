@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c33333122901694fa6e51777c8babd2, type: 3}
+  m_Name: Gold Ring
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 100000, guid: 31b152000770739499facbd7613d6036, type: 3}
+  Background: {fileID: 21300002, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
+  ItemColor: {r: 0.6226415, g: 0.22614807, b: 0.22614807, a: 0}

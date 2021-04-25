@@ -1,0 +1,53 @@
+{
+    "name": "AssetIcons.Editors",
+    "references": [
+        "AssetIcons"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "nuget.mono-cecil",
+            "expression": "0.0",
+            "define": "ASSETICONS_ASMDEF"
+        },
+        {
+            "name": "com.unity.ugui",
+            "expression": "0.0",
+            "define": "ASSETICONS_ASMDEF"
+        },
+        {
+            "name": "com.unity.package-manager-ui",
+            "expression": "0.0",
+            "define": "ASSETICONS_ASMDEF"
+        },
+        {
+            "name": "com.unity.modules.ui",
+            "expression": "0.0",
+            "define": "ASSETICONS_ASMDEF"
+        },
+        {
+            "name": "com.unity.modules.physics2d",
+            "expression": "0.0",
+            "define": "ASSETICONS_ASMDEF"
+        },
+        {
+            "name": "com.unity.modules.physics",
+            "expression": "0.0",
+            "define": "ASSETICONS_ASMDEF"
+        },
+        {
+            "name": "com.unity.modules.physics",
+            "expression": "0.0",
+            "define": "ASSETICONS_ASMDEF"
+        }
+    ],
+    "noEngineReferences": false
+}

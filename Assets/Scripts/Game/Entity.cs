@@ -11,7 +11,7 @@ namespace Celeritas.Game
 	/// <summary>
 	/// The Entity class provides basic functionality for on-screen objects.
 	/// </summary>
-	public abstract class Entity : MonoBehaviour
+	public abstract class Entity : SerializedMonoBehaviour
 	{
 		[SerializeField]
 		private bool hasDefaultEffects;

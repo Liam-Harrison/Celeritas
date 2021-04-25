@@ -31,6 +31,10 @@ public class CameraStateManager : Singleton<CameraStateManager>
 
 	private CinemachineStateDrivenCamera cinemachineStateDriver;
 
+	protected void Start() {
+		animator = baseAnimator;
+	}
+
 	protected override void Awake()
 	{
 		animator = baseAnimator;

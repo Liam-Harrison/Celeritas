@@ -1,5 +1,8 @@
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+using UnityEditor;
+using Sirenix.Utilities.Editor;
+using Celeritas.Extensions;
 using UnityEngine;
 
 namespace Celeritas.Scriptables
@@ -8,22 +11,53 @@ namespace Celeritas.Scriptables
 	[CreateAssetMenu(fileName = "HullData", menuName = "Celeritas/New Hull")]
 	public class HullData : SerializedScriptableObject
 	{
+        [SerializeField]
         [InfoBox("This field must be an odd number",InfoMessageType.Error, "@!isOdd(this.LayoutResolution)")]
         [OnValueChanged(nameof(onLayoutResolutionChange))]
         [Range(3, 15)]
-        public int LayoutResolution = BaseLayoutResolution;
+        private int LayoutResolution = BaseLayoutResolution;
         
-        public static int BaseLayoutResolution = 9;
+        private static int BaseLayoutResolution = 9;
 
         [HorizontalGroup("Split", 0.5f)]
         [BoxGroup("Split/Ship Layout")]
-		[TableMatrix(HorizontalTitle = "Left of ship", VerticalTitle = "Back of ship", SquareCells = true, DrawElementMethod = nameof(onHullLayoutDraw))]
-		public bool[,] HullLayout = new bool[BaseLayoutResolution,BaseLayoutResolution];
+        [SerializeField]
+		[TableMatrix(HorizontalTitle = "Right of ship", VerticalTitle = "Back of ship",SquareCells = true, DrawElementMethod = "onHullLayoutDraw")]
+		private bool[,] hullLayout = new bool[BaseLayoutResolution,BaseLayoutResolution];
 
         [BoxGroup("Split/Ship Modules")]
-		[TableMatrix(HorizontalTitle = "Left of ship", VerticalTitle = "Back of ship", SquareCells = true)]
-		public ModuleData[,] HullModules = new ModuleData[BaseLayoutResolution, BaseLayoutResolution];
+        [SerializeField]
+		[TableMatrix(HorizontalTitle = "Right of ship", VerticalTitle = "Back of ship", SquareCells = true, DrawElementMethod = nameof(DrawModulePreview))]
+		private ModuleData[,] hullModules = new ModuleData[BaseLayoutResolution, BaseLayoutResolution];
 
+        // Properties
+
+        /// <summary>
+        /// Ship's layout data
+        /// </summary>
+        public bool[,] HullLayout { get => hullLayout; }
+        
+        /// <summary>
+        /// Ship's module position data.
+        /// </summary>
+        /// <value></value>
+        public ModuleData[,] HullModules { get => hullModules; }
+        
+		private ModuleData DrawModulePreview(Rect rect, ModuleData value, int x, int y)
+		{
+            if (HullLayout[x,y] == true) {
+                if (value != null)
+                {
+                    Texture2D preview = value.icon.ToTexture2D();
+                    value = (ModuleData)SirenixEditorFields.UnityPreviewObjectField(rect, value, preview, typeof(ModuleData));
+                } else {
+                    value = (ModuleData)SirenixEditorFields.UnityPreviewObjectField(rect, value, typeof(ModuleData));
+                }
+            } else {
+                value = null;
+            }
+			return value;
+		}
 
         private bool isOdd(int value) {
             return value % 2 != 0 ? true : false;
@@ -31,8 +65,8 @@ namespace Celeritas.Scriptables
 
         private void onLayoutResolutionChange(int value) {
             if (isOdd(value)) {                
-                this.HullLayout = new bool[LayoutResolution ,LayoutResolution];
-                this.HullModules = new ModuleData[LayoutResolution, LayoutResolution];
+                this.hullLayout = new bool[LayoutResolution ,LayoutResolution];
+                this.hullModules = new ModuleData[LayoutResolution, LayoutResolution];
             }
         }
 

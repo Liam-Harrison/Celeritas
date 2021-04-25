@@ -20,7 +20,6 @@ namespace Celeritas.Game.Entities
 	[RequireComponent(typeof(Rigidbody2D))]
 	public class ShipEntity : Entity
 	{
-
 		[SerializeField, Title("Modules")]
 		private Module[] modules;
 
@@ -102,6 +101,11 @@ namespace Celeritas.Game.Entities
 				return list;
 			}
 		}
+
+		/// <summary>
+		/// The ships hull data.
+		/// </summary>
+		public HullManager HullManager { get; private set; }
 
 		/// <summary>
 		/// The attatched ship data.
@@ -201,7 +205,7 @@ namespace Celeritas.Game.Entities
 					health.Damage(damageAmount);
 				}
 				else
-				{	// damage won't go beyond shields
+				{   // damage won't go beyond shields
 					shield.Damage(damageAmount);
 				}
 
@@ -335,7 +339,7 @@ namespace Celeritas.Game.Entities
 		/// The base loot value of the ship.
 		/// </summary>
 		public float Gain { get => gain; set => gain = Mathf.Clamp(value, 0, RANGE); }
-		
+
 		/// <summary>
 		/// Check if enemy is a boss to modify drops.
 		/// </summary>
