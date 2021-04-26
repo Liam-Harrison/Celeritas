@@ -67,13 +67,7 @@ namespace Celeritas.Scriptables
 		public float rotationMaximum;
 
 		[PropertyRange(0, 1000), PropertySpace, Title("Translation")]
-		public float forwardForcePerSec;
-
-		[PropertyRange(0, 1000)]
-		public float sideForcePerSec;
-
-		[PropertyRange(0, 1000)]
-		public float backForcePerSec;
+		public float forcePerSec;
 
 		[PropertyRange(0, 100)]
 		public float mass;
