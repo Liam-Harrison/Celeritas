@@ -147,7 +147,11 @@ MonoBehaviour:
     gain: 1
     isBoss: 0
   dropType: 0
-  EngineParticles: []
+  engineEffects:
+  - {fileID: 533868656175302458}
+  - {fileID: 8950003118209943938}
+  - {fileID: 4671421883375309999}
+  - {fileID: 4289779454614690327}
   hullManager: {fileID: 3216270655684157883}
 --- !u!50 &2516558698829045451
 Rigidbody2D:
@@ -513,6 +517,16 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1477245854262912886, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
   m_PrefabInstance: {fileID: 4594367450137448437}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &8950003118209943938 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4897300313599739511, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
+  m_PrefabInstance: {fileID: 4594367450137448437}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4289779454614690327 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 309098510183863778, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
+  m_PrefabInstance: {fileID: 4594367450137448437}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4944418058108059981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -573,6 +587,16 @@ PrefabInstance:
 --- !u!4 &5773088339213985339 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1477245854262912886, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
+  m_PrefabInstance: {fileID: 4944418058108059981}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &533868656175302458 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4897300313599739511, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
+  m_PrefabInstance: {fileID: 4944418058108059981}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4671421883375309999 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 309098510183863778, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
   m_PrefabInstance: {fileID: 4944418058108059981}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6365166053207317103

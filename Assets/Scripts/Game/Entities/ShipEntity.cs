@@ -21,16 +21,25 @@ namespace Celeritas.Game.Entities
 	public class ShipEntity : Entity
 	{
 		[SerializeField, Title("Modules")]
-		private Module[] modules;
+		protected Module[] modules;
 
-		[SerializeField]
-		private MovementModifier movementModifier;
+		[SerializeField, Title("Settings")]
+		protected MovementModifier movementModifier;
 
 		[SerializeField]
 		protected EntityStatBar health;
 
 		[SerializeField]
 		protected EntityStatBar shield;
+
+		[SerializeField, Title("Loot")]
+		private LootConfig lootConfig;
+
+		[SerializeField, DisableInPlayMode]
+		private DropType dropType;
+
+		[SerializeField, Title("Effects")]
+		protected ParticleSystem[] engineEffects;
 
 		/// <summary>
 		/// The entity's health data
@@ -47,9 +56,6 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public MovementModifier MovementModifier { get => movementModifier; }
 
-		[SerializeField]
-		private LootConfig lootConfig;
-
 		/// <summary>
 		/// The loot drop rate of the ship.
 		/// </summary>
@@ -59,9 +65,6 @@ namespace Celeritas.Game.Entities
 		/// The modules attatched to this ship.
 		/// </summary>
 		public Module[] Modules { get => modules; }
-
-		[SerializeField, DisableInPlayMode]
-		private DropType dropType;
 
 		/// <summary>
 		/// The item drop information of the ship.
@@ -106,11 +109,6 @@ namespace Celeritas.Game.Entities
 		/// The ships hull data.
 		/// </summary>
 		public HullManager HullManager { get; private set; }
-		
-		/// <summary>
-		/// All the Engine Particles attatched to this ship.
-		/// </summary>
-		public List<Transform> EngineParticles;
 		
 		/// <summary>
 		/// The attatched ship data.
@@ -170,8 +168,6 @@ namespace Celeritas.Game.Entities
 			}
 
 			base.Initalize(data, owner, effects);
-
-			AddDescendantEngineParticles("EngineParticle", transform);
 		}
 
 		protected override void Update()
@@ -181,6 +177,7 @@ namespace Celeritas.Game.Entities
 
 			TranslationLogic();
 			RotationLogic();
+			EngineLogic();
 
 			base.Update();
 		}
@@ -245,7 +242,6 @@ namespace Celeritas.Game.Entities
 			Velocity += Vector3.right * Translation.x * ShipData.MovementSettings.sideForcePerSec * movementModifier.Side * Time.smoothDeltaTime;
 
 			Rigidbody.AddForce(Velocity, ForceMode2D.Force);
-			EngineLogic();
 		}
 
 		private void RotationLogic()
@@ -282,27 +278,11 @@ namespace Celeritas.Game.Entities
 			HighestVelocity = (HighestVelocity * 100);
 			ParticleEmission = (int)HighestVelocity;
 
-			foreach (Transform Particle in EngineParticles)
+			foreach (var system in engineEffects)
 			{
-				var ParticleSystem = Particle.GetComponent<ParticleSystem>().emission;
-				ParticleSystem.rateOverTime = ParticleEmission;
+				var emission = system.emission;
+				emission.rateOverTime = ParticleEmission;
 			}
-
-		}
-
-		private void AddDescendantEngineParticles (string tag, Transform parent)
-		{
-			List<Transform> LocalParticles = new List<Transform>();
-
-			foreach(Transform child in parent)
-			{
-				if (child.gameObject.tag == tag & child.gameObject.GetComponent(typeof(ParticleSystem)) != null)
-				{
-					EngineParticles.Add(child);
-				}
-				AddDescendantEngineParticles(tag, child);
-			}
-			//EngineParticles = LocalParticles;
 		}
 
 protected void ApplyRigidbodySettings()

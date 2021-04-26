@@ -25,11 +25,9 @@ public class CameraStateManager : Singleton<CameraStateManager>
 	[SerializeField, Required]
 	private Animator baseAnimator;
 
-	public CinemachineVirtualCamera Camera => cinemachineStateDriver.LiveChild as CinemachineVirtualCamera;
-
 	private static Animator animator;
 
-	private CinemachineStateDrivenCamera cinemachineStateDriver;
+	public static CinemachineBrain CinemachineBrain { get; private set; }
 
 	protected void Start() {
 		animator = baseAnimator;
@@ -38,7 +36,7 @@ public class CameraStateManager : Singleton<CameraStateManager>
 	protected override void Awake()
 	{
 		animator = baseAnimator;
-		cinemachineStateDriver = GetComponent<CinemachineStateDrivenCamera>();
+		CinemachineBrain = FindObjectOfType<CinemachineBrain>();
 
 		base.Awake();
 	}

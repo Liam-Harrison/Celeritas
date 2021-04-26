@@ -75,7 +75,9 @@ MonoBehaviour:
     gain: 100
     isBoss: 0
   dropType: 0
-  EngineParticles: []
+  engineEffects:
+  - {fileID: 2496458183196151647}
+  - {fileID: 7285034985057098954}
 --- !u!50 &2516558698829045451
 Rigidbody2D:
   serializedVersion: 4
@@ -316,5 +318,15 @@ PrefabInstance:
 --- !u!4 &8490337026061758046 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1477245854262912886, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
+  m_PrefabInstance: {fileID: 7013098361574361384}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2496458183196151647 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4897300313599739511, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
+  m_PrefabInstance: {fileID: 7013098361574361384}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7285034985057098954 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 309098510183863778, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
   m_PrefabInstance: {fileID: 7013098361574361384}
   m_PrefabAsset: {fileID: 0}

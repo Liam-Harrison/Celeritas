@@ -20,7 +20,7 @@ namespace Celeritas.Game.Actions
 
 			if (ship.IsPlayer)
 			{
-				var camera = CameraStateManager.Instance.Camera;
+				var camera = CameraStateManager.CinemachineBrain.ActiveVirtualCamera;
 				camera.OnTargetObjectWarped(PlayerSpawner.Instance.transform, delta);
 			}
 		}
