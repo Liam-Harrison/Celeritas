@@ -4,6 +4,8 @@ namespace Celeritas.Game.Entities
 {
 	public class LootController : Singleton<LootController>
 	{
+		public enum LootType { Module, RareMetal}
+
 		/// <summary>
 		/// The attatched ship data.
 		/// </summary>
@@ -23,7 +25,9 @@ namespace Celeritas.Game.Entities
 				if (lootRoll < dropValue)
 				{
 					ModuleComponents = ModuleComponents + 1;
-					Debug.Log("Module dropped! You now have: " + ModuleComponents);
+					//Debug.Log("Module dropped! You now have: " + ModuleComponents);
+					CombatHUDManager.Instance.PrintNotification("Module dropped! You now have: " + ModuleComponents);
+					CombatHUDManager.Instance.UpdateLootCount(LootType.Module, ModuleComponents);
 
 					//var drop = EntityDataManager.InstantiateEntity<*LOOT DROP VISUAL*>;
 				}
@@ -36,7 +40,9 @@ namespace Celeritas.Game.Entities
 				if (lootRoll < dropValue)
 				{
 					RareMetals = RareMetals + Random.Range(1, 10);
-					Debug.Log("Rare metals dropped! You now have: " + RareMetals);
+					//Debug.Log("Rare metals dropped! You now have: " + RareMetals);
+					CombatHUDManager.Instance.PrintNotification("Rare metals dropped! You now have: " + RareMetals);
+					CombatHUDManager.Instance.UpdateLootCount(LootType.RareMetal, RareMetals);
 
 					//var drop = EntityDataManager.InstantiateEntity<*LOOT DROP VISUAL*>;
 				}

@@ -1,9 +1,10 @@
 using Celeritas.Game;
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Celeritas.Game.Entities.LootController;
 
 /// <summary>
 /// Manages the majority of in-combat HUD interface.
@@ -44,6 +45,14 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	[SerializeField]
 	private AbilityBar abilityBar;
 
+	// to display how many rare metals the player has
+	[SerializeField]
+	private TextMeshProUGUI rareMetalsCountText;
+
+	// to display how many modules the player has
+	[SerializeField]
+	private TextMeshProUGUI moduleCountText;
+
 	// just used for dummy ability display right now
 	[SerializeField]
 	private Sprite defaultAbilityIcon;
@@ -79,13 +88,19 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	{
 		GameObject toPrint = Instantiate(floatingNotificationPrefab, canvas.transform);
 		toPrint.transform.SetParent(canvas.transform);
-		toPrint.GetComponent<Text>().text = message;
+		toPrint.GetComponent<TextMeshProUGUI>().text = message;
+	}
+
+	public void UpdateLootCount(LootType type, int amount)
+	{
+		if (type == LootType.Module)
+			moduleCountText.text = amount.ToString();
+		if (type == LootType.RareMetal)
+			rareMetalsCountText.text = amount.ToString();
 	}
 
 	private void Start()
 	{
-		// just showing/testing how to notify the player via the HUDManager -- delete when integrated with loot pickup
-		PrintNotification("Hello hello!! c:");
 	}
 
 	protected override void OnDestroy()
