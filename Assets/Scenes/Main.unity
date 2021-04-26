@@ -413,7 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ship: {fileID: 11400000, guid: 2354894fc65befa43a573e4e81bedc30, type: 2}
-  action: {fileID: 0}
+  action: {fileID: 11400000, guid: 0470f1c9400b5264c800d2e109a8f682, type: 2}
 --- !u!4 &1251141674
 Transform:
   m_ObjectHideFlags: 0
@@ -1074,7 +1074,7 @@ PrefabInstance:
       objectReference: {fileID: 1365698838}
     - target: {fileID: 5641295165554848373, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 2.0035829e-16
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5641295165554848373, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_BoundingSphereOverride.x
@@ -1082,7 +1082,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5641295165554848373, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -4.710774e+37
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5641295165554848373, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_BoundingSphereOverride.z
@@ -1244,11 +1244,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004184, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: field of view
-      value: 60.000004
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004184, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: orthographic size
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
@@ -1276,8 +1276,8 @@ PrefabInstance:
       value: CameraStateSwitcher
       objectReference: {fileID: 0}
     - target: {fileID: 8531167039024123503, guid: d2172ba3cb7fc8a4785379e88f03d366, type: 3}
-      propertyPath: m_AnimatedTarget
-      value: 
+      propertyPath: m_ParentHash.Array.size
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8531167039024123503, guid: d2172ba3cb7fc8a4785379e88f03d366, type: 3}
       propertyPath: m_ChildCameras.Array.size

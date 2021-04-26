@@ -1,41 +1,34 @@
 using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// Logic for moving a text component slightly, while making it fade.
 /// Used for displaying temporary notifications to the player, via PrintNotification in HUDManager.
 /// </summary>
+[RequireComponent(typeof(TextMeshProUGUI))]
 public class TemporaryNotificationText : MonoBehaviour
 {
-	[SerializeField, Title("Time for message to last")]
-	private float timeToLive; // how long the message should stay on screen for
+	[SerializeField, Title("Assignments")]
+	private TextMeshProUGUI text;
 
-	[SerializeField, Title("Move Rate - how quickly the message moves up")]
+	[SerializeField, Title("Settings")]
+	private float timeToLive;
+
+	[SerializeField]
 	private float moveRate;
 
-	private Text text;
-
-    // Start is called before the first frame update
     void Start()
     {
-		text = GetComponent<Text>();
-
-		// fade out
 		text.CrossFadeAlpha(0.0f, timeToLive, false);
 	}
 
-    // Update is called once per frame
     void Update()
     {
-		// move up
 		transform.position = new Vector3(transform.position.x, transform.position.y + moveRate, 0);
 
-		// if not visible anymore, destroy
 		if (text.color.a == 0)
 			Destroy(gameObject);
-
 	}
 }

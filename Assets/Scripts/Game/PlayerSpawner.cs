@@ -28,7 +28,11 @@ namespace Celeritas.Game
 				transform.parent = ship.transform;
 				ship.OnActionAdded += OnPlayerActionAdded;
 				ship.OnActionRemoved += OnPlayerActionRemoved;
-				ship.AddAction(action);
+
+				if (action != null)
+				{
+					ship.AddAction(action);
+				}
 			};
 
 			base.Awake();

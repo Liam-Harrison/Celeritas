@@ -275,7 +275,8 @@ namespace Celeritas.Game.Entities
 
 			if (gain != 0)
 			{
-				LootController.Instance.LootDrop(gain, dropType, Position);
+				if (LootController.Instance != null)
+					LootController.Instance.LootDrop(gain, dropType, Position);
 			}
 		}
 	}

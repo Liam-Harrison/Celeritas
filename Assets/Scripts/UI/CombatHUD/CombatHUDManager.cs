@@ -47,12 +47,10 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 
 	// to display how many rare metals the player has
 	[SerializeField]
-	private GameObject rareMetalsCount;
 	private TextMeshProUGUI rareMetalsCountText;
 
 	// to display how many modules the player has
 	[SerializeField]
-	private GameObject moduleCount;
 	private TextMeshProUGUI moduleCountText;
 
 	// just used for dummy ability display right now
@@ -80,9 +78,6 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 		EntityDataManager.OnCreatedEntity += OnCreatedEntity;
 
 		Cursor.SetCursor(mouseTexture, Vector2.zero, CursorMode.Auto);
-
-		moduleCountText = moduleCount.GetComponent<TextMeshProUGUI>();
-		rareMetalsCountText = rareMetalsCount.GetComponent<TextMeshProUGUI>();
 	}
 
 	/// <summary>
@@ -93,7 +88,7 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	{
 		GameObject toPrint = Instantiate(floatingNotificationPrefab, canvas.transform);
 		toPrint.transform.SetParent(canvas.transform);
-		toPrint.GetComponent<Text>().text = message;
+		toPrint.GetComponent<TextMeshProUGUI>().text = message;
 	}
 
 	public void UpdateLootCount(LootType type, int amount)
