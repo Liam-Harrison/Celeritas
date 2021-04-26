@@ -282,8 +282,6 @@ namespace Celeritas.Game.Entities
 			HighestVelocity = (HighestVelocity * 100);
 			ParticleEmission = (int)HighestVelocity;
 
-			Debug.Log(EngineParticles.Count);
-
 			foreach (Transform Particle in EngineParticles)
 			{
 				var ParticleSystem = Particle.GetComponent<ParticleSystem>().emission;

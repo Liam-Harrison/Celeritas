@@ -78,7 +78,7 @@ namespace Celeritas.Game
 			var ship = entity as ShipEntity;
 			ships.Remove(ship);
 
-			if (ships.Count < 1)
+			if (ships.Count < 1 && WaveManager.Instance != null)
 			{
 				WaveManager.Instance.AllEnemyShipsDestroyed();
 			}
