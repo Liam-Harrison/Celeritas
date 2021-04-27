@@ -36,6 +36,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Tractor Beam",
+                    "type": "Button",
+                    "id": "48764d58-2f97-4c48-bd99-3def421e5ee6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -135,6 +143,17 @@
                     "processors": "",
                     "groups": "Controls",
                     "action": "Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec2373e5-52fe-4a1a-a986-734cad65f35d",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Tractor Beam",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
