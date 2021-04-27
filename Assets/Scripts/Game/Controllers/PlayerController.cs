@@ -1,4 +1,5 @@
 using Celeritas.Game.Entities;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -91,6 +92,64 @@ namespace Celeritas.Game.Controllers
 		public void OnAction(InputAction.CallbackContext context)
 		{
 			ShipEntity.UseActions();
+		}
+
+		ShipEntity tractorTarget;
+		int tractorRange = 10; // radius
+
+		public void OnTractorBeam(InputAction.CallbackContext context)
+		{
+			
+			if (context.performed)
+			{
+				Debug.Log("woof");
+				// consider factoring in mouse velocity for fun
+				//Vector2 mousePos = context.ReadValue<Vector2>();
+				Vector3 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+				// if no tractor target, find closest target within mouse range (if possible), and set it as tractorTarget
+				if (tractorTarget == null)
+				{
+					// Note: duplicated logic from GravityWell
+
+					// find all entities within radius, around the cursor
+					List<Collider2D> withinRange = new List<Collider2D>();
+					ContactFilter2D filter = new ContactFilter2D();
+					filter.NoFilter();
+					Physics2D.OverlapCircle(mousePos, tractorRange, filter, withinRange);
+
+					float lowestDistance = tractorRange + 1;
+
+					// find closest entity that is a ship
+					foreach (Collider2D collider in withinRange)
+					{
+						Rigidbody2D body = collider.attachedRigidbody;
+						if (body == null)
+							continue;
+						ShipEntity ship = body.GetComponent<ShipEntity>();
+						if (ship == null)
+							continue;
+						float distance = Vector2.Distance(ship.transform.position, mousePos);
+						if (distance > lowestDistance)
+						{
+							lowestDistance = distance;
+							tractorTarget = ship;
+						}
+					}
+				}
+
+				if (tractorTarget != null) // worth checking as not all clicks will be in range of valid target
+				{
+					// move target towards mouse w force proportional to distance
+
+					//float distance = Vector2.Distance(tractorTarget.transform.position, mousePos);
+					Vector2 dirToPull = mousePos - tractorTarget.transform.position;
+
+					tractorTarget.Rigidbody.AddForce(dirToPull);
+				}
+			}
+			if (context.canceled)
+				tractorTarget = null;
 		}
 	}
 }
