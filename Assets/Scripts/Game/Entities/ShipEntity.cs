@@ -185,7 +185,7 @@ namespace Celeritas.Game.Entities
 			base.OnDestroy();
 		}
 
-		private float collisionDamageMultiplier = 5;
+		private float collisionDamageMultiplier = 10;
 
 		public override void OnEntityHit(Entity other)
 		{
