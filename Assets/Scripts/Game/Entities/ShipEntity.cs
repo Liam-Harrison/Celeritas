@@ -189,33 +189,60 @@ namespace Celeritas.Game.Entities
 			base.OnDestroy();
 		}
 
-		protected override void TakeDamage(Entity attackingEntity)
+		private float collisionDamageMultiplier = 5;
+
+		public override void OnEntityHit(Entity other)
 		{
-			// as projectile is the only entity that does damage right now, check its type
-			if (attackingEntity is ProjectileEntity projectile)
+			Debug.Log("hit");
+			// if hitting another ship, calculate collision damage
+			if (other is ShipEntity)
+			{
+				// momentum is velocity * mass
+				float force = Velocity.magnitude * Rigidbody.mass * collisionDamageMultiplier;
+				Debug.Log(force);
+
+				other.TakeDamage(this, (int)force);
+
+				// take half damage yourself
+				TakeDamage(this, (int)force / 2);
+			}
+
+			base.OnEntityHit(other);
+		}
+
+		public override void TakeDamage(Entity attackingEntity, int damage)
+		{
+			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity)
 			{
 				base.TakeDamage(attackingEntity);
 
-				int damageAmount = projectile.Damage;
-
 				// if damage will go beyond shields
-				if (damageAmount > shield.CurrentValue)
+				if (damage > shield.CurrentValue)
 				{
 					// reduce damage by shield amount, reduce shield to 0
-					damageAmount -= shield.CurrentValue;
+					damage -= shield.CurrentValue;
 					shield.Damage(shield.CurrentValue);
 
 					// damage health with remaining amount
-					health.Damage(damageAmount);
+					health.Damage(damage);
 				}
 				else
 				{   // damage won't go beyond shields
-					shield.Damage(damageAmount);
+					shield.Damage(damage);
 				}
 
 				if (health.IsEmpty())
 					Died = true;
 
+			}
+		}
+
+		private void OnTriggerEnter2D(Collider2D other)
+		{
+			var entity = other.gameObject.GetComponentInParent<Entity>();
+			if (entity != null)
+			{
+				OnEntityHit(entity);
 			}
 		}
 
@@ -366,4 +393,5 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public bool IsBoss { get => isBoss; set => isBoss = value; }
 	}
+
 }

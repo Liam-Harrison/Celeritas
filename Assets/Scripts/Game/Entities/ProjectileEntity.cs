@@ -71,7 +71,8 @@ namespace Celeritas.Game.Entities
 			if (destroyedOnHit)
 				Died = true;
 
-			// parent implements damage calculations
+			other.TakeDamage(this, damage);
+
 			base.OnEntityHit(other);
 		}
 
