@@ -21,16 +21,25 @@ namespace Celeritas.Game.Entities
 	public class ShipEntity : Entity
 	{
 		[SerializeField, Title("Modules")]
-		private Module[] modules;
+		protected Module[] modules;
 
-		[SerializeField]
-		private MovementModifier movementModifier;
+		[SerializeField, Title("Settings")]
+		protected MovementModifier movementModifier;
 
 		[SerializeField]
 		protected EntityStatBar health;
 
 		[SerializeField]
 		protected EntityStatBar shield;
+
+		[SerializeField, Title("Loot")]
+		private LootConfig lootConfig;
+
+		[SerializeField, DisableInPlayMode]
+		private DropType dropType;
+
+		[SerializeField, Title("Effects")]
+		protected ParticleSystem[] engineEffects;
 
 		/// <summary>
 		/// The entity's health data
@@ -47,9 +56,6 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public MovementModifier MovementModifier { get => movementModifier; }
 
-		[SerializeField]
-		private LootConfig lootConfig;
-
 		/// <summary>
 		/// The loot drop rate of the ship.
 		/// </summary>
@@ -59,9 +65,6 @@ namespace Celeritas.Game.Entities
 		/// The modules attatched to this ship.
 		/// </summary>
 		public Module[] Modules { get => modules; }
-
-		[SerializeField, DisableInPlayMode]
-		private DropType dropType;
 
 		/// <summary>
 		/// The item drop information of the ship.
@@ -106,7 +109,7 @@ namespace Celeritas.Game.Entities
 		/// The ships hull data.
 		/// </summary>
 		public HullManager HullManager { get; private set; }
-
+		
 		/// <summary>
 		/// The attatched ship data.
 		/// </summary>
@@ -174,6 +177,7 @@ namespace Celeritas.Game.Entities
 
 			TranslationLogic();
 			RotationLogic();
+			EngineLogic();
 
 			base.Update();
 		}
@@ -232,10 +236,10 @@ namespace Celeritas.Game.Entities
 
 		private void TranslationLogic()
 		{
-			Velocity = Vector3.up * ((Mathf.Max(Translation.y, 0) * ShipData.MovementSettings.forwardForcePerSec * movementModifier.Forward) +
-							(Mathf.Min(Translation.y, 0) * ShipData.MovementSettings.backForcePerSec * movementModifier.Back)) * Time.smoothDeltaTime;
+			Velocity = Vector3.up * ((Mathf.Max(Translation.y, 0) * ShipData.MovementSettings.forcePerSec * movementModifier.Forward) +
+							(Mathf.Min(Translation.y, 0) * ShipData.MovementSettings.forcePerSec * movementModifier.Back)) * Time.smoothDeltaTime;
 
-			Velocity += Vector3.right * Translation.x * ShipData.MovementSettings.sideForcePerSec * movementModifier.Side * Time.smoothDeltaTime;
+			Velocity += Vector3.right * Translation.x * ShipData.MovementSettings.forcePerSec * movementModifier.Side * Time.smoothDeltaTime;
 
 			Rigidbody.AddForce(Velocity, ForceMode2D.Force);
 		}
@@ -258,6 +262,22 @@ namespace Celeritas.Game.Entities
 				{
 					Rigidbody.AddTorque(torque, ForceMode2D.Force);
 				}
+			}
+		}
+
+
+		private const int MIN_ENGINE_EMISSION = 10;
+		private const int MAX_ENGINE_EMISSION = 100;
+
+		private void EngineLogic()
+		{
+			var dot = Vector3.Dot(Forward, Translation);
+			var rate = Mathf.Lerp(MIN_ENGINE_EMISSION, MAX_ENGINE_EMISSION, Mathf.InverseLerp(-1, 1, dot));
+
+			foreach (var system in engineEffects)
+			{
+				var emission = system.emission;
+				emission.rateOverTime = rate;
 			}
 		}
 

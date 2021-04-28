@@ -10,7 +10,7 @@ using UnityEngine;
 /// <summary>
 /// An extention on ShipEntity that controls/manages player specific data
 /// </summary>
-public class PlayerEntity : ShipEntity
+public class PlayerShipEntity : ShipEntity
 {
 	[Title("Inventory")]
 	[TableMatrix(SquareCells = true, DrawElementMethod = nameof(DrawModulePreview))]
