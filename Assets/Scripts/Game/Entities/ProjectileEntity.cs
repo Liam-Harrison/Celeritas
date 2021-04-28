@@ -71,7 +71,7 @@ namespace Celeritas.Game.Entities
 			if (destroyedOnHit)
 				Died = true;
 
-			//other.TakeDamage(this, damage); // todo: change this back. just here to test collision damage
+			other.TakeDamage(this, damage);
 
 			base.OnEntityHit(other);
 		}
