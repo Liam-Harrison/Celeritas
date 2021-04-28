@@ -97,9 +97,9 @@ namespace Celeritas.Game.Controllers
 
 		ShipEntity tractorTarget;
 		int tractorRange = 10; // radius
-		float tractorForceMultiplier = 25;
+		float tractorForceMultiplier = 0.5f;
 		bool tractorActive = false;
-		float tractorForceCap = 10;
+		float tractorForceCap = 100;
 		float tractorDeadZoneRadius = 1; // if an object is this close to the cursor, tractor will stop applying force
 
 		/// <summary>
