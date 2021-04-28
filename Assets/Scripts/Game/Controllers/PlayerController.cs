@@ -48,6 +48,7 @@ namespace Celeritas.Game.Controllers
 			var target = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 			ShipEntity.Target = Vector3.ProjectOnPlane(target, Vector3.forward);
 			ShipEntity.Translation = locomotion;
+			TractorLogic();
 		}
 
 		public void OnFire(InputAction.CallbackContext context)
@@ -96,13 +97,46 @@ namespace Celeritas.Game.Controllers
 
 		ShipEntity tractorTarget;
 		int tractorRange = 10; // radius
+		float tractorForceMultiplier = 25;
+		bool tractorActive = false;
+		float tractorForceCap = 10;
+		float tractorDeadZoneRadius = 1; // if an object is this close to the cursor, tractor will stop applying force
+
+		/// <summary>
+		/// Pull tractorTarget around if tractor beam is active.
+		/// </summary>
+		private void TractorLogic()
+		{
+			if (tractorActive)
+			{
+				if (tractorTarget != null) // worth checking as not all clicks will be in range of valid target
+				{
+					Vector3 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+					// move target towards mouse w force proportional to distance
+					//float distance = Vector2.Distance(tractorTarget.transform.position, mousePos);
+
+					Vector2 dirToPull = mousePos - tractorTarget.transform.position;
+
+					if (dirToPull.magnitude <= tractorDeadZoneRadius)
+						return;
+
+					Vector2 toApply = dirToPull * tractorForceMultiplier * dirToPull.magnitude;
+					if (toApply.magnitude > tractorForceCap)
+						toApply = toApply.normalized * tractorForceCap;
+
+					tractorTarget.Rigidbody.AddForce(toApply);
+
+				}
+			}
+		}
 
 		public void OnTractorBeam(InputAction.CallbackContext context)
 		{
-			
 			if (context.performed)
 			{
-				Debug.Log("woof");
+				tractorActive = true;
+				
 				// consider factoring in mouse velocity for fun
 				//Vector2 mousePos = context.ReadValue<Vector2>();
 				Vector3 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -126,30 +160,26 @@ namespace Celeritas.Game.Controllers
 						Rigidbody2D body = collider.attachedRigidbody;
 						if (body == null)
 							continue;
+
 						ShipEntity ship = body.GetComponent<ShipEntity>();
 						if (ship == null)
 							continue;
+
 						float distance = Vector2.Distance(ship.transform.position, mousePos);
-						if (distance > lowestDistance)
+						if (distance < lowestDistance)
 						{
 							lowestDistance = distance;
 							tractorTarget = ship;
 						}
 					}
 				}
-
-				if (tractorTarget != null) // worth checking as not all clicks will be in range of valid target
-				{
-					// move target towards mouse w force proportional to distance
-
-					//float distance = Vector2.Distance(tractorTarget.transform.position, mousePos);
-					Vector2 dirToPull = mousePos - tractorTarget.transform.position;
-
-					tractorTarget.Rigidbody.AddForce(dirToPull);
-				}
 			}
+
 			if (context.canceled)
+			{ 
 				tractorTarget = null;
+				tractorActive = false;
+			}
 		}
 	}
 }

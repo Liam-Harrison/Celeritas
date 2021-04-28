@@ -47,5 +47,5 @@ MonoBehaviour:
     backForcePerSec: 100
     mass: 1
     aimDeadzone: 0.995
-  startingHealth: 50
+  startingHealth: 500000
   startingShield: 20
