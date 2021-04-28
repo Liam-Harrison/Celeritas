@@ -265,27 +265,23 @@ namespace Celeritas.Game.Entities
 			}
 		}
 
+
+		private const int MIN_ENGINE_EMISSION = 10;
+		private const int MAX_ENGINE_EMISSION = 100;
+
 		private void EngineLogic()
 		{
-			float HighestVelocity;
-			float LowestVelocity;
-			int ParticleEmission;
-
-			HighestVelocity = Mathf.Max(Mathf.Max(Translation.x, Translation.y), Translation.z);
-			LowestVelocity = Mathf.Min(Mathf.Min(Translation.x, Translation.y), Translation.z);
-			LowestVelocity = Mathf.Abs(LowestVelocity);
-			HighestVelocity = Mathf.Max(HighestVelocity, LowestVelocity);
-			HighestVelocity = (HighestVelocity * 100);
-			ParticleEmission = (int)HighestVelocity;
+			var dot = Vector3.Dot(Forward, Translation);
+			var rate = Mathf.Lerp(MIN_ENGINE_EMISSION, MAX_ENGINE_EMISSION, Mathf.InverseLerp(-1, 1, dot));
 
 			foreach (var system in engineEffects)
 			{
 				var emission = system.emission;
-				emission.rateOverTime = ParticleEmission;
+				emission.rateOverTime = rate;
 			}
 		}
 
-protected void ApplyRigidbodySettings()
+		protected void ApplyRigidbodySettings()
 		{
 			Rigidbody.gravityScale = 0;
 			Rigidbody.angularDrag = ShipData.MovementSettings.angularDrag;
