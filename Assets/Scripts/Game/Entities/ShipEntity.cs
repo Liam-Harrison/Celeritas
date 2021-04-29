@@ -198,7 +198,6 @@ namespace Celeritas.Game.Entities
 			{
 				// momentum is velocity * mass
 				float force = Velocity.magnitude * Rigidbody.mass * collisionDamageMultiplier;
-				Debug.Log(force);
 
 				other.TakeDamage(this, (int)force);
 
