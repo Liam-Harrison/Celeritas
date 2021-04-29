@@ -171,7 +171,7 @@ namespace Celeritas.Game.Controllers
 							continue;
 
 						ShipEntity ship = body.GetComponent<ShipEntity>();
-						if (ship == null)
+						if (ship == null || ship == ShipEntity) // can't tractor beam yourself
 							continue;
 
 						float distance = Vector2.Distance(ship.transform.position, mousePos);
