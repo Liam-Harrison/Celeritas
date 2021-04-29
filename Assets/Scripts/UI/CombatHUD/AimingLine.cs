@@ -20,14 +20,20 @@ public class AimingLine : MonoBehaviour
 	[SerializeField]
 	private float yDisplacementFromCursonCentre;
 
-	public GameObject targetToAimAt;
-
 	[SerializeField]
 	private bool aimAtMouse;
+
+	private GameObject targetToAimAt;
+
 	/// <summary>
 	/// If true, aiming line's target will be the player's mouse location
 	/// </summary>
 	public bool AimAtMouse { get => aimAtMouse; set => aimAtMouse = value; }
+
+	/// <summary>
+	/// Line will aim at this target if AimAtMouse is false.
+	/// </summary>
+	public GameObject TargetToAimAt { get => targetToAimAt; set => targetToAimAt = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +54,7 @@ public class AimingLine : MonoBehaviour
 	/// <param name="playerShip"></param>
 	public void Draw(ShipEntity playerShip)
 	{
+		// aim at mouse if aimAtMouse, else aim at target if it isn't null
 		Vector3 toAimAt;
 		if (aimAtMouse)
 			toAimAt = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -60,7 +67,7 @@ public class AimingLine : MonoBehaviour
 		line.SetPosition(0, playerShip.transform.position);
 		toAimAt.z = line.transform.position.z;
 
-		// these additions to centre the line 
+		// these additions to centre the line if required (eg cursor)
 		toAimAt.x += xDisplacementFromCursorCentre;
 		toAimAt.y += yDisplacementFromCursonCentre;
 		line.SetPosition(1, toAimAt);

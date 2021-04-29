@@ -5647,9 +5647,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ed580494c0896f43a1ff9b941562d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xDisplacementFromCursorCentre: 0.25
-  yDisplacementFromCursonCentre: -0.25
-  targetToAimAt: {x: 0, y: 0, z: 0}
+  xDisplacementFromCursorCentre: 0
+  yDisplacementFromCursonCentre: 0
   aimAtMouse: 0
 --- !u!120 &1891811019
 LineRenderer:
@@ -5670,7 +5669,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 580346caf2a129d4eaa2ea3d1e8e16c5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5696,7 +5695,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.06
+    widthMultiplier: 0.3
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -6314,6 +6313,10 @@ PrefabInstance:
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
       value: 0.1851852
       objectReference: {fileID: 0}
+    - target: {fileID: 5641295164575736227, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
+      propertyPath: aimAtMouse
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5641295164690157525, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -6416,19 +6419,19 @@ PrefabInstance:
       objectReference: {fileID: 1365698838}
     - target: {fileID: 5641295165554848373, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 1.28e-43
+      value: 1.6114932e-38
       objectReference: {fileID: 0}
     - target: {fileID: 5641295165554848373, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 1.8314937e+25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5641295165554848373, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -0.0000000021757067
+      value: 5.6e-44
       objectReference: {fileID: 0}
     - target: {fileID: 5641295165554848373, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 6.92e-43
+      value: 6.94e-43
       objectReference: {fileID: 0}
     - target: {fileID: 8656360157515372612, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_Name

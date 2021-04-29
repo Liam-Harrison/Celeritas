@@ -193,7 +193,6 @@ namespace Celeritas.Game.Entities
 
 		public override void OnEntityHit(Entity other)
 		{
-			Debug.Log("hit");
 			// if hitting another ship, calculate collision damage
 			if (other is ShipEntity)
 			{
