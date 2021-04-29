@@ -95,12 +95,14 @@ namespace Celeritas.Game.Controllers
 			ShipEntity.UseActions();
 		}
 
-		ShipEntity tractorTarget;
-		int tractorRange = 10; // radius
-		float tractorForceMultiplier = 0.5f;
-		bool tractorActive = false;
-		float tractorForceCap = 100;
-		float tractorDeadZoneRadius = 1; // if an object is this close to the cursor, tractor will stop applying force
+		
+		int TRACTOR_RANGE = 10; // radius the tractor beam can reach, to lock onto a target
+		float TRACTOR_FORCE_MULTIPLIER = 0.5f;
+		float TRACTOR_FORCE_CAP = 100; // max force tractor beam can apply
+		float TRACTOR_DEAD_ZONE_RADIUS = 1; // if an object is this close to the cursor, tractor will stop applying force
+
+		bool tractorActive = false; 
+		ShipEntity tractorTarget; // the target the tractor beam is locked onto. Null if no valid target in range or tractor not active.
 
 		/// <summary>
 		/// Pull tractorTarget around if tractor beam is active.
@@ -109,21 +111,19 @@ namespace Celeritas.Game.Controllers
 		{
 			if (tractorActive)
 			{
-				if (tractorTarget != null) // worth checking as not all clicks will be in range of valid target
+				if (tractorTarget != null)
 				{
 					Vector3 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-
-					// move target towards mouse w force proportional to distance
-					//float distance = Vector2.Distance(tractorTarget.transform.position, mousePos);
-
 					Vector2 dirToPull = mousePos - tractorTarget.transform.position;
 
-					if (dirToPull.magnitude <= tractorDeadZoneRadius)
+					// don't pull target if it's close to mouse (ie, in 'deadzone')
+					if (dirToPull.magnitude <= TRACTOR_DEAD_ZONE_RADIUS) 
 						return;
 
-					Vector2 toApply = dirToPull * tractorForceMultiplier * dirToPull.magnitude;
-					if (toApply.magnitude > tractorForceCap)
-						toApply = toApply.normalized * tractorForceCap;
+					// move target towards mouse w force proportional to distance ^ 2 ( == dirToPull * dirToPull.magnitude)
+					Vector2 toApply = dirToPull * TRACTOR_FORCE_MULTIPLIER * dirToPull.magnitude;
+					if (toApply.magnitude > TRACTOR_FORCE_CAP)
+						toApply = toApply.normalized * TRACTOR_FORCE_CAP;
 
 					tractorTarget.Rigidbody.AddForce(toApply);
 
@@ -131,15 +131,17 @@ namespace Celeritas.Game.Controllers
 			}
 		}
 
+		/// <summary>
+		/// Toggles tractorActive on/off when corrosponding input is pressed/released.
+		/// Also finds the closest entity within range, sets it as tractorTarget
+		/// </summary>
+		/// <param name="context"></param>
 		public void OnTractorBeam(InputAction.CallbackContext context)
 		{
 			if (context.performed)
 			{
+				// toggle tractorActive on
 				tractorActive = true;
-				
-				// consider factoring in mouse velocity for fun
-				//Vector2 mousePos = context.ReadValue<Vector2>();
-				Vector3 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
 				// if no tractor target, find closest target within mouse range (if possible), and set it as tractorTarget
 				if (tractorTarget == null)
@@ -147,14 +149,15 @@ namespace Celeritas.Game.Controllers
 					// Note: duplicated logic from GravityWell
 
 					// find all entities within radius, around the cursor
+					Vector3 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 					List<Collider2D> withinRange = new List<Collider2D>();
 					ContactFilter2D filter = new ContactFilter2D();
 					filter.NoFilter();
-					Physics2D.OverlapCircle(mousePos, tractorRange, filter, withinRange);
+					Physics2D.OverlapCircle(mousePos, TRACTOR_RANGE, filter, withinRange);
 
-					float lowestDistance = tractorRange + 1;
+					float lowestDistance = TRACTOR_RANGE + 1;
 
-					// find closest entity that is a ship
+					// loop through all entities, set the closest ship (within range) as tractorTarget
 					foreach (Collider2D collider in withinRange)
 					{
 						Rigidbody2D body = collider.attachedRigidbody;

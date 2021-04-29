@@ -273,7 +273,7 @@ namespace Celeritas.Game
 			{
 				wrapper.EffectCollection.HitEntity(this, other, wrapper.Level);
 			}
-
+			// damage calculations & logic is in child classes.
 			//other.TakeDamage(this);
 		}
 
