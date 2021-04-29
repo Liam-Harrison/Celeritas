@@ -20,6 +20,15 @@ public class AimingLine : MonoBehaviour
 	[SerializeField]
 	private float yDisplacementFromCursonCentre;
 
+	public GameObject targetToAimAt;
+
+	[SerializeField]
+	private bool aimAtMouse;
+	/// <summary>
+	/// If true, aiming line's target will be the player's mouse location
+	/// </summary>
+	public bool AimAtMouse { get => aimAtMouse; set => aimAtMouse = value; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,16 +42,27 @@ public class AimingLine : MonoBehaviour
 			Draw(PlayerController.Instance.ShipEntity);
     }
 
+	/// <summary>
+	/// Draw line from player ship to targetToAimAt
+	/// </summary>
+	/// <param name="playerShip"></param>
 	public void Draw(ShipEntity playerShip)
 	{
+		Vector3 toAimAt;
+		if (aimAtMouse)
+			toAimAt = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+		else if (targetToAimAt != null)
+			toAimAt = targetToAimAt.transform.position;
+		else
+			return;
+
 		// draw using line renderer
 		line.SetPosition(0, playerShip.transform.position);
-		Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-		mousePosition.z = line.transform.position.z;
+		toAimAt.z = line.transform.position.z;
 
 		// these additions to centre the line 
-		mousePosition.x += xDisplacementFromCursorCentre;
-		mousePosition.y += yDisplacementFromCursonCentre;
-		line.SetPosition(1, mousePosition);
+		toAimAt.x += xDisplacementFromCursorCentre;
+		toAimAt.y += yDisplacementFromCursonCentre;
+		line.SetPosition(1, toAimAt);
 	}
 }

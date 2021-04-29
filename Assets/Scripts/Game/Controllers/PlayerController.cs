@@ -187,7 +187,10 @@ namespace Celeritas.Game.Controllers
 				{
 					// add graphical effect
 					tractorGraphicalEffect = Instantiate(tractorBeamEffectPrefab, tractorTarget.transform);
-					// todo: scale depending on size of ship.
+					CombatHUDManager.Instance.TractorAimingLine.SetActive(true);
+					Debug.Log(CombatHUDManager.Instance.TractorAimingLine.GetComponent<AimingLine>());
+					CombatHUDManager.Instance.TractorAimingLine.GetComponent<AimingLine>().targetToAimAt = tractorTarget.gameObject;
+					// todo: scale effect depending on size of ship.
 				}
 			}
 
@@ -198,6 +201,7 @@ namespace Celeritas.Game.Controllers
 				if (tractorGraphicalEffect != null)
 				{
 					Destroy(tractorGraphicalEffect);
+					CombatHUDManager.Instance.TractorAimingLine.SetActive(false);
 				}
 			}
 		}
