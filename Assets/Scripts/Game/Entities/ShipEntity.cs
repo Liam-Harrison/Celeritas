@@ -193,13 +193,11 @@ namespace Celeritas.Game.Entities
 
 		public override void OnEntityHit(Entity other)
 		{
-			Debug.Log("hit");
 			// if hitting another ship, calculate collision damage
 			if (other is ShipEntity)
 			{
 				// momentum is velocity * mass
 				float force = Velocity.magnitude * Rigidbody.mass * collisionDamageMultiplier;
-				Debug.Log(force);
 
 				other.TakeDamage(this, (int)force);
 

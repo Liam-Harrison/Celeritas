@@ -45,5 +45,5 @@ MonoBehaviour:
     forcePerSec: 500
     mass: 1
     aimDeadzone: 0.995
-  startingHealth: 100
+  startingHealth: 1000
   startingShield: 20

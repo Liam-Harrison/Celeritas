@@ -45,6 +45,9 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	[SerializeField]
 	private AbilityBar abilityBar;
 
+	[SerializeField]
+	public GameObject TractorAimingLine;
+
 	// to display how many rare metals the player has
 	[SerializeField]
 	private TextMeshProUGUI rareMetalsCountText;
@@ -78,6 +81,8 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 		EntityDataManager.OnCreatedEntity += OnCreatedEntity;
 
 		Cursor.SetCursor(mouseTexture, Vector2.zero, CursorMode.Auto);
+
+		TractorAimingLine.SetActive(false);
 	}
 
 	/// <summary>

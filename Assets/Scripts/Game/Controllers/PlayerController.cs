@@ -19,6 +19,8 @@ namespace Celeritas.Game.Controllers
 		/// </summary>
 		public ShipEntity ShipEntity { get; private set; }
 
+		private Object tractorBeamEffectPrefab;
+
 		protected override void Awake()
 		{
 			actions = new InputActions.BasicActions(new InputActions());
@@ -27,6 +29,8 @@ namespace Celeritas.Game.Controllers
 			ShipEntity = GetComponent<ShipEntity>();
 
 			_camera = Camera.main;
+
+			tractorBeamEffectPrefab = Resources.Load("TractorBeamEffect");
 
 			base.Awake();
 		}
@@ -131,6 +135,8 @@ namespace Celeritas.Game.Controllers
 			}
 		}
 
+		Object tractorGraphicalEffect;
+
 		/// <summary>
 		/// Toggles tractorActive on/off when corrosponding input is pressed/released.
 		/// Also finds the closest entity within range, sets it as tractorTarget
@@ -165,7 +171,7 @@ namespace Celeritas.Game.Controllers
 							continue;
 
 						ShipEntity ship = body.GetComponent<ShipEntity>();
-						if (ship == null)
+						if (ship == null || ship == ShipEntity) // can't tractor beam yourself
 							continue;
 
 						float distance = Vector2.Distance(ship.transform.position, mousePos);
@@ -176,12 +182,26 @@ namespace Celeritas.Game.Controllers
 						}
 					}
 				}
+
+				if (tractorTarget != null)
+				{
+					// add graphical effect
+					tractorGraphicalEffect = Instantiate(tractorBeamEffectPrefab, tractorTarget.transform);
+					CombatHUDManager.Instance.TractorAimingLine.SetActive(true);
+					CombatHUDManager.Instance.TractorAimingLine.GetComponent<AimingLine>().TargetToAimAt = tractorTarget.gameObject;
+					// todo: scale effect depending on size of ship.
+				}
 			}
 
 			if (context.canceled)
 			{ 
 				tractorTarget = null;
 				tractorActive = false;
+				if (tractorGraphicalEffect != null)
+				{
+					Destroy(tractorGraphicalEffect);
+					CombatHUDManager.Instance.TractorAimingLine.SetActive(false);
+				}
 			}
 		}
 	}
