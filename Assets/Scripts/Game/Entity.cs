@@ -1,5 +1,6 @@
 using Celeritas.Extensions;
 using Celeritas.Game.Actions;
+using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System;
@@ -272,8 +273,8 @@ namespace Celeritas.Game
 			{
 				wrapper.EffectCollection.HitEntity(this, other, wrapper.Level);
 			}
-
-			other.TakeDamage(this);
+			// damage calculations & logic is in child classes.
+			//other.TakeDamage(this);
 		}
 
 		/// <summary>
@@ -290,7 +291,8 @@ namespace Celeritas.Game
 		/// Logic for this entity being damaged by another entity
 		/// </summary>
 		/// <param name="attackingEntity">the entity that is attacking this entity</param>
-		protected virtual void TakeDamage(Entity attackingEntity)
+		/// <param name="damage">the amount of damage being done</param>
+		public virtual void TakeDamage(Entity attackingEntity, int damage = 0)
 		{
 			// by default, entities have no health, so this does nothing. Will be overridden by children.
 		}
