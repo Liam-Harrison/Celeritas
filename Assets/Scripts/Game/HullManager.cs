@@ -160,11 +160,8 @@ public class HullManager : MonoBehaviour
 			if (hullData.HullLayout[x, y] == true)
 			{
 				PlaceModules(x, y, moduleGroup);
-
 			}
 		});
-
-		moduleGroup.transform.rotation = transform.rotation;
 	}
 
 	/// <summary>
@@ -244,14 +241,12 @@ public class HullManager : MonoBehaviour
 	private void PlaceModules(int x, int y, GameObject group)
 	{
 		var moduleData = hullData.HullModules[x, y];
-		if (moduleData != null && moduleData.HullRoom != null)
+		if (moduleData != null && moduleData.Prefab != null)
 		{
 			int centerY = y - hullData.HullModules.GetLength(1) / 2;
 			var coords = transform.position + new Vector3(centerY, x, 0);
-			var module = Instantiate(moduleData.HullRoom, coords, Quaternion.identity);
-			var icon = Instantiate(iconPlane, coords + new Vector3(0, 1, 0), Quaternion.identity);
-			icon.transform.parent = module.transform;
-			icon.GetComponent<SpriteRenderer>().sprite = moduleData.icon;
+			var module = Instantiate(moduleData.Prefab, coords, Quaternion.identity);
+
 			GameObject locationGroup = new GameObject($"[{x},{y}]");
 			module.transform.parent = locationGroup.transform;
 			locationGroup.transform.parent = group.transform;

@@ -49,10 +49,17 @@ namespace Celeritas.Game.Controllers
 
 		protected void Update()
 		{
-			var target = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-			ShipEntity.Target = Vector3.ProjectOnPlane(target, Vector3.forward);
-			ShipEntity.Translation = locomotion;
-			TractorLogic();
+			if (GameStateManager.Instance.GameState == GameState.BUILD)
+			{
+
+			}
+			else
+			{
+				var target = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+				ShipEntity.Target = Vector3.ProjectOnPlane(target, Vector3.forward);
+				ShipEntity.Translation = locomotion;
+				TractorLogic();
+			}
 		}
 
 		public void OnFire(InputAction.CallbackContext context)
