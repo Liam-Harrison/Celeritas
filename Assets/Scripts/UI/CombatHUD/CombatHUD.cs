@@ -1,6 +1,7 @@
 using Celeritas.Game;
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,10 +16,10 @@ using static Celeritas.Game.Entities.LootController;
 /// - putting abilities into the AbilityBar (logic prone to change prior to integration w ability logic)
 ///	- setting up the mouse cursor
 /// </summary>
-public class CombatHUDManager : Singleton<CombatHUDManager>
+public class CombatHUD : Singleton<CombatHUD>
 {
-	[SerializeField]
-	private GameObject canvas;
+	[SerializeField, Title("Assignments")]
+	private Transform statbarParent;
 
 	[SerializeField]
 	private StatBar playerMainHealthBar; // main health bar at the bottom of the screen
@@ -72,8 +73,6 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 
 	protected override void Awake()
 	{
-		base.Awake();
-
 		pooledFloatingHealthStatBars = new ObjectPool<MovingStatBar>(floatingHealthBarPrefab, transform);
 		pooledFloatingShieldStatBars = new ObjectPool<MovingStatBar>(floatingShieldBarPrefab, transform);
 
@@ -83,6 +82,8 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 		Cursor.SetCursor(mouseTexture, Vector2.zero, CursorMode.Auto);
 
 		TractorAimingLine.SetActive(false);
+
+		base.Awake();
 	}
 
 	/// <summary>
@@ -91,8 +92,8 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	/// <param name="message"></param>
 	public void PrintNotification(string message)
 	{
-		GameObject toPrint = Instantiate(floatingNotificationPrefab, canvas.transform);
-		toPrint.transform.SetParent(canvas.transform);
+		GameObject toPrint = Instantiate(floatingNotificationPrefab, statbarParent.transform);
+		toPrint.transform.SetParent(statbarParent.transform);
 		toPrint.GetComponent<TextMeshProUGUI>().text = message;
 	}
 
@@ -102,10 +103,6 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 			moduleCountText.text = amount.ToString();
 		if (type == LootType.RareMetal)
 			rareMetalsCountText.text = amount.ToString();
-	}
-
-	private void Start()
-	{
 	}
 
 	protected override void OnDestroy()
@@ -150,14 +147,14 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	{
 		var healthBar = pooledFloatingHealthStatBars.GetPooledObject();
 		healthBar.Initalize(ship, ship.Health);
-		healthBar.transform.SetParent(canvas.transform);
+		healthBar.transform.SetParent(statbarParent);
 	}
 
 	private void AddFloatingShieldBarToShip(ShipEntity ship)
 	{
 		var shieldBar = pooledFloatingShieldStatBars.GetPooledObject();
 		shieldBar.Initalize(ship, ship.Shield);
-		shieldBar.transform.SetParent(canvas.transform);
+		shieldBar.transform.SetParent(statbarParent);
 	}
 
 	private void UpdateStatBarPool(ObjectPool<MovingStatBar> toUpdate) {

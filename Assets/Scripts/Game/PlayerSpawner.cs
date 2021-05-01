@@ -40,12 +40,12 @@ namespace Celeritas.Game
 
 		private void OnPlayerActionAdded(GameAction action)
 		{
-			CombatHUDManager.Instance.AbilityBar.LinkAction(action);
+			CombatHUD.Instance.AbilityBar.LinkAction(action);
 		}
 
 		private void OnPlayerActionRemoved(GameAction action)
 		{
-			CombatHUDManager.Instance.AbilityBar.UnlinkAction(action);
+			CombatHUD.Instance.AbilityBar.UnlinkAction(action);
 		}
 	}
 }

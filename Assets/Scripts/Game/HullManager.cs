@@ -4,6 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
 using Celeritas.Extensions;
+using Celeritas.Game;
 
 /// <summary>
 /// Uses HullData to generate and manage an in-game hull
@@ -60,17 +61,17 @@ public class HullManager : MonoBehaviour
 	private void Start()
 	{	
 		GenerateAll();
-		if (Application.isPlaying) HideHullIfNotInBuildMode();
+		hullGroup.SetActive(false);
 	}
 
 	private void OnEnable()
 	{
-		CameraStateManager.onStateChanged += HideHullIfNotInBuildMode;
+		GameStateManager.onStateChanged += OnGameStateChanged;
 	}
 
 	private void OnDisable()
 	{
-		CameraStateManager.onStateChanged -= HideHullIfNotInBuildMode;
+		GameStateManager.onStateChanged -= OnGameStateChanged;
 	}
 
 	private void SetupMasterGroup()
@@ -257,9 +258,9 @@ public class HullManager : MonoBehaviour
 		}
 	}
 
-	private void HideHullIfNotInBuildMode()
+	private void OnGameStateChanged(GameState state)
 	{
-		hullGroup.SetActive(CameraStateManager.Instance.IsInState(CameraStateManager.States.BUILD) ? true : false);
+		hullGroup.SetActive(state == GameState.BUILD);
 	}
 
 	private void onAnyDataChanged()

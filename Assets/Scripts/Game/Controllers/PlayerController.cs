@@ -83,13 +83,13 @@ namespace Celeritas.Game.Controllers
 		{
 			if (context.canceled)
 			{
-				if (CameraStateManager.Instance.IsInState(CameraStateManager.States.PLAY))
+				if (GameStateManager.Instance.GameState == GameState.PLAY)
 				{
-					CameraStateManager.Instance.ChangeTo(CameraStateManager.States.BUILD);
+					GameStateManager.Instance.SetGameState(GameState.BUILD);
 				}
 				else
 				{
-					CameraStateManager.Instance.ChangeTo(CameraStateManager.States.PLAY);
+					GameStateManager.Instance.SetGameState(GameState.PLAY);
 				}
 			}
 		}
@@ -186,8 +186,8 @@ namespace Celeritas.Game.Controllers
 				{
 					// add graphical effect
 					tractorGraphicalEffect = Instantiate(tractorBeamEffectPrefab, tractorTarget.transform);
-					CombatHUDManager.Instance.TractorAimingLine.SetActive(true);
-					CombatHUDManager.Instance.TractorAimingLine.GetComponent<AimingLine>().TargetToAimAt = tractorTarget.gameObject;
+					CombatHUD.Instance.TractorAimingLine.SetActive(true);
+					CombatHUD.Instance.TractorAimingLine.GetComponent<AimingLine>().TargetToAimAt = tractorTarget.gameObject;
 					// todo: scale effect depending on size of ship.
 				}
 			}
@@ -199,7 +199,7 @@ namespace Celeritas.Game.Controllers
 				if (tractorGraphicalEffect != null)
 				{
 					Destroy(tractorGraphicalEffect);
-					CombatHUDManager.Instance.TractorAimingLine.SetActive(false);
+					CombatHUD.Instance.TractorAimingLine.SetActive(false);
 				}
 			}
 		}

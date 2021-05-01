@@ -53,7 +53,7 @@ namespace Celeritas.Game
 		/// </summary>
 		public Vector3 Position
 		{
-			get => Vector3.ProjectOnPlane(transform.position, Vector3.forward);
+			get => transform.position;
 			set => transform.position = value;
 		}
 
