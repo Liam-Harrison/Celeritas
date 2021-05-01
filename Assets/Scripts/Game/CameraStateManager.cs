@@ -23,19 +23,12 @@ public class CameraStateManager : Singleton<CameraStateManager>
 	}
 
 	[SerializeField, Required]
-	private Animator baseAnimator;
-
-	private static Animator animator;
+	private Animator animator;
 
 	public static CinemachineBrain CinemachineBrain { get; private set; }
 
-	protected void Start() {
-		animator = baseAnimator;
-	}
-
 	protected override void Awake()
 	{
-		animator = baseAnimator;
 		CinemachineBrain = FindObjectOfType<CinemachineBrain>();
 
 		base.Awake();
@@ -45,10 +38,9 @@ public class CameraStateManager : Singleton<CameraStateManager>
 	/// Checks what state the manager is currently in
 	/// </summary>
 	/// <returns>True if it matches the specified state, otherwise false</returns>
-	public static bool IsInState(States state)
+	public bool IsInState(States state)
 	{
-		string stateEnumString = States.GetName(typeof(States), state);
-		return animator.GetCurrentAnimatorStateInfo(0).IsName(stateEnumString);
+		return animator.GetCurrentAnimatorStateInfo(0).IsName(state.ToString());
 	}
 
 	public delegate void StateChanged();
@@ -56,7 +48,7 @@ public class CameraStateManager : Singleton<CameraStateManager>
 	/// <summary>
 	/// Triggers the onStateChanged Event
 	/// </summary>
-	public static void onStateChangedTrigger()
+	public void onStateChangedTrigger()
 	{
 		if (onStateChanged != null) onStateChanged();
 	}
@@ -64,10 +56,9 @@ public class CameraStateManager : Singleton<CameraStateManager>
 	/// <summary>
 	/// Changes the game state to the specified
 	/// </summary>
-	public static void ChangeTo(States state)
+	public void ChangeTo(States state)
 	{
-		string stateEnumString = States.GetName(typeof(States), state);
-		animator.Play(stateEnumString);
+		animator.Play(state.ToString());
 	}
 }
 

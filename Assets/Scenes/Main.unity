@@ -253,6 +253,11 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &831876738 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4114254668415176117, guid: d2172ba3cb7fc8a4785379e88f03d366, type: 3}
+  m_PrefabInstance: {fileID: 8531167039589270624}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &855143037
 GameObject:
   m_ObjectHideFlags: 0
@@ -6103,6 +6108,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 831876738}
     - target: {fileID: 4477257796416552746, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6374,7 +6383,7 @@ PrefabInstance:
       objectReference: {fileID: 1365698838}
     - target: {fileID: 5641295165554848373, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: -7.424892e-10
+      value: 47.59665
       objectReference: {fileID: 0}
     - target: {fileID: 5641295165554848373, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_BoundingSphereOverride.x
@@ -6382,11 +6391,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5641295165554848373, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -8.151477e-22
+      value: -1.4979729e-27
       objectReference: {fileID: 0}
     - target: {fileID: 5641295165554848373, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 4.5904e-41
+      value: 4.5905e-41
       objectReference: {fileID: 0}
     - target: {fileID: 8656360157515372612, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_Name
@@ -6548,11 +6557,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004184, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: field of view
-      value: 60.000004
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004184, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: orthographic size
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
@@ -6580,10 +6589,6 @@ PrefabInstance:
       value: CameraStateSwitcher
       objectReference: {fileID: 0}
     - target: {fileID: 8531167039024123503, guid: d2172ba3cb7fc8a4785379e88f03d366, type: 3}
-      propertyPath: m_ParentHash.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8531167039024123503, guid: d2172ba3cb7fc8a4785379e88f03d366, type: 3}
       propertyPath: m_ChildCameras.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -6593,15 +6598,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8531167039024123504, guid: d2172ba3cb7fc8a4785379e88f03d366, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.6742315
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8531167039024123504, guid: d2172ba3cb7fc8a4785379e88f03d366, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.8129752
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8531167039024123504, guid: d2172ba3cb7fc8a4785379e88f03d366, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.1377642
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8531167039024123504, guid: d2172ba3cb7fc8a4785379e88f03d366, type: 3}
       propertyPath: m_LocalRotation.w

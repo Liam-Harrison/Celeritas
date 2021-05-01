@@ -83,13 +83,13 @@ namespace Celeritas.Game.Controllers
 		{
 			if (context.canceled)
 			{
-				if (CameraStateManager.IsInState(CameraStateManager.States.PLAY))
+				if (CameraStateManager.Instance.IsInState(CameraStateManager.States.PLAY))
 				{
-					CameraStateManager.ChangeTo(CameraStateManager.States.BUILD);
+					CameraStateManager.Instance.ChangeTo(CameraStateManager.States.BUILD);
 				}
 				else
 				{
-					CameraStateManager.ChangeTo(CameraStateManager.States.PLAY);
+					CameraStateManager.Instance.ChangeTo(CameraStateManager.States.PLAY);
 				}
 			}
 		}
@@ -99,7 +99,6 @@ namespace Celeritas.Game.Controllers
 			ShipEntity.UseActions();
 		}
 
-		
 		int TRACTOR_RANGE = 10; // radius the tractor beam can reach, to lock onto a target
 		float TRACTOR_FORCE_MULTIPLIER = 0.5f;
 		float TRACTOR_FORCE_CAP = 100; // max force tractor beam can apply

@@ -119,8 +119,6 @@ public class HullManager : MonoBehaviour
 				}
 			}
 		});
-
-		wallGroup.transform.rotation = transform.rotation;
 	}
 
 	/// <summary>
@@ -142,8 +140,6 @@ public class HullManager : MonoBehaviour
 				PlaceFloor(x, y, floorGroup);
 			}
 		});
-
-		floorGroup.transform.rotation = transform.rotation;
 	}
 
 	/// <summary>
@@ -189,41 +185,59 @@ public class HullManager : MonoBehaviour
 	private void PlaceWalls(int x, int y, Direction dir, GameObject group)
 	{
 		int centerY = y - hullData.HullLayout.GetLength(1) / 2;
-		var coords = transform.position + new Vector3(x, 0, centerY);
+		var coords = transform.position + new Vector3(centerY, x, 0);
 		var wall = Instantiate(HullWall, coords, Quaternion.identity);
+
 		wall.transform.parent = group.gameObject.transform;
-		// Wall prefabs should start facing the east direction so no condition is required.
+		wall.transform.localRotation = Quaternion.Euler(0, 90, -90);
+
 		switch (dir)
 		{
 			case Direction.North:
-				{
-					wall.name = "North";
-					wall.transform.Rotate(transform.rotation.x, transform.rotation.y + -90, transform.rotation.z);
-					break;
-				}
+				wall.name = "North";
+				wall.transform.Rotate(0, -90, 0, Space.Self);
+				break;
+
 			case Direction.South:
-				{
-					wall.name = "South";
-					wall.transform.Rotate(0, 90, 0);
-					break;
-				}
+				wall.name = "South";
+				wall.transform.Rotate(0, 90, 0, Space.Self);
+				break;
+
 			case Direction.West:
-				{
-					wall.name = "West";
-					wall.transform.Rotate(0, 180, 0);
-					break;
-				}
+				wall.name = "West";
+				break;
+
+			case Direction.East:
+				wall.name = "East";
+				wall.transform.Rotate(0, 180, 0, Space.Self);
+				break;
 		}
 	}
 
 	private void PlaceFloor(int x, int y, GameObject group)
 	{
 		int centerY = y - hullData.HullLayout.GetLength(1) / 2;
-		var coords = transform.position + new Vector3(x, 0, centerY);
+		var coords = transform.position + new Vector3(centerY, x, 0);
 		var wall = Instantiate(HullFloor, coords, Quaternion.identity);
 		GameObject locationGroup = new GameObject($"[{x},{y}]");
 		wall.transform.parent = locationGroup.transform;
 		locationGroup.transform.parent = group.transform;
+	}
+
+	private void OnDrawGizmos()
+	{
+		hullData.HullLayout.ForEach((x, y) =>
+		{
+			if (hullData.HullLayout[x, y] == true)
+			{
+				int centerY = y - hullData.HullLayout.GetLength(1) / 2;
+
+				var coords = transform.position + new Vector3(centerY, x, 0);
+
+				Gizmos.color = Color.green;
+				Gizmos.DrawWireCube(coords, Vector3.one);
+			}
+		});
 	}
 
 	private void PlaceModules(int x, int y, GameObject group)
@@ -232,7 +246,7 @@ public class HullManager : MonoBehaviour
 		if (moduleData != null && moduleData.HullRoom != null)
 		{
 			int centerY = y - hullData.HullModules.GetLength(1) / 2;
-			var coords = transform.position + new Vector3(x, 0, centerY);
+			var coords = transform.position + new Vector3(centerY, x, 0);
 			var module = Instantiate(moduleData.HullRoom, coords, Quaternion.identity);
 			var icon = Instantiate(iconPlane, coords + new Vector3(0, 1, 0), Quaternion.identity);
 			icon.transform.parent = module.transform;
@@ -245,7 +259,7 @@ public class HullManager : MonoBehaviour
 
 	private void HideHullIfNotInBuildMode()
 	{
-		hullGroup.SetActive(CameraStateManager.IsInState(CameraStateManager.States.BUILD) ? true : false);
+		hullGroup.SetActive(CameraStateManager.Instance.IsInState(CameraStateManager.States.BUILD) ? true : false);
 	}
 
 	private void onAnyDataChanged()
