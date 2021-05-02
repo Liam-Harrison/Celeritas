@@ -57,6 +57,9 @@ public class CombatHUD : Singleton<CombatHUD>
 	[SerializeField]
 	private TextMeshProUGUI moduleCountText;
 
+	[SerializeField]
+	private TextMeshProUGUI switchLabel;
+
 	// just used for dummy ability display right now
 	[SerializeField]
 	private Sprite defaultAbilityIcon;
@@ -76,14 +79,33 @@ public class CombatHUD : Singleton<CombatHUD>
 		pooledFloatingHealthStatBars = new ObjectPool<MovingStatBar>(floatingHealthBarPrefab, transform);
 		pooledFloatingShieldStatBars = new ObjectPool<MovingStatBar>(floatingShieldBarPrefab, transform);
 
-		// trigger this class's 'OnCreatedEntity' when that event occurs in EntityDataManager
 		EntityDataManager.OnCreatedEntity += OnCreatedEntity;
-
-		Cursor.SetCursor(mouseTexture, Vector2.zero, CursorMode.Auto);
+		WaveManager.OnWaveStarted += OnWaveStarted;
+		WaveManager.OnWaveEnded += OnWaveEnded;
 
 		TractorAimingLine.SetActive(false);
 
 		base.Awake();
+	}
+
+	private void OnWaveStarted()
+	{
+		switchLabel.gameObject.SetActive(false);
+	}
+
+	private void OnWaveEnded()
+	{
+		switchLabel.gameObject.SetActive(true);
+	}
+
+	private void OnEnable()
+	{
+		Cursor.SetCursor(mouseTexture, Vector2.zero, CursorMode.Auto);
+	}
+
+	private void OnDisable()
+	{
+		Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 	}
 
 	/// <summary>
@@ -127,7 +149,7 @@ public class CombatHUD : Singleton<CombatHUD>
 	{
 		// if just starting, link stationary stat bars to PlayerShip
 		if (playerShip == null && PlayerController.Instance != null) {
-			playerShip = PlayerController.Instance.ShipEntity;
+			playerShip = PlayerController.Instance.PlayerShipEntity;
 
 			playerMainHealthBar.EntityStats = playerShip.Health;
 

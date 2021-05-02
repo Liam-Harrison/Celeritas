@@ -31,6 +31,8 @@ namespace Celeritas.Scriptables
 
 		[SerializeField] protected ModuleSize size;
 
+		public override string Tooltip => $"A <color=\"orange\">{size}</color> module.";
+
 		protected virtual void OnValidate()
 		{
 			if (prefab != null && prefab.HasComponent<ModuleEntity>() == false)

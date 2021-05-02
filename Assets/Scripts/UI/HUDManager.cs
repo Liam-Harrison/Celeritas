@@ -1,11 +1,12 @@
 using Celeritas.Game;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Celeritas.UI
 {
 	public class HUDManager : Singleton<HUDManager>
 	{
-		[SerializeField]
+		[SerializeField, Title("Assignments")]
 		private CombatHUD combatHud;
 
 		[SerializeField]
@@ -31,5 +32,19 @@ namespace Celeritas.UI
 			combatHud.gameObject.SetActive(state == GameState.PLAY);
 			buildHud.gameObject.SetActive(state == GameState.BUILD);
 		}
+
+#if UNITY_EDITOR
+		[ButtonGroup]
+		private void ShowPlayHud()
+		{
+			OnGameStateChanged(GameState.PLAY);
+		}
+
+		[ButtonGroup]
+		private void ShowBuildHud()
+		{
+			OnGameStateChanged(GameState.BUILD);
+		}
+#endif
 	}
 }

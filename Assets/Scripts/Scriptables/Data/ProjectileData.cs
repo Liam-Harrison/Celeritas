@@ -43,6 +43,8 @@ namespace Celeritas.Scriptables
 		/// </summary>
 		public bool DestroyedOnHit { get => destroyedOnHit; }
 
+		public override string Tooltip => $"A projectile that travels at <color=\"orange\">{speed}m/s</color> and deals <color=\"orange\">{damage}</color> on hit.";
+
 		protected virtual void OnValidate()
 		{
 			if (prefab != null && prefab.HasComponent<ProjectileEntity>() == false)

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Celeritas.Extensions;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
@@ -20,14 +18,17 @@ public class PlayerShipEntity : ShipEntity
 	[SerializeField, Title("Hull")]
 	private HullManager hullManager;
 
+	/// <summary>
+	/// The inventory of the players ship.
+	/// </summary>
+	public ModuleData[,] Inventory { get => inventory; set => inventory = value; }
+
 	private static ModuleData DrawModulePreview(Rect rect, ModuleData value)
 	{
-
 		if (value != null)
 		{
 			Texture2D preview = value.icon.ToTexture2D();
 			value = (ModuleData)SirenixEditorFields.UnityPreviewObjectField(rect, value, preview, typeof(ModuleData));
-			// UnityEditor.EditorGUI.DrawPreviewTexture(rect.AddX(20).SetSize(rect.size.x - 20, rect.size.y), preview);
 		}
 		else
 		{

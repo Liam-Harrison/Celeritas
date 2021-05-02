@@ -5,6 +5,13 @@ using Sirenix.OdinInspector;
 
 namespace Celeritas.Scriptables
 {
+	public enum ShipClass
+	{
+		Corvette,
+		Destroyer,
+		Battleship
+	}
+
 	/// <summary>
 	/// Contains the instanced information for a ship.
 	/// </summary>
@@ -12,12 +19,22 @@ namespace Celeritas.Scriptables
 	[CreateAssetMenu(fileName = "New Ship", menuName = "Celeritas/New Ship", order = 10)]
 	public class ShipData : EntityData
 	{
-		[SerializeField, TitleGroup("Movement")]
+		[SerializeField, TitleGroup("General")]
 		protected MovementSettings movementSettings;
 
-		[SerializeField, TitleGroup("Starting Health")] private uint startingHealth;
+		[SerializeField, TitleGroup("General")]
+		private ShipClass shipClass;
 
-		[SerializeField, TitleGroup("Starting Shield")] private uint startingShield;
+		[SerializeField, TitleGroup("Starting Settings")]
+		private uint startingHealth;
+
+		[SerializeField, TitleGroup("Starting Settings")]
+		private uint startingShield;
+
+		/// <summary>
+		/// The ship class of this ship.
+		/// </summary>
+		public ShipClass ShipClass { get => ShipClass; }
 
 		/// <summary>
 		/// The movement settings for this ship.
@@ -33,6 +50,8 @@ namespace Celeritas.Scriptables
 		/// How much shield the entity starts with
 		/// </summary>
 		public uint StartingShield { get => startingShield; }
+
+		public override string Tooltip => $"A <color=\"orange\">{ShipClass}</color> class ship.";
 
 		protected virtual void OnValidate()
 		{

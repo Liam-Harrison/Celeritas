@@ -1,8 +1,9 @@
+using Celeritas.AI;
 using Celeritas.Extensions;
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
-using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,33 +11,38 @@ namespace Celeritas.Game
 {
 	public class WaveManager : Singleton<WaveManager>
 	{
-
-		//[SerializeField, Title("Waves")] private Wave[] waves;
-
-		/// <summary>
-		/// The waves the wave manager is managing.
-		/// </summary>
-		//public Wave[] Waves { get => waves; }
-
 		[SerializeField]
 		public WaveData[] data;
 
-		public void StartWave()
-		{
-			Debug.Log("StartWave");
-			for (int i = 0; i < data[nextWave].EnemyShips.Length; i++)
-			{
-				Debug.Log("Wave# " + nextWave + " Ship# " + i);
-				EnemyManager.Instance.SpawnShip<Celeritas.AI.AIBasicChase>(data[nextWave].EnemyShips[i], PlayerController.Instance.ShipEntity.gameObject.transform.position.RandomPointOnCircle(5f));
-			}
-			nextWave++;
-		}
+		public bool WaveActive { get; private set; }
 
 		private uint nextWave;
+
+		public static event Action OnWaveEnded;
+		public static event Action OnWaveStarted;
+
+		private Dictionary<WaveData, List<ShipEntity>> ships = new Dictionary<WaveData, List<ShipEntity>>();
+
+		public IReadOnlyDictionary<WaveData, List<ShipEntity>> Waves { get => ships; }
 
 		protected override void Awake()
 		{
 			nextWave = 0;
+		}
+
+		public void StartWave()
+		{
+			WaveActive = true;
+			var wave = data[nextWave++];
+			ships[wave] = new List<ShipEntity>();
+
+			foreach (var ship in wave.EnemyShips)
+			{
+				var spawned = EnemyManager.Instance.SpawnShip<AIBasicChase>(ship, PlayerController.Instance.PlayerShipEntity.transform.position.RandomPointOnCircle(20f));
+				ships[wave].Add(spawned);
+			}
+
+			OnWaveStarted?.Invoke();
 		}
 
 		/// <summary>
@@ -45,9 +51,13 @@ namespace Celeritas.Game
 		/// </summary>
 		public void AllEnemyShipsDestroyed()
 		{
-			Debug.Log("AllEnemyShipsDestroyed!");
-			//for testing - lets you summon infinite waves
-			nextWave = 0;
+			WaveActive = false;
+			ships.Clear();
+
+			if (nextWave >= data.Length)
+				nextWave = 0;
+
+			OnWaveEnded?.Invoke();
 		}
 
 	}

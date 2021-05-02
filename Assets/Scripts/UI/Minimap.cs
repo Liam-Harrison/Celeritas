@@ -40,7 +40,7 @@ namespace Celeritas.UI
 		private void Update()
 		{
 			if (PlayerController.Exists)
-				center = PlayerController.Instance.ShipEntity.Position;
+				center = PlayerController.Instance.PlayerShipEntity.Position;
 
 			for (int i = 0; i < pooledMarkers.ActiveObjects.Count; i++)
 			{

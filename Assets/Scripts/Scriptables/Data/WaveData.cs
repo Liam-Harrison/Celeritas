@@ -7,7 +7,7 @@ namespace Celeritas.Scriptables
 	/// Contains the instanced information for an enemy wave.
 	/// </summary>
 	[CreateAssetMenu(fileName = "New Wave", menuName = "Celeritas/New Wave", order = 50)]
-	public class WaveData : ModuleData
+	public class WaveData : ScriptableObject
 	{
 		[SerializeField, Title("EnemyShips")] private ShipData[] enemyShips;
 

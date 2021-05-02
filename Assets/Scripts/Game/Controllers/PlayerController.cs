@@ -8,7 +8,7 @@ namespace Celeritas.Game.Controllers
 	/// <summary>
 	/// Routes player input to a targeted ship Entity.
 	/// </summary>
-	[RequireComponent(typeof(ShipEntity))]
+	[RequireComponent(typeof(PlayerShipEntity))]
 	public class PlayerController : Singleton<PlayerController>, InputActions.IBasicActions
 	{
 		private InputActions.BasicActions actions = default;
@@ -17,7 +17,7 @@ namespace Celeritas.Game.Controllers
 		/// <summary>
 		/// The ship entity that this controller is attatched to.
 		/// </summary>
-		public ShipEntity ShipEntity { get; private set; }
+		public PlayerShipEntity PlayerShipEntity { get; private set; }
 
 		private Object tractorBeamEffectPrefab;
 
@@ -26,7 +26,7 @@ namespace Celeritas.Game.Controllers
 			actions = new InputActions.BasicActions(new InputActions());
 			actions.SetCallbacks(this);
 
-			ShipEntity = GetComponent<ShipEntity>();
+			PlayerShipEntity = GetComponent<PlayerShipEntity>();
 
 			_camera = Camera.main;
 
@@ -51,22 +51,26 @@ namespace Celeritas.Game.Controllers
 		{
 			if (GameStateManager.Instance.GameState == GameState.BUILD)
 			{
-
+				PlayerShipEntity.Target = PlayerShipEntity.Forward * 50f;
+				PlayerShipEntity.Translation = Vector3.zero;
 			}
 			else
 			{
 				var target = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-				ShipEntity.Target = Vector3.ProjectOnPlane(target, Vector3.forward);
-				ShipEntity.Translation = locomotion;
+				PlayerShipEntity.Target = Vector3.ProjectOnPlane(target, Vector3.forward);
+				PlayerShipEntity.Translation = locomotion;
 				TractorLogic();
 			}
 		}
 
 		public void OnFire(InputAction.CallbackContext context)
 		{
+			if (GameStateManager.Instance.GameState == GameState.BUILD)
+				return;
+
 			if (context.performed)
 			{
-				foreach (var weapon in ShipEntity.WeaponEntities)
+				foreach (var weapon in PlayerShipEntity.WeaponEntities)
 				{
 					weapon.Firing = true;
 				}
@@ -74,7 +78,7 @@ namespace Celeritas.Game.Controllers
 
 			if (context.canceled)
 			{
-				foreach (var weapon in ShipEntity.WeaponEntities)
+				foreach (var weapon in PlayerShipEntity.WeaponEntities)
 				{
 					weapon.Firing = false;
 				}
@@ -88,7 +92,7 @@ namespace Celeritas.Game.Controllers
 
 		public void OnBuild(InputAction.CallbackContext context)
 		{
-			if (context.canceled)
+			if (context.canceled && !WaveManager.Instance.WaveActive)
 			{
 				if (GameStateManager.Instance.GameState == GameState.PLAY)
 				{
@@ -103,7 +107,7 @@ namespace Celeritas.Game.Controllers
 
 		public void OnAction(InputAction.CallbackContext context)
 		{
-			ShipEntity.UseActions();
+			PlayerShipEntity.UseActions();
 		}
 
 		int TRACTOR_RANGE = 10; // radius the tractor beam can reach, to lock onto a target
@@ -177,7 +181,7 @@ namespace Celeritas.Game.Controllers
 							continue;
 
 						ShipEntity ship = body.GetComponent<ShipEntity>();
-						if (ship == null || ship == ShipEntity) // can't tractor beam yourself
+						if (ship == null || ship == PlayerShipEntity) // can't tractor beam yourself
 							continue;
 
 						float distance = Vector2.Distance(ship.transform.position, mousePos);
