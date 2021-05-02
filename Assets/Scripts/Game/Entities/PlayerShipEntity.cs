@@ -19,6 +19,11 @@ public class PlayerShipEntity : ShipEntity
 	private HullManager hullManager;
 
 	/// <summary>
+	/// The ships hull data.
+	/// </summary>
+	public HullManager HullManager { get => hullManager; }
+
+	/// <summary>
 	/// The inventory of the players ship.
 	/// </summary>
 	public ModuleData[,] Inventory { get => inventory; set => inventory = value; }

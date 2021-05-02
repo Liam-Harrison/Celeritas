@@ -104,11 +104,6 @@ namespace Celeritas.Game.Entities
 				return list;
 			}
 		}
-
-		/// <summary>
-		/// The ships hull data.
-		/// </summary>
-		public HullManager HullManager { get; private set; }
 		
 		/// <summary>
 		/// The attatched ship data.

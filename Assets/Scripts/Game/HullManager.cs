@@ -44,12 +44,13 @@ public class HullManager : MonoBehaviour
 		West
 	}
 	
-	private Dictionary<Direction, Vector2> DirectionMap = new Dictionary<Direction, Vector2> {
-			{Direction.North, new Vector2(0,1) },
-			{Direction.East, new Vector2(1,0) },
-			{Direction.South, new Vector2(0,-1) },
-			{Direction.West, new Vector2(-1,0) },
-		};
+	private Dictionary<Direction, Vector2> DirectionMap = new Dictionary<Direction, Vector2>
+	{
+		{Direction.North, new Vector2(0,1) },
+		{Direction.East, new Vector2(1,0) },
+		{Direction.South, new Vector2(0,-1) },
+		{Direction.West, new Vector2(-1,0) },
+	};
 
 	// Properties
 
@@ -74,14 +75,20 @@ public class HullManager : MonoBehaviour
 		GameStateManager.onStateChanged -= OnGameStateChanged;
 	}
 
-	private void SetupMasterGroup()
+	public Vector3 GetWorldPositionGrid(int x, int y)
 	{
-		if (hullGroup == null)
-		{
-			hullGroup = new GameObject(nameof(hullGroup));
-			hullGroup.transform.position = transform.position;
-			hullGroup.transform.parent = transform;
-		}
+		int centerY = y - hullData.HullLayout.GetLength(1) / 2;
+		var coords = transform.position + new Vector3(centerY, x, 0);
+		return coords;
+	}
+
+	public (int x, int y) GetGridFromWorld(Vector3 pos)
+	{
+		var delta = pos - transform.position;
+		Debug.Log($"{delta.x:0.0}");
+		var x = Mathf.FloorToInt(delta.y);
+		var y = Mathf.FloorToInt(hullData.HullLayout.GetLength(1) / 2 + delta.x);
+		return (x, y);
 	}
 
 	/// <summary>
@@ -110,12 +117,12 @@ public class HullManager : MonoBehaviour
 						bool cell = hullData.HullLayout[newX, newY];
 						if (cell == false) // If there is space
 						{
-							PlaceWalls(x, y, pair.Key, wallGroup);
+							PlaceWall(x, y, pair.Key, wallGroup);
 						}
 					}
 					else
 					{
-						PlaceWalls(x, y, pair.Key, wallGroup);
+						PlaceWall(x, y, pair.Key, wallGroup);
 					}
 				}
 			}
@@ -129,7 +136,10 @@ public class HullManager : MonoBehaviour
 	private void GenerateFloor()
 	{
 		SetupMasterGroup();
-		if (floorGroup != null) DestroyImmediate(floorGroup.gameObject);
+
+		if (floorGroup != null)
+			Destroy(floorGroup.gameObject);
+
 		floorGroup = new GameObject(nameof(floorGroup));
 		floorGroup.transform.position = transform.position;
 		floorGroup.transform.parent = hullGroup.transform;
@@ -141,6 +151,16 @@ public class HullManager : MonoBehaviour
 				PlaceFloor(x, y, floorGroup);
 			}
 		});
+	}
+
+	private void SetupMasterGroup()
+	{
+		if (hullGroup == null)
+		{
+			hullGroup = new GameObject(nameof(hullGroup));
+			hullGroup.transform.position = transform.position;
+			hullGroup.transform.parent = transform;
+		}
 	}
 
 	/// <summary>
@@ -180,10 +200,9 @@ public class HullManager : MonoBehaviour
 		if (hullGroup != null) DestroyImmediate(hullGroup.gameObject);
 	}
 
-	private void PlaceWalls(int x, int y, Direction dir, GameObject group)
+	private void PlaceWall(int x, int y, Direction dir, GameObject group)
 	{
-		int centerY = y - hullData.HullLayout.GetLength(1) / 2;
-		var coords = transform.position + new Vector3(centerY, x, 0);
+		var coords = GetWorldPositionGrid(x, y);
 		var wall = Instantiate(HullWall, coords, Quaternion.identity);
 
 		wall.transform.parent = group.gameObject.transform;
@@ -214,8 +233,7 @@ public class HullManager : MonoBehaviour
 
 	private void PlaceFloor(int x, int y, GameObject group)
 	{
-		int centerY = y - hullData.HullLayout.GetLength(1) / 2;
-		var coords = transform.position + new Vector3(centerY, x, 0);
+		Vector3 coords = GetWorldPositionGrid(x, y);
 		var wall = Instantiate(HullFloor, coords, Quaternion.identity);
 		GameObject locationGroup = new GameObject($"[{x},{y}]");
 		wall.transform.parent = locationGroup.transform;
@@ -243,8 +261,7 @@ public class HullManager : MonoBehaviour
 		var moduleData = hullData.HullModules[x, y];
 		if (moduleData != null && moduleData.Prefab != null)
 		{
-			int centerY = y - hullData.HullModules.GetLength(1) / 2;
-			var coords = transform.position + new Vector3(centerY, x, 0);
+			var coords = GetWorldPositionGrid(x, y);
 			var module = Instantiate(moduleData.Prefab, coords, Quaternion.identity);
 
 			GameObject locationGroup = new GameObject($"[{x},{y}]");

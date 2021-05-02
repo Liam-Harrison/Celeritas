@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 283611240956373457}
-  m_Layer: 0
+  - component: {fileID: 6584159968551798516}
+  m_Layer: 6
   m_Name: floor_adjusted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,6 +32,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6584159968551798516
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622699920804246379}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 0.025}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7337914247570619439
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,7 +56,7 @@ GameObject:
   - component: {fileID: 7749979826695176964}
   - component: {fileID: 6748907729835983489}
   - component: {fileID: 7065153772717811196}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ground_grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
