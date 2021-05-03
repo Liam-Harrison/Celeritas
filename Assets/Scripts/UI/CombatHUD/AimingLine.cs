@@ -45,7 +45,7 @@ public class AimingLine : MonoBehaviour
     void Update()
     {
 		if (PlayerController.Instance!=null)
-			Draw(PlayerController.Instance.ShipEntity);
+			Draw(PlayerController.Instance.PlayerShipEntity);
     }
 
 	/// <summary>

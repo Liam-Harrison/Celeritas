@@ -8,7 +8,7 @@ namespace Celeritas.Game.Controllers
 	/// <summary>
 	/// Routes player input to a targeted ship Entity.
 	/// </summary>
-	[RequireComponent(typeof(ShipEntity))]
+	[RequireComponent(typeof(PlayerShipEntity))]
 	public class PlayerController : Singleton<PlayerController>, InputActions.IBasicActions
 	{
 		private InputActions.BasicActions actions = default;
@@ -17,7 +17,7 @@ namespace Celeritas.Game.Controllers
 		/// <summary>
 		/// The ship entity that this controller is attatched to.
 		/// </summary>
-		public ShipEntity ShipEntity { get; private set; }
+		public PlayerShipEntity PlayerShipEntity { get; private set; }
 
 		private Object tractorBeamEffectPrefab;
 
@@ -26,7 +26,7 @@ namespace Celeritas.Game.Controllers
 			actions = new InputActions.BasicActions(new InputActions());
 			actions.SetCallbacks(this);
 
-			ShipEntity = GetComponent<ShipEntity>();
+			PlayerShipEntity = GetComponent<PlayerShipEntity>();
 
 			_camera = Camera.main;
 
@@ -49,17 +49,28 @@ namespace Celeritas.Game.Controllers
 
 		protected void Update()
 		{
-			var target = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-			ShipEntity.Target = Vector3.ProjectOnPlane(target, Vector3.forward);
-			ShipEntity.Translation = locomotion;
-			TractorLogic();
+			if (GameStateManager.Instance.GameState == GameState.BUILD)
+			{
+				PlayerShipEntity.Target = PlayerShipEntity.Forward * 50f;
+				PlayerShipEntity.Translation = Vector3.zero;
+			}
+			else
+			{
+				var target = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+				PlayerShipEntity.Target = Vector3.ProjectOnPlane(target, Vector3.forward);
+				PlayerShipEntity.Translation = locomotion;
+				TractorLogic();
+			}
 		}
 
 		public void OnFire(InputAction.CallbackContext context)
 		{
+			if (GameStateManager.Instance.GameState == GameState.BUILD)
+				return;
+
 			if (context.performed)
 			{
-				foreach (var weapon in ShipEntity.WeaponEntities)
+				foreach (var weapon in PlayerShipEntity.WeaponEntities)
 				{
 					weapon.Firing = true;
 				}
@@ -67,7 +78,7 @@ namespace Celeritas.Game.Controllers
 
 			if (context.canceled)
 			{
-				foreach (var weapon in ShipEntity.WeaponEntities)
+				foreach (var weapon in PlayerShipEntity.WeaponEntities)
 				{
 					weapon.Firing = false;
 				}
@@ -81,25 +92,24 @@ namespace Celeritas.Game.Controllers
 
 		public void OnBuild(InputAction.CallbackContext context)
 		{
-			if (context.canceled)
+			if (context.canceled && !WaveManager.Instance.WaveActive)
 			{
-				if (CameraStateManager.IsInState(CameraStateManager.States.PLAY))
+				if (GameStateManager.Instance.GameState == GameState.PLAY)
 				{
-					CameraStateManager.ChangeTo(CameraStateManager.States.BUILD);
+					GameStateManager.Instance.SetGameState(GameState.BUILD);
 				}
 				else
 				{
-					CameraStateManager.ChangeTo(CameraStateManager.States.PLAY);
+					GameStateManager.Instance.SetGameState(GameState.PLAY);
 				}
 			}
 		}
 
 		public void OnAction(InputAction.CallbackContext context)
 		{
-			ShipEntity.UseActions();
+			PlayerShipEntity.UseActions();
 		}
 
-		
 		int TRACTOR_RANGE = 10; // radius the tractor beam can reach, to lock onto a target
 		float TRACTOR_FORCE_MULTIPLIER = 0.5f;
 		float TRACTOR_FORCE_CAP = 100; // max force tractor beam can apply
@@ -171,7 +181,7 @@ namespace Celeritas.Game.Controllers
 							continue;
 
 						ShipEntity ship = body.GetComponent<ShipEntity>();
-						if (ship == null || ship == ShipEntity) // can't tractor beam yourself
+						if (ship == null || ship == PlayerShipEntity) // can't tractor beam yourself
 							continue;
 
 						float distance = Vector2.Distance(ship.transform.position, mousePos);
@@ -187,8 +197,8 @@ namespace Celeritas.Game.Controllers
 				{
 					// add graphical effect
 					tractorGraphicalEffect = Instantiate(tractorBeamEffectPrefab, tractorTarget.transform);
-					CombatHUDManager.Instance.TractorAimingLine.SetActive(true);
-					CombatHUDManager.Instance.TractorAimingLine.GetComponent<AimingLine>().TargetToAimAt = tractorTarget.gameObject;
+					CombatHUD.Instance.TractorAimingLine.SetActive(true);
+					CombatHUD.Instance.TractorAimingLine.GetComponent<AimingLine>().TargetToAimAt = tractorTarget.gameObject;
 					// todo: scale effect depending on size of ship.
 				}
 			}
@@ -200,7 +210,7 @@ namespace Celeritas.Game.Controllers
 				if (tractorGraphicalEffect != null)
 				{
 					Destroy(tractorGraphicalEffect);
-					CombatHUDManager.Instance.TractorAimingLine.SetActive(false);
+					CombatHUD.Instance.TractorAimingLine.SetActive(false);
 				}
 			}
 		}

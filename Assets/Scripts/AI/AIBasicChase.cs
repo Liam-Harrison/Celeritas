@@ -11,7 +11,7 @@ namespace Celeritas.AI
 		/// <summary>
 		/// The range this AI will keep from the player.
 		/// </summary>
-		public float Range { get; set; } = 4f;
+		public float Range { get; set; } = 15f;
 
 		/// <inheritdoc/>
 		public override float Deadzone => 1f;
@@ -31,11 +31,11 @@ namespace Celeritas.AI
 			if (PlayerController.Instance == null)
 				return;
 
-			var player = PlayerController.Instance.ShipEntity.Position;
+			var player = PlayerController.Instance.PlayerShipEntity.Position;
 			var delta = ShipEntity.Position - player;
 
 			Goal = player + (delta.normalized * Range);
-			Target = PlayerController.Instance.ShipEntity.Position;
+			Target = PlayerController.Instance.PlayerShipEntity.Position;
 
 			foreach (var weapon in ShipEntity.WeaponEntities)
 			{

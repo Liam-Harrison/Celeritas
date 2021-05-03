@@ -20,5 +20,10 @@ namespace Celeritas.Scriptables
 		/// Get the prefab for the module.
 		/// </summary>
 		public GameObject Prefab { get => prefab; }
+
+		/// <summary>
+		/// The tooltip of this entity data.
+		/// </summary>
+		public abstract string Tooltip { get; }
 	}
 }

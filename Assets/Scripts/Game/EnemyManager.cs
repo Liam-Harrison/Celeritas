@@ -13,9 +13,6 @@ namespace Celeritas.Game
 	/// </summary>
 	public class EnemyManager : Singleton<EnemyManager>
 	{
-		[SerializeField, Title("AI Ship Spawner")]
-		private ShipData[] aiShips;
-
 		private readonly List<ShipEntity> ships = new List<ShipEntity>(128);
 
 		/// <summary>
@@ -26,14 +23,6 @@ namespace Celeritas.Game
 		protected override void Awake()
 		{
 			base.Awake();
-
-			EntityDataManager.OnLoadedAssets += () =>
-			{
-				foreach (var ship in aiShips)
-				{
-					SpawnShip<AIBasicChase>(ship, transform.position.RandomPointOnCircle(5f));
-				}
-			};
 		}
 
 		/// <summary>

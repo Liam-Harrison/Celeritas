@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ship_medium
   m_EditorClassIdentifier: 
   title: Medium Ship
-  prefab: {fileID: 2516558698829045457, guid: b446706955a35834c903d52b0b890fcb, type: 3}
+  prefab: {fileID: 2516558698829045457, guid: 0bda108f4b31baf47bcd37cf26d641ee, type: 3}
   movementSettings:
     torquePerSec: {x: 20, y: 100}
     rotationCurve:
@@ -45,5 +45,6 @@ MonoBehaviour:
     forcePerSec: 500
     mass: 1
     aimDeadzone: 0.995
+  shipClass: 0
   startingHealth: 1000
   startingShield: 20

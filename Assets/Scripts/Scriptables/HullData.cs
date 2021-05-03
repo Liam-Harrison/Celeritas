@@ -1,7 +1,5 @@
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
-using UnityEditor;
-using Sirenix.Utilities.Editor;
 using Celeritas.Extensions;
 using UnityEngine;
 
@@ -22,7 +20,7 @@ namespace Celeritas.Scriptables
         [HorizontalGroup("Split", 0.5f)]
         [BoxGroup("Split/Ship Layout")]
         [SerializeField]
-		[TableMatrix(HorizontalTitle = "Right of ship", VerticalTitle = "Back of ship",SquareCells = true, DrawElementMethod = "onHullLayoutDraw")]
+		[TableMatrix(HorizontalTitle = "Right of ship", VerticalTitle = "Back of ship",SquareCells = true, DrawElementMethod = nameof(onHullLayoutDraw))]
 		private bool[,] hullLayout = new bool[BaseLayoutResolution,BaseLayoutResolution];
 
         [BoxGroup("Split/Ship Modules")]
@@ -45,17 +43,19 @@ namespace Celeritas.Scriptables
         
 		private ModuleData DrawModulePreview(Rect rect, ModuleData value, int x, int y)
 		{
-            if (HullLayout[x,y] == true) {
+#if UNITY_EDITOR
+			if (HullLayout[x,y] == true) {
                 if (value != null)
                 {
-                    Texture2D preview = value.icon.ToTexture2D();
-                    value = (ModuleData)SirenixEditorFields.UnityPreviewObjectField(rect, value, preview, typeof(ModuleData));
+                    Texture2D preview = value.Icon.ToTexture2D();
+                    value = (ModuleData)Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(rect, value, preview, typeof(ModuleData));
                 } else {
-                    value = (ModuleData)SirenixEditorFields.UnityPreviewObjectField(rect, value, typeof(ModuleData));
+                    value = (ModuleData)Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(rect, value, typeof(ModuleData));
                 }
             } else {
                 value = null;
-            }
+			}
+#endif
 			return value;
 		}
 
@@ -65,8 +65,8 @@ namespace Celeritas.Scriptables
 
         private void onLayoutResolutionChange(int value) {
             if (isOdd(value)) {                
-                this.hullLayout = new bool[LayoutResolution ,LayoutResolution];
-                this.hullModules = new ModuleData[LayoutResolution, LayoutResolution];
+                hullLayout = new bool[LayoutResolution ,LayoutResolution];
+                hullModules = new ModuleData[LayoutResolution, LayoutResolution];
             }
         }
 

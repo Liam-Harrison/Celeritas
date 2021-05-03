@@ -12,7 +12,7 @@ namespace Celeritas.Game
 	public class ObjectPool<T> where T: MonoBehaviour, IPooledObject
 	{
 		[SerializeField, Title("Pooled Object Settings"), DisableInPlayMode]
-		private uint capacity = 32;
+		private uint capacity = 16;
 
 		private readonly List<T> pool = new List<T>();
 		private readonly List<T> active = new List<T>();

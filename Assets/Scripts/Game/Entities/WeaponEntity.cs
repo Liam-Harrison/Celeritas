@@ -44,7 +44,7 @@ namespace Celeritas.Game.Entities
 			rateOfFire = WeaponData.RateOfFire;
 			maxCharge = WeaponData.MaxCharge;
 
-			WeaponEffects = new EffectManager(SystemTargets.Projectile);
+			WeaponEffects = new EffectManager(this, SystemTargets.Projectile);
 
 			base.Initalize(data, owner, effects, forceIsPlayer);
 		}
@@ -102,20 +102,7 @@ namespace Celeritas.Game.Entities
 		{
 			var projectile = EntityDataManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile, this, WeaponEffects.EffectWrapperCopy);
 			projectile.transform.CopyTransform(projectileSpawn);
-
-			projectile.transform.position = projectile.transform.position.RemoveAxes(z: true, normalize: false);
-			OnWeaponFired(projectile);
-		}
-
-		/// <summary>
-		/// Fire events for systems.
-		/// </summary>
-		private void OnWeaponFired(ProjectileEntity projectile)
-		{
-			foreach (var wrapper in EffectWrappers)
-			{
-				wrapper.EffectCollection.OnFired(this, projectile, wrapper.Level);
-			}
+			EntityEffects.EntityFired(projectile);
 		}
 	}
 }

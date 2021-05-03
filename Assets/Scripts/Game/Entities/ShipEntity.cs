@@ -104,11 +104,6 @@ namespace Celeritas.Game.Entities
 				return list;
 			}
 		}
-
-		/// <summary>
-		/// The ships hull data.
-		/// </summary>
-		public HullManager HullManager { get; private set; }
 		
 		/// <summary>
 		/// The attatched ship data.
@@ -291,13 +286,15 @@ namespace Celeritas.Game.Entities
 		}
 
 
-		private const int MIN_ENGINE_EMISSION = 10;
-		private const int MAX_ENGINE_EMISSION = 100;
+		private const int MIN_ENGINE_EMISSION = 8;
+		private const int MAX_ENGINE_EMISSION = 50;
 
 		private void EngineLogic()
 		{
-			var dot = Vector3.Dot(Forward, Translation);
-			var rate = Mathf.Lerp(MIN_ENGINE_EMISSION, MAX_ENGINE_EMISSION, Mathf.InverseLerp(-1, 1, dot));
+			var rate = Mathf.Lerp(MIN_ENGINE_EMISSION, MAX_ENGINE_EMISSION, Mathf.Clamp01(Rigidbody.velocity.magnitude / 10));
+
+			if (GameStateManager.Instance.GameState == GameState.BUILD)
+				rate = 0;
 
 			foreach (var system in engineEffects)
 			{

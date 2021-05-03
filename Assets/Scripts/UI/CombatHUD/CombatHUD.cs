@@ -1,6 +1,7 @@
 using Celeritas.Game;
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,10 +16,10 @@ using static Celeritas.Game.Entities.LootController;
 /// - putting abilities into the AbilityBar (logic prone to change prior to integration w ability logic)
 ///	- setting up the mouse cursor
 /// </summary>
-public class CombatHUDManager : Singleton<CombatHUDManager>
+public class CombatHUD : Singleton<CombatHUD>
 {
-	[SerializeField]
-	private GameObject canvas;
+	[SerializeField, Title("Assignments")]
+	private Transform statbarParent;
 
 	[SerializeField]
 	private StatBar playerMainHealthBar; // main health bar at the bottom of the screen
@@ -56,6 +57,9 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	[SerializeField]
 	private TextMeshProUGUI moduleCountText;
 
+	[SerializeField]
+	private TextMeshProUGUI switchLabel;
+
 	// just used for dummy ability display right now
 	[SerializeField]
 	private Sprite defaultAbilityIcon;
@@ -72,17 +76,36 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 
 	protected override void Awake()
 	{
-		base.Awake();
+		pooledFloatingHealthStatBars = new ObjectPool<MovingStatBar>(floatingHealthBarPrefab, statbarParent);
+		pooledFloatingShieldStatBars = new ObjectPool<MovingStatBar>(floatingShieldBarPrefab, statbarParent);
 
-		pooledFloatingHealthStatBars = new ObjectPool<MovingStatBar>(floatingHealthBarPrefab, transform);
-		pooledFloatingShieldStatBars = new ObjectPool<MovingStatBar>(floatingShieldBarPrefab, transform);
-
-		// trigger this class's 'OnCreatedEntity' when that event occurs in EntityDataManager
 		EntityDataManager.OnCreatedEntity += OnCreatedEntity;
-
-		Cursor.SetCursor(mouseTexture, Vector2.zero, CursorMode.Auto);
+		WaveManager.OnWaveStarted += OnWaveStarted;
+		WaveManager.OnWaveEnded += OnWaveEnded;
 
 		TractorAimingLine.SetActive(false);
+
+		base.Awake();
+	}
+
+	private void OnWaveStarted()
+	{
+		switchLabel.gameObject.SetActive(false);
+	}
+
+	private void OnWaveEnded()
+	{
+		switchLabel.gameObject.SetActive(true);
+	}
+
+	private void OnEnable()
+	{
+		Cursor.SetCursor(mouseTexture, Vector2.zero, CursorMode.Auto);
+	}
+
+	private void OnDisable()
+	{
+		Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 	}
 
 	/// <summary>
@@ -91,8 +114,8 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	/// <param name="message"></param>
 	public void PrintNotification(string message)
 	{
-		GameObject toPrint = Instantiate(floatingNotificationPrefab, canvas.transform);
-		toPrint.transform.SetParent(canvas.transform);
+		GameObject toPrint = Instantiate(floatingNotificationPrefab, statbarParent.transform);
+		toPrint.transform.SetParent(statbarParent.transform);
 		toPrint.GetComponent<TextMeshProUGUI>().text = message;
 	}
 
@@ -104,10 +127,6 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 			rareMetalsCountText.text = amount.ToString();
 	}
 
-	private void Start()
-	{
-	}
-
 	protected override void OnDestroy()
 	{
 		EntityDataManager.OnCreatedEntity -= OnCreatedEntity;
@@ -116,7 +135,7 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 
 	private void OnCreatedEntity(Entity entity)
 	{
-		if (entity is ShipEntity ship)
+		if (entity is ShipEntity ship && ship.IsPlayer == false)
 		{
 			AddFloatingHealthBarToShip(ship);
 
@@ -130,7 +149,7 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	{
 		// if just starting, link stationary stat bars to PlayerShip
 		if (playerShip == null && PlayerController.Instance != null) {
-			playerShip = PlayerController.Instance.ShipEntity;
+			playerShip = PlayerController.Instance.PlayerShipEntity;
 
 			playerMainHealthBar.EntityStats = playerShip.Health;
 
@@ -150,14 +169,14 @@ public class CombatHUDManager : Singleton<CombatHUDManager>
 	{
 		var healthBar = pooledFloatingHealthStatBars.GetPooledObject();
 		healthBar.Initalize(ship, ship.Health);
-		healthBar.transform.SetParent(canvas.transform);
+		healthBar.transform.SetParent(statbarParent);
 	}
 
 	private void AddFloatingShieldBarToShip(ShipEntity ship)
 	{
 		var shieldBar = pooledFloatingShieldStatBars.GetPooledObject();
 		shieldBar.Initalize(ship, ship.Shield);
-		shieldBar.transform.SetParent(canvas.transform);
+		shieldBar.transform.SetParent(statbarParent);
 	}
 
 	private void UpdateStatBarPool(ObjectPool<MovingStatBar> toUpdate) {

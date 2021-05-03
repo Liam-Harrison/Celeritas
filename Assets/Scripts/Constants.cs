@@ -72,5 +72,10 @@ namespace Celeritas
 		/// The label used for waves in the addresable system.
 		/// </summary>
 		public const string WAVES_TAG = "Waves";
+
+		/// <summary>
+		/// The label used for player ships in the addresable system.
+		/// </summary>
+		public const string PLAYER_SHIP_TAG = "Player Ships";
 	}
 }
