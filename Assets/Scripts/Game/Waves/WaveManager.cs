@@ -37,6 +37,7 @@ namespace Celeritas.Game
 		public void StartWave()
 		{
 			WaveActive = true;
+			waveIndex = (int)Mathf.Repeat(waveIndex, data.Length - 1);
 			var wave = data[waveIndex];
 			ships[wave] = new List<ShipEntity>();
 
