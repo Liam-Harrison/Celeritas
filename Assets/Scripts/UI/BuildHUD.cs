@@ -20,9 +20,13 @@ namespace Celeritas.UI
 
 		private InventoryItemUI dragging;
 
-		private GameObject placing;
+		private GameObject placeObject;
 
 		private new Camera camera;
+
+		private (int x, int y) grid;
+		private bool canPlace = false;
+		private bool placing = false;
 
 		private void Awake()
 		{
@@ -32,12 +36,13 @@ namespace Celeritas.UI
 		private void OnEnable()
 		{
 			dragging = null;
+			placing = false;
 			drop.gameObject.SetActive(false);
 		}
 
 		private void Update()
 		{
-			if (dragging != null)
+			if (placing)
 			{
 				var mousepos = Mouse.current.position.ReadValue();
 				drop.transform.position = mousepos;
@@ -45,30 +50,53 @@ namespace Celeritas.UI
 
 				if (Physics.Raycast(ray, out var hit, 40f, LayerMask.GetMask("Hull")))
 				{
-					Debug.Log($"{PlayerController.Instance.PlayerShipEntity.HullManager.GetGridFromWorld(hit.point)}", hit.collider);
+					var hull = PlayerController.Instance.PlayerShipEntity.HullManager;
+					grid = hull.GetGridFromWorld(hit.point);
+
+					placeObject.transform.position = hull.GetWorldPositionGrid(grid.x, grid.y);
+					placeObject.transform.rotation = hull.transform.rotation;
+
+					placeObject.SetActive(true);
+					canPlace = true;
 				}
+				else
+				{
+					placeObject.SetActive(false);
+					canPlace = false;
+				}
+			}
+			else if (canPlace)
+			{
+				canPlace = false;
+				var ship = PlayerController.Instance.PlayerShipEntity;
+				ship.HullManager.Modules[grid.x, grid.y].SetModule(dragging.Module);
 			}
 		}
 
 		public void OnItemDragBegin(InventoryItemUI item)
 		{
+			placing = true;
 			dragging = item;
 			drop.sprite = item.Module.icon;
 			drop.gameObject.SetActive(true);
 
-			if (placing != null)
+			if (placeObject != null)
 			{
-				Destroy(placing);
+				Destroy(placeObject);
 			}
 
-			placing = Instantiate(item.Module.Prefab);
-			placing.GetComponent<MeshRenderer>().sharedMaterial = placingMaterial;
-			placing.SetActive(false);
+			placeObject = Instantiate(item.Module.Prefab);
+			placeObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = placingMaterial;
+			placeObject.SetActive(false);
 		}
 
 		public void OnItemDragStopped(InventoryItemUI item)
 		{
-			dragging = null;
+			placing = false;
+
+			if (placeObject != null)
+				placeObject.SetActive(false);
+
 			drop.gameObject.SetActive(false);
 		}
 	}

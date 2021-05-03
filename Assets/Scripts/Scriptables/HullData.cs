@@ -65,8 +65,8 @@ namespace Celeritas.Scriptables
 
         private void onLayoutResolutionChange(int value) {
             if (isOdd(value)) {                
-                this.hullLayout = new bool[LayoutResolution ,LayoutResolution];
-                this.hullModules = new ModuleData[LayoutResolution, LayoutResolution];
+                hullLayout = new bool[LayoutResolution ,LayoutResolution];
+                hullModules = new ModuleData[LayoutResolution, LayoutResolution];
             }
         }
 

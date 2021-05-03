@@ -76,8 +76,8 @@ public class CombatHUD : Singleton<CombatHUD>
 
 	protected override void Awake()
 	{
-		pooledFloatingHealthStatBars = new ObjectPool<MovingStatBar>(floatingHealthBarPrefab, transform);
-		pooledFloatingShieldStatBars = new ObjectPool<MovingStatBar>(floatingShieldBarPrefab, transform);
+		pooledFloatingHealthStatBars = new ObjectPool<MovingStatBar>(floatingHealthBarPrefab, statbarParent);
+		pooledFloatingShieldStatBars = new ObjectPool<MovingStatBar>(floatingShieldBarPrefab, statbarParent);
 
 		EntityDataManager.OnCreatedEntity += OnCreatedEntity;
 		WaveManager.OnWaveStarted += OnWaveStarted;
@@ -135,7 +135,7 @@ public class CombatHUD : Singleton<CombatHUD>
 
 	private void OnCreatedEntity(Entity entity)
 	{
-		if (entity is ShipEntity ship)
+		if (entity is ShipEntity ship && ship.IsPlayer == false)
 		{
 			AddFloatingHealthBarToShip(ship);
 

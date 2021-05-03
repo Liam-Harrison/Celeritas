@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 747d9766070ae9e4dba88b5444619be4, type: 3}
-  m_Name: ship_medium
+  m_Name: player_ship_medium
   m_EditorClassIdentifier: 
   title: Medium Ship
   prefab: {fileID: 2516558698829045457, guid: b446706955a35834c903d52b0b890fcb, type: 3}
   movementSettings:
-    torquePerSec: {x: 20, y: 100}
+    torquePerSec: {x: 240, y: 300}
     rotationCurve:
       serializedVersion: 2
       m_Curve:
@@ -29,6 +29,15 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
+        time: 0.3150432
+        value: 0.59449285
+        inSlope: 1.4999933
+        outSlope: 1.4999933
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 1
         value: 1
         inSlope: 0
@@ -41,7 +50,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     angularDrag: 5
-    rotationMaximum: 60
+    rotationMaximum: 100
     forcePerSec: 500
     mass: 1
     aimDeadzone: 0.995

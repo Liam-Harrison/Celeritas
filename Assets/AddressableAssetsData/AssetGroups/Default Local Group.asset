@@ -64,8 +64,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Hulls
-    m_MainAsset: {fileID: 102900000, guid: 2f421e2cde4772b408c5a15e3cccc537, type: 3}
-    m_TargetAsset: {fileID: 102900000, guid: 2f421e2cde4772b408c5a15e3cccc537, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: f11829cc8deea4c41be25b27a39eadac
     m_Address: Assets/GameData/Actions
     m_ReadOnly: 0
@@ -78,6 +78,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Waves
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 0cb598261cfd9b74a9fde048669e45be
+    m_Address: Assets/GameData/Player Ships
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Player Ships
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0

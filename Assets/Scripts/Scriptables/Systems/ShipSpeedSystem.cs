@@ -55,6 +55,7 @@ namespace Celeritas.Scriptables.Systems
 		{
 			// TODO: may need to update effect when system levels up, depending on how game loop works.
 			// otherwise effects may not reflect levels
+			Debug.Log($"Added");
 
 			var ship = entity as ShipEntity;
 			float amountToAdd = amount + (level * amountExtraPerLevel);
@@ -72,6 +73,7 @@ namespace Celeritas.Scriptables.Systems
 		public void OnEntityEffectRemoved(Entity entity, ushort level)
 		{
 			var ship = entity as ShipEntity;
+			Debug.Log($"Removed");
 
 			if (affectedDirections.HasFlag(ShipDirections.Forward))
 				ship.MovementModifier.Forward -= amount;

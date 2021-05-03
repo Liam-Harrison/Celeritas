@@ -1,10 +1,9 @@
-using System.Collections.Generic;
-using Celeritas.Scriptables;
-using UnityEngine;
-using Sirenix.OdinInspector;
-using System;
 using Celeritas.Extensions;
 using Celeritas.Game;
+using Celeritas.Scriptables;
+using Sirenix.OdinInspector;
+using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Uses HullData to generate and manage an in-game hull
@@ -18,11 +17,11 @@ public class HullManager : MonoBehaviour
 
 	[SerializeField]
 	[OnValueChanged(nameof(onAnyDataChanged))]
-	private GameObject HullWall;
+	private GameObject hullWall;
 
 	[SerializeField]
 	[OnValueChanged(nameof(onAnyDataChanged))]
-	private GameObject HullFloor;
+	private GameObject hullFloor;
 
 	[Space]
 	[AssetList]
@@ -35,6 +34,10 @@ public class HullManager : MonoBehaviour
 	private GameObject moduleGroup;
 	private GameObject wallGroup;
 	private GameObject floorGroup;
+
+	public Module[,] Modules { get; private set; }
+
+	public PlayerShipEntity PlayerShipEntity { get; set; }
 
 	private enum Direction
 	{
@@ -78,16 +81,14 @@ public class HullManager : MonoBehaviour
 	public Vector3 GetWorldPositionGrid(int x, int y)
 	{
 		int centerY = y - hullData.HullLayout.GetLength(1) / 2;
-		var coords = transform.position + new Vector3(centerY, x, 0);
-		return coords;
+		return transform.TransformPoint(new Vector3(centerY, x, 0));
 	}
 
 	public (int x, int y) GetGridFromWorld(Vector3 pos)
 	{
-		var delta = pos - transform.position;
-		Debug.Log($"{delta.x:0.0}");
-		var x = Mathf.FloorToInt(delta.y);
-		var y = Mathf.FloorToInt(hullData.HullLayout.GetLength(1) / 2 + delta.x);
+		var delta = transform.InverseTransformPoint(pos);
+		var x = Mathf.RoundToInt(delta.y);
+		var y = Mathf.RoundToInt(delta.x) + hullData.HullLayout.GetLength(1) / 2;
 		return (x, y);
 	}
 
@@ -144,6 +145,8 @@ public class HullManager : MonoBehaviour
 		floorGroup.transform.position = transform.position;
 		floorGroup.transform.parent = hullGroup.transform;
 
+		Modules = new Module[hullData.HullLayout.GetLength(0), hullData.HullLayout.GetLength(1)];
+
 		hullData.HullLayout.ForEach((x, y) =>
 		{
 			if (hullData.HullLayout[x, y] == true)
@@ -164,27 +167,6 @@ public class HullManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Generates ship hull module rooms.
-	/// </summary>
-	[ButtonGroup]
-	private void GenerateModules()
-	{
-		SetupMasterGroup();
-		if (moduleGroup != null) DestroyImmediate(moduleGroup.gameObject);
-		moduleGroup = new GameObject(nameof(moduleGroup));
-		moduleGroup.transform.position = transform.position;
-		moduleGroup.transform.parent = hullGroup.transform;
-
-		hullData.HullLayout.ForEach((x, y) =>
-		{
-			if (hullData.HullLayout[x, y] == true)
-			{
-				PlaceModules(x, y, moduleGroup);
-			}
-		});
-	}
-
-	/// <summary>
 	/// Generates ship hull floor, walls and modules.
 	/// </summary>
 	[Button("Generate All", ButtonSizes.Large)]
@@ -192,7 +174,6 @@ public class HullManager : MonoBehaviour
 	{
 		GenerateFloor();
 		GenerateWalls();
-		GenerateModules();
 	}
 
 	[Button]
@@ -203,7 +184,7 @@ public class HullManager : MonoBehaviour
 	private void PlaceWall(int x, int y, Direction dir, GameObject group)
 	{
 		var coords = GetWorldPositionGrid(x, y);
-		var wall = Instantiate(HullWall, coords, Quaternion.identity);
+		var wall = Instantiate(hullWall, coords, Quaternion.identity);
 
 		wall.transform.parent = group.gameObject.transform;
 		wall.transform.localRotation = Quaternion.Euler(0, 90, -90);
@@ -234,10 +215,13 @@ public class HullManager : MonoBehaviour
 	private void PlaceFloor(int x, int y, GameObject group)
 	{
 		Vector3 coords = GetWorldPositionGrid(x, y);
-		var wall = Instantiate(HullFloor, coords, Quaternion.identity);
-		GameObject locationGroup = new GameObject($"[{x},{y}]");
-		wall.transform.parent = locationGroup.transform;
-		locationGroup.transform.parent = group.transform;
+
+		var floor = Instantiate(hullFloor, coords, Quaternion.identity);
+		floor.name = $"[{x},{y}]";
+		Modules[x, y] = floor.GetComponent<Module>();
+		Modules[x, y].Initalize(PlayerShipEntity);
+
+		floor.transform.parent = group.transform;
 	}
 
 	private void OnDrawGizmos()
@@ -254,20 +238,6 @@ public class HullManager : MonoBehaviour
 				Gizmos.DrawWireCube(coords, Vector3.one);
 			}
 		});
-	}
-
-	private void PlaceModules(int x, int y, GameObject group)
-	{
-		var moduleData = hullData.HullModules[x, y];
-		if (moduleData != null && moduleData.Prefab != null)
-		{
-			var coords = GetWorldPositionGrid(x, y);
-			var module = Instantiate(moduleData.Prefab, coords, Quaternion.identity);
-
-			GameObject locationGroup = new GameObject($"[{x},{y}]");
-			module.transform.parent = locationGroup.transform;
-			locationGroup.transform.parent = group.transform;
-		}
 	}
 
 	private void OnGameStateChanged(GameState state)

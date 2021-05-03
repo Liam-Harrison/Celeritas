@@ -23,6 +23,7 @@ namespace Celeritas.Game.Entities
 		private readonly List<ActionData> actions = new List<ActionData>();
 		private readonly List<HullData> hulls = new List<HullData>();
 		private readonly List<WaveData> waves = new List<WaveData>();
+		private readonly List<ShipData> playerShips = new List<ShipData>();
 
 		/// <summary>
 		/// All loaded ship data entries.
@@ -69,6 +70,11 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public IReadOnlyList<WaveData> Waves { get => waves.AsReadOnly(); }
 
+		/// <summary>
+		/// All the player ship entries.
+		/// </summary>
+		public IReadOnlyList<ShipData> PlayerShips { get => playerShips.AsReadOnly(); }
+
 		public static event Action OnLoadedAssets;
 
 		public static event Action<Entity> OnCreatedEntity;
@@ -111,6 +117,7 @@ namespace Celeritas.Game.Entities
 			await LoadTags(hulls, Constants.HULL_TAG);
 			await LoadTags(actions, Constants.ACTION_TAG);
 			await LoadTags(waves, Constants.WAVES_TAG);
+			await LoadTags(playerShips, Constants.PLAYER_SHIP_TAG);
 
 			watch.Stop();
 			UnityEngine.Debug.Log($"load took: {watch.ElapsedMilliseconds}ms");

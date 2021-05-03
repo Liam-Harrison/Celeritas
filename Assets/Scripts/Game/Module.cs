@@ -87,7 +87,7 @@ namespace Celeritas.Game
 			}
 
 			if (AttatchedModule != null)
-				Destroy(AttatchedModule);
+				Destroy(AttatchedModule.gameObject);
 
 			AttatchedModule = EntityDataManager.InstantiateEntity<ModuleEntity>(module, Ship, effects);
 			AttatchedModule.AttatchTo(this);
