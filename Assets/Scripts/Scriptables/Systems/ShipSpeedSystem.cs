@@ -55,7 +55,6 @@ namespace Celeritas.Scriptables.Systems
 		{
 			// TODO: may need to update effect when system levels up, depending on how game loop works.
 			// otherwise effects may not reflect levels
-			Debug.Log($"Added");
 
 			var ship = entity as ShipEntity;
 			float amountToAdd = amount + (level * amountExtraPerLevel);

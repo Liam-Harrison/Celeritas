@@ -59,7 +59,7 @@ namespace Celeritas.Scriptables.Systems
 					position = numberOfExtraProjectiles / 2;
 				}
 					
-				var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectile.ProjectileData, entity, projectile.EffectWrapperCopy);
+				var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectile.ProjectileData, entity, projectile.EntityEffects.EffectWrapperCopy);
 				toFire.transform.CopyTransform(entity.ProjectileSpawn);
 				if (randomSpread) { 
 					bulletAlignment = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));

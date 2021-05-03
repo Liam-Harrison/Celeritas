@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3dccb59d4d889940a15f8e3926b549d, type: 3}
   m_Name: modifier_ship_back_speed
   m_EditorClassIdentifier: 
-  title: 
+  title: Ship Speed Back
   affectedDirections: 4
   amount: 1.4
   amountExtraPerLevel: 0.265

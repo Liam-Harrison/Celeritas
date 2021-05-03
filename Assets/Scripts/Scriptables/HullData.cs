@@ -1,6 +1,5 @@
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
-using UnityEditor;
 using Sirenix.Utilities.Editor;
 using Celeritas.Extensions;
 using UnityEngine;
@@ -22,7 +21,7 @@ namespace Celeritas.Scriptables
         [HorizontalGroup("Split", 0.5f)]
         [BoxGroup("Split/Ship Layout")]
         [SerializeField]
-		[TableMatrix(HorizontalTitle = "Right of ship", VerticalTitle = "Back of ship",SquareCells = true, DrawElementMethod = "onHullLayoutDraw")]
+		[TableMatrix(HorizontalTitle = "Right of ship", VerticalTitle = "Back of ship",SquareCells = true, DrawElementMethod = nameof(onHullLayoutDraw))]
 		private bool[,] hullLayout = new bool[BaseLayoutResolution,BaseLayoutResolution];
 
         [BoxGroup("Split/Ship Modules")]
@@ -48,7 +47,7 @@ namespace Celeritas.Scriptables
             if (HullLayout[x,y] == true) {
                 if (value != null)
                 {
-                    Texture2D preview = value.icon.ToTexture2D();
+                    Texture2D preview = value.Icon.ToTexture2D();
                     value = (ModuleData)SirenixEditorFields.UnityPreviewObjectField(rect, value, preview, typeof(ModuleData));
                 } else {
                     value = (ModuleData)SirenixEditorFields.UnityPreviewObjectField(rect, value, typeof(ModuleData));

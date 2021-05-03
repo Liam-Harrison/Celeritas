@@ -1,3 +1,4 @@
+using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
@@ -5,26 +6,6 @@ using UnityEngine;
 
 namespace Celeritas.Game
 {
-	/// <summary>
-	/// Allows classes to access the properties of the Effect Manager.
-	/// </summary>
-	public interface IEffectManager
-	{
-		public IReadOnlyList<EffectWrapper> EffectWrappers { get; }
-
-		public SystemTargets TargetType { get; }
-
-		EffectWrapper[] EffectWrapperCopy { get; }
-
-		void AddEffect(EffectWrapper wrapper);
-
-		void AddEffectRange(IList<EffectWrapper> wrappers);
-
-		void RemoveEffect(EffectWrapper wrapper);
-
-		void ClearEffects();
-	}
-
 	/// <summary>
 	/// Wraps an effect collection and allows you to modify the level of the collection.
 	/// </summary>
@@ -39,14 +20,17 @@ namespace Celeritas.Game
 	/// <summary>
 	/// Manages an list of effect collections and their systems.
 	/// </summary>
-	public class EffectManager : IEffectManager
+	public class EffectManager
 	{
 		private readonly List<EffectWrapper> effects = new List<EffectWrapper>();
 		private SystemTargets targetType;
+		private Entity owner;
 
-		public EffectManager(SystemTargets target, IList<EffectWrapper> effects = null)
+		public EffectManager(Entity owner, SystemTargets target, IList<EffectWrapper> effects = null)
 		{
+			this.owner = owner;
 			targetType = target;
+
 			AddEffectRange(effects);
 		}
 
@@ -79,6 +63,7 @@ namespace Celeritas.Game
 			else if (wrapper.EffectCollection.Stacks || !effects.Contains(wrapper))
 			{
 				effects.Add(wrapper);
+				wrapper.EffectCollection.OnAdded(owner, wrapper.Level);
 			}
 			else
 			{
@@ -118,6 +103,54 @@ namespace Celeritas.Game
 			if (effects.Contains(wrapper))
 			{
 				effects.Remove(wrapper);
+				wrapper.EffectCollection.OnRemoved(owner, wrapper.Level);
+			}
+		}
+
+		/// <summary>
+		/// Remove a range of effects from the entity.
+		/// </summary>
+		/// <param name="wrappers">The effects to remove.</param>
+		public void RemoveEffectRange(IList<EffectWrapper> wrappers)
+		{
+			if (effects == null)
+				return;
+
+			foreach (var effect in wrappers)
+			{
+				RemoveEffect(effect);
+			}
+		}
+
+		public void UpdateEntity()
+		{
+			foreach (var effect in effects)
+			{
+				effect.EffectCollection.UpdateEntity(owner, effect.Level);
+			}
+		}
+
+		public void DestroyedEntity()
+		{
+			foreach (var effect in effects)
+			{
+				effect.EffectCollection.DestroyEntity(owner, effect.Level);
+			}
+		}
+
+		public void EntityHit(Entity other)
+		{
+			foreach (var effect in effects)
+			{
+				effect.EffectCollection.HitEntity(owner, other, effect.Level);
+			}
+		}
+
+		public void EntityFired(ProjectileEntity projectile)
+		{
+			foreach (var effect in effects)
+			{
+				effect.EffectCollection.OnFired(owner as WeaponEntity, projectile, effect.Level);
 			}
 		}
 	}

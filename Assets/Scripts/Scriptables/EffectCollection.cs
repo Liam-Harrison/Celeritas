@@ -26,14 +26,13 @@ namespace Celeritas.Scriptables
 		[SerializeField]
 		protected List<ModifierSystem> systems;
 
-		protected Action<Entity, ushort> onCreated;
 		protected Action<Entity, ushort> onDestroyed;
 		protected Action<Entity, ushort> onAdded;
 		protected Action<Entity, ushort> onRemoved;
 		protected Action<Entity, ushort> onUpdated;
 		protected Action<WeaponEntity, ProjectileEntity, ushort> onFired;
 		protected Action<Entity, Entity, ushort> onHit;
-
+		
 		protected virtual void OnEnable()
 		{
 			ResetAllListeners();
@@ -123,19 +122,6 @@ namespace Celeritas.Scriptables
 		}
 
 		/// <summary>
-		/// Update the provided entity against this effect when created.
-		/// </summary>
-		/// <param name="entity">The entity to update when created.</param>
-		/// <param name="level">The level of the effect.</param>
-		public void CreateEntity(Entity entity, ushort level)
-		{
-			if (!IsValidEntity(entity))
-				return;
-
-			onCreated?.Invoke(entity, level);
-		}
-
-		/// <summary>
 		/// Update the provided entity against this effect when destroyed.
 		/// </summary>
 		/// <param name="entity">The entity to update when destroyed.</param>
@@ -220,7 +206,6 @@ namespace Celeritas.Scriptables
 
 		private void ResetAllListeners()
 		{
-			onCreated = null;
 			onDestroyed = null;
 			onUpdated = null;
 			onHit = null;
@@ -236,9 +221,6 @@ namespace Celeritas.Scriptables
 
 		private void RegisterModifierSystemListeners(ModifierSystem system)
 		{
-			if (system is IEntityCreated created)
-				onCreated += created.OnEntityCreated;
-
 			if (system is IEntityDestroyed destroyed)
 				onDestroyed += destroyed.OnEntityDestroyed;
 
@@ -260,9 +242,6 @@ namespace Celeritas.Scriptables
 
 		private void RemoveModifierSystemListeners(ModifierSystem system)
 		{
-			if (system is IEntityCreated created)
-				onCreated -= created.OnEntityCreated;
-
 			if (system is IEntityDestroyed destroyed)
 				onDestroyed -= destroyed.OnEntityDestroyed;
 

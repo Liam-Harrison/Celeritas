@@ -86,8 +86,7 @@ namespace Celeritas.Game
 				return;
 			}
 
-			if (AttatchedModule != null)
-				Destroy(AttatchedModule.gameObject);
+			RemoveModule();
 
 			AttatchedModule = EntityDataManager.InstantiateEntity<ModuleEntity>(module, Ship, effects);
 			AttatchedModule.AttatchTo(this);
@@ -95,6 +94,25 @@ namespace Celeritas.Game
 			if (AttatchedModule is WeaponEntity weapon)
 			{
 				weapon.WeaponEffects.AddEffectRange(projectileEffects);
+			}
+
+			if (module.HasDefaultShipEffects)
+			{
+				Ship.EntityEffects.AddEffectRange(module.ShipEffects);
+			}
+		}
+
+		public void RemoveModule()
+		{
+			if (AttatchedModule != null)
+			{
+				if (AttatchedModule.ModuleData.HasDefaultShipEffects)
+				{
+					Ship.EntityEffects.RemoveEffectRange(AttatchedModule.ModuleData.ShipEffects);
+				}
+				Destroy(AttatchedModule.gameObject);
+
+				AttatchedModule = null;
 			}
 		}
 	}

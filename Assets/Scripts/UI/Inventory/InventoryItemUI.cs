@@ -10,7 +10,7 @@ namespace Celeritas.UI.Inventory
 	/// <summary>
 	/// A container for managing a module within the inventory UI.
 	/// </summary>
-	public class InventoryItemUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+	public class InventoryItemUI : MonoBehaviour, IPointerDownHandler
 	{
 		[SerializeField, Title("Assignments")]
 		private Image image;
@@ -36,7 +36,7 @@ namespace Celeritas.UI.Inventory
 			set
 			{
 				module = value;
-				image.sprite = module.icon;
+				image.sprite = module.Icon;
 				label.text = module.Title;
 			}
 		}
@@ -44,11 +44,6 @@ namespace Celeritas.UI.Inventory
 		public void OnPointerDown(PointerEventData _)
 		{
 			hud.OnItemDragBegin(this);
-		}
-
-		public void OnPointerUp(PointerEventData _)
-		{
-			hud.OnItemDragStopped(this);
 		}
 	}
 }

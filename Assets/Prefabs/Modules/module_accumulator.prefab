@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 209961586333920490}
   - component: {fileID: 9051545546609203493}
   m_Layer: 0
-  m_Name: Example
+  m_Name: module_accumulator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  hasDefaultEffects: 1
+  hasDefaultEffects: 0
   defaultEffects:
   - Level: 0
     EffectCollection: {fileID: 11400000, guid: b5a7799e420c4cf40bbcdbe0932ea6da, type: 2}

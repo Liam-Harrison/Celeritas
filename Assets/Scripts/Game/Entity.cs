@@ -97,19 +97,12 @@ namespace Celeritas.Game
 		/// </summary>
 		public IReadOnlyList<GameAction> Actions { get => actions.AsReadOnly(); }
 
-		/// <summary>
-		/// Get a readonly list of all the effects on this entity.
-		/// </summary>
-		public IReadOnlyList<EffectWrapper> EffectWrappers => effectManager.EffectWrappers;
-
-		/// <summary>
-		/// Get a copy of all effects on this entity.
-		/// </summary>
-		public EffectWrapper[] EffectWrapperCopy => effectManager.EffectWrapperCopy;
-
 		private readonly List<GameAction> actions = new List<GameAction>();
 
-		private EffectManager effectManager;
+		/// <summary>
+		/// The effects currently on this ship.
+		/// </summary>
+		public EffectManager EntityEffects { get; private set; }
 
 		/// <summary>
 		/// Invoked when an action is added.
@@ -140,16 +133,14 @@ namespace Celeritas.Game
 			else if (owner != null)
 				IsPlayer = owner.IsPlayer;
 
-			effectManager = new EffectManager(TargetType);
+			EntityEffects = new EffectManager(this, TargetType);
 
-			effectManager.ClearEffects();
-			effectManager.AddEffectRange(effects);
+			EntityEffects.ClearEffects();
+			EntityEffects.AddEffectRange(effects);
 			if (hasDefaultEffects)
 			{
-				effectManager.AddEffectRange(defaultEffects);
+				EntityEffects.AddEffectRange(defaultEffects);
 			}
-
-			OnEntityCreated();	
 		}
 
 		protected virtual void OnDestroy()
@@ -171,30 +162,16 @@ namespace Celeritas.Game
 			}
 			else
 			{
-				OnEntityUpdated();
-			}
-		}
-
-		/// <summary>
-		/// Update effects for this entity when created.
-		/// </summary>
-		protected void OnEntityCreated()
-		{
-			foreach (var wrapper in EffectWrappers)
-			{
-				wrapper.EffectCollection.CreateEntity(this, wrapper.Level);
+				EntityEffects.UpdateEntity();
 			}
 		}
 
 		/// <summary>
 		/// Update effects for this entity when destroyed.
 		/// </summary>
-		protected void OnEntityDestroyed()
+		protected virtual void OnEntityDestroyed()
 		{
-			foreach (var wrapper in EffectWrappers)
-			{
-				wrapper.EffectCollection.DestroyEntity(this, wrapper.Level);
-			}
+			EntityEffects.DestroyedEntity();
 			OnDestroyed?.Invoke(this);
 		}
 
@@ -262,30 +239,12 @@ namespace Celeritas.Game
 		}
 
 		/// <summary>
-		/// Update effects for this entity when hit.
+		/// Update effects for this entity when we hit something.
 		/// </summary>
-		/// <param name="other">The other entity.</param>
+		/// <param name="other">The other entity hit.</param>
 		public virtual void OnEntityHit(Entity other)
 		{
-			// note: 'this' is hitting the other entity
-
-			foreach (var wrapper in EffectWrappers)
-			{
-				wrapper.EffectCollection.HitEntity(this, other, wrapper.Level);
-			}
-			// damage calculations & logic is in child classes.
-			//other.TakeDamage(this);
-		}
-
-		/// <summary>
-		/// Update effects for this entity when updated.
-		/// </summary>
-		protected void OnEntityUpdated()
-		{
-			foreach (var wrapper in EffectWrappers)
-			{
-				wrapper.EffectCollection.UpdateEntity(this, wrapper.Level);
-			}
+			EntityEffects.EntityHit(other);
 		}
 
 		/// Logic for this entity being damaged by another entity

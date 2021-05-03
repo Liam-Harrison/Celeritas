@@ -4,11 +4,15 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Celeritas;
+using Celeritas.Scriptables;
 
 namespace Celeritas.UI
 {
 	public class BuildHUD : MonoBehaviour
 	{
+		private InputActions.BasicActions actions = default;
+
 		[SerializeField, Title("Assignments")]
 		private InventoryUI inventory;
 
@@ -18,7 +22,7 @@ namespace Celeritas.UI
 		[SerializeField]
 		private Material placingMaterial;
 
-		private InventoryItemUI dragging;
+		private ModuleData dragging;
 
 		private GameObject placeObject;
 
@@ -26,23 +30,33 @@ namespace Celeritas.UI
 
 		private (int x, int y) grid;
 		private bool canPlace = false;
-		private bool placing = false;
 
 		private void Awake()
 		{
 			camera = Camera.main;
+			actions = new InputActions.BasicActions(new InputActions());
 		}
 
 		private void OnEnable()
 		{
 			dragging = null;
-			placing = false;
 			drop.gameObject.SetActive(false);
+
+			actions.Enable();
+			actions.Fire.performed += FirePerformed;
+			actions.Fire.canceled += FireCanceled;
+		}
+
+		private void OnDisable()
+		{
+			actions.Disable();
+			actions.Fire.performed -= FirePerformed;
+			actions.Fire.canceled -= FireCanceled;
 		}
 
 		private void Update()
 		{
-			if (placing)
+			if (dragging != null)
 			{
 				var mousepos = Mouse.current.position.ReadValue();
 				drop.transform.position = mousepos;
@@ -53,11 +67,19 @@ namespace Celeritas.UI
 					var hull = PlayerController.Instance.PlayerShipEntity.HullManager;
 					grid = hull.GetGridFromWorld(hit.point);
 
-					placeObject.transform.position = hull.GetWorldPositionGrid(grid.x, grid.y);
-					placeObject.transform.rotation = hull.transform.rotation;
+					if (!hull.Modules[grid.x, grid.y].HasModuleAttatched)
+					{
+						placeObject.transform.position = hull.GetWorldPositionGrid(grid.x, grid.y);
+						placeObject.transform.rotation = hull.transform.rotation;
 
-					placeObject.SetActive(true);
-					canPlace = true;
+						placeObject.SetActive(true);
+						canPlace = true;
+					}
+					else
+					{
+						placeObject.SetActive(false);
+						canPlace = false;
+					}
 				}
 				else
 				{
@@ -65,19 +87,18 @@ namespace Celeritas.UI
 					canPlace = false;
 				}
 			}
-			else if (canPlace)
-			{
-				canPlace = false;
-				var ship = PlayerController.Instance.PlayerShipEntity;
-				ship.HullManager.Modules[grid.x, grid.y].SetModule(dragging.Module);
-			}
 		}
 
 		public void OnItemDragBegin(InventoryItemUI item)
 		{
-			placing = true;
-			dragging = item;
-			drop.sprite = item.Module.icon;
+			BeginDraggingModule(item.Module);
+			inventory.RemoveInventoryItem(item);
+		}
+
+		private void BeginDraggingModule(ModuleData module)
+		{
+			dragging = module;
+			drop.sprite = module.Icon;
 			drop.gameObject.SetActive(true);
 
 			if (placeObject != null)
@@ -85,17 +106,51 @@ namespace Celeritas.UI
 				Destroy(placeObject);
 			}
 
-			placeObject = Instantiate(item.Module.Prefab);
+			placeObject = Instantiate(module.Prefab);
 			placeObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = placingMaterial;
 			placeObject.SetActive(false);
 		}
 
-		public void OnItemDragStopped(InventoryItemUI item)
+		private void FirePerformed(InputAction.CallbackContext obj)
 		{
-			placing = false;
+			var mousepos = Mouse.current.position.ReadValue();
+			var ray = camera.ScreenPointToRay(mousepos);
+
+			if (Physics.Raycast(ray, out var hit, 40f, LayerMask.GetMask("Hull")))
+			{
+				var hull = PlayerController.Instance.PlayerShipEntity.HullManager;
+				grid = hull.GetGridFromWorld(hit.point);
+
+				if (hull.Modules[grid.x, grid.y].HasModuleAttatched)
+				{
+					BeginDraggingModule(hull.Modules[grid.x, grid.y].AttatchedModule.ModuleData);
+					hull.Modules[grid.x, grid.y].RemoveModule();
+
+				}
+			}
+		}
+
+		private void FireCanceled(InputAction.CallbackContext obj)
+		{
+			if (dragging != null && canPlace)
+			{
+				var ship = PlayerController.Instance.PlayerShipEntity;
+				ship.HullManager.Modules[grid.x, grid.y].SetModule(dragging);
+
+			}
+			else if (dragging != null)
+			{
+				inventory.AddInventoryItem(dragging);
+			}
+
+			canPlace = false;
+			dragging = null;
 
 			if (placeObject != null)
+			{
 				placeObject.SetActive(false);
+				Destroy(placeObject);
+			}
 
 			drop.gameObject.SetActive(false);
 		}
