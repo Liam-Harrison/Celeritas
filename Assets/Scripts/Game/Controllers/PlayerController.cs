@@ -51,7 +51,7 @@ namespace Celeritas.Game.Controllers
 		{
 			if (GameStateManager.Instance.GameState == GameState.BUILD)
 			{
-				PlayerShipEntity.Target = PlayerShipEntity.Forward * 50f;
+				PlayerShipEntity.Target = transform.position + PlayerShipEntity.Forward * 50f;
 				PlayerShipEntity.Translation = Vector3.zero;
 			}
 			else

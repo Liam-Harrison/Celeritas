@@ -12,90 +12,68 @@ namespace Celeritas.Game
 	public class WaveManager : Singleton<WaveManager>
 	{
 		private List<int> WaveLootValues;
-		private uint nextWave;
+		private int waveIndex;
 
 		protected override void Awake()
 		{
-			nextWave = 0;
-			//TODO: read WaveLootValues from file.
+			waveIndex = 0;
 			WaveLootValues = new List<int>() { 5, 7, 10 };
 		}
 
 		[SerializeField]
 		public WaveData[] data;
-		private int waveAll = 0;
+
 		[SerializeField]
-		public int MinShips = 5;
+		public int MinShips = 1;
 
 		public bool WaveActive { get; private set; }
+
+		public static event Action OnWaveEnded;
+		public static event Action OnWaveStarted;
 
 		/// <summary>
 		/// Start a wave.
 		/// </summary>
 		public void StartWave()
 		{
-			Debug.Log("StartWave");
-			List<ShipData> NewWave = new List<ShipData>();
-			for (int i = 0; i < 30; i++)
-			{
-				Debug.Log("Generate Wave: #" + i);
-				GenerateWave(NewWave);
-				Debug.Log("Ships: " + NewWave.Count);
-				if (NewWave.Count >= MinShips)
-				{
-					break;
-				}
-			}
-
-			//If adding wave shapes, modify here
-			foreach (ShipData ship in NewWave)
-			{
-				EnemyManager.Instance.SpawnShip<Celeritas.AI.AIBasicChase>(ship, PlayerController.Instance.ShipEntity.gameObject.transform.position.RandomPointOnCircle(10f));
-			}
-			nextWave++;
-		}
-
-		System.Random random = new System.Random();
-
-		public static event Action OnWaveEnded;
-		public static event Action OnWaveStarted;
-
-		private Dictionary<WaveData, List<ShipEntity>> ships = new Dictionary<WaveData, List<ShipEntity>>();
-
-		public IReadOnlyDictionary<WaveData, List<ShipEntity>> Waves { get => ships; }
-
-		private void GenerateWave(List<ShipData> Wave)
-		{
-			float waveLootTotal = WaveLootValues[0];
-			int waveType = waveAll; //FIX WHEN LOGIC KNOWN omfg
-			int randShip;
-			if (data[waveType].IsBoss)
-			{
-				Wave.Add(data[waveType].BossShip);
-				waveLootTotal -= data[waveType].BossShip.Prefab.GetComponent<ShipEntity>().LootConfig.Gain;
-			}
-			while (waveLootTotal > 0)
-			{
-				randShip = random.Next(0, data[waveType].ShipPool.Length);
-				Wave.Add(data[waveType].ShipPool[randShip]);
-				waveLootTotal -= data[waveType].ShipPool[randShip].Prefab.GetComponent<ShipEntity>().LootConfig.Gain;
-			}
-			Debug.Log("Loot Total: " + waveLootTotal);
-		}
-
-		public void StartWave()
-		{
 			WaveActive = true;
-			var wave = data[nextWave++];
+			var wave = data[waveIndex];
 			ships[wave] = new List<ShipEntity>();
 
-			foreach (var ship in wave.EnemyShips)
+			List<ShipData> NewWave = new List<ShipData>();
+
+			GenerateWave(NewWave);
+
+			foreach (ShipData ship in NewWave)
 			{
 				var spawned = EnemyManager.Instance.SpawnShip<AIBasicChase>(ship, PlayerController.Instance.PlayerShipEntity.transform.position.RandomPointOnCircle(20f));
 				ships[wave].Add(spawned);
 			}
 
 			OnWaveStarted?.Invoke();
+			waveIndex++;
+		}
+
+		private Dictionary<WaveData, List<ShipEntity>> ships = new Dictionary<WaveData, List<ShipEntity>>();
+
+		public IReadOnlyDictionary<WaveData, List<ShipEntity>> Waves { get => ships; }
+
+		private void GenerateWave(List<ShipData> wave)
+		{
+			float waveLootTotal = WaveLootValues[waveIndex % WaveLootValues.Count];
+
+			if (data[waveIndex].IsBoss)
+			{
+				wave.Add(data[waveIndex].BossShip);
+				waveLootTotal -= data[waveIndex].BossShip.Prefab.GetComponent<ShipEntity>().LootConfig.Gain;
+			}
+
+			while (waveLootTotal > 0)
+			{
+				var randShip = UnityEngine.Random.Range(0, data[waveIndex].ShipPool.Length);
+				wave.Add(data[waveIndex].ShipPool[randShip]);
+				waveLootTotal -= data[waveIndex].ShipPool[randShip].Prefab.GetComponent<ShipEntity>().LootConfig.Gain;
+			}
 		}
 
 		/// <summary>
@@ -107,8 +85,8 @@ namespace Celeritas.Game
 			WaveActive = false;
 			ships.Clear();
 
-			if (nextWave >= data.Length)
-				nextWave = 0;
+			if (waveIndex >= data.Length)
+				waveIndex = 0;
 
 			OnWaveEnded?.Invoke();
 		}

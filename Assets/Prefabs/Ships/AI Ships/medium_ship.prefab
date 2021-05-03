@@ -157,7 +157,9 @@ MonoBehaviour:
     SerializationNodes: []
   hasDefaultEffects: 0
   defaultEffects: []
-  modules: []
+  modules:
+  - {fileID: 3912116814696063671}
+  - {fileID: 4293004831541093639}
   movementModifier:
     forward: 1
     side: 1

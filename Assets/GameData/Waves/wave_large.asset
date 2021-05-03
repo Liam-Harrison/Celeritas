@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ea9f1ace7fda4d46a01d02891d7f281, type: 3}
   m_Name: wave_large
   m_EditorClassIdentifier: 
-  enemyShips:
+  shipPool:
+  - {fileID: 11400000, guid: 8e72e4b007cf4c045aa0d02aa620e51e, type: 2}
   - {fileID: 11400000, guid: 6da1c5143303b944f8679554970f1f9d, type: 2}
-  - {fileID: 11400000, guid: 6da1c5143303b944f8679554970f1f9d, type: 2}
-  - {fileID: 11400000, guid: 2354894fc65befa43a573e4e81bedc30, type: 2}
+  isBoss: 0
+  bossShip: {fileID: 0}
