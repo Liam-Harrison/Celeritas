@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e81afd5e3fc38f04a85d551b5ddbf13e, type: 3}
   m_Name: module_scrap
   m_EditorClassIdentifier: 
-  title: 
-  prefab: {fileID: 0}
+  title: Scrap Collector
+  prefab: {fileID: 209961586333920278, guid: b20dc1fa46c57f242b1a5eb59e6190d7, type: 3}
   icon: {fileID: 21300028, guid: 13699c70ebaae9240ad8a214cb0c1663, type: 3}
   background: {fileID: 21300000, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
   description: Collects Scrap
-  hullRoom: {fileID: 5397001711104919385, guid: 7e924aaec87b407429abbd2aeba0592a, type: 3}
   size: 0
+  hasDefaultShipEffects: 0
+  shipEffects: []

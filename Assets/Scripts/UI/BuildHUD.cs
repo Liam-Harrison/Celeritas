@@ -26,14 +26,14 @@ namespace Celeritas.UI
 
 		private GameObject placeObject;
 
-		private new Camera camera;
+		private Camera mainCamera;
 
 		private (int x, int y) grid;
 		private bool canPlace = false;
 
 		private void Awake()
 		{
-			camera = Camera.main;
+			mainCamera = Camera.main;
 			actions = new InputActions.BasicActions(new InputActions());
 		}
 
@@ -60,14 +60,14 @@ namespace Celeritas.UI
 			{
 				var mousepos = Mouse.current.position.ReadValue();
 				drop.transform.position = mousepos;
-				var ray = camera.ScreenPointToRay(mousepos);
+				var ray = mainCamera.ScreenPointToRay(mousepos);
 
 				if (Physics.Raycast(ray, out var hit, 40f, LayerMask.GetMask("Hull")))
 				{
 					var hull = PlayerController.Instance.PlayerShipEntity.HullManager;
 					grid = hull.GetGridFromWorld(hit.point);
 
-					if (!hull.Modules[grid.x, grid.y].HasModuleAttatched)
+					if (hull.Modules[grid.x, grid.y] != null && hull.Modules[grid.x, grid.y].HasModuleAttatched == false)
 					{
 						placeObject.transform.position = hull.GetWorldPositionGrid(grid.x, grid.y);
 						placeObject.transform.rotation = hull.transform.rotation;
@@ -114,7 +114,7 @@ namespace Celeritas.UI
 		private void FirePerformed(InputAction.CallbackContext obj)
 		{
 			var mousepos = Mouse.current.position.ReadValue();
-			var ray = camera.ScreenPointToRay(mousepos);
+			var ray = mainCamera.ScreenPointToRay(mousepos);
 
 			if (Physics.Raycast(ray, out var hit, 40f, LayerMask.GetMask("Hull")))
 			{
@@ -125,7 +125,6 @@ namespace Celeritas.UI
 				{
 					BeginDraggingModule(hull.Modules[grid.x, grid.y].AttatchedModule.ModuleData);
 					hull.Modules[grid.x, grid.y].RemoveModule();
-
 				}
 			}
 		}
@@ -136,11 +135,15 @@ namespace Celeritas.UI
 			{
 				var ship = PlayerController.Instance.PlayerShipEntity;
 				ship.HullManager.Modules[grid.x, grid.y].SetModule(dragging);
+				ship.Inventory.Remove(dragging);
 
 			}
 			else if (dragging != null)
 			{
 				inventory.AddInventoryItem(dragging);
+
+				var ship = PlayerController.Instance.PlayerShipEntity;
+				ship.Inventory.Add(dragging);
 			}
 
 			canPlace = false;

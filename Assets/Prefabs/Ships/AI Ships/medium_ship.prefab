@@ -104,7 +104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2516558698829045460}
-  - component: {fileID: 5537355914572784051}
+  - component: {fileID: 808745327819978095}
   - component: {fileID: 2516558698829045451}
   m_Layer: 0
   m_Name: medium_ship
@@ -134,7 +134,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5537355914572784051
+--- !u!114 &808745327819978095
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,135 +143,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 2516558698829045457}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f07dfa1d16e8cd14e941747a813d8dcb, type: 3}
+  m_Script: {fileID: 11500000, guid: a5a191211b85ecc4e8e3dd17c21431c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000, guid: a4dfa5d3274ed674db3b5d2688a6667e, type: 2}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: inventory
-      Entry: 7
-      Data: 0|Celeritas.Scriptables.ModuleData[,], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 24
-    - Name: ranks
-      Entry: 1
-      Data: 8|3
-    - Name: 
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   hasDefaultEffects: 0
-  defaultEffects:
-  - Level: 1
-    EffectCollection: {fileID: 11400000, guid: b5a7799e420c4cf40bbcdbe0932ea6da, type: 2}
-  modules:
-  - {fileID: 3912116814696063671}
-  - {fileID: 4293004831541093639}
+  defaultEffects: []
+  modules: []
   movementModifier:
     forward: 1
     side: 1
     back: 1
     rotation: 1
   health:
-    maxValue: 20
-    currentValue: 20
+    maxValue: 0
+    currentValue: 0
   shield:
-    maxValue: 20
-    currentValue: 20
+    maxValue: 0
+    currentValue: 0
   lootConfig:
     gain: 1
     isBoss: 0
   dropType: 0
-  engineEffects:
-  - {fileID: 533868656175302458}
-  - {fileID: 8950003118209943938}
-  - {fileID: 4671421883375309999}
-  - {fileID: 4289779454614690327}
-  inventorySize: {x: 8, y: 3}
-  hullManager: {fileID: 3216270655684157883}
+  engineEffects: []
 --- !u!50 &2516558698829045451
 Rigidbody2D:
   serializedVersion: 4
@@ -447,7 +349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconPlane: {fileID: 6720883945578193521, guid: 4c6a6cf00cc067a49aa069729a931e0c, type: 3}
-  playerShipEntity: {fileID: 5537355914572784051}
+  playerShipEntity: {fileID: 0}
   hullWall: {fileID: 919132149155446097, guid: 18141fc24c020644bbfafdc543da96ff, type: 3}
   hullFloor: {fileID: 622699920804246379, guid: 6976bef87f3208b4a9ce36a15d01a664, type: 3}
   hullData: {fileID: 11400000, guid: 40ed78a99ec4d064eb809123e51b1152, type: 2}
@@ -525,16 +427,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1477245854262912886, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
   m_PrefabInstance: {fileID: 4594367450137448437}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &8950003118209943938 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4897300313599739511, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
-  m_PrefabInstance: {fileID: 4594367450137448437}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &4289779454614690327 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 309098510183863778, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
-  m_PrefabInstance: {fileID: 4594367450137448437}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4944418058108059981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -607,16 +499,6 @@ PrefabInstance:
 --- !u!4 &5773088339213985339 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1477245854262912886, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
-  m_PrefabInstance: {fileID: 4944418058108059981}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &533868656175302458 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4897300313599739511, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
-  m_PrefabInstance: {fileID: 4944418058108059981}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &4671421883375309999 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 309098510183863778, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
   m_PrefabInstance: {fileID: 4944418058108059981}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6365166053207317103

@@ -1,6 +1,5 @@
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
-using Sirenix.Utilities.Editor;
 using Celeritas.Extensions;
 using UnityEngine;
 
@@ -44,17 +43,19 @@ namespace Celeritas.Scriptables
         
 		private ModuleData DrawModulePreview(Rect rect, ModuleData value, int x, int y)
 		{
-            if (HullLayout[x,y] == true) {
+#if UNITY_EDITOR
+			if (HullLayout[x,y] == true) {
                 if (value != null)
                 {
                     Texture2D preview = value.Icon.ToTexture2D();
-                    value = (ModuleData)SirenixEditorFields.UnityPreviewObjectField(rect, value, preview, typeof(ModuleData));
+                    value = (ModuleData)Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(rect, value, preview, typeof(ModuleData));
                 } else {
-                    value = (ModuleData)SirenixEditorFields.UnityPreviewObjectField(rect, value, typeof(ModuleData));
+                    value = (ModuleData)Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(rect, value, typeof(ModuleData));
                 }
             } else {
                 value = null;
-            }
+			}
+#endif
 			return value;
 		}
 

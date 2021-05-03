@@ -72,7 +72,6 @@ namespace Celeritas.Scriptables.Systems
 		public void OnEntityEffectRemoved(Entity entity, ushort level)
 		{
 			var ship = entity as ShipEntity;
-			Debug.Log($"Removed");
 
 			if (affectedDirections.HasFlag(ShipDirections.Forward))
 				ship.MovementModifier.Forward -= amount;

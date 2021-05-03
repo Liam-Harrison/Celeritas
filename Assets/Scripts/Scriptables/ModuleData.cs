@@ -34,9 +34,6 @@ namespace Celeritas.Scriptables
 		[SerializeField]
 		private ModuleSize size;
 
-		[SerializeField, TableMatrix(SquareCells = true, DrawElementMethod = nameof(onHullLayoutDraw))]
-		private bool[,] inventoryOccupied = new bool[4, 4];
-
 		[SerializeField, Title("Ship Effects")]
 		private bool hasDefaultShipEffects;
 
@@ -44,13 +41,12 @@ namespace Celeritas.Scriptables
 		private EffectWrapper[] shipEffects;
 
 		public Sprite Icon { get => icon; }
+
 		public Sprite Background { get => background; }
 
 		public string Description { get => description; }
 
 		public ModuleSize ModuleSize { get => size; }
-
-		public bool[,] InventoryOccupied { get => inventoryOccupied; }
 
 		public bool HasDefaultShipEffects { get => hasDefaultShipEffects; }
 
@@ -66,7 +62,7 @@ namespace Celeritas.Scriptables
 			}
 		}
 
-		private static bool onHullLayoutDraw(Rect rect, bool value)
+		private static bool onLayoutDraw(Rect rect, bool value)
 		{
 			if (Event.current.type == EventType.MouseDown && rect.Contains(Event.current.mousePosition))
 			{
@@ -74,7 +70,6 @@ namespace Celeritas.Scriptables
 				GUI.changed = true;
 				Event.current.Use();
 			}
-
 
 #if UNITY_EDITOR
 			UnityEditor.EditorGUI.DrawRect(rect.Padding(1), value ? new Color(1f, 1f, 1f, 1f) : new Color(0f, 0f, 0f, 0f));

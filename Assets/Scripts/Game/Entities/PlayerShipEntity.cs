@@ -1,8 +1,6 @@
 using Celeritas.Extensions;
-using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities.Editor;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,17 +35,32 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public List<ModuleData> Inventory { get; private set; } = new List<ModuleData>();
 
+		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
+		{
+			foreach (var item in inventory)
+			{
+				if (item == null)
+					continue;
+
+				Inventory.Add(item);
+			}
+
+			base.Initalize(data, owner, effects, forceIsPlayer);
+		}
+
 		private ModuleData DrawModulePreview(Rect rect, ModuleData value, int x, int y)
 		{
+#if UNITY_EDITOR
 			if (value != null)
 			{
 				Texture2D preview = value.Icon.ToTexture2D();
-				value = (ModuleData)SirenixEditorFields.UnityPreviewObjectField(rect, value, preview, typeof(ModuleData));
+				value = (ModuleData)Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(rect, value, preview, typeof(ModuleData));
 			}
 			else
 			{
-				value = (ModuleData)SirenixEditorFields.UnityPreviewObjectField(rect, value, typeof(ModuleData));
+				value = (ModuleData)Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(rect, value, typeof(ModuleData));
 			}
+#endif
 
 			return value;
 		}
