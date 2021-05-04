@@ -24,6 +24,7 @@ namespace Celeritas.Game.Entities
 		private readonly List<HullData> hulls = new List<HullData>();
 		private readonly List<WaveData> waves = new List<WaveData>();
 		private readonly List<ShipData> playerShips = new List<ShipData>();
+		private readonly List<Asteroid> asteroids = new List<Asteroid>();
 
 		/// <summary>
 		/// All loaded ship data entries.
@@ -69,6 +70,8 @@ namespace Celeritas.Game.Entities
 		/// All the wave entries.
 		/// </summary>
 		public IReadOnlyList<WaveData> Waves { get => waves.AsReadOnly(); }
+
+		public IReadOnlyList<Asteroid> Asteroids { get => asteroids.AsReadOnly(); }
 
 		/// <summary>
 		/// All the player ship entries.
