@@ -116,7 +116,7 @@ namespace Celeritas.Game.Controllers
 		float TRACTOR_DEAD_ZONE_RADIUS = 1; // if an object is this close to the cursor, tractor will stop applying force
 
 		bool tractorActive = false; 
-		ShipEntity tractorTarget; // the target the tractor beam is locked onto. Null if no valid target in range or tractor not active.
+		ITractorBeamTarget tractorTarget; // the target the tractor beam is locked onto. Null if no valid target in range or tractor not active.
 
 		/// <summary>
 		/// Pull tractorTarget around if tractor beam is active.
@@ -125,10 +125,10 @@ namespace Celeritas.Game.Controllers
 		{
 			if (tractorActive)
 			{
-				if (tractorTarget != null)
+				if (tractorTarget != null && tractorTarget.Rigidbody != null)
 				{
 					Vector3 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-					Vector2 dirToPull = mousePos - tractorTarget.transform.position;
+					Vector2 dirToPull = mousePos - tractorTarget.Rigidbody.transform.position;
 
 					// don't pull target if it's close to mouse (ie, in 'deadzone')
 					if (dirToPull.magnitude <= TRACTOR_DEAD_ZONE_RADIUS) 
@@ -180,15 +180,21 @@ namespace Celeritas.Game.Controllers
 						if (body == null)
 							continue;
 
-						ShipEntity ship = body.GetComponent<ShipEntity>();
-						if (ship == null || ship == PlayerShipEntity) // can't tractor beam yourself
+						ITractorBeamTarget target = body.GetComponent<ShipEntity>();
+						if (target != null && (ShipEntity)target == PlayerShipEntity) // can't tractor beam yourself
 							continue;
 
-						float distance = Vector2.Distance(ship.transform.position, mousePos);
+						if (target == null) // if not a ship, check if its an asteroid
+							target = body.GetComponent<Asteroid>();
+
+						if (target == null) // if not a ship or asteroid, move on to next target
+							continue;
+
+						float distance = Vector2.Distance(target.Rigidbody.transform.position, mousePos);
 						if (distance < lowestDistance)
 						{
 							lowestDistance = distance;
-							tractorTarget = ship;
+							tractorTarget = target;
 						}
 					}
 				}
@@ -196,9 +202,9 @@ namespace Celeritas.Game.Controllers
 				if (tractorTarget != null)
 				{
 					// add graphical effect
-					tractorGraphicalEffect = Instantiate(tractorBeamEffectPrefab, tractorTarget.transform);
+					tractorGraphicalEffect = Instantiate(tractorBeamEffectPrefab, tractorTarget.Rigidbody.transform);
 					CombatHUD.Instance.TractorAimingLine.SetActive(true);
-					CombatHUD.Instance.TractorAimingLine.GetComponent<AimingLine>().TargetToAimAt = tractorTarget.gameObject;
+					CombatHUD.Instance.TractorAimingLine.GetComponent<AimingLine>().TargetToAimAt = tractorTarget.Rigidbody;
 					// todo: scale effect depending on size of ship.
 				}
 			}

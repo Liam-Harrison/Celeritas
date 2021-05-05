@@ -18,7 +18,7 @@ namespace Celeritas.Game.Entities
 	/// The game entity for a ship.
 	/// </summary>
 	[RequireComponent(typeof(Rigidbody2D))]
-	public class ShipEntity : Entity
+	public class ShipEntity : Entity, ITractorBeamTarget
 	{
 		[SerializeField, Title("Modules")]
 		protected Module[] modules;
@@ -184,12 +184,12 @@ namespace Celeritas.Game.Entities
 			base.OnDestroy();
 		}
 
-		private float collisionDamageMultiplier = 10;
+		//private float collisionDamageMultiplier = 10;
 
 		public override void OnEntityHit(Entity other)
 		{
 			// if hitting another ship, calculate collision damage
-			if (other is ShipEntity)
+			/*if (other is ShipEntity)
 			{
 				// momentum is velocity * mass
 				float force = Velocity.magnitude * Rigidbody.mass * collisionDamageMultiplier;
@@ -198,7 +198,8 @@ namespace Celeritas.Game.Entities
 
 				// take half damage yourself
 				TakeDamage(this, (int)force / 2);
-			}
+			}*/
+			ApplyCollisionDamage(Rigidbody, other);
 
 			base.OnEntityHit(other);
 		}

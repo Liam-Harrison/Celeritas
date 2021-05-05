@@ -16,6 +16,12 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public int RareMetals { get; private set; }
 
+		/// <summary>
+		/// Generate a loot drop. Currently will automatically be picked up by the player
+		/// </summary>
+		/// <param name="dropValue">percentage chance of item dropping ( 1 = 1% chance)</param>
+		/// <param name="dropType">type of loot drop (eg asteroid, ship)</param>
+		/// <param name="dropLocation">presently unused</param>
 		public void LootDrop(float dropValue, DropType dropType, Vector3 dropLocation)
 		{
 			if (dropType == DropType.Ship)
@@ -36,7 +42,6 @@ namespace Celeritas.Game.Entities
 			if (dropType == DropType.Asteroid)
 			{
 				float lootRoll = GenerateRandomValue();
-
 				if (lootRoll < dropValue)
 				{
 					RareMetals = RareMetals + Random.Range(1, 10);
