@@ -62,6 +62,7 @@ MonoBehaviour:
   lootConfig:
     gain: 100
     isBoss: 0
+  onDestroyEffectPrefab: {fileID: 2516007055564396064, guid: cdbe87aa8fcee444f89240e0628f0cee, type: 3}
 --- !u!70 &4697608550902797402
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

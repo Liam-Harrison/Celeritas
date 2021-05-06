@@ -1,11 +1,7 @@
 ﻿using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Game
@@ -20,6 +16,7 @@ namespace Assets.Scripts.Game
 		private EntityData asteroidPrefab;
 
 		private readonly List<Asteroid> asteroids = new List<Asteroid>(128);
+
 
 		/// <summary>
 		/// Get a list of all asteroids

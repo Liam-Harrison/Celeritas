@@ -22,12 +22,17 @@ namespace Celeritas.Game.Entities {
 
 		public Rigidbody2D Rigidbody { get; private set; }
 
+		[SerializeField]
+		private GameObject onDestroyEffectPrefab;
+
 		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
 		{
 			AsteroidData = data as AsteroidData;
 			startingHealth = AsteroidData.Health;
 			Rigidbody = GetComponent<Rigidbody2D>();
 			base.Initalize(data, owner, effects, forceIsPlayer);
+
+			onDeathEffect = onDestroyEffectPrefab;
 		}
 
 		// Start is called before the first frame update
@@ -69,6 +74,7 @@ namespace Celeritas.Game.Entities {
 
 		public override void OnEntityHit(Entity other)
 		{
+			//graphicalEffect = Instantiate(onDestroyEffectPrefab, transform);
 			ApplyCollisionDamage(Rigidbody, other);
 			base.OnEntityHit(other);
 		}

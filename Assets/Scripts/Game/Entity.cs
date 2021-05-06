@@ -147,9 +147,12 @@ namespace Celeritas.Game
 		{
 			if (!IsInitalized)
 				return;
-
+			
+			//Instantiate(onDeathEffect, transform.position, transform.rotation, transform.parent);
 			OnEntityDestroyed();
 		}
+
+		protected GameObject onDeathEffect;
 
 		protected virtual void Update()
 		{
@@ -158,6 +161,12 @@ namespace Celeritas.Game
 
 			if (Died)
 			{
+				if (onDeathEffect != null)
+				{
+					GameObject effect = Instantiate(onDeathEffect, transform.position, transform.rotation, transform.parent);
+					effect.transform.localScale = transform.localScale;
+					Destroy(effect, 5f); // destroy after 5 seconds
+				}
 				Destroy(gameObject);
 			}
 			else
