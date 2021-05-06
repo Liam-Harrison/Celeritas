@@ -32,8 +32,11 @@ namespace Celeritas.Game.Entities
 				{
 					ModuleComponents = ModuleComponents + 1;
 					//Debug.Log("Module dropped! You now have: " + ModuleComponents);
-					CombatHUD.Instance.PrintNotification("Module dropped! You now have: " + ModuleComponents);
-					CombatHUD.Instance.UpdateLootCount(LootType.Module, ModuleComponents);
+					if (CombatHUD.Instance != null)
+					{ 
+						CombatHUD.Instance.PrintNotification("Module dropped! You now have: " + ModuleComponents);
+						CombatHUD.Instance.UpdateLootCount(LootType.Module, ModuleComponents);
+					}
 
 					//var drop = EntityDataManager.InstantiateEntity<*LOOT DROP VISUAL*>;
 				}
@@ -46,8 +49,11 @@ namespace Celeritas.Game.Entities
 				{
 					RareMetals = RareMetals + Random.Range(1, 10);
 					//Debug.Log("Rare metals dropped! You now have: " + RareMetals);
-					CombatHUD.Instance.PrintNotification("Rare metals dropped! You now have: " + RareMetals);
-					CombatHUD.Instance.UpdateLootCount(LootType.RareMetal, RareMetals);
+					if (CombatHUD.Instance != null)
+					{ 
+						CombatHUD.Instance.PrintNotification("Rare metals dropped! You now have: " + RareMetals);
+						CombatHUD.Instance.UpdateLootCount(LootType.RareMetal, RareMetals);
+					}
 
 					//var drop = EntityDataManager.InstantiateEntity<*LOOT DROP VISUAL*>;
 				}

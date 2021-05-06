@@ -76,7 +76,8 @@ namespace Celeritas.Game.Entities {
 		protected override void OnDestroy()
 		{
 			// drop loot when destroyed
-			LootController.Instance.LootDrop(lootConfig.Gain, DropType.Asteroid, Position);
+			if (LootController.Instance != null)
+				LootController.Instance.LootDrop(lootConfig.Gain, DropType.Asteroid, Position);
 
 			base.OnDestroy();
 		}
