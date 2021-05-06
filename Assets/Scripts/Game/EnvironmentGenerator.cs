@@ -167,7 +167,7 @@ namespace Assets.Scripts.Game
 		private void RandomiseAsteroidScale(Asteroid asteroid, float minScale, float maxScale)
 		{
 			float scale = Random.Range(minScale, maxScale);
-			asteroid.transform.localScale = new Vector3(scale, scale, 1);
+			asteroid.transform.localScale = new Vector3(scale, scale, scale);
 		}
 	}
 }
