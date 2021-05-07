@@ -9,20 +9,24 @@ using UnityEngine.UI;
 
 public class ShipSelect : Singleton<ShipSelect>
 {
-	private List<ShipData> ShipList;
 	private int PseudoIterator;
-
+	public GameObject ShipSpawn;
+	private List<GameObject> ShipObjects;
+	private GameObject TempShip;
 	private void Awake()
 	{
+		Debug.Log("ShipSelect Awake");
 		EntityDataManager.OnLoadedAssets += () =>
 		{
-			ShipList = new List<ShipData>();
+			Debug.Log("ShipSelect Awake OnLoadedAssets");
+			Destroy(ShipSpawn.GetComponentInChildren<ShipEntity>().gameObject); //removes placeholder ship, so we can loop without worrying about duplicates
 			foreach (ShipData ship in EntityDataManager.Instance.PlayerShips)
 			{
-				ShipList.Add(ship);
+				TempShip = Instantiate(ship.Prefab, ShipSpawn.transform);
+				ShipObjects.Add(TempShip);
 			}
-			//TODO: read from playerdata, set last used ship if avaliable (once we HAVE more than one ship...)
 			PseudoIterator = 0;
+			//TODO: read from playerdata, set last used ship if avaliable (once we HAVE more than one ship...)
 			SetActiveShip();
 		};
 		base.Awake();
@@ -36,7 +40,7 @@ public class ShipSelect : Singleton<ShipSelect>
 	public ShipData CurrentShip { get => currentShip; }
 	private void SetActiveShip()
 	{
-		currentShip = ShipList[PseudoIterator];
+		currentShip = ShipObjects[PseudoIterator].GetComponent<ShipData>();
 		ShipRankTxt.SetText(currentShip.Title);
 		//ShipClassTxt.SetText(currentShip.ShipClass.ToString());
 		//if (currentShip.ShipClass == ShipClass.Corvette)
@@ -59,7 +63,14 @@ public class ShipSelect : Singleton<ShipSelect>
 		ShipNameTxt.SetText("Celerity [NaN]"); //TODO: add run number once saving implemented
 		//ShipDescTxt.SetText(CurrentShip.Description);
 		ShipDescTxt.SetText("TODO: add ship descriptions");
-		//TODO: add other fields
+
+		//set current ship prefab to active, all others inactive
+		foreach (GameObject ship in ShipObjects)
+		{
+			ship.SetActive(ship == ShipObjects[PseudoIterator]);
+		}
+		WeaponSelect.Instance.SetActiveWeapon(); //update the ship so it has the correct weapon
+
 	}
 
 	//TODO: add more complicated logic for ship categorisation/scrolling
@@ -68,7 +79,7 @@ public class ShipSelect : Singleton<ShipSelect>
 	public void ScrollRight()
 	{
 		PseudoIterator++;
-		if (PseudoIterator > ShipList.Count - 1) //0-indexing
+		if (PseudoIterator > ShipObjects.Count - 1) //0-indexing
 		{
 			PseudoIterator = 0; //looping
 		}
@@ -80,7 +91,7 @@ public class ShipSelect : Singleton<ShipSelect>
 		PseudoIterator--;
 		if (PseudoIterator < 0)
 		{
-			PseudoIterator = ShipList.Count - 1;//0-indexing, looping
+			PseudoIterator = ShipObjects.Count - 1;//0-indexing, looping
 		}
 		SetActiveShip();
 	}
