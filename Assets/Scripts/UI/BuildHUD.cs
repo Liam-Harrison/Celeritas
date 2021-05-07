@@ -107,7 +107,10 @@ namespace Celeritas.UI
 			}
 
 			placeObject = Instantiate(module.Prefab);
-			placeObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = placingMaterial;
+			var renderers = placeObject.GetComponentsInChildren<MeshRenderer>();
+			foreach (var renderer in renderers) {
+				renderer.sharedMaterial = placingMaterial;
+			}
 			placeObject.SetActive(false);
 		}
 

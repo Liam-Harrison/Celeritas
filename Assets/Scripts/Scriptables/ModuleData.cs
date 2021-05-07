@@ -40,6 +40,12 @@ namespace Celeritas.Scriptables
 		[SerializeField, ShowIf(nameof(hasDefaultShipEffects))]
 		private EffectWrapper[] shipEffects;
 
+		[SerializeField, Title("Module Layout")]
+		[TableMatrix(SquareCells = true, DrawElementMethod = nameof(onLayoutDraw))]
+		private bool[,] moduleLayout = new bool[BaseLayoutResolution, BaseLayoutResolution];
+
+		private static int BaseLayoutResolution = 3;
+
 		public Sprite Icon { get => icon; }
 
 		public Sprite Background { get => background; }

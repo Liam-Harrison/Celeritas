@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747d9766070ae9e4dba88b5444619be4, type: 3}
   m_Name: ship_medium
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   title: Medium Ship
   prefab: {fileID: 2516558698829045457, guid: 0bda108f4b31baf47bcd37cf26d641ee, type: 3}
   movementSettings:
@@ -46,5 +55,7 @@ MonoBehaviour:
     mass: 1
     aimDeadzone: 0.995
   shipClass: 0
+  icon: {fileID: 21300072, guid: 13699c70ebaae9240ad8a214cb0c1663, type: 3}
+  description: An agile but powerful ship
   startingHealth: 1000
   startingShield: 20
