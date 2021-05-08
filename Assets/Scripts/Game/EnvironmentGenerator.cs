@@ -1,5 +1,6 @@
 ﻿using Celeritas.Game;
 using Celeritas.Game.Entities;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,28 +13,29 @@ namespace Assets.Scripts.Game
 	/// </summary>
 	class EnvironmentGenerator: Singleton<EnvironmentGenerator>
 	{
-		/*
-		private void Awake()
-		{
-			
-		}*/
+		/// <summary>
+		/// Number of random asteroids per block. 1 block has the same dimensions as the player's screen.
+		/// </summary>
+		[SerializeField, PropertyRange(0, 20), Title("Asteroid Generation variables -- per block (screen)")]
+		int numberOfRandomAsteroids; // per block
+		[SerializeField,PropertyRange(0, 25)]
+		int numberOfAsteroidClusters;
+		[SerializeField, PropertyRange(0, 20)]
+		int asteroidNumberPerCluster;
+		[SerializeField, PropertyRange(0, 100)]
+		int asteroidClusterSpacing; // how far away asterids in the cluster are from one-another
+		
 
 		// keeps track of what 'blocks' have had asteroids spawned into them.
 		// blocks are referenced by their lower left Vector3.
-		List<Rect> spawnedBlocks;
+		private List<Rect> spawnedBlocks;
 
-		EnvironmentManager manager;
+		private EnvironmentManager manager;
 
 		private void Start()
 		{
 			manager = EnvironmentManager.Instance;
 			spawnedBlocks = new List<Rect>();
-
-			// spawn some asteroids in the initial screen.
-			//var lowerLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
-			//var upperRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
-
-			//SpawnAsteroidsBetweenBounds(lowerLeft, upperRight);
 		}
 
 		private void Update()
@@ -99,9 +101,12 @@ namespace Assets.Scripts.Game
 		private void SpawnAsteroidsBetweenBounds(Vector3 lowerLeft, Vector3 upperRight)
 		{
 			spawnedBlocks.Add(BoundsToRect(lowerLeft, upperRight));
-			SpawnAsteroidsWithRandomLayout(10, lowerLeft, upperRight);
-			SpawnAsteroidsInCluster(7, 8, lowerLeft, upperRight);
-			SpawnAsteroidsInCluster(8, 3, lowerLeft, upperRight);
+			
+			SpawnAsteroidsWithRandomLayout(numberOfRandomAsteroids, lowerLeft, upperRight);
+			for (int i = 0; i < numberOfAsteroidClusters; i++)
+			{
+				SpawnAsteroidsInCluster(asteroidNumberPerCluster, asteroidClusterSpacing, lowerLeft, upperRight);
+			}
 			
 		}
 

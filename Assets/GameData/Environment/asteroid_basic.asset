@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Basic Asteroid
   prefab: {fileID: 2582153226312631470, guid: 772751c7f4b2ed84a85f1f1961c7098c, type: 3}
-  health: 50
+  health: 100
