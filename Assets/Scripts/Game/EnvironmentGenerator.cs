@@ -10,6 +10,8 @@ namespace Assets.Scripts.Game
 	/// <summary>
 	/// Used to automatically generate the environment around the player
 	/// Currently (4/5) only spawns asteroids.
+	/// todo: despawn asteroids a certain radius from the player
+	/// todo: use object pool to create/reuse asteroids.
 	/// </summary>
 	class EnvironmentGenerator: Singleton<EnvironmentGenerator>
 	{
