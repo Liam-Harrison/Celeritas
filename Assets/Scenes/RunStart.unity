@@ -701,7 +701,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 56.8
+  m_fontSize: 56.85
   m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1104,7 +1104,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 56.8
+  m_fontSize: 56.85
   m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1238,7 +1238,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66.3
+  m_fontSize: 66.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1538,7 +1538,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66.3
+  m_fontSize: 66.35
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2220,7 +2220,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 433225000}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1117429426}
+        m_TargetAssemblyTypeName: ShipSelection, Assembly-CSharp
+        m_MethodName: ShipScrollRight
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &433225000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2332,7 +2344,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 460959901}
-  - component: {fileID: 460959902}
   m_Layer: 5
   m_Name: Weapon
   m_TagString: Untagged
@@ -2363,22 +2374,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
---- !u!114 &460959902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 460959900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65e511c2720db6f46b7f9b00fd135ed2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WeaponNameTxt: {fileID: 1827479237}
-  WeaponDescTxt: {fileID: 1815194117}
-  Icon: {fileID: 1129518130}
-  currentWeapon: {fileID: 0}
 --- !u!1 &466688488
 GameObject:
   m_ObjectHideFlags: 0
@@ -2848,9 +2843,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 460959902}
-        m_TargetAssemblyTypeName: WeaponSelect, Assembly-CSharp
-        m_MethodName: ScrollLeft
+      - m_Target: {fileID: 1117429426}
+        m_TargetAssemblyTypeName: ShipSelection, Assembly-CSharp
+        m_MethodName: WeaponScrollLeft
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4035,7 +4030,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 962763475}
-  - component: {fileID: 962763476}
   m_Layer: 5
   m_Name: Ship
   m_TagString: Untagged
@@ -4064,24 +4058,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &962763476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 962763474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e3109299a3a72a40907a3d8fbb56932, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShipSpawn: {fileID: 0}
-  ShipClassTxt: {fileID: 222412457}
-  ShipRankTxt: {fileID: 1949615109}
-  ShipNameTxt: {fileID: 1747677614}
-  ShipDescTxt: {fileID: 1775898332}
-  currentShip: {fileID: 0}
 --- !u!1 &963308621
 GameObject:
   m_ObjectHideFlags: 0
@@ -5157,6 +5133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1117429425}
+  - component: {fileID: 1117429426}
   m_Layer: 5
   m_Name: Run Start UI
   m_TagString: Untagged
@@ -5187,6 +5164,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1117429426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117429424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f25954772c6eacd499a1a31b9ddfe91e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShipSpawn: {fileID: 2141348487}
+  WeaponNameTxt: {fileID: 1827479237}
+  WeaponDescTxt: {fileID: 1815194117}
+  WeaponIcon: {fileID: 1129518130}
+  ShipClassTxt: {fileID: 222412457}
+  ShipRankTxt: {fileID: 1949615109}
+  ShipNameTxt: {fileID: 1747677614}
+  ShipDescTxt: {fileID: 1775898332}
 --- !u!1 &1129518128
 GameObject:
   m_ObjectHideFlags: 0
@@ -5199,7 +5196,7 @@ GameObject:
   - component: {fileID: 1129518131}
   - component: {fileID: 1129518130}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5651,9 +5648,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 460959902}
-        m_TargetAssemblyTypeName: WeaponSelect, Assembly-CSharp
-        m_MethodName: ScrollRight
+      - m_Target: {fileID: 1117429426}
+        m_TargetAssemblyTypeName: ShipSelection, Assembly-CSharp
+        m_MethodName: WeaponScrollRight
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7107,7 +7104,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1518653594}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1117429426}
+        m_TargetAssemblyTypeName: ShipSelection, Assembly-CSharp
+        m_MethodName: ShipScrollLeft
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1518653594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8240,7 +8249,7 @@ GameObject:
   - component: {fileID: 1747677615}
   - component: {fileID: 1747677614}
   m_Layer: 5
-  m_Name: Label
+  m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8314,7 +8323,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 56.8
+  m_fontSize: 56.85
   m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9872,7 +9881,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66.3
+  m_fontSize: 66.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -10276,7 +10285,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66.3
+  m_fontSize: 66.35
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
