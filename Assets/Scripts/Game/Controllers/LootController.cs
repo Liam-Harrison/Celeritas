@@ -18,9 +18,15 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public int RareMetals { get; private set; }
 
+		/// <summary>
+		/// Data for creating dropped module loot
+		/// </summary>
 		[SerializeField]
 		public LootData moduleDropData;
 
+		/// <summary>
+		/// Data for creating dropped metal loot (appears on map, player can pick it up)
+		/// </summary>
 		[SerializeField]
 		public LootData rareMetalDropData;
 
@@ -47,7 +53,7 @@ namespace Celeritas.Game.Entities
 				{
 					LootEntity created = EntityDataManager.InstantiateEntity<LootEntity>(moduleDropData, player);
 					created.transform.position = dropLocation;
-					created.Amount = 1;
+					created.Amount = 1; // amount of loot
 					//CombatHUD.Instance.PrintNotification("Module dropped! You now have: " + ModuleComponents);
 				}
 			}
@@ -60,7 +66,7 @@ namespace Celeritas.Game.Entities
 					int amount = Random.Range(1, 10);
 					LootEntity created = EntityDataManager.InstantiateEntity<LootEntity>(rareMetalDropData, player);
 					created.transform.position = dropLocation;
-					created.Amount = amount;
+					created.Amount = amount; 
 
 				}
 			}

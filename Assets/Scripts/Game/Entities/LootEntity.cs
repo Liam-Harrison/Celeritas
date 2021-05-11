@@ -12,6 +12,11 @@ using static Celeritas.Game.Entities.LootController;
 
 namespace Celeritas.Game.Entities
 {
+	/// <summary>
+	/// Loot that has been dropped onto the map,
+	/// awaiting the player to pick it up!
+	/// (player will pick up the loot automatically when it is within a certain radius of them)
+	/// </summary>
 	public class LootEntity : Entity
 	{
 		public override SystemTargets TargetType { get => SystemTargets.Loot; }
@@ -54,6 +59,10 @@ namespace Celeritas.Game.Entities
 			base.Update();
 		}
 
+		/// <summary>
+		/// Give the player the loot associated with this entity
+		/// Will destroy this loot entity
+		/// </summary>
 		public void PickedUpByPlayer()
 		{
 			LootController.Instance.GivePlayerLoot(lootType, amount);
