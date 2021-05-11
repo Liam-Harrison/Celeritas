@@ -14,6 +14,7 @@ namespace Celeritas.Scriptables
 		Projectile = 1,
 		Module = 2,
 		Ship = 4,
+		Asteroid = 5,
 		Weapon = 8,
 	}
 

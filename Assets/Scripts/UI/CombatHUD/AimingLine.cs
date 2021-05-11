@@ -23,7 +23,7 @@ public class AimingLine : MonoBehaviour
 	[SerializeField]
 	private bool aimAtMouse;
 
-	private GameObject targetToAimAt;
+	private Rigidbody2D targetToAimAt;
 
 	/// <summary>
 	/// If true, aiming line's target will be the player's mouse location
@@ -33,7 +33,7 @@ public class AimingLine : MonoBehaviour
 	/// <summary>
 	/// Line will aim at this target if AimAtMouse is false.
 	/// </summary>
-	public GameObject TargetToAimAt { get => targetToAimAt; set => targetToAimAt = value; }
+	public Rigidbody2D TargetToAimAt { get => targetToAimAt; set => targetToAimAt = value; }
 
     // Start is called before the first frame update
     void Start()

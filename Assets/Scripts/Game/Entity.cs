@@ -147,9 +147,12 @@ namespace Celeritas.Game
 		{
 			if (!IsInitalized)
 				return;
-
+			
+			//Instantiate(onDeathEffect, transform.position, transform.rotation, transform.parent);
 			OnEntityDestroyed();
 		}
+
+		protected GameObject onDeathEffect;
 
 		protected virtual void Update()
 		{
@@ -158,6 +161,12 @@ namespace Celeritas.Game
 
 			if (Died)
 			{
+				if (onDeathEffect != null)
+				{
+					GameObject effect = Instantiate(onDeathEffect, transform.position, transform.rotation, transform.parent);
+					effect.transform.localScale = transform.localScale;
+					Destroy(effect, 5f); // destroy after 5 seconds
+				}
 				Destroy(gameObject);
 			}
 			else
@@ -255,5 +264,30 @@ namespace Celeritas.Game
 		{
 			// by default, entities have no health, so this does nothing. Will be overridden by children.
 		}
+
+		protected float collisionDamageMultiplier = 10;
+
+		/// <summary>
+		/// Damages other entity with collision damage. Damage self with 50% of damage, too.
+		/// Designed to be put into OnEntityHit if you want an entity to apply collision damage.
+		/// </summary>
+		/// <param name="ownerRigidBody">the rigidBody of 'this'.</param>
+		/// <param name="other">the entity being hit</param>
+		protected void ApplyCollisionDamage(Rigidbody2D ownerRigidBody, Entity other)
+		{
+			// calculate collision damage
+			if (other is ITractorBeamTarget)
+			{
+				// momentum is velocity * mass
+				float force = ownerRigidBody.velocity.magnitude * ownerRigidBody.mass * collisionDamageMultiplier;
+
+				other.TakeDamage(this, (int)force);
+
+				// take half damage yourself
+				TakeDamage(this, (int)force / 2);
+			}
+
+		}
+
 	}
 }
