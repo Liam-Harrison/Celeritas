@@ -5894,6 +5894,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 896733420529650260, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: moduleDropData
+      value: 
+      objectReference: {fileID: 11400000, guid: cedac105963d57c4d95b670fbc060479, type: 2}
+    - target: {fileID: 896733420529650260, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: rareMetalDropData
+      value: 
+      objectReference: {fileID: 11400000, guid: 70ecdfea9d697eb488ce507666a7a165, type: 2}
     - target: {fileID: 4477257796416552746, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
