@@ -1,5 +1,6 @@
 using Assets.Scripts.Scriptables.Data;
 using Celeritas.Game.Controllers;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Celeritas.Game.Entities
@@ -30,6 +31,18 @@ namespace Celeritas.Game.Entities
 		[SerializeField]
 		public LootData rareMetalDropData;
 
+		/// <summary>
+		/// Max number of rare metals that will drop when an asteroid is destroyed
+		/// </summary>
+		[SerializeField, PropertyRange(1, 25)]
+		public int maxRareMetalDropAmount;
+
+		/// <summary>
+		/// Max number of modules that will drop when a ship is destroyed
+		/// </summary>
+		[SerializeField, PropertyRange(1, 25)]
+		public int maxModuleDropAmount;
+
 		PlayerShipEntity player; // here to test if giving parent will help w lootEntity destruction
 
 		public void Start()
@@ -53,7 +66,7 @@ namespace Celeritas.Game.Entities
 				{
 					LootEntity created = EntityDataManager.InstantiateEntity<LootEntity>(moduleDropData, player);
 					created.transform.position = dropLocation;
-					created.Amount = 1; // amount of loot -- currently will only drop 1 module each time
+					created.Amount = Random.Range(1, maxModuleDropAmount); // amount of loot -- currently will only drop 1 module each time
 					//CombatHUD.Instance.PrintNotification("Module dropped! You now have: " + ModuleComponents);
 				}
 			}
@@ -63,10 +76,9 @@ namespace Celeritas.Game.Entities
 				float lootRoll = GenerateRandomValue();
 				if (lootRoll < dropValue)
 				{
-					int amount = Random.Range(1, 10); // will drop 1-9 rare metals
 					LootEntity created = EntityDataManager.InstantiateEntity<LootEntity>(rareMetalDropData, player);
 					created.transform.position = dropLocation;
-					created.Amount = amount; 
+					created.Amount = Random.Range(1, maxRareMetalDropAmount); 
 
 				}
 			}
