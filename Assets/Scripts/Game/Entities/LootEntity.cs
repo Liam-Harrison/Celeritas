@@ -22,11 +22,11 @@ namespace Celeritas.Game.Entities
 		public override SystemTargets TargetType { get => SystemTargets.Loot; }
 
 		public LootData lootData;
-		private uint pickupRadius;
+		private uint pickupRadius; // player will pickup loot when within this radius of it
 		private PlayerShipEntity player;
 
-		private int amount;
-		private LootType lootType;
+		private int amount; // quantity of loot player will get when picking this up
+		private LootType lootType; // type of loot player will get when picking this up
 
 		/// <summary>
 		/// How much loot is stored in this object. eg, 3 x rare metals

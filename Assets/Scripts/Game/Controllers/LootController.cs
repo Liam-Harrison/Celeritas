@@ -53,7 +53,7 @@ namespace Celeritas.Game.Entities
 				{
 					LootEntity created = EntityDataManager.InstantiateEntity<LootEntity>(moduleDropData, player);
 					created.transform.position = dropLocation;
-					created.Amount = 1; // amount of loot
+					created.Amount = 1; // amount of loot -- currently will only drop 1 module each time
 					//CombatHUD.Instance.PrintNotification("Module dropped! You now have: " + ModuleComponents);
 				}
 			}
@@ -63,7 +63,7 @@ namespace Celeritas.Game.Entities
 				float lootRoll = GenerateRandomValue();
 				if (lootRoll < dropValue)
 				{
-					int amount = Random.Range(1, 10);
+					int amount = Random.Range(1, 10); // will drop 1-9 rare metals
 					LootEntity created = EntityDataManager.InstantiateEntity<LootEntity>(rareMetalDropData, player);
 					created.transform.position = dropLocation;
 					created.Amount = amount; 
