@@ -61,11 +61,12 @@ namespace Celeritas.Game.Entities {
 
 				if (health.IsEmpty())
 				{
+					// drop loot when destroyed
+					if (Died == false && LootController.Instance != null)
+						LootController.Instance.LootDrop(lootConfig.Gain, DropType.Asteroid, Position);
+
 					Died = true;
 
-					// drop loot when destroyed
-					if (LootController.Instance != null)
-						LootController.Instance.LootDrop(lootConfig.Gain, DropType.Asteroid, Position);
 				}
 
 			}

@@ -55,6 +55,7 @@ MonoBehaviour:
     SerializationNodes: []
   hasDefaultEffects: 0
   defaultEffects: []
+  lootData: {fileID: 0}
 --- !u!1 &8899620214361606768
 GameObject:
   m_ObjectHideFlags: 0

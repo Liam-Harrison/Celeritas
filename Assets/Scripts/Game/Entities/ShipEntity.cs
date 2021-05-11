@@ -213,10 +213,12 @@ namespace Celeritas.Game.Entities
 				}
 
 				if (health.IsEmpty())
-				{ 
+				{
+					if (Died == false)
+						GenerateLootDrop();
+
 					Died = true;
 
-					GenerateLootDrop();
 				}
 
 			}
