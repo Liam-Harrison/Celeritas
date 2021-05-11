@@ -179,8 +179,6 @@ namespace Celeritas.Game.Entities
 
 		protected override void OnDestroy()
 		{
-			GenerateLootDrop();
-
 			base.OnDestroy();
 		}
 
@@ -215,7 +213,11 @@ namespace Celeritas.Game.Entities
 				}
 
 				if (health.IsEmpty())
+				{ 
 					Died = true;
+
+					GenerateLootDrop();
+				}
 
 			}
 		}
