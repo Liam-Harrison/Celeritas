@@ -42,8 +42,9 @@ MonoBehaviour:
       m_RotationOrder: 4
     angularDrag: 5
     rotationMaximum: 75
-    forcePerSec: 200
+    forcePerSec: 1000
     mass: 0.5
     aimDeadzone: 0.995
+  shipClass: 0
   startingHealth: 50
   startingShield: 30
