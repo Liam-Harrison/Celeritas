@@ -41,7 +41,7 @@ namespace Celeritas.Scriptables
 		/// <summary>
 		/// The ship class of this ship.
 		/// </summary>
-		public ShipClass ShipClass { get => ShipClass; }
+		public ShipClass ShipClass { get => shipClass; }
 
 		/// <summary>
 		/// The movement settings for this ship.

@@ -10,22 +10,25 @@ public class ShipSelection : MonoBehaviour
 {
 	private int ShipPseudoIterator;
 	public GameObject ShipSpawn;
-	private List<GameObject> ShipObjects;
-	private GameObject TempShip;
+	private List<ShipEntity> ShipObjects;
+	private ShipEntity TempShip;
 	private List<WeaponData> WeaponList;
 	private int WeaponPseudoIterator;
 
 	private void Awake()
 	{
-		ShipObjects = new List<GameObject>();
-
 		EntityDataManager.OnLoadedAssets += () =>
 		{
+			ShipObjects = new List<ShipEntity>();
+
 			Destroy(ShipSpawn.GetComponentInChildren<ShipEntity>().gameObject); //removes placeholder ship, so we can loop without worrying about duplicates
 			foreach (ShipData ship in EntityDataManager.Instance.PlayerShips)
 			{
-				TempShip = Instantiate(ship.Prefab, ShipSpawn.transform);
+				TempShip = EntityDataManager.InstantiateEntity<ShipEntity>(ship);
 				Debug.Log(TempShip.name);
+				TempShip.gameObject.transform.parent = ShipSpawn.transform;
+				TempShip.gameObject.transform.localPosition = Vector3.zero;
+				TempShip.gameObject.transform.localRotation = Quaternion.identity;
 				ShipObjects.Add(TempShip);
 			}
 			ShipPseudoIterator = 0;
@@ -63,7 +66,7 @@ public class ShipSelection : MonoBehaviour
 		WeaponNameTxt.SetText(CurrentWeapon.Title);
 		WeaponDescTxt.SetText(CurrentWeapon.Description);
 		WeaponIcon.sprite = CurrentWeapon.Icon;
-		foreach (WeaponEntity ShipWeapon in CurrentShip.ShipData.Prefab.GetComponent<PlayerShipEntity>().WeaponEntities)
+		foreach (WeaponEntity ShipWeapon in CurrentShip.WeaponEntities)
 		{
 			ShipWeapon.AttatchedModule.SetModule(CurrentWeapon);
 		}
@@ -101,35 +104,19 @@ public class ShipSelection : MonoBehaviour
 	private void SetActiveShip()
 	{
 		CurrentShip = ShipObjects[ShipPseudoIterator].GetComponent<ShipEntity>();
-		Debug.Log(CurrentShip.name);
-		Debug.Log(CurrentShip.ShipData.name);
+		//Debug.Log(CurrentShip.name);
+		//Debug.Log(CurrentShip.ShipData.name);
+		//Debug.Log(CurrentShip.ShipData.ShipClass);
 		ShipRankTxt.SetText(CurrentShip.ShipData.Title);
-		//ShipClassTxt.SetText(currentShip.ShipClass.ToString());
-		//if (currentShip.ShipClass == ShipClass.Corvette)
-		//{
-		//	ShipClassTxt.SetText("Corvette");
-		//}
-		//else if (currentShip.ShipClass == ShipClass.Battleship)
-		//{
-		//	ShipClassTxt.SetText("Battleship");
-		//}
-		//else if (currentShip.ShipClass == ShipClass.Destroyer)
-		//{
-		//	ShipClassTxt.SetText("Destroyer");
-		//}
-		//else
-		//{
-		//	ShipClassTxt.SetText("Class Not Set");
-		//}
-
+		ShipClassTxt.SetText(CurrentShip.ShipData.ShipClass.ToString());
 		ShipNameTxt.SetText("Celerity [NaN]"); //TODO: add run number once saving implemented
-											   //ShipDescTxt.SetText(CurrentShip.Description);
+		//ShipDescTxt.SetText(CurrentShip.Description);
 		ShipDescTxt.SetText("TODO: add ship descriptions");
 
 		//set current ship prefab to active, all others inactive
-		foreach (GameObject ship in ShipObjects)
+		foreach (ShipEntity ship in ShipObjects)
 		{
-			ship.SetActive(ship == CurrentShip);
+			ship.gameObject.SetActive(ship == CurrentShip);
 		}
 		SetActiveWeapon(); //update the ship so it has the correct weapon
 
