@@ -23,32 +23,25 @@ namespace Celeritas.Game.Entities
 		/// Data for creating dropped module loot
 		/// </summary>
 		[SerializeField]
-		public LootData moduleDropData;
+		private LootData moduleDropData;
 
 		/// <summary>
 		/// Data for creating dropped metal loot (appears on map, player can pick it up)
 		/// </summary>
 		[SerializeField]
-		public LootData rareMetalDropData;
+		private LootData rareMetalDropData;
 
 		/// <summary>
 		/// Max number of rare metals that will drop when an asteroid is destroyed
 		/// </summary>
 		[SerializeField, PropertyRange(1, 25)]
-		public int maxRareMetalDropAmount;
+		private int maxRareMetalDropAmount;
 
 		/// <summary>
 		/// Max number of modules that will drop when a ship is destroyed
 		/// </summary>
 		[SerializeField, PropertyRange(1, 25)]
-		public int maxModuleDropAmount;
-
-		PlayerShipEntity player; // here to test if giving parent will help w lootEntity destruction
-
-		public void Start()
-		{
-			player = PlayerController.Instance.PlayerShipEntity; // just for testing.
-		}
+		private int maxModuleDropAmount;
 
 		/// <summary>
 		/// Generate a loot drop. Currently will automatically be picked up by the player
@@ -64,7 +57,7 @@ namespace Celeritas.Game.Entities
 
 				if (lootRoll < dropValue)
 				{
-					LootEntity created = EntityDataManager.InstantiateEntity<LootEntity>(moduleDropData, player);
+					LootEntity created = EntityDataManager.InstantiateEntity<LootEntity>(moduleDropData);
 					created.transform.position = dropLocation;
 					created.Amount = Random.Range(1, maxModuleDropAmount); // amount of loot -- currently will only drop 1 module each time
 					//CombatHUD.Instance.PrintNotification("Module dropped! You now have: " + ModuleComponents);
@@ -76,7 +69,7 @@ namespace Celeritas.Game.Entities
 				float lootRoll = GenerateRandomValue();
 				if (lootRoll < dropValue)
 				{
-					LootEntity created = EntityDataManager.InstantiateEntity<LootEntity>(rareMetalDropData, player);
+					LootEntity created = EntityDataManager.InstantiateEntity<LootEntity>(rareMetalDropData);
 					created.transform.position = dropLocation;
 					created.Amount = Random.Range(1, maxRareMetalDropAmount); 
 

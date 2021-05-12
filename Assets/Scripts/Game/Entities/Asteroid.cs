@@ -88,10 +88,5 @@ namespace Celeritas.Game.Entities {
 			base.OnEntityHit(other);
 		}
 
-		protected override void OnDestroy()
-		{
-			base.OnDestroy();
-		}
-
 	}
 }
