@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Food 12
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300062, guid: 13699c70ebaae9240ad8a214cb0c1663, type: 3}
-  Border: {fileID: 2800000, guid: 497227928ca448241b6b69c27edcdfc0, type: 3}
+  Border: {fileID: 0}

@@ -68,6 +68,7 @@ namespace Celeritas.Game
 
 		private void Start()
 		{
+			hullData.ResetModuleData();
 			GenerateAll();
 			hullGroup.SetActive(false);
 		}
@@ -160,6 +161,50 @@ namespace Celeritas.Game
 			});
 		}
 
+		/// <summary>
+		/// Generates the walls for each module;
+		/// </summary>
+		[ButtonGroup]
+		public void GenerateModuleWalls()
+		{
+			hullData.GenerateModuleSizes();
+			SetupMasterGroup();
+
+			if (moduleGroup != null)
+				Destroy(moduleGroup.gameObject);
+
+			moduleGroup = new GameObject(nameof(moduleGroup));
+			moduleGroup.transform.position = transform.position;
+			moduleGroup.transform.parent = hullGroup.transform;
+
+			moduleGroup.transform.rotation = Entities.PlayerShipEntity.FindObjectOfType<PlayerShipEntity>().gameObject.transform.rotation;
+
+			hullData.HullModules.ForEach((x, y) =>
+			{
+				if (hullData.HullModules[x, y] != null)
+				{
+					foreach (KeyValuePair<Direction, Vector2> pair in DirectionMap)
+					{
+						int newX = x + (int)pair.Value.x;
+						int newY = y + (int)pair.Value.y;
+						if (newX >= 0 && newX < hullData.HullLayout.GetLength(0) && newY >= 0 && newY < hullData.HullLayout.GetLength(1))
+						{
+							ModuleData originalCell = hullData.HullModules[x, y];
+							ModuleData newCell = hullData.HullModules[newX, newY];
+							if (newCell != originalCell) { // If cell does not match neighbour
+								PlaceWall(x, y, pair.Key, moduleGroup);
+							}
+							else if (newCell == null) // If there is space
+							{
+								PlaceWall(x, y, pair.Key, moduleGroup);
+							}
+							
+						}
+					}
+				}
+			});
+		}
+
 		private void SetupMasterGroup()
 		{
 			if (hullGroup == null)
@@ -178,10 +223,14 @@ namespace Celeritas.Game
 		{
 			GenerateFloor();
 			GenerateWalls();
+			GenerateModuleWalls();
 		}
 
+		/// <summary>
+		/// Removes any generated mesh
+		/// </summary>
 		[Button]
-		private void ClearAll()
+		private void ClearAllMesh()
 		{
 			if (hullGroup != null) DestroyImmediate(hullGroup.gameObject);
 		}

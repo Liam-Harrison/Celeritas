@@ -354,7 +354,7 @@ MonoBehaviour:
   playerShipEntity: {fileID: 0}
   hullWall: {fileID: 919132149155446097, guid: 18141fc24c020644bbfafdc543da96ff, type: 3}
   hullFloor: {fileID: 622699920804246379, guid: 6976bef87f3208b4a9ce36a15d01a664, type: 3}
-  hullData: {fileID: 11400000, guid: 40ed78a99ec4d064eb809123e51b1152, type: 2}
+  hullData: {fileID: 11400000, guid: de8bce41e043f6b448c5d25e16d44a88, type: 2}
 --- !u!1001 &4594367450137448437
 PrefabInstance:
   m_ObjectHideFlags: 0
