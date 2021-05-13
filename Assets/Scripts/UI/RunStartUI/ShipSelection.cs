@@ -25,7 +25,7 @@ public class ShipSelection : MonoBehaviour
 			foreach (ShipData ship in EntityDataManager.Instance.PlayerShips)
 			{
 				TempShip = EntityDataManager.InstantiateEntity<ShipEntity>(ship);
-				Debug.Log(TempShip.name);
+				//Debug.Log(TempShip.name);
 				TempShip.gameObject.transform.parent = ShipSpawn.transform;
 				TempShip.gameObject.transform.localPosition = Vector3.zero;
 				TempShip.gameObject.transform.localRotation = Quaternion.identity;
@@ -52,15 +52,15 @@ public class ShipSelection : MonoBehaviour
 
 	}
 
-	//////////////////
-	///WEAPON STUFF///
+	  //////////////////
+	 ///WEAPON STUFF///
 	//////////////////
 
 	public TextMeshProUGUI WeaponNameTxt;
 	public TextMeshProUGUI WeaponDescTxt;
 	public Image WeaponIcon;
 	private WeaponData CurrentWeapon;
-	public void SetActiveWeapon()
+	private void SetActiveWeapon()
 	{
 		CurrentWeapon = WeaponList[WeaponPseudoIterator];
 		WeaponNameTxt.SetText(CurrentWeapon.Title);
