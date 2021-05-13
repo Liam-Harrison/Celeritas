@@ -201,6 +201,9 @@ namespace Celeritas.Scriptables
 			if (entity is ModuleEntity && !(entity is WeaponEntity) && !targets.HasFlag(SystemTargets.Module))
 				return false;
 
+			if (entity is Asteroid && !targets.HasFlag(SystemTargets.Asteroid))
+				return false;
+
 			return true;
 		}
 

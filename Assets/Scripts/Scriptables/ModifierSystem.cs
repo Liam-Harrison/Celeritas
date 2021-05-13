@@ -15,6 +15,7 @@ namespace Celeritas.Scriptables
 		Module = 2,
 		Ship = 4,
 		Asteroid = 5,
+		Loot = 6,
 		Weapon = 8,
 	}
 
