@@ -1,4 +1,3 @@
-using System.IO;
 using UnityEngine;
 
 namespace Celeritas
@@ -27,6 +26,21 @@ namespace Celeritas
 		/// Path to the streaming assets folder.
 		/// </summary>
 		public static readonly string STREAMING_ASSETS = Application.streamingAssetsPath;
+
+		/// <summary>
+		/// The name of the persistent scene
+		/// </summary>
+		public static readonly string PERSISTENT_SCENE_PATH = "Assets/Scenes/Persistent.unity";
+
+		/// <summary>
+		/// The name of the main scene
+		/// </summary>
+		public static readonly string MAIN_SCENE_PATH = "Assets/Scenes/Main.unity";
+
+		/// <summary>
+		/// The name of the start scene
+		/// </summary>
+		public static readonly string MAINMENU_SCENE_PATH = "Assets/Scenes/Mainmenu.unity";
 
 		/// <summary>
 		/// The label used for the ship data type in the addresable system.
