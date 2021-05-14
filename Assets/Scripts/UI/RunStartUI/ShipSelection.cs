@@ -100,6 +100,7 @@ public class ShipSelection : MonoBehaviour
 	public TextMeshProUGUI ShipRankTxt;
 	public TextMeshProUGUI ShipNameTxt;
 	public TextMeshProUGUI ShipDescTxt;
+	public Image ShipIcon;
 	private ShipEntity CurrentShip;
 	private void SetActiveShip()
 	{
@@ -111,7 +112,8 @@ public class ShipSelection : MonoBehaviour
 		ShipClassTxt.SetText(CurrentShip.ShipData.ShipClass.ToString());
 		ShipNameTxt.SetText("Celerity [NaN]"); //TODO: add run number once saving implemented
 		//ShipDescTxt.SetText(CurrentShip.Description);
-		ShipDescTxt.SetText("TODO: add ship descriptions");
+		ShipDescTxt.SetText(CurrentShip.ShipData.Description);
+		WeaponIcon.sprite = CurrentShip.ShipData.Icon;
 
 		//set current ship prefab to active, all others inactive
 		foreach (ShipEntity ship in ShipObjects)

@@ -54,9 +54,19 @@ namespace Celeritas.Scriptables
 		public uint StartingHealth { get => startingHealth; }
 
 		/// <summary>
-		/// How much shield the entity starts with
+		/// How much shield the entity starts with.
 		/// </summary>
 		public uint StartingShield { get => startingShield; }
+
+		/// <summary>
+		/// The description of the ship.
+		/// </summary>
+		public string Description { get => description; }
+
+		/// <summary>
+		/// The icon for the ship.
+		/// </summary>
+		public Sprite Icon { get => icon; }
 
 		public override string Tooltip => $"A <color=\"orange\">{ShipClass}</color> class ship.";
 
