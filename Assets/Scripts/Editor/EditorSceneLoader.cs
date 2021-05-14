@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
@@ -12,6 +10,7 @@ namespace Celeritas.Editor
 		{
 			EditorSceneManager.OpenScene(Constants.MAIN_SCENE_PATH, OpenSceneMode.Single);
 			EditorSceneManager.OpenScene(Constants.PERSISTENT_SCENE_PATH, OpenSceneMode.Additive);
+			EditorSceneManager.OpenScene(Constants.GAMEBACKGROUND_SCENE_PATH, OpenSceneMode.Additive);
 		}
 
 		[MenuItem("Celeritas/Load Main Menu Scenes", priority = 10)]

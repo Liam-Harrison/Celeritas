@@ -43,6 +43,11 @@ namespace Celeritas
 		public static readonly string MAINMENU_SCENE_PATH = "Assets/Scenes/Mainmenu.unity";
 
 		/// <summary>
+		/// The name of the game background scene
+		/// </summary>
+		public static readonly string GAMEBACKGROUND_SCENE_PATH = "Assets/Scenes/GameBackground.unity";
+
+		/// <summary>
 		/// The label used for the ship data type in the addresable system.
 		/// </summary>
 		public const string SHIP_TAG = "Ships";

@@ -1,6 +1,5 @@
 using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,11 +7,13 @@ namespace Celeritas
 {
 	public class SceneLoader : MonoBehaviour
 	{
+		[Flags]
 		public enum Scene
 		{
-			Persistent,
-			Mainmenu,
-			Main,
+			Persistent = 1 << 1,
+			Mainmenu = 1 << 2,
+			Main = 1 << 3,
+			Background = 1 << 4,
 		}
 
 		[SerializeField]
@@ -38,13 +39,30 @@ namespace Celeritas
 		public void LoadScene()
 		{
 			string path = "";
+			bool loaded = false;
 
-			if (scene == Scene.Main)
-				path = Constants.MAIN_SCENE_PATH;
-			else if (scene == Scene.Persistent)
-				path = Constants.PERSISTENT_SCENE_PATH;
-			else if (scene == Scene.Mainmenu)
-				path = Constants.MAINMENU_SCENE_PATH;
+			if (scene.HasFlag(Scene.Main))
+			{
+				SceneManager.LoadSceneAsync(Constants.MAIN_SCENE_PATH, loaded ? LoadSceneMode.Additive : mode);
+				loaded = true;
+			}
+
+			if (scene.HasFlag(Scene.Background))
+			{
+				SceneManager.LoadSceneAsync(Constants.GAMEBACKGROUND_SCENE_PATH, loaded ? LoadSceneMode.Additive : mode);
+				loaded = true;
+			}
+
+			if (scene.HasFlag(Scene.Persistent))
+			{
+				SceneManager.LoadSceneAsync(Constants.PERSISTENT_SCENE_PATH, loaded ? LoadSceneMode.Additive : mode);
+				loaded = true;
+			}
+
+			if (scene.HasFlag(Scene.Mainmenu))
+			{
+				SceneManager.LoadSceneAsync(Constants.MAINMENU_SCENE_PATH, loaded ? LoadSceneMode.Additive : mode);
+			}
 
 			if (path != "")
 				SceneManager.LoadScene(path, mode);

@@ -89,7 +89,6 @@ namespace Celeritas.Game.Entities
 
 		protected override void Awake()
 		{
-			DontDestroyOnLoad(gameObject);
 			base.Awake();
 			LoadAssets();
 		}

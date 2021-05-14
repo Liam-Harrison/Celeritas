@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4477257796416552748}
   - component: {fileID: 4477257796416552750}
   - component: {fileID: 896733420529650260}
-  - component: {fileID: 703758280132992543}
   - component: {fileID: 852609842}
   - component: {fileID: 852609843}
   m_Layer: 0
@@ -98,18 +97,6 @@ MonoBehaviour:
   rareMetalDropData: {fileID: 11400000, guid: 70ecdfea9d697eb488ce507666a7a165, type: 2}
   maxRareMetalDropAmount: 5
   maxModuleDropAmount: 2
---- !u!114 &703758280132992543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4477257796416552756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60a941473eab71c4d85a2c538629904e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &852609842
 MonoBehaviour:
   m_ObjectHideFlags: 0
