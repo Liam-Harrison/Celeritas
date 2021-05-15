@@ -25,6 +25,7 @@ public class ShipSelection : MonoBehaviour
 			foreach (ShipData ship in EntityDataManager.Instance.PlayerShips)
 			{
 				TempShip = EntityDataManager.InstantiateEntity<ShipEntity>(ship);
+				TempShip.IsStationary = true;
 				//Debug.Log(TempShip.name);
 				TempShip.gameObject.transform.parent = ShipSpawn.transform;
 				TempShip.gameObject.transform.localPosition = Vector3.zero;

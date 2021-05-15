@@ -2504,7 +2504,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4929,7 +4929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2516558698829045460, guid: 1dc20ec7ee32d0a4c92b973a2649fea6, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2516558698829045460, guid: 1dc20ec7ee32d0a4c92b973a2649fea6, type: 3}
       propertyPath: m_LocalScale.x
@@ -5261,6 +5261,7 @@ MonoBehaviour:
   ShipRankTxt: {fileID: 1949615109}
   ShipNameTxt: {fileID: 1747677614}
   ShipDescTxt: {fileID: 1290564446}
+  ShipIcon: {fileID: 0}
 --- !u!1 &1129518128
 GameObject:
   m_ObjectHideFlags: 0
@@ -11003,7 +11004,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2141348487}
   m_LocalRotation: {x: 0.19807276, y: 0.47569636, z: -0.77780336, w: 0.35986385}
-  m_LocalPosition: {x: -23.68, y: -15.15, z: 13.2}
+  m_LocalPosition: {x: -14.44, y: -8.5, z: 13.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1037467231}
