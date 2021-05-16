@@ -12,12 +12,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e81afd5e3fc38f04a85d551b5ddbf13e, type: 3}
   m_Name: module_proton_accelerator
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: moduleLayout
+      Entry: 7
+      Data: 0|System.Boolean[,], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 9
+    - Name: ranks
+      Entry: 1
+      Data: 3|3
+    - Name: 
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   title: Proton Accelerator
   prefab: {fileID: 209961586333920278, guid: 52dd421291329f94691b9fedf629263e, type: 3}
-  icon: {fileID: 21300010, guid: 13699c70ebaae9240ad8a214cb0c1663, type: 3}
+  icon: {fileID: 21300034, guid: 13699c70ebaae9240ad8a214cb0c1663, type: 3}
   background: {fileID: 21300008, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
   description: Increased rate of fire
-  size: 0
+  size: 1
   hasDefaultShipEffects: 1
   shipEffects:
   - Level: 0

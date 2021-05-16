@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 364d3386861dd5a44b4478c1b582841f, type: 3}
-  m_Name: Food 12
+  m_Script: {fileID: 11500000, guid: 01a9cfe4f02aeef4883e64000d44d1d9, type: 3}
+  m_Name: loot_module
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300062, guid: 13699c70ebaae9240ad8a214cb0c1663, type: 3}
-  Border: {fileID: 0}
+  title: Loot Module
+  prefab: {fileID: 1912384151224882169, guid: 18205d320c31ae7438a54e8aec400779, type: 3}
+  pickupRadius: 7
+  lootType: 0

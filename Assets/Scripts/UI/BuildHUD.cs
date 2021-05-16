@@ -107,7 +107,10 @@ namespace Celeritas.UI
 			}
 
 			placeObject = Instantiate(module.Prefab);
-			placeObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = placingMaterial;
+			var renderers = placeObject.GetComponentsInChildren<MeshRenderer>();
+			foreach (var renderer in renderers) {
+				renderer.sharedMaterial = placingMaterial;
+			}
 			placeObject.SetActive(false);
 		}
 
@@ -125,6 +128,8 @@ namespace Celeritas.UI
 				{
 					BeginDraggingModule(hull.Modules[grid.x, grid.y].AttatchedModule.ModuleData);
 					hull.Modules[grid.x, grid.y].RemoveModule();
+					hull.HullData.HullModuleOrigins[grid.x, grid.y] = null;
+					hull.GenerateModuleWalls();
 				}
 			}
 		}
@@ -136,6 +141,8 @@ namespace Celeritas.UI
 				var ship = PlayerController.Instance.PlayerShipEntity;
 				ship.HullManager.Modules[grid.x, grid.y].SetModule(dragging);
 				ship.Inventory.Remove(dragging);
+				ship.HullManager.HullData.HullModuleOrigins[grid.x, grid.y] = dragging;
+				ship.HullManager.GenerateModuleWalls();
 
 			}
 			else if (dragging != null)

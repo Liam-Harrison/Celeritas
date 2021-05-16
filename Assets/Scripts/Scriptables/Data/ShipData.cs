@@ -2,6 +2,7 @@ using UnityEngine;
 using Celeritas.Extensions;
 using Celeritas.Game.Entities;
 using Sirenix.OdinInspector;
+using AssetIcons;
 
 namespace Celeritas.Scriptables
 {
@@ -24,6 +25,12 @@ namespace Celeritas.Scriptables
 
 		[SerializeField, TitleGroup("General")]
 		private ShipClass shipClass;
+
+		[SerializeField, TitleGroup("General"), PreviewField, AssetIcon(maxSize: 50)]
+		private Sprite icon;
+
+		[SerializeField, TitleGroup("General"), TextArea]
+		private string description;
 
 		[SerializeField, TitleGroup("Starting Settings")]
 		private uint startingHealth;

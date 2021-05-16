@@ -40,6 +40,14 @@ namespace Celeritas.Scriptables
 		[SerializeField, ShowIf(nameof(hasDefaultShipEffects))]
 		private EffectWrapper[] shipEffects;
 
+		[SerializeField, Title("Module Layout")]
+		[TableMatrix(SquareCells = true, DrawElementMethod = nameof(OnLayoutDraw))]
+		private bool[,] moduleLayout = new bool[BaseLayoutResolution, BaseLayoutResolution];
+
+		private static int BaseLayoutResolution = 3;
+
+		public bool[,] ModuleLayout { get => moduleLayout;}
+
 		public Sprite Icon { get => icon; }
 
 		public Sprite Background { get => background; }
@@ -62,7 +70,7 @@ namespace Celeritas.Scriptables
 			}
 		}
 
-		private static bool onLayoutDraw(Rect rect, bool value)
+		private static bool OnLayoutDraw(Rect rect, bool value)
 		{
 			if (Event.current.type == EventType.MouseDown && rect.Contains(Event.current.mousePosition))
 			{

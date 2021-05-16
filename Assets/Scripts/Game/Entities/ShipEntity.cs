@@ -177,15 +177,6 @@ namespace Celeritas.Game.Entities
 			base.Update();
 		}
 
-		protected override void OnDestroy()
-		{
-			GenerateLootDrop();
-
-			base.OnDestroy();
-		}
-
-		//private float collisionDamageMultiplier = 10;
-
 		public override void OnEntityHit(Entity other)
 		{
 			ApplyCollisionDamage(Rigidbody, other);
@@ -215,7 +206,13 @@ namespace Celeritas.Game.Entities
 				}
 
 				if (health.IsEmpty())
+				{
+					if (Died == false)
+						GenerateLootDrop();
+
 					Died = true;
+
+				}
 
 			}
 		}
