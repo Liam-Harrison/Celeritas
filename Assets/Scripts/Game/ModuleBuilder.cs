@@ -20,8 +20,6 @@ public class ModuleBuilder : SerializedMonoBehaviour
 		{
 			if (module.ModuleLayout[x, y] == true)
 			{
-
-
 				var coords = transform.position + new Vector3(y, x, 0);
 
 				Gizmos.color = Color.green;
@@ -31,8 +29,8 @@ public class ModuleBuilder : SerializedMonoBehaviour
 	}
 
     [Button]
-    private void GenerateFloorsWithColliders() {
-        roomFloors = new GameObject("ColliderObject");
+    private void GenerateFloors() {
+        roomFloors = new GameObject("FloorGroup");
         roomFloors.transform.parent = gameObject.transform;
 
         module.ModuleLayout.ForEach((x, y) =>
@@ -40,12 +38,8 @@ public class ModuleBuilder : SerializedMonoBehaviour
 			if (module.ModuleLayout[x, y] == true)
 			{
 				var coords = transform.position + new Vector3(y, x, 0);
-                var roomCollider = roomFloors.AddComponent<BoxCollider>();
                 var floor = Instantiate(floorPrefab, coords, Quaternion.identity);
                 floor.transform.parent = roomFloors.transform;
-                roomCollider.center = coords;
-                roomCollider.isTrigger = true;
-                roomCollider.tag = "ModuleRoomCollider"; //Needs to be a const
 			}
 		});
     }
