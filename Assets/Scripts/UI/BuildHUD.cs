@@ -164,5 +164,6 @@ namespace Celeritas.UI
 
 			drop.gameObject.SetActive(false);
 		}
+
 	}
 }
