@@ -235,6 +235,7 @@ MonoBehaviour:
   - {fileID: 8950003118209943938}
   - {fileID: 4671421883375309999}
   - {fileID: 4289779454614690327}
+  IsStationary: 0
   inventorySize: {x: 6, y: 2}
   hullManager: {fileID: 3216270655684157883}
 --- !u!50 &2516558698829045451
@@ -283,7 +284,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2861370460507122289}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.25, y: -2.2, z: -2}
+  m_LocalPosition: {x: -1.489, y: 3.832, z: -0.602}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2516558698829045460}
@@ -336,7 +337,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6803760354808902825}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.25, y: -2.2, z: -2}
+  m_LocalPosition: {x: 1.483, y: 3.832, z: -0.602}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2516558698829045460}

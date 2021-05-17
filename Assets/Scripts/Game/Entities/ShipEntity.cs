@@ -165,13 +165,18 @@ namespace Celeritas.Game.Entities
 			base.Initalize(data, owner, effects);
 		}
 
+		public bool IsStationary = false;
+
 		protected override void Update()
 		{
 			if (!IsInitalized)
 				return;
 
-			TranslationLogic();
-			RotationLogic();
+			if (IsStationary == false)
+			{
+				TranslationLogic();
+				RotationLogic();
+			}
 			EngineLogic();
 
 			base.Update();
