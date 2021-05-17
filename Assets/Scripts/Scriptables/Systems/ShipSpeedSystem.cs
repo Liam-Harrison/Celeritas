@@ -24,7 +24,7 @@ namespace Celeritas.Scriptables.Systems
 		[SerializeField, Title("Speed System")]
 		private ShipDirections affectedDirections;
 
-		[SerializeField, PropertyRange(0, 4), InfoBox("Percentage to add, 1 (default ship speed) + 1 (value) = 2 (200% ship speed)")]
+		[SerializeField, PropertyRange(0, 5), InfoBox("Percentage to add, 1 (default ship speed) + 1 (value) = 2 (200% ship speed)")]
 		private float amount;
 
 		[SerializeField, PropertyRange(0, 2), InfoBox("Percentage extra to add per level")]

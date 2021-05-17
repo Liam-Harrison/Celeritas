@@ -14,8 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Gun
   prefab: {fileID: 295091177937448622, guid: f4b1f66dc9010454fb3319fdeee508f9, type: 3}
+  icon: {fileID: 0}
+  background: {fileID: 0}
+  description: 
   size: 0
+  hasDefaultShipEffects: 0
+  shipEffects: []
   projectile: {fileID: 11400000, guid: 341054bb030d7954ea09976c07126d5b, type: 2}
-  rateOfFire: 1
+  rateOfFire: 5
   charge: 0
   maxCharge: 0

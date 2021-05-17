@@ -24,13 +24,13 @@ MonoBehaviour:
   title: Medium Ship
   prefab: {fileID: 2516558698829045457, guid: 0bda108f4b31baf47bcd37cf26d641ee, type: 3}
   movementSettings:
-    torquePerSec: {x: 20, y: 100}
+    torquePerSec: {x: 60, y: 120}
     rotationCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0
+        time: -0.14166641
+        value: 0.8018799
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     angularDrag: 5
     rotationMaximum: 60
-    forcePerSec: 500
+    forcePerSec: 1000
     mass: 1
     aimDeadzone: 0.995
   shipClass: 0
