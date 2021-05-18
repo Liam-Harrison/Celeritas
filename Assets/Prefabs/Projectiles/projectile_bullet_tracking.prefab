@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6162463061802004050}
   - component: {fileID: 4248868241483658249}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3381853234453801989}
   - component: {fileID: 497525630379191311}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 3926678570621491625}
   - component: {fileID: 110571551794309556}
   - component: {fileID: -1886664241903312749}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: projectile_bullet_tracking
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,6 +280,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58aaac66ef1733f44bc39af05a5ed79e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   hasDefaultEffects: 0
   defaultEffects: []
   damage: 1
@@ -311,7 +320,7 @@ GameObject:
   - component: {fileID: 3926678571716563420}
   - component: {fileID: 3926678571716563423}
   - component: {fileID: 8243202863274170082}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -408,7 +417,7 @@ GameObject:
   - component: {fileID: 2377853218672804645}
   - component: {fileID: 7805642249053183768}
   - component: {fileID: 2602575085616693709}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5212,7 +5221,7 @@ GameObject:
   - component: {fileID: 7605633795064716159}
   - component: {fileID: 1410666499508979625}
   - component: {fileID: 278075601013804398}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}

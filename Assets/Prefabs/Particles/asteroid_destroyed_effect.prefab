@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8507341684931487787}
   - component: {fileID: 1475942941768610950}
   - component: {fileID: 8189079305829810627}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4866,7 +4866,7 @@ GameObject:
   - component: {fileID: 1116645047828317421}
   - component: {fileID: 7685648353565848027}
   - component: {fileID: 4829332971076134329}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: asteroid_destroyed_effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4976,7 +4976,7 @@ GameObject:
   m_Component:
   - component: {fileID: 634060431511939724}
   - component: {fileID: 1044433138913644742}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5107,7 +5107,7 @@ GameObject:
   - component: {fileID: 5647116490820367984}
   - component: {fileID: 3059153092480189576}
   - component: {fileID: 6276100382225587890}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

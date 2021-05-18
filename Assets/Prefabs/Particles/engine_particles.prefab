@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2353924733600201566}
   - component: {fileID: 309098510183863778}
   - component: {fileID: 8543454828156387919}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: internal_engine_particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4815,7 +4815,7 @@ GameObject:
   - component: {fileID: 1477245854262912886}
   - component: {fileID: 4897300313599739511}
   - component: {fileID: 3389599961786875226}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: engine_particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
