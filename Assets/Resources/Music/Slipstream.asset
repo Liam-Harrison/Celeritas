@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97205724a87b08d45958ad4fac6dd303, type: 3}
   m_Name: Slipstream
   m_EditorClassIdentifier: 
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: f8c9ded59c8b5f24da9a34a9ad349dab, type: 3}

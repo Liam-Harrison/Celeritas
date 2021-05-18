@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97205724a87b08d45958ad4fac6dd303, type: 3}
   m_Name: Synapse
   m_EditorClassIdentifier: 
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 89110d07a373adb40921f4d7c43ec502, type: 3}

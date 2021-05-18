@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97205724a87b08d45958ad4fac6dd303, type: 3}
   m_Name: Reconfig
   m_EditorClassIdentifier: 
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: b71c51c14e9f0034385be61a78b1c2c8, type: 3}
