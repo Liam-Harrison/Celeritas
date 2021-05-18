@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747d9766070ae9e4dba88b5444619be4, type: 3}
   m_Name: player_ship_medium
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 0
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   title: Medium Ship
   prefab: {fileID: 2516558698829045457, guid: b446706955a35834c903d52b0b890fcb, type: 3}
   movementSettings:
@@ -29,14 +38,14 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.5274532
-        value: 0.6526899
-        inSlope: 1.4999933
-        outSlope: 1.4999933
+        time: 0.71857744
+        value: 0.48513946
+        inSlope: 2.5311916
+        outSlope: 2.5311916
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.06502252
       - serializedVersion: 3
         time: 1
         value: 1
@@ -55,5 +64,7 @@ MonoBehaviour:
     mass: 6
     aimDeadzone: 0.995
   shipClass: 1
+  icon: {fileID: 0}
+  description: 
   startingHealth: 25000
   startingShield: 15000
