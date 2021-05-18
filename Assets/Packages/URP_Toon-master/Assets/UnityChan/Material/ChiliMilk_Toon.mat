@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: ChiliMilk_Toon
   m_Shader: {fileID: 4800000, guid: 1d6e561d2a2bdae46a0884077d1708ba, type: 3}
-  m_ShaderKeywords: _BLENDRIM _ENVIRONMENTREFLECTIONS_OFF _SPECULAR_SETUP
+  m_ShaderKeywords: _BLENDRIM _ENVIRONMENTREFLECTIONS_OFF _RIMLIGHT _SPECULAR_SETUP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -85,7 +85,7 @@ Material:
     - _EnableInShadowMap: 0
     - _EnableOutline: 1
     - _EnableRampMap: 0
-    - _EnableRim: 0
+    - _EnableRim: 1
     - _EnableStencil: 0
     - _EnvironmentReflections: 0
     - _InShadowMapStrength: 1
@@ -99,7 +99,7 @@ Material:
     - _RimPow: 4
     - _RimStep: 0.3
     - _Shadow1Feather: 0
-    - _Shadow1Step: 0.671
+    - _Shadow1Step: 0.882
     - _Shadow2Feather: 0
     - _Shadow2Step: 0.5
     - _Smoothness: 0.23
@@ -122,7 +122,7 @@ Material:
     - _BaseColor: {r: 0.4339623, g: 0.2938457, b: 0.20674619, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
-    - _RimColor: {r: 0.5, g: 0.4760097, b: 0.24292454, a: 1}
+    - _RimColor: {r: 0.2735849, g: 0.2323294, b: 0.15356888, a: 1}
     - _Shadow1Color: {r: 0.3679245, g: 0.22803089, b: 0.1961107, a: 0.5}
     - _Shadow2Color: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.2924528, g: 0.25060815, b: 0.16691881, a: 1}
