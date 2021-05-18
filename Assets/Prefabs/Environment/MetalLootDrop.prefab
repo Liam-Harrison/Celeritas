@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5928067147179042325}
   - component: {fileID: 5017682634858613763}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MetalLootDrop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 0
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 3169635137978177006}
   - component: {fileID: 915866614343515241}
   - component: {fileID: 2041852603950308897}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4873,7 +4873,7 @@ GameObject:
   - component: {fileID: 7157647278614834966}
   - component: {fileID: 7432556271293789443}
   - component: {fileID: 7538326579205623375}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}

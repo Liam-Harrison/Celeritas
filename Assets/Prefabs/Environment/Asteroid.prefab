@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4021109264984864297}
   - component: {fileID: 4697608550902797402}
   - component: {fileID: 3221458083514054062}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Asteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5858092189780691566}
   - component: {fileID: 3933873840647554451}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 1007205252804304060}
   - component: {fileID: 2951979975975092953}
   - component: {fileID: 240004113482661266}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: d59f1340be18bb84e8bf2d77d31e0577, type: 3}
+  - {fileID: 2100000, guid: 480fc7eecf744a74cacbeb0d76f519c7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

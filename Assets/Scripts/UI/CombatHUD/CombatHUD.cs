@@ -100,7 +100,8 @@ public class CombatHUD : Singleton<CombatHUD>
 
 	private void OnEnable()
 	{
-		Cursor.SetCursor(mouseTexture, Vector2.zero, CursorMode.Auto);
+		Vector2 center = new Vector2(mouseTexture.width / 2f, mouseTexture.height / 2f);
+		Cursor.SetCursor(mouseTexture, center, CursorMode.Auto);
 	}
 
 	private void OnDisable()

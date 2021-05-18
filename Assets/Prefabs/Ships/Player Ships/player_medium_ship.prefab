@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3312917368834455039}
   - component: {fileID: 5508884083018400456}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 2516558698829045460}
   - component: {fileID: 5537355914572784051}
   - component: {fileID: 2516558698829045451}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: player_medium_ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2489298676919761349}
   - component: {fileID: 4293004831541093639}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -322,7 +322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6790315075628685847}
   - component: {fileID: 3912116814696063671}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,7 +379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7222147745002411938}
   - component: {fileID: 3216270655684157883}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HullGen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -480,9 +480,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3899586858658861618, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7324227675397021249, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
       propertyPath: m_Name
       value: engine_particles
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324227675397021249, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
@@ -564,9 +572,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3899586858658861618, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7324227675397021249, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
       propertyPath: m_Name
       value: engine_particles
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324227675397021249, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
@@ -648,9 +664,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5903242358210382839, guid: 0a4475f09a4ee2040a58c83ffe4eb488, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b7a31470fb452f24b92a5c3fdd444b30, type: 2}
     - target: {fileID: 919132149155446097, guid: 0a4475f09a4ee2040a58c83ffe4eb488, type: 3}
       propertyPath: m_Name
       value: ship
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0a4475f09a4ee2040a58c83ffe4eb488, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 968022964083750120, guid: 0a4475f09a4ee2040a58c83ffe4eb488, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a4475f09a4ee2040a58c83ffe4eb488, type: 3}
