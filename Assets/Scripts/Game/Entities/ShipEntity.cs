@@ -177,6 +177,7 @@ namespace Celeritas.Game.Entities
 				TranslationLogic();
 				RotationLogic();
 			}
+
 			EngineLogic();
 
 			base.Update();

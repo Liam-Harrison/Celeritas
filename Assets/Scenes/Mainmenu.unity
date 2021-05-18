@@ -665,7 +665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b306a0487857f4f9c0c9e6f8abde83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 24
+  scene: 48
   mode: 0
   loadOnAwake: 0
 --- !u!1 &1168618282

@@ -286,8 +286,6 @@ namespace Celeritas.Game
 				// take half damage yourself
 				TakeDamage(this, (int)force / 2);
 			}
-
 		}
-
 	}
 }

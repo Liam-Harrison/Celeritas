@@ -13,7 +13,7 @@ namespace Celeritas
 			Persistent = 1 << 1,
 			Mainmenu = 1 << 2,
 			Main = 1 << 3,
-			Background = 1 << 4,
+			RunStart = 1 << 4,
 		}
 
 		[SerializeField]
@@ -47,12 +47,6 @@ namespace Celeritas
 				loaded = true;
 			}
 
-			if (scene.HasFlag(Scene.Background))
-			{
-				SceneManager.LoadSceneAsync(Constants.GAMEBACKGROUND_SCENE_PATH, loaded ? LoadSceneMode.Additive : mode);
-				loaded = true;
-			}
-
 			if (scene.HasFlag(Scene.Persistent))
 			{
 				SceneManager.LoadSceneAsync(Constants.PERSISTENT_SCENE_PATH, loaded ? LoadSceneMode.Additive : mode);
@@ -62,6 +56,11 @@ namespace Celeritas
 			if (scene.HasFlag(Scene.Mainmenu))
 			{
 				SceneManager.LoadSceneAsync(Constants.MAINMENU_SCENE_PATH, loaded ? LoadSceneMode.Additive : mode);
+			}
+
+			if (scene.HasFlag(Scene.RunStart))
+			{
+				SceneManager.LoadSceneAsync(Constants.RUNSTART_PATH, loaded ? LoadSceneMode.Additive : mode);
 			}
 
 			if (path != "")

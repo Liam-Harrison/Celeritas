@@ -43,9 +43,9 @@ namespace Celeritas
 		public static readonly string MAINMENU_SCENE_PATH = "Assets/Scenes/Mainmenu.unity";
 
 		/// <summary>
-		/// The name of the game background scene
+		/// The name of the game runstart scene
 		/// </summary>
-		public static readonly string GAMEBACKGROUND_SCENE_PATH = "Assets/Scenes/GameBackground.unity";
+		public static readonly string RUNSTART_PATH = "Assets/Scenes/RunStart.unity";
 
 		/// <summary>
 		/// The label used for the ship data type in the addresable system.
