@@ -47,6 +47,7 @@ public class ShipSelection : MonoBehaviour
 	{
 		shipObjects = new List<ShipEntity>();
 
+		Debug.Log($"ships: {EntityDataManager.Instance.PlayerShips.Count}");
 		foreach (ShipData data in EntityDataManager.Instance.PlayerShips)
 		{
 			var ship = EntityDataManager.InstantiateEntity<ShipEntity>(data);
@@ -56,6 +57,7 @@ public class ShipSelection : MonoBehaviour
 			ship.transform.localPosition = Vector3.zero;
 			ship.transform.localRotation = Quaternion.identity;
 			ship.transform.localScale = Vector3.one;
+			ship.gameObject.SetActive(false);
 
 			shipObjects.Add(ship);
 		}
