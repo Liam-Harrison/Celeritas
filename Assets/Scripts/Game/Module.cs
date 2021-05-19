@@ -114,6 +114,9 @@ namespace Celeritas.Game
 			}
 		}
 
+		/// <summary>
+		/// Remove the currently attatched module entity from this module.
+		/// </summary>
 		public void RemoveModule()
 		{
 			if (AttatchedModule != null)
