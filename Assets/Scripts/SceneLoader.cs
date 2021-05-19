@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 namespace Celeritas
 {
+	/// <summary>
+	/// This class allows for other scripts or components in the scene to load game scenes.
+	/// </summary>
 	public class SceneLoader : MonoBehaviour
 	{
 		[Flags]
@@ -36,9 +39,11 @@ namespace Celeritas
 			}
 		}
 
+		/// <summary>
+		/// Load the scenes setup in this component according to its scene flag settings.
+		/// </summary>
 		public void LoadScene()
 		{
-			string path = "";
 			bool loaded = false;
 
 			if (scene.HasFlag(Scene.Main))
@@ -62,9 +67,6 @@ namespace Celeritas
 			{
 				SceneManager.LoadSceneAsync(Constants.RUNSTART_PATH, loaded ? LoadSceneMode.Additive : mode);
 			}
-
-			if (path != "")
-				SceneManager.LoadScene(path, mode);
 		}
 	}
 }

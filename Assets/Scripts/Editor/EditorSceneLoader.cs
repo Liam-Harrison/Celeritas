@@ -3,6 +3,9 @@ using UnityEditor.SceneManagement;
 
 namespace Celeritas.Editor
 {
+	/// <summary>
+	/// Contains menu options for loading game scenes quickly in the editor.
+	/// </summary>
 	public class EditorSceneLoader
 	{
 		[MenuItem("Celeritas/Load Game Scenes", priority = 20)]
