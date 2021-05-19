@@ -69,5 +69,11 @@ MonoBehaviour:
   background: {fileID: 21300000, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
   description: Collects Scrap
   size: 0
-  hasDefaultShipEffects: 0
+  hasShipEffects: 0
   shipEffects: []
+  hasWeaponEffects: 0
+  weaponEffects: []
+  hasProjectileEffects: 1
+  projectileEffects:
+  - Level: 3
+    EffectCollection: {fileID: 11400000, guid: 922abbef8ae38a54da55d963727be36a, type: 2}

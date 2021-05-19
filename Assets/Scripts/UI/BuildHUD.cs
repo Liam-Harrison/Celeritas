@@ -88,7 +88,6 @@ namespace Celeritas.UI
 						}
 					});
 
-
 					if (hull.HullData.HullModules[grid.x, grid.y] == null && hull.Modules[grid.x, grid.y].HasModuleAttatched == false && isOverModule != true)
 					{
 						placeObject.SetActive(true);
@@ -106,7 +105,7 @@ namespace Celeritas.UI
 				}
 				else
 				{
-					placeObject.SetActive(true);
+					placeObject.SetActive(false);
 					placingMaterial.color = new Color(1, 0, 0);
 					canPlace = false;
 				}
@@ -155,6 +154,7 @@ namespace Celeritas.UI
 					hull.Modules[grid.x, grid.y].RemoveModule();
 					hull.HullData.HullModuleOrigins[grid.x, grid.y] = null;
 					hull.GenerateModuleWalls();
+					PlayerController.Instance.PlayerShipEntity.Inventory.Add(dragging);
 				}
 			}
 		}
@@ -173,9 +173,6 @@ namespace Celeritas.UI
 			else if (dragging != null)
 			{
 				inventory.AddInventoryItem(dragging);
-
-				var ship = PlayerController.Instance.PlayerShipEntity;
-				ship.Inventory.Add(dragging);
 			}
 
 			canPlace = false;

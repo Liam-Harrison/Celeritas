@@ -18,9 +18,9 @@ namespace Celeritas.Game.Entities
 		private float maxCharge = 10.0f;
 
 		/// <summary>
-		/// Get the effect manager for the weapons on this entity.
+		/// Get the effect manager for the projectiles on this entity.
 		/// </summary>
-		public EffectManager WeaponEffects { get; private set; }
+		public EffectManager ProjectileEffects { get; private set; }
 
 		/// <summary>
 		/// The attatched weapon data.
@@ -44,7 +44,7 @@ namespace Celeritas.Game.Entities
 			rateOfFire = WeaponData.RateOfFire;
 			maxCharge = WeaponData.MaxCharge;
 
-			WeaponEffects = new EffectManager(this, SystemTargets.Projectile);
+			ProjectileEffects = new EffectManager(this, SystemTargets.Projectile);
 
 			base.Initalize(data, owner, effects, forceIsPlayer);
 		}
@@ -100,7 +100,7 @@ namespace Celeritas.Game.Entities
 
 		protected virtual void Fire()
 		{
-			var projectile = EntityDataManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile, this, WeaponEffects.EffectWrapperCopy);
+			var projectile = EntityDataManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile, this, ProjectileEffects.EffectWrapperCopy);
 			projectile.transform.CopyTransform(projectileSpawn);
 			EntityEffects.EntityFired(projectile);
 		}

@@ -93,23 +93,51 @@ namespace Celeritas.Game
 
 			if (AttatchedModule is WeaponEntity weapon)
 			{
-				weapon.WeaponEffects.AddEffectRange(projectileEffects);
+				weapon.ProjectileEffects.AddEffectRange(projectileEffects);
 			}
 
-			if (module.HasDefaultShipEffects)
+			if (module.HasShipEffects)
 			{
 				Ship.EntityEffects.AddEffectRange(module.ShipEffects);
 			}
+
+			if (module.HasWeaponEffects || module.HasProjectileEffects)
+			{
+				foreach (var entity in Ship.WeaponEntities)
+				{
+					if (module.HasWeaponEffects)
+						entity.EntityEffects.AddEffectRange(module.WeaponEffects);
+
+					if (module.HasProjectileEffects)
+						entity.ProjectileEffects.AddEffectRange(module.ProjectileEffects);
+				}
+			}
 		}
 
+		/// <summary>
+		/// Remove the currently attatched module entity from this module.
+		/// </summary>
 		public void RemoveModule()
 		{
 			if (AttatchedModule != null)
 			{
-				if (AttatchedModule.ModuleData.HasDefaultShipEffects)
+				if (AttatchedModule.ModuleData.HasShipEffects)
 				{
 					Ship.EntityEffects.RemoveEffectRange(AttatchedModule.ModuleData.ShipEffects);
 				}
+
+				if (AttatchedModule.ModuleData.HasWeaponEffects || AttatchedModule.ModuleData.HasProjectileEffects)
+				{
+					foreach (var entity in Ship.WeaponEntities)
+					{
+						if (AttatchedModule.ModuleData.HasWeaponEffects)
+							entity.EntityEffects.RemoveEffectRange(AttatchedModule.ModuleData.WeaponEffects);
+
+						if (AttatchedModule.ModuleData.HasProjectileEffects)
+							entity.ProjectileEffects.RemoveEffectRange(AttatchedModule.ModuleData.ProjectileEffects);
+					}
+				}
+
 				Destroy(AttatchedModule.gameObject);
 
 				AttatchedModule = null;
