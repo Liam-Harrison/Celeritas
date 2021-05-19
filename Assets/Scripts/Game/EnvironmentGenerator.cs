@@ -162,10 +162,10 @@ namespace Assets.Scripts.Game
 
 			for (int i = 0; i < amountToSpawn; i++)
 			{
-				float xVariation = xCoordinate + Random.Range(-clusterVariation/2, clusterVariation/2);
-				float yVariation = yCoordinate + Random.Range(-clusterVariation/2, clusterVariation/2);
+				xCoordinate = xCoordinate + Random.Range(-clusterVariation/2, clusterVariation/2);
+				yCoordinate = yCoordinate + Random.Range(-clusterVariation/2, clusterVariation/2);
 
-				var asteroid = manager.SpawnAsteroid(new Vector3(xCoordinate + xVariation, yCoordinate + yVariation, 0));
+				var asteroid = manager.SpawnAsteroid(new Vector3(xCoordinate, yCoordinate, 0));
 				asteroid.transform.rotation = Random.rotation;
 				RandomiseAsteroidScale(asteroid, 0.5f, 2f);
 			}
