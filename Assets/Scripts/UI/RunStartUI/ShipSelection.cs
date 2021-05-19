@@ -6,138 +6,153 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShipSelection : MonoBehaviour
+namespace Celeritas.UI
 {
-	[SerializeField, Title("Spawn")]
-	private Transform shipSpawn;
-
-	[SerializeField, Title("Weapon UI")]
-	private TextMeshProUGUI weaponNameTxt;
-
-	[SerializeField]
-	private TextMeshProUGUI weaponDescTxt;
-
-	[SerializeField]
-	private Image weaponIcon;
-
-	[SerializeField, Title("Ship UI")]
-	private TextMeshProUGUI shipClassTxt;
-
-	[SerializeField]
-	private TextMeshProUGUI shipRankTxt;
-
-	[SerializeField]
-	private TextMeshProUGUI shipNameTxt;
-
-	[SerializeField]
-	private TextMeshProUGUI shipDescTxt;
-
-	[SerializeField]
-	private Image shipIcon;
-
-	public static ShipEntity CurrentShip { get; private set; }
-
-	private List<ShipEntity> shipObjects;
-	private List<WeaponData> weaponList;
-
-	private int shipPseudoIterator;
-	private int weaponPseudoIterator;
-
-	private void Awake()
+	public class ShipSelection : MonoBehaviour
 	{
-		shipObjects = new List<ShipEntity>();
+		[SerializeField, Title("Spawn")]
+		private Transform shipSpawn;
 
-		Debug.Log($"ships: {EntityDataManager.Instance.PlayerShips.Count}");
-		foreach (ShipData data in EntityDataManager.Instance.PlayerShips)
+		[SerializeField, Title("Weapon UI")]
+		private TextMeshProUGUI weaponNameTxt;
+
+		[SerializeField]
+		private TextMeshProUGUI weaponDescTxt;
+
+		[SerializeField]
+		private Image weaponIcon;
+
+		[SerializeField, Title("Ship UI")]
+		private TextMeshProUGUI shipClassTxt;
+
+		[SerializeField]
+		private TextMeshProUGUI shipRankTxt;
+
+		[SerializeField]
+		private TextMeshProUGUI shipNameTxt;
+
+		[SerializeField]
+		private TextMeshProUGUI shipDescTxt;
+
+		[SerializeField]
+		private Image shipIcon;
+
+		public static ShipEntity CurrentShip { get; private set; }
+
+		private List<ShipEntity> shipObjects;
+		private List<WeaponData> weaponList;
+
+		private int shipPseudoIterator;
+		private int weaponPseudoIterator;
+
+		private void Awake()
 		{
-			var ship = EntityDataManager.InstantiateEntity<ShipEntity>(data);
+			shipObjects = new List<ShipEntity>();
 
-			ship.IsStationary = true;
-			ship.transform.parent = shipSpawn;
-			ship.transform.localPosition = Vector3.zero;
-			ship.transform.localRotation = Quaternion.identity;
-			ship.transform.localScale = Vector3.one;
-			ship.gameObject.SetActive(false);
+			Debug.Log($"ships: {EntityDataManager.Instance.PlayerShips.Count}");
+			foreach (ShipData data in EntityDataManager.Instance.PlayerShips)
+			{
+				var ship = EntityDataManager.InstantiateEntity<ShipEntity>(data);
 
-			shipObjects.Add(ship);
+				ship.IsStationary = true;
+				ship.transform.parent = shipSpawn;
+				ship.transform.localPosition = Vector3.zero;
+				ship.transform.localRotation = Quaternion.identity;
+				ship.transform.localScale = Vector3.one;
+				ship.gameObject.SetActive(false);
+
+				shipObjects.Add(ship);
+			}
+
+			weaponList = new List<WeaponData>();
+			foreach (WeaponData weapon in EntityDataManager.Instance.Weapons)
+			{
+				weaponList.Add(weapon);
+			}
 		}
 
-		weaponList = new List<WeaponData>();
-		foreach (WeaponData weapon in EntityDataManager.Instance.Weapons)
+		private void OnEnable()
 		{
-			weaponList.Add(weapon);
-		}
-	}
-
-	private void OnEnable()
-	{
-		weaponPseudoIterator = 0;
-		shipPseudoIterator = 0;
-		SetActiveShip();
-		SetActiveWeapon();
-	}
-
-	private WeaponData currentWeapon;
-
-	private void SetActiveWeapon()
-	{
-		currentWeapon = weaponList[weaponPseudoIterator];
-		weaponNameTxt.SetText(currentWeapon.Title);
-		weaponDescTxt.SetText(currentWeapon.Description);
-		weaponIcon.sprite = currentWeapon.Icon;
-
-		foreach (WeaponEntity ShipWeapon in CurrentShip.WeaponEntities)
-		{
-			ShipWeapon.AttatchedModule.SetModule(currentWeapon);
-		}
-	}
-
-	public void WeaponScrollRight()
-	{
-		if (++weaponPseudoIterator > weaponList.Count - 1)
 			weaponPseudoIterator = 0;
-
-		SetActiveWeapon();
-	}
-
-	public void WeaponScrollLeft()
-	{
-		if (++weaponPseudoIterator < 0)
-			weaponPseudoIterator = weaponList.Count - 1;
-
-		SetActiveWeapon();
-	}
-
-	private void SetActiveShip()
-	{
-		CurrentShip = shipObjects[shipPseudoIterator].GetComponent<ShipEntity>();
-		shipRankTxt.SetText(CurrentShip.ShipData.Title);
-		shipClassTxt.SetText(CurrentShip.ShipData.ShipClass.ToString());
-		shipNameTxt.SetText("Celerity <i>#1</i>");
-		shipDescTxt.SetText(CurrentShip.ShipData.Description);
-		weaponIcon.sprite = CurrentShip.ShipData.Icon;
-
-		foreach (ShipEntity ship in shipObjects)
-		{
-			ship.gameObject.SetActive(ship == CurrentShip);
+			shipPseudoIterator = 0;
+			SetActiveShip();
+			SetActiveWeapon();
 		}
 
-		SetActiveWeapon();
-	}
+		/// <summary>
+		/// Scroll the weapon selection one index up.
+		/// </summary>
+		public void WeaponScrollRight()
+		{
+			if (++weaponPseudoIterator > weaponList.Count - 1)
+				weaponPseudoIterator = 0;
 
-	public void ShipScrollRight()
-	{
-		if (++shipPseudoIterator > shipObjects.Count - 1)
-			shipPseudoIterator = 0;
+			SetActiveWeapon();
+		}
 
-		SetActiveShip();
-	}
+		/// <summary>
+		/// Scroll the weapon selection one index back.
+		/// </summary>
+		public void WeaponScrollLeft()
+		{
+			if (++weaponPseudoIterator < 0)
+				weaponPseudoIterator = weaponList.Count - 1;
 
-	public void ShipScrollLeft()
-	{
-		if (--shipPseudoIterator < 0)
-			shipPseudoIterator = shipObjects.Count - 1;
+			SetActiveWeapon();
+		}
 
-		SetActiveShip();
+		/// <summary>
+		/// Scroll the ship selection one index up.
+		/// </summary>
+		public void ShipScrollRight()
+		{
+			if (++shipPseudoIterator > shipObjects.Count - 1)
+				shipPseudoIterator = 0;
+
+			SetActiveShip();
+		}
+
+		/// <summary>
+		/// Scroll the ship selection one index back.
+		/// </summary>
+		public void ShipScrollLeft()
+		{
+			if (--shipPseudoIterator < 0)
+				shipPseudoIterator = shipObjects.Count - 1;
+
+			SetActiveShip();
+		}
+
+		private WeaponData currentWeapon;
+
+		private void SetActiveWeapon()
+		{
+			currentWeapon = weaponList[weaponPseudoIterator];
+			weaponNameTxt.SetText(currentWeapon.Title);
+			weaponDescTxt.SetText(currentWeapon.Description);
+			weaponIcon.sprite = currentWeapon.Icon;
+
+			foreach (WeaponEntity ShipWeapon in CurrentShip.WeaponEntities)
+			{
+				ShipWeapon.AttatchedModule.SetModule(currentWeapon);
+			}
+		}
+
+		private void SetActiveShip()
+		{
+			CurrentShip = shipObjects[shipPseudoIterator].GetComponent<ShipEntity>();
+			shipRankTxt.SetText(CurrentShip.ShipData.Title);
+			shipClassTxt.SetText(CurrentShip.ShipData.ShipClass.ToString());
+			shipNameTxt.SetText("Celerity <i>#1</i>");
+			shipDescTxt.SetText(CurrentShip.ShipData.Description);
+			weaponIcon.sprite = CurrentShip.ShipData.Icon;
+
+			foreach (ShipEntity ship in shipObjects)
+			{
+				ship.gameObject.SetActive(ship == CurrentShip);
+			}
+
+			SetActiveWeapon();
+		}
 	}
 }

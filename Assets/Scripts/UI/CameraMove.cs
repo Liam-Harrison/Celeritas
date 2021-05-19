@@ -9,13 +9,13 @@ namespace Celeritas.Game
 	public class CameraMove : MonoBehaviour
 	{
 		[SerializeField, PropertyRange(0f, 1000f)]
-		public float speed;
+		private float speed;
 
 		[SerializeField]
-		public float sin;
+		private float sin;
 
 		[SerializeField]
-		public float cos;
+		private float cos;
 
 		private void Update()
 		{
