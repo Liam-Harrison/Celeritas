@@ -101,7 +101,7 @@ namespace Celeritas.Game.Entities
 		/// <returns>Returns the created and initalized entity.</returns>
 		public static T InstantiateEntity<T>(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false) where T: Entity
 		{
-			var entity = Instantiate(data.Prefab).GetComponent<T>();
+			var entity = Instantiate(data.Prefab, Instance.transform).GetComponent<T>();
 			entity.Initalize(data, owner, effects, forceIsPlayer);
 			OnCreatedEntity?.Invoke(entity);
 			return entity;
