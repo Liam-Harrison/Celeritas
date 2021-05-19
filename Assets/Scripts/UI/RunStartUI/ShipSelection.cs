@@ -1,150 +1,158 @@
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
-using System.Collections;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShipSelection : MonoBehaviour
+namespace Celeritas.UI
 {
-	private int ShipPseudoIterator;
-	public GameObject ShipSpawn;
-	private List<ShipEntity> ShipObjects;
-	private ShipEntity TempShip;
-	private List<WeaponData> WeaponList;
-	private int WeaponPseudoIterator;
-
-	private void Awake()
+	public class ShipSelection : MonoBehaviour
 	{
-		EntityDataManager.OnLoadedAssets += () =>
+		[SerializeField, Title("Spawn")]
+		private Transform shipSpawn;
+
+		[SerializeField, Title("Weapon UI")]
+		private TextMeshProUGUI weaponNameTxt;
+
+		[SerializeField]
+		private TextMeshProUGUI weaponDescTxt;
+
+		[SerializeField]
+		private Image weaponIcon;
+
+		[SerializeField, Title("Ship UI")]
+		private TextMeshProUGUI shipClassTxt;
+
+		[SerializeField]
+		private TextMeshProUGUI shipRankTxt;
+
+		[SerializeField]
+		private TextMeshProUGUI shipNameTxt;
+
+		[SerializeField]
+		private TextMeshProUGUI shipDescTxt;
+
+		[SerializeField]
+		private Image shipIcon;
+
+		public static ShipEntity CurrentShip { get; private set; }
+
+		private List<ShipEntity> shipObjects;
+		private List<WeaponData> weaponList;
+
+		private int shipPseudoIterator;
+		private int weaponPseudoIterator;
+
+		private void Awake()
 		{
-			ShipObjects = new List<ShipEntity>();
+			shipObjects = new List<ShipEntity>();
 
-			Destroy(ShipSpawn.GetComponentInChildren<ShipEntity>().gameObject); //removes placeholder ship, so we can loop without worrying about duplicates
-			foreach (ShipData ship in EntityDataManager.Instance.PlayerShips)
+			Debug.Log($"ships: {EntityDataManager.Instance.PlayerShips.Count}");
+			foreach (ShipData data in EntityDataManager.Instance.PlayerShips)
 			{
-				TempShip = EntityDataManager.InstantiateEntity<ShipEntity>(ship);
-				TempShip.IsStationary = true;
-				//Debug.Log(TempShip.name);
-				TempShip.gameObject.transform.parent = ShipSpawn.transform;
-				TempShip.gameObject.transform.localPosition = Vector3.zero;
-				TempShip.gameObject.transform.localRotation = Quaternion.identity;
-				ShipObjects.Add(TempShip);
-			}
-			ShipPseudoIterator = 0;
-			//TODO: read from playerdata, set last used ship if avaliable (once we HAVE more than one ship...)
+				var ship = EntityDataManager.InstantiateEntity<ShipEntity>(data);
 
-			WeaponList = new List<WeaponData>();
+				ship.IsStationary = true;
+				ship.transform.parent = shipSpawn;
+				ship.transform.localPosition = Vector3.zero;
+				ship.transform.localRotation = Quaternion.identity;
+				ship.transform.localScale = Vector3.one;
+				ship.gameObject.SetActive(false);
+
+				shipObjects.Add(ship);
+			}
+
+			weaponList = new List<WeaponData>();
 			foreach (WeaponData weapon in EntityDataManager.Instance.Weapons)
 			{
-				//Debug.Log("Weapon: " + weapon.Title);
-				WeaponList.Add(weapon);
+				weaponList.Add(weapon);
 			}
-			//WeaponList.Sort();
-			//Debug.Log("WeaponList size " + WeaponList.Count);
-			//TODO: read from playerdata, set last used weapon if avaliable
-			WeaponPseudoIterator = 0;
+		}
 
-
+		private void OnEnable()
+		{
+			weaponPseudoIterator = 0;
+			shipPseudoIterator = 0;
 			SetActiveShip();
 			SetActiveWeapon();
-		};
-
-	}
-
-	  //////////////////
-	 ///WEAPON STUFF///
-	//////////////////
-
-	public TextMeshProUGUI WeaponNameTxt;
-	public TextMeshProUGUI WeaponDescTxt;
-	public Image WeaponIcon;
-	private WeaponData CurrentWeapon;
-	private void SetActiveWeapon()
-	{
-		CurrentWeapon = WeaponList[WeaponPseudoIterator];
-		WeaponNameTxt.SetText(CurrentWeapon.Title);
-		WeaponDescTxt.SetText(CurrentWeapon.Description);
-		WeaponIcon.sprite = CurrentWeapon.Icon;
-		foreach (WeaponEntity ShipWeapon in CurrentShip.WeaponEntities)
-		{
-			ShipWeapon.AttatchedModule.SetModule(CurrentWeapon);
 		}
-	}
 
-	public void WeaponScrollRight()
-	{
-		WeaponPseudoIterator++;
-		if (WeaponPseudoIterator > WeaponList.Count - 1) //0-indexing
+		/// <summary>
+		/// Scroll the weapon selection one index up.
+		/// </summary>
+		public void WeaponScrollRight()
 		{
-			WeaponPseudoIterator = 0; //looping
-		}
-		SetActiveWeapon();
-	}
+			if (++weaponPseudoIterator > weaponList.Count - 1)
+				weaponPseudoIterator = 0;
 
-	public void WeaponScrollLeft()
-	{
-		WeaponPseudoIterator--;
-		if (WeaponPseudoIterator < 0)
+			SetActiveWeapon();
+		}
+
+		/// <summary>
+		/// Scroll the weapon selection one index back.
+		/// </summary>
+		public void WeaponScrollLeft()
 		{
-			WeaponPseudoIterator = WeaponList.Count - 1;//0-indexing, looping
+			if (++weaponPseudoIterator < 0)
+				weaponPseudoIterator = weaponList.Count - 1;
+
+			SetActiveWeapon();
 		}
-		SetActiveWeapon();
-	}
 
-	  ////////////////
-	 ///SHIP STUFF///
-	////////////////
-
-	public TextMeshProUGUI ShipClassTxt;
-	public TextMeshProUGUI ShipRankTxt;
-	public TextMeshProUGUI ShipNameTxt;
-	public TextMeshProUGUI ShipDescTxt;
-	public Image ShipIcon;
-	private ShipEntity CurrentShip;
-	private void SetActiveShip()
-	{
-		CurrentShip = ShipObjects[ShipPseudoIterator].GetComponent<ShipEntity>();
-		//Debug.Log(CurrentShip.name);
-		//Debug.Log(CurrentShip.ShipData.name);
-		//Debug.Log(CurrentShip.ShipData.ShipClass);
-		ShipRankTxt.SetText(CurrentShip.ShipData.Title);
-		ShipClassTxt.SetText(CurrentShip.ShipData.ShipClass.ToString());
-		ShipNameTxt.SetText("Celerity [NaN]"); //TODO: add run number once saving implemented
-		//ShipDescTxt.SetText(CurrentShip.Description);
-		ShipDescTxt.SetText(CurrentShip.ShipData.Description);
-		WeaponIcon.sprite = CurrentShip.ShipData.Icon;
-
-		//set current ship prefab to active, all others inactive
-		foreach (ShipEntity ship in ShipObjects)
+		/// <summary>
+		/// Scroll the ship selection one index up.
+		/// </summary>
+		public void ShipScrollRight()
 		{
-			ship.gameObject.SetActive(ship == CurrentShip);
+			if (++shipPseudoIterator > shipObjects.Count - 1)
+				shipPseudoIterator = 0;
+
+			SetActiveShip();
 		}
-		SetActiveWeapon(); //update the ship so it has the correct weapon
 
-	}
-
-	//TODO: add more complicated logic for ship categorisation/scrolling
-	// when we actually have multiple ships.
-
-	public void ShipScrollRight()
-	{
-		ShipPseudoIterator++;
-		if (ShipPseudoIterator > ShipObjects.Count - 1) //0-indexing
+		/// <summary>
+		/// Scroll the ship selection one index back.
+		/// </summary>
+		public void ShipScrollLeft()
 		{
-			ShipPseudoIterator = 0; //looping
-		}
-		SetActiveShip();
-	}
+			if (--shipPseudoIterator < 0)
+				shipPseudoIterator = shipObjects.Count - 1;
 
-	public void ShipScrollLeft()
-	{
-		ShipPseudoIterator--;
-		if (ShipPseudoIterator < 0)
-		{
-			ShipPseudoIterator = ShipObjects.Count - 1;//0-indexing, looping
+			SetActiveShip();
 		}
-		SetActiveShip();
+
+		private WeaponData currentWeapon;
+
+		private void SetActiveWeapon()
+		{
+			currentWeapon = weaponList[weaponPseudoIterator];
+			weaponNameTxt.SetText(currentWeapon.Title);
+			weaponDescTxt.SetText(currentWeapon.Description);
+			weaponIcon.sprite = currentWeapon.Icon;
+
+			foreach (WeaponEntity ShipWeapon in CurrentShip.WeaponEntities)
+			{
+				ShipWeapon.AttatchedModule.SetModule(currentWeapon);
+			}
+		}
+
+		private void SetActiveShip()
+		{
+			CurrentShip = shipObjects[shipPseudoIterator].GetComponent<ShipEntity>();
+			shipRankTxt.SetText(CurrentShip.ShipData.Title);
+			shipClassTxt.SetText(CurrentShip.ShipData.ShipClass.ToString());
+			shipNameTxt.SetText("Celerity <i>#1</i>");
+			shipDescTxt.SetText(CurrentShip.ShipData.Description);
+			weaponIcon.sprite = CurrentShip.ShipData.Icon;
+
+			foreach (ShipEntity ship in shipObjects)
+			{
+				ship.gameObject.SetActive(ship == CurrentShip);
+			}
+
+			SetActiveWeapon();
+		}
 	}
 }

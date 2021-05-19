@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4477257796416552746}
   - component: {fileID: 4477257796416552749}
   - component: {fileID: 4477257796416552748}
-  - component: {fileID: 4477257796416552744}
   - component: {fileID: 4477257796416552750}
   - component: {fileID: 896733420529650260}
-  - component: {fileID: 703758280132992543}
+  - component: {fileID: 852609842}
+  - component: {fileID: 852609843}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -65,18 +65,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 244078c54b6bc4d408c281699b3336ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4477257796416552744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4477257796416552756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4f715dfe672db24da4d34874eb9c47a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4477257796416552750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +80,7 @@ MonoBehaviour:
   data:
   - {fileID: 11400000, guid: ddf09bd4805b5904d8dd7110c82cb971, type: 2}
   - {fileID: 11400000, guid: af4e86ec0cb158148b00b968ab5a5857, type: 2}
+  MinShips: 1
 --- !u!114 &896733420529650260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,7 +93,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7bb069c0da228b49826f96deb30f895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &703758280132992543
+  moduleDropData: {fileID: 11400000, guid: cedac105963d57c4d95b670fbc060479, type: 2}
+  rareMetalDropData: {fileID: 11400000, guid: 70ecdfea9d697eb488ce507666a7a165, type: 2}
+  maxRareMetalDropAmount: 5
+  maxModuleDropAmount: 2
+--- !u!114 &852609842
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,6 +106,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 4477257796416552756}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60a941473eab71c4d85a2c538629904e, type: 3}
+  m_Script: {fileID: 11500000, guid: e4192fff2ca7bbc468992dc82dc69a09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberOfRandomAsteroids: 5
+  numberOfAsteroidClusters: 7
+  asteroidNumberPerCluster: 8
+  asteroidClusterSpacing: 5
+--- !u!114 &852609843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4477257796416552756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a9119cf80629e47b56d1803b4d4ca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asteroidPrefab: {fileID: 11400000, guid: 4e070eb5255e47b46bc6150fdd4b5375, type: 2}

@@ -18,24 +18,34 @@ namespace Celeritas.Game
 		[SerializeField]
 		private ActionData action;
 
-		protected override void Awake()
+		protected void Start()
 		{
-			EntityDataManager.OnLoadedAssets += () =>
+			if (EntityDataManager.Instance.Loaded)
 			{
-				var ship = EntityDataManager.InstantiateEntity<ShipEntity>(this.ship, forceIsPlayer: true);
-				ship.gameObject.AddComponent<PlayerController>();
-				ship.transform.position = transform.position;
-				transform.parent = ship.transform;
-				ship.OnActionAdded += OnPlayerActionAdded;
-				ship.OnActionRemoved += OnPlayerActionRemoved;
-
-				if (action != null)
+				CreatePlayerShip();
+			}
+			else
+			{
+				EntityDataManager.OnLoadedAssets += () =>
 				{
-					ship.AddAction(action);
-				}
-			};
+					CreatePlayerShip();
+				};
+			}
+		}
 
-			base.Awake();
+		private void CreatePlayerShip()
+		{
+			var ship = EntityDataManager.InstantiateEntity<ShipEntity>(this.ship, forceIsPlayer: true);
+			ship.gameObject.AddComponent<PlayerController>();
+			ship.transform.position = transform.position;
+			transform.parent = ship.transform;
+			ship.OnActionAdded += OnPlayerActionAdded;
+			ship.OnActionRemoved += OnPlayerActionRemoved;
+
+			if (action != null)
+			{
+				ship.AddAction(action);
+			}
 		}
 
 		private void OnPlayerActionAdded(GameAction action)
