@@ -5848,12 +5848,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 852609842, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: numberOfRandomAsteroids
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 852609842, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: asteroidNumberPerCluster
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 852609842, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: numberOfAsteroidClusters
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 896733420529650260, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: moduleDropData
