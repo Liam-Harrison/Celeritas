@@ -253,40 +253,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!1 &852609841 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4477257796416552756, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
-  m_PrefabInstance: {fileID: 4477257797740222008}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &852609842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 852609841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4192fff2ca7bbc468992dc82dc69a09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numberOfRandomAsteroids: 5
-  numberOfAsteroidClusters: 7
-  asteroidNumberPerCluster: 8
-  asteroidClusterSpacing: 5
---- !u!114 &852609843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 852609841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40a9119cf80629e47b56d1803b4d4ca4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  asteroidPrefab: {fileID: 11400000, guid: 4e070eb5255e47b46bc6150fdd4b5375, type: 2}
 --- !u!1 &855143037
 GameObject:
   m_ObjectHideFlags: 0
@@ -5299,7 +5265,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4477257796416552750, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
   m_PrefabInstance: {fileID: 4477257797740222008}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 852609841}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afb911a6128e9564d8c7ae860fc9abd9, type: 3}
@@ -5492,7 +5458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3667696407076179152, guid: fd7c17f1fbc086f4eb86a05e4794993d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -17.999939
+      value: -18
       objectReference: {fileID: 0}
     - target: {fileID: 4178895634782722161, guid: fd7c17f1fbc086f4eb86a05e4794993d, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5881,6 +5847,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 852609842, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: numberOfRandomAsteroids
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 852609842, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: asteroidNumberPerCluster
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 852609842, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: numberOfAsteroidClusters
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 896733420529650260, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: moduleDropData
       value: 
