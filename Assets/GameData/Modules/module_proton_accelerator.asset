@@ -69,7 +69,11 @@ MonoBehaviour:
   background: {fileID: 21300008, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
   description: Increased rate of fire
   size: 1
-  hasDefaultShipEffects: 1
+  hasShipEffects: 1
   shipEffects:
   - Level: 0
     EffectCollection: {fileID: 11400000, guid: b5a7799e420c4cf40bbcdbe0932ea6da, type: 2}
+  hasWeaponEffects: 0
+  weaponEffects: []
+  hasProjectileEffects: 0
+  projectileEffects: []

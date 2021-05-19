@@ -15,6 +15,7 @@ namespace Celeritas.Game
 		[PreviewField]
 		[SerializeField, Title("Settings")]
 		private ShipData ship;
+
 		[SerializeField]
 		private ActionData action;
 

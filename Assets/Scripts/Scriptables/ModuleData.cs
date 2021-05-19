@@ -35,10 +35,22 @@ namespace Celeritas.Scriptables
 		private ModuleSize size;
 
 		[SerializeField, Title("Ship Effects")]
-		private bool hasDefaultShipEffects;
+		private bool hasShipEffects;
 
-		[SerializeField, ShowIf(nameof(hasDefaultShipEffects))]
+		[SerializeField, ShowIf(nameof(hasShipEffects))]
 		private EffectWrapper[] shipEffects;
+
+		[SerializeField, Title("Weapon Effects")]
+		private bool hasWeaponEffects;
+
+		[SerializeField, ShowIf(nameof(hasWeaponEffects))]
+		private EffectWrapper[] weaponEffects;
+
+		[SerializeField, Title("Projectile Effects")]
+		private bool hasProjectileEffects;
+
+		[SerializeField, ShowIf(nameof(hasProjectileEffects))]
+		private EffectWrapper[] projectileEffects;
 
 		[SerializeField, Title("Module Layout")]
 		[TableMatrix(SquareCells = true, DrawElementMethod = nameof(OnLayoutDraw))]
@@ -56,9 +68,17 @@ namespace Celeritas.Scriptables
 
 		public ModuleSize ModuleSize { get => size; }
 
-		public bool HasDefaultShipEffects { get => hasDefaultShipEffects; }
+		public bool HasShipEffects { get => hasShipEffects; }
 
 		public EffectWrapper[] ShipEffects { get => shipEffects; }
+
+		public bool HasWeaponEffects { get => hasWeaponEffects; }
+
+		public EffectWrapper[] WeaponEffects { get => weaponEffects; }
+
+		public bool HasProjectileEffects { get => hasProjectileEffects; }
+
+		public EffectWrapper[] ProjectileEffects { get => projectileEffects; }
 
 		public override string Tooltip => $"A <color=\"orange\">{size}</color> module.";
 
