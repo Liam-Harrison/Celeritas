@@ -60,24 +60,54 @@ namespace Celeritas.Scriptables
 
 		public bool[,] ModuleLayout { get => moduleLayout;}
 
+		/// <summary>
+		/// The icon for the module.
+		/// </summary>
 		public Sprite Icon { get => icon; }
 
+		/// <summary>
+		/// The background for the module.
+		/// </summary>
 		public Sprite Background { get => background; }
 
+		/// <summary>
+		/// The description for the module.
+		/// </summary>
 		public string Description { get => description; }
 
+		/// <summary>
+		/// The size of this module.
+		/// </summary>
 		public ModuleSize ModuleSize { get => size; }
 
+		/// <summary>
+		/// Does this module add effects to the ship entity.
+		/// </summary>
 		public bool HasShipEffects { get => hasShipEffects; }
 
+		/// <summary>
+		/// The effects to add to the ship entity, if used.
+		/// </summary>
 		public EffectWrapper[] ShipEffects { get => shipEffects; }
 
+		/// <summary>
+		/// Does this module add effects to the ships weapon entities.
+		/// </summary>
 		public bool HasWeaponEffects { get => hasWeaponEffects; }
 
+		/// <summary>
+		/// The effects to add to the ships weapon entities, if used.
+		/// </summary>
 		public EffectWrapper[] WeaponEffects { get => weaponEffects; }
 
+		/// <summary>
+		/// Does this module add effects to the ships projectile entities.
+		/// </summary>
 		public bool HasProjectileEffects { get => hasProjectileEffects; }
 
+		/// <summary>
+		/// The effects to add to the ships projectile entities, if used.
+		/// </summary>
 		public EffectWrapper[] ProjectileEffects { get => projectileEffects; }
 
 		public override string Tooltip => $"A <color=\"orange\">{size}</color> module.";
