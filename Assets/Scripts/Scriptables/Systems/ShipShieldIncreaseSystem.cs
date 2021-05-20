@@ -40,15 +40,20 @@ namespace Celeritas.Scriptables.Systems
 			var ship = entity as ShipEntity;
 			float amountToAdd = amount + (level * amountExtraPerLevel);
 
-			//ship.Shield += amountToAdd;
+			uint newValue = (uint)(ship.Shield.MaxValue * amountToAdd);
+
+			ship.Shield.MaxValue = newValue;
 
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, ushort level)
 		{
 			var ship = entity as ShipEntity;
+			float amountToAdd = amount + (level * amountExtraPerLevel);
 
-			//ship.Shield -= amount;
+			uint newValue = (uint)(ship.Shield.MaxValue / amountToAdd);
+
+			ship.Shield.MaxValue = newValue;
 		}
 	}
 }

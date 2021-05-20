@@ -16,7 +16,7 @@ namespace Celeritas.UI
 		/// <summary>
 		/// The entity's maximum health
 		/// </summary>
-		public uint MaxValue { get => maxValue; }
+		public uint MaxValue { get => maxValue; set => maxValue = value; }
 
 		/// <summary>
 		/// The entity's current health
