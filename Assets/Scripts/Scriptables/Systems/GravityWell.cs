@@ -39,13 +39,14 @@ namespace Celeritas.Scriptables.Systems {
 			var ownerShip = entity as ShipEntity; // the ship that the effect originates from
 
 			// see how big the ships' collider is, and pick the biggest dimension
-			Collider2D ownerCollider = ownerShip.gameObject.GetComponent<Collider2D>();
-			float colliderSize = ownerCollider.bounds.size.y;
-			if (ownerCollider.bounds.size.x > ownerCollider.bounds.size.y)
-				colliderSize = ownerCollider.bounds.size.x;
+			//Collider2D ownerCollider = ownerShip.gameObject.GetComponent<Collider2D>();
+			//float colliderSize = ownerCollider.bounds.size.y;
+			//if (ownerCollider.bounds.size.x > ownerCollider.bounds.size.y)
+			//	colliderSize = ownerCollider.bounds.size.x;
 
 			// factor owner ship size into radius of effect
-			float radius = radiusOfEffect + colliderSize + level * extraRadiusPerLevel;
+			//float radius = radiusOfEffect + colliderSize + level * extraRadiusPerLevel;
+			float radius = radiusOfEffect + level * extraRadiusPerLevel;
 
 			// find all entities within the specified radius, around ownerShip
 			List <Collider2D> withinRange = new List<Collider2D>();
