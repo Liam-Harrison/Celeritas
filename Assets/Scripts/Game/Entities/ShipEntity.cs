@@ -23,7 +23,7 @@ namespace Celeritas.Game.Entities
 	public class ShipEntity : Entity, ITractorBeamTarget
 	{
 		[SerializeField, Title("Modules")]
-		protected Module[] modules;
+		protected List<Module> modules = new List<Module>();
 
 		[SerializeField, Title("Settings")]
 		protected MovementModifier movementModifier;
@@ -66,7 +66,7 @@ namespace Celeritas.Game.Entities
 		/// <summary>
 		/// The modules attatched to this ship.
 		/// </summary>
-		public Module[] Modules { get => modules; }
+		public List<Module> Modules { get => modules; }
 
 		/// <summary>
 		/// The item drop information of the ship.
@@ -145,6 +145,11 @@ namespace Celeritas.Game.Entities
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Ship; }
 
+		/// <summary>
+		/// Is this ship entity stationary or not.
+		/// </summary>
+		public bool IsStationary { get; set; }
+
 		/// <inheritdoc/>
 		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
 		{
@@ -167,8 +172,6 @@ namespace Celeritas.Game.Entities
 			base.Initalize(data, owner, effects);
 		}
 
-		public bool IsStationary = false;
-
 		protected override void Update()
 		{
 			if (!IsInitalized)
@@ -185,6 +188,10 @@ namespace Celeritas.Game.Entities
 			base.Update();
 		}
 
+		/// <summary>
+		/// Register a collision between this entity and the other target entity.
+		/// </summary>
+		/// <param name="other"></param>
 		public override void OnEntityHit(Entity other)
 		{
 			ApplyCollisionDamage(Rigidbody, other);
@@ -192,6 +199,11 @@ namespace Celeritas.Game.Entities
 			base.OnEntityHit(other);
 		}
 
+		/// <summary>
+		/// Register damage to this entity and update it internally.
+		/// </summary>
+		/// <param name="attackingEntity">The entity which has attacked.</param>
+		/// <param name="damage">The amount of damage to deal.</param>
 		public override void TakeDamage(Entity attackingEntity, int damage)
 		{
 			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity)
@@ -223,6 +235,42 @@ namespace Celeritas.Game.Entities
 				}
 
 			}
+		}
+
+		/// <summary>
+		/// Does this entity have a currently attatched module entity.
+		/// </summary>
+		/// <param name="module">The module to check for.</param>
+		/// <returns>Returns true if an entity was found with this module data, otherwise false.</returns>
+		public bool HasModule(ModuleData module)
+		{
+			foreach (var item in ModuleEntities)
+			{
+				if (item.ModuleData == module)
+					return true;
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// Try to get a module entity attatched to this ship entity.
+		/// </summary>
+		/// <param name="module">The module to look for.</param>
+		/// <param name="entity">The found entity if true, otherwise null.</param>
+		/// <returns>Returns true if found, otherwise false.</returns>
+		public bool TryGetModuleEntity(ModuleData module, out ModuleEntity entity)
+		{
+			foreach (var item in ModuleEntities)
+			{
+				if (item.ModuleData == module)
+				{
+					entity = item;
+					return true;
+				}
+			}
+			entity = null;
+			return false;
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)

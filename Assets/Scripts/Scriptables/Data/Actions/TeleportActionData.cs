@@ -14,7 +14,7 @@ namespace Celeritas.Scriptables
 		/// <summary>
 		/// The distance this action will teleport the entity.
 		/// </summary>
-		[PropertyRange(0, 500)]
+		[PropertyRange(0, 100)]
 		public float distance;
 
 		/// <inheritdoc/>

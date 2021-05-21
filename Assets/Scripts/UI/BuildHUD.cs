@@ -35,7 +35,7 @@ namespace Celeritas.UI
 		private Camera mainCamera;
 
 		private (int x, int y) grid;
-		private bool canPlace = false;
+		private bool canPlace = false, canUpgrade = false;
 
 		private void Awake()
 		{
@@ -71,54 +71,77 @@ namespace Celeritas.UI
 			{
 				var mousepos = Mouse.current.position.ReadValue();
 				drop.transform.position = mousepos;
-				var ray = mainCamera.ScreenPointToRay(mousepos);
 
-				if (Physics.Raycast(ray, out var hit, 40f, LayerMask.GetMask("Hull")))
+				RaycastModulePlacement(mousepos);
+			}
+		}
+
+		private void RaycastModulePlacement(Vector2 mousepos)
+		{
+			var ray = mainCamera.ScreenPointToRay(mousepos);
+
+			if (Physics.Raycast(ray, out var hit, 40f, LayerMask.GetMask("Hull")))
+			{
+				var hull = PlayerController.Instance.PlayerShipEntity.HullManager;
+				grid = hull.GetGridFromWorld(hit.point);
+
+				bool isOverModule = false; // Checks to see if any module is overlapping existing modules or overlapping the hull layout
+				dragging.ModuleLayout.ForEach((x, y) =>
 				{
-					var hull = PlayerController.Instance.PlayerShipEntity.HullManager;
-					grid = hull.GetGridFromWorld(hit.point);
-
-					bool isOverModule = false; // Checks to see if any module is overlapping existing modules or overlapping the hull layout
-					dragging.ModuleLayout.ForEach((x, y) =>
+					var currentModule = dragging.ModuleLayout[x, y];
+					if (currentModule == true)
 					{
-						var currentModule = dragging.ModuleLayout[x, y];
-						if (currentModule == true)
+						var newX = grid.x + x;
+						var newY = grid.y + y;
+						// Checks if hulllayout is out of bounds
+						if (newX >= 0 && newX < hull.HullData.HullLayout.GetLength(0) && newY >= 0 && newY < hull.HullData.HullLayout.GetLength(1))
 						{
-							var newX = grid.x + x;
-							var newY = grid.y + y;
-							// Checks if hulllayout is out of bounds
-							if (newX >= 0 && newX < hull.HullData.HullLayout.GetLength(0) && newY >= 0 && newY < hull.HullData.HullLayout.GetLength(1))
+							// checks if there an existing module overlapping or if its outside the ship hull
+							if (hull.HullData.HullModules[newX, newY] != null || hull.HullData.HullLayout[newX, newY] == false)
 							{
-								// checks if there an existing module overlapping or if its outside the ship hull
-								if (hull.HullData.HullModules[newX, newY] != null || hull.HullData.HullLayout[newX, newY] == false)
-								{
-									isOverModule = true;
-								}
+								isOverModule = true;
 							}
 						}
-					});
+					}
+				});
 
+				if (PlayerController.Instance.PlayerShipEntity.TryGetModuleEntity(dragging, out var entity))
+				{
+					placeObject.SetActive(true);
+					placingMaterial.color = new Color(0, 0, 1);
+
+					placeObject.transform.position = entity.transform.position;
+					placeObject.transform.rotation = hull.transform.rotation;
+
+					canPlace = false;
+					canUpgrade = true;
+				}
+				else
+				{
 					if (hull.HullData.HullModules[grid.x, grid.y] == null && hull.Modules[grid.x, grid.y].HasModuleAttatched == false && isOverModule != true)
 					{
 						placeObject.SetActive(true);
 						placingMaterial.color = new Color(0, 1, 0);
 						canPlace = true;
+						canUpgrade = false;
 					}
 					else
 					{
 						placeObject.SetActive(true);
 						placingMaterial.color = new Color(1, 0, 0);
 						canPlace = false;
+						canUpgrade = false;
 					}
+
 					placeObject.transform.position = hull.GetWorldPositionGrid(grid.x, grid.y);
 					placeObject.transform.rotation = hull.transform.rotation;
 				}
-				else
-				{
-					placeObject.SetActive(false);
-					placingMaterial.color = new Color(1, 0, 0);
-					canPlace = false;
-				}
+			}
+			else
+			{
+				placeObject.SetActive(false);
+				placingMaterial.color = new Color(1, 0, 0);
+				canPlace = false;
 			}
 		}
 
@@ -195,20 +218,31 @@ namespace Celeritas.UI
 
 		private void FireCanceled(InputAction.CallbackContext obj)
 		{
-			if (dragging != null && canPlace)
+			if (dragging != null && canUpgrade)
 			{
 				var ship = PlayerController.Instance.PlayerShipEntity;
+				if (ship.TryGetModuleEntity(dragging, out var entity))
+				{
+					entity.AttatchedModule.IncreaseEffectLevel();
+					ship.Inventory.Remove(dragging);
+				}
+			}
+			else if (dragging != null && canPlace)
+			{
+				var ship = PlayerController.Instance.PlayerShipEntity;
+
 				ship.HullManager.Modules[grid.x, grid.y].SetModule(dragging);
-				ship.Inventory.Remove(dragging);
 				ship.HullManager.HullData.HullModuleOrigins[grid.x, grid.y] = dragging;
 				ship.HullManager.GenerateModuleWalls();
 
+				ship.Inventory.Remove(dragging);
 			}
 			else if (dragging != null)
 			{
 				inventory.AddInventoryItem(dragging);
 			}
 
+			canUpgrade = false;
 			canPlace = false;
 			dragging = null;
 

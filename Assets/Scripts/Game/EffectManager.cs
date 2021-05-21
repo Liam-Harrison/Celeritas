@@ -153,5 +153,41 @@ namespace Celeritas.Game
 				effect.EffectCollection.OnFired(owner as WeaponEntity, projectile, effect.Level);
 			}
 		}
+
+		public void IncreaseEffectLevel()
+		{
+			for (int i = 0; i < effects.Count; i++)
+			{
+				var wrapper = effects[i];
+
+				var level = wrapper.Level;
+				var changed = (ushort)Mathf.Clamp(level + 1, 0, Constants.MAX_EFFECT_LEVEL);
+
+				if (level != changed)
+				{
+					wrapper.Level = changed;
+					effects[i] = wrapper;
+					effects[i].EffectCollection.OnLevelChanged(owner, level, changed);
+				}
+			}
+		}
+
+		public void DecreaseEffectLevel()
+		{
+			for (int i = 0; i < effects.Count; i++)
+			{
+				var wrapper = effects[i];
+
+				var level = wrapper.Level;
+				var changed = (ushort)Mathf.Clamp(level - 1, 0, Constants.MAX_EFFECT_LEVEL);
+
+				if (level != changed)
+				{
+					wrapper.Level = changed;
+					effects[i] = wrapper;
+					effects[i].EffectCollection.OnLevelChanged(owner, level, changed);
+				}
+			}
+		}
 	}
 }

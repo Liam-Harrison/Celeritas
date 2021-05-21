@@ -143,5 +143,51 @@ namespace Celeritas.Game
 				AttatchedModule = null;
 			}
 		}
+
+		public void IncreaseEffectLevel()
+		{
+			if (AttatchedModule != null)
+			{
+				if (AttatchedModule.ModuleData.HasShipEffects)
+				{
+					Ship.EntityEffects.IncreaseEffectLevel();
+				}
+
+				if (AttatchedModule.ModuleData.HasWeaponEffects || AttatchedModule.ModuleData.HasProjectileEffects)
+				{
+					foreach (var entity in Ship.WeaponEntities)
+					{
+						if (AttatchedModule.ModuleData.HasWeaponEffects)
+							entity.EntityEffects.IncreaseEffectLevel();
+
+						if (AttatchedModule.ModuleData.HasProjectileEffects)
+							entity.ProjectileEffects.IncreaseEffectLevel();
+					}
+				}
+			}
+		}
+
+		public void DecreaseEffectLevel()
+		{
+			if (AttatchedModule != null)
+			{
+				if (AttatchedModule.ModuleData.HasShipEffects)
+				{
+					Ship.EntityEffects.DecreaseEffectLevel();
+				}
+
+				if (AttatchedModule.ModuleData.HasWeaponEffects || AttatchedModule.ModuleData.HasProjectileEffects)
+				{
+					foreach (var entity in Ship.WeaponEntities)
+					{
+						if (AttatchedModule.ModuleData.HasWeaponEffects)
+							entity.EntityEffects.DecreaseEffectLevel();
+
+						if (AttatchedModule.ModuleData.HasProjectileEffects)
+							entity.ProjectileEffects.DecreaseEffectLevel();
+					}
+				}
+			}
+		}
 	}
 }

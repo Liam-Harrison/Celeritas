@@ -96,5 +96,10 @@ namespace Celeritas
 		/// The label used for player ships in the addresable system.
 		/// </summary>
 		public const string PLAYER_SHIP_TAG = "Player Ships";
+
+		/// <summary>
+		/// The maximum level of effects.
+		/// </summary>
+		public const int MAX_EFFECT_LEVEL = 5;
 	}
 }
