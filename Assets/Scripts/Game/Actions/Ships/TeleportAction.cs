@@ -1,7 +1,5 @@
-using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
-using UnityEngine;
 
 namespace Celeritas.Game.Actions
 {
@@ -15,14 +13,13 @@ namespace Celeritas.Game.Actions
 		{
 			var ship = entity as ShipEntity;
 
-			var delta = (ship.Target - ship.Position).normalized * TeleportData.distance;
-			ship.Position += delta;
-
-			if (ship.IsPlayer)
+			var target = ship.Target;
+			if ((target - ship.Position).magnitude > TeleportData.distance)
 			{
-				var camera = CameraStateManager.CinemachineBrain.ActiveVirtualCamera;
-				camera.OnTargetObjectWarped(PlayerSpawner.Instance.transform, delta);
+				target = (ship.Target - ship.Position).normalized * TeleportData.distance;
 			}
+
+			ship.Position = target;
 		}
 
 		public override void Initialize(ActionData data, bool isPlayer, Entity owner = null)

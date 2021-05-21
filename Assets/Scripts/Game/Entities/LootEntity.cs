@@ -1,14 +1,8 @@
 ﻿using Assets.Scripts.Scriptables.Data;
-using Celeritas.Game;
 using Celeritas.Game.Controllers;
 using Celeritas.Scriptables;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using static Celeritas.Game.Entities.LootController;
 
 namespace Celeritas.Game.Entities
 {

@@ -1,6 +1,6 @@
-﻿using Celeritas.Scriptables;
+﻿using Celeritas.Game.Controllers;
+using Celeritas.Scriptables;
 using UnityEngine;
-using static Celeritas.Game.Entities.LootController;
 
 namespace Assets.Scripts.Scriptables.Data
 {

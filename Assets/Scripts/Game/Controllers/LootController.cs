@@ -1,14 +1,14 @@
 using Assets.Scripts.Scriptables.Data;
-using Celeritas.Game.Controllers;
+using Celeritas.Game.Entities;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Celeritas.Game.Entities
+namespace Celeritas.Game.Controllers
 {
+	public enum LootType { Module, RareMetal }
+
 	public class LootController : Singleton<LootController>
 	{
-		public enum LootType { Module, RareMetal}
-
 		/// <summary>
 		/// The attatched ship data. How many modules the player has.
 		/// </summary>
@@ -42,6 +42,16 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		[SerializeField, PropertyRange(1, 25)]
 		private int maxModuleDropAmount;
+
+		/// <summary>
+		/// Invoked when the amount of modules changes.
+		/// </summary>
+		public static event System.Action<int> OnMoudlesChanged;
+
+		/// <summary>
+		/// Invoked when the amount of rare components changes.
+		/// </summary>
+		public static event System.Action<int> OnRareComponentsChanged;
 
 		/// <summary>
 		/// Generate a loot drop. Currently will automatically be picked up by the player
@@ -95,24 +105,12 @@ namespace Celeritas.Game.Entities
 			{
 				case LootType.Module:
 					ModuleComponents += amount;
-
-					if (CombatHUD.Instance != null)
-					{
-						CombatHUD.Instance.PrintNotification("+" + amount + " Modules!");
-						CombatHUD.Instance.UpdateLootCount(LootType.Module, ModuleComponents);
-					}
-
+					OnMoudlesChanged?.Invoke(ModuleComponents);
 					break;
 
 				case LootType.RareMetal:
 					RareMetals += amount;
-
-					if (CombatHUD.Instance != null)
-					{
-						CombatHUD.Instance.PrintNotification("+"+amount+" Rare Metals!");
-						CombatHUD.Instance.UpdateLootCount(LootType.RareMetal, RareMetals);
-					}
-
+					OnRareComponentsChanged?.Invoke(RareMetals);
 					break;
 			}
 		}

@@ -1,4 +1,5 @@
 using Celeritas.AI;
+using Celeritas.Game.Controllers;
 using Celeritas.Scriptables;
 using Celeritas.UI;
 using Sirenix.OdinInspector;
@@ -14,6 +15,7 @@ namespace Celeritas.Game.Entities
 		Boss,
 		Asteroid
 	}
+
 	/// <summary>
 	/// The game entity for a ship.
 	/// </summary>

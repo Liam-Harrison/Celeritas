@@ -1,11 +1,13 @@
 using Assets.Scripts.Scriptables.Data;
+using Celeritas.Game.Controllers;
 using Celeritas.Scriptables;
 using Celeritas.UI;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Celeritas.Game.Entities {
+namespace Celeritas.Game.Entities
+{
 	/// <summary>
 	/// Asteroid objects that float around space, will give player rare metal when destroyed
 	/// todo: rubble effect when asteroids are destroyed

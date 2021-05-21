@@ -7,6 +7,8 @@ using UnityEngine.UI;
 using Celeritas;
 using Celeritas.Scriptables;
 using Celeritas.Extensions;
+using Celeritas.Game.Entities;
+using System.Linq;
 
 namespace Celeritas.UI
 {
@@ -16,6 +18,9 @@ namespace Celeritas.UI
 
 		[SerializeField, Title("Assignments")]
 		private InventoryUI inventory;
+
+		[SerializeField]
+		private ModuleSelectionUI moduleSelection;
 
 		[SerializeField]
 		private Image drop;
@@ -46,6 +51,11 @@ namespace Celeritas.UI
 			actions.Enable();
 			actions.Fire.performed += FirePerformed;
 			actions.Fire.canceled += FireCanceled;
+
+			if (LootController.Instance.ModuleComponents > 0)
+			{
+				ShowModuleDialog();
+			}
 		}
 
 		private void OnDisable()
@@ -110,6 +120,30 @@ namespace Celeritas.UI
 					canPlace = false;
 				}
 			}
+		}
+
+		private void ShowModuleDialog()
+		{
+			var rnd = new System.Random(System.DateTime.Now.Millisecond);
+
+			var options = EntityDataManager.Instance.Modules
+				.Select(v => new { v, i = rnd.Next() })
+				.OrderBy(x => x.i).Take(3)
+				.Select(x => x.v)
+				.ToArray();
+
+			moduleSelection.SelectOption(options, OnModuleSelected);
+		}
+
+		private void OnModuleSelected(ModuleData module)
+		{
+			LootController.Instance.GivePlayerLoot(LootType.Module, -1);
+
+			PlayerController.Instance.PlayerShipEntity.Inventory.Add(module);
+			inventory.AddInventoryItem(module);
+
+			if (LootController.Instance.ModuleComponents > 0)
+				ShowModuleDialog();
 		}
 
 		public void OnItemDragBegin(InventoryItemUI item)

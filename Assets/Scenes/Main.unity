@@ -5851,14 +5851,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 737836300923066407, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
-      propertyPath: mouseTexture
-      value: 
-      objectReference: {fileID: 2800000, guid: 2a36305686ecfb14a83afbe7cf09fd91, type: 3}
-    - target: {fileID: 1046449283634322293, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5641295164302884695, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -5866,30 +5858,6 @@ PrefabInstance:
     - target: {fileID: 5641295164302884695, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5641295164575736226, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
-      propertyPath: m_Parameters.colorGradient.key0.b
-      value: 0.011747932
-      objectReference: {fileID: 0}
-    - target: {fileID: 5641295164575736226, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
-      propertyPath: m_Parameters.colorGradient.key0.g
-      value: 0.37238422
-      objectReference: {fileID: 0}
-    - target: {fileID: 5641295164575736226, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
-      propertyPath: m_Parameters.colorGradient.key0.r
-      value: 0.8301887
-      objectReference: {fileID: 0}
-    - target: {fileID: 5641295164575736226, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
-      propertyPath: m_Parameters.colorGradient.key1.g
-      value: 0.7325124
-      objectReference: {fileID: 0}
-    - target: {fileID: 5641295164575736226, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5641295164575736226, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5641295164690157525, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5983,17 +5951,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5641295164953991233, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
-      propertyPath: m_SortingOrder
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 5641295164953991236, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_Name
       value: hud_game_main
-      objectReference: {fileID: 0}
-    - target: {fileID: 5641295164972117327, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
-      propertyPath: worldRadius
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5641295164981611789, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

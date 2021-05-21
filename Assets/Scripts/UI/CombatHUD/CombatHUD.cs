@@ -4,8 +4,6 @@ using Celeritas.Game.Entities;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using static Celeritas.Game.Entities.LootController;
 
 /// <summary>
 /// Manages the majority of in-combat HUD interface.
@@ -80,22 +78,29 @@ public class CombatHUD : Singleton<CombatHUD>
 		pooledFloatingShieldStatBars = new ObjectPool<MovingStatBar>(floatingShieldBarPrefab, statbarParent);
 
 		EntityDataManager.OnCreatedEntity += OnCreatedEntity;
+
 		WaveManager.OnWaveStarted += OnWaveStarted;
 		WaveManager.OnWaveEnded += OnWaveEnded;
+
+		LootController.OnMoudlesChanged += OnModulesChanged;
+		LootController.OnRareComponentsChanged += OnRareComponentsChanged;
 
 		TractorAimingLine.SetActive(false);
 
 		base.Awake();
 	}
 
-	private void OnWaveStarted()
+	protected override void OnDestroy()
 	{
-		switchLabel.gameObject.SetActive(false);
-	}
+		EntityDataManager.OnCreatedEntity -= OnCreatedEntity;
 
-	private void OnWaveEnded()
-	{
-		switchLabel.gameObject.SetActive(true);
+		WaveManager.OnWaveStarted -= OnWaveStarted;
+		WaveManager.OnWaveEnded -= OnWaveEnded;
+
+		LootController.OnMoudlesChanged -= OnModulesChanged;
+		LootController.OnRareComponentsChanged -= OnRareComponentsChanged;
+
+		base.OnDestroy();
 	}
 
 	private void OnEnable()
@@ -109,6 +114,49 @@ public class CombatHUD : Singleton<CombatHUD>
 		Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 	}
 
+	private void Update()
+	{
+		// if just starting, link stationary stat bars to PlayerShip
+		if (playerShip == null && PlayerController.Instance != null)
+		{
+			playerShip = PlayerController.Instance.PlayerShipEntity;
+
+			playerMainHealthBar.EntityStats = playerShip.Health;
+
+			playerMainShieldBar.EntityStats = playerShip.Shield;
+		}
+
+		// update floating health bars every loop (so they can follow their ships)
+		UpdateStatBarPool(pooledFloatingHealthStatBars);
+		UpdateStatBarPool(pooledFloatingShieldStatBars);
+	}
+
+	private void OnWaveStarted()
+	{
+		switchLabel.gameObject.SetActive(false);
+	}
+
+	private void OnWaveEnded()
+	{
+		switchLabel.gameObject.SetActive(true);
+	}
+
+	private void OnModulesChanged(int moudles)
+	{
+		if (gameObject.activeInHierarchy)
+			PrintNotification("+" + moudles + " Modules!");
+
+		moduleCountText.text = moudles.ToString();
+	}
+
+	private void OnRareComponentsChanged(int components)
+	{
+		if (gameObject.activeInHierarchy)
+			PrintNotification("+" + components + " Rare Metals!");
+
+		rareMetalsCountText.text = components.ToString();
+	}
+
 	/// <summary>
 	/// Display a notification to the player, via a temporary message tha displays above their ship.
 	/// </summary>
@@ -118,20 +166,6 @@ public class CombatHUD : Singleton<CombatHUD>
 		GameObject toPrint = Instantiate(floatingNotificationPrefab, statbarParent.transform);
 		toPrint.transform.SetParent(statbarParent.transform);
 		toPrint.GetComponent<TextMeshProUGUI>().text = message;
-	}
-
-	public void UpdateLootCount(LootType type, int amount)
-	{
-		if (type == LootType.Module)
-			moduleCountText.text = amount.ToString();
-		if (type == LootType.RareMetal)
-			rareMetalsCountText.text = amount.ToString();
-	}
-
-	protected override void OnDestroy()
-	{
-		EntityDataManager.OnCreatedEntity -= OnCreatedEntity;
-		base.OnDestroy();
 	}
 
 	private void OnCreatedEntity(Entity entity)
@@ -144,22 +178,6 @@ public class CombatHUD : Singleton<CombatHUD>
 			if (! ship.Shield.IsEmpty())
 				AddFloatingShieldBarToShip(ship);
 		}
-	}
-
-	private void Update()
-	{
-		// if just starting, link stationary stat bars to PlayerShip
-		if (playerShip == null && PlayerController.Instance != null) {
-			playerShip = PlayerController.Instance.PlayerShipEntity;
-
-			playerMainHealthBar.EntityStats = playerShip.Health;
-
-			playerMainShieldBar.EntityStats = playerShip.Shield;
-		}
-
-		// update floating health bars every loop (so they can follow their ships)
-		UpdateStatBarPool(pooledFloatingHealthStatBars);
-		UpdateStatBarPool(pooledFloatingShieldStatBars);
 	}
 
 	/// <summary>

@@ -92,7 +92,6 @@ namespace Assets.Scripts.Game
 			}
 			if (thisBlockHasBeenGenerated == false)
 			{
-				Debug.Log("SPAWNING ASTEROIDS");
 				SpawnAsteroidsBetweenBounds(lowerLeft, upperRight);
 			}
 		}
