@@ -35,7 +35,8 @@ namespace Celeritas.UI
 		private Camera mainCamera;
 
 		private (int x, int y) grid;
-		private bool canPlace = false, canUpgrade = false;
+		private bool canPlace = false, canUpgrade = false, replacing = false;
+		private int replacingLevel;
 
 		private void Awake()
 		{
@@ -204,6 +205,7 @@ namespace Celeritas.UI
 		{
 			var mousepos = Mouse.current.position.ReadValue();
 			var ray = mainCamera.ScreenPointToRay(mousepos);
+			replacing = false;
 
 			if (Physics.Raycast(ray, out var hit, 40f, LayerMask.GetMask("Hull")))
 			{
@@ -212,7 +214,11 @@ namespace Celeritas.UI
 
 				if (hull.Modules[grid.x, grid.y].HasModuleAttatched)
 				{
-					BeginDraggingModule(hull.Modules[grid.x, grid.y].AttatchedModule.ModuleData);
+					var entity = hull.Modules[grid.x, grid.y].AttatchedModule;
+					replacingLevel = entity.Level;
+					replacing = true;
+
+					BeginDraggingModule(entity.ModuleData);
 					hull.Modules[grid.x, grid.y].RemoveModule();
 					hull.HullData.HullModuleOrigins[grid.x, grid.y] = null;
 					hull.GenerateModuleWalls();
@@ -240,16 +246,30 @@ namespace Celeritas.UI
 				ship.HullManager.HullData.HullModuleOrigins[grid.x, grid.y] = dragging;
 				ship.HullManager.GenerateModuleWalls();
 
+				if (replacing)
+				{
+					ship.HullManager.Modules[grid.x, grid.y].AttatchedModule.SetLevel(replacingLevel);
+				}
+
 				ship.Inventory.Remove(dragging);
 			}
 			else if (dragging != null)
 			{
 				inventory.AddInventoryItem(dragging);
+
+				if (replacing)
+				{
+					for (int i = 0; i < replacingLevel; i++)
+					{
+						inventory.AddInventoryItem(dragging);
+					}
+				}
 			}
 
 			canUpgrade = false;
 			canPlace = false;
 			dragging = null;
+			replacing = false;
 
 			if (placeObject != null)
 			{
