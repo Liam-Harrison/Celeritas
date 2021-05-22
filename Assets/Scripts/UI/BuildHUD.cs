@@ -228,7 +228,7 @@ namespace Celeritas.UI
 				var ship = PlayerController.Instance.PlayerShipEntity;
 				if (ship.TryGetModuleEntity(dragging, out var entity))
 				{
-					entity.AttatchedModule.IncreaseEffectLevel();
+					entity.IncreaseLevel();
 					ship.Inventory.Remove(dragging);
 				}
 			}

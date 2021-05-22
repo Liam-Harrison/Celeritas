@@ -32,7 +32,6 @@ namespace Celeritas.Scriptables
 		protected Action<Entity, ushort> onUpdated;
 		protected Action<WeaponEntity, ProjectileEntity, ushort> onFired;
 		protected Action<Entity, Entity, ushort> onHit;
-		protected Action<Entity, ushort, ushort> onLevelChanged;
 		
 		protected virtual void OnEnable()
 		{
@@ -188,20 +187,6 @@ namespace Celeritas.Scriptables
 			onFired?.Invoke(entity, projectile, level);
 		}
 
-		/// <summary>
-		/// Update the effect against the new level.
-		/// </summary>
-		/// <param name="entity">The subject entity.</param>
-		/// <param name="previous">The previous level.</param>
-		/// <param name="level">The new level</param>
-		public void OnLevelChanged(Entity entity, ushort previous, ushort level)
-		{
-			if (!IsValidEntity(entity))
-				return;
-
-			onLevelChanged?.Invoke(entity, previous, level);
-		}
-
 		private bool IsValidEntity(Entity entity)
 		{
 			if (entity is ProjectileEntity && !targets.HasFlag(SystemTargets.Projectile))
@@ -230,7 +215,6 @@ namespace Celeritas.Scriptables
 			onAdded = null;
 			onRemoved = null;
 			onFired = null;
-			onLevelChanged = null;
 
 			foreach (var modifier in systems)
 			{
@@ -257,9 +241,6 @@ namespace Celeritas.Scriptables
 
 			if (system is IEntityFired fired)
 				onFired += fired.OnEntityFired;
-
-			if (system is ILevelChanged changed)
-				onLevelChanged += changed.OnLevelChanged;
 		}
 
 		private void RemoveModifierSystemListeners(ModifierSystem system)
@@ -281,9 +262,6 @@ namespace Celeritas.Scriptables
 
 			if (system is IEntityFired fired)
 				onFired -= fired.OnEntityFired;
-
-			if (system is ILevelChanged changed)
-				onLevelChanged -= changed.OnLevelChanged;
 		}
 	}
 }

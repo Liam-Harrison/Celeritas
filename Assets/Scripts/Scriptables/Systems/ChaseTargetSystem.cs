@@ -1,4 +1,3 @@
-using Celeritas.Extensions;
 using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables.Interfaces;
@@ -11,7 +10,7 @@ namespace Celeritas.Scriptables.Systems
 	/// Contains the instanced information for a chase modifier.
 	/// </summary>
 	[CreateAssetMenu(fileName = "New Chase Modifier", menuName = "Celeritas/Modifiers/Chase")]
-	public class ChaseTargetSystem : ModifierSystem, IEntityUpdated, ILevelChanged
+	public class ChaseTargetSystem : ModifierSystem, IEntityUpdated
 	{
 		[SerializeField, Title("Chase Settings")]
 		private float angPerSec;
@@ -85,11 +84,6 @@ namespace Celeritas.Scriptables.Systems
 			}
 
 			entity.transform.localRotation = rotation;
-		}
-
-		public void OnLevelChanged(Entity entity, ushort previous, ushort level)
-		{
-			Debug.Log($"system changed from level {previous} to level {level}");
 		}
 	}
 }

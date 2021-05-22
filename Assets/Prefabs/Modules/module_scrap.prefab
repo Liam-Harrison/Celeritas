@@ -59,9 +59,16 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   hasDefaultEffects: 0
-  defaultEffects:
+  defaultEffects: []
+  level: 0
+  hasShipEffects: 0
+  shipEffects: []
+  hasShipWeaponEffects: 0
+  shipWeaponEffects: []
+  hasShipProjectileEffects: 1
+  shipProjectileEffects:
   - Level: 0
-    EffectCollection: {fileID: 11400000, guid: b5a7799e420c4cf40bbcdbe0932ea6da, type: 2}
+    EffectCollection: {fileID: 11400000, guid: 922abbef8ae38a54da55d963727be36a, type: 2}
 --- !u!114 &4494443437856409355
 MonoBehaviour:
   m_ObjectHideFlags: 0

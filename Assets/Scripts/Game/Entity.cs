@@ -14,7 +14,7 @@ namespace Celeritas.Game
 	/// </summary>
 	public abstract class Entity : SerializedMonoBehaviour
 	{
-		[SerializeField]
+		[SerializeField, Title("Entity Settings")]
 		private bool hasDefaultEffects;
 
 		[SerializeField, ShowIf(nameof(hasDefaultEffects))]

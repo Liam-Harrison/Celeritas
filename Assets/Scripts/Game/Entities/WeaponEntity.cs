@@ -1,5 +1,6 @@
 using Celeritas.Extensions;
 using Celeritas.Scriptables;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace Celeritas.Game.Entities
 	/// </summary>
 	public class WeaponEntity : ModuleEntity
 	{
-		[SerializeField]
+		[SerializeField, Title("Weapon Settings")]
 		private Transform projectileSpawn;
 
 		private uint rateOfFire;

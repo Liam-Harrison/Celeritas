@@ -10,7 +10,7 @@ namespace Celeritas.Game
 	/// Wraps an effect collection and allows you to modify the level of the collection.
 	/// </summary>
 	[System.Serializable]
-	public struct EffectWrapper
+	public class EffectWrapper
 	{
 		[Title("Effect Settings"), PropertyRange(0, 5)]
 		public ushort Level;
@@ -165,48 +165,6 @@ namespace Celeritas.Game
 			foreach (var effect in effects)
 			{
 				effect.EffectCollection.OnFired(owner as WeaponEntity, projectile, effect.Level);
-			}
-		}
-
-		/// <summary>
-		/// Increase the level of the effects attatched to this entity.
-		/// </summary>
-		public void IncreaseEffectLevel()
-		{
-			for (int i = 0; i < effects.Count; i++)
-			{
-				var wrapper = effects[i];
-
-				var level = wrapper.Level;
-				var changed = (ushort)Mathf.Clamp(level + 1, 0, Constants.MAX_EFFECT_LEVEL);
-
-				if (level != changed)
-				{
-					wrapper.Level = changed;
-					effects[i] = wrapper;
-					effects[i].EffectCollection.OnLevelChanged(owner, level, changed);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Decrease the level of the effects attatched to this entity.
-		/// </summary>
-		public void DecreaseEffectLevel()
-		{
-			for (int i = 0; i < effects.Count; i++)
-			{
-				var wrapper = effects[i];
-
-				var level = wrapper.Level;
-				var changed = (ushort)Mathf.Clamp(level - 1, 0, Constants.MAX_EFFECT_LEVEL);
-
-				if (level != changed)
-				{
-					wrapper.Level = changed;
-					effects[i] = wrapper;
-					effects[i].EffectCollection.OnLevelChanged(owner, level, changed);
-				}
 			}
 		}
 	}
