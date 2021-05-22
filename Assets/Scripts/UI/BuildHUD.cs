@@ -142,6 +142,7 @@ namespace Celeritas.UI
 				placeObject.SetActive(false);
 				placingMaterial.color = new Color(1, 0, 0);
 				canPlace = false;
+				canUpgrade = false;
 			}
 		}
 
