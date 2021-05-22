@@ -144,6 +144,9 @@ namespace Celeritas.Game
 			}
 		}
 
+		/// <summary>
+		/// Increase the level of the effects on the entity attatched to this module.
+		/// </summary>
 		public void IncreaseEffectLevel()
 		{
 			if (AttatchedModule != null)
@@ -167,6 +170,9 @@ namespace Celeritas.Game
 			}
 		}
 
+		/// <summary>
+		/// Decrease the level of the effects on the entity attatched to this module.
+		/// </summary>
 		public void DecreaseEffectLevel()
 		{
 			if (AttatchedModule != null)

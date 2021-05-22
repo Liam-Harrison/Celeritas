@@ -76,6 +76,10 @@ namespace Celeritas.UI
 			}
 		}
 
+		/// <summary>
+		/// Internally update the placement of the dragged object.
+		/// </summary>
+		/// <param name="mousepos">The position of the mouse.</param>
 		private void RaycastModulePlacement(Vector2 mousepos)
 		{
 			var ray = mainCamera.ScreenPointToRay(mousepos);
