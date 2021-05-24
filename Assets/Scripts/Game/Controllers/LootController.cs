@@ -46,12 +46,12 @@ namespace Celeritas.Game.Controllers
 		/// <summary>
 		/// Invoked when the amount of modules changes.
 		/// </summary>
-		public static event System.Action<int> OnMoudlesChanged;
+		public static event System.Action<int, int> OnModulesChanged;
 
 		/// <summary>
 		/// Invoked when the amount of rare components changes.
 		/// </summary>
-		public static event System.Action<int> OnRareComponentsChanged;
+		public static event System.Action<int, int> OnRareComponentsChanged;
 
 		/// <summary>
 		/// Generate a loot drop. Currently will automatically be picked up by the player
@@ -105,12 +105,12 @@ namespace Celeritas.Game.Controllers
 			{
 				case LootType.Module:
 					ModuleComponents += amount;
-					OnMoudlesChanged?.Invoke(ModuleComponents);
+					OnModulesChanged?.Invoke(ModuleComponents, amount);
 					break;
 
 				case LootType.RareMetal:
 					RareMetals += amount;
-					OnRareComponentsChanged?.Invoke(RareMetals);
+					OnRareComponentsChanged?.Invoke(RareMetals, amount);
 					break;
 			}
 		}
