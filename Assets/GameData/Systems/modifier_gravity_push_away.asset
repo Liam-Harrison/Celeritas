@@ -50,3 +50,4 @@ MonoBehaviour:
     m_RotationOrder: 4
   radiusOfEffect: 25
   extraRadiusPerLevel: 5
+  affectsAsteroids: 1

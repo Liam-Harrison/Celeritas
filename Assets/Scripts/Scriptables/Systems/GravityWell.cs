@@ -34,6 +34,9 @@ namespace Celeritas.Scriptables.Systems {
 		[SerializeField, Title("Extra Radius Per Level")]
 		private float extraRadiusPerLevel;
 
+		[SerializeField, Title("Affects Asteroids? true = yes")]
+		private bool affectsAsteroids;
+
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{
 			var ownerShip = entity as ShipEntity; // the ship that the effect originates from
@@ -62,7 +65,7 @@ namespace Celeritas.Scriptables.Systems {
 				
 				Entity foreignEntity = rigidBody.GetComponent<ShipEntity>(); // other ship
 
-				if (foreignEntity == null)
+				if (affectsAsteroids == true && foreignEntity == null)
 					foreignEntity = rigidBody.GetComponent<Asteroid>();
 
 				if (foreignEntity != null)

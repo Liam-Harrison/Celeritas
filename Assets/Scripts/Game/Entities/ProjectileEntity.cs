@@ -70,7 +70,7 @@ namespace Celeritas.Game.Entities
 
 			if (destroyedOnHit)
 				Died = true;
-
+			//Debug.Log(damage);
 			other.TakeDamage(this, damage);
 
 			base.OnEntityHit(other);
