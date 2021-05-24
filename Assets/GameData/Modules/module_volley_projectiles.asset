@@ -71,7 +71,9 @@ MonoBehaviour:
   size: 0
   hasShipEffects: 0
   shipEffects: []
-  hasWeaponEffects: 0
-  weaponEffects: []
+  hasWeaponEffects: 1
+  weaponEffects:
+  - Level: 1
+    EffectCollection: {fileID: 11400000, guid: e3f09900eaa4ffc48af44e95219ce278, type: 2}
   hasProjectileEffects: 0
   projectileEffects: []

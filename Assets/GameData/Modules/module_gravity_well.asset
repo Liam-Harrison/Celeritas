@@ -69,7 +69,11 @@ MonoBehaviour:
   background: {fileID: 21300002, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
   description: Pulls enemies towards you
   size: 0
-  hasDefaultShipEffects: 1
+  hasShipEffects: 1
   shipEffects:
-  - Level: 0
+  - Level: 1
     EffectCollection: {fileID: 11400000, guid: 2be226002fc1da741a7b9d3682128d92, type: 2}
+  hasWeaponEffects: 0
+  weaponEffects: []
+  hasProjectileEffects: 0
+  projectileEffects: []
