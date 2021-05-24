@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ee0d4ee51750af45b7430210d4a5dbd, type: 3}
   m_Name: effect_ship_speed_forward_fast
   m_EditorClassIdentifier: 
-  title: 
+  title: Ship Forward Speed
   targets: 4
   stacks: 0
   systems:

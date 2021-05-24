@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: modifier_gravity_push_away
   m_EditorClassIdentifier: 
   title: Gravity geyser - push enemies away
-  flatForceMultiplier: -1
+  flatForceMultiplier: -0.6
   extraForceMultiplierPerLevel: 0.33
   forceVariation:
     serializedVersion: 2

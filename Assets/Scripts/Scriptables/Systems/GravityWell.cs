@@ -59,20 +59,23 @@ namespace Celeritas.Scriptables.Systems {
 				Rigidbody2D rigidBody = collider.attachedRigidbody;
 				if (rigidBody == null)
 					continue;
+				
+				Entity foreignEntity = rigidBody.GetComponent<ShipEntity>(); // other ship
 
-				var foreignShip = rigidBody.GetComponent<ShipEntity>(); // other ship
+				if (foreignEntity == null)
+					foreignEntity = rigidBody.GetComponent<Asteroid>();
 
-				if (foreignShip != null)
+				if (foreignEntity != null)
 				{
 					// apply force to pull ship towards ownerShip (or push if multiplier is negative)
-					Vector2 betweenShips = (ownerShip.transform.position - foreignShip.transform.position);
+					Vector2 betweenShips = (ownerShip.transform.position - foreignEntity.transform.position);
 					Vector2 directionToPull = betweenShips.normalized;
 
 					float curveMultiplier = forceVariation.Evaluate(betweenShips.magnitude);
 
 					float levelMultiplier = 1 + (level * extraForceMultiplierPerLevel);
-
-					rigidBody.AddForce(directionToPull * curveMultiplier * levelMultiplier * flatForceMultiplier * Time.smoothDeltaTime, ForceMode2D.Force);
+					rigidBody.AddForce(directionToPull * curveMultiplier * levelMultiplier * flatForceMultiplier, ForceMode2D.Force);
+					//rigidBody.AddForce(directionToPull * curveMultiplier * levelMultiplier * flatForceMultiplier * Time.smoothDeltaTime, ForceMode2D.Force);
 				}
 			}
 		}
