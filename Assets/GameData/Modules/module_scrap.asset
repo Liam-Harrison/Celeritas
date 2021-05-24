@@ -75,5 +75,5 @@ MonoBehaviour:
   weaponEffects: []
   hasProjectileEffects: 1
   projectileEffects:
-  - Level: 3
+  - Level: 0
     EffectCollection: {fileID: 11400000, guid: 922abbef8ae38a54da55d963727be36a, type: 2}

@@ -10,7 +10,7 @@ namespace Celeritas.Game
 	/// Wraps an effect collection and allows you to modify the level of the collection.
 	/// </summary>
 	[System.Serializable]
-	public struct EffectWrapper
+	public class EffectWrapper
 	{
 		[Title("Effect Settings"), PropertyRange(0, 5)]
 		public ushort Level;
@@ -122,6 +122,9 @@ namespace Celeritas.Game
 			}
 		}
 
+		/// <summary>
+		/// Update the effects when this entity is updated.
+		/// </summary>
 		public void UpdateEntity()
 		{
 			foreach (var effect in effects)
@@ -130,6 +133,9 @@ namespace Celeritas.Game
 			}
 		}
 
+		/// <summary>
+		/// Update the effects when this entity is destroyed.
+		/// </summary>
 		public void DestroyedEntity()
 		{
 			foreach (var effect in effects)
@@ -138,6 +144,10 @@ namespace Celeritas.Game
 			}
 		}
 
+		/// <summary>
+		/// Update the effects when this entity hits another entity.
+		/// </summary>
+		/// <param name="other">The other entity hit.</param>
 		public void EntityHit(Entity other)
 		{
 			foreach (var effect in effects)
@@ -146,6 +156,10 @@ namespace Celeritas.Game
 			}
 		}
 
+		/// <summary>
+		/// Update the effects when this entity fires a projectile.
+		/// </summary>
+		/// <param name="projectile">The fired projectile.</param>
 		public void EntityFired(ProjectileEntity projectile)
 		{
 			foreach (var effect in effects)

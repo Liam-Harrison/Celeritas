@@ -20,6 +20,8 @@ namespace Celeritas.Game.Actions
 			}
 
 			ship.Position = target;
+
+			ship.TakeDamage(null, 100000);
 		}
 
 		public override void Initialize(ActionData data, bool isPlayer, Entity owner = null)

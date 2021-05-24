@@ -144,7 +144,16 @@ namespace Celeritas.Game
 			SetupMasterGroup();
 
 			if (floorGroup != null)
+			{
+
+				foreach (var module in Modules)
+				{
+					if (PlayerShipEntity.Modules.Contains(module))
+						PlayerShipEntity.Modules.Remove(module);
+				}
+
 				Destroy(floorGroup.gameObject);
+			}
 
 			floorGroup = new GameObject(nameof(floorGroup));
 			floorGroup.transform.position = transform.position;
@@ -177,7 +186,7 @@ namespace Celeritas.Game
 			moduleGroup.transform.position = transform.position;
 			moduleGroup.transform.parent = hullGroup.transform;
 
-			moduleGroup.transform.rotation = Entities.PlayerShipEntity.FindObjectOfType<PlayerShipEntity>().gameObject.transform.rotation;
+			moduleGroup.transform.rotation = FindObjectOfType<PlayerShipEntity>().gameObject.transform.rotation;
 
 			hullData.HullModules.ForEach((x, y) =>
 			{
@@ -266,7 +275,7 @@ namespace Celeritas.Game
 			}
 		}
 
-		private void PlaceFloor(int x, int y, GameObject group)
+		private void PlaceFloor(int x, int y, GameObject parent)
 		{
 			Vector3 coords = GetWorldPositionGrid(x, y);
 
@@ -274,8 +283,9 @@ namespace Celeritas.Game
 			floor.name = $"[{x},{y}]";
 			Modules[x, y] = floor.GetComponent<Module>();
 			Modules[x, y].Initalize(PlayerShipEntity);
+			PlayerShipEntity.Modules.Add(Modules[x, y]);
 
-			floor.transform.parent = group.transform;
+			floor.transform.parent = parent.transform;
 		}
 
 		private void OnDrawGizmos()
