@@ -82,7 +82,7 @@ public class CombatHUD : Singleton<CombatHUD>
 		WaveManager.OnWaveStarted += OnWaveStarted;
 		WaveManager.OnWaveEnded += OnWaveEnded;
 
-		LootController.OnMoudlesChanged += OnModulesChanged;
+		LootController.OnModulesChanged += OnModulesChanged;
 		LootController.OnRareComponentsChanged += OnRareComponentsChanged;
 
 		TractorAimingLine.SetActive(false);
@@ -97,7 +97,7 @@ public class CombatHUD : Singleton<CombatHUD>
 		WaveManager.OnWaveStarted -= OnWaveStarted;
 		WaveManager.OnWaveEnded -= OnWaveEnded;
 
-		LootController.OnMoudlesChanged -= OnModulesChanged;
+		LootController.OnModulesChanged -= OnModulesChanged;
 		LootController.OnRareComponentsChanged -= OnRareComponentsChanged;
 
 		base.OnDestroy();
@@ -141,18 +141,18 @@ public class CombatHUD : Singleton<CombatHUD>
 		switchLabel.gameObject.SetActive(true);
 	}
 
-	private void OnModulesChanged(int moudles)
+	private void OnModulesChanged(int modules, int amount)
 	{
 		if (gameObject.activeInHierarchy)
-			PrintNotification("+" + moudles + " Modules!");
+			PrintNotification("+" + amount + " Modules!");
 
-		moduleCountText.text = moudles.ToString();
+		moduleCountText.text = modules.ToString();
 	}
 
-	private void OnRareComponentsChanged(int components)
+	private void OnRareComponentsChanged(int components, int amount)
 	{
 		if (gameObject.activeInHierarchy)
-			PrintNotification("+" + components + " Rare Metals!");
+			PrintNotification("+" + amount + " Rare Metals!");
 
 		rareMetalsCountText.text = components.ToString();
 	}

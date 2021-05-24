@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e81afd5e3fc38f04a85d551b5ddbf13e, type: 3}
-  m_Name: module_scrap
+  m_Name: module_ship_speed
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -35,13 +35,13 @@ MonoBehaviour:
       Data: true
     - Name: 
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 5
       Data: false
     - Name: 
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 5
       Data: true
@@ -63,9 +63,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  title: Chase
-  prefab: {fileID: 209961586333920278, guid: b20dc1fa46c57f242b1a5eb59e6190d7, type: 3}
-  icon: {fileID: 21300028, guid: 13699c70ebaae9240ad8a214cb0c1663, type: 3}
-  background: {fileID: 21300000, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
-  description: Causes Projectiles to target your cursor
+  title: Ship Speed
+  prefab: {fileID: 4089323473130755692, guid: e1cc38f2b65f17a4ea4d22833c05e9fd, type: 3}
+  icon: {fileID: 21300044, guid: 13699c70ebaae9240ad8a214cb0c1663, type: 3}
+  background: {fileID: 21300004, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
+  description: Speeds up your ship!
   size: 0

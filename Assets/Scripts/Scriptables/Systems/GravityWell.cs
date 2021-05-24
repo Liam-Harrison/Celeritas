@@ -34,18 +34,22 @@ namespace Celeritas.Scriptables.Systems {
 		[SerializeField, Title("Extra Radius Per Level")]
 		private float extraRadiusPerLevel;
 
+		[SerializeField, Title("Affects Asteroids? true = yes")]
+		private bool affectsAsteroids;
+
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{
 			var ownerShip = entity as ShipEntity; // the ship that the effect originates from
 
 			// see how big the ships' collider is, and pick the biggest dimension
-			Collider2D ownerCollider = ownerShip.gameObject.GetComponent<Collider2D>();
-			float colliderSize = ownerCollider.bounds.size.y;
-			if (ownerCollider.bounds.size.x > ownerCollider.bounds.size.y)
-				colliderSize = ownerCollider.bounds.size.x;
+			//Collider2D ownerCollider = ownerShip.gameObject.GetComponent<Collider2D>();
+			//float colliderSize = ownerCollider.bounds.size.y;
+			//if (ownerCollider.bounds.size.x > ownerCollider.bounds.size.y)
+			//	colliderSize = ownerCollider.bounds.size.x;
 
 			// factor owner ship size into radius of effect
-			float radius = radiusOfEffect + colliderSize + level * extraRadiusPerLevel;
+			//float radius = radiusOfEffect + colliderSize + level * extraRadiusPerLevel;
+			float radius = radiusOfEffect + level * extraRadiusPerLevel;
 
 			// find all entities within the specified radius, around ownerShip
 			List <Collider2D> withinRange = new List<Collider2D>();
@@ -58,20 +62,23 @@ namespace Celeritas.Scriptables.Systems {
 				Rigidbody2D rigidBody = collider.attachedRigidbody;
 				if (rigidBody == null)
 					continue;
+				
+				Entity foreignEntity = rigidBody.GetComponent<ShipEntity>(); // other ship
 
-				var foreignShip = rigidBody.GetComponent<ShipEntity>(); // other ship
+				if (affectsAsteroids == true && foreignEntity == null)
+					foreignEntity = rigidBody.GetComponent<Asteroid>();
 
-				if (foreignShip != null)
+				if (foreignEntity != null)
 				{
 					// apply force to pull ship towards ownerShip (or push if multiplier is negative)
-					Vector2 betweenShips = (ownerShip.transform.position - foreignShip.transform.position);
+					Vector2 betweenShips = (ownerShip.transform.position - foreignEntity.transform.position);
 					Vector2 directionToPull = betweenShips.normalized;
 
 					float curveMultiplier = forceVariation.Evaluate(betweenShips.magnitude);
 
 					float levelMultiplier = 1 + (level * extraForceMultiplierPerLevel);
-
-					rigidBody.AddForce(directionToPull * curveMultiplier * levelMultiplier * flatForceMultiplier * Time.smoothDeltaTime, ForceMode2D.Force);
+					rigidBody.AddForce(directionToPull * curveMultiplier * levelMultiplier * flatForceMultiplier, ForceMode2D.Force);
+					//rigidBody.AddForce(directionToPull * curveMultiplier * levelMultiplier * flatForceMultiplier * Time.smoothDeltaTime, ForceMode2D.Force);
 				}
 			}
 		}
