@@ -60,6 +60,15 @@ MonoBehaviour:
   defaultEffects:
   - Level: 0
     EffectCollection: {fileID: 11400000, guid: b5a7799e420c4cf40bbcdbe0932ea6da, type: 2}
+  level: 0
+  hasShipEffects: 0
+  shipEffects:
+  - Level: 0
+    EffectCollection: {fileID: 11400000, guid: b5a7799e420c4cf40bbcdbe0932ea6da, type: 2}
+  hasShipWeaponEffects: 0
+  shipWeaponEffects: []
+  hasShipProjectileEffects: 0
+  shipProjectileEffects: []
 --- !u!114 &3199360981232095790
 MonoBehaviour:
   m_ObjectHideFlags: 0

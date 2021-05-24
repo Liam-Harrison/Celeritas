@@ -50,7 +50,7 @@ MonoBehaviour:
       Data: false
     - Name: 
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 5
       Data: false
@@ -64,16 +64,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
   title: Volley
-  prefab: {fileID: 209961586333920278, guid: 52dd421291329f94691b9fedf629263e, type: 3}
+  prefab: {fileID: 5485022398934921991, guid: a6e1edd397462fa4f814736fc4a64129, type: 3}
   icon: {fileID: 21300000, guid: 13699c70ebaae9240ad8a214cb0c1663, type: 3}
   background: {fileID: 21300008, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
   description: Shoot multiple shots with one click!
   size: 0
-  hasShipEffects: 0
-  shipEffects: []
-  hasWeaponEffects: 1
-  weaponEffects:
-  - Level: 1
-    EffectCollection: {fileID: 11400000, guid: e3f09900eaa4ffc48af44e95219ce278, type: 2}
-  hasProjectileEffects: 0
-  projectileEffects: []

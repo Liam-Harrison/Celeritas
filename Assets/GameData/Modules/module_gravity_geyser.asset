@@ -69,7 +69,3 @@ MonoBehaviour:
   background: {fileID: 21300004, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
   description: Pushes enemies away from the player
   size: 1
-  hasDefaultShipEffects: 1
-  shipEffects:
-  - Level: 0
-    EffectCollection: {fileID: 11400000, guid: 5ea985607ff9e294aa370a8325b1dfe1, type: 2}
