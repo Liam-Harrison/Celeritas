@@ -3,6 +3,7 @@ using Celeritas.Game.Entities;
 using Celeritas.Scriptables.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using System;
 
 namespace Celeritas.Scriptables.Systems
 {
@@ -41,8 +42,9 @@ namespace Celeritas.Scriptables.Systems
 			float amountToAdd = amount + (level * amountExtraPerLevel);
 
 			uint newValue = (uint)(ship.Shield.MaxValue * amountToAdd);
-
+			Console.WriteLine("Old Shields: " + ship.Shield.MaxValue.ToString());
 			ship.Shield.MaxValue = newValue;
+			Console.WriteLine("New Shields: " + ship.Shield.MaxValue.ToString());
 
 		}
 
