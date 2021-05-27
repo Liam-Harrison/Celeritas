@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "New Wave",
+                    "type": "Button",
+                    "id": "45ba3b74-48a9-450a-b50e-636de7b856da",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -154,6 +162,17 @@
                     "processors": "",
                     "groups": "Controls",
                     "action": "Tractor Beam",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f7da7a28-2901-4f64-81b8-b8e5bac5d23d",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "New Wave",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
