@@ -220,5 +220,16 @@ namespace Celeritas.Game.Controllers
 				}
 			}
 		}
+
+		public void OnNewWave(InputAction.CallbackContext context)
+		{
+			if (GameStateManager.Instance.GameState == GameState.BUILD)
+				return;
+
+			if (context.performed)
+			{
+				WaveManager.Instance.StartWave();
+			}
+		}
 	}
 }

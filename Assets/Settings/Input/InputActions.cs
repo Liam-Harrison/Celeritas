@@ -59,6 +59,14 @@ namespace Celeritas
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""New Wave"",
+                    ""type"": ""Button"",
+                    ""id"": ""45ba3b74-48a9-450a-b50e-636de7b856da"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -169,6 +177,17 @@ namespace Celeritas
                     ""processors"": """",
                     ""groups"": ""Controls"",
                     ""action"": ""Tractor Beam"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f7da7a28-2901-4f64-81b8-b8e5bac5d23d"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls"",
+                    ""action"": ""New Wave"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -309,6 +328,7 @@ namespace Celeritas
             m_Basic_Build = m_Basic.FindAction("Build", throwIfNotFound: true);
             m_Basic_Action = m_Basic.FindAction("Action", throwIfNotFound: true);
             m_Basic_TractorBeam = m_Basic.FindAction("Tractor Beam", throwIfNotFound: true);
+            m_Basic_NewWave = m_Basic.FindAction("New Wave", throwIfNotFound: true);
             // Console
             m_Console = asset.FindActionMap("Console", throwIfNotFound: true);
             m_Console_Toggle = m_Console.FindAction("Toggle", throwIfNotFound: true);
@@ -370,6 +390,7 @@ namespace Celeritas
         private readonly InputAction m_Basic_Build;
         private readonly InputAction m_Basic_Action;
         private readonly InputAction m_Basic_TractorBeam;
+        private readonly InputAction m_Basic_NewWave;
         public struct BasicActions
         {
             private @InputActions m_Wrapper;
@@ -379,6 +400,7 @@ namespace Celeritas
             public InputAction @Build => m_Wrapper.m_Basic_Build;
             public InputAction @Action => m_Wrapper.m_Basic_Action;
             public InputAction @TractorBeam => m_Wrapper.m_Basic_TractorBeam;
+            public InputAction @NewWave => m_Wrapper.m_Basic_NewWave;
             public InputActionMap Get() { return m_Wrapper.m_Basic; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -403,6 +425,9 @@ namespace Celeritas
                     @TractorBeam.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnTractorBeam;
                     @TractorBeam.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnTractorBeam;
                     @TractorBeam.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnTractorBeam;
+                    @NewWave.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnNewWave;
+                    @NewWave.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnNewWave;
+                    @NewWave.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnNewWave;
                 }
                 m_Wrapper.m_BasicActionsCallbackInterface = instance;
                 if (instance != null)
@@ -422,6 +447,9 @@ namespace Celeritas
                     @TractorBeam.started += instance.OnTractorBeam;
                     @TractorBeam.performed += instance.OnTractorBeam;
                     @TractorBeam.canceled += instance.OnTractorBeam;
+                    @NewWave.started += instance.OnNewWave;
+                    @NewWave.performed += instance.OnNewWave;
+                    @NewWave.canceled += instance.OnNewWave;
                 }
             }
         }
@@ -507,6 +535,7 @@ namespace Celeritas
             void OnBuild(InputAction.CallbackContext context);
             void OnAction(InputAction.CallbackContext context);
             void OnTractorBeam(InputAction.CallbackContext context);
+            void OnNewWave(InputAction.CallbackContext context);
         }
         public interface IConsoleActions
         {
