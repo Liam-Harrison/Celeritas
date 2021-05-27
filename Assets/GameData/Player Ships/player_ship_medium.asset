@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: player_ship_medium
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 0
+    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -66,5 +66,5 @@ MonoBehaviour:
   shipClass: 1
   icon: {fileID: 0}
   description: 
-  startingHealth: 25000
-  startingShield: 15000
+  startingHealth: 10000
+  startingShield: 5000
