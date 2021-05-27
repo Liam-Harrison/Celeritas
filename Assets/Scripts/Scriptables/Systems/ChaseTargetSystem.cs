@@ -1,4 +1,4 @@
-using Celeritas.Game;
+﻿using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables.Interfaces;
 using Sirenix.OdinInspector;
@@ -42,9 +42,12 @@ namespace Celeritas.Scriptables.Systems
 		/// <inheritdoc/>
 		public override bool Stacks => false;
 
+		/// <inheritdoc/>
+		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Chase target <color=green>({AngPerSec + AngPerLevel * level}°/s)</color>";
+
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{
-			Vector3 target;
+			Vector3 target = Vector3.zero;
 			
 			if (entity is ProjectileEntity projectile)
 			{
@@ -53,11 +56,6 @@ namespace Celeritas.Scriptables.Systems
 			else if (entity is WeaponEntity weapon)
 			{
 				target = weapon.AttatchedModule.Ship.Target;
-			}
-			else
-			{
-				Debug.LogError($"Type {entity.GetType().Name} not supported on {nameof(ChaseTargetSystem)}");
-				return;
 			}
 
 			var dir = (target - entity.Position).normalized;

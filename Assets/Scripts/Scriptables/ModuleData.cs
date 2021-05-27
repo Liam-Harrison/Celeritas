@@ -34,6 +34,9 @@ namespace Celeritas.Scriptables
 		[SerializeField]
 		private ModuleSize size;
 
+		[SerializeField]
+		private ModuleCatagory catagory;
+
 		[SerializeField, Title("Module Layout")]
 		[TableMatrix(SquareCells = true, DrawElementMethod = nameof(OnLayoutDraw))]
 		private bool[,] moduleLayout = new bool[BaseLayoutResolution, BaseLayoutResolution];
@@ -56,6 +59,11 @@ namespace Celeritas.Scriptables
 		/// The description for the module.
 		/// </summary>
 		public string Description { get => description; }
+
+		/// <summary>
+		/// The catagory of this module.
+		/// </summary>
+		public ModuleCatagory ModuleCatagory { get => catagory; }
 
 		/// <summary>
 		/// The size of this module.

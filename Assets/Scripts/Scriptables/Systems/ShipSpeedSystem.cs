@@ -51,6 +51,9 @@ namespace Celeritas.Scriptables.Systems
 		/// <inheritdoc/>
 		public override SystemTargets Targets =>  SystemTargets.Ship;
 
+		/// <inheritdoc/>
+		public override string GetTooltip(ushort level) => $"<i>Missing</i>";
+
 		public void OnEntityEffectAdded(Entity entity, ushort level)
 		{
 			// TODO: may need to update effect when system levels up, depending on how game loop works.

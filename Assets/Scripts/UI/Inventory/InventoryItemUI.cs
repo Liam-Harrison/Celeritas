@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using Celeritas.UI.Tooltips;
+using Celeritas.Game;
 
 namespace Celeritas.UI.Inventory
 {
 	/// <summary>
 	/// A container for managing a module within the inventory UI.
 	/// </summary>
-	public class InventoryItemUI : MonoBehaviour, IPointerDownHandler
+	public class InventoryItemUI : MonoBehaviour, IPointerDownHandler, ITooltip
 	{
 		[SerializeField, Title("Assignments")]
 		private Image image;
@@ -40,6 +42,8 @@ namespace Celeritas.UI.Inventory
 				label.text = module.Title;
 			}
 		}
+
+		public Entity TooltipEntity => module.EntityInstance;
 
 		public void OnPointerDown(PointerEventData _)
 		{

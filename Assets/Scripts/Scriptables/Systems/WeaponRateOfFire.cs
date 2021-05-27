@@ -15,9 +15,15 @@ public class WeaponRateOfFire : ModifierSystem, IEntityEffectAdded, IEntityEffec
 
 	[SerializeField, Title("Extra Percentage to add per level")]
 	private float percentageExtraPerLevel;
+
+	/// <inheritdoc/>
 	public override bool Stacks => false;
 
+	/// <inheritdoc/>
 	public override SystemTargets Targets => SystemTargets.Weapon;
+
+	/// <inheritdoc/>
+	public override string GetTooltip(ushort level) => $"<i>Missing</i>";
 
 	public void OnEntityEffectAdded(Entity entity, ushort level)
 	{

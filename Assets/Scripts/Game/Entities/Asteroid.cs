@@ -31,14 +31,14 @@ namespace Celeritas.Game.Entities
 		[SerializeField]
 		private GameObject onDestroyEffectPrefab;
 
-		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
+		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
 			AsteroidData = data as AsteroidData;
 			startingHealth = AsteroidData.Health;
 			Rigidbody = GetComponent<Rigidbody2D>();
-			base.Initalize(data, owner, effects, forceIsPlayer);
-
 			onDeathEffect = onDestroyEffectPrefab;
+
+			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
 
 		// Start is called before the first frame update

@@ -40,9 +40,14 @@ namespace Celeritas.Scriptables.Systems
 		/// </summary>
 		public uint ExtraProjectileCountPerLevel { get => extraProjectilesPerLevel; }
 
+		/// <inheritdoc/>
 		public override bool Stacks => false;
 
+		/// <inheritdoc/>
 		public override SystemTargets Targets => SystemTargets.Weapon;
+
+		/// <inheritdoc/>
+		public override string GetTooltip(ushort level) => $"<i>Missing</i>";
 
 
 		public void OnEntityFired(WeaponEntity entity, ProjectileEntity projectile, ushort level)

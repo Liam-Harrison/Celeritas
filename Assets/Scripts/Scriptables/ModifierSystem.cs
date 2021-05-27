@@ -40,8 +40,12 @@ namespace Celeritas.Scriptables
 		/// <summary>
 		/// Get the targets for this system.
 		/// </summary>
-
 		public abstract SystemTargets Targets { get; }
+
+		/// <summary>
+		/// The tooltip for this system.
+		/// </summary>
+		public abstract string GetTooltip(ushort level);
 
 		/// <summary>
 		/// Check if this system includes a specific target.

@@ -18,9 +18,14 @@ namespace Celeritas.Scriptables.Systems {
 		[SerializeField, InfoBox("Percentage extra to add per module level. eg 0.1 would add an extra 20% damage at level 2.")]
 		private float percentageExtraPerLevel;
 
+		/// <inheritdoc/>
 		public override bool Stacks => false;
 
+		/// <inheritdoc/>
 		public override SystemTargets Targets => SystemTargets.Projectile;
+
+		/// <inheritdoc/>
+		public override string GetTooltip(ushort level) => $"<i>Missing</i>";
 
 		/// <summary>
 		/// How much extra percent damage the projectile gets from this modifier initially

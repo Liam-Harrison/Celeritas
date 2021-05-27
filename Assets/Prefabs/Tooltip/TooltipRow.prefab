@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 813562965578198256}
   - component: {fileID: 813562965578198223}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TooltipRow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813562965578198221}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Projectiles
+  m_text: "<color=green>\u25B2</color> Chase target <color=green>(15\xB0 per level)</color>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d29db5fe1fb4fc0498d36d1fdda460c6, type: 2}
   m_sharedMaterial: {fileID: -5440920429722261914, guid: d29db5fe1fb4fc0498d36d1fdda460c6, type: 2}

@@ -1,6 +1,7 @@
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ namespace Celeritas.Game
 	/// <summary>
 	/// Manages an list of effect collections and their systems.
 	/// </summary>
-	public class EffectManager
+	public class EffectManager: IEnumerable<EffectWrapper>
 	{
 		private readonly List<EffectWrapper> effects = new List<EffectWrapper>();
 		private SystemTargets targetType;
@@ -43,6 +44,16 @@ namespace Celeritas.Game
 		/// Get a copy of effects in this collection.
 		/// </summary>
 		public EffectWrapper[] EffectWrapperCopy { get => effects.ToArray(); }
+
+		/// <summary>
+		/// The amount of effects in this manager.
+		/// </summary>
+		public int Length { get => effects.Count; }
+
+		/// <summary>
+		/// Does this effect manager have no effects.
+		/// </summary>
+		public bool IsEmpty { get => Length == 0; }
 
 		/// <summary>
 		/// The target type of these effects.
@@ -166,6 +177,16 @@ namespace Celeritas.Game
 			{
 				effect.EffectCollection.OnFired(owner as WeaponEntity, projectile, effect.Level);
 			}
+		}
+
+		public IEnumerator<EffectWrapper> GetEnumerator()
+		{
+			return ((IEnumerable<EffectWrapper>)EffectWrapperCopy).GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return EffectWrapperCopy.GetEnumerator();
 		}
 	}
 }

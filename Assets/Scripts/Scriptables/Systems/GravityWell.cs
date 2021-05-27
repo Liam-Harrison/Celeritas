@@ -15,9 +15,14 @@ namespace Celeritas.Scriptables.Systems {
 	[CreateAssetMenu(fileName = "New Gravity Well Modifier", menuName = "Celeritas/Modifiers/Gravity Well")]
 	public class GravityWell : ModifierSystem, IEntityUpdated
 	{
+		/// <inheritdoc/>
 		public override bool Stacks => false;
 
+		/// <inheritdoc/>
 		public override SystemTargets Targets => SystemTargets.Ship;
+
+		/// <inheritdoc/>
+		public override string GetTooltip(ushort level) => $"<i>Missing</i>";
 
 		[SerializeField, Title("Flat Force Multiplier"), InfoBox("Adjust this to fine-tune force. Make it negative to push enemies away.")]
 		private float flatForceMultiplier; // this is here to adjust the intensity of the force

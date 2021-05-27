@@ -151,25 +151,28 @@ namespace Celeritas.Game.Entities
 		public bool IsStationary { get; set; }
 
 		/// <inheritdoc/>
-		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
+		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
 			base.Initalize(data, owner, effects, forceIsPlayer);
 
 			Rigidbody = GetComponent<Rigidbody2D>();
 			ShipData = data as ShipData;
 
-			health = new EntityStatBar(ShipData.StartingHealth);
-
-			shield = new EntityStatBar(ShipData.StartingShield);
-
-			ApplyRigidbodySettings();
-
-			foreach (var module in modules)
+			if (!instanced)
 			{
-				module.Initalize(this);
+				health = new EntityStatBar(ShipData.StartingHealth);
+
+				shield = new EntityStatBar(ShipData.StartingShield);
+
+				ApplyRigidbodySettings();
+
+				foreach (var module in modules)
+				{
+					module.Initalize(this);
+				}
 			}
 
-			base.Initalize(data, owner, effects);
+			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
 
 		protected override void Update()
