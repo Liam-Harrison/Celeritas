@@ -39,19 +39,17 @@ namespace Celeritas.Scriptables.Systems
 			// otherwise effects may not reflect levels
 
 			var ship = entity as ShipEntity;
-			float amountToAdd = amount + (level * amountExtraPerLevel);
+			float amountToAdd = 1 + amount + (level * amountExtraPerLevel);
 
 			uint newValue = (uint)(ship.Shield.MaxValue * amountToAdd);
-			Console.WriteLine("Old Shields: " + ship.Shield.MaxValue.ToString());
 			ship.Shield.MaxValue = newValue;
-			Console.WriteLine("New Shields: " + ship.Shield.MaxValue.ToString());
 
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, ushort level)
 		{
 			var ship = entity as ShipEntity;
-			float amountToAdd = amount + (level * amountExtraPerLevel);
+			float amountToAdd = 1 + amount + (level * amountExtraPerLevel);
 
 			uint newValue = (uint)(ship.Shield.MaxValue / amountToAdd);
 
