@@ -1,4 +1,5 @@
 using Celeritas.Scriptables;
+using Celeritas.UI.Tooltips;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace Celeritas.Game.Entities
 	/// <summary>
 	/// The game entity for a module.
 	/// </summary>
-	public class ModuleEntity : Entity
+	public class ModuleEntity : Entity, ITooltip
 	{
 		[SerializeField, Title("Module Settings")]
 		private int level;
@@ -78,6 +79,9 @@ namespace Celeritas.Game.Entities
 		/// The level of this module.
 		/// </summary>
 		public int Level { get => level; private set => level = value; }
+
+		///<inheritdoc/>
+		public Entity TooltipEntity => this;
 
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
