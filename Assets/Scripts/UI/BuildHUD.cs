@@ -102,7 +102,7 @@ namespace Celeritas.UI
 						if (newX >= 0 && newX < hull.HullData.HullLayout.GetLength(0) && newY >= 0 && newY < hull.HullData.HullLayout.GetLength(1))
 						{
 							// checks if there an existing module overlapping or if its outside the ship hull
-							if (hull.HullData.HullModules[newX, newY] != null || hull.HullData.HullLayout[newX, newY] == false)
+							if (hull.Entites[newX, newY] != null || hull.HullData.HullLayout[newX, newY] == false)
 							{
 								isOverModule = true;
 							}
@@ -123,7 +123,7 @@ namespace Celeritas.UI
 				}
 				else
 				{
-					if (hull.HullData.HullModules[grid.x, grid.y] == null && hull.Modules[grid.x, grid.y].HasModuleAttatched == false && isOverModule != true)
+					if (hull.Entites[grid.x, grid.y] == null && hull.Modules[grid.x, grid.y].HasModuleAttatched == false && isOverModule != true)
 					{
 						placeObject.SetActive(true);
 						placingMaterial.color = new Color(0, 1, 0);

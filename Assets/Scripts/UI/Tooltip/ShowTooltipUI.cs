@@ -12,6 +12,7 @@ namespace Celeritas.UI.Tooltips
 
 		private float entered;
 		private bool inside;
+		private bool showing;
 		private ITooltip reference;
 
 		private void Awake()
@@ -21,6 +22,10 @@ namespace Celeritas.UI.Tooltips
 
 		private void OnDisable()
 		{
+			if (showing)
+				Tooltip.Instance.Hide();
+
+			showing = false;
 			inside = false;
 		}
 
@@ -29,6 +34,12 @@ namespace Celeritas.UI.Tooltips
 			if (inside && !Tooltip.Instance.IsShowing && Time.unscaledTime >= entered + waitTime)
 			{
 				Tooltip.Instance.Show(reference.TooltipEntity);
+				showing = true;
+			}
+			else if (!inside && Tooltip.Instance.IsShowing && showing)
+			{
+				Tooltip.Instance.Hide();
+				showing = false;
 			}
 		}
 

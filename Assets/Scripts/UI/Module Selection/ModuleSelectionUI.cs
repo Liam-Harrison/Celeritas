@@ -36,6 +36,7 @@ namespace Celeritas.UI
 
 				item.Label = module.Title;
 				item.Image.sprite = module.Icon;
+				item.Module = module;
 				item.Button.onClick.AddListener(
 				() => {
 					gameObject.SetActive(false);

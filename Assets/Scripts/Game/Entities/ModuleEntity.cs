@@ -81,7 +81,7 @@ namespace Celeritas.Game.Entities
 		public int Level { get => level; private set => level = value; }
 
 		///<inheritdoc/>
-		public Entity TooltipEntity => this;
+		public ModuleEntity TooltipEntity => this;
 
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)

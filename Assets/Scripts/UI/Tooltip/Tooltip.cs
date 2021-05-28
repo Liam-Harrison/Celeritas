@@ -1,8 +1,10 @@
+using Celeritas.Extensions;
 using Celeritas.Game;
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,6 +16,9 @@ namespace Celeritas.UI
 	{
 		[SerializeField, Title("Assignments")]
 		private RectTransform background;
+
+		[SerializeField]
+		private CanvasGroup group;
 
 		[SerializeField]
 		private TextMeshProUGUI title;
@@ -29,6 +34,9 @@ namespace Celeritas.UI
 
 		[SerializeField, PropertyRange(0, 1)]
 		private float waitTime = 0.2f;
+
+		[SerializeField, PropertyRange(0, 1)]
+		private float fadeTime = 0.25f;
 
 		[SerializeField, PropertySpace(0, 20)]
 		private RectTransform parent;
@@ -63,6 +71,8 @@ namespace Celeritas.UI
 
 		private bool hovering = false;
 
+		private bool thisShowing = false;
+
 		protected override void Awake()
 		{
 			camera = Camera.main;
@@ -87,15 +97,20 @@ namespace Celeritas.UI
 					var hull = PlayerController.Instance.PlayerShipEntity.HullManager;
 					var grid = hull.GetGridFromWorld(hit.point);
 
-					if (hull.Modules[grid.x, grid.y].HasModuleAttatched)
+					if (hull.TryGetModuleEntity(grid.x, grid.y, out var module))
 					{
-						var module = hull.Modules[grid.x, grid.y].AttatchedModule;
-						if (IsShowing && module != over)
-							Show(module);
+						over = module;
 
-						over = hull.Modules[grid.x, grid.y].AttatchedModule;
-						hovered = Time.time;
+						if (!hovering)
+							hovered = Time.time;
+						else
+							Show(over);
+
 						hovering = true;
+					}
+					else
+					{
+						hovering = false;
 					}
 				}
 				else
@@ -108,11 +123,13 @@ namespace Celeritas.UI
 				var entity = hit.collider.GetComponentInParent<Entity>();
 				if (entity != null && entity is ModuleEntity module)
 				{
-					if (IsShowing && module != over)
-						Show(module);
-
 					over = module;
-					hovered = Time.time;
+
+					if (!hovering)
+						hovered = Time.time;
+					else
+						Show(over);
+
 					hovering = true;
 				}
 				else
@@ -125,13 +142,22 @@ namespace Celeritas.UI
 				hovering = false;
 			}
 
-			if (Time.time > hovered + waitTime && !IsShowing && over != null && over != Showing)
+			if (hovering && Time.time > hovered + waitTime && !thisShowing && !IsShowing && over != null)
 			{
 				Show(over);
+				thisShowing = true;
 			}
-			else if (!hovering && Time.time > hovered + waitTime && IsShowing && Showing == over)
+			else if (!hovering && Time.time > hovered + waitTime && thisShowing && IsShowing)
 			{
+				thisShowing = false;
 				Hide();
+			}
+
+			if (IsShowing)
+			{
+				var pos = Mouse.current.position.ReadValue();
+				pos.y -= background.rect.height / 2;
+				background.transform.position = Vector3.Lerp(background.transform.position, pos, 0.98f);
 			}
 		}
 
@@ -139,7 +165,7 @@ namespace Celeritas.UI
 		/// Show a tooltip with the information provided within the entity.
 		/// </summary>
 		/// <param name="entity">The entity to present in the tooltip.</param>
-		public void Show(Entity entity)
+		public void Show(ModuleEntity entity)
 		{
 			IsShowing = true;
 			Showing = entity;
@@ -164,20 +190,18 @@ namespace Celeritas.UI
 				if (module.HasShipProjectileEffects)
 					CreateEffectRows(module.ShipProjectileEffects, projectileSubheader);
 			}
-			else
-			{
-				description.text = "<i>Not Implemented</i>";
-				subtitle.text = $"<i>Not Implemented</i>";
 
-				CreateEffectRows(entity.EntityEffects, effectSubheader);
+			if (!background.gameObject.activeInHierarchy)
+			{
+				var pos = Mouse.current.position.ReadValue();
+				pos.y -= background.rect.height / 2;
+				background.transform.position = pos;
+
+				StopAllCoroutines();
+				StartCoroutine(FadeIn());
 			}
 
-			background.gameObject.SetActive(true);
 			RebuildLayout();
-
-			var pos = Mouse.current.position.ReadValue();
-			pos.y -= background.rect.height / 2;
-			background.transform.position = pos;
 		}
 
 		/// <summary>
@@ -185,9 +209,12 @@ namespace Celeritas.UI
 		/// </summary>
 		public void Hide()
 		{
+			if (!IsShowing)
+				return;
+
 			IsShowing = false;
-			background.gameObject.SetActive(false);
-			CleanupChildren();
+			StopAllCoroutines();
+			StartCoroutine(FadeOut());
 		}
 
 		private void CleanupChildren()
@@ -204,7 +231,6 @@ namespace Celeritas.UI
 				if (!IsSubheader(child))
 				{
 					Destroy(child.gameObject);
-					i--;
 				}
 			}
 		}
@@ -245,13 +271,62 @@ namespace Celeritas.UI
 
 		private void RebuildLayout()
 		{
-			for (int i = 0; i < parent.childCount; i++)
+			foreach (var rect in parent.GetComponentsInChildren<RectTransform>())
 			{
-				LayoutRebuilder.ForceRebuildLayoutImmediate(parent.GetChild(i).GetComponent<RectTransform>());
+				LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
 			}
 
 			LayoutRebuilder.ForceRebuildLayoutImmediate(parent);
 			LayoutRebuilder.ForceRebuildLayoutImmediate(background);
+
+			Canvas.ForceUpdateCanvases();
+		}
+
+		private IEnumerator FadeIn()
+		{
+			group.alpha = 0;
+
+			background.gameObject.SetActive(true);
+			RebuildLayout();
+
+			yield return null;
+
+			background.gameObject.SetActive(false);
+			RebuildLayout();
+
+			yield return null;
+
+			background.gameObject.SetActive(true);
+			RebuildLayout();
+
+			float started = Time.unscaledTime;
+			float p;
+
+			do
+			{
+				p = Mathf.Clamp01((Time.unscaledTime - started) / fadeTime);
+				group.alpha = p;
+				yield return null;
+			} while (p < 1f);
+
+			yield break;
+		}
+
+		private IEnumerator FadeOut()
+		{
+			float started = Time.unscaledTime;
+			float p;
+
+			do
+			{
+				p = Mathf.Clamp01((Time.unscaledTime - started) / fadeTime);
+				group.alpha = 1f - p;
+				yield return null;
+			} while (p < 1f);
+
+			background.gameObject.SetActive(false);
+			CleanupChildren();
+			yield break;
 		}
 	}
 }

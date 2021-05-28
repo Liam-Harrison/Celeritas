@@ -250,7 +250,7 @@ MonoBehaviour:
     SerializationNodes: []
   hasDefaultEffects: 0
   defaultEffects: []
-  level: 5
+  level: 0
   hasShipEffects: 1
   shipEffects:
   - Level: 0

@@ -1,4 +1,4 @@
-using Celeritas.Game;
+﻿using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables.Interfaces;
 using Sirenix.OdinInspector;
@@ -52,7 +52,7 @@ namespace Celeritas.Scriptables.Systems
 		public override SystemTargets Targets =>  SystemTargets.Ship;
 
 		/// <inheritdoc/>
-		public override string GetTooltip(ushort level) => $"<i>Missing</i>";
+		public override string GetTooltip(ushort level) => $"<color=green>▲</color>{AffectDirections} Speed <color=green>({(amount + amountExtraPerLevel * level) * 100:0}%)</color>";
 
 		public void OnEntityEffectAdded(Entity entity, ushort level)
 		{

@@ -1,9 +1,9 @@
-using Celeritas.Game;
+using Celeritas.Game.Entities;
 
 namespace Celeritas.UI.Tooltips
 {
 	public interface ITooltip
 	{
-		public Entity TooltipEntity { get; }
+		public ModuleEntity TooltipEntity { get; }
 	}
 }

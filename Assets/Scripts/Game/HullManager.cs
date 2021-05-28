@@ -41,6 +41,8 @@ namespace Celeritas.Game
 
 		public Module[,] Modules { get; private set; }
 
+		public ModuleEntity[,] Entites { get; private set; }
+
 		public PlayerShipEntity PlayerShipEntity { get => playerShipEntity; }
 
 		private enum Direction
@@ -52,12 +54,12 @@ namespace Celeritas.Game
 		}
 
 		private Dictionary<Direction, Vector2> DirectionMap = new Dictionary<Direction, Vector2>
-	{
-		{Direction.North, new Vector2(0,1) },
-		{Direction.East, new Vector2(1,0) },
-		{Direction.South, new Vector2(0,-1) },
-		{Direction.West, new Vector2(-1,0) },
-	};
+		{
+			{Direction.North, new Vector2(0,1) },
+			{Direction.East, new Vector2(1,0) },
+			{Direction.South, new Vector2(0,-1) },
+			{Direction.West, new Vector2(-1,0) },
+		};
 
 		// Properties
 
@@ -95,6 +97,12 @@ namespace Celeritas.Game
 			var x = Mathf.RoundToInt(delta.y);
 			var y = Mathf.RoundToInt(delta.x) + hullData.HullLayout.GetLength(1) / 2;
 			return (x, y);
+		}
+
+		public bool TryGetModuleEntity(int x, int y, out ModuleEntity entity)
+		{
+			entity = Entites[x, y];
+			return entity != null;
 		}
 
 		/// <summary>
@@ -176,7 +184,27 @@ namespace Celeritas.Game
 		[ButtonGroup]
 		public void GenerateModuleWalls()
 		{
-			hullData.GenerateModuleSizes();
+			Entites = new ModuleEntity[hullData.HullLayout.GetLength(0), hullData.HullLayout.GetLength(1)];
+
+			for (int x = 0; x < Modules.GetLength(0); x++)
+			{
+				for (int y = 0; y < Modules.GetLength(1); y++)
+				{
+					var module = Modules[x, y];
+
+					if (module != null && module.HasModuleAttatched)
+					{
+						module.AttatchedModule.ModuleData.ModuleLayout.ForEach((mx, my) =>
+						{
+							if (module.AttatchedModule.ModuleData.ModuleLayout[mx, my] == true)
+							{
+								Entites[x + mx, y + my] = module.AttatchedModule;
+							}
+						});
+					}
+				}
+			}
+
 			SetupMasterGroup();
 
 			if (moduleGroup != null)
@@ -188,30 +216,37 @@ namespace Celeritas.Game
 
 			moduleGroup.transform.rotation = FindObjectOfType<PlayerShipEntity>().gameObject.transform.rotation;
 
-			hullData.HullModules.ForEach((x, y) =>
+			for (int x = 0; x < hullData.HullLayout.GetLength(0); x++)
 			{
-				if (hullData.HullModules[x, y] != null)
+				for (int y = 0; y < hullData.HullLayout.GetLength(1); y++)
 				{
-					foreach (KeyValuePair<Direction, Vector2> pair in DirectionMap)
+					var value = Entites[x, y];
+
+					if (value != null)
 					{
-						int newX = x + (int)pair.Value.x;
-						int newY = y + (int)pair.Value.y;
-						if (newX >= 0 && newX < hullData.HullLayout.GetLength(0) && newY >= 0 && newY < hullData.HullLayout.GetLength(1))
+						foreach (KeyValuePair<Direction, Vector2> pair in DirectionMap)
 						{
-							ModuleData originalCell = hullData.HullModules[x, y];
-							ModuleData newCell = hullData.HullModules[newX, newY];
-							if (newCell != originalCell) { // If cell does not match neighbour
-								PlaceWall(x, y, pair.Key, moduleGroup);
-							}
-							else if (newCell == null) // If there is space
+							int newX = x + (int)pair.Value.x;
+							int newY = y + (int)pair.Value.y;
+							if (newX >= 0 && newX < hullData.HullLayout.GetLength(0) && newY >= 0 && newY < hullData.HullLayout.GetLength(1))
 							{
-								PlaceWall(x, y, pair.Key, moduleGroup);
+								var originalCell = Entites[x, y];
+								var newCell = Entites[newX, newY];
+
+								if (newCell != originalCell)
+								{ // If cell does not match neighbour
+									PlaceWall(x, y, pair.Key, moduleGroup);
+								}
+								else if (newCell == null) // If there is space
+								{
+									PlaceWall(x, y, pair.Key, moduleGroup);
+								}
+
 							}
-							
 						}
 					}
 				}
-			});
+			}
 		}
 
 		private void SetupMasterGroup()

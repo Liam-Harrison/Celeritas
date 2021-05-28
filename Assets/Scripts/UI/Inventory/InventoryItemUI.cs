@@ -1,11 +1,11 @@
+using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
-using Sirenix.OdinInspector;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.EventSystems;
 using Celeritas.UI.Tooltips;
-using Celeritas.Game;
+using Sirenix.OdinInspector;
+using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Celeritas.UI.Inventory
 {
@@ -43,7 +43,7 @@ namespace Celeritas.UI.Inventory
 			}
 		}
 
-		public Entity TooltipEntity => module.EntityInstance;
+		public ModuleEntity TooltipEntity => (ModuleEntity) module.EntityInstance;
 
 		public void OnPointerDown(PointerEventData _)
 		{

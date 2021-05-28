@@ -2,6 +2,7 @@ using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using Celeritas.Extensions;
 using UnityEngine;
+using Celeritas.Game.Entities;
 
 namespace Celeritas.Scriptables
 {
@@ -31,12 +32,6 @@ namespace Celeritas.Scriptables
 		[TableMatrix(HorizontalTitle = "Right of ship", VerticalTitle = "Back of ship", SquareCells = true, DrawElementMethod = nameof(DrawModuleOriginPreview))]
 		private ModuleData[,] hullModuleOrigins = new ModuleData[BaseLayoutResolution, BaseLayoutResolution];
 
-		[HorizontalGroup("Split", GroupSize)]
-		[BoxGroup("Split/Ship Modules (Don't Touch)")]
-		[SerializeField]
-		[TableMatrix(HorizontalTitle = "Right of ship", VerticalTitle = "Back of ship", SquareCells = true, DrawElementMethod = nameof(DrawModulePreview))]
-		private ModuleData[,] hullModules = new ModuleData[BaseLayoutResolution, BaseLayoutResolution];
-
 		// Properties
 
 		/// <summary>
@@ -51,36 +46,6 @@ namespace Celeritas.Scriptables
 		public ModuleData[,] HullModuleOrigins { get => hullModuleOrigins; set => hullModuleOrigins = value; }
 
 		/// <summary>
-		/// Ship's module position data.
-		/// </summary>
-		/// <value></value>
-		public ModuleData[,] HullModules { get => hullModules; set => hullModules = value; }
-
-
-		/// <summary>
-		/// Uses the origin position of each module to populate the ship modules 2D array with each modules respective layout
-		/// </summary>
-		[Button("Generate Module Sizes")]
-		public void GenerateModuleSizes()
-		{
-			hullModules = new ModuleData[BaseLayoutResolution, BaseLayoutResolution];
-			hullModuleOrigins.ForEach((x, y) =>
-			{
-				var currentModule = hullModuleOrigins[x, y];
-				if (currentModule != null)
-				{
-					currentModule.ModuleLayout.ForEach((mx, my) =>
-					{
-						if (currentModule.ModuleLayout[mx, my] == true)
-						{
-							hullModules[x + mx, y + my] = currentModule;
-						}
-					});
-				}
-			});
-		}
-
-		/// <summary>
 		/// Removes any data in the 2D arrays
 		/// </summary>
 		[Button]
@@ -88,7 +53,6 @@ namespace Celeritas.Scriptables
 		{
 			hullLayout = new bool[BaseLayoutResolution, BaseLayoutResolution];
 			hullModuleOrigins = new ModuleData[BaseLayoutResolution, BaseLayoutResolution];
-			hullModules = new ModuleData[BaseLayoutResolution, BaseLayoutResolution];
 		}
 
 		/// <summary>
@@ -98,30 +62,6 @@ namespace Celeritas.Scriptables
 		public void ResetModuleData()
 		{
 			hullModuleOrigins = new ModuleData[BaseLayoutResolution, BaseLayoutResolution];
-			hullModules = new ModuleData[BaseLayoutResolution, BaseLayoutResolution];
-		}
-
-		private ModuleData DrawModulePreview(Rect rect, ModuleData value, int x, int y)
-		{
-#if UNITY_EDITOR
-			if (HullLayout[x, y] == true)
-			{
-				if (value != null)
-				{
-					Texture2D preview = value.Icon.ToTexture2D();
-					value = (ModuleData)Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(rect, value, preview, typeof(ModuleData));
-				}
-				else
-				{
-					value = (ModuleData)Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(rect, value, typeof(ModuleData));
-				}
-			}
-			else
-			{
-				value = null;
-			}
-#endif
-			return value;
 		}
 
 		private bool isOdd(int value)
@@ -157,7 +97,6 @@ namespace Celeritas.Scriptables
 			if (isOdd(value))
 			{
 				hullLayout = new bool[LayoutResolution, LayoutResolution];
-				hullModules = new ModuleData[LayoutResolution, LayoutResolution];
 			}
 		}
 

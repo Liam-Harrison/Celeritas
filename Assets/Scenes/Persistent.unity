@@ -173,10 +173,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   background: {fileID: 1578591729}
+  group: {fileID: 444574384}
   title: {fileID: 2105295936}
   subtitle: {fileID: 1167519857}
   description: {fileID: 618321488}
   textrow: {fileID: 813562965578198221, guid: 13095d8e30eb5194cb694490f55de82e, type: 3}
+  waitTime: 0.2
+  fadeTime: 0.1
   parent: {fileID: 790637119}
   effectSubheader: {fileID: 1939144661}
   shipSubheader: {fileID: 895173431}
@@ -195,6 +198,7 @@ GameObject:
   - component: {fileID: 444574380}
   - component: {fileID: 444574379}
   - component: {fileID: 444574383}
+  - component: {fileID: 444574384}
   m_Layer: 5
   m_Name: overlay_canvas
   m_TagString: Untagged
@@ -261,7 +265,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!224 &444574382
 RectTransform:
@@ -295,6 +299,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f28c156f7a9ed8b4bae883883f9c937d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &444574384
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444574378}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &580481486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1852,7 +1868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.98039216}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
