@@ -17,7 +17,7 @@ namespace Celeritas.Game
 		protected override void Awake()
 		{
 			waveIndex = 0;
-			WaveLootValues = new List<int>() { 5, 7, 10 };
+			WaveLootValues = new List<int>() { 5, 15 };
 		}
 
 		[SerializeField]
@@ -37,7 +37,8 @@ namespace Celeritas.Game
 		public void StartWave()
 		{
 			WaveActive = true;
-			waveIndex = (int)Mathf.Repeat(waveIndex, data.Length - 1);
+			//waveIndex = (int)Mathf.Repeat(waveIndex, data.Length - 1);
+			Debug.Log("WaveIndex: " + waveIndex);
 			var wave = data[waveIndex];
 			ships[wave] = new List<ShipEntity>();
 
@@ -53,6 +54,10 @@ namespace Celeritas.Game
 
 			OnWaveStarted?.Invoke();
 			waveIndex++;
+			if (waveIndex >= data.Length)
+			{
+				waveIndex = 0;
+			}
 		}
 
 		private Dictionary<WaveData, List<ShipEntity>> ships = new Dictionary<WaveData, List<ShipEntity>>();
