@@ -75,6 +75,11 @@ namespace Celeritas.UI
 
 				RaycastModulePlacement(mousepos);
 			}
+			else
+			{
+
+			}
+
 		}
 
 		/// <summary>

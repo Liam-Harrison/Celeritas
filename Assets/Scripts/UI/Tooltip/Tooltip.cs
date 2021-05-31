@@ -5,6 +5,7 @@ using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,6 +15,18 @@ namespace Celeritas.UI
 {
 	public class Tooltip : Singleton<Tooltip>
 	{
+		private class TooltipRequest
+		{
+			public GameObject requester;
+			public ModuleEntity entity;
+
+			public TooltipRequest(GameObject requester, ModuleEntity entity)
+			{
+				this.requester = requester;
+				this.entity = entity;
+			}
+		}
+
 		[SerializeField, Title("Assignments")]
 		private RectTransform background;
 
@@ -38,6 +51,9 @@ namespace Celeritas.UI
 		[SerializeField, PropertyRange(0, 1)]
 		private float fadeTime = 0.25f;
 
+		[SerializeField, PropertyRange(0, 12)]
+		private float padding = 4f;
+
 		[SerializeField, PropertySpace(0, 20)]
 		private RectTransform parent;
 
@@ -61,135 +77,69 @@ namespace Celeritas.UI
 		/// <summary>
 		/// The entity currently being shown.
 		/// </summary>
-		public Entity Showing { get; private set; }
-
-		private new Camera camera;
-
-		private ModuleEntity over;
-
-		private float hovered = 0;
-
-		private bool hovering = false;
-
-		private bool thisShowing = false;
+		public Entity Showing { get => requested.entity; }
 
 		protected override void Awake()
 		{
-			camera = Camera.main;
 			CleanupChildren();
-
 			base.Awake();
 		}
 
 		private void Update()
 		{
-			if (GameStateManager.Instance.GameState == GameState.PLAY ||
-				GameStateManager.Instance.GameState == GameState.BOSS)
-				return;
-
-			var ray = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
-			RaycastHit hit;
-
-			if (GameStateManager.Instance.GameState == GameState.BUILD)
-			{
-				if (Physics.Raycast(ray, out hit, 40f, LayerMask.GetMask("Hull")))
-				{
-					var hull = PlayerController.Instance.PlayerShipEntity.HullManager;
-					var grid = hull.GetGridFromWorld(hit.point);
-
-					if (hull.TryGetModuleEntity(grid.x, grid.y, out var module))
-					{
-						over = module;
-
-						if (!hovering)
-							hovered = Time.time;
-						else
-							Show(over);
-
-						hovering = true;
-					}
-					else
-					{
-						hovering = false;
-					}
-				}
-				else
-				{
-					hovering = false;
-				}
-			}
-			else if (Physics.Raycast(ray, out hit, 20f))
-			{
-				var entity = hit.collider.GetComponentInParent<Entity>();
-				if (entity != null && entity is ModuleEntity module)
-				{
-					over = module;
-
-					if (!hovering)
-						hovered = Time.time;
-					else
-						Show(over);
-
-					hovering = true;
-				}
-				else
-				{
-					hovering = false;
-				}
-			}
-			else
-			{
-				hovering = false;
-			}
-
-			if (hovering && Time.time > hovered + waitTime && !thisShowing && !IsShowing && over != null)
-			{
-				Show(over);
-				thisShowing = true;
-			}
-			else if (!hovering && Time.time > hovered + waitTime && thisShowing && IsShowing)
-			{
-				thisShowing = false;
-				Hide();
-			}
-
 			if (IsShowing)
 			{
 				var pos = Mouse.current.position.ReadValue();
-				pos.y -= background.rect.height / 2;
-				background.transform.position = Vector3.Lerp(background.transform.position, pos, 0.98f);
+				var halfWidth = background.sizeDelta.x / 2f;
+				var halfHeight = background.sizeDelta.y / 2f;
+
+				pos.y -= halfHeight;
+
+				if (pos.x + halfWidth + padding > Screen.width)
+					pos.x -= (pos.x + halfWidth + padding) - Screen.width;
+
+				background.transform.position = Vector3.Lerp(background.transform.position, pos, 0.95f);
 			}
 		}
+
+		private readonly List<TooltipRequest> requests = new List<TooltipRequest>();
+		private TooltipRequest requested;
 
 		/// <summary>
 		/// Show a tooltip with the information provided within the entity.
 		/// </summary>
 		/// <param name="entity">The entity to present in the tooltip.</param>
-		public void Show(ModuleEntity entity)
+		public void RequestShow(GameObject requester, ModuleEntity entity)
 		{
+			if (requested != null && !HasRequester(requester))
+				requests.Add(new TooltipRequest(requester, entity));
+			else
+				ShowTooltip(new TooltipRequest(requester, entity));
+		}
+
+		private void ShowTooltip(TooltipRequest request)
+		{
+			requested = request;
 			IsShowing = true;
-			Showing = entity;
 
 			CleanupChildren();
 
-			title.text = entity.Data.Title;
+			var module = request.entity;
+			title.text = module.Data.Title;
 
-			if (entity is ModuleEntity module)
-			{
-				description.text = $"{module.ModuleData.Description}";
-				subtitle.text = $"{module.ModuleData.ModuleCatagory} - {module.ModuleData.ModuleSize} - Level {module.Level}";
+			description.text = $"{module.ModuleData.Description}";
+			subtitle.text = $"{module.ModuleData.ModuleCatagory} - {module.ModuleData.ModuleSize} - Level {module.Level}";
 
-				CreateEffectRows(entity.EntityEffects, effectSubheader);
+			CreateEffectRows(module.EntityEffects, effectSubheader);
 
-				if (module.HasShipEffects)
-					CreateEffectRows(module.ShipEffects, shipSubheader);
+			if (module.HasShipEffects)
+				CreateEffectRows(module.ShipEffects, shipSubheader);
 
-				if (module.HasShipWeaponEffects)
-					CreateEffectRows(module.ShipWeaponEffects, weaponSubheader);
+			if (module.HasShipWeaponEffects)
+				CreateEffectRows(module.ShipWeaponEffects, weaponSubheader);
 
-				if (module.HasShipProjectileEffects)
-					CreateEffectRows(module.ShipProjectileEffects, projectileSubheader);
-			}
+			if (module.HasShipProjectileEffects)
+				CreateEffectRows(module.ShipProjectileEffects, projectileSubheader);
 
 			if (!background.gameObject.activeInHierarchy)
 			{
@@ -207,12 +157,59 @@ namespace Celeritas.UI
 		/// <summary>
 		/// Hide this tooltip.
 		/// </summary>
-		public void Hide()
+		public void ReleaseRequest(GameObject requester)
 		{
-			if (!IsShowing)
+			if (requested == null || !HasRequester(requester))
 				return;
 
+			if (requests.Count > 0)
+			{
+				for (int i = 0; i < requests.Count; i++)
+				{
+					if (requests[i].requester == requester)
+					{
+						requests.RemoveAt(i);
+						break;
+					}
+				}
+
+				if (requests.Count > 0)
+				{
+					if (requested.requester == requester)
+					{
+						ShowTooltip(requests[0]);
+						requests.RemoveAt(0);
+					}
+				}
+				else
+				{
+					HideTooltip();
+				}
+			}
+			else
+			{
+				HideTooltip();
+			}
+		}
+
+		private bool HasRequester(GameObject requester)
+		{
+			if (requested.requester == requester)
+				return true;
+
+			foreach (var request in requests)
+			{
+				if (request.requester == requester)
+					return true;
+			}
+
+			return false;
+		}
+
+		private void HideTooltip()
+		{
 			IsShowing = false;
+			requested = null;
 			StopAllCoroutines();
 			StartCoroutine(FadeOut());
 		}
@@ -271,6 +268,8 @@ namespace Celeritas.UI
 
 		private void RebuildLayout()
 		{
+			Canvas.ForceUpdateCanvases();
+
 			foreach (var rect in parent.GetComponentsInChildren<RectTransform>())
 			{
 				LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
@@ -326,6 +325,8 @@ namespace Celeritas.UI
 
 			background.gameObject.SetActive(false);
 			CleanupChildren();
+			requested = null;
+
 			yield break;
 		}
 	}

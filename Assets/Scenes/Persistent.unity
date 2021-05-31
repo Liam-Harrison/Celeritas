@@ -180,6 +180,7 @@ MonoBehaviour:
   textrow: {fileID: 813562965578198221, guid: 13095d8e30eb5194cb694490f55de82e, type: 3}
   waitTime: 0.2
   fadeTime: 0.1
+  padding: 4
   parent: {fileID: 790637119}
   effectSubheader: {fileID: 1939144661}
   shipSubheader: {fileID: 895173431}

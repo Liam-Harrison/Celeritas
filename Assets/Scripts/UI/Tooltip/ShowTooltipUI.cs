@@ -23,7 +23,7 @@ namespace Celeritas.UI.Tooltips
 		private void OnDisable()
 		{
 			if (showing)
-				Tooltip.Instance.Hide();
+				Tooltip.Instance.ReleaseRequest(gameObject);
 
 			showing = false;
 			inside = false;
@@ -33,12 +33,12 @@ namespace Celeritas.UI.Tooltips
 		{
 			if (inside && !Tooltip.Instance.IsShowing && Time.unscaledTime >= entered + waitTime)
 			{
-				Tooltip.Instance.Show(reference.TooltipEntity);
+				Tooltip.Instance.RequestShow(gameObject, reference.TooltipEntity);
 				showing = true;
 			}
 			else if (!inside && Tooltip.Instance.IsShowing && showing)
 			{
-				Tooltip.Instance.Hide();
+				Tooltip.Instance.ReleaseRequest(gameObject);
 				showing = false;
 			}
 		}
@@ -49,7 +49,7 @@ namespace Celeritas.UI.Tooltips
 
 			if (Tooltip.Instance.IsShowing)
 			{
-				Tooltip.Instance.Show(reference.TooltipEntity);
+				Tooltip.Instance.RequestShow(gameObject, reference.TooltipEntity);
 			}
 			else
 			{
