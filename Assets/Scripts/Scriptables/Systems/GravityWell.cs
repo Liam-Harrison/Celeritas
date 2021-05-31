@@ -1,4 +1,4 @@
-using Celeritas.Game;
+﻿using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables.Interfaces;
 using Sirenix.OdinInspector;
@@ -21,9 +21,6 @@ namespace Celeritas.Scriptables.Systems {
 		/// <inheritdoc/>
 		public override SystemTargets Targets => SystemTargets.Ship;
 
-		/// <inheritdoc/>
-		public override string GetTooltip(ushort level) => $"<i>Missing</i>";
-
 		[SerializeField, Title("Flat Force Multiplier"), InfoBox("Adjust this to fine-tune force. Make it negative to push enemies away.")]
 		private float flatForceMultiplier; // this is here to adjust the intensity of the force
 
@@ -41,6 +38,10 @@ namespace Celeritas.Scriptables.Systems {
 
 		[SerializeField, Title("Affects Asteroids? true = yes")]
 		private bool affectsAsteroids;
+
+		/// <inheritdoc/>
+		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Pulls in objects with " +
+			$"<color=green>{flatForceMultiplier + (extraForceMultiplierPerLevel * level)}N</color> of force in a <color=green>{radiusOfEffect + (extraRadiusPerLevel * level)}m</color> radius.";
 
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{

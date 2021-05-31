@@ -1,65 +1,29 @@
-using Sirenix.OdinInspector;
-using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace Celeritas.UI.Tooltips
 {
-	public class ShowTooltipUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+	public class ShowTooltipUI : ShowTooltip, IPointerEnterHandler, IPointerExitHandler
 	{
-		[SerializeField, PropertyRange(0, 1)]
-		private float waitTime = 0.3f;
+		protected ITooltip reference;
 
-		private float entered;
-		private bool inside;
-		private bool showing;
-		private ITooltip reference;
-
-		private void Awake()
+		protected virtual void Awake()
 		{
 			reference = GetComponent<ITooltip>();
 		}
 
-		private void OnDisable()
+		protected override void OnDisable()
 		{
-			if (showing)
-				Tooltip.Instance.ReleaseRequest(gameObject);
-
-			showing = false;
-			inside = false;
-		}
-
-		private void Update()
-		{
-			if (inside && !Tooltip.Instance.IsShowing && Time.unscaledTime >= entered + waitTime)
-			{
-				Tooltip.Instance.RequestShow(gameObject, reference.TooltipEntity);
-				showing = true;
-			}
-			else if (!inside && Tooltip.Instance.IsShowing && showing)
-			{
-				Tooltip.Instance.ReleaseRequest(gameObject);
-				showing = false;
-			}
+			base.OnDisable();
 		}
 
 		public void OnPointerEnter(PointerEventData eventData)
 		{
-			inside = true;
-
-			if (Tooltip.Instance.IsShowing)
-			{
-				Tooltip.Instance.RequestShow(gameObject, reference.TooltipEntity);
-			}
-			else
-			{
-				entered = Time.unscaledTime;
-			}
+			Show(reference.TooltipEntity);
 		}
 
 		public void OnPointerExit(PointerEventData eventData)
 		{
-			inside = false;
+			HideTooltip();
 		}
 	}
 }

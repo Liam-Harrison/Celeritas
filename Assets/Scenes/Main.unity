@@ -5776,34 +5776,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 852609842, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
-      propertyPath: numberOfRandomAsteroids
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 852609842, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
-      propertyPath: asteroidNumberPerCluster
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 852609842, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
-      propertyPath: numberOfAsteroidClusters
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 896733420529650260, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
-      propertyPath: moduleDropData
-      value: 
-      objectReference: {fileID: 11400000, guid: cedac105963d57c4d95b670fbc060479, type: 2}
-    - target: {fileID: 896733420529650260, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
-      propertyPath: rareMetalDropData
-      value: 
-      objectReference: {fileID: 11400000, guid: 70ecdfea9d697eb488ce507666a7a165, type: 2}
-    - target: {fileID: 896733420529650260, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
-      propertyPath: maxModuleDropAmount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 896733420529650260, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
-      propertyPath: maxRareMetalDropAmount
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 4477257796416552746, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5890,7 +5862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4477257796416552756, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: m_Name
-      value: Managers
+      value: Gameplay Managers
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
@@ -5910,6 +5882,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3270512634468351826, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4203966507255639478, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4203966507255639478, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -6017,10 +5997,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: hud_game_main
       objectReference: {fileID: 0}
-    - target: {fileID: 5641295164981611789, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1365698838}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
 --- !u!1001 &8531167039589270624

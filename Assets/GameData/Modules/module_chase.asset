@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e81afd5e3fc38f04a85d551b5ddbf13e, type: 3}
-  m_Name: module_scrap
+  m_Name: module_chase
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -63,9 +63,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  title: Chase
+  title: Chase Rounds
   prefab: {fileID: 209961586333920278, guid: b20dc1fa46c57f242b1a5eb59e6190d7, type: 3}
   icon: {fileID: 21300000, guid: dc9ad3bc7091b754d936170a908122b3, type: 3}
-  background: {fileID: 21300000, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
   description: Causes Projectiles to target your cursor
   size: 0
+  catagory: 0
+  rarity: 3

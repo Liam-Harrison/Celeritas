@@ -43,7 +43,7 @@ namespace Celeritas.Scriptables.Systems
 		public override bool Stacks => false;
 
 		/// <inheritdoc/>
-		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Chase target <color=green>({AngPerSec + AngPerLevel * level}°/s)</color>";
+		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Chases target at <color=green>{AngPerSec + (AngPerLevel * level)}°</color> per second.";
 
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{

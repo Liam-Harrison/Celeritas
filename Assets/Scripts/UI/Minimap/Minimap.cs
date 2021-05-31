@@ -62,6 +62,13 @@ namespace Celeritas.UI
 		/// <param name="entity">The entity to track.</param>
 		public void TrackEntity(Entity entity)
 		{
+			if (entity is WeaponEntity)
+				return;
+
+			if (entity is ModuleEntity)
+				return;
+
+
 			var marker = pooledMarkers.GetPooledObject();
 			marker.Initalize(entity);
 			marker.RectTransform.anchoredPosition = GetPosition(center, marker.Entity.Position);

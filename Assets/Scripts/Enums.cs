@@ -19,3 +19,15 @@ public enum ModuleCatagory
 	Utility
 }
 
+/// <summary>
+/// Rarities avaliable within the game.
+/// </summary>
+public enum Rarity
+{
+	Common,
+	Uncommon,
+	Rare,
+	Epic,
+	Legendary
+}
+

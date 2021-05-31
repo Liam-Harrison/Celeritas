@@ -1,3 +1,4 @@
+using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Celeritas.UI.Tooltips;
@@ -18,7 +19,13 @@ namespace Celeritas.UI.Inventory
 		private Image image;
 
 		[SerializeField]
-		private TextMeshProUGUI label;
+		private Image border;
+
+		[SerializeField]
+		private TextMeshProUGUI title;
+
+		[SerializeField]
+		private TextMeshProUGUI subtitle;
 
 		private ModuleData module;
 
@@ -38,8 +45,13 @@ namespace Celeritas.UI.Inventory
 			set
 			{
 				module = value;
+
 				image.sprite = module.Icon;
-				label.text = module.Title;
+				border.sprite = GameDataManager.Instance.GetBorderSprite(module.Rarity);
+				title.text = module.Title;
+
+				if (module.EntityInstance is ModuleEntity entity)
+					subtitle.text = $"{module.ModuleCatagory} - {module.ModuleSize} - Level {entity.Level}";
 			}
 		}
 

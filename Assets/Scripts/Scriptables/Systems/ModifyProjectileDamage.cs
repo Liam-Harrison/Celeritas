@@ -1,4 +1,4 @@
-using Celeritas.Game;
+﻿using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables.Interfaces;
 using Sirenix.OdinInspector;
@@ -25,7 +25,7 @@ namespace Celeritas.Scriptables.Systems {
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
 		/// <inheritdoc/>
-		public override string GetTooltip(ushort level) => $"<i>Missing</i>";
+		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Increases damage by <color=green>{(Percentage + (PercentageExtraPerLevel * level)) * 100:0}%</color>.";
 
 		/// <summary>
 		/// How much extra percent damage the projectile gets from this modifier initially

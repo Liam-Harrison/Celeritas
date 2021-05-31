@@ -111,6 +111,8 @@ namespace Celeritas.UI
 		/// <param name="entity">The entity to present in the tooltip.</param>
 		public void RequestShow(GameObject requester, ModuleEntity entity)
 		{
+			if (requested != null && requested.requester == requester)
+				ShowTooltip(new TooltipRequest(requester, entity));
 			if (requested != null && !HasRequester(requester))
 				requests.Add(new TooltipRequest(requester, entity));
 			else
@@ -141,17 +143,17 @@ namespace Celeritas.UI
 			if (module.HasShipProjectileEffects)
 				CreateEffectRows(module.ShipProjectileEffects, projectileSubheader);
 
+			var pos = Mouse.current.position.ReadValue();
+			pos.y -= background.rect.height / 2;
+			background.transform.position = pos;
+
 			if (!background.gameObject.activeInHierarchy)
 			{
-				var pos = Mouse.current.position.ReadValue();
-				pos.y -= background.rect.height / 2;
-				background.transform.position = pos;
-
 				StopAllCoroutines();
 				StartCoroutine(FadeIn());
 			}
 
-			RebuildLayout();
+			StartCoroutine(RebuildLayout());
 		}
 
 		/// <summary>
@@ -208,7 +210,6 @@ namespace Celeritas.UI
 
 		private void HideTooltip()
 		{
-			IsShowing = false;
 			requested = null;
 			StopAllCoroutines();
 			StartCoroutine(FadeOut());
@@ -266,37 +267,38 @@ namespace Celeritas.UI
 			}
 		}
 
-		private void RebuildLayout()
+		private IEnumerator RebuildLayout()
 		{
 			Canvas.ForceUpdateCanvases();
+
+			yield return null;
 
 			foreach (var rect in parent.GetComponentsInChildren<RectTransform>())
 			{
 				LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
 			}
 
+			yield return null;
+
 			LayoutRebuilder.ForceRebuildLayoutImmediate(parent);
+
+			yield return null;
+
 			LayoutRebuilder.ForceRebuildLayoutImmediate(background);
 
+			yield return null;
+
 			Canvas.ForceUpdateCanvases();
+
+			yield return null;
+
+			yield break;
 		}
 
 		private IEnumerator FadeIn()
 		{
 			group.alpha = 0;
-
 			background.gameObject.SetActive(true);
-			RebuildLayout();
-
-			yield return null;
-
-			background.gameObject.SetActive(false);
-			RebuildLayout();
-
-			yield return null;
-
-			background.gameObject.SetActive(true);
-			RebuildLayout();
 
 			float started = Time.unscaledTime;
 			float p;
@@ -314,7 +316,15 @@ namespace Celeritas.UI
 		private IEnumerator FadeOut()
 		{
 			float started = Time.unscaledTime;
+
+			while (Time.unscaledTime < started + waitTime)
+				yield return null;
+
+			started = Time.unscaledTime;
 			float p;
+
+			if (requested != null)
+				yield break;
 
 			do
 			{
@@ -327,6 +337,7 @@ namespace Celeritas.UI
 			CleanupChildren();
 			requested = null;
 
+			IsShowing = false;
 			yield break;
 		}
 	}

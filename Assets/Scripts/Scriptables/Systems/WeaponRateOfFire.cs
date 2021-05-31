@@ -1,4 +1,4 @@
-using Celeritas.Game;
+﻿using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Celeritas.Scriptables.Interfaces;
@@ -23,7 +23,7 @@ public class WeaponRateOfFire : ModifierSystem, IEntityEffectAdded, IEntityEffec
 	public override SystemTargets Targets => SystemTargets.Weapon;
 
 	/// <inheritdoc/>
-	public override string GetTooltip(ushort level) => $"<i>Missing</i>";
+	public override string GetTooltip(ushort level) => $"<color=green>▲</color> Increase fire rate by <color=green>{(percentage + (percentageExtraPerLevel * level)) * 100:0}%</color>.";
 
 	public void OnEntityEffectAdded(Entity entity, ushort level)
 	{
