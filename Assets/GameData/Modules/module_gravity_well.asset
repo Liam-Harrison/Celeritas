@@ -65,7 +65,7 @@ MonoBehaviour:
       Data: 
   title: Gravity Well
   prefab: {fileID: 8669117401633563596, guid: 0b096a3e38c347544aae7ad8f3caaced, type: 3}
-  icon: {fileID: 21300026, guid: 13699c70ebaae9240ad8a214cb0c1663, type: 3}
+  icon: {fileID: 21300000, guid: 6eed22a4cbcf8e242b81a39f1ee7dad3, type: 3}
   background: {fileID: 21300002, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
   description: Pulls enemies towards you
   size: 0
