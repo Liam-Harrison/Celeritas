@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2516558698829045457}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 2516558699759650294}
   - {fileID: 2489298676919761349}
@@ -73,7 +73,7 @@ MonoBehaviour:
     maxValue: 0
     currentValue: 0
   lootConfig:
-    gain: 100
+    gain: 1
     isBoss: 0
   dropType: 0
   engineEffects:
