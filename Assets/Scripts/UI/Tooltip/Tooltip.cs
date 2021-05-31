@@ -1,8 +1,5 @@
-using Celeritas.Extensions;
 using Celeritas.Game;
-using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
-using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +10,9 @@ using UnityEngine.UI;
 
 namespace Celeritas.UI
 {
+	/// <summary>
+	/// Manages the tooltips and schedules what tooltips can be seen at any time.
+	/// </summary>
 	public class Tooltip : Singleton<Tooltip>
 	{
 		private class TooltipRequest
@@ -119,43 +119,6 @@ namespace Celeritas.UI
 				ShowTooltip(new TooltipRequest(requester, entity));
 		}
 
-		private void ShowTooltip(TooltipRequest request)
-		{
-			requested = request;
-			IsShowing = true;
-
-			CleanupChildren();
-
-			var module = request.entity;
-			title.text = module.Data.Title;
-
-			description.text = $"{module.ModuleData.Description}";
-			subtitle.text = $"{module.ModuleData.ModuleCatagory} - {module.ModuleData.ModuleSize} - Level {module.Level}";
-
-			CreateEffectRows(module.EntityEffects, effectSubheader);
-
-			if (module.HasShipEffects)
-				CreateEffectRows(module.ShipEffects, shipSubheader);
-
-			if (module.HasShipWeaponEffects)
-				CreateEffectRows(module.ShipWeaponEffects, weaponSubheader);
-
-			if (module.HasShipProjectileEffects)
-				CreateEffectRows(module.ShipProjectileEffects, projectileSubheader);
-
-			var pos = Mouse.current.position.ReadValue();
-			pos.y -= background.rect.height / 2;
-			background.transform.position = pos;
-
-			if (!background.gameObject.activeInHierarchy)
-			{
-				StopAllCoroutines();
-				StartCoroutine(FadeIn());
-			}
-
-			StartCoroutine(RebuildLayout());
-		}
-
 		/// <summary>
 		/// Hide this tooltip.
 		/// </summary>
@@ -192,6 +155,43 @@ namespace Celeritas.UI
 			{
 				HideTooltip();
 			}
+		}
+
+		private void ShowTooltip(TooltipRequest request)
+		{
+			requested = request;
+			IsShowing = true;
+
+			CleanupChildren();
+
+			var module = request.entity;
+			title.text = module.Data.Title;
+
+			description.text = $"{module.ModuleData.Description}";
+			subtitle.text = $"{module.ModuleData.ModuleCatagory} - {module.ModuleData.ModuleSize} - Level {module.Level}";
+
+			CreateEffectRows(module.EntityEffects, effectSubheader);
+
+			if (module.HasShipEffects)
+				CreateEffectRows(module.ShipEffects, shipSubheader);
+
+			if (module.HasShipWeaponEffects)
+				CreateEffectRows(module.ShipWeaponEffects, weaponSubheader);
+
+			if (module.HasShipProjectileEffects)
+				CreateEffectRows(module.ShipProjectileEffects, projectileSubheader);
+
+			var pos = Mouse.current.position.ReadValue();
+			pos.y -= background.rect.height / 2;
+			background.transform.position = pos;
+
+			if (!background.gameObject.activeInHierarchy)
+			{
+				StopAllCoroutines();
+				StartCoroutine(FadeIn());
+			}
+
+			StartCoroutine(RebuildLayout());
 		}
 
 		private bool HasRequester(GameObject requester)
