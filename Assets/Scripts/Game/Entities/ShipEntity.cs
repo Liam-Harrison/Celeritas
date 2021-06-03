@@ -158,7 +158,7 @@ namespace Celeritas.Game.Entities
 			Rigidbody = GetComponent<Rigidbody2D>();
 			ShipData = data as ShipData;
 
-			if (!instanced)
+			if (instanced == false)
 			{
 				health = new EntityStatBar(ShipData.StartingHealth);
 

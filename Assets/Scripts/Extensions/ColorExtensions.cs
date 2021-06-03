@@ -2,6 +2,9 @@
 
 namespace Celeritas.Extensions
 {
+	/// <summary>
+	/// A collection of extensions for the color class.
+	/// </summary>
 	public static class ColorExtensions
 	{
 		/// <summary>
