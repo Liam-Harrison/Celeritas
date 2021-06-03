@@ -109,9 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4192fff2ca7bbc468992dc82dc69a09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRandomAsteroids: 5
-  numberOfAsteroidClusters: 7
-  asteroidNumberPerCluster: 8
+  numberOfRandomAsteroids: 1
+  numberOfAsteroidClusters: 1
+  asteroidNumberPerCluster: 5
   asteroidClusterSpacing: 5
 --- !u!114 &852609843
 MonoBehaviour:

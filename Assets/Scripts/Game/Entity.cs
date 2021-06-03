@@ -65,7 +65,7 @@ namespace Celeritas.Game
 		/// <summary>
 		/// The data associated with this entity.
 		/// </summary>
-		public virtual ScriptableObject Data { get; protected set; }
+		public virtual EntityData Data { get; protected set; }
 
 		/// <summary>
 		/// The time this entity was created.
@@ -121,7 +121,7 @@ namespace Celeritas.Game
 		/// <param name="owner">The owner to attatch this entity to, optional.</param>
 		/// <param name="effects">The effects to add to this entity, optional.</param>
 		/// <param name="forceIsPlayer">Force this entity to belong to the player, optional.</param>
-		public virtual void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
+		public virtual void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
 			Data = data;
 			Spawned = Time.time;

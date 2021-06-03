@@ -9,6 +9,7 @@ using Celeritas.Scriptables;
 using Celeritas.Extensions;
 using Celeritas.Game.Entities;
 using System.Linq;
+using Celeritas.UI.Tooltips;
 
 namespace Celeritas.UI
 {
@@ -34,6 +35,8 @@ namespace Celeritas.UI
 
 		private Camera mainCamera;
 
+		private ShowTooltip tooltip;
+
 		private (int x, int y) grid;
 		private bool canPlace = false, canUpgrade = false, replacing = false;
 		private int replacingLevel;
@@ -42,6 +45,7 @@ namespace Celeritas.UI
 		{
 			mainCamera = Camera.main;
 			actions = new InputActions.BasicActions(new InputActions());
+			tooltip = GetComponent<ShowTooltip>();
 		}
 
 		private void OnEnable()
@@ -68,12 +72,42 @@ namespace Celeritas.UI
 
 		private void Update()
 		{
+			var mousepos = Mouse.current.position.ReadValue();
+
+			if (moduleSelection.gameObject.activeInHierarchy)
+			{
+				tooltip.HideTooltip();
+				return;
+			}
+
 			if (dragging != null)
 			{
-				var mousepos = Mouse.current.position.ReadValue();
 				drop.transform.position = mousepos;
-
 				RaycastModulePlacement(mousepos);
+				tooltip.HideTooltip();
+			}
+			else
+			{
+				var ray = mainCamera.ScreenPointToRay(mousepos);
+
+				if (Physics.Raycast(ray, out var hit, 40f, LayerMask.GetMask("Hull")))
+				{
+					var hull = PlayerController.Instance.PlayerShipEntity.HullManager;
+					grid = hull.GetGridFromWorld(hit.point);
+
+					if (hull.TryGetModuleEntity(grid.x, grid.y, out var entity))
+					{
+						tooltip.Show(entity);
+					}
+					else
+					{
+						tooltip.HideTooltip();
+					}
+				}
+				else
+				{
+					tooltip.HideTooltip();
+				}
 			}
 		}
 
@@ -102,7 +136,7 @@ namespace Celeritas.UI
 						if (newX >= 0 && newX < hull.HullData.HullLayout.GetLength(0) && newY >= 0 && newY < hull.HullData.HullLayout.GetLength(1))
 						{
 							// checks if there an existing module overlapping or if its outside the ship hull
-							if (hull.HullData.HullModules[newX, newY] != null || hull.HullData.HullLayout[newX, newY] == false)
+							if (hull.Entites[newX, newY] != null || hull.HullData.HullLayout[newX, newY] == false)
 							{
 								isOverModule = true;
 							}
@@ -123,7 +157,7 @@ namespace Celeritas.UI
 				}
 				else
 				{
-					if (hull.HullData.HullModules[grid.x, grid.y] == null && hull.Modules[grid.x, grid.y].HasModuleAttatched == false && isOverModule != true)
+					if (hull.Entites[grid.x, grid.y] == null && hull.Modules[grid.x, grid.y].HasModuleAttatched == false && isOverModule != true)
 					{
 						placeObject.SetActive(true);
 						placingMaterial.color = new Color(0, 1, 0);

@@ -66,6 +66,7 @@ MonoBehaviour:
   title: Volley
   prefab: {fileID: 5485022398934921991, guid: a6e1edd397462fa4f814736fc4a64129, type: 3}
   icon: {fileID: 21300000, guid: adfa3112df2fb704baeeb762871f07ea, type: 3}
-  background: {fileID: 21300004, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
   description: Shoot multiple shots with one click!
   size: 0
+  catagory: 0
+  rarity: 3

@@ -1,4 +1,4 @@
-using Celeritas.Game;
+﻿using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables.Interfaces;
 using Sirenix.OdinInspector;
@@ -18,9 +18,14 @@ namespace Celeritas.Scriptables.Systems {
 		[SerializeField, InfoBox("Percentage extra to add per module level. eg 0.1 would add an extra 20% damage at level 2.")]
 		private float percentageExtraPerLevel;
 
+		/// <inheritdoc/>
 		public override bool Stacks => false;
 
+		/// <inheritdoc/>
 		public override SystemTargets Targets => SystemTargets.Projectile;
+
+		/// <inheritdoc/>
+		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Increases damage by <color=green>{(Percentage + (PercentageExtraPerLevel * level)) * 100:0}%</color>.";
 
 		/// <summary>
 		/// How much extra percent damage the projectile gets from this modifier initially

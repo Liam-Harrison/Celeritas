@@ -20,12 +20,6 @@ namespace Celeritas.Scriptables
 		[AssetIcon(maxSize: 50)]
 		private Sprite icon;
 
-		[HorizontalGroup("Module Info", Width = 50)]
-		[BoxGroup("Module Info/Background")]
-		[SerializeField, PreviewField, HideLabel]
-		[AssetIcon(layer: -1)]
-		private Sprite background;
-
 		[HorizontalGroup("Module Info")]
 		[BoxGroup("Module Info/Description")]
 		[SerializeField, TextArea, HideLabel]
@@ -33,6 +27,12 @@ namespace Celeritas.Scriptables
 
 		[SerializeField]
 		private ModuleSize size;
+
+		[SerializeField]
+		private ModuleCatagory catagory;
+
+		[SerializeField]
+		private Rarity rarity;
 
 		[SerializeField, Title("Module Layout")]
 		[TableMatrix(SquareCells = true, DrawElementMethod = nameof(OnLayoutDraw))]
@@ -48,19 +48,24 @@ namespace Celeritas.Scriptables
 		public Sprite Icon { get => icon; }
 
 		/// <summary>
-		/// The background for the module.
-		/// </summary>
-		public Sprite Background { get => background; }
-
-		/// <summary>
 		/// The description for the module.
 		/// </summary>
 		public string Description { get => description; }
 
 		/// <summary>
+		/// The catagory of this module.
+		/// </summary>
+		public ModuleCatagory ModuleCatagory { get => catagory; }
+
+		/// <summary>
 		/// The size of this module.
 		/// </summary>
 		public ModuleSize ModuleSize { get => size; }
+
+		/// <summary>
+		/// The rarity of this module.
+		/// </summary>
+		public Rarity Rarity { get => rarity; }
 
 		public override string Tooltip => $"A <color=\"orange\">{size}</color> module.";
 

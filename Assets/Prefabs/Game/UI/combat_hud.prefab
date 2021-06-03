@@ -940,7 +940,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.65
+  m_fontSize: 37.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1282,7 +1282,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.65
+  m_fontSize: 37.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1570,8 +1570,8 @@ LineRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.9978858
-        value: 0.1851852
+        time: 1
+        value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1583,8 +1583,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 0, b: 0, a: 1}
+      key0: {r: 0.8301887, g: 0.37238422, b: 0.011747932, a: 1}
+      key1: {r: 1, g: 0.7325124, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1824,8 +1824,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8c86a26a7fe82d41b36604e795c4c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldRadius: 10
-  uiRadius: 128
+  worldRadius: 100
+  uiRadius: 113
   markerPrefab: {fileID: 2459245193920962517, guid: 6cbe42782b16f644dadae1d8a14b1e8f, type: 3}
   pooledMarkers:
     capacity: 32
@@ -1995,7 +1995,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.8
+  m_fontSize: 27.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2244,7 +2244,7 @@ MonoBehaviour:
   moduleCountText: {fileID: 1469256673129401010}
   switchLabel: {fileID: 5802384426496940938}
   defaultAbilityIcon: {fileID: 21300000, guid: 90856b338da0de040bdaba99d967d93c, type: 3}
-  mouseTexture: {fileID: 2800000, guid: c5ad3231282606649a5797462b94d484, type: 3}
+  mouseTexture: {fileID: 2800000, guid: 2a36305686ecfb14a83afbe7cf09fd91, type: 3}
   floatingNotificationPrefab: {fileID: 4507332763464691178, guid: 43656d6eb104d4e488341fd34ae92eea, type: 3}
 --- !u!1 &8050356772439023198
 GameObject:

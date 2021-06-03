@@ -27,13 +27,13 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public int Amount { get => amount; set => amount = value; }
 
-		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
+		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
 			lootData = data as LootData;
 			pickupRadius = lootData.PickupRadius;
 			lootType = lootData.LootType;
 			
-			base.Initalize(data, owner, effects, forceIsPlayer);
+			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
 
 		private void Start()

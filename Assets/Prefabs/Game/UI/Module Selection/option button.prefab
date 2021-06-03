@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 437232096705502134}
   - component: {fileID: 2971741476231449170}
+  - component: {fileID: 5091222192666529912}
   - component: {fileID: 3253601362035053501}
   - component: {fileID: 6641690756929567957}
   - component: {fileID: 8580319612922576926}
@@ -56,6 +57,19 @@ MonoBehaviour:
   button: {fileID: 8580319612922576926}
   label: {fileID: 1838014381243317546}
   image: {fileID: 6641690756929567957}
+--- !u!114 &5091222192666529912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177598182290899496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afcdc692819f07a45b8dc6b3bfb8ad38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waitTime: 0.15
 --- !u!222 &3253601362035053501
 CanvasRenderer:
   m_ObjectHideFlags: 0

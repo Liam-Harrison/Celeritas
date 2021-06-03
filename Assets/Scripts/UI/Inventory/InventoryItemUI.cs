@@ -1,22 +1,31 @@
+using Celeritas.Game;
+using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
+using Celeritas.UI.Tooltips;
 using Sirenix.OdinInspector;
-using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Celeritas.UI.Inventory
 {
 	/// <summary>
 	/// A container for managing a module within the inventory UI.
 	/// </summary>
-	public class InventoryItemUI : MonoBehaviour, IPointerDownHandler
+	public class InventoryItemUI : MonoBehaviour, IPointerDownHandler, ITooltip
 	{
 		[SerializeField, Title("Assignments")]
 		private Image image;
 
 		[SerializeField]
-		private TextMeshProUGUI label;
+		private Image border;
+
+		[SerializeField]
+		private TextMeshProUGUI title;
+
+		[SerializeField]
+		private TextMeshProUGUI subtitle;
 
 		private ModuleData module;
 
@@ -36,10 +45,17 @@ namespace Celeritas.UI.Inventory
 			set
 			{
 				module = value;
+
 				image.sprite = module.Icon;
-				label.text = module.Title;
+				border.sprite = GameDataManager.Instance.GetBorderSprite(module.Rarity);
+				title.text = module.Title;
+
+				if (module.EntityInstance is ModuleEntity entity)
+					subtitle.text = $"{module.ModuleCatagory} - {module.ModuleSize} - Level {entity.Level}";
 			}
 		}
+
+		public ModuleEntity TooltipEntity => (ModuleEntity) module.EntityInstance;
 
 		public void OnPointerDown(PointerEventData _)
 		{

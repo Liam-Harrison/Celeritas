@@ -1,4 +1,4 @@
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using Celeritas.Scriptables.Interfaces;
@@ -40,9 +40,14 @@ namespace Celeritas.Scriptables.Systems
 		/// </summary>
 		public uint ExtraProjectileCountPerLevel { get => extraProjectilesPerLevel; }
 
+		/// <inheritdoc/>
 		public override bool Stacks => false;
 
+		/// <inheritdoc/>
 		public override SystemTargets Targets => SystemTargets.Weapon;
+
+		/// <inheritdoc/>
+		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Fire <color=green>{ExtraProjectileCount + (ExtraProjectileCountPerLevel * level)}</color> extra projectiles.";
 
 
 		public void OnEntityFired(WeaponEntity entity, ProjectileEntity projectile, ushort level)

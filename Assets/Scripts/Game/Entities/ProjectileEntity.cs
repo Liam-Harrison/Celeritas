@@ -47,13 +47,14 @@ namespace Celeritas.Game.Entities
 		public override SystemTargets TargetType { get => SystemTargets.Projectile; }
 
 		/// <inheritdoc/>
-		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
+		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
 			ProjectileData = data as ProjectileData;
 			damage = ProjectileData.Damage;
 			destroyedOnHit = ProjectileData.DestroyedOnHit;
 			Weapon = owner as WeaponEntity;
-			base.Initalize(data, owner, effects, forceIsPlayer);
+
+			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
 
 		public override void OnEntityHit(Entity other)

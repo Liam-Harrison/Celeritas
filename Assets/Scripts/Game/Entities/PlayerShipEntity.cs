@@ -35,7 +35,7 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public List<ModuleData> Inventory { get; private set; } = new List<ModuleData>();
 
-		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
+		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
 			foreach (var item in inventory)
 			{
@@ -45,7 +45,7 @@ namespace Celeritas.Game.Entities
 				Inventory.Add(item);
 			}
 
-			base.Initalize(data, owner, effects, forceIsPlayer);
+			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
 
 		private ModuleData DrawModulePreview(Rect rect, ModuleData value, int x, int y)

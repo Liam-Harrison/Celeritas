@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2516558698829045460}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!68 &5508884083018400456
 EdgeCollider2D:
@@ -127,7 +127,6 @@ Transform:
   - {fileID: 6908281792855375236}
   - {fileID: 6790315075628685847}
   - {fileID: 2489298676919761349}
-  - {fileID: 7222147745002411938}
   - {fileID: 5773088339213985339}
   - {fileID: 3117128236036597891}
   - {fileID: 3312917368834455039}
@@ -307,54 +306,6 @@ MonoBehaviour:
     EffectCollection: {fileID: 11400000, guid: 922abbef8ae38a54da55d963727be36a, type: 2}
   - Level: 1
     EffectCollection: {fileID: 11400000, guid: c3d1c7991029b6743829040b433016b6, type: 2}
---- !u!1 &8593195112231694218
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7222147745002411938}
-  - component: {fileID: 3216270655684157883}
-  m_Layer: 0
-  m_Name: HullGen
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7222147745002411938
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8593195112231694218}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.65, z: -4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2516558698829045460}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3216270655684157883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8593195112231694218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5420680a338f0942bf77239f5901667, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  iconPlane: {fileID: 6720883945578193521, guid: 4c6a6cf00cc067a49aa069729a931e0c, type: 3}
-  playerShipEntity: {fileID: 0}
-  hullWall: {fileID: 919132149155446097, guid: 18141fc24c020644bbfafdc543da96ff, type: 3}
-  hullFloor: {fileID: 622699920804246379, guid: 6976bef87f3208b4a9ce36a15d01a664, type: 3}
-  hullData: {fileID: 11400000, guid: de8bce41e043f6b448c5d25e16d44a88, type: 2}
 --- !u!1001 &4594367450137448437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -364,7 +315,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1477245854262912886, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1477245854262912886, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
       propertyPath: m_LocalScale.x
@@ -438,7 +389,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1477245854262912886, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1477245854262912886, guid: 57ddd7db2eb2b4442a80c49538761d3b, type: 3}
       propertyPath: m_LocalScale.x

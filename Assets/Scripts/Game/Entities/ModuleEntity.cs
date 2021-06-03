@@ -1,4 +1,5 @@
 using Celeritas.Scriptables;
+using Celeritas.UI.Tooltips;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,19 +7,9 @@ using UnityEngine;
 namespace Celeritas.Game.Entities
 {
 	/// <summary>
-	/// Avaliable sizes for modules.
-	/// </summary>
-	public enum ModuleSize
-	{
-		Small,
-		Medium,
-		Large
-	}
-
-	/// <summary>
 	/// The game entity for a module.
 	/// </summary>
-	public class ModuleEntity : Entity
+	public class ModuleEntity : Entity, ITooltip
 	{
 		[SerializeField, Title("Module Settings")]
 		private int level;
@@ -89,11 +80,14 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public int Level { get => level; private set => level = value; }
 
+		///<inheritdoc/>
+		public ModuleEntity TooltipEntity => this;
+
 		/// <inheritdoc/>
-		public override void Initalize(ScriptableObject data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false)
+		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
 			ModuleData = data as ModuleData;
-			base.Initalize(data, owner, effects, forceIsPlayer);
+			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
 
 		/// <summary>

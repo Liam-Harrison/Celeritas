@@ -1,14 +1,17 @@
+using Celeritas.Game.Entities;
+using Celeritas.Scriptables;
+using Celeritas.UI.Tooltips;
+using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using Sirenix.OdinInspector;
 
 namespace Celeritas.UI
 {
 	/// <summary>
 	/// An indivudal module button in the UI.
 	/// </summary>
-	public class ModuleSelectionItem : MonoBehaviour
+	public class ModuleSelectionItem : MonoBehaviour, ITooltip
 	{
 		[SerializeField, Title("Assignments")]
 		private Button button;
@@ -18,6 +21,11 @@ namespace Celeritas.UI
 
 		[SerializeField]
 		private Image image;
+
+		/// <summary>
+		/// The moudle attatched to this item.
+		/// </summary>
+		public ModuleData Module { get; set; }
 
 		/// <summary>
 		/// The button attatched to this gameobject.
@@ -33,5 +41,8 @@ namespace Celeritas.UI
 		/// The image attatched to this gameobject.
 		/// </summary>
 		public Image Image { get => image; }
+
+		/// <inheritdoc/>
+		public ModuleEntity TooltipEntity => (ModuleEntity) Module.EntityInstance;
 	}
 }
