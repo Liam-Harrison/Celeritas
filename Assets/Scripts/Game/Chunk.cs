@@ -29,19 +29,26 @@ namespace Celeritas.Game
 		public Bounds Boundary { get; private set; }
 
 		/// <summary>
+		/// The chunk manager attatched to this chunk.
+		/// </summary>
+		public ChunkManager ChunkManager { get; private set; }
+
+		/// <summary>
 		/// The entities attatched to this chunk.
 		/// </summary>
 		public IReadOnlyCollection<Entity> Entites { get => entities; }
 
 		private readonly List<Entity> entities = new List<Entity>();
 
-		public Chunk(Vector2Int index, Vector2 size)
+		public Chunk(ChunkManager manager, Vector2Int index, Vector2 size)
 		{
 			var centre = new Vector3(index.x * size.x, index.y * size.y, 0);
 
 			Index = index;
 			Size = size;
 			Center = centre;
+			ChunkManager = manager;
+
 			Boundary = new Bounds(centre, size);
 		}
 
@@ -64,7 +71,14 @@ namespace Celeritas.Game
 		{
 			foreach (var entity in entities)
 			{
-				entity.UnloadEntity();
+				if (ChunkManager.TryGetChunk(entity.transform.position, out var chunk) && chunk != this)
+				{
+					chunk.AddEntity(entity);
+				}
+				else
+				{
+					entity.UnloadEntity();
+				}
 			}
 			entities.Clear();
 		}
@@ -103,6 +117,20 @@ namespace Celeritas.Game
 			float x = Random.Range(Center.x - Boundary.extents.x, Center.x + Boundary.extents.x);
 			float y = Random.Range(Center.y - Boundary.extents.y, Center.y + Boundary.extents.y);
 			return new Vector3(x, y, 0);
+		}
+
+		private void CheckEntities()
+		{
+			for (int i = entities.Count; i >= 0; i--)
+			{
+				var entity = entities[i];
+				entities.RemoveAt(i);
+
+				if (ChunkManager.TryGetChunk(entity.transform.position, out var chunk))
+				{
+					chunk.AddEntity(entity);
+				}
+			}
 		}
 	}
 }

@@ -49,7 +49,6 @@ namespace Celeritas.UI
 		{
 			shipObjects = new List<ShipEntity>();
 
-			Debug.Log($"ships: {EntityDataManager.Instance.PlayerShips.Count}");
 			foreach (ShipData data in EntityDataManager.Instance.PlayerShips)
 			{
 				var ship = EntityDataManager.InstantiateEntity<ShipEntity>(data);

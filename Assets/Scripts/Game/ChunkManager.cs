@@ -82,7 +82,7 @@ namespace Celeritas.Game
 				return chunks[index];
 			}
 
-			chunks[index] = new Chunk(index, ChunkSize);
+			chunks[index] = new Chunk(this, index, ChunkSize);
 			return chunks[index];
 		}
 

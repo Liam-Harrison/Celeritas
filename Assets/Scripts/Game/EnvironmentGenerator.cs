@@ -1,5 +1,4 @@
-﻿using Celeritas.Extensions;
-using Celeritas.Game;
+﻿using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
@@ -13,6 +12,8 @@ namespace Assets.Scripts.Game
 	/// </summary>
 	class EnvironmentGenerator: Singleton<EnvironmentGenerator>
 	{
+		private const float UPDATE_FREQ = 2;
+
 		[SerializeField]
 		private EntityData asteroidPrefab;
 
@@ -40,6 +41,8 @@ namespace Assets.Scripts.Game
 
 		private new Camera camera;
 
+		private float lastUpdate;
+
 		private void Start()
 		{
 			ChunkManager = new ChunkManager(chunkSize);
@@ -52,6 +55,11 @@ namespace Assets.Scripts.Game
 		{
 			if (!EntityDataManager.Instance.Loaded)
 				return;
+
+			if (Time.unscaledTime < lastUpdate + (1f / UPDATE_FREQ))
+				return;
+
+			lastUpdate = Time.unscaledTime;
 
 			var middle = ChunkManager.GetOrCreateChunk(camera.transform.position);
 
