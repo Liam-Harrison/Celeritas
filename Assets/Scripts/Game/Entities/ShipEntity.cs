@@ -285,6 +285,9 @@ namespace Celeritas.Game.Entities
 
 		private void OnTriggerEnter2D(Collider2D other)
 		{
+			if (!IsInitalized)
+				return;
+
 			var entity = other.gameObject.GetComponentInParent<Entity>();
 			if (entity != null)
 			{
@@ -335,6 +338,11 @@ namespace Celeritas.Game.Entities
 				{
 					Rigidbody.AddTorque(torque, ForceMode2D.Force);
 				}
+			}
+			else
+			{
+				var rot = Quaternion.LookRotation(Vector3.forward, dir);
+				transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, ShipData.MovementSettings.rotationMaximum * Time.smoothDeltaTime);
 			}
 		}
 

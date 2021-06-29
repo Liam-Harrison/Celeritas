@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: -5171282361529394735}
   - component: {fileID: 5036293536032515086}
   m_Layer: 0
-  m_Name: projectile_pretty
+  m_Name: projectile_tracking
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -339,6 +339,9 @@ MonoBehaviour:
   - Level: 0
     EffectCollection: {fileID: 11400000, guid: 922abbef8ae38a54da55d963727be36a, type: 2}
   damage: 10
+  trails:
+  - {fileID: 9010716631335087696}
+  - {fileID: 6017573220271658692}
 --- !u!70 &5036293536032515086
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

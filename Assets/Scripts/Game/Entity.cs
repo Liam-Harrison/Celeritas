@@ -178,6 +178,7 @@ namespace Celeritas.Game
 			EntityEffects.RemoveAllEffects();
 			RemoveAllActions();
 			IsInitalized = false;
+			Dying = false;
 		}
 
 		/// <summary>

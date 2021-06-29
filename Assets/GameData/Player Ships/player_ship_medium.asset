@@ -61,11 +61,11 @@ MonoBehaviour:
       m_RotationOrder: 4
     angularDrag: 5
     rotationMaximum: 180
-    aimDeadzone: 0.995
+    aimDeadzone: 0.9975
     forcePerSec: 15000
     mass: 6
   shipClass: 1
-  icon: {fileID: 0}
-  description: 
+  icon: {fileID: 21300000, guid: f714725e334a1174681c0dd57665666b, type: 3}
+  description: Medium Ship Description
   startingHealth: 10000
   startingShield: 5000

@@ -5,11 +5,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 
 namespace Celeritas.UI
 {
 	public class ShipSelection : MonoBehaviour
 	{
+		[SerializeField, Title("Assignments")]
+		private new CinemachineVirtualCamera camera;
+
 		[SerializeField, Title("Spawn")]
 		private Transform shipSpawn;
 
@@ -37,21 +41,29 @@ namespace Celeritas.UI
 		[SerializeField]
 		private Image shipIcon;
 
-		public static ShipEntity CurrentShip { get; private set; }
+		public static PlayerShipEntity CurrentShip { get; private set; }
 
-		private List<ShipEntity> shipObjects;
-		private List<WeaponData> weaponList;
+		private readonly List<PlayerShipEntity> shipObjects = new List<PlayerShipEntity>();
+		private readonly List<WeaponData> weaponList = new List<WeaponData>();
 
 		private int shipPseudoIterator;
 		private int weaponPseudoIterator;
 
-		private void Awake()
+		private void Start()
 		{
-			shipObjects = new List<ShipEntity>();
+			if (EntityDataManager.Instance != null && EntityDataManager.Instance.Loaded)
+				SetupData();
+			else
+				EntityDataManager.OnLoadedAssets += SetupData;
+		}
+
+		private void SetupData()
+		{
+			EntityDataManager.OnLoadedAssets -= SetupData;
 
 			foreach (ShipData data in EntityDataManager.Instance.PlayerShips)
 			{
-				var ship = EntityDataManager.InstantiateEntity<ShipEntity>(data);
+				var ship = EntityDataManager.InstantiateEntity<PlayerShipEntity>(data);
 
 				ship.IsStationary = true;
 				ship.transform.parent = shipSpawn;
@@ -63,15 +75,11 @@ namespace Celeritas.UI
 				shipObjects.Add(ship);
 			}
 
-			weaponList = new List<WeaponData>();
 			foreach (WeaponData weapon in EntityDataManager.Instance.Weapons)
 			{
 				weaponList.Add(weapon);
 			}
-		}
 
-		private void OnEnable()
-		{
 			weaponPseudoIterator = 0;
 			shipPseudoIterator = 0;
 			SetActiveShip();
@@ -139,12 +147,14 @@ namespace Celeritas.UI
 
 		private void SetActiveShip()
 		{
-			CurrentShip = shipObjects[shipPseudoIterator].GetComponent<ShipEntity>();
+			CurrentShip = shipObjects[shipPseudoIterator].GetComponent<PlayerShipEntity>();
 			shipRankTxt.SetText(CurrentShip.ShipData.Title);
 			shipClassTxt.SetText(CurrentShip.ShipData.ShipClass.ToString());
 			shipNameTxt.SetText("Celerity <i>#1</i>");
 			shipDescTxt.SetText(CurrentShip.ShipData.Description);
 			weaponIcon.sprite = CurrentShip.ShipData.Icon;
+
+			camera.m_Lens.OrthographicSize = CurrentShip.SelectionViewSize;
 
 			foreach (ShipEntity ship in shipObjects)
 			{

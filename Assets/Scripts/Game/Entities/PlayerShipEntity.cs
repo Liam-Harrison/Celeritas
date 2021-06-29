@@ -13,9 +13,13 @@ namespace Celeritas.Game.Entities
 	{
 		private static Vector2Int BaseInventorySize = new Vector2Int(8, 4);
 
-		[Title("Inventory")]
+		[SerializeField, Range(1, 50), Title("Camera")]
+		private float selectionViewSize = 8;
 
-		[SerializeField, OnValueChanged(nameof(onLayoutResolutionChange))]
+		[SerializeField, Range(1, 50)]
+		private float gameViewSize = 25;
+
+		[Title("Inventory"), SerializeField, OnValueChanged(nameof(onLayoutResolutionChange))]
 		private Vector2Int inventorySize = BaseInventorySize;
 
 		[SerializeField, TableMatrix(SquareCells = true, DrawElementMethod = nameof(DrawModulePreview))]
@@ -24,6 +28,15 @@ namespace Celeritas.Game.Entities
 		[SerializeField, Title("Hull")]
 		private HullManager hullManager;
 
+		/// <summary>
+		/// The view size for the selection screen.
+		/// </summary>
+		public float SelectionViewSize { get => selectionViewSize; }
+
+		/// <summary>
+		/// The view size for gameplay.
+		/// </summary>
+		public float GameViewSize { get => gameViewSize; }
 
 		/// <summary>
 		/// The ships hull data.
@@ -61,7 +74,6 @@ namespace Celeritas.Game.Entities
 				value = (ModuleData)Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(rect, value, typeof(ModuleData));
 			}
 #endif
-
 			return value;
 		}
 

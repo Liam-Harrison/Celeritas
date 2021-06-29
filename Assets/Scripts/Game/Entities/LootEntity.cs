@@ -39,7 +39,6 @@ namespace Celeritas.Game.Entities
 		private void Start()
 		{
 			player = PlayerController.Instance.PlayerShipEntity;
-
 		}
 
 		protected override void Update()

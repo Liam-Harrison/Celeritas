@@ -45,11 +45,6 @@ namespace Celeritas.Game.Entities
 			health = new EntityStatBar(startingHealth);
 		}
 
-		protected override void Update()
-		{
-			base.Update();
-		}
-
 		public override void TakeDamage(Entity attackingEntity, int damage)
 		{
 			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity)
@@ -78,6 +73,9 @@ namespace Celeritas.Game.Entities
 
 		private void OnTriggerEnter2D(Collider2D other)
 		{
+			if (!IsInitalized)
+				return;
+
 			var entity = other.gameObject.GetComponentInParent<Entity>();
 			if (entity != null)
 			{

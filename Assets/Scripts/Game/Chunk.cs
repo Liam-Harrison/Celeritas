@@ -118,19 +118,5 @@ namespace Celeritas.Game
 			float y = Random.Range(Center.y - Boundary.extents.y, Center.y + Boundary.extents.y);
 			return new Vector3(x, y, 0);
 		}
-
-		private void CheckEntities()
-		{
-			for (int i = entities.Count; i >= 0; i--)
-			{
-				var entity = entities[i];
-				entities.RemoveAt(i);
-
-				if (ChunkManager.TryGetChunk(entity.transform.position, out var chunk))
-				{
-					chunk.AddEntity(entity);
-				}
-			}
-		}
 	}
 }
