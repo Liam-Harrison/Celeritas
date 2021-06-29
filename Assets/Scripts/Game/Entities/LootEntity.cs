@@ -60,8 +60,7 @@ namespace Celeritas.Game.Entities
 		public void PickedUpByPlayer()
 		{
 			LootController.Instance.GivePlayerLoot(lootType, amount);
-
-			Died = true;
+			KillEntity();
 		}
 	}
 }

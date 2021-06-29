@@ -161,7 +161,6 @@ namespace Celeritas.Game.Entities
 			if (instanced == false)
 			{
 				health = new EntityStatBar(ShipData.StartingHealth);
-
 				shield = new EntityStatBar(ShipData.StartingShield);
 
 				ApplyRigidbodySettings();
@@ -180,15 +179,21 @@ namespace Celeritas.Game.Entities
 			if (!IsInitalized)
 				return;
 
+			EngineLogic();
+
+			base.Update();
+		}
+
+		protected virtual void FixedUpdate()
+		{
+			if (!IsInitalized)
+				return;
+
 			if (IsStationary == false)
 			{
 				TranslationLogic();
 				RotationLogic();
 			}
-
-			EngineLogic();
-
-			base.Update();
 		}
 
 		/// <summary>
@@ -206,7 +211,7 @@ namespace Celeritas.Game.Entities
 		/// Register damage to this entity and update it internally.
 		/// </summary>
 		/// <param name="attackingEntity">The entity which has attacked.</param>
-		/// <param name="damage">The amount of damage to deal.</param>
+		/// <param name="damage">The amount of damage to take.</param>
 		public override void TakeDamage(Entity attackingEntity, int damage)
 		{
 			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity)
@@ -224,20 +229,22 @@ namespace Celeritas.Game.Entities
 					health.Damage(damage);
 				}
 				else
-				{   // damage won't go beyond shields
+				{
+					// damage won't go beyond shields
 					shield.Damage(damage);
 				}
 
 				if (health.IsEmpty())
 				{
-					if (Died == false)
-						GenerateLootDrop();
-
-					Died = true;
-
+					KillEntity();
 				}
-
 			}
+		}
+
+		public override void OnDespawned()
+		{
+			GenerateLootDrop();
+			base.OnDespawned();
 		}
 
 		/// <summary>
@@ -303,9 +310,9 @@ namespace Celeritas.Game.Entities
 		private void TranslationLogic()
 		{
 			Velocity = Vector3.up * ((Mathf.Max(Translation.y, 0) * ShipData.MovementSettings.forcePerSec * movementModifier.Forward) +
-							(Mathf.Min(Translation.y, 0) * ShipData.MovementSettings.forcePerSec * movementModifier.Back)) * Time.smoothDeltaTime;
+							(Mathf.Min(Translation.y, 0) * ShipData.MovementSettings.forcePerSec * movementModifier.Back)) * Time.fixedDeltaTime;
 
-			Velocity += Vector3.right * Translation.x * ShipData.MovementSettings.forcePerSec * movementModifier.Side * Time.smoothDeltaTime;
+			Velocity += Vector3.right * Translation.x * ShipData.MovementSettings.forcePerSec * movementModifier.Side * Time.fixedDeltaTime;
 
 			Rigidbody.AddForce(Velocity, ForceMode2D.Force);
 		}

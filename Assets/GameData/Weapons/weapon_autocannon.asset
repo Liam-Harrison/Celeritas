@@ -12,15 +12,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08bd6193cb3e8a341bdbd9edcfe09d53, type: 3}
   m_Name: weapon_autocannon
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: moduleLayout
+      Entry: 7
+      Data: 0|System.Boolean[,], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 9
+    - Name: ranks
+      Entry: 1
+      Data: 3|3
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   title: Autocannon
+  capacityHint: 4
   prefab: {fileID: 1948190157008792263, guid: ce606aac3fc5c174b9ba1c5c73b3c145, type: 3}
-  icon: {fileID: 0}
-  background: {fileID: 0}
-  description: 
+  icon: {fileID: 21300000, guid: 3144f6c4f2f2d704db3a0e92791b3265, type: 3}
+  description: Basic autocannon weapon.
   size: 0
-  hasDefaultShipEffects: 0
-  shipEffects: []
+  catagory: 0
+  rarity: 0
   projectile: {fileID: 11400000, guid: 341054bb030d7954ea09976c07126d5b, type: 2}
-  rateOfFire: 10
+  rateOfFire: 5
   charge: 0
   maxCharge: 0

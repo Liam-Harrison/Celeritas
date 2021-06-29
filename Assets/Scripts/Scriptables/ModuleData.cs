@@ -1,10 +1,9 @@
-using UnityEngine;
+using AssetIcons;
 using Celeritas.Extensions;
 using Celeritas.Game.Entities;
 using Sirenix.OdinInspector;
-using AssetIcons;
-using Celeritas.Game;
 using Sirenix.Utilities;
+using UnityEngine;
 
 namespace Celeritas.Scriptables
 {
@@ -34,7 +33,7 @@ namespace Celeritas.Scriptables
 		[SerializeField]
 		private Rarity rarity;
 
-		[SerializeField, Title("Module Layout")]
+		[SerializeField, Title("Module Layout"), FoldoutGroup("layout")]
 		[TableMatrix(SquareCells = true, DrawElementMethod = nameof(OnLayoutDraw))]
 		private bool[,] moduleLayout = new bool[BaseLayoutResolution, BaseLayoutResolution];
 

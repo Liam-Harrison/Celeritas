@@ -64,6 +64,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   title: Volley
+  capacityHint: 1
   prefab: {fileID: 5485022398934921991, guid: a6e1edd397462fa4f814736fc4a64129, type: 3}
   icon: {fileID: 21300000, guid: adfa3112df2fb704baeeb762871f07ea, type: 3}
   description: Shoot multiple shots with one click!

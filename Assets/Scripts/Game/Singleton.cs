@@ -1,3 +1,4 @@
+using Celeritas.Game.Entities;
 using System;
 using UnityEngine;
 
@@ -48,7 +49,11 @@ namespace Celeritas.Game
 		protected virtual void Awake()
 		{
 			instance = this as T;
-			OnCreated?.Invoke(instance);
+
+			if (EntityDataManager.Instance != null && EntityDataManager.Instance.Loaded)
+				OnGameLoaded();
+			else
+				EntityDataManager.OnLoadedAssets += OnGameLoaded;
 		}
 
 		protected virtual void OnDestroy()
@@ -58,6 +63,12 @@ namespace Celeritas.Game
 				OnDestroyed?.Invoke(instance);
 				instance = null;
 			}
+		}
+
+		protected virtual void OnGameLoaded()
+		{
+			EntityDataManager.OnLoadedAssets -= OnGameLoaded;
+			OnCreated?.Invoke(instance);
 		}
 	}
 }

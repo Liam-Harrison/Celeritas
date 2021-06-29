@@ -69,5 +69,16 @@ namespace Celeritas.Game.Entities
 		{
 			inventory = new ModuleData[inventorySize.x, inventorySize.y];
 		}
+
+		public override void OnDespawned()
+		{
+			base.OnDespawned();
+
+			foreach (var module in HullManager.Modules)
+			{
+				if (module != null)
+					module.RemoveModule();
+			}
+		}
 	}
 }

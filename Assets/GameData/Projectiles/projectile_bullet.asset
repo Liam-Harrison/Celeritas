@@ -12,8 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 964ba3942b684a84d8afc3e63f6671fd, type: 3}
   m_Name: projectile_bullet
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   title: Bullet
-  prefab: {fileID: 3926678570621491624, guid: ec390f72a3c85364b8c2b02b7dc6c283, type: 3}
+  capacityHint: 30
+  prefab: {fileID: 3324253997330418440, guid: abef611c957c7624dba6bab1b0c716a4, type: 3}
   speed: 50
   lifetime: 3
   damage: 10

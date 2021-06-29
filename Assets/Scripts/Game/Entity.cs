@@ -1,6 +1,7 @@
 using Celeritas.Extensions;
 using Celeritas.Game.Actions;
 using Celeritas.Game.Entities;
+using Celeritas.Game.Interfaces;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System;
@@ -12,12 +13,14 @@ namespace Celeritas.Game
 	/// <summary>
 	/// The Entity class provides basic functionality for on-screen objects.
 	/// </summary>
-	public abstract class Entity : SerializedMonoBehaviour
+	public abstract class Entity : SerializedMonoBehaviour, IPooledObject
 	{
-		[SerializeField, Title("Entity Settings")]
+		private const float SCHEDULE_DIE_INVINCIBLE_TIME = 0.5f;
+
+		[SerializeField, Title("Entity Settings"), DisableInPlayMode]
 		private bool hasDefaultEffects;
 
-		[SerializeField, ShowIf(nameof(hasDefaultEffects))]
+		[SerializeField, ShowIf(nameof(hasDefaultEffects)), DisableInPlayMode]
 		private EffectWrapper[] defaultEffects;
 
 		/// <summary>
@@ -26,9 +29,14 @@ namespace Celeritas.Game
 		public bool IsPlayer { get; private set; }
 
 		/// <summary>
-		/// Whether or not this entity is dead (ie, destroyed & should be removed from the screen)
+		/// Is this entity scheduled to die.
 		/// </summary>
-		public bool Died { get; set; } = false;
+		public bool Dying { get; set; } = false;
+
+		/// <summary>
+		/// The last time this entity was scheduled to die.
+		/// </summary>
+		public float LastScheduledDie { get; private set; }
 
 		/// <summary>
 		/// Get or set the entities game up direction vector.
@@ -88,9 +96,14 @@ namespace Celeritas.Game
 		public abstract SystemTargets TargetType { get; }
 
 		/// <summary>
+		/// The chunk this entity belongs to, if it is attatched to a chunk.
+		/// </summary>
+		public Chunk Chunk { get; set; }
+
+		/// <summary>
 		/// Invoked when this Entity is destroyed.
 		/// </summary>
-		public event Action<Entity> OnDestroyed;
+		public event Action<Entity> OnKilled;
 
 		/// <summary>
 		/// Get all the actions on this entity.
@@ -134,54 +147,82 @@ namespace Celeritas.Game
 				IsPlayer = owner.IsPlayer;
 
 			EntityEffects = new EffectManager(this, TargetType);
-
-			EntityEffects.ClearEffects();
 			EntityEffects.AddEffectRange(effects);
+
+			OnActionAdded = null;
+			OnActionRemoved = null;
+			OnKilled = null;
+
 			if (hasDefaultEffects)
 			{
 				EntityEffects.AddEffectRange(defaultEffects);
 			}
 		}
 
-		protected virtual void OnDestroy()
+		public virtual void OnEntityKilled()
 		{
-			if (!IsInitalized)
-				return;
-			
-			//Instantiate(onDeathEffect, transform.position, transform.rotation, transform.parent);
-			OnEntityDestroyed();
+			EntityEffects.KillEntity();
+			OnKilled?.Invoke(this);
+
+			if (Chunk != null)
+				Chunk.RemoveEntity(this);
 		}
 
-		protected GameObject onDeathEffect;
+		public virtual void OnSpawned()
+		{
+
+		}
+
+		public virtual void OnDespawned()
+		{
+			EntityEffects.RemoveAllEffects();
+			RemoveAllActions();
+			IsInitalized = false;
+		}
+
+		/// <summary>
+		/// Schedule this entity to be killed.
+		/// </summary>
+		public virtual void KillEntity()
+		{
+			if (Dying)
+				return;
+
+			if (Time.time < LastScheduledDie + SCHEDULE_DIE_INVINCIBLE_TIME)
+				return;
+
+			Dying = true;
+			EntityEffects.OnEntityBeforeDie();
+
+			if (Dying)
+			{
+				EntityDataManager.KillEntity(this);
+			}
+		}
+
+		/// <summary>
+		/// Destroy entity without firing events.
+		/// </summary>
+		public virtual void UnloadEntity()
+		{
+			EntityDataManager.UnloadEntity(this);
+		}
 
 		protected virtual void Update()
 		{
 			if (this == null || !IsInitalized)
 				return;
 
-			if (Died)
-			{
-				if (onDeathEffect != null)
-				{
-					GameObject effect = Instantiate(onDeathEffect, transform.position, transform.rotation, transform.parent);
-					effect.transform.localScale = transform.localScale;
-					Destroy(effect, 5f); // destroy after 5 seconds
-				}
-				Destroy(gameObject);
-			}
-			else
-			{
+			if (!Dying)
 				EntityEffects.UpdateEntity();
-			}
 		}
 
 		/// <summary>
-		/// Update effects for this entity when destroyed.
+		/// Stop this entities scheduled death.
 		/// </summary>
-		protected virtual void OnEntityDestroyed()
+		public virtual void StopEntityDeath()
 		{
-			EntityEffects.DestroyedEntity();
-			OnDestroyed?.Invoke(this);
+			Dying = false;
 		}
 
 		/// <summary>
@@ -228,6 +269,17 @@ namespace Celeritas.Game
 			{
 				actions.Remove(action);
 				OnActionRemoved?.Invoke(action);
+			}
+		}
+
+		/// <summary>
+		/// Remove all actions on this entity.
+		/// </summary>
+		public void RemoveAllActions()
+		{
+			for (int i = actions.Count - 1; i >= 0; i--)
+			{
+				RemoveAction(actions[i]);
 			}
 		}
 

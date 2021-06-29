@@ -12,7 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 964ba3942b684a84d8afc3e63f6671fd, type: 3}
   m_Name: projectile_bullet_tracking
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   title: Bullet
+  capacityHint: 30
   prefab: {fileID: 3324253997330418440, guid: 89d6d1dbe2c56d84b9c53c39d1d04afe, type: 3}
   speed: 50
   lifetime: 3

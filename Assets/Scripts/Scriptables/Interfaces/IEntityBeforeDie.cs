@@ -1,17 +1,17 @@
-using Celeritas.Game;
+﻿using Celeritas.Game;
 
 namespace Celeritas.Scriptables.Interfaces
 {
 	/// <summary>
 	/// An interface for registering for the entity destroyed event.
 	/// </summary>
-	public interface IEntityDestroyed
+	public interface IEntityBeforeDie
 	{
 		/// <summary>
-		/// Called when the entity is destroyed.
+		/// Called when the entity is scheduled to be destroyed.
 		/// </summary>
 		/// <param name="entity">The target entity.</param>
 		/// <param name="level">The level of this effect.</param>
-		void OnEntityDestroyed(Entity entity, ushort level);
+		void OnEntityBeforeDie(Entity entity, ushort level);
 	}
 }

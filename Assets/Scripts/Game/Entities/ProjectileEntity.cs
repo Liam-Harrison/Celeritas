@@ -59,20 +59,21 @@ namespace Celeritas.Game.Entities
 
 		public override void OnEntityHit(Entity other)
 		{
-			// check if other is owner ship. Return & do no damage if it is owner & damageOwnerShip is false
+			if (other.IsPlayer == IsPlayer)
+				return;
+
 			if (damageOwnerShip == false && other is ShipEntity ship)
 			{
 				if (ship.WeaponEntities.Contains(Weapon))
 				{
-					// return without doing damage
 					return;
 				}
 			}
 
-			if (destroyedOnHit)
-				Died = true;
-			//Debug.Log(damage);
 			other.TakeDamage(this, damage);
+
+			if (destroyedOnHit)
+				KillEntity();
 
 			base.OnEntityHit(other);
 		}

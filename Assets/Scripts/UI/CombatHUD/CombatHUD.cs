@@ -203,7 +203,7 @@ public class CombatHUD : Singleton<CombatHUD>
 		{
 			var statBar = toUpdate.ActiveObjects[i];
 
-			if (statBar.Ship.Died || statBar.Ship == null)
+			if (statBar.Ship == null)
 			{
 				toUpdate.ReleasePooledObject(statBar);
 				continue;

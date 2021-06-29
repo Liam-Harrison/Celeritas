@@ -57,7 +57,7 @@ namespace Celeritas.Game
 			enemy.transform.position = position;
 			enemy.transform.rotation = rotation;
 			enemy.AttatchToAI(enemy.gameObject.AddComponent<T>());
-			enemy.OnDestroyed += OnShipDestroyed;
+			enemy.OnKilled += OnShipDestroyed;
 			ships.Add(enemy);
 			return enemy;
 		}

@@ -37,8 +37,6 @@ namespace Celeritas.Scriptables
 		/// </summary>
 		public float MaxCharge { get => maxCharge; }
 
-
-
 		protected override void OnValidate()
 		{
 			if (prefab != null && prefab.HasComponent<WeaponEntity>() == false)

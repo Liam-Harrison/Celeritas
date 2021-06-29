@@ -64,6 +64,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   title: Ship Speed
+  capacityHint: 1
   prefab: {fileID: 4089323473130755692, guid: e1cc38f2b65f17a4ea4d22833c05e9fd, type: 3}
   icon: {fileID: 21300000, guid: 1200666ad903845488e808f72ae5eed5, type: 3}
   description: Speeds up your ship!

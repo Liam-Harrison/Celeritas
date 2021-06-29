@@ -12,7 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01a9cfe4f02aeef4883e64000d44d1d9, type: 3}
   m_Name: loot_module
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   title: Loot Module
+  capacityHint: 10
   prefab: {fileID: 1912384151224882169, guid: 18205d320c31ae7438a54e8aec400779, type: 3}
   pickupRadius: 7
   lootType: 0

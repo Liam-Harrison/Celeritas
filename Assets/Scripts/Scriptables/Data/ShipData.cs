@@ -90,25 +90,25 @@ namespace Celeritas.Scriptables
 	[System.Serializable]
 	public struct MovementSettings
 	{
-		[MinMaxSlider(0, 3000, showFields: true), Title("Rotation")]
+		[MinMaxSlider(0, 3000, showFields: true), TabGroup("Rotation"), PropertySpace]
 		public Vector2 torquePerSec;
 
-		[SerializeField]
+		[SerializeField, TabGroup("Rotation")]
 		public AnimationCurve rotationCurve;
 
-		[PropertyRange(0, 100)]
+		[PropertyRange(0, 100), TabGroup("Rotation")]
 		public float angularDrag;
 
-		[PropertyRange(0, 180)]
+		[PropertyRange(0, 180), TabGroup("Rotation")]
 		public float rotationMaximum;
 
-		[PropertyRange(0, 100000), PropertySpace, Title("Translation")]
+		[PropertyRange(0, 1), TabGroup("Rotation")]
+		public float aimDeadzone;
+
+		[PropertyRange(0, 100000), PropertySpace, TabGroup("Translation")]
 		public float forcePerSec;
 
-		[PropertyRange(0, 50)]
+		[PropertyRange(0, 50), TabGroup("Translation")]
 		public float mass;
-
-		[PropertyRange(0, 1), Title("Aiming")]
-		public float aimDeadzone;
 	}
 }
