@@ -34,6 +34,11 @@ namespace Celeritas.Game
 		public ChunkManager ChunkManager { get; private set; }
 
 		/// <summary>
+		/// Are the gameobjects in this chunk active.
+		/// </summary>
+		public bool Active { get; private set; } = true;
+
+		/// <summary>
 		/// The entities attatched to this chunk.
 		/// </summary>
 		public IReadOnlyCollection<Entity> Entites { get => entities; }
@@ -58,6 +63,7 @@ namespace Celeritas.Game
 		/// <param name="value">The value to set.</param>
 		public void ChunkSetActive(bool value)
 		{
+			Active = value;
 			foreach (var entity in entities)
 			{
 				entity.gameObject.SetActive(value);
@@ -91,6 +97,7 @@ namespace Celeritas.Game
 		{
 			entities.Add(entity);
 			entity.Chunk = this;
+			entity.gameObject.SetActive(Active);
 		}
 
 		/// <summary>

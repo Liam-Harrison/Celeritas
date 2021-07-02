@@ -1,4 +1,5 @@
 ﻿using Celeritas.Scriptables;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Assets.Scripts.Scriptables.Data
@@ -10,7 +11,7 @@ namespace Assets.Scripts.Scriptables.Data
 	[CreateAssetMenu(fileName = "New Asteroid", menuName = "Celeritas/New Asteroid", order = 50)]
 	public class AsteroidData : EntityData
 	{
-		[SerializeField]
+		[SerializeField, TitleGroup("Asteroid")]
 		private uint health;
 
 		public uint Health { get => health; }

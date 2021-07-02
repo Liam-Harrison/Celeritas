@@ -1,6 +1,5 @@
 using Celeritas.Scriptables;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -14,6 +13,14 @@ namespace Celeritas.Game.Entities
 	/// </summary>
 	public class EntityDataManager : Singleton<EntityDataManager>
 	{
+		private const float CHUNK_SIZE = 100;
+
+		private const int DISABLE_CHUNK_DIST = 3;
+
+		private const int UNLOAD_CHUNK_DIST = 6;
+
+		private const float UPDATE_FREQ = 2;
+
 		private readonly List<ShipData> ships = new List<ShipData>();
 		private readonly List<WeaponData> weapons = new List<WeaponData>();
 		private readonly List<ModuleData> modules = new List<ModuleData>();
@@ -86,25 +93,112 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public bool Loaded { get; private set; } = false;
 
+		/// <summary>
+		/// The chunk manager for the game.
+		/// </summary>
+		public static ChunkManager ChunkManager { get; private set; }
+
 		public static event Action OnLoadedAssets;
 
 		public static event Action<Entity> OnCreatedEntity;
 
+		public static event Action<Chunk> OnCreatedChunk;
+
 		private static Dictionary<EntityData, ObjectPool<Entity>> entites = new Dictionary<EntityData, ObjectPool<Entity>>();
+
+		private float lastUpdate;
+
+		private new Camera camera;
 
 		protected override void Awake()
 		{
 			base.Awake();
+			camera = Camera.main;
+			ChunkManager = new ChunkManager(new Vector2(CHUNK_SIZE, CHUNK_SIZE));
 			LoadAssets();
 		}
 
+		private void FixedUpdate()
+		{
+			if (!Instance.Loaded || Time.unscaledTime < lastUpdate + (1f / UPDATE_FREQ))
+				return;
+
+			lastUpdate = Time.unscaledTime;
+			UpdateChunks();
+		}
+
+		private Color green = new Color(0, 1, 0, 0.1f);
+		private Color yellow = new Color(1, 0.92f, 0.016f, 0.1f);
+
+		private void OnDrawGizmosSelected()
+		{
+			if (ChunkManager == null)
+				return;
+
+			foreach (var chunk in ChunkManager.Chunks)
+			{
+				if (chunk.Active)
+					Gizmos.color = green;
+				else
+					Gizmos.color = yellow;
+
+				Gizmos.DrawCube(chunk.Center, new Vector3(chunk.Size.x, chunk.Size.y, 1));
+			}
+		}
+
+		private void UpdateChunks()
+		{
+			var middle = ChunkManager.GetChunkIndex(camera.transform.position);
+
+			for (int x = 0; x < UNLOAD_CHUNK_DIST * 2; x++)
+			{
+				for (int y = 0; y < UNLOAD_CHUNK_DIST * 2; y++)
+				{
+					var index = middle + new Vector2Int(x - UNLOAD_CHUNK_DIST, y - UNLOAD_CHUNK_DIST);
+
+					if (ChunkManager.GetManhattenDistance(middle, index) >= UNLOAD_CHUNK_DIST)
+						continue;
+
+					if (ChunkManager.TryGetChunk(index, out var chunk))
+					{
+						chunk.ChunkSetActive(ChunkManager.GetManhattenDistance(middle, index) < DISABLE_CHUNK_DIST);
+					}
+					else
+					{
+						chunk = ChunkManager.CreateChunk(index);
+						chunk.ChunkSetActive(ChunkManager.GetManhattenDistance(middle, index) < DISABLE_CHUNK_DIST);
+						OnCreatedChunk?.Invoke(chunk);
+					}
+				}
+			}
+
+			var toRemove = new HashSet<Vector2Int>();
+			foreach (var chunk in ChunkManager.Keys)
+			{
+				if (ChunkManager.GetManhattenDistance(middle, chunk) >= UNLOAD_CHUNK_DIST)
+				{
+					toRemove.Add(chunk);
+				}
+			}
+
+			foreach (var chunk in toRemove)
+			{
+				ChunkManager.UnloadChunk(chunk);
+			}
+		}
+
 		/// <summary>
-		/// Create and initalize the entity of a specified type.
+		/// Create an entity.
 		/// </summary>
-		/// <typeparam name="T">The <seealso cref="Entity"/> type to create.</typeparam>
-		/// <param name="data">The data to attatch to the entity.</param>
-		/// <returns>Returns the created and initalized entity.</returns>
-		public static T InstantiateEntity<T>(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false) where T: Entity
+		/// <typeparam name="T">The entity type to create.</typeparam>
+		/// <param name="data">The data template to use.</param>
+		/// <param name="position">The position to spawn the entity with.</param>
+		/// <param name="rotation">The rotation to spawn the entity with.</param>
+		/// <param name="owner">The owner entity</param>
+		/// <param name="effects">The effects to start this entity with.</param>
+		/// <param name="forceIsPlayer">Force this entity to be a player entity.</param>
+		/// <returns>Returns the created entity.</returns>
+		public static T InstantiateEntity<T>(EntityData data, Vector3 position, Quaternion rotation, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false) where T: Entity
 		{
 			if (!entites.ContainsKey(data))
 			{
@@ -113,10 +207,55 @@ namespace Celeritas.Game.Entities
 
 			var entity = entites[data].GetPooledObject().GetComponent<T>();
 
+			entity.transform.position = position;
+			entity.transform.rotation = rotation;
+
 			entity.Initalize(data, owner, effects, forceIsPlayer);
 			OnCreatedEntity?.Invoke(entity);
 
+			if (data.UseChunking)
+			{
+				if (ChunkManager.TryGetChunk(position, out var chunk))
+				{
+					chunk.AddEntity(entity);
+				}
+				else
+				{
+					UnityEngine.Debug.LogError($"Tried to spawn \"{data.Title}\" in a chunk which does not exist ({ChunkManager.GetChunkIndex(position).x}, {ChunkManager.GetChunkIndex(position).y}). " +
+						$"Check spawn logic or disable \"useChunking\" for this object.", entity.gameObject);
+				}
+			}
+
 			return entity;
+		}
+
+		/// <summary>
+		/// Create an entity.
+		/// </summary>
+		/// <typeparam name="T">The entity type to create.</typeparam>
+		/// <param name="data">The data template to use.</param>
+		/// <param name="position">The position to spawn the entity with.</param>
+		/// <param name="owner">The owner entity</param>
+		/// <param name="effects">The effects to start this entity with.</param>
+		/// <param name="forceIsPlayer">Force this entity to be a player entity.</param>
+		/// <returns>Returns the created entity.</returns>
+		public static T InstantiateEntity<T>(EntityData data, Vector3 position, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false) where T : Entity
+		{
+			return InstantiateEntity<T>(data, position, Quaternion.identity, owner, effects, forceIsPlayer);
+		}
+
+		/// <summary>
+		/// Create an entity.
+		/// </summary>
+		/// <typeparam name="T">The entity type to create.</typeparam>
+		/// <param name="data">The data template to use.</param>
+		/// <param name="owner">The owner entity</param>
+		/// <param name="effects">The effects to start this entity with.</param>
+		/// <param name="forceIsPlayer">Force this entity to be a player entity.</param>
+		/// <returns>Returns the created entity.</returns>
+		public static T InstantiateEntity<T>(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false) where T : Entity
+		{
+			return InstantiateEntity<T>(data, Vector3.zero, Quaternion.identity, owner, effects, forceIsPlayer);
 		}
 
 		/// <summary>
@@ -192,6 +331,7 @@ namespace Celeritas.Game.Entities
 			UnityEngine.Debug.Log($"load took: {watch.ElapsedMilliseconds}ms");
 
 			Loaded = true;
+			UpdateChunks();
 			OnLoadedAssets?.Invoke();
 		}
 

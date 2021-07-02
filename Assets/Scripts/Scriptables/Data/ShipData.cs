@@ -20,22 +20,22 @@ namespace Celeritas.Scriptables
 	[CreateAssetMenu(fileName = "New Ship", menuName = "Celeritas/New Ship", order = 10)]
 	public class ShipData : EntityData
 	{
-		[SerializeField, TitleGroup("General")]
+		[SerializeField, TitleGroup("Ship")]
 		protected MovementSettings movementSettings;
 
-		[SerializeField, TitleGroup("General")]
+		[SerializeField, TitleGroup("Ship")]
 		private ShipClass shipClass;
 
-		[SerializeField, TitleGroup("General"), PreviewField, AssetIcon(maxSize: 50)]
+		[SerializeField, TitleGroup("Ship"), PreviewField, AssetIcon(maxSize: 50)]
 		private Sprite icon;
 
-		[SerializeField, TitleGroup("General"), TextArea]
+		[SerializeField, TitleGroup("Ship"), TextArea]
 		private string description;
 
-		[SerializeField, TitleGroup("Starting Settings")]
+		[SerializeField, TitleGroup("Ship Start Settings")]
 		private uint startingHealth;
 
-		[SerializeField, TitleGroup("Starting Settings")]
+		[SerializeField, TitleGroup("Ship Start Settings")]
 		private uint startingShield;
 
 		/// <summary>

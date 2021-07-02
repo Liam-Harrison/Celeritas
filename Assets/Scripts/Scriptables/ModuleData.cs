@@ -13,18 +13,7 @@ namespace Celeritas.Scriptables
 	[CreateAssetMenu(fileName = "New Module", menuName = "Celeritas/New Module", order = 20)]
 	public class ModuleData : EntityData
 	{
-		[HorizontalGroup("Module Info", Width = 50)]
-		[BoxGroup("Module Info/Icon")]
-		[SerializeField, PreviewField, HideLabel]
-		[AssetIcon(maxSize: 50)]
-		private Sprite icon;
-
-		[HorizontalGroup("Module Info")]
-		[BoxGroup("Module Info/Description")]
-		[SerializeField, TextArea, HideLabel]
-		private string description;
-
-		[SerializeField]
+		[SerializeField, TitleGroup("Module")]
 		private ModuleSize size;
 
 		[SerializeField]
@@ -32,6 +21,15 @@ namespace Celeritas.Scriptables
 
 		[SerializeField]
 		private Rarity rarity;
+
+		[HorizontalGroup("Module Info", Width = 50), BoxGroup("Module Info/Icon"), SerializeField, PreviewField, HideLabel]
+		[AssetIcon(maxSize: 50)]
+		private Sprite icon;
+
+		[HorizontalGroup("Module Info")]
+		[BoxGroup("Module Info/Description")]
+		[SerializeField, TextArea, HideLabel]
+		private string description;
 
 		[SerializeField, Title("Module Layout"), FoldoutGroup("layout")]
 		[TableMatrix(SquareCells = true, DrawElementMethod = nameof(OnLayoutDraw))]

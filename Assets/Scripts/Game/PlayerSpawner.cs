@@ -36,9 +36,9 @@ namespace Celeritas.Game
 
 		private void CreatePlayerShip()
 		{
-			var ship = EntityDataManager.InstantiateEntity<ShipEntity>(this.ship, forceIsPlayer: true);
+			var ship = EntityDataManager.InstantiateEntity<ShipEntity>(this.ship, transform.position, forceIsPlayer: true);
 			ship.gameObject.AddComponent<PlayerController>();
-			ship.transform.position = transform.position;
+
 			transform.parent = ship.transform;
 			ship.OnActionAdded += OnPlayerActionAdded;
 			ship.OnActionRemoved += OnPlayerActionRemoved;

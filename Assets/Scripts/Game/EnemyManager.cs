@@ -53,9 +53,7 @@ namespace Celeritas.Game
 				return null;
 			}
 
-			var enemy = EntityDataManager.InstantiateEntity<ShipEntity>(ship);
-			enemy.transform.position = position;
-			enemy.transform.rotation = rotation;
+			var enemy = EntityDataManager.InstantiateEntity<ShipEntity>(ship, position, rotation);
 			enemy.AttatchToAI(enemy.gameObject.AddComponent<T>());
 			enemy.OnKilled += OnShipDestroyed;
 			ships.Add(enemy);

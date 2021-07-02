@@ -67,9 +67,6 @@ namespace Celeritas.UI
 
 				ship.IsStationary = true;
 				ship.transform.parent = shipSpawn;
-				ship.transform.localPosition = Vector3.zero;
-				ship.transform.localRotation = Quaternion.identity;
-				ship.transform.localScale = Vector3.one;
 				ship.gameObject.SetActive(false);
 
 				shipObjects.Add(ship);

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Celeritas.Game
@@ -23,6 +18,11 @@ namespace Celeritas.Game
 		/// </summary>
 		public IReadOnlyCollection<Chunk> Chunks { get => chunks.Values; }
 
+		/// <summary>
+		/// The keys of chunks inside this manager.
+		/// </summary>
+		public IReadOnlyCollection<Vector2Int> Keys { get => chunks.Keys; }
+
 		private readonly Dictionary<Vector2Int, Chunk> chunks = new Dictionary<Vector2Int, Chunk>();
 
 		public ChunkManager(Vector2 size)
@@ -40,6 +40,29 @@ namespace Celeritas.Game
 			var x = Mathf.RoundToInt(position.x / ChunkSize.x);
 			var y = Mathf.RoundToInt(position.y / ChunkSize.y);
 			return new Vector2Int(x, y);
+		}
+
+		/// <summary>
+		/// Get manhatten distance between two indexes.
+		/// </summary>
+		/// <param name="a">The first index.</param>
+		/// <param name="b">The second index.</param>
+		/// <returns>The resulting manhatten distance.</returns>
+		public int GetManhattenDistance(Vector2Int a, Vector2Int b)
+		{
+			var d = b - a;
+			return Mathf.Abs(d.x) + Mathf.Abs(d.y);
+		}
+
+		/// <summary>
+		/// Get manhatten distance between two chunks.
+		/// </summary>
+		/// <param name="a">The first chunk.</param>
+		/// <param name="b">The second chunk.</param>
+		/// <returns>The resulting manhatten distance.</returns>
+		public int GetManhattenDistance(Chunk a, Chunk b)
+		{
+			return GetManhattenDistance(a.Index, b.Index);
 		}
 
 		/// <summary>
@@ -129,6 +152,16 @@ namespace Celeritas.Game
 		public void UnloadChunk(Chunk chunk)
 		{
 			UnloadChunk(chunk.Index);
+		}
+
+		/// <summary>
+		/// Does this chunk manager have the current chunk.
+		/// </summary>
+		/// <param name="index">The index of the chunk.</param>
+		/// <returns>Returns true if this chunk is avaliable.</returns>
+		public bool HasChunk(Vector2Int index)
+		{
+			return chunks.ContainsKey(index);
 		}
 	}
 }

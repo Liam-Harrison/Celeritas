@@ -12,8 +12,6 @@ namespace Assets.Scripts.Game
 	/// </summary>
 	class EnvironmentGenerator: Singleton<EnvironmentGenerator>
 	{
-		private const float UPDATE_FREQ = 2;
-
 		[SerializeField]
 		private EntityData asteroidPrefab;
 
@@ -29,68 +27,14 @@ namespace Assets.Scripts.Game
 		[SerializeField, PropertyRange(0, 100)]
 		private int asteroidClusterSpacing;
 
-		[SerializeField, DisableInPlayMode]
-		private Vector2 chunkSize = new Vector2(20, 20);
-
-		[SerializeField]
-		private float unloadDistance = 400;
-
-		private float unloadDistanceSqr;
-
-		private ChunkManager ChunkManager;
-
-		private new Camera camera;
-
-		private float lastUpdate;
-
-		private void Start()
+		private void OnEnable()
 		{
-			ChunkManager = new ChunkManager(chunkSize);
-			unloadDistanceSqr = unloadDistance * unloadDistance;
-
-			camera = Camera.main;
+			EntityDataManager.OnCreatedChunk += SpawnAsteroidsInChunk;
 		}
 
-		private void Update()
+		private void OnDisable()
 		{
-			if (!EntityDataManager.Instance.Loaded)
-				return;
-
-			if (Time.unscaledTime < lastUpdate + (1f / UPDATE_FREQ))
-				return;
-
-			lastUpdate = Time.unscaledTime;
-
-			var middle = ChunkManager.GetOrCreateChunk(camera.transform.position);
-
-			for (int i = -1; i <= 1; i++)
-			{
-				for (int j = -1; j <= 1; j++)
-				{
-					var pos = middle.Index;
-					pos += new Vector2Int(i, j);
-
-					var chunk = ChunkManager.GetOrCreateChunk(pos);
-
-					if (chunk.Entites.Count == 0)
-						SpawnAsteroidsInChunk(chunk);
-				}
-			}
-
-			var toRemove = new HashSet<Chunk>();
-			foreach (var chunk in ChunkManager.Chunks)
-			{
-				var delta = (chunk.Center - camera.transform.position).sqrMagnitude;
-				if (delta > unloadDistanceSqr)
-				{
-					toRemove.Add(chunk);
-				}
-			}
-
-			foreach (var chunk in toRemove)
-			{
-				ChunkManager.UnloadChunk(chunk);
-			}
+			EntityDataManager.OnCreatedChunk -= SpawnAsteroidsInChunk;
 		}
 
 		private void SpawnAsteroidsInChunk(Chunk chunk)
@@ -99,18 +43,6 @@ namespace Assets.Scripts.Game
 			for (int i = 0; i < numberOfAsteroidClusters; i++)
 			{
 				SpawnAsteroidsInCluster(asteroidNumberPerCluster, chunk);
-			}
-		}
-
-		private void OnDrawGizmosSelected()
-		{
-			if (ChunkManager == null)
-				return;
-
-			Gizmos.color = Color.green;
-			foreach (var chunk in ChunkManager.Chunks)
-			{
-				Gizmos.DrawWireCube(chunk.Center, new Vector3(chunk.Size.x, chunk.Size.y, 1));
 			}
 		}
 
@@ -124,7 +56,7 @@ namespace Assets.Scripts.Game
 		{
 			for (int i = 0; i < amountToSpawn; i++)
 			{
-				SpawnAsteroid(chunk, chunk.GetRandomPositionInChunk());
+				SpawnAsteroid(chunk.GetRandomPositionInChunk());
 			}
 		}
 
@@ -137,7 +69,7 @@ namespace Assets.Scripts.Game
 		{
 			for (int i = 0; i < amountToSpawn; i++)
 			{
-				SpawnAsteroid(chunk, chunk.GetRandomPositionInChunk());
+				SpawnAsteroid(chunk.GetRandomPositionInChunk());
 			}
 		}
 
@@ -147,16 +79,10 @@ namespace Assets.Scripts.Game
 			asteroid.transform.localScale = new Vector3(scale, scale, scale);
 		}
 
-		private Asteroid SpawnAsteroid(Chunk chunk, Vector3 position)
+		private Asteroid SpawnAsteroid(Vector3 position)
 		{
-			Asteroid asteroid = EntityDataManager.InstantiateEntity<Asteroid>(asteroidPrefab);
-
-			asteroid.transform.position = position;
-			asteroid.transform.rotation = Random.rotation;
+			Asteroid asteroid = EntityDataManager.InstantiateEntity<Asteroid>(asteroidPrefab, position, Random.rotation);
 			RandomiseAsteroidScale(asteroid, 0.5f, 2f);
-
-			chunk.AddEntity(asteroid);
-
 			return asteroid;
 		}
 	}

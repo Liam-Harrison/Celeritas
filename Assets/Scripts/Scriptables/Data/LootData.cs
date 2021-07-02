@@ -1,5 +1,6 @@
 ﻿using Celeritas.Game.Controllers;
 using Celeritas.Scriptables;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Assets.Scripts.Scriptables.Data
@@ -12,7 +13,7 @@ namespace Assets.Scripts.Scriptables.Data
 	[CreateAssetMenu(fileName = "New Loot", menuName = "Celeritas/New LootDrop", order = 50)]
 	public class LootData : EntityData
 	{
-		[SerializeField]
+		[SerializeField, TitleGroup("Loot")]
 		private uint pickupRadius;
 
 		public uint PickupRadius { get => pickupRadius; }

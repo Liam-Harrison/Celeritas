@@ -101,8 +101,8 @@ namespace Celeritas.Game.Entities
 
 		protected virtual void Fire()
 		{
-			var projectile = EntityDataManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile, this, ProjectileEffects.EffectWrapperCopy);
-			projectile.transform.CopyTransform(projectileSpawn);
+			var projectile = EntityDataManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile, projectileSpawn.position, projectileSpawn.rotation, this, ProjectileEffects.EffectWrapperCopy);
+			projectile.transform.localScale = projectileSpawn.localScale;
 			EntityEffects.EntityFired(projectile);
 		}
 	}

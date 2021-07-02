@@ -10,9 +10,15 @@ namespace Celeritas.Scriptables
 	/// </summary>
 	public abstract class EntityData : SerializedScriptableObject
 	{
-		[SerializeField, Title("Common")] protected string title;
-		[SerializeField, PropertyRange(1, 100)] protected int capacityHint = 1;
-		[SerializeField, AssetList] protected GameObject prefab;
+		[SerializeField, TitleGroup("Entity Settings")] protected string title;
+
+		[SerializeField, AssetList, TitleGroup("Entity Settings")] protected GameObject prefab;
+
+		[SerializeField, PropertyRange(1, 100), TitleGroup("Entity Settings")]
+		protected int capacityHint = 1;
+
+		[SerializeField, TitleGroup("Chunking")]
+		protected bool useChunking = false;
 
 		private void OnEnable()
 		{
@@ -45,6 +51,11 @@ namespace Celeritas.Scriptables
 		/// The reccomended capcaity for this entity.
 		/// </summary>
 		public int CapacityHint { get => capacityHint; }
+
+		/// <summary>
+		/// Use the chunking system for this entity.
+		/// </summary>
+		public bool UseChunking { get => useChunking; }
 
 		/// <summary>
 		/// The tooltip of this entity data.

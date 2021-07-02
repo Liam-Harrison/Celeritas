@@ -22,8 +22,9 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Bullet
-  capacityHint: 30
   prefab: {fileID: 3324253997330418440, guid: abef611c957c7624dba6bab1b0c716a4, type: 3}
+  useChunking: 0
+  capacityHint: 30
   speed: 50
   lifetime: 3
   damage: 10
