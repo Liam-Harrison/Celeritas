@@ -31,6 +31,8 @@ namespace Celeritas.UI.Inventory
 
 		private BuildHUD hud;
 
+		public ModuleEntity TooltipEntity => (ModuleEntity)module.EntityInstance;
+
 		private void Awake()
 		{
 			hud = GetComponentInParent<BuildHUD>();
@@ -54,8 +56,6 @@ namespace Celeritas.UI.Inventory
 					subtitle.text = $"{module.ModuleCatagory} - {module.ModuleSize} - Level {entity.Level}";
 			}
 		}
-
-		public ModuleEntity TooltipEntity => (ModuleEntity) module.EntityInstance;
 
 		public void OnPointerDown(PointerEventData _)
 		{

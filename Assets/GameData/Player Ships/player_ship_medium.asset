@@ -22,8 +22,9 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Medium Ship
-  capacityHint: 1
   prefab: {fileID: 2516558698829045457, guid: b446706955a35834c903d52b0b890fcb, type: 3}
+  capacityHint: 1
+  useChunking: 0
   movementSettings:
     torquePerSec: {x: 2400, y: 3000}
     rotationCurve:
@@ -64,7 +65,8 @@ MonoBehaviour:
     aimDeadzone: 0.9975
     forcePerSec: 15000
     mass: 6
-  shipClass: 1
+  rarity: 0
+  shipClass: 0
   icon: {fileID: 21300000, guid: f714725e334a1174681c0dd57665666b, type: 3}
   description: Medium Ship Description
   startingHealth: 10000

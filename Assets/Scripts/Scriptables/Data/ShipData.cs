@@ -3,6 +3,7 @@ using Celeritas.Extensions;
 using Celeritas.Game.Entities;
 using Sirenix.OdinInspector;
 using AssetIcons;
+using Celeritas.Game.Interfaces;
 
 namespace Celeritas.Scriptables
 {
@@ -18,10 +19,13 @@ namespace Celeritas.Scriptables
 	/// </summary>
 	[InlineEditor]
 	[CreateAssetMenu(fileName = "New Ship", menuName = "Celeritas/New Ship", order = 10)]
-	public class ShipData : EntityData
+	public class ShipData : EntityData, IGameUI
 	{
 		[SerializeField, TitleGroup("Ship")]
 		protected MovementSettings movementSettings;
+
+		[SerializeField, TitleGroup("Ship")]
+		private Rarity rarity;
 
 		[SerializeField, TitleGroup("Ship")]
 		private ShipClass shipClass;
@@ -67,6 +71,11 @@ namespace Celeritas.Scriptables
 		/// The icon for the ship.
 		/// </summary>
 		public Sprite Icon { get => icon; }
+
+		/// <summary>
+		/// The rarity of the ship.
+		/// </summary>
+		public Rarity Rarity { get => rarity; }
 
 		public override string Tooltip => $"A <color=\"orange\">{ShipClass}</color> class ship.";
 

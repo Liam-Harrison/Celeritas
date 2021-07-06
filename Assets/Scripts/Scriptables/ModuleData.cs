@@ -1,6 +1,7 @@
 using AssetIcons;
 using Celeritas.Extensions;
 using Celeritas.Game.Entities;
+using Celeritas.Game.Interfaces;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace Celeritas.Scriptables
 	/// Contains the instanced information for a module.
 	/// </summary>
 	[CreateAssetMenu(fileName = "New Module", menuName = "Celeritas/New Module", order = 20)]
-	public class ModuleData : EntityData
+	public class ModuleData : EntityData, IGameUI
 	{
 		[SerializeField, TitleGroup("Module")]
 		private ModuleSize size;
