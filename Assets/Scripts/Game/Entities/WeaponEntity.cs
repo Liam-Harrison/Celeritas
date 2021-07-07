@@ -28,6 +28,9 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public WeaponData WeaponData { get; private set; }
 
+		/// <summary>
+		/// The rate of fire of this weapon.
+		/// </summary>
 		public uint RateOfFire { get=> rateOfFire; set => rateOfFire = value; }
 
 		/// <summary>

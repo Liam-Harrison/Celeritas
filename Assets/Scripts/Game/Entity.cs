@@ -128,6 +128,11 @@ namespace Celeritas.Game
 		public event Action<GameAction> OnActionRemoved;
 
 		/// <summary>
+		/// The subheader of this entity.
+		/// </summary>
+		public virtual string Subheader { get; } = "Missing Subheader";
+
+		/// <summary>
 		/// Initalize this entity.
 		/// </summary>
 		/// <param name="data">The data to attatch this entity to.</param>

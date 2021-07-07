@@ -12,7 +12,7 @@ namespace Celeritas.Scriptables
 	/// Contains the instanced information for a module.
 	/// </summary>
 	[CreateAssetMenu(fileName = "New Module", menuName = "Celeritas/New Module", order = 20)]
-	public class ModuleData : EntityData, IGameUI
+	public class ModuleData : EntityData
 	{
 		[SerializeField, TitleGroup("Module")]
 		private ModuleSize size;

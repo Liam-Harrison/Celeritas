@@ -1,29 +1,36 @@
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
-using Celeritas.UI.General;
 using Cinemachine;
 using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Celeritas.UI.Runstart
 {
 	public class ShipSelection : MonoBehaviour
 	{
+		[SerializeField]
+		private Vector3 rotation;
+
 		[SerializeField, Title("Assignments")]
 		private new CinemachineVirtualCamera camera;
 
 		[SerializeField, Title("Spawn")]
 		private Transform shipSpawn;
 
-		public static PlayerShipEntity CurrentShip { get; private set; }
+		/// <summary>
+		/// The currently selected ship.
+		/// </summary>
+		public PlayerShipEntity CurrentShip { get; private set; }
+
+		/// <summary>
+		/// The spawn transform of the ship.
+		/// </summary>
+		public Transform ShipSpawn { get => shipSpawn; }
 
 		private readonly Dictionary<ShipData, PlayerShipEntity> shipObjects = new Dictionary<ShipData, PlayerShipEntity>();
 		private readonly List<WeaponData> weaponList = new List<WeaponData>();
-
-		private WeaponData currentWeapon;
 
 		private void Awake()
 		{
@@ -31,6 +38,55 @@ namespace Celeritas.UI.Runstart
 				SetupData();
 			else
 				EntityDataManager.OnLoadedAssets += SetupData;
+		}
+
+		/// <summary>
+		/// Select a specific player ship.
+		/// </summary>
+		/// <param name="ship">The player ship data to select.</param>
+		public void SelectShip(ShipData ship)
+		{
+			if (shipObjects.Count == 0)
+				SetupData();
+
+			if (!shipObjects.ContainsKey(ship))
+				return;
+
+			if (CurrentShip != null)
+				CurrentShip.gameObject.SetActive(false);
+
+			CurrentShip = shipObjects[ship];
+			camera.m_Lens.OrthographicSize = CurrentShip.SelectionViewSize;
+
+			CurrentShip.gameObject.SetActive(true);
+		}
+
+		/// <summary>
+		/// Rotate the ship spawn to the provided rotation.
+		/// </summary>
+		/// <param name="rotation">The rotation to move to.</param>
+		public void RotateOrigin(Vector3 rotation)
+		{
+			StopAllCoroutines();
+			StartCoroutine(RotateCoroutine(rotation));
+		}
+
+		private IEnumerator RotateCoroutine(Vector3 rotation)
+		{
+			float start = Time.time;
+			float time = 1;
+			float p;
+
+			do
+			{
+				p = Mathf.Clamp01((Time.time - start) / time);
+				ShipSpawn.rotation = Quaternion.Slerp(ShipSpawn.rotation, Quaternion.Euler(rotation), Mathf.Sin(p));
+				yield return null;
+			} while (p < 1);
+
+			ShipSpawn.rotation = Quaternion.Euler(rotation);
+
+			yield break;
 		}
 
 		private void SetupData()
@@ -56,27 +112,6 @@ namespace Celeritas.UI.Runstart
 			{
 				weaponList.Add(weapon);
 			}
-		}
-
-		/// <summary>
-		/// Select a specific player ship.
-		/// </summary>
-		/// <param name="ship">The player ship data to select.</param>
-		public void SelectShip(ShipData ship)
-		{
-			if (shipObjects.Count == 0)
-				SetupData();
-
-			if (!shipObjects.ContainsKey(ship))
-				return;
-
-			if (CurrentShip != null)
-				CurrentShip.gameObject.SetActive(false);
-
-			CurrentShip = shipObjects[ship];
-			camera.m_Lens.OrthographicSize = CurrentShip.SelectionViewSize;
-
-			CurrentShip.gameObject.SetActive(true);
 		}
 	}
 }

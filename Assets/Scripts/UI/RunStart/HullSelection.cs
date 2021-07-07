@@ -15,6 +15,9 @@ namespace Celeritas.UI.Runstart
 	/// </summary>
 	public class HullSelection : MonoBehaviour
 	{
+		[SerializeField, TitleGroup("Ship")]
+		private Vector3 rotation;
+
 		[SerializeField, TitleGroup("Class Selection")]
 		private Toggle corvetteToggle;
 
@@ -52,15 +55,20 @@ namespace Celeritas.UI.Runstart
 
 			if (EntityDataManager.Instance != null && EntityDataManager.Instance.Loaded)
 			{
-				SetupClassToggles();
+				SetupUI();
 			}
 			else
-				EntityDataManager.OnLoadedAssets += SetupClassToggles;
+				EntityDataManager.OnLoadedAssets += SetupUI;
 		}
 
-		private void SetupClassToggles()
+		private void OnEnable()
 		{
-			EntityDataManager.OnLoadedAssets -= SetupClassToggles;
+			ShipSelection.RotateOrigin(rotation);
+		}
+
+		private void SetupUI()
+		{
+			EntityDataManager.OnLoadedAssets -= SetupUI;
 
 			corvetteToggle.interactable = EntityDataManager.Instance.PlayerShips.Where((a) => a.ShipClass == ShipClass.Corvette).Count() > 0;
 			destroyerToggle.interactable = EntityDataManager.Instance.PlayerShips.Where((a) => a.ShipClass == ShipClass.Destroyer).Count() > 0;

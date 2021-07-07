@@ -177,6 +177,7 @@ MonoBehaviour:
   title: {fileID: 2105295936}
   subtitle: {fileID: 1167519857}
   description: {fileID: 618321488}
+  seperator: {fileID: 635844739}
   textrow: {fileID: 813562965578198221, guid: 13095d8e30eb5194cb694490f55de82e, type: 3}
   waitTime: 0.2
   fadeTime: 0.05
@@ -2411,11 +2412,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004166, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004166, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.09
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004166, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2459,7 +2460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004184, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: orthographic size
-      value: 25
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}

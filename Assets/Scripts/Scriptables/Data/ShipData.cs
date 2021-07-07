@@ -19,7 +19,7 @@ namespace Celeritas.Scriptables
 	/// </summary>
 	[InlineEditor]
 	[CreateAssetMenu(fileName = "New Ship", menuName = "Celeritas/New Ship", order = 10)]
-	public class ShipData : EntityData, IGameUI
+	public class ShipData : EntityData
 	{
 		[SerializeField, TitleGroup("Ship")]
 		protected MovementSettings movementSettings;

@@ -3,10 +3,13 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Celeritas.Game;
+using Celeritas.Scriptables;
+using Celeritas.UI.Tooltips;
+using Celeritas.Game.Entities;
 
 namespace Celeritas.UI.General
 {
-	public class IconUI : MonoBehaviour
+	public class IconUI : MonoBehaviour, ITooltip
 	{
 		[SerializeField]
 		private TextMeshProUGUI title;
@@ -17,22 +20,19 @@ namespace Celeritas.UI.General
 		[SerializeField]
 		private Image icon;
 
-		private IGameUI item;
+		private ModuleData item;
 
-		public IGameUI Item
+		public ModuleData Item
 		{
 			get
 			{
 				return item;
 			}
-			set
-			{
-				item = value;
-				SetItem(item);
-			}
 		}
 
-		private void SetItem(IGameUI item)
+		public ModuleEntity TooltipEntity => (ModuleEntity) Item.EntityInstance;
+
+		public void SetItem(ModuleData item)
 		{
 			this.item = item;
 

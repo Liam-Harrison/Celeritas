@@ -18,12 +18,14 @@ namespace Celeritas.UI.Tooltips
 
 		public void OnPointerEnter(PointerEventData eventData)
 		{
-			Show(reference.TooltipEntity);
+			if (reference.TooltipEntity != null)
+				Show(reference.TooltipEntity);
 		}
 
 		public void OnPointerExit(PointerEventData eventData)
 		{
-			HideTooltip();
+			if (reference.TooltipEntity != null)
+				HideTooltip();
 		}
 	}
 }

@@ -43,6 +43,9 @@ namespace Celeritas.UI
 		private TextMeshProUGUI description;
 
 		[SerializeField]
+		private GameObject seperator;
+
+		[SerializeField]
 		private GameObject textrow;
 
 		[SerializeField, PropertyRange(0, 1)]
@@ -97,6 +100,9 @@ namespace Celeritas.UI
 
 				if (pos.x + halfWidth + padding > Screen.width)
 					pos.x -= (pos.x + halfWidth + padding) - Screen.width;
+
+				if (pos.y - halfHeight - padding < 0)
+					pos.y += halfHeight * 2 - padding;
 
 				background.transform.position = Vector3.Lerp(background.transform.position, pos, 0.95f);
 			}
@@ -167,8 +173,8 @@ namespace Celeritas.UI
 			var module = request.entity;
 			title.text = module.Data.Title;
 
-			description.text = $"{module.ModuleData.Description}";
-			subtitle.text = $"{module.ModuleData.ModuleCatagory} - {module.ModuleData.ModuleSize} - Level {module.Level}";
+			description.text = module.ModuleData.Description;
+			subtitle.text = module.Subheader;
 
 			CreateEffectRows(module.EntityEffects, effectSubheader);
 
@@ -180,6 +186,8 @@ namespace Celeritas.UI
 
 			if (module.HasShipProjectileEffects)
 				CreateEffectRows(module.ShipProjectileEffects, projectileSubheader);
+
+			seperator.SetActive(HasEffects());
 
 			var pos = Mouse.current.position.ReadValue();
 			pos.y -= background.rect.height / 2;
@@ -231,6 +239,20 @@ namespace Celeritas.UI
 					Destroy(child.gameObject);
 				}
 			}
+		}
+
+		private bool HasEffects()
+		{
+			for (int i = 0; i < parent.childCount; i++)
+			{
+				var child = parent.GetChild(i);
+
+				if (!IsSubheader(child))
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		private bool IsSubheader(Transform value)
