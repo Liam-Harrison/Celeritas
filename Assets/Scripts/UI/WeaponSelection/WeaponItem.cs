@@ -13,15 +13,23 @@ namespace Celeritas.UI.WeaponSelection
 
 		public WeaponData Weapon { get; private set; }
 
+		Runstart.WeaponSelection WeaponSelection { get; set; }
+
+		void Awake()
+		{
+			WeaponSelection = FindObjectOfType<Runstart.WeaponSelection>();
+		}
+
 		public void SetWeapon(WeaponData weapon)
 		{
 			Weapon = weapon;
 
 			icon.SetItem(weapon);
 		}
+
 		public void OnDrag(PointerEventData eventData)
 		{
-
+			WeaponSelection.StartDrag(this);
 		}
 	}
 }

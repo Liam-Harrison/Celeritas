@@ -2,6 +2,7 @@ using Celeritas.Game;
 using Celeritas.Scriptables;
 using Celeritas.UI.General;
 using Sirenix.OdinInspector;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,6 +41,9 @@ namespace Celeritas.UI.WeaponSelection
 		[SerializeField, TitleGroup("Colors")]
 		private Color normal;
 
+		[SerializeField, TitleGroup("Colors")]
+		private Color highlight;
+
 		/// <summary>
 		/// The rect transform of this panel.
 		/// </summary>
@@ -54,6 +58,24 @@ namespace Celeritas.UI.WeaponSelection
 		/// The weapon set on this panel.
 		/// </summary>
 		public WeaponData Weapon { get; private set; }
+
+		private bool highlighted;
+
+		public bool Highlighted
+		{
+			get => highlighted;
+			set
+			{
+				bool changed = highlighted != value;
+				highlighted = value;
+
+				if (changed)
+				{
+					StopAllCoroutines();
+					StartCoroutine(FadeBackground(value ? highlight : normal));
+				}
+			}
+		}
 
 		private void Awake()
 		{
@@ -93,10 +115,28 @@ namespace Celeritas.UI.WeaponSelection
 				line.WorldTarget = module.transform;
 				var d = RectTransform.InverseTransformPoint(Camera.main.WorldToScreenPoint(module.transform.position));
 				line.UITarget = d.x <= 0 ? leftAnchor : rightAnchor;
-
 			}
 			else
 				line.WorldTarget = null;
+		}
+
+		private IEnumerator FadeBackground(Color color)
+		{
+			var c = background.color;
+			float s = Time.unscaledTime;
+			float time = 0.1f;
+			float p;
+
+			do
+			{
+				p = Mathf.Clamp01((Time.unscaledTime - s) / time);
+				background.color = Color.Lerp(c, color, p);
+				yield return null;
+			} while (p < 1);
+
+			background.color = color;
+
+			yield break;
 		}
 	}
 }

@@ -53,6 +53,7 @@ namespace Celeritas.UI
 				}
 
 				marker.RectTransform.anchoredPosition = GetPosition(center, marker.Entity.Position);
+				marker.SetAlpha(GetAlpha(center, marker.Entity.Position));
 			}
 		}
 
@@ -73,6 +74,16 @@ namespace Celeritas.UI
 		private void OnCreatedEntity(Entity entity)
 		{
 			TrackEntity(entity);
+		}
+
+		private float GetAlpha(Vector3 center, Vector3 target)
+		{
+			var delta = target - center;
+			var length = delta.magnitude - worldRadius;
+			if (length < 0)
+				return 1f;
+			else
+				return 1f - Mathf.Clamp01(length / 10f);
 		}
 
 		private Vector3 GetPosition(Vector3 center, Vector3 target)

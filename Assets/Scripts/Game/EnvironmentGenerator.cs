@@ -30,6 +30,11 @@ namespace Assets.Scripts.Game
 		private void OnEnable()
 		{
 			EntityDataManager.OnCreatedChunk += SpawnAsteroidsInChunk;
+
+			foreach (var chunk in EntityDataManager.ChunkManager.Chunks)
+			{
+				SpawnAsteroidsInChunk(chunk);
+			}
 		}
 
 		private void OnDisable()

@@ -480,6 +480,7 @@ MonoBehaviour:
   leftAnchor: {fileID: 6436194353304780347}
   rightAnchor: {fileID: 7115939333413044428}
   normal: {r: 0, g: 0, b: 0, a: 0.5411765}
+  highlight: {r: 0.13725491, g: 0.4627451, b: 0.62352943, a: 0.5411765}
 --- !u!222 &410004963420122264
 CanvasRenderer:
   m_ObjectHideFlags: 0

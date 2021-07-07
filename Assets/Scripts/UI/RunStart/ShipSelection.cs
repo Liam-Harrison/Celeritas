@@ -10,19 +10,22 @@ namespace Celeritas.UI.Runstart
 {
 	public class ShipSelection : MonoBehaviour
 	{
-		[SerializeField]
+		[SerializeField, TitleGroup("Rotation")]
 		private Vector3 rotation;
 
-		[SerializeField, Title("Assignments")]
+		[SerializeField, TitleGroup("Rotation")]
+		private AnimationCurve rotateCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+
+		[SerializeField, TitleGroup("Assignments")]
 		private new CinemachineVirtualCamera camera;
 
-		[SerializeField, Title("Spawn")]
+		[SerializeField, TitleGroup("Spawn")]
 		private Transform shipSpawn;
 
 		/// <summary>
 		/// The currently selected ship.
 		/// </summary>
-		public PlayerShipEntity CurrentShip { get; private set; }
+		public static PlayerShipEntity CurrentShip { get; private set; }
 
 		/// <summary>
 		/// The spawn transform of the ship.
@@ -38,6 +41,20 @@ namespace Celeritas.UI.Runstart
 				SetupData();
 			else
 				EntityDataManager.OnLoadedAssets += SetupData;
+		}
+
+		private void OnEnable()
+		{
+			StopAllCoroutines();
+			ShipSpawn.rotation = Quaternion.Euler(rotation);
+		}
+
+		private void Update()
+		{
+			if (CurrentShip != null)
+			{
+				CurrentShip.transform.rotation = ShipSpawn.rotation;
+			}
 		}
 
 		/// <summary>
@@ -71,16 +88,34 @@ namespace Celeritas.UI.Runstart
 			StartCoroutine(RotateCoroutine(rotation));
 		}
 
+		public void Launch()
+		{
+			StopAllCoroutines();
+
+			foreach (var ship in shipObjects)
+			{
+				if (ship.Value != CurrentShip)
+					EntityDataManager.UnloadEntity(ship.Value);
+			}
+			shipObjects.Clear();
+
+			CurrentShip.transform.rotation = Quaternion.identity;
+			CurrentShip.IsStationary = false;
+
+			GetComponent<SceneLoader>().LoadScene();
+		}
+
 		private IEnumerator RotateCoroutine(Vector3 rotation)
 		{
 			float start = Time.time;
-			float time = 1;
+			var q = ShipSpawn.rotation;
+			float time = 0.2f;
 			float p;
 
 			do
 			{
-				p = Mathf.Clamp01((Time.time - start) / time);
-				ShipSpawn.rotation = Quaternion.Slerp(ShipSpawn.rotation, Quaternion.Euler(rotation), Mathf.Sin(p));
+				p = Mathf.Clamp01(rotateCurve.Evaluate((Time.time - start) / time));
+				ShipSpawn.rotation = Quaternion.Slerp(q, Quaternion.Euler(rotation), p);
 				yield return null;
 			} while (p < 1);
 
@@ -98,11 +133,9 @@ namespace Celeritas.UI.Runstart
 
 			foreach (ShipData data in EntityDataManager.Instance.PlayerShips)
 			{
-				var ship = EntityDataManager.InstantiateEntity<PlayerShipEntity>(data);
+				var ship = EntityDataManager.InstantiateEntity<PlayerShipEntity>(data, forceIsPlayer: true);
 
 				ship.IsStationary = true;
-				ship.transform.parent = shipSpawn;
-				ship.transform.localRotation = Quaternion.identity;
 				ship.gameObject.SetActive(false);
 
 				shipObjects.Add(data, ship);
