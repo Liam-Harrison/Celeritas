@@ -34,5 +34,19 @@ namespace Celeritas.Extensions
 		{
 			return vector + (Quaternion.Euler(0, 0, Random.Range(0, 360)) * new Vector3(radius, 0, 0));
 		}
+
+		/// <summary>
+		/// Snap this vectors components to the nearest value.
+		/// </summary>
+		/// <param name="vector">The provided vector.</param>
+		/// <param name="value">The value to snap to.</param>
+		/// <returns>A vector with its components snapped to the target value.</returns>
+		public static Vector3 RoundToNearest(this Vector3 vector, float value)
+		{
+			vector.x = Mathf.Round(vector.x / value) * value;
+			vector.y = Mathf.Round(vector.y / value) * value;
+			vector.z = Mathf.Round(vector.z / value) * value;
+			return vector;
+		}
 	}
 }

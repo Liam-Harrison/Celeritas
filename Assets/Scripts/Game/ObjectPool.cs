@@ -9,13 +9,29 @@ namespace Celeritas.Game
 	/// Allows for the pooling and access of various objects.
 	/// </summary>
 	[System.Serializable]
-	public class ObjectPool<T> where T: MonoBehaviour, IPooledObject
+	public class ObjectPool<T> where T : MonoBehaviour, IPooledObject
 	{
 		[SerializeField, Title("Pooled Object Settings"), DisableInPlayMode]
-		private uint capacity = 16;
+		private int capacity = 16;
 
 		private readonly List<T> pool = new List<T>();
 		private readonly List<T> active = new List<T>();
+
+		private int _capacity;
+
+		public int Capacity
+		{
+			get
+			{
+				return _capacity;
+			}
+			set
+			{
+				_capacity = value;
+				pool.Capacity = _capacity;
+				active.Capacity = _capacity;
+			}
+		}
 
 		/// <summary>
 		/// Get all the current active objects in this pool.
@@ -25,17 +41,36 @@ namespace Celeritas.Game
 		private GameObject prefab;
 		private Transform parent;
 
+		public ObjectPool(int capacity, GameObject prefab, Transform parent)
+		{
+			this.prefab = prefab;
+			this.parent = parent;
+
+			Capacity = capacity;
+
+			Setup();
+		}
+
 		public ObjectPool(GameObject prefab, Transform parent)
 		{
 			this.prefab = prefab;
 			this.parent = parent;
 
-			pool.Capacity = (int)capacity;
-			active.Capacity = (int)capacity;
+			Capacity = capacity;
 
-			for (int i = 0; i < capacity; i++)
+			Setup();
+		}
+
+		public ObjectPool()
+		{
+			Setup();
+		}
+
+		private void Setup()
+		{
+			for (int i = 0; i < Capacity; i++)
 			{
-				var item = PoolManager.Instance.Instantiate(prefab, parent);
+				var item = Object.Instantiate(prefab, parent);
 				item.SetActive(false);
 				pool.Add(item.GetComponent<T>());
 			}
@@ -49,10 +84,10 @@ namespace Celeritas.Game
 		{
 			if (pool.Count == 0)
 			{
-				var item = PoolManager.Instance.Instantiate(prefab, parent).GetComponent<T>();
+				var item = Object.Instantiate(prefab, parent).GetComponent<T>();
 				item.gameObject.SetActive(true);
-				item.OnSpawned();
 				active.Add(item);
+				item.OnSpawned();
 				return item;
 			}
 			else
@@ -86,7 +121,7 @@ namespace Celeritas.Game
 			else
 			{
 				item.OnDespawned();
-				PoolManager.Instance.Destroy(item.gameObject);
+				Object.Destroy(item.gameObject);
 			}
 		}
 	}

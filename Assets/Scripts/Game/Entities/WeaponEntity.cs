@@ -28,6 +28,9 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public WeaponData WeaponData { get; private set; }
 
+		/// <summary>
+		/// The rate of fire of this weapon.
+		/// </summary>
 		public uint RateOfFire { get=> rateOfFire; set => rateOfFire = value; }
 
 		/// <summary>
@@ -101,8 +104,8 @@ namespace Celeritas.Game.Entities
 
 		protected virtual void Fire()
 		{
-			var projectile = EntityDataManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile, this, ProjectileEffects.EffectWrapperCopy);
-			projectile.transform.CopyTransform(projectileSpawn);
+			var projectile = EntityDataManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile, projectileSpawn.position, projectileSpawn.rotation, this, ProjectileEffects.EffectWrapperCopy);
+			projectile.transform.localScale = projectileSpawn.localScale;
 			EntityEffects.EntityFired(projectile);
 		}
 	}

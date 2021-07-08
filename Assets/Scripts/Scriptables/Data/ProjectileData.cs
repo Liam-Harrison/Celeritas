@@ -1,6 +1,7 @@
 using UnityEngine;
 using Celeritas.Extensions;
 using Celeritas.Game.Entities;
+using Sirenix.OdinInspector;
 
 namespace Celeritas.Scriptables
 {
@@ -10,7 +11,7 @@ namespace Celeritas.Scriptables
 	[CreateAssetMenu(fileName = "New Projectile", menuName = "Celeritas/New Projectile", order = 40)]
 	public class ProjectileData : EntityData
 	{
-		[SerializeField]
+		[SerializeField, TitleGroup("Projectile")]
 		private float speed;
 
 		[SerializeField]

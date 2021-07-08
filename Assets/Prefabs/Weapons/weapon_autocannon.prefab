@@ -126,9 +126,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02f66742312f564981c4afbf046ac96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   hasDefaultEffects: 0
   defaultEffects: []
-  damage: 0
+  level: 0
+  hasShipEffects: 0
+  shipEffects: []
+  hasShipWeaponEffects: 0
+  shipWeaponEffects: []
+  hasShipProjectileEffects: 0
+  shipProjectileEffects: []
   projectileSpawn: {fileID: 61269802584779653}
 --- !u!1 &2203390795770951947
 GameObject:

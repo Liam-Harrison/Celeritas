@@ -39,7 +39,6 @@ namespace Celeritas.Game.Entities
 		private void Start()
 		{
 			player = PlayerController.Instance.PlayerShipEntity;
-
 		}
 
 		protected override void Update()
@@ -60,8 +59,7 @@ namespace Celeritas.Game.Entities
 		public void PickedUpByPlayer()
 		{
 			LootController.Instance.GivePlayerLoot(lootType, amount);
-
-			Died = true;
+			KillEntity();
 		}
 	}
 }

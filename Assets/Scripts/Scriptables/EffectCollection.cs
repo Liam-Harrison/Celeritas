@@ -26,12 +26,13 @@ namespace Celeritas.Scriptables
 		[SerializeField]
 		protected List<ModifierSystem> systems;
 
-		protected Action<Entity, ushort> onDestroyed;
+		protected Action<Entity, ushort> onKilled;
 		protected Action<Entity, ushort> onAdded;
 		protected Action<Entity, ushort> onRemoved;
 		protected Action<Entity, ushort> onUpdated;
 		protected Action<WeaponEntity, ProjectileEntity, ushort> onFired;
 		protected Action<Entity, Entity, ushort> onHit;
+		protected Action<Entity, ushort> onEntityBeforeDie;
 		
 		protected virtual void OnEnable()
 		{
@@ -126,12 +127,25 @@ namespace Celeritas.Scriptables
 		/// </summary>
 		/// <param name="entity">The entity to update when destroyed.</param>
 		/// <param name="level">The level of the effect.</param>
-		public void DestroyEntity(Entity entity, ushort level)
+		public void KillEntity(Entity entity, ushort level)
 		{
 			if (!IsValidEntity(entity))
 				return;
 
-			onDestroyed?.Invoke(entity, level);
+			onKilled?.Invoke(entity, level);
+		}
+
+		/// <summary>
+		/// Update the provided entity against this effect when scheduled to be destroyed.
+		/// </summary>
+		/// <param name="entity">The entity to update when destroyed.</param>
+		/// <param name="level">The level of the effect.</param>
+		public void OnEntityBeforeDie(Entity entity, ushort level)
+		{
+			if (!IsValidEntity(entity))
+				return;
+
+			onEntityBeforeDie?.Invoke(entity, level);
 		}
 
 		/// <summary>
@@ -209,12 +223,13 @@ namespace Celeritas.Scriptables
 
 		private void ResetAllListeners()
 		{
-			onDestroyed = null;
+			onKilled = null;
 			onUpdated = null;
 			onHit = null;
 			onAdded = null;
 			onRemoved = null;
 			onFired = null;
+			onEntityBeforeDie = null;
 
 			foreach (var modifier in systems)
 			{
@@ -224,8 +239,8 @@ namespace Celeritas.Scriptables
 
 		private void RegisterModifierSystemListeners(ModifierSystem system)
 		{
-			if (system is IEntityDestroyed destroyed)
-				onDestroyed += destroyed.OnEntityDestroyed;
+			if (system is IEntityKilled destroyed)
+				onKilled += destroyed.OnEntityKilled;
 
 			if (system is IEntityUpdated updated)
 				onUpdated += updated.OnEntityUpdated;
@@ -241,12 +256,15 @@ namespace Celeritas.Scriptables
 
 			if (system is IEntityFired fired)
 				onFired += fired.OnEntityFired;
+
+			if (system is IEntityBeforeDie scheduled)
+				onEntityBeforeDie += scheduled.OnEntityBeforeDie;
 		}
 
 		private void RemoveModifierSystemListeners(ModifierSystem system)
 		{
-			if (system is IEntityDestroyed destroyed)
-				onDestroyed -= destroyed.OnEntityDestroyed;
+			if (system is IEntityKilled destroyed)
+				onKilled -= destroyed.OnEntityKilled;
 
 			if (system is IEntityUpdated updated)
 				onUpdated -= updated.OnEntityUpdated;
@@ -262,6 +280,9 @@ namespace Celeritas.Scriptables
 
 			if (system is IEntityFired fired)
 				onFired -= fired.OnEntityFired;
+
+			if (system is IEntityBeforeDie scheduled)
+				onEntityBeforeDie -= scheduled.OnEntityBeforeDie;
 		}
 	}
 }

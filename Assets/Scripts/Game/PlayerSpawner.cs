@@ -2,6 +2,7 @@ using Celeritas.Game.Actions;
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
+using Celeritas.UI.Runstart;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -27,19 +28,26 @@ namespace Celeritas.Game
 			}
 			else
 			{
-				EntityDataManager.OnLoadedAssets += () =>
-				{
-					CreatePlayerShip();
-				};
+				EntityDataManager.OnLoadedAssets += CreatePlayerShip;
 			}
 		}
 
 		private void CreatePlayerShip()
 		{
-			var ship = EntityDataManager.InstantiateEntity<ShipEntity>(this.ship, forceIsPlayer: true);
+			EntityDataManager.OnLoadedAssets -= CreatePlayerShip;
+
+			ShipEntity ship = ShipSelection.CurrentShip;
+
+			if (ship == null)
+			{
+				ship = EntityDataManager.InstantiateEntity<ShipEntity>(this.ship, transform.position, forceIsPlayer: true);
+			}
+
 			ship.gameObject.AddComponent<PlayerController>();
-			ship.transform.position = transform.position;
+
 			transform.parent = ship.transform;
+			transform.localPosition = Vector3.zero;
+
 			ship.OnActionAdded += OnPlayerActionAdded;
 			ship.OnActionRemoved += OnPlayerActionRemoved;
 

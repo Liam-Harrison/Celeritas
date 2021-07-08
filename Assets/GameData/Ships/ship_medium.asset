@@ -22,6 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Medium Ship
+  capacityHint: 10
   prefab: {fileID: 2516558698829045457, guid: 0bda108f4b31baf47bcd37cf26d641ee, type: 3}
   movementSettings:
     torquePerSec: {x: 60, y: 120}
@@ -51,9 +52,9 @@ MonoBehaviour:
       m_RotationOrder: 4
     angularDrag: 5
     rotationMaximum: 60
+    aimDeadzone: 0.995
     forcePerSec: 1000
     mass: 1
-    aimDeadzone: 0.995
   shipClass: 0
   icon: {fileID: 21300072, guid: 13699c70ebaae9240ad8a214cb0c1663, type: 3}
   description: An agile but powerful ship

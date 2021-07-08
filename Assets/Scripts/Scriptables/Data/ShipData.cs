@@ -3,6 +3,7 @@ using Celeritas.Extensions;
 using Celeritas.Game.Entities;
 using Sirenix.OdinInspector;
 using AssetIcons;
+using Celeritas.Game.Interfaces;
 
 namespace Celeritas.Scriptables
 {
@@ -20,22 +21,25 @@ namespace Celeritas.Scriptables
 	[CreateAssetMenu(fileName = "New Ship", menuName = "Celeritas/New Ship", order = 10)]
 	public class ShipData : EntityData
 	{
-		[SerializeField, TitleGroup("General")]
+		[SerializeField, TitleGroup("Ship")]
 		protected MovementSettings movementSettings;
 
-		[SerializeField, TitleGroup("General")]
+		[SerializeField, TitleGroup("Ship")]
+		private Rarity rarity;
+
+		[SerializeField, TitleGroup("Ship")]
 		private ShipClass shipClass;
 
-		[SerializeField, TitleGroup("General"), PreviewField, AssetIcon(maxSize: 50)]
+		[SerializeField, TitleGroup("Ship"), PreviewField, AssetIcon(maxSize: 50)]
 		private Sprite icon;
 
-		[SerializeField, TitleGroup("General"), TextArea]
+		[SerializeField, TitleGroup("Ship"), TextArea]
 		private string description;
 
-		[SerializeField, TitleGroup("Starting Settings")]
+		[SerializeField, TitleGroup("Ship Start Settings")]
 		private uint startingHealth;
 
-		[SerializeField, TitleGroup("Starting Settings")]
+		[SerializeField, TitleGroup("Ship Start Settings")]
 		private uint startingShield;
 
 		/// <summary>
@@ -68,6 +72,11 @@ namespace Celeritas.Scriptables
 		/// </summary>
 		public Sprite Icon { get => icon; }
 
+		/// <summary>
+		/// The rarity of the ship.
+		/// </summary>
+		public Rarity Rarity { get => rarity; }
+
 		public override string Tooltip => $"A <color=\"orange\">{ShipClass}</color> class ship.";
 
 		protected virtual void OnValidate()
@@ -90,25 +99,25 @@ namespace Celeritas.Scriptables
 	[System.Serializable]
 	public struct MovementSettings
 	{
-		[MinMaxSlider(0, 3000, showFields: true), Title("Rotation")]
+		[MinMaxSlider(0, 3000, showFields: true), TabGroup("Rotation"), PropertySpace]
 		public Vector2 torquePerSec;
 
-		[SerializeField]
+		[SerializeField, TabGroup("Rotation")]
 		public AnimationCurve rotationCurve;
 
-		[PropertyRange(0, 100)]
+		[PropertyRange(0, 100), TabGroup("Rotation")]
 		public float angularDrag;
 
-		[PropertyRange(0, 180)]
+		[PropertyRange(0, 180), TabGroup("Rotation")]
 		public float rotationMaximum;
 
-		[PropertyRange(0, 100000), PropertySpace, Title("Translation")]
+		[PropertyRange(0, 1), TabGroup("Rotation")]
+		public float aimDeadzone;
+
+		[PropertyRange(0, 100000), PropertySpace, TabGroup("Translation")]
 		public float forcePerSec;
 
-		[PropertyRange(0, 50)]
+		[PropertyRange(0, 50), TabGroup("Translation")]
 		public float mass;
-
-		[PropertyRange(0, 1), Title("Aiming")]
-		public float aimDeadzone;
 	}
 }

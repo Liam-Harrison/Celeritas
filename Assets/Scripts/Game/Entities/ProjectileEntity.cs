@@ -1,4 +1,5 @@
 using Celeritas.Scriptables;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,13 +10,11 @@ namespace Celeritas.Game.Entities
 	/// </summary>
 	public class ProjectileEntity : Entity
 	{
-		// this is a variable as modifiers may need to change this (eg piercing bullets)
-		private bool destroyedOnHit;
-
-		private bool damageOwnerShip = false; // default
-
-		[SerializeField]
+		[SerializeField, PropertySpace]
 		protected int damage;
+
+		[SerializeField, PropertySpace]
+		private TrailRenderer[] trails;
 
 		/// <summary>
 		/// How much damage this entity does to another
@@ -33,16 +32,6 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public WeaponEntity Weapon { get; private set; }
 
-		/// <summary>
-		/// Whether the projectile is destroyed on hitting another entity
-		/// </summary>
-		public bool DestroyedOnHit { get => destroyedOnHit; }
-
-		/// <summary>
-		/// Whether the projectile will damage the ship that owns the weapon that shoots it
-		/// </summary>
-		public bool DamageOwnerShip {get => damageOwnerShip; }
-
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Projectile; }
 
@@ -51,34 +40,47 @@ namespace Celeritas.Game.Entities
 		{
 			ProjectileData = data as ProjectileData;
 			damage = ProjectileData.Damage;
-			destroyedOnHit = ProjectileData.DestroyedOnHit;
 			Weapon = owner as WeaponEntity;
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
 
+		public override void OnDespawned()
+		{
+			foreach (var trail in trails)
+			{
+				trail.Clear();
+			}
+
+			base.OnDespawned();
+		}
+
 		public override void OnEntityHit(Entity other)
 		{
-			// check if other is owner ship. Return & do no damage if it is owner & damageOwnerShip is false
-			if (damageOwnerShip == false && other is ShipEntity ship)
+			if (other.IsPlayer == IsPlayer)
+				return;
+
+			if (other is ShipEntity ship)
 			{
 				if (ship.WeaponEntities.Contains(Weapon))
 				{
-					// return without doing damage
 					return;
 				}
 			}
 
-			if (destroyedOnHit)
-				Died = true;
-			//Debug.Log(damage);
 			other.TakeDamage(this, damage);
+
+			if (ProjectileData.DestroyedOnHit)
+				KillEntity();
 
 			base.OnEntityHit(other);
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)
 		{
+			if (!IsInitalized)
+				return;
+
 			var entity = other.gameObject.GetComponentInParent<Entity>();
 			if (entity != null)
 			{

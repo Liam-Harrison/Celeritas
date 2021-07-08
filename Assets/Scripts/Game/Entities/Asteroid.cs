@@ -20,6 +20,9 @@ namespace Celeritas.Game.Entities
 		[SerializeField, Title("Loot")]
 		private LootConfig lootConfig;
 
+		[SerializeField]
+		private GameObject onDestroyEffectPrefab;
+
 		public override SystemTargets TargetType { get => SystemTargets.Asteroid; }
 
 		private EntityStatBar health;
@@ -28,54 +31,51 @@ namespace Celeritas.Game.Entities
 
 		public Rigidbody2D Rigidbody { get; private set; }
 
-		[SerializeField]
-		private GameObject onDestroyEffectPrefab;
-
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
 			AsteroidData = data as AsteroidData;
 			startingHealth = AsteroidData.Health;
 			Rigidbody = GetComponent<Rigidbody2D>();
-			onDeathEffect = onDestroyEffectPrefab;
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
 
-		// Start is called before the first frame update
 		void Start()
 		{
 			health = new EntityStatBar(startingHealth);
-		}
-
-		protected override void Update()
-		{
-			base.Update();
 		}
 
 		public override void TakeDamage(Entity attackingEntity, int damage)
 		{
 			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity)
 			{
-			
 				base.TakeDamage(attackingEntity, damage);
-
 				health.Damage(damage);
 
 				if (health.IsEmpty())
-				{
-					// drop loot when destroyed
-					if (Died == false && LootController.Instance != null)
-						LootController.Instance.LootDrop(lootConfig.Gain, DropType.Asteroid, Position);
-
-					Died = true;
-
-				}
-
+					KillEntity();
 			}
+		}
+
+		public override void OnEntityKilled()
+		{
+			LootController.Instance.LootDrop(lootConfig.Gain, DropType.Asteroid, Position);
+
+			if (onDestroyEffectPrefab != null)
+			{
+				GameObject effect = Instantiate(onDestroyEffectPrefab, transform.position, transform.rotation, transform.parent);
+				effect.transform.localScale = transform.localScale;
+				Destroy(effect, 5f);
+			}
+
+			base.OnEntityKilled();
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)
 		{
+			if (!IsInitalized)
+				return;
+
 			var entity = other.gameObject.GetComponentInParent<Entity>();
 			if (entity != null)
 			{
@@ -85,7 +85,6 @@ namespace Celeritas.Game.Entities
 
 		public override void OnEntityHit(Entity other)
 		{
-			//graphicalEffect = Instantiate(onDestroyEffectPrefab, transform);
 			ApplyCollisionDamage(Rigidbody, other);
 			base.OnEntityHit(other);
 		}

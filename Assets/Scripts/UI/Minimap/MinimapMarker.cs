@@ -31,6 +31,14 @@ namespace Celeritas.UI
 				sprite.color = enemyColor;
 		}
 
+		public void SetAlpha(float a)
+		{
+			var color = sprite.color;
+			color.a = a;
+
+			sprite.color = color;
+		}
+
 		public void OnSpawned()
 		{
 			RectTransform = GetComponent<RectTransform>();

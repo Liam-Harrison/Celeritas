@@ -12,7 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747d9766070ae9e4dba88b5444619be4, type: 3}
   m_Name: ship_small
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   title: Small Ship
+  capacityHint: 10
   prefab: {fileID: 2516558698829045457, guid: 1dc20ec7ee32d0a4c92b973a2649fea6, type: 3}
   movementSettings:
     torquePerSec: {x: 40, y: 160}
@@ -42,9 +52,11 @@ MonoBehaviour:
       m_RotationOrder: 4
     angularDrag: 5
     rotationMaximum: 75
+    aimDeadzone: 0.995
     forcePerSec: 1000
     mass: 0.5
-    aimDeadzone: 0.995
   shipClass: 0
+  icon: {fileID: 0}
+  description: 
   startingHealth: 50
   startingShield: 30

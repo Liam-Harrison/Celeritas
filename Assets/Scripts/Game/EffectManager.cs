@@ -100,9 +100,12 @@ namespace Celeritas.Game
 		/// <summary>
 		/// Remove all effects.
 		/// </summary>
-		public void ClearEffects()
+		public void RemoveAllEffects()
 		{
-			effects.Clear();
+			for (int i = effects.Count - 1; i >= 0; i--)
+			{
+				RemoveEffect(effects[i]);
+			}
 		}
 
 		/// <summary>
@@ -147,11 +150,22 @@ namespace Celeritas.Game
 		/// <summary>
 		/// Update the effects when this entity is destroyed.
 		/// </summary>
-		public void DestroyedEntity()
+		public void KillEntity()
 		{
 			foreach (var effect in effects)
 			{
-				effect.EffectCollection.DestroyEntity(owner, effect.Level);
+				effect.EffectCollection.KillEntity(owner, effect.Level);
+			}
+		}
+
+		/// <summary>
+		/// Update the effects when this entity is scheduled to be destroyed.
+		/// </summary>
+		public void OnEntityBeforeDie()
+		{
+			foreach (var effect in effects)
+			{
+				effect.EffectCollection.OnEntityBeforeDie(owner, effect.Level);
 			}
 		}
 
