@@ -187,12 +187,10 @@ namespace Celeritas.Game
 		}
 
 		/// <summary>
-		/// Schedule this entity to be killed.
+		/// Kill this entity
 		/// </summary>
 		public virtual void KillEntity()
 		{
-			//if (Dying)
-			//	return;
 
 			if (Time.time < LastScheduledDie + SCHEDULE_DIE_INVINCIBLE_TIME)
 				return;
@@ -223,6 +221,7 @@ namespace Celeritas.Game
 				EntityEffects.UpdateEntity();
 			else
 				KillEntity();
+				
 		}
 
 		/// <summary>
