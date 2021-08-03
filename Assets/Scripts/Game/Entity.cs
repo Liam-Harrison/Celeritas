@@ -188,6 +188,7 @@ namespace Celeritas.Game
 
 		/// <summary>
 		/// Kill this entity
+		/// schedule death by setting Dying = true
 		/// </summary>
 		public virtual void KillEntity()
 		{
