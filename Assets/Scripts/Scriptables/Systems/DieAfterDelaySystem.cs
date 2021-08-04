@@ -12,7 +12,6 @@ namespace Celeritas.Scriptables.Systems
 	[CreateAssetMenu(fileName = "New DeathAfterDelay System", menuName = "Celeritas/Modifiers/Self Destruct/Death After Delay")]
 	public class DieAfterDelaySystem : ModifierSystem, IEntityUpdated
 	{
-
 		[SerializeField, TitleGroup("Time to Live")]
 		private float timeToLive;
 

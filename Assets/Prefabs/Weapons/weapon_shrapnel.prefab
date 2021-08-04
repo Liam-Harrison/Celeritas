@@ -61,11 +61,13 @@ MonoBehaviour:
   shipEffects: []
   hasShipWeaponEffects: 0
   shipWeaponEffects: []
-  hasShipProjectileEffects: 1
-  shipProjectileEffects:
+  hasShipProjectileEffects: 0
+  shipProjectileEffects: []
+  projectileSpawn: {fileID: 7882921223204810320}
+  hasDefaultProjectileEffects: 1
+  projectileEffects:
   - Level: 0
     EffectCollection: {fileID: 11400000, guid: 9c66d884c5e31b947bb35d6b55f01e35, type: 2}
-  projectileSpawn: {fileID: 7882921223204810320}
 --- !u!1 &2626227957709758234
 GameObject:
   m_ObjectHideFlags: 0
