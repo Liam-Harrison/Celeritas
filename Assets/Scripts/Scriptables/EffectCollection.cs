@@ -1,4 +1,3 @@
-using Assets.Scripts.Scriptables.Interfaces;
 using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables.Interfaces;
@@ -34,7 +33,6 @@ namespace Celeritas.Scriptables
 		protected Action<WeaponEntity, ProjectileEntity, ushort> onFired;
 		protected Action<Entity, Entity, ushort> onHit;
 		protected Action<Entity, ushort> onEntityBeforeDie;
-		protected Action<Entity, ushort> onEntityUpdated1SecInterval;
 		
 		protected virtual void OnEnable()
 		{
@@ -150,14 +148,6 @@ namespace Celeritas.Scriptables
 			onEntityBeforeDie?.Invoke(entity, level);
 		}
 
-		public void OnEntityUpdatedWithOneSecondInterval(Entity entity, ushort level)
-		{
-			if (!IsValidEntity(entity))
-				return;
-
-			onEntityUpdated1SecInterval?.Invoke(entity, level);
-		}
-
 		/// <summary>
 		/// Updated the provided entity against this effect when the effect is added.
 		/// </summary>
@@ -240,7 +230,6 @@ namespace Celeritas.Scriptables
 			onRemoved = null;
 			onFired = null;
 			onEntityBeforeDie = null;
-			onEntityUpdated1SecInterval = null;
 
 			foreach (var modifier in systems)
 			{
@@ -270,9 +259,6 @@ namespace Celeritas.Scriptables
 
 			if (system is IEntityBeforeDie scheduled)
 				onEntityBeforeDie += scheduled.OnEntityBeforeDie;
-
-			if (system is IEntityUpdatedInterval interval)
-				onEntityUpdated1SecInterval += interval.OnEntityUpdatedAfterInterval;
 		}
 
 		private void RemoveModifierSystemListeners(ModifierSystem system)
@@ -297,9 +283,6 @@ namespace Celeritas.Scriptables
 
 			if (system is IEntityBeforeDie scheduled)
 				onEntityBeforeDie -= scheduled.OnEntityBeforeDie;
-
-			if (system is IEntityUpdatedInterval interval)
-				onEntityUpdated1SecInterval -= interval.OnEntityUpdatedAfterInterval;
 		}
 	}
 }

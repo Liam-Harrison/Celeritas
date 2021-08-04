@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02e9ead3f6ea89b40a9c2126b95ea5b2, type: 3}
   m_Name: modifier_die_after_delay_shrapnel
   m_EditorClassIdentifier: 
-  title: For shrapnel explosion to disappear after a delay
+  title: Dies
   timeToLive: 1

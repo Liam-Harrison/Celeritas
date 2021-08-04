@@ -1,7 +1,6 @@
 ﻿using Celeritas.Game;
 using Celeritas.Scriptables.Interfaces;
 using Sirenix.OdinInspector;
-using System;
 using UnityEngine;
 
 namespace Celeritas.Scriptables.Systems
@@ -11,9 +10,11 @@ namespace Celeritas.Scriptables.Systems
 	/// counter starts after system is applied.
 	/// </summary>
 	[CreateAssetMenu(fileName = "New DeathAfterDelay System", menuName = "Celeritas/Modifiers/Self Destruct/Death After Delay")]
-	public class DieAfterDelaySystem : ModifierSystem, IEntityEffectAdded, IEntityUpdated
+	public class DieAfterDelaySystem : ModifierSystem, IEntityUpdated
 	{
-		private float startTime;
+
+		[SerializeField, TitleGroup("Time to Live")]
+		private float timeToLive;
 
 		/// <inheritdoc/>
 		public override bool Stacks => false;
@@ -21,22 +22,13 @@ namespace Celeritas.Scriptables.Systems
 		/// <inheritdoc/>
 		public override SystemTargets Targets => SystemTargets.Projectile | SystemTargets.Ship | SystemTargets.Loot | SystemTargets.Asteroid;
 
-		[SerializeField, Title("Time to live (seconds)")]
-		private float timeToLive;
-
-		public override string GetTooltip(ushort level) => $"<color=red>▼</color> Self destructs after "+timeToLive+ " seconds";
-
-		public void OnEntityEffectAdded(Entity entity, ushort level)
-		{
-			startTime = entity.TimeAlive;
-		}
+		public override string GetTooltip(ushort level) => $"<color=red>▼</color> Self destruct after {timeToLive} seconds";
 
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{
 			// if entity has been alive for longer than TimeToLive and it isn't already dying, kill it
-			if (!entity.Dying && entity.TimeAlive - startTime >= timeToLive) { 
-				//entity.KillEntity();
-				entity.Dying = true;
+			if (!entity.Dying && entity.TimeAlive >= timeToLive) { 
+				entity.KillEntity();
 			}
 		}
 	}

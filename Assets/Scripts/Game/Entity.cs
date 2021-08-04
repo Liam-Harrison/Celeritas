@@ -132,10 +132,6 @@ namespace Celeritas.Game
 		/// </summary>
 		public virtual string Subheader { get; } = "Missing Subheader";
 
-		// for the IEntityUpdatedInterval interface
-		private float timeSinceLastInterval_s;
-		private static readonly float TIME_BETWEEN_INTERVALS_S = 0.2F; 
-
 		/// <summary>
 		/// Initalize this entity.
 		/// </summary>
@@ -166,7 +162,6 @@ namespace Celeritas.Game
 			{
 				EntityEffects.AddEffectRange(defaultEffects);
 			}
-			timeSinceLastInterval_s = 0;
 		}
 
 		public virtual void OnEntityKilled()
@@ -192,22 +187,17 @@ namespace Celeritas.Game
 		}
 
 		/// <summary>
-		/// Kill this entity
-		/// schedule death by setting Dying = true
+		/// Schedule this entity to be killed.
 		/// </summary>
 		public virtual void KillEntity()
 		{
+			if (Dying)
+				return;
 
 			if (Time.time < LastScheduledDie + SCHEDULE_DIE_INVINCIBLE_TIME)
 				return;
 
 			Dying = true;
-			EntityEffects.OnEntityBeforeDie();
-
-			if (Dying)
-			{
-				EntityDataManager.KillEntity(this);
-			}
 		}
 
 		/// <summary>
@@ -225,14 +215,20 @@ namespace Celeritas.Game
 
 			if (!Dying)
 				EntityEffects.UpdateEntity();
-			else
-				KillEntity();
 
-			if (TimeAlive - timeSinceLastInterval_s >= TIME_BETWEEN_INTERVALS_S) { 
-				EntityEffects.EntityUpdateAtInterval(this);
-				timeSinceLastInterval_s = TimeAlive;
+			if (Dying)
+				DoKillEvents();
+		}
+
+		private void DoKillEvents()
+		{
+			Dying = true;
+			EntityEffects.OnEntityBeforeDie();
+
+			if (Dying)
+			{
+				EntityDataManager.KillAndUnloadEntity(this);
 			}
-
 		}
 
 		/// <summary>

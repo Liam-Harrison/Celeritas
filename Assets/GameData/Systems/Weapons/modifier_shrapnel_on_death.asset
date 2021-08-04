@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: modifier_shrapnel_on_death
   m_EditorClassIdentifier: 
   title: Shrapnel explosion on death
-  shrapnelData: {fileID: 11400000, guid: 3ef6fc6a94cce7b4dbec473dcf5cf1eb, type: 2}
+  shrapnel: {fileID: 11400000, guid: 3ef6fc6a94cce7b4dbec473dcf5cf1eb, type: 2}
   spacing: 13
   numberToSpawn: 10
-  shrapnelOnHit: 0
+  effectsToExcludeCopying:
+  - {fileID: 11400000, guid: 9c66d884c5e31b947bb35d6b55f01e35, type: 2}

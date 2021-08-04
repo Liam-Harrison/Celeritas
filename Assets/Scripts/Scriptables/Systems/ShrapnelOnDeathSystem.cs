@@ -3,11 +3,7 @@ using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Celeritas.Scriptables.Interfaces;
 using Sirenix.OdinInspector;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Scriptables.Systems
@@ -16,48 +12,54 @@ namespace Assets.Scripts.Scriptables.Systems
 	/// Modifier that will cause an explosion of shrapnel on entity death
 	/// </summary>
 	[CreateAssetMenu(fileName = "New ShrapnelOnDeath Modifier", menuName = "Celeritas/Modifiers/Shrapnel Explosion on death")]
-	class ShrapnelOnDeathSystem : ModifierSystem, IEntityKilled, IEntityHit
+	class ShrapnelOnDeathSystem : ModifierSystem, IEntityKilled
 	{
+		[SerializeField, TitleGroup("Shrapnel Settings")]
+		private ProjectileData shrapnel;
+
+		[SerializeField, TitleGroup("Shrapnel Settings")]
+		private float spacing;
+
+		[SerializeField, TitleGroup("Shrapnel Settings")]
+		private int numberToSpawn;
+
+		[SerializeField, TitleGroup("Recursion Settings")]
+		private EffectCollection[] effectsToExcludeCopying;
+
 		public override bool Stacks => false;
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		[SerializeField, Title("Shrapnel projectile data")]
-		ProjectileData shrapnelData; // Don't call the same projectile, to avoid recursion.
-
-		[SerializeField, Title("Shrapnel spacing (how wide the spread of shrapnel is) (smaller = closer together)")]
-		int spacing; // ie, the spacing between bullets
-		[SerializeField, Title("Number Of Shrapnel Bullets")]
-		int numberToSpawn;
-		[SerializeField, Title("Create shrapnel if hit by another object? (tick = yes)")]
-		bool shrapnelOnHit;
-
-		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Explode in a shatter of shrapnel when destroyed";
+		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Explodes into {numberToSpawn} subprojectiles when destroyed";
 
 		public void OnEntityKilled(Entity entity, ushort level)
 		{
-			// if projectile has been hit, and is not to create shrapnel on hit, return without creating shrapnel
-			if (!shrapnelOnHit && hit) 
-				return;
-
 			ProjectileEntity projectile = entity as ProjectileEntity;
 
-			// shift rotation to the left (so during the next bit, the arc is centred around the original rotation)
-			entity.transform.eulerAngles += new Vector3(0, 0, - spacing * numberToSpawn / 2);
+			for (int i = 0; i < numberToSpawn; i++)
+			{
+				var effects = new List<EffectWrapper>(entity.EntityEffects.EffectWrapperCopy);
+				var toRemove = new List<EffectWrapper>();
 
-			// create shrapnel.
-			// add a little bit to the rotation each time so shrapnel is spaced out.
-			for (int i = 0; i < numberToSpawn; i++) {
-				entity.transform.eulerAngles = entity.transform.rotation.eulerAngles + new Vector3(0, 0, spacing);
-				EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnelData, entity.Position, entity.transform.rotation, projectile.Weapon);
+				foreach (var j in effects)
+				{
+					foreach (var k in effectsToExcludeCopying)
+					{
+						if (j.EffectCollection == k)
+							toRemove.Add(j);
+					}
+				}
+
+				foreach (var item in toRemove)
+				{
+					effects.Remove(item);
+				}
+
+				float d = i - (numberToSpawn / 2f);
+				var q = entity.transform.rotation * Quaternion.Euler(0, 0, d * spacing);
+
+				EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnel, entity.Position, q, projectile.Weapon, effects);
 			}
-		}
-
-		private bool hit = false; // has the projectile been hit by something
-
-		public void OnEntityHit(Entity entity, Entity other, ushort level)
-		{
-			hit = true;
 		}
 	}
 }

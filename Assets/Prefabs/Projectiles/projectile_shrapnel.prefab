@@ -283,10 +283,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  hasDefaultEffects: 1
-  defaultEffects:
-  - Level: 0
-    EffectCollection: {fileID: 11400000, guid: ce37400746762b544a677018b84b487d, type: 2}
+  hasDefaultEffects: 0
+  defaultEffects: []
   damage: 5
   trails:
   - {fileID: 2869918739748144726}

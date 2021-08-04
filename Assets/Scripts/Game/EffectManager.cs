@@ -38,7 +38,7 @@ namespace Celeritas.Game
 		/// <summary>
 		/// Current effects in this collection.
 		/// </summary>
-		public IReadOnlyList<EffectWrapper> EffectWrappers { get => effects.AsReadOnly(); }
+		public IReadOnlyList<EffectWrapper> EffectWrappers { get => effects; }
 
 		/// <summary>
 		/// Get a copy of effects in this collection.
@@ -190,14 +190,6 @@ namespace Celeritas.Game
 			foreach (var effect in effects)
 			{
 				effect.EffectCollection.OnFired(owner as WeaponEntity, projectile, effect.Level);
-			}
-		}
-
-		public void EntityUpdateAtInterval(Entity other)
-		{
-			foreach (var effect in effects)
-			{
-				effect.EffectCollection.OnEntityUpdatedWithOneSecondInterval(other, effect.Level);
 			}
 		}
 

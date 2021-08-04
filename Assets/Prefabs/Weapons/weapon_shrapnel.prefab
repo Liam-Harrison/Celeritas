@@ -61,7 +61,7 @@ MonoBehaviour:
   shipEffects: []
   hasShipWeaponEffects: 0
   shipWeaponEffects: []
-  hasShipProjectileEffects: 0
+  hasShipProjectileEffects: 1
   shipProjectileEffects:
   - Level: 0
     EffectCollection: {fileID: 11400000, guid: 9c66d884c5e31b947bb35d6b55f01e35, type: 2}
