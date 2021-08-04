@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 3985316679026307340}
   - component: {fileID: 1134634239994816509}
   m_Layer: 0
-  m_Name: projectile_shrapnel
+  m_Name: projectile_shrapnel_subprojectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -283,8 +283,10 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  hasDefaultEffects: 0
-  defaultEffects: []
+  hasDefaultEffects: 1
+  defaultEffects:
+  - Level: 0
+    EffectCollection: {fileID: 11400000, guid: d7eec52de3ed45549bb30d3c7a01e7ee, type: 2}
   damage: 5
   trails:
   - {fileID: 2869918739748144726}
