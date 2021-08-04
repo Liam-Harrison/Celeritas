@@ -132,6 +132,10 @@ namespace Celeritas.Game
 		/// </summary>
 		public virtual string Subheader { get; } = "Missing Subheader";
 
+		// for the IEntityUpdatedInterval interface
+		private float timeSinceLastInterval_s;
+		private static readonly float TIME_BETWEEN_INTERVALS_S = 0.2F; 
+
 		/// <summary>
 		/// Initalize this entity.
 		/// </summary>
@@ -214,9 +218,6 @@ namespace Celeritas.Game
 			EntityDataManager.UnloadEntity(this);
 		}
 
-		private float timeSinceLastInterval_s = 0;
-		private static float timeBetweenIntervals_s = 0.2F;
-
 		protected virtual void Update()
 		{
 			if (this == null || !IsInitalized)
@@ -227,7 +228,7 @@ namespace Celeritas.Game
 			else
 				KillEntity();
 
-			if (TimeAlive - timeSinceLastInterval_s >= timeBetweenIntervals_s) { 
+			if (TimeAlive - timeSinceLastInterval_s >= TIME_BETWEEN_INTERVALS_S) { 
 				EntityEffects.EntityUpdateAtInterval(this);
 				timeSinceLastInterval_s = TimeAlive;
 			}

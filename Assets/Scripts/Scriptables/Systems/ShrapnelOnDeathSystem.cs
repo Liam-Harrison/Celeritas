@@ -32,24 +32,28 @@ namespace Assets.Scripts.Scriptables.Systems
 		[SerializeField, Title("Create shrapnel if hit by another object? (tick = yes)")]
 		bool shrapnelOnHit;
 
-		private bool hit = false;
-
 		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Explode in a shatter of shrapnel when destroyed";
 
 		public void OnEntityKilled(Entity entity, ushort level)
 		{
-			if (!shrapnelOnHit && hit) // if projectile has been hit, and is not to create shrapnel on hit, return.
+			// if projectile has been hit, and is not to create shrapnel on hit, return without creating shrapnel
+			if (!shrapnelOnHit && hit) 
 				return;
 
 			ProjectileEntity projectile = entity as ProjectileEntity;
 
+			// shift rotation to the left (so during the next bit, the arc is centred around the original rotation)
 			entity.transform.eulerAngles += new Vector3(0, 0, - spacing * numberToSpawn / 2);
 
+			// create shrapnel.
+			// add a little bit to the rotation each time so shrapnel is spaced out.
 			for (int i = 0; i < numberToSpawn; i++) {
 				entity.transform.eulerAngles = entity.transform.rotation.eulerAngles + new Vector3(0, 0, spacing);
-				var toFire2 = EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnelData, entity.Position, entity.transform.rotation, projectile.Weapon);
+				EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnelData, entity.Position, entity.transform.rotation, projectile.Weapon);
 			}
 		}
+
+		private bool hit = false; // has the projectile been hit by something
 
 		public void OnEntityHit(Entity entity, Entity other, ushort level)
 		{

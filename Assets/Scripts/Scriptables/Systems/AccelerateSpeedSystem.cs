@@ -4,17 +4,13 @@ using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Celeritas.Scriptables.Interfaces;
 using Sirenix.OdinInspector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Scriptables.Systems
 {
 	/// <summary>
 	/// Applies a multiplier to a projectile's speed.
+	/// If exponential, it will re-apply the multiplier at a set interval
 	/// </summary>
 	[CreateAssetMenu(fileName = "New Projectile Acceleration System", menuName = "Celeritas/Modifiers/Projectile Acceleration")]
 	public class AccelerateSpeedSystem : ModifierSystem, IEntityUpdatedInterval, IEntityEffectAdded, IEntityEffectRemoved
@@ -59,7 +55,6 @@ namespace Assets.Scripts.Scriptables.Systems
 			ProjectileEntity target = entity as ProjectileEntity;
 			target.SpeedModifier *= speedFactor; // += could be handy for laser
 			timesTriggered++;
-			Debug.Log("woof");
 		}
 	}
 }
