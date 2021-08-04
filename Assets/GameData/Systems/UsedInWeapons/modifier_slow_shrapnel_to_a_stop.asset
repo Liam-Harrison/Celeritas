@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1744d7c3ba1d05418e0947def2e7eb5, type: 3}
-  m_Name: modifier_shrapnel_on_death
+  m_Script: {fileID: 11500000, guid: 9267bf898cec4ce43ab6382e661c1bdd, type: 3}
+  m_Name: modifier_slow_shrapnel_to_a_stop
   m_EditorClassIdentifier: 
-  title: Shrapnel explosion on death
-  shrapnelData: {fileID: 11400000, guid: 3ef6fc6a94cce7b4dbec473dcf5cf1eb, type: 2}
-  spacing: 13
-  numberToSpawn: 10
-  shrapnelOnHit: 0
+  title: Slow Shrapnel after explosion
+  exponential: 1
+  speedFactor: 0.7

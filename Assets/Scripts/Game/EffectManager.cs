@@ -193,6 +193,14 @@ namespace Celeritas.Game
 			}
 		}
 
+		public void EntityUpdateAtInterval(Entity other)
+		{
+			foreach (var effect in effects)
+			{
+				effect.EffectCollection.OnEntityUpdatedWithOneSecondInterval(other, effect.Level);
+			}
+		}
+
 		public IEnumerator<EffectWrapper> GetEnumerator()
 		{
 			return ((IEnumerable<EffectWrapper>)EffectWrapperCopy).GetEnumerator();

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02e9ead3f6ea89b40a9c2126b95ea5b2, type: 3}
-  m_Name: modifier_die_after_short_delayd
+  m_Name: modifier_die_after_short_delay
   m_EditorClassIdentifier: 
-  title: Die After short delay
-  timeToLive: 0.25
+  title: Die After short delay - initial shrapnel shot
+  timeToLive: 0.35

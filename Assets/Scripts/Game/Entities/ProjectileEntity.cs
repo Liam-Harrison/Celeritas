@@ -35,12 +35,20 @@ namespace Celeritas.Game.Entities
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Projectile; }
 
+		/// <summary>
+		/// for external effects on projectile speed (eg systems, modules)
+		/// Multiplier, default = 1.
+		/// </summary>
+		public float SpeedModifier { get => speedModifier; set => speedModifier = value; }
+		private float speedModifier = 1;
+
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
 			ProjectileData = data as ProjectileData;
 			damage = ProjectileData.Damage;
 			Weapon = owner as WeaponEntity;
+			speedModifier = 1;
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
@@ -90,7 +98,7 @@ namespace Celeritas.Game.Entities
 
 		protected override void Update()
 		{
-			Position += Forward * ProjectileData.Speed * Time.smoothDeltaTime;
+			Position += Forward * ProjectileData.Speed * speedModifier * Time.smoothDeltaTime;
 
 			if (TimeAlive >= ProjectileData.Lifetime) Destroy(gameObject);
 

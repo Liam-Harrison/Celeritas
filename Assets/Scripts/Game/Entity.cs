@@ -162,6 +162,7 @@ namespace Celeritas.Game
 			{
 				EntityEffects.AddEffectRange(defaultEffects);
 			}
+			timeSinceLastInterval_s = 0;
 		}
 
 		public virtual void OnEntityKilled()
@@ -213,6 +214,9 @@ namespace Celeritas.Game
 			EntityDataManager.UnloadEntity(this);
 		}
 
+		private float timeSinceLastInterval_s = 0;
+		private static float timeBetweenIntervals_s = 0.2F;
+
 		protected virtual void Update()
 		{
 			if (this == null || !IsInitalized)
@@ -222,7 +226,12 @@ namespace Celeritas.Game
 				EntityEffects.UpdateEntity();
 			else
 				KillEntity();
-				
+
+			if (TimeAlive - timeSinceLastInterval_s >= timeBetweenIntervals_s) { 
+				EntityEffects.EntityUpdateAtInterval(this);
+				timeSinceLastInterval_s = TimeAlive;
+			}
+
 		}
 
 		/// <summary>

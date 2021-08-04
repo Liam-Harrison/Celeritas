@@ -10,7 +10,7 @@ namespace Celeritas.Scriptables.Systems
 	/// Destroys an entity after a given time delay (seconds)
 	/// counter starts after system is applied.
 	/// </summary>
-	[CreateAssetMenu(fileName = "New DeathAfterDelay System", menuName = "Celeritas/Modifiers/Death After Delay")]
+	[CreateAssetMenu(fileName = "New DeathAfterDelay System", menuName = "Celeritas/Modifiers/Self Destruct/Death After Delay")]
 	public class DieAfterDelaySystem : ModifierSystem, IEntityEffectAdded, IEntityUpdated
 	{
 		private float startTime;

@@ -73,6 +73,6 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 3144f6c4f2f2d704db3a0e92791b3265, type: 3}
   description: Fire space debris shrapnel for high short-range damage
   projectile: {fileID: 11400000, guid: dd09d6791a6cb3341add85bcf94c648b, type: 2}
-  rateOfFire: 3
+  rateOfFire: 1
   charge: 0
   maxCharge: 0

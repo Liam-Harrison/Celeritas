@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1744d7c3ba1d05418e0947def2e7eb5, type: 3}
-  m_Name: modifier_shrapnel_on_death
+  m_Script: {fileID: 11500000, guid: 02e9ead3f6ea89b40a9c2126b95ea5b2, type: 3}
+  m_Name: modifier_die_after_delay_shrapnel
   m_EditorClassIdentifier: 
-  title: Shrapnel explosion on death
-  shrapnelData: {fileID: 11400000, guid: 3ef6fc6a94cce7b4dbec473dcf5cf1eb, type: 2}
-  spacing: 13
-  numberToSpawn: 10
-  shrapnelOnHit: 0
+  title: For shrapnel explosion to disappear after a delay
+  timeToLive: 1
