@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 964ba3942b684a84d8afc3e63f6671fd, type: 3}
-  m_Name: projectile_bullet_shrapnel
+  m_Name: projectile_shrapnel
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,11 +21,11 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  title: Shrapnel bullet (parent)
-  prefab: {fileID: 2763803640919661845, guid: 6bd3dd9aac2efb7428b18e6448210ab4, type: 3}
+  title: Shrapnel
+  prefab: {fileID: 8815647227271311356, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}
   capacityHint: 30
   useChunking: 0
   speed: 20
   lifetime: 3
-  damage: 10
+  damage: 5
   destroyedOnHit: 1

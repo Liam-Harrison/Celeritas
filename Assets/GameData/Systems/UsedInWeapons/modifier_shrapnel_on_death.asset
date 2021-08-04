@@ -10,6 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1744d7c3ba1d05418e0947def2e7eb5, type: 3}
-  m_Name: New ShrapnelOnDeath Modifier
+  m_Name: modifier_shrapnel_on_death
   m_EditorClassIdentifier: 
-  title: 
+  title: Shrapnel explosion on death
+  shrapnelData: {fileID: 11400000, guid: 3ef6fc6a94cce7b4dbec473dcf5cf1eb, type: 2}
+  spacing: 8
+  numberToSpawn: 10

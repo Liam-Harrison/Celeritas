@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: modifier_die_after_short_delayd
   m_EditorClassIdentifier: 
   title: Die After short delay
-  timeToLive: 0.3
+  timeToLive: 0.25

@@ -285,9 +285,9 @@ MonoBehaviour:
     SerializationNodes: []
   hasDefaultEffects: 0
   defaultEffects: []
-  damage: 10
+  damage: 5
   trails:
-  - {fileID: 0}
+  - {fileID: 2869918739748144726}
 --- !u!70 &1134634239994816509
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

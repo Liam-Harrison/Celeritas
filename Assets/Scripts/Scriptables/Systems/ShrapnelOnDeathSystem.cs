@@ -22,8 +22,13 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		//[SerializeField, Title("shrapnel projectile data (not recursive)")]
-		//ProjectileData shrapnelData;
+		[SerializeField, Title("Shrapnel projectile data (not recursive)")]
+		ProjectileData shrapnelData;
+
+		[SerializeField, Title("Shrapnel spacing (how wide the spread of shrapnel is) (smaller = closer together)")]
+		int spacing; // ie, the spacing between bullets
+		[SerializeField, Title("Number Of Shrapnel Bullets")]
+		int numberToSpawn;
 
 		public override string GetTooltip(ushort level) 
 		{
@@ -32,29 +37,16 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public void OnEntityKilled(Entity entity, ushort level)
 		{
-			// TODO: level could make child projectiles shrapnel. Level number of layers.
-			// TODO: make number spawned not constant - put into system settings or scale with level.
+			// note: level could make child projectiles shrapnel. Level number of layers.
+			// TODO: shrapnel slows down gradually and is destroyed when speed is 0
 
-			EffectWrapper[] manager = entity.EntityEffects.EffectWrapperCopy;
-			EffectWrapper toRemove; // containing the shrapnel effect
-			foreach (EffectWrapper w in manager)
-			{
-				if (w.EffectCollection.Systems.Contains<ModifierSystem>(this))
-				{
-					//manager.RemoveEffect(w);
-					entity.EntityEffects.RemoveEffect(w);
-					break;
-				}
-			}
+			ProjectileEntity projectile = entity as ProjectileEntity;
 
-			int numberToSpawn = 10;
-			int spread_degrees = 360;
+			entity.transform.eulerAngles += new Vector3(0, 0, - spacing * numberToSpawn / 2);
 
 			for (int i = 0; i < numberToSpawn; i++) {
-				entity.transform.eulerAngles = entity.transform.rotation.eulerAngles + new Vector3(0, 0, i * (spread_degrees / numberToSpawn));
-				var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(entity.Data, entity.Position, entity.transform.rotation, entity, entity.EntityEffects.EffectWrapperCopy);
-				// manager at end ?
-
+				entity.transform.eulerAngles = entity.transform.rotation.eulerAngles + new Vector3(0, 0, spacing);
+				var toFire2 = EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnelData, entity.Position, entity.transform.rotation, projectile.Weapon);
 			}
 		}
 	}

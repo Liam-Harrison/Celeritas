@@ -17,3 +17,4 @@ MonoBehaviour:
   stacks: 0
   systems:
   - {fileID: 11400000, guid: dd5851bac7b16aa4080004c7d6d70c49, type: 2}
+  - {fileID: 11400000, guid: 61b2d8ff5ca7c5f4fab787120d36d982, type: 2}
