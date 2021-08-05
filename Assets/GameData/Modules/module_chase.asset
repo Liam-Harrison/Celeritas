@@ -64,10 +64,11 @@ MonoBehaviour:
       Entry: 8
       Data: 
   title: Chase Rounds
-  capacityHint: 1
   prefab: {fileID: 209961586333920278, guid: b20dc1fa46c57f242b1a5eb59e6190d7, type: 3}
-  icon: {fileID: 21300000, guid: dc9ad3bc7091b754d936170a908122b3, type: 3}
-  description: Causes Projectiles to target your cursor
+  capacityHint: 1
+  useChunking: 0
   size: 0
   catagory: 0
   rarity: 3
+  icon: {fileID: 21300000, guid: 99639cdda4d4c23459349b762bad1143, type: 3}
+  description: Causes Projectiles to target your cursor

@@ -64,12 +64,13 @@ MonoBehaviour:
       Entry: 8
       Data: 
   title: Shield Booster
-  capacityHint: 1
   prefab: {fileID: 8413103846399348385, guid: 900ad1848b639d943a81906c34151a18, type: 3}
-  icon: {fileID: 21300000, guid: 84767b677102d024b8ac5269efec3561, type: 3}
-  description: "A basic module for increasing the maximum amount of \nshields to
-    withstand greater amounts of enemy fire.\n\nIncreases shields by 50% and an additional
-    33% \nfor each level of the module."
+  capacityHint: 1
+  useChunking: 0
   size: 0
   catagory: 1
   rarity: 0
+  icon: {fileID: 21300000, guid: 2779d815eb6abb442b9132cce7e93e09, type: 3}
+  description: "A basic module for increasing the maximum amount of \nshields to
+    withstand greater amounts of enemy fire.\n\nIncreases shields by 50% and an additional
+    33% \nfor each level of the module."

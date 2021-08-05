@@ -64,10 +64,11 @@ MonoBehaviour:
       Entry: 8
       Data: 
   title: Gravity Geyser
-  capacityHint: 1
   prefab: {fileID: 1341046520642754874, guid: 994036f5a46b47f4da06b205362aee52, type: 3}
-  icon: {fileID: 21300000, guid: 6cc020829b9978146bc28bd4ba7b4d95, type: 3}
-  description: Pushes enemies away from the player
+  capacityHint: 1
+  useChunking: 0
   size: 1
   catagory: 0
   rarity: 2
+  icon: {fileID: 21300000, guid: 21766af2e61e0394d97cb6bf4711e6a4, type: 3}
+  description: Pushes enemies away from the player

@@ -156,6 +156,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 37a8333f3d207ce4d81cb5faa19d5389, type: 2}
     - {fileID: 11400000, guid: d09395ca3ec8a454c8932acb7dd201cd, type: 2}
     - {fileID: 11400000, guid: 25fe257e6aedb34499e4dd8d81b00da7, type: 2}
+    - {fileID: 11400000, guid: b5684e958385a254cb2c5e106aa29937, type: 2}
     - {fileID: 11400000, guid: 4c32c870bdc025a41afc515c8f6b6d93, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -199,11 +200,11 @@ MonoBehaviour:
       Entry: 10
       Data: 1
     - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
       Entry: 10
       Data: 6
+    - Name: 
+      Entry: 10
+      Data: 7
     - Name: 
       Entry: 6
       Data: 
@@ -240,6 +241,8 @@ MonoBehaviour:
   - {fileID: 8950003118209943938}
   - {fileID: 4671421883375309999}
   - {fileID: 4289779454614690327}
+  selectionViewSize: 8
+  gameViewSize: 25
   inventorySize: {x: 6, y: 2}
   hullManager: {fileID: 3216270655684157883}
 --- !u!50 &2516558698829045451
