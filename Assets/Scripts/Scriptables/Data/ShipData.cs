@@ -97,7 +97,7 @@ namespace Celeritas.Scriptables
 	[System.Serializable]
 	public struct MovementSettings
 	{
-		[MinMaxSlider(0, 3000, showFields: true), TabGroup("Rotation"), PropertySpace]
+		[MinMaxSlider(0, 20000, showFields: true), TabGroup("Rotation"), PropertySpace]
 		public Vector2 torquePerSec;
 
 		[SerializeField, TabGroup("Rotation")]
