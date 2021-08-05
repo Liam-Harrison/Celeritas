@@ -1,9 +1,7 @@
-using Celeritas.Extensions;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 namespace Celeritas.Game.Entities
 {
@@ -12,8 +10,14 @@ namespace Celeritas.Game.Entities
 	/// </summary>
 	public class WeaponEntity : ModuleEntity
 	{
-		[SerializeField, Title("Weapon Settings")]
+		[SerializeField, TitleGroup("Weapon Settings")]
 		private Transform projectileSpawn;
+
+		[SerializeField, TitleGroup("Weapon Settings")]
+		private bool hasDefaultProjectileEffects;
+
+		[SerializeField, TitleGroup("Weapon Settings")]
+		private EffectWrapper[] projectileEffects;
 
 		private uint rateOfFire;
 		private float maxCharge = 10.0f;
@@ -49,6 +53,9 @@ namespace Celeritas.Game.Entities
 			maxCharge = WeaponData.MaxCharge;
 
 			ProjectileEffects = new EffectManager(this, SystemTargets.Projectile);
+
+			if (hasDefaultProjectileEffects)
+				ProjectileEffects.AddEffectRange(projectileEffects);
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}

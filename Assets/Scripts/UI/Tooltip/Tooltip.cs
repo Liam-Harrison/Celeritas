@@ -187,6 +187,9 @@ namespace Celeritas.UI
 			if (module.HasShipProjectileEffects)
 				CreateEffectRows(module.ShipProjectileEffects, projectileSubheader);
 
+			if (module is WeaponEntity weapon)
+				CreateEffectRows(weapon.ProjectileEffects, projectileSubheader);
+
 			seperator.SetActive(HasEffects());
 
 			var pos = Mouse.current.position.ReadValue();

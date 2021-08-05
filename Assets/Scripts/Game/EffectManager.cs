@@ -38,7 +38,7 @@ namespace Celeritas.Game
 		/// <summary>
 		/// Current effects in this collection.
 		/// </summary>
-		public IReadOnlyList<EffectWrapper> EffectWrappers { get => effects.AsReadOnly(); }
+		public IReadOnlyList<EffectWrapper> EffectWrappers { get => effects; }
 
 		/// <summary>
 		/// Get a copy of effects in this collection.
