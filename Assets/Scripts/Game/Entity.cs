@@ -198,12 +198,6 @@ namespace Celeritas.Game
 				return;
 
 			Dying = true;
-			EntityEffects.OnEntityBeforeDie();
-
-			if (Dying)
-			{
-				EntityDataManager.KillEntity(this);
-			}
 		}
 
 		/// <summary>
@@ -221,6 +215,20 @@ namespace Celeritas.Game
 
 			if (!Dying)
 				EntityEffects.UpdateEntity();
+
+			if (Dying)
+				DoKillEvents();
+		}
+
+		private void DoKillEvents()
+		{
+			Dying = true;
+			EntityEffects.OnEntityBeforeDie();
+
+			if (Dying)
+			{
+				EntityDataManager.KillAndUnloadEntity(this);
+			}
 		}
 
 		/// <summary>

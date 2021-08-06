@@ -279,7 +279,7 @@ namespace Celeritas.Game.Entities
 		/// Destroy the provided entity gracefully, recycling it if nessecary.
 		/// </summary>
 		/// <param name="entity">The entity to destroy.</param>
-		public static void KillEntity(Entity entity)
+		public static void KillAndUnloadEntity(Entity entity)
 		{
 			entity.OnEntityKilled();
 			UnloadEntity(entity);
