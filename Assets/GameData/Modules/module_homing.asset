@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e81afd5e3fc38f04a85d551b5ddbf13e, type: 3}
-  m_Name: module_projectile_damage_increase
+  m_Name: module_homing
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -35,7 +35,7 @@ MonoBehaviour:
       Data: true
     - Name: 
       Entry: 5
-      Data: false
+      Data: true
     - Name: 
       Entry: 5
       Data: false
@@ -44,7 +44,7 @@ MonoBehaviour:
       Data: true
     - Name: 
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 5
       Data: false
@@ -63,12 +63,12 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  title: Projectile Damage
-  prefab: {fileID: 1344871616590283930, guid: 66db8ef85b269074e8ee6e3102ac40bf, type: 3}
+  title: Homing
+  prefab: {fileID: 6558493142542108636, guid: cdf918428713c57469e7c5f228e88759, type: 3}
   capacityHint: 1
   useChunking: 0
-  size: 0
+  size: 2
   catagory: 0
-  rarity: 0
-  icon: {fileID: 21300000, guid: e0526b249dec66940adc72cf27447828, type: 3}
-  description: Increases Projectile damage
+  rarity: 4
+  icon: {fileID: 21300000, guid: 982d9317e9fc87e4e9ecd6ad8d19d120, type: 3}
+  description: Bullets home in on closest enemy

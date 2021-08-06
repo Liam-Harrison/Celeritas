@@ -198,7 +198,7 @@ namespace Celeritas.Game.Entities
 		/// <param name="effects">The effects to start this entity with.</param>
 		/// <param name="forceIsPlayer">Force this entity to be a player entity.</param>
 		/// <returns>Returns the created entity.</returns>
-		public static T InstantiateEntity<T>(EntityData data, Vector3 position, Quaternion rotation, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false) where T: Entity
+		public static T InstantiateEntity<T>(EntityData data, Vector3 position, Quaternion rotation, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false) where T : Entity
 		{
 			if (!entites.ContainsKey(data))
 			{
@@ -290,14 +290,17 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		/// <typeparam name="T">The type to find.</typeparam>
 		/// <returns>Returns a read only list of all found entities.</returns>
-		public static IReadOnlyList<T> GetEntities<T>() where T: Entity
+		public static IReadOnlyList<T> GetEntities<T>() where T : Entity
 		{
 			var found = new List<T>();
 			foreach (var data in entites)
 			{
-				if (typeof(T).IsAssignableFrom(data.Key.EntityType))
+				if (typeof(T).IsAssignableFrom(data.Key.EntityType) && data.Value.ActiveObjects != null)
 				{
-					found.AddRange(data.Value.ActiveObjects as T[]);
+					foreach (var entity in data.Value.ActiveObjects)
+					{
+						found.Add(entity as T);
+					}
 				}
 			}
 			return found.AsReadOnly();

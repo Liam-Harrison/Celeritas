@@ -64,10 +64,11 @@ MonoBehaviour:
       Entry: 8
       Data: 
   title: Proton Accelerator
-  capacityHint: 1
   prefab: {fileID: 209961586333920278, guid: 52dd421291329f94691b9fedf629263e, type: 3}
-  icon: {fileID: 21300000, guid: 12d0b54c239b4c2449ccccc5a3f37c8a, type: 3}
-  description: Increased rate of fire
+  capacityHint: 1
+  useChunking: 0
   size: 1
   catagory: 0
   rarity: 0
+  icon: {fileID: 21300000, guid: f72ea2651d81b2b45b0417f82681ddf9, type: 3}
+  description: Increased rate of fire
