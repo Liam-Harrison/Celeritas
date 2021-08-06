@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 0
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -304,8 +304,10 @@ MonoBehaviour:
   shipEffects: []
   hasShipWeaponEffects: 0
   shipWeaponEffects: []
-  hasShipProjectileEffects: 0
-  shipProjectileEffects: []
+  hasShipProjectileEffects: 1
+  shipProjectileEffects:
+  - Level: 1
+    EffectCollection: {fileID: 11400000, guid: 0618281a1e6baae44a06ba1b650655e2, type: 2}
 --- !u!114 &795908741311982817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 0
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
