@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ee0d4ee51750af45b7430210d4a5dbd, type: 3}
   m_Name: effect_homing
   m_EditorClassIdentifier: 
-  title: 
-  targets: 0
+  title: Homing
+  targets: 1
   stacks: 0
-  systems: []
+  systems:
+  - {fileID: 11400000, guid: a2dc3bab6b6cb5044a4a55c796d44438, type: 2}
