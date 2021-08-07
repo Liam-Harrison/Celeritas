@@ -74,6 +74,6 @@ MonoBehaviour:
   description: A medium-ranged energy laser, typically used for mining, that has
     been retrofitted for combat.
   projectile: {fileID: 11400000, guid: 6d1a6b3c7877c2c4eaa8b10c24425a74, type: 2}
-  rateOfFire: 10
+  rateOfFire: 20
   charge: 0
   maxCharge: 0

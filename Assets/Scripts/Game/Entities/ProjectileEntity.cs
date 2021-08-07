@@ -41,6 +41,11 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public float SpeedModifier { get; set; }
 
+		/// <summary>
+		/// Used for chains of projectiles (following one-another)
+		/// </summary>
+		public Entity Following { get; set; }
+
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
@@ -103,7 +108,10 @@ namespace Celeritas.Game.Entities
 			Position += Forward * ProjectileData.Speed * SpeedModifier * Time.smoothDeltaTime;
 
 			if (TimeAlive >= ProjectileData.Lifetime)
+			{
+				Dying = true; // workaround
 				UnloadEntity();
+			}
 
 			base.Update();
 		}
