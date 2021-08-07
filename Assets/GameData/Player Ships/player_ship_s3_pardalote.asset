@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Pardalote
-  prefab: {fileID: 0}
+  prefab: {fileID: 2647584951759059593, guid: 932b97ba7b838014b861fc40a40f5d7e, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:
