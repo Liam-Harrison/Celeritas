@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Sandpiper
-  prefab: {fileID: 0}
+  prefab: {fileID: 6052397043661276870, guid: cda48e4d130393c45a91c187f14eff90, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:

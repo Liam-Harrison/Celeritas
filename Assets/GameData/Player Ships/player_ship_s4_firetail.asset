@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Firetail
-  prefab: {fileID: 0}
+  prefab: {fileID: 751546083619562759, guid: 24da2bdc750e0f842a46ca6c92713a3a, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:
