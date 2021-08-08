@@ -32,24 +32,6 @@ MonoBehaviour:
       Data: 9|9
     - Name: 
       Entry: 5
-      Data: true
-    - Name: 
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
       Data: false
     - Name: 
       Entry: 5
@@ -86,6 +68,33 @@ MonoBehaviour:
       Data: false
     - Name: 
       Entry: 5
+      Data: true
+    - Name: 
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
       Data: false
     - Name: 
       Entry: 5
@@ -117,15 +126,6 @@ MonoBehaviour:
     - Name: 
       Entry: 5
       Data: true
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 5
       Data: false
