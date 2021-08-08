@@ -15,5 +15,4 @@ MonoBehaviour:
   title: Mining Laser Projectile Effect
   targets: 1
   stacks: 0
-  systems:
-  - {fileID: 11400000, guid: 00070c4ce0fdfbc4aa43e7e88c5c26c3, type: 2}
+  systems: []

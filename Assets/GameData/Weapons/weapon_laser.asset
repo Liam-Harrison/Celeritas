@@ -71,9 +71,9 @@ MonoBehaviour:
   catagory: 0
   rarity: 0
   icon: {fileID: 21300000, guid: 3144f6c4f2f2d704db3a0e92791b3265, type: 3}
-  description: A medium-ranged energy laser, typically used for mining, that has
-    been retrofitted for combat.
+  description: A short-to-medium-ranged energy laser, typically used for mining,
+    that has been retrofitted for combat.
   projectile: {fileID: 11400000, guid: 6d1a6b3c7877c2c4eaa8b10c24425a74, type: 2}
-  rateOfFire: 50
+  rateOfFire: 15
   charge: 0
   maxCharge: 0
