@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6889710547187974505}
   - component: {fileID: 4029456321391606217}
   m_Layer: 7
-  m_Name: Weapon
+  m_Name: ship_part_weapon (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6902592532835741655}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.483, y: 3.832, z: -0.602}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
