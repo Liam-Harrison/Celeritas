@@ -15,12 +15,6 @@ namespace Assets.Scripts.Scriptables.Systems
 	[CreateAssetMenu(fileName = "New Projectile Acceleration System", menuName = "Celeritas/Modifiers/Projectile Acceleration")]
 	public class ModifySpeedSystem : ModifierSystem, IEntityUpdated, IEntityEffectAdded, IEntityEffectRemoved
 	{
-		public class SpeedSystemData
-		{
-			public float baseAmount;
-			public float modifier;
-		}
-
 		[SerializeField, TitleGroup("Over Time")]
 		private bool applyOvertime;
 
@@ -37,12 +31,14 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
+		private readonly Dictionary<Entity, (float b, float mod)> applying = new Dictionary<Entity, (float b, float mod)>();
+
 		public override string GetTooltip(ushort level)
 		{
 			if (speedFactor > 1)
-				return $"<color=green>▲</color> Speeds up motion by a factor of " + speedFactor;
+				return $"Speeds up motion by a factor of " + speedFactor;
 			else
-				return $"<color=red>▼</color> Slows down motion by a factor of " +speedFactor;
+				return $"Slows down motion by a factor of "+speedFactor;
 		}
 
 		public void OnEntityEffectAdded(Entity entity, ushort level)
@@ -51,8 +47,7 @@ namespace Assets.Scripts.Scriptables.Systems
 
 			if (applyOvertime)
 			{
-				var data = new SpeedSystemData { baseAmount = target.SpeedModifier, modifier = 0 };
-				entity.Components.RegisterComponent(this, data);
+				applying.Add(target, (target.SpeedModifier, 0));
 			}
 			else
 			{
@@ -66,8 +61,8 @@ namespace Assets.Scripts.Scriptables.Systems
 
 			if (applyOvertime)
 			{
-				target.SpeedModifier = entity.Components.GetComponent<SpeedSystemData>(this).baseAmount;
-				entity.Components.ReleaseComponent<SpeedSystemData>(this);
+				target.SpeedModifier = applying[entity].b;
+				applying.Remove(entity);
 			}
 			else
 			{
@@ -83,8 +78,7 @@ namespace Assets.Scripts.Scriptables.Systems
 			var projectile = entity as ProjectileEntity;
 			var p = curve.Evaluate(Mathf.Clamp01(entity.TimeAlive / duration)) * speedFactor;
 
-			var data = entity.Components.GetComponent<SpeedSystemData>(this);
-			data.modifier = p;
+			applying[entity] = (applying[entity].b, p);
 			projectile.SpeedModifier = p;
 		}
 	}

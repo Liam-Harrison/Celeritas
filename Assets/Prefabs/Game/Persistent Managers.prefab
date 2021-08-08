@@ -103,3 +103,11 @@ MonoBehaviour:
   rare: {fileID: 21300004, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
   epic: {fileID: 21300006, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
   legendary: {fileID: 21300008, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
+  single: {fileID: 21300000, guid: 5438642c149256d49bb1a9413be92e21, type: 3}
+  smallL: {fileID: 21300000, guid: 4568cae42881c954f900c0729079fcb9, type: 3}
+  largeL: {fileID: 21300000, guid: b54975d7bc06ece418ba12318e5eea2b, type: 3}
+  smallLine: {fileID: 21300000, guid: 15c9dcec04805f74180c179e0767ed0c, type: 3}
+  largeLine: {fileID: 21300000, guid: 7a3c3d56611acb448a4a1c6101565a83, type: 3}
+  t: {fileID: 21300000, guid: 5eb7b466e7d29fe47b82bcc527c8a7f1, type: 3}
+  smallSquare: {fileID: 21300000, guid: 6d348c936fd8f5b47800cfad7974a81b, type: 3}
+  largeSquare: {fileID: 21300000, guid: c35e5cc338a970543b8e7e3541e0dad8, type: 3}

@@ -1,5 +1,5 @@
-
 using System;
+using System.Collections.Generic;
 using Celeritas.Scriptables;
 
 namespace Celeritas.Extensions
@@ -9,6 +9,86 @@ namespace Celeritas.Extensions
 	/// </summary>
 	public static class MultidimentionalArrayExtentions
 	{
+		private readonly static Dictionary<TetrisShape, bool[,]> ModuleShapes = new Dictionary<TetrisShape, bool[,]>
+		{
+			{
+				TetrisShape.Single, new bool[,]
+			{
+				{ true, false, false, },
+				{ false, false, false, },
+				{ false, false, false} }
+			},
+
+			{
+				TetrisShape.SmallL, new bool[,]
+			{
+				{ true, true, false, },
+				{ true, false, false, },
+				{ false, false, false} }
+			},
+
+			{
+				TetrisShape.LargeL, new bool[,]
+			{
+				{ true, true, false, },
+				{ true, false, false, },
+				{ true, false, false} }
+			},
+
+			{
+				TetrisShape.SmallLine, new bool[,]
+			{
+				{ false, false, false, },
+				{ true, false, false, },
+				{ true, false, false} }
+			},
+
+			{
+				TetrisShape.LargeLine, new bool[,]
+			{
+				{ true, false, false, },
+				{ true, false, false, },
+				{ true, false, false} }
+			},
+
+			{
+				TetrisShape.SmallSquare, new bool[,]
+			{
+				{ true, true, false, },
+				{ true, true, false, },
+				{ false, false, false} }
+			},
+
+			{
+				TetrisShape.LargeSquare, new bool[,]
+			{
+				{ true, true, true, },
+				{ true, true, true, },
+				{ true, true, true} }
+			},
+
+			{
+				TetrisShape.T, new bool[,]
+			{
+				{ false, false, false, },
+				{ false, true, false },
+				{ true, true, true} }
+			},
+
+			{
+				TetrisShape.None, new bool[,]
+			{
+				{ false, false, false, },
+				{ false, false, false, },
+				{ false, false, false} }
+			},
+		};
+
+		public static bool[,] ModuleShape(this TetrisShape shape)
+		{
+			return ModuleShapes[shape];
+		}
+
 		/// <summary>
 		/// provides x and y iterator values for bool 2D arrays.
 		/// </summary>

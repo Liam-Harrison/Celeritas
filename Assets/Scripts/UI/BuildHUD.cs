@@ -125,9 +125,9 @@ namespace Celeritas.UI
 				grid = hull.GetGridFromWorld(hit.point);
 
 				bool isOverModule = false; // Checks to see if any module is overlapping existing modules or overlapping the hull layout
-				dragging.ModuleLayout.ForEach((x, y) =>
+				dragging.TetrisShape.ModuleShape().ForEach((x, y) =>
 				{
-					var currentModule = dragging.ModuleLayout[x, y];
+					var currentModule = dragging.TetrisShape.ModuleShape()[x, y];
 					if (currentModule == true)
 					{
 						var newX = grid.x + x;

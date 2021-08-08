@@ -43,6 +43,12 @@ namespace Celeritas.UI
 		private TextMeshProUGUI description;
 
 		[SerializeField]
+		private Image icon;
+
+		[SerializeField]
+		private Image tetrisIcon;
+
+		[SerializeField]
 		private GameObject seperator;
 
 		[SerializeField]
@@ -99,7 +105,10 @@ namespace Celeritas.UI
 				pos.y -= halfHeight;
 
 				if (pos.x + halfWidth + padding > Screen.width)
-					pos.x -= (pos.x + halfWidth + padding) - Screen.width;
+					pos.x = Screen.width - halfWidth - padding;
+
+				if (pos.x - halfWidth - padding < 0)
+					pos.x = halfWidth + padding;
 
 				if (pos.y - halfHeight - padding < 0)
 					pos.y += halfHeight * 2 - padding;
@@ -175,6 +184,16 @@ namespace Celeritas.UI
 
 			description.text = module.ModuleData.Description;
 			subtitle.text = module.Subheader;
+
+			if (module.ModuleData.Icon != null)
+				icon.sprite = module.ModuleData.Icon;
+			else
+				icon.sprite = null;
+
+			if (module.ModuleData.TetrisShape != TetrisShape.None)
+				tetrisIcon.sprite = GameDataManager.Instance.GetTetrisSprite(module.ModuleData.TetrisShape);
+			else
+				tetrisIcon.sprite = null;
 
 			CreateEffectRows(module.EntityEffects, effectSubheader);
 
@@ -287,7 +306,7 @@ namespace Celeritas.UI
 					row.SetSiblingIndex(sibling.GetSiblingIndex() + 1);
 					sibling = row;
 
-					row.GetComponent<TextMeshProUGUI>().text = $" {wrapper.GetTooltip(effect.Level)}";
+					row.GetComponent<TextMeshProUGUI>().text = $"• <indent=5%> {wrapper.GetTooltip(effect.Level)}";
 				}
 			}
 		}

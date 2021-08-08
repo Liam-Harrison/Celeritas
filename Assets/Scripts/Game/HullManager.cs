@@ -194,9 +194,9 @@ namespace Celeritas.Game
 
 					if (module != null && module.HasModuleAttatched)
 					{
-						module.AttatchedModule.ModuleData.ModuleLayout.ForEach((mx, my) =>
+						module.AttatchedModule.ModuleData.TetrisShape.ModuleShape().ForEach((mx, my) =>
 						{
-							if (module.AttatchedModule.ModuleData.ModuleLayout[mx, my] == true)
+							if (module.AttatchedModule.ModuleData.TetrisShape.ModuleShape()[mx, my] == true)
 							{
 								Entites[x + mx, y + my] = module.AttatchedModule;
 							}
