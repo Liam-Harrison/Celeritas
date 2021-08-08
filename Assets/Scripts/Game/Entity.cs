@@ -118,6 +118,11 @@ namespace Celeritas.Game
 		public EffectManager EntityEffects { get; private set; }
 
 		/// <summary>
+		/// The components on this entity.
+		/// </summary>
+		public Components Components { get; private set; }
+
+		/// <summary>
 		/// Invoked when an action is added.
 		/// </summary>
 		public event Action<GameAction> OnActionAdded;
@@ -151,6 +156,7 @@ namespace Celeritas.Game
 			else if (owner != null)
 				IsPlayer = owner.IsPlayer;
 
+			Components = new Components();
 			EntityEffects = new EffectManager(this, TargetType);
 			EntityEffects.AddEffectRange(effects);
 
