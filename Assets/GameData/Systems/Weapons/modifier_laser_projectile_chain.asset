@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: modifier_laser_projectile_chain
   m_EditorClassIdentifier: 
   title: Laser Chain
-  angPerSec: 30
+  angPerSec: 150
   maximumAngle: 180

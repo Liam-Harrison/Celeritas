@@ -19,6 +19,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 2869918739748144726, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}
+      propertyPath: m_Time
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 3985316679026307340, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}
       propertyPath: damage
       value: 10
@@ -34,9 +38,13 @@ PrefabInstance:
     - target: {fileID: 3985316679026307340, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 3985316679026307340, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 3985316679026307340, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}
       propertyPath: defaultEffects.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985316679026307340, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}
+      propertyPath: serializationData.SerializedFormat
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3985316679026307340, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}

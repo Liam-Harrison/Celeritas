@@ -70,8 +70,8 @@ namespace Celeritas.Scriptables.Systems
 
 				var dir = (target - entity.Position).normalized;
 
-				//if (Vector3.Dot(entity.Forward, dir) >= 0.975)
-				//	return;
+				if (Vector3.Dot(entity.Forward, dir) >= 0.995)
+					return;
 
 				var angle = (AngPerSec) * Time.smoothDeltaTime;
 				if (Vector3.Dot(entity.Right, dir) > 0)

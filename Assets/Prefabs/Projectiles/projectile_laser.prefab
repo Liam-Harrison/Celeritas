@@ -72,7 +72,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.2
+  m_Time: 0.05
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.3
@@ -80,13 +80,22 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.00920105
-        value: 1
+        time: 0.016815186
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.4763662
+        value: 1
+        inSlope: 0.09535532
+        outSlope: 0.09535532
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.25785643
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.9969177
@@ -102,7 +111,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.9529412, g: 0.3118375, b: 0, a: 0.5529412}
+      key0: {r: 0.76524204, g: 0.7924528, b: 0.6242435, a: 0.5529412}
       key1: {r: 1, g: 0.7546391, b: 0.4575472, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -9899,7 +9908,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.15
+  m_Time: 0.03
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.3
@@ -9907,14 +9916,14 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.00920105
-        value: 0
-        inSlope: 2.6439228
-        outSlope: 2.6439228
+        time: 0
+        value: 0.5988641
+        inSlope: 1.011813
+        outSlope: 1.011813
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.11952377
+        outWeight: 0.1633171
       - serializedVersion: 3
         time: 0.5128449
         value: 1
@@ -9970,7 +9979,7 @@ TrailRenderer:
     alignment: 0
     textureMode: 0
     shadowBias: 0.5
-    generateLightingData: 1
-  m_MinVertexDistance: 0.1
+    generateLightingData: 0
+  m_MinVertexDistance: 0.05
   m_Autodestruct: 0
   m_Emitting: 1
