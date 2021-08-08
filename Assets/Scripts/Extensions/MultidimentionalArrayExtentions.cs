@@ -70,9 +70,9 @@ namespace Celeritas.Extensions
 			{
 				TetrisShape.T, new bool[,]
 			{
-				{ false, false, false, },
+				{ true, true, true, },
 				{ false, true, false },
-				{ true, true, true} }
+				{ false, false, false} }
 			},
 
 			{

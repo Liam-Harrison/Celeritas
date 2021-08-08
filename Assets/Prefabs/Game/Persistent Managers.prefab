@@ -108,6 +108,6 @@ MonoBehaviour:
   largeL: {fileID: 21300000, guid: b54975d7bc06ece418ba12318e5eea2b, type: 3}
   smallLine: {fileID: 21300000, guid: 15c9dcec04805f74180c179e0767ed0c, type: 3}
   largeLine: {fileID: 21300000, guid: 7a3c3d56611acb448a4a1c6101565a83, type: 3}
-  t: {fileID: 21300000, guid: 5eb7b466e7d29fe47b82bcc527c8a7f1, type: 3}
+  t: {fileID: 21300000, guid: e823f0af9d7803841ba15362d1a9aa26, type: 3}
   smallSquare: {fileID: 21300000, guid: 6d348c936fd8f5b47800cfad7974a81b, type: 3}
   largeSquare: {fileID: 21300000, guid: c35e5cc338a970543b8e7e3541e0dad8, type: 3}

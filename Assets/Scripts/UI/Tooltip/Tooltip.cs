@@ -104,16 +104,29 @@ namespace Celeritas.UI
 
 				pos.y -= halfHeight;
 
-				if (pos.x + halfWidth + padding > Screen.width)
-					pos.x = Screen.width - halfWidth - padding;
+				//if (pos.x + halfWidth + padding > Screen.width)
+				//	pos.x = Screen.width - halfWidth - padding;
 
-				if (pos.x - halfWidth - padding < 0)
-					pos.x = halfWidth + padding;
+				//if (pos.x - halfWidth - padding < 0)
+				//	pos.x = halfWidth + padding;
 
-				if (pos.y - halfHeight - padding < 0)
-					pos.y += halfHeight * 2 - padding;
+				//if (pos.y - halfHeight - padding < 0)
+				//	pos.y += halfHeight * 2 - padding;
 
 				background.transform.position = Vector3.Lerp(background.transform.position, pos, 0.95f);
+
+				Vector3[] corners = new Vector3[4];
+				background.GetWorldCorners(corners);
+
+				if (corners[0].x < 0)
+					background.transform.position += new Vector3(-corners[0].x + padding, 0);
+				else if (corners[3].x > Screen.width)
+					background.transform.position -= new Vector3(corners[0].x - Screen.width - padding, 0);
+
+				if (corners[3].y < 0)
+					background.transform.position += new Vector3(0, pos.y - corners[3].y + padding + halfHeight);
+				else if (corners[0].y > Screen.height)
+					background.transform.position -= new Vector3(0, corners[0].y - Screen.height - padding);
 			}
 		}
 
