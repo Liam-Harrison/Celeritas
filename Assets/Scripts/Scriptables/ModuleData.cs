@@ -36,9 +36,15 @@ namespace Celeritas.Scriptables
 		[TableMatrix(SquareCells = true, DrawElementMethod = nameof(OnLayoutDraw))]
 		private bool[,] moduleLayout = new bool[BaseLayoutResolution, BaseLayoutResolution];
 
+		[SerializeField, Title("Module Icon Cell"), FoldoutGroup("layout")]
+		[TableMatrix(SquareCells = true, DrawElementMethod = nameof(OnIconLayoutDraw))]
+		private bool[,] iconLayout = new bool[BaseLayoutResolution, BaseLayoutResolution];
+
 		private static int BaseLayoutResolution = 3;
 
-		public bool[,] ModuleLayout { get => moduleLayout;}
+		public bool[,] ModuleLayout { get => moduleLayout; }
+
+		public bool[,] IconLayout { get => iconLayout; }
 
 		/// <summary>
 		/// The icon for the module.
@@ -86,6 +92,22 @@ namespace Celeritas.Scriptables
 
 #if UNITY_EDITOR
 			UnityEditor.EditorGUI.DrawRect(rect.Padding(1), value ? new Color(1f, 1f, 1f, 1f) : new Color(0f, 0f, 0f, 0f));
+#endif
+			return value;
+		}
+
+		private bool OnIconLayoutDraw(Rect rect, bool value)
+		{
+			if (Event.current.type == EventType.MouseDown && rect.Contains(Event.current.mousePosition))
+			{
+				iconLayout = new bool[BaseLayoutResolution,BaseLayoutResolution];
+				value = !value;
+				GUI.changed = true;
+				Event.current.Use();
+			}
+
+#if UNITY_EDITOR
+			UnityEditor.EditorGUI.DrawRect(rect.Padding(5), value ? new Color(0f, 0f, 1f, 1f) : new Color(0f, 0f, 0f, 0f));
 #endif
 			return value;
 		}
