@@ -63,6 +63,48 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: iconLayout
+      Entry: 7
+      Data: 1|System.Boolean[,], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 9
+    - Name: ranks
+      Entry: 1
+      Data: 3|3
+    - Name: 
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   title: Revenge Drive
   prefab: {fileID: 3240463926471073480, guid: 74109e7a70190ea4fb0112b4c5e13913, type: 3}
   capacityHint: 1
