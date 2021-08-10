@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Lammergeier
-  prefab: {fileID: 0}
+  prefab: {fileID: 2985888577097613501, guid: 585775f713d71ce4084506f8b71008a6, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:

@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Dromaius
-  prefab: {fileID: 0}
+  prefab: {fileID: 4555157132269862269, guid: e0964a2012e752540a857aa0ed28c573, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:

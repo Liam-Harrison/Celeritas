@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Dotterel
-  prefab: {fileID: 0}
+  prefab: {fileID: 6986999780492521319, guid: b9c6e63f0443c7440bd9f6d1eeab6b6a, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:

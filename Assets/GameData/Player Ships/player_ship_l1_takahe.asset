@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Takahe
-  prefab: {fileID: 0}
+  prefab: {fileID: 8496936910967125466, guid: 863de2eab5e68884f8093efb875b564c, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:

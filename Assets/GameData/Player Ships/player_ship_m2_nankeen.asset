@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Nankeen
-  prefab: {fileID: 0}
+  prefab: {fileID: 2446445817722717839, guid: aa7d79d4fb52c3a4c836e29644b15a95, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:
