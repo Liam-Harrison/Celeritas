@@ -7,6 +7,10 @@ using UnityEngine;
 namespace Celeritas.Scriptables.Systems
 {
 
+	/// <summary>
+	/// Repairs shields by set percentage per second if shields have taken damage.
+	/// </summary>
+
 	[CreateAssetMenu(fileName = "New Ship Shield Repair Modifier", menuName = "Celeritas/Modifiers/Ship Shield Repair")]
 
 	public class ShipShieldRepairSystem : ModifierSystem, IEntityEffectAdded, IEntityEffectRemoved, IEntityUpdated
