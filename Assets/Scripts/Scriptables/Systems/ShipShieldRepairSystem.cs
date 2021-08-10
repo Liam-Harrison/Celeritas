@@ -12,10 +12,10 @@ namespace Celeritas.Scriptables.Systems
 	public class ShipShieldRepairSystem : ModifierSystem, IEntityEffectAdded, IEntityEffectRemoved, IEntityUpdated
 	{
 
-		[SerializeField, PropertyRange(0, 3), Title("Percentage repaired per second")]
+		[SerializeField, PropertyRange(0, 100), Title("Percentage repaired per second")]
 		private float amount;
 
-		[SerializeField, PropertyRange(0, 5), Title("Percentage added per level")]
+		[SerializeField, PropertyRange(0, 100), Title("Percentage added per level")]
 		private float amountExtraPerLevel;
 
 		/// <summary>
@@ -32,7 +32,7 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Ship;
 
-		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Increase shield repair rate by <color=green>{(Amount + (AmountExtraPerLevel * level)) * 100:0}%</color>.";
+		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Repairs shields by <color=green>{(Amount + (AmountExtraPerLevel * level)):0}%</color> per second.";
 
 		/// <summary>
 		/// Determines whether the shield repairs or not.
@@ -62,6 +62,9 @@ namespace Celeritas.Scriptables.Systems
 		/// </summary>
 		private float nextTime = 0;
 
+		/// <summary>
+		/// Checks if shield isn't full and will repair the ship by sending negative damage to the shield.
+		/// </summary>
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{
 			var ship = entity as ShipEntity;

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef18f25bfbaf9a4dad392e3a4af5d0f, type: 3}
   m_Name: modifier_shield_repair
   m_EditorClassIdentifier: 
-  title: 
+  title: Shield Repairer
   amount: 3
   amountExtraPerLevel: 3

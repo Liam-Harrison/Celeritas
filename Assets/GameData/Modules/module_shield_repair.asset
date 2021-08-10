@@ -70,7 +70,7 @@ MonoBehaviour:
   size: 0
   catagory: 1
   rarity: 0
-  icon: {fileID: 21300000, guid: 2779d815eb6abb442b9132cce7e93e09, type: 3}
+  icon: {fileID: 21300000, guid: 88acbbcea2e22184595defa3aa419521, type: 3}
   description: "A basic module for regenerating shields to withstand greater amounts
     of enemy fire.\n\nRegenerates shields by 3% per second with an additional 3%
     \nfor each level of the module."
