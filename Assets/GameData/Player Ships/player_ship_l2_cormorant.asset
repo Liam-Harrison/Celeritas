@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Cormorant
-  prefab: {fileID: 0}
+  prefab: {fileID: 6022700631593305839, guid: 6a902943b46a97544acb4c4c3727fea8, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:

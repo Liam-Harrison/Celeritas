@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Alcedines
-  prefab: {fileID: 0}
+  prefab: {fileID: 7914912813352834011, guid: 4e69ed93efe098d4dbe83ba115f48273, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:

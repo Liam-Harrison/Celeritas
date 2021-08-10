@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: O'sprey
-  prefab: {fileID: 0}
+  prefab: {fileID: 4635422839664068481, guid: 57a9a02f4a3bd3d4f9f756469d852cd9, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:

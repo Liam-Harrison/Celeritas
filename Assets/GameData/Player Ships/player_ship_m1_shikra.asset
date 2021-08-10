@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Shikra
-  prefab: {fileID: 0}
+  prefab: {fileID: 2370809816317616486, guid: f3e42a349c597cc4ca070f785d242b3d, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:

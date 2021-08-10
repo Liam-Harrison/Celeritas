@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Wedgetail
-  prefab: {fileID: 0}
+  prefab: {fileID: 3990379344072591755, guid: a71dabe0792879945ad0c73a6386db93, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:
