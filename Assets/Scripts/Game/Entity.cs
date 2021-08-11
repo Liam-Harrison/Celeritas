@@ -22,7 +22,7 @@ namespace Celeritas.Game
 		[SerializeField, ShowIf(nameof(hasDefaultEffects)), DisableInPlayMode]
 		private EffectWrapper[] defaultEffects;
 
-		[SerializeField, Title("Graphical Effects", "(eg. on hit, on destroy)")]
+		[SerializeField, Title("Graphical Effects", "(eg. on hit, on destroy)"), DisableInPlayMode]
 		private bool hasGraphicalEffects;
 
 		/// <summary>
@@ -31,26 +31,26 @@ namespace Celeritas.Game
 		/// Note that entities despawning is different to them being destroyed (eg projectiles exceeding their lifetime)
 		/// OnDestroy effects will not play when an entity is despawned, only when they are destroyed/killed.
 		/// </summary>
-		[SerializeField, Title("On Destroy Effect"), ShowIf(nameof(hasGraphicalEffects))]
+		[SerializeField, Title("On Destroy Effect", "Time is in seconds"), ShowIf(nameof(hasGraphicalEffects)), DisableInPlayMode]
 		private GameObject onDestroyEffectPrefab;
 
 		/// <summary>
 		/// How long the on destroy effect needs to be played.
 		/// </summary>
-		[SerializeField, ShowIf(nameof(hasGraphicalEffects))]
-		private float timeToPlayOnDestroyEffect_s;
+		[SerializeField, ShowIf(nameof(hasGraphicalEffects)), DisableInPlayMode]
+		private float timeToPlayOnDestroyEffect;
 
 		/// <summary>
 		/// Effect that will play when the entity is hit
 		/// </summary>
-		[SerializeField, Title("On Hit Effect"), ShowIf(nameof(hasGraphicalEffects))]
+		[SerializeField, Title("On Hit Effect", "Time is in seconds"), ShowIf(nameof(hasGraphicalEffects)), DisableInPlayMode]
 		private GameObject onHitEffectPrefab;
 
 		/// <summary>
 		/// How long the on hit effect will play for
 		/// </summary>
-		[SerializeField, ShowIf(nameof(hasGraphicalEffects))]
-		private float timeToPlayOnHitEffect_s;
+		[SerializeField, ShowIf(nameof(hasGraphicalEffects)), DisableInPlayMode]
+		private float timeToPlayOnHitEffect;
 
 		/// <summary>
 		/// Does this entity belong to the player?
@@ -208,7 +208,7 @@ namespace Celeritas.Game
 			{
 				GameObject effect = Instantiate(onDestroyEffectPrefab, transform.position, transform.rotation, transform.parent);
 				effect.transform.localScale = transform.localScale;
-				Destroy(effect, timeToPlayOnDestroyEffect_s); // destroy after X seconds give effect time to play
+				Destroy(effect, timeToPlayOnDestroyEffect); // destroy after X seconds give effect time to play
 			}
 
 			if (Chunk != null)
@@ -367,7 +367,7 @@ namespace Celeritas.Game
 			{
 				GameObject effect = Instantiate(onHitEffectPrefab, transform.position, transform.rotation, transform.parent);
 				effect.transform.localScale = transform.localScale;
-				Destroy(effect, timeToPlayOnHitEffect_s); // destroy after X seconds give effect time to play
+				Destroy(effect, timeToPlayOnHitEffect); // destroy after X seconds give effect time to play
 			}
 		}
 
