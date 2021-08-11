@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 747d9766070ae9e4dba88b5444619be4, type: 3}
-  m_Name: player_ship_m4_lammergeier
+  m_Name: ship_s1_dotterel
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,12 +21,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  title: Lammergeier
-  prefab: {fileID: 2985888577097613501, guid: 585775f713d71ce4084506f8b71008a6, type: 3}
+  title: Dotterel
+  prefab: {fileID: 6986999780492521319, guid: fd222b0f5c6a9d449bbd260cfa1beeaa, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:
-    torquePerSec: {x: 3600, y: 4000}
+    torquePerSec: {x: 9000, y: 10000}
     rotationCurve:
       serializedVersion: 2
       m_Curve:
@@ -54,12 +54,17 @@ MonoBehaviour:
     angularDrag: 5
     rotationMaximum: 180
     aimDeadzone: 1
-    forcePerSec: 6000
-    mass: 5
+    forcePerSec: 1200
+    mass: 1
   rarity: 0
-  shipClass: 1
+  shipClass: 0
   icon: {fileID: 0}
-  description: The down armoured destroyer hull has been somewhat gutted for shield
-    generators and customizability.
-  startingHealth: 1500
-  startingShield: 35000
+  description: 'Ship Desc: Very basic and fast ship that will allow players to get
+    a feel for the controls in their first few missions.
+
+
+    AI Desc: Very basic
+    and fast enemy the approaches to close-mid range and fires a single low damage
+    projectile.'
+  startingHealth: 500
+  startingShield: 1250

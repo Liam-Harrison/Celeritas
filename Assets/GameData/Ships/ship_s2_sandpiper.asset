@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 747d9766070ae9e4dba88b5444619be4, type: 3}
-  m_Name: player_ship_m4_lammergeier
+  m_Name: ship_s2_sandpiper
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,12 +21,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  title: Lammergeier
-  prefab: {fileID: 2985888577097613501, guid: 585775f713d71ce4084506f8b71008a6, type: 3}
+  title: Sandpiper
+  prefab: {fileID: 6052397043661276870, guid: 825858d81280d9d418d2a1e0791020e0, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:
-    torquePerSec: {x: 3600, y: 4000}
+    torquePerSec: {x: 18000, y: 20000}
     rotationCurve:
       serializedVersion: 2
       m_Curve:
@@ -54,12 +54,17 @@ MonoBehaviour:
     angularDrag: 5
     rotationMaximum: 180
     aimDeadzone: 1
-    forcePerSec: 6000
-    mass: 5
+    forcePerSec: 9000
+    mass: 2
   rarity: 0
-  shipClass: 1
+  shipClass: 0
   icon: {fileID: 0}
-  description: The down armoured destroyer hull has been somewhat gutted for shield
-    generators and customizability.
-  startingHealth: 1500
-  startingShield: 35000
+  description: 'Ship Desc: Extremely high turning speed allows this ship to retarget
+    and dodge on a dime.
+
+
+    AI Desc: Extremely maneuverable skirmishing ship,
+    approaches player ship at an angle and attempts to fire on player from the rear
+    with an extremely short-range-high-damage attack.'
+  startingHealth: 500
+  startingShield: 2500

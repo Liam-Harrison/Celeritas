@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 747d9766070ae9e4dba88b5444619be4, type: 3}
-  m_Name: player_ship_m4_lammergeier
+  m_Name: ship_m3_osprey
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,12 +21,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  title: Lammergeier
-  prefab: {fileID: 2985888577097613501, guid: 585775f713d71ce4084506f8b71008a6, type: 3}
+  title: O'sprey
+  prefab: {fileID: 4635422839664068481, guid: 02fc3a0987a5eb1418ea9a821dd9ae63, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:
-    torquePerSec: {x: 3600, y: 4000}
+    torquePerSec: {x: 3500, y: 4000}
     rotationCurve:
       serializedVersion: 2
       m_Curve:
@@ -55,11 +55,14 @@ MonoBehaviour:
     rotationMaximum: 180
     aimDeadzone: 1
     forcePerSec: 6000
-    mass: 5
+    mass: 8
   rarity: 0
   shipClass: 1
   icon: {fileID: 0}
-  description: The down armoured destroyer hull has been somewhat gutted for shield
-    generators and customizability.
+  description: 'Ship Desc: This destroyer eschews customizability and shield generators
+    for maximum firepower.
+
+
+    AI Desc: [TBD]'
   startingHealth: 1500
-  startingShield: 35000
+  startingShield: 0
