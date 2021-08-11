@@ -5223,7 +5223,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 852609842, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: minDistanceFromPlayer
-      value: 9
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 852609842, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: numberOfRandomAsteroids

@@ -44,7 +44,7 @@ namespace Assets.Scripts.Game
 		{
 			foreach (var chunk in EntityDataManager.ChunkManager.Chunks)
 			{
-				SpawnAsteroidsInChunk(chunk);
+				SpawnAsteroidsInChunk(chunk, true);
 			}
 		}
 
@@ -55,10 +55,15 @@ namespace Assets.Scripts.Game
 
 		private void SpawnAsteroidsInChunk(Chunk chunk)
 		{
-			SpawnAsteroidsWithRandomLayout(numberOfRandomAsteroids, chunk);
+			SpawnAsteroidsInChunk(chunk, false);
+		}
+
+		private void SpawnAsteroidsInChunk(Chunk chunk, bool avoidSpawn)
+		{
+			SpawnAsteroidsWithRandomLayout(numberOfRandomAsteroids, chunk, avoidSpawn);
 			for (int i = 0; i < numberOfAsteroidClusters; i++)
 			{
-				SpawnAsteroidsInCluster(asteroidNumberPerCluster, chunk);
+				SpawnAsteroidsInCluster(asteroidNumberPerCluster, chunk, avoidSpawn);
 			}
 		}
 
@@ -66,13 +71,11 @@ namespace Assets.Scripts.Game
 		/// Spawns asteroids randomly in a box outlined by its bottom left and top right corner.
 		/// </summary>
 		/// <param name="amountToSpawn">number of asteroids to spawn</param>
-		/// <param name="lowerLeftCorner">bottom left boundary of where asteroids will spawn</param>
-		/// <param name="upperRightCorner">upper right boundary of where asteroids will spawn</param>
-		private void SpawnAsteroidsWithRandomLayout(int amountToSpawn, Chunk chunk)
+		private void SpawnAsteroidsWithRandomLayout(int amountToSpawn, Chunk chunk, bool avoidSpawn)
 		{
 			for (int i = 0; i < amountToSpawn; i++)
 			{
-				SpawnAsteroid(getRandomLocationInChunk(chunk));
+				SpawnAsteroid(GetRandomLocationInChunk(chunk, avoidSpawn));
 			}
 		}
 
@@ -81,9 +84,9 @@ namespace Assets.Scripts.Game
 		/// </summary>
 		/// <param name="amountToSpawn">number of asteroids to spawn.</param>
 		/// <param name="chunk">The chunk this asteroid will belong to.</param>
-		private void SpawnAsteroidsInCluster(int amountToSpawn, Chunk chunk)
+		private void SpawnAsteroidsInCluster(int amountToSpawn, Chunk chunk, bool avoidSpawn)
 		{
-			Vector3 position = getRandomLocationInChunk(chunk);
+			Vector3 position = GetRandomLocationInChunk(chunk, avoidSpawn);
 			for (int i = 0; i < amountToSpawn; i++)
 			{
 				SpawnAsteroid(position);
@@ -95,11 +98,13 @@ namespace Assets.Scripts.Game
 		/// greater than mindistance from player
 		/// </summary>
 		/// <param name="chunk"></param>
-		/// <returns>A random location, minDistance away from the player</returns>
-		private Vector3 getRandomLocationInChunk(Chunk chunk) {
+		/// <returns>A random location, minDistance away from the player (if avoidSpawn == true)</returns>
+		private Vector3 GetRandomLocationInChunk(Chunk chunk, bool avoidSpawn) {
 
-			if (PlayerSpawner.Instance == null)
+			if (PlayerSpawner.Instance == null || !avoidSpawn)
+			{
 				return chunk.GetRandomPositionInChunk();
+			}
 
 			Vector3 playerPosition = PlayerSpawner.Instance.transform.position;
 			Vector3 toReturn;
@@ -111,7 +116,7 @@ namespace Assets.Scripts.Game
 				distanceToPlayer = Vector3.Distance(toReturn, playerPosition);
 				count++;
 			}
-			while (distanceToPlayer < minDistanceFromPlayer && count < 5);
+			while (distanceToPlayer < minDistanceFromPlayer && count < 10);
 
 			return toReturn;
 		}
