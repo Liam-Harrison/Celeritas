@@ -41,6 +41,11 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public float SpeedModifier { get; set; }
 
+		/// <summary>
+		/// Used for chains of projectiles (following one-another)
+		/// </summary>
+		public Entity Following { get; set; }
+
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
@@ -48,6 +53,7 @@ namespace Celeritas.Game.Entities
 			damage = ProjectileData.Damage;
 			Weapon = owner as WeaponEntity;
 			SpeedModifier = 1;
+			Following = null;
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
@@ -60,6 +66,15 @@ namespace Celeritas.Game.Entities
 			}
 
 			base.OnDespawned();
+		}
+
+		private void OnDrawGizmos()
+		{
+			if (Following != null)
+			{
+				Gizmos.color = Color.green;
+				Gizmos.DrawLine(transform.position, Following.Position);
+			}
 		}
 
 		public override void OnEntityHit(Entity other)
@@ -103,7 +118,10 @@ namespace Celeritas.Game.Entities
 			Position += Forward * ProjectileData.Speed * SpeedModifier * Time.smoothDeltaTime;
 
 			if (TimeAlive >= ProjectileData.Lifetime)
+			{
+				Dying = true; // workaround
 				UnloadEntity();
+			}
 
 			base.Update();
 		}
