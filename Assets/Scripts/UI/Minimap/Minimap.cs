@@ -1,4 +1,3 @@
-using Celeritas.Extensions;
 using Celeritas.Game;
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;

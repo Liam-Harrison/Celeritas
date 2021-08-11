@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Celeritas;
 using Celeritas.Scriptables;
-using Celeritas.Extensions;
 using Celeritas.Game.Entities;
 using System.Linq;
 using Celeritas.UI.Tooltips;

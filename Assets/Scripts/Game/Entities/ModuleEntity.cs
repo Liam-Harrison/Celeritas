@@ -93,6 +93,25 @@ namespace Celeritas.Game.Entities
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
 
+		private void OnDrawGizmos()
+		{
+			Gizmos.color = Color.green;
+			if (ModuleData != null)
+			{
+				for (int x = 0; x < ModuleData.TetrisShape.ModuleShape().GetLength(0); x++)
+				{
+					for (int y = 0; y < ModuleData.TetrisShape.ModuleShape().GetLength(1); y++)
+					{
+						if (ModuleData.TetrisShape.ModuleShape()[x,y])
+						{
+							var pos = new Vector3(x, y, 0);
+							Gizmos.DrawWireCube(pos, Vector3.one);
+						}
+					}
+				}
+			}
+		}
+
 		/// <summary>
 		/// Attatch this entity to a module.
 		/// </summary>

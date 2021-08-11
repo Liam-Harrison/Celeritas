@@ -1,5 +1,4 @@
 using AssetIcons;
-using Celeritas.Extensions;
 using Celeritas.Game.Entities;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
@@ -31,17 +30,11 @@ namespace Celeritas.Scriptables
 		[SerializeField, TextArea, HideLabel]
 		private string description;
 
-		[SerializeField, Title("Module Layout"), FoldoutGroup("layout")]
-		[TableMatrix(SquareCells = true, DrawElementMethod = nameof(OnLayoutDraw))]
-		private bool[,] moduleLayout = new bool[BaseLayoutResolution, BaseLayoutResolution];
-
 		[SerializeField, Title("Module Icon Cell"), FoldoutGroup("layout")]
 		[TableMatrix(SquareCells = true, DrawElementMethod = nameof(OnIconLayoutDraw))]
 		private bool[,] iconLayout = new bool[BaseLayoutResolution, BaseLayoutResolution];
 
 		private static int BaseLayoutResolution = 3;
-
-		public bool[,] ModuleLayout { get => moduleLayout; }
 
 		public bool[,] IconLayout { get => iconLayout; }
 		

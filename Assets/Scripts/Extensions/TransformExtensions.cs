@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Celeritas.Extensions
+namespace Celeritas
 {
 	/// <summary>
 	/// Extensions for Unity transforms.

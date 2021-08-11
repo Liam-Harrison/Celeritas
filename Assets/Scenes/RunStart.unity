@@ -6781,6 +6781,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   camera: {fileID: 466688489}
+  toggles:
+  - {fileID: 1725190614}
+  - {fileID: 2142305872}
+  - {fileID: 1877512562}
   shipSpawn: {fileID: 2141348488}
 --- !u!114 &1638285563
 MonoBehaviour:
@@ -7182,6 +7186,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1725190614 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4239081621532955508, guid: c7c716a4899c9ab47a2c5ba82d1740d6, type: 3}
+  m_PrefabInstance: {fileID: 4239081620277484321}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1747677612
 GameObject:
   m_ObjectHideFlags: 0

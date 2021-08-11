@@ -1,4 +1,4 @@
-namespace Celeritas.Extensions
+namespace Celeritas
 {
 	/// <summary>
 	/// Extensions for the string type.

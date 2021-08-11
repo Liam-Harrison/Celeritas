@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Celeritas.Scriptables;
 
-namespace Celeritas.Extensions
+namespace Celeritas
 {
 	/// <summary>
 	/// Extention for any multidimensional array types.
@@ -38,9 +38,9 @@ namespace Celeritas.Extensions
 			{
 				TetrisShape.SmallLine, new bool[,]
 			{
-				{ false, false, false, },
 				{ true, false, false, },
-				{ true, false, false} }
+				{ true, false, false, },
+				{ false, false, false} }
 			},
 
 			{

@@ -99,19 +99,9 @@ namespace Celeritas.UI
 			if (IsShowing)
 			{
 				var pos = Mouse.current.position.ReadValue();
-				var halfWidth = background.sizeDelta.x / 2f;
 				var halfHeight = background.sizeDelta.y / 2f;
 
 				pos.y -= halfHeight;
-
-				//if (pos.x + halfWidth + padding > Screen.width)
-				//	pos.x = Screen.width - halfWidth - padding;
-
-				//if (pos.x - halfWidth - padding < 0)
-				//	pos.x = halfWidth + padding;
-
-				//if (pos.y - halfHeight - padding < 0)
-				//	pos.y += halfHeight * 2 - padding;
 
 				background.transform.position = Vector3.Lerp(background.transform.position, pos, 0.95f);
 
@@ -205,8 +195,8 @@ namespace Celeritas.UI
 
 			if (module.ModuleData.TetrisShape != TetrisShape.None)
 				tetrisIcon.sprite = GameDataManager.Instance.GetTetrisSprite(module.ModuleData.TetrisShape);
-			else
-				tetrisIcon.sprite = null;
+
+			tetrisIcon.gameObject.SetActive(module.ModuleData.TetrisShape != TetrisShape.None);
 
 			CreateEffectRows(module.EntityEffects, effectSubheader);
 
@@ -311,10 +301,12 @@ namespace Celeritas.UI
 			subheader.gameObject.SetActive(true);
 			Transform sibling = subheader;
 
+			bool hasOne = false;
 			foreach (var effect in effects)
 			{
 				foreach (var wrapper in effect.EffectCollection.Systems)
 				{
+					hasOne = true;
 					var row = Instantiate(textrow, parent).transform;
 					row.SetSiblingIndex(sibling.GetSiblingIndex() + 1);
 					sibling = row;

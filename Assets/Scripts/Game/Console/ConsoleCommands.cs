@@ -1,5 +1,4 @@
-﻿using Celeritas.Extensions;
-using Celeritas.Game.Console;
+﻿using Celeritas.Game.Console;
 using System.Collections.Generic;
 using System.Linq;
 

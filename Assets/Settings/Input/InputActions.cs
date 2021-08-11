@@ -295,6 +295,33 @@ namespace Celeritas
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Navigation"",
+            ""id"": ""3b84d1a5-c919-4cbd-ac8e-0adc7cebcdf8"",
+            ""actions"": [
+                {
+                    ""name"": ""NavigateForward"",
+                    ""type"": ""Button"",
+                    ""id"": ""c40002b0-4065-4a64-b3c7-f603edeef5c4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""6ed45e5d-7a63-41ab-822d-4aa60e3e90a4"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls"",
+                    ""action"": ""NavigateForward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -336,6 +363,9 @@ namespace Celeritas
             m_Console_UpBuffer = m_Console.FindAction("UpBuffer", throwIfNotFound: true);
             m_Console_DownBuffer = m_Console.FindAction("DownBuffer", throwIfNotFound: true);
             m_Console_Focus = m_Console.FindAction("Focus", throwIfNotFound: true);
+            // Navigation
+            m_Navigation = asset.FindActionMap("Navigation", throwIfNotFound: true);
+            m_Navigation_NavigateForward = m_Navigation.FindAction("NavigateForward", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -519,6 +549,39 @@ namespace Celeritas
             }
         }
         public ConsoleActions @Console => new ConsoleActions(this);
+
+        // Navigation
+        private readonly InputActionMap m_Navigation;
+        private INavigationActions m_NavigationActionsCallbackInterface;
+        private readonly InputAction m_Navigation_NavigateForward;
+        public struct NavigationActions
+        {
+            private @InputActions m_Wrapper;
+            public NavigationActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+            public InputAction @NavigateForward => m_Wrapper.m_Navigation_NavigateForward;
+            public InputActionMap Get() { return m_Wrapper.m_Navigation; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(NavigationActions set) { return set.Get(); }
+            public void SetCallbacks(INavigationActions instance)
+            {
+                if (m_Wrapper.m_NavigationActionsCallbackInterface != null)
+                {
+                    @NavigateForward.started -= m_Wrapper.m_NavigationActionsCallbackInterface.OnNavigateForward;
+                    @NavigateForward.performed -= m_Wrapper.m_NavigationActionsCallbackInterface.OnNavigateForward;
+                    @NavigateForward.canceled -= m_Wrapper.m_NavigationActionsCallbackInterface.OnNavigateForward;
+                }
+                m_Wrapper.m_NavigationActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @NavigateForward.started += instance.OnNavigateForward;
+                    @NavigateForward.performed += instance.OnNavigateForward;
+                    @NavigateForward.canceled += instance.OnNavigateForward;
+                }
+            }
+        }
+        public NavigationActions @Navigation => new NavigationActions(this);
         private int m_ControlsSchemeIndex = -1;
         public InputControlScheme ControlsScheme
         {
@@ -544,6 +607,10 @@ namespace Celeritas
             void OnUpBuffer(InputAction.CallbackContext context);
             void OnDownBuffer(InputAction.CallbackContext context);
             void OnFocus(InputAction.CallbackContext context);
+        }
+        public interface INavigationActions
+        {
+            void OnNavigateForward(InputAction.CallbackContext context);
         }
     }
 }

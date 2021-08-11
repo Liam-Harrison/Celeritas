@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Celeritas.Extensions
+namespace Celeritas
 {
 	/// <summary>
 	/// Extensions for system Types and reflection.

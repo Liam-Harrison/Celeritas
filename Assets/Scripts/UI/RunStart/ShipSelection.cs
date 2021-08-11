@@ -5,11 +5,15 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Celeritas.UI.Runstart
 {
-	public class ShipSelection : MonoBehaviour
+	public class ShipSelection : MonoBehaviour, InputActions.INavigationActions
 	{
+		private InputActions.NavigationActions actions = default;
+
 		[SerializeField, TitleGroup("Rotation")]
 		private Vector3 rotation;
 
@@ -18,6 +22,9 @@ namespace Celeritas.UI.Runstart
 
 		[SerializeField, TitleGroup("Assignments")]
 		private new CinemachineVirtualCamera camera;
+
+		[SerializeField, TitleGroup("Assignments")]
+		private Toggle[] toggles;
 
 		[SerializeField, TitleGroup("Spawn")]
 		private Transform shipSpawn;
@@ -37,6 +44,9 @@ namespace Celeritas.UI.Runstart
 
 		private void Awake()
 		{
+			actions = new InputActions.NavigationActions(new InputActions());
+			actions.SetCallbacks(this);
+
 			if (EntityDataManager.Instance != null && EntityDataManager.Instance.Loaded)
 				SetupData();
 			else
@@ -47,6 +57,12 @@ namespace Celeritas.UI.Runstart
 		{
 			StopAllCoroutines();
 			ShipSpawn.rotation = Quaternion.Euler(rotation);
+			actions.Enable();
+		}
+
+		private void OnDisable()
+		{
+			actions.Disable();
 		}
 
 		private void Update()
@@ -144,6 +160,24 @@ namespace Celeritas.UI.Runstart
 			foreach (WeaponData weapon in EntityDataManager.Instance.Weapons)
 			{
 				weaponList.Add(weapon);
+			}
+		}
+
+		public void OnNavigateForward(InputAction.CallbackContext context)
+		{
+			if (context.started)
+			{
+				for (int i = 0; i < toggles.Length; i++)
+				{
+					if (toggles[i].isOn)
+					{
+						if (++i == toggles.Length)
+							i = 0;
+
+						toggles[i].isOn = true;
+						break;
+					}
+				}
 			}
 		}
 	}

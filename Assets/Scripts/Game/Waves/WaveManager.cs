@@ -1,5 +1,4 @@
 using Celeritas.AI;
-using Celeritas.Extensions;
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;

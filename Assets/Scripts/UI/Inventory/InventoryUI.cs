@@ -1,4 +1,3 @@
-using Celeritas.Extensions;
 using Celeritas.Game.Controllers;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;

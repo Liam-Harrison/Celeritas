@@ -5,8 +5,6 @@ using Celeritas.Scriptables.Interfaces;
 using UnityEngine;
 using Celeritas.Game;
 using Celeritas.Game.Entities;
-using System.Linq;
-using Celeritas.Extensions;
 
 namespace Celeritas.Scriptables.Systems
 {
