@@ -5227,15 +5227,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 852609842, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: numberOfRandomAsteroids
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 852609842, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: asteroidNumberPerCluster
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 852609842, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: numberOfAsteroidClusters
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4477257796416552746, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: m_Pivot.x
