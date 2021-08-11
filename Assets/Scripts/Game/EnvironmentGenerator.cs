@@ -1,9 +1,7 @@
 ﻿using Celeritas.Game;
-using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Game
@@ -26,6 +24,9 @@ namespace Assets.Scripts.Game
 		[SerializeField, PropertyRange(0, 20)]
 		private int asteroidNumberPerCluster;
 
+		/// <summary>
+		/// Asteroids will spawn at least this far away from PlayerSpawner.transform.position (player spawn)
+		/// </summary>
 		[SerializeField, PropertyRange(5, 25)]
 		int minDistanceFromPlayer;
 
