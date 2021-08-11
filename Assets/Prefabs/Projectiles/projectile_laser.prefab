@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 0
+    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -204,10 +204,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  hasDefaultEffects: 1
-  defaultEffects:
-  - Level: 0
-    EffectCollection: {fileID: 11400000, guid: af0dfa3f8fe440c43ab2c94591af0fcc, type: 2}
+  hasDefaultEffects: 0
+  defaultEffects: []
   damage: 5
   trails:
   - {fileID: 3596544735388632740}

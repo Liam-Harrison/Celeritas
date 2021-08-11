@@ -22,6 +22,12 @@ namespace Celeritas.Game
 			components.Add(sc, component);
 		}
 
+		public bool TryGetComponent<T>(ModifierSystem system, out T component) where T: class
+		{
+			component = GetComponent<T>(system) as T;
+			return component != null;
+		}
+
 		public void ReleaseComponent<T>(ModifierSystem system)
 		{
 			var sc = GetSystemComponent<T>(system);

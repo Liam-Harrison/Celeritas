@@ -175,5 +175,7 @@ MonoBehaviour:
   hasShipProjectileEffects: 0
   shipProjectileEffects: []
   projectileSpawn: {fileID: 8433288825458548499}
-  hasDefaultProjectileEffects: 0
-  projectileEffects: []
+  hasDefaultProjectileEffects: 1
+  projectileEffects:
+  - Level: 0
+    EffectCollection: {fileID: 11400000, guid: af0dfa3f8fe440c43ab2c94591af0fcc, type: 2}

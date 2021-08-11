@@ -53,6 +53,7 @@ namespace Celeritas.Game.Entities
 			damage = ProjectileData.Damage;
 			Weapon = owner as WeaponEntity;
 			SpeedModifier = 1;
+			Following = null;
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
@@ -65,6 +66,15 @@ namespace Celeritas.Game.Entities
 			}
 
 			base.OnDespawned();
+		}
+
+		private void OnDrawGizmos()
+		{
+			if (Following != null)
+			{
+				Gizmos.color = Color.green;
+				Gizmos.DrawLine(transform.position, Following.Position);
+			}
 		}
 
 		public override void OnEntityHit(Entity other)
