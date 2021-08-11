@@ -22,6 +22,36 @@ namespace Celeritas.Game
 		[SerializeField, ShowIf(nameof(hasDefaultEffects)), DisableInPlayMode]
 		private EffectWrapper[] defaultEffects;
 
+		[SerializeField, Title("Graphical Effects", "(eg. on hit, on destroy)")]
+		private bool hasGraphicalEffects;
+
+		/// <summary>
+		/// Effect that will play when the entity is destroyed.
+		/// If null, no effect will play
+		/// Note that entities despawning is different to them being destroyed (eg projectiles exceeding their lifetime)
+		/// OnDestroy effects will not play when an entity is despawned, only when they are destroyed/killed.
+		/// </summary>
+		[SerializeField, Title("On Destroy Effect"), ShowIf(nameof(hasGraphicalEffects))]
+		private GameObject onDestroyEffectPrefab;
+
+		/// <summary>
+		/// How long the on destroy effect needs to be played.
+		/// </summary>
+		[SerializeField, ShowIf(nameof(hasGraphicalEffects))]
+		private float timeToPlayOnDestroyEffect_s;
+
+		/// <summary>
+		/// Effect that will play when the entity is hit
+		/// </summary>
+		[SerializeField, Title("On Hit Effect"), ShowIf(nameof(hasGraphicalEffects))]
+		private GameObject onHitEffectPrefab;
+
+		/// <summary>
+		/// How long the on hit effect will play for
+		/// </summary>
+		[SerializeField, ShowIf(nameof(hasGraphicalEffects))]
+		private float timeToPlayOnHitEffect_s;
+
 		/// <summary>
 		/// Does this entity belong to the player?
 		/// </summary>
@@ -137,33 +167,6 @@ namespace Celeritas.Game
 		public virtual string Subheader { get; } = "Missing Subheader";
 
 		/// <summary>
-		/// Effect that will play when the entity is destroyed.
-		/// If null, no effect will play
-		/// Note that entities despawning is different to them being destroyed (eg projectiles exceeding their lifetime)
-		/// OnDestroy effects will not play when an entity is despawned, only when they are destroyed/killed.
-		/// </summary>
-		[SerializeField, Title("On Destroy Effect Prefab")]
-		private GameObject onDestroyEffectPrefab;
-
-		/// <summary>
-		/// How long the on destroy effect needs to be played.
-		/// </summary>
-		[SerializeField, Title("Time to play onDestroy effect (seconds)")]
-		private float timeToPlayOnDestroyEffect_s;
-
-		/// <summary>
-		/// Effect that will play when the entity is hit
-		/// </summary>
-		[SerializeField, Title("On Hit effect prefab")]
-		private GameObject onHitEffectPrefab;
-
-		/// <summary>
-		/// How long the on hit effect will play for
-		/// </summary>
-		[SerializeField, Title("Time to play onHit effect (seconds)")]
-		private float timeToPlayOnHitEffect_s;
-
-		/// <summary>
 		/// Initalize this entity.
 		/// </summary>
 		/// <param name="data">The data to attatch this entity to.</param>
@@ -201,7 +204,7 @@ namespace Celeritas.Game
 			EntityEffects.KillEntity();
 			OnKilled?.Invoke(this);
 
-			if (onDestroyEffectPrefab != null)
+			if (hasGraphicalEffects && onDestroyEffectPrefab != null)
 			{
 				GameObject effect = Instantiate(onDestroyEffectPrefab, transform.position, transform.rotation, transform.parent);
 				effect.transform.localScale = transform.localScale;
@@ -360,7 +363,7 @@ namespace Celeritas.Game
 		{
 			EntityEffects.EntityHit(other);
 
-			if (onHitEffectPrefab != null)
+			if (hasGraphicalEffects && onHitEffectPrefab != null)
 			{
 				GameObject effect = Instantiate(onHitEffectPrefab, transform.position, transform.rotation, transform.parent);
 				effect.transform.localScale = transform.localScale;

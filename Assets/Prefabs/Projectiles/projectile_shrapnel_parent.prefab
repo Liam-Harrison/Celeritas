@@ -32,6 +32,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3985316679026307340, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}
+      propertyPath: hasGraphicalEffects
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985316679026307340, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}
       propertyPath: trails.Array.data[0]
       value: 
       objectReference: {fileID: 8926001789568267455}
