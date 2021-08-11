@@ -58,12 +58,9 @@ MonoBehaviour:
     SerializationNodes: []
   hasDefaultEffects: 0
   defaultEffects: []
-  hasGraphicalEffects: 1
   onDestroyEffectPrefab: {fileID: 2516007055564396064, guid: cdbe87aa8fcee444f89240e0628f0cee, type: 3}
-  timeToPlayOnDestroyEffect: 4
-  onHitEffectPrefab: {fileID: 0}
-  timeToPlayOnHitEffect: 0
-  startingHealth: 100
+  timeToPlayOnDestroyEffect_s: 4
+  startingHealth: 0
   lootConfig:
     gain: 100
     isBoss: 0
