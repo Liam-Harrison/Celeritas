@@ -1,4 +1,5 @@
 ﻿using Celeritas.Game;
+using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
@@ -9,6 +10,7 @@ namespace Assets.Scripts.Game
 {
 	/// <summary>
 	/// Used to automatically generate the environment around the player.
+	/// Stored in Gameplay Managers (In the game scene)
 	/// </summary>
 	class EnvironmentGenerator: Singleton<EnvironmentGenerator>
 	{
@@ -24,8 +26,8 @@ namespace Assets.Scripts.Game
 		[SerializeField, PropertyRange(0, 20)]
 		private int asteroidNumberPerCluster;
 
-		[SerializeField, PropertyRange(0, 100)]
-		private int asteroidClusterSpacing;
+		[SerializeField, PropertyRange(5, 25)]
+		int minDistanceFromPlayer;
 
 		private void OnEnable()
 		{
@@ -69,7 +71,7 @@ namespace Assets.Scripts.Game
 		{
 			for (int i = 0; i < amountToSpawn; i++)
 			{
-				SpawnAsteroid(chunk.GetRandomPositionInChunk());
+				SpawnAsteroid(getRandomLocationInChunk(chunk));
 			}
 		}
 
@@ -80,10 +82,37 @@ namespace Assets.Scripts.Game
 		/// <param name="chunk">The chunk this asteroid will belong to.</param>
 		private void SpawnAsteroidsInCluster(int amountToSpawn, Chunk chunk)
 		{
+			Vector3 position = getRandomLocationInChunk(chunk);
 			for (int i = 0; i < amountToSpawn; i++)
 			{
-				SpawnAsteroid(chunk.GetRandomPositionInChunk());
+				SpawnAsteroid(position);
 			}
+		}
+
+		/// <summary>
+		/// For getting a random location in a chunk
+		/// greater than mindistance from player
+		/// </summary>
+		/// <param name="chunk"></param>
+		/// <returns>A random location, minDistance away from the player</returns>
+		private Vector3 getRandomLocationInChunk(Chunk chunk) {
+
+			if (PlayerSpawner.Instance == null)
+				return chunk.GetRandomPositionInChunk();
+
+			Vector3 playerPosition = PlayerSpawner.Instance.transform.position;
+			Vector3 toReturn;
+			float distanceToPlayer;
+			int count = 0; 
+			do
+			{
+				toReturn = chunk.GetRandomPositionInChunk();
+				distanceToPlayer = Vector3.Distance(toReturn, playerPosition);
+				count++;
+			}
+			while (distanceToPlayer < minDistanceFromPlayer && count < 5);
+
+			return toReturn;
 		}
 
 		private void RandomiseAsteroidScale(Asteroid asteroid, float minScale, float maxScale)
