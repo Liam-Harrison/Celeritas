@@ -137,6 +137,33 @@ namespace Celeritas.Game
 		public virtual string Subheader { get; } = "Missing Subheader";
 
 		/// <summary>
+		/// Effect that will play when the entity is destroyed.
+		/// If null, no effect will play
+		/// Note that entities despawning is different to them being destroyed (eg projectiles exceeding their lifetime)
+		/// OnDestroy effects will not play when an entity is despawned, only when they are destroyed/killed.
+		/// </summary>
+		[SerializeField, Title("On Destroy Effect Prefab")]
+		private GameObject onDestroyEffectPrefab;
+
+		/// <summary>
+		/// How long the on destroy effect needs to be played.
+		/// </summary>
+		[SerializeField, Title("Time to play onDestroy effect (seconds)")]
+		private float timeToPlayOnDestroyEffect_s;
+
+		/// <summary>
+		/// Effect that will play when the entity is hit
+		/// </summary>
+		[SerializeField, Title("On Hit effect prefab")]
+		private GameObject onHitEffectPrefab;
+
+		/// <summary>
+		/// How long the on hit effect will play for
+		/// </summary>
+		[SerializeField, Title("Time to play onHit effect (seconds)")]
+		private float timeToPlayOnHitEffect_s;
+
+		/// <summary>
 		/// Initalize this entity.
 		/// </summary>
 		/// <param name="data">The data to attatch this entity to.</param>
@@ -173,6 +200,13 @@ namespace Celeritas.Game
 		{
 			EntityEffects.KillEntity();
 			OnKilled?.Invoke(this);
+
+			if (onDestroyEffectPrefab != null)
+			{
+				GameObject effect = Instantiate(onDestroyEffectPrefab, transform.position, transform.rotation, transform.parent);
+				effect.transform.localScale = transform.localScale;
+				Destroy(effect, timeToPlayOnDestroyEffect_s); // destroy after X seconds give effect time to play
+			}
 
 			if (Chunk != null)
 				Chunk.RemoveEntity(this);
@@ -325,6 +359,13 @@ namespace Celeritas.Game
 		public virtual void OnEntityHit(Entity other)
 		{
 			EntityEffects.EntityHit(other);
+
+			if (onHitEffectPrefab != null)
+			{
+				GameObject effect = Instantiate(onHitEffectPrefab, transform.position, transform.rotation, transform.parent);
+				effect.transform.localScale = transform.localScale;
+				Destroy(effect, timeToPlayOnHitEffect_s); // destroy after X seconds give effect time to play
+			}
 		}
 
 		/// Logic for this entity being damaged by another entity

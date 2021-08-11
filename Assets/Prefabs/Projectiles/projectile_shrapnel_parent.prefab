@@ -36,6 +36,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8926001789568267455}
     - target: {fileID: 3985316679026307340, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}
+      propertyPath: onDestroyEffectPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985316679026307340, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 0}
@@ -44,7 +48,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3985316679026307340, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}
-      propertyPath: serializationData.SerializedFormat
+      propertyPath: timeToPlayOnDestroyEffect_s
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3985316679026307340, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}
