@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 747d9766070ae9e4dba88b5444619be4, type: 3}
-  m_Name: player_ship_m4_lammergeier
+  m_Name: ship_m2_nankeen
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,24 +21,33 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  title: Lammergeier
-  prefab: {fileID: 2985888577097613501, guid: 585775f713d71ce4084506f8b71008a6, type: 3}
+  title: Nankeen
+  prefab: {fileID: 2446445817722717839, guid: f34b254ff98935a40b34386a9fe5d12c, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:
-    torquePerSec: {x: 3600, y: 4000}
+    torquePerSec: {x: 2400, y: 3000}
     rotationCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0
+        time: 0.15416718
+        value: -0.009552002
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
         outWeight: 0
+      - serializedVersion: 3
+        time: 0.71857744
+        value: 0.48513946
+        inSlope: 2.5311916
+        outSlope: 2.5311916
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.06502252
       - serializedVersion: 3
         time: 1
         value: 1
@@ -53,13 +62,16 @@ MonoBehaviour:
       m_RotationOrder: 4
     angularDrag: 5
     rotationMaximum: 180
-    aimDeadzone: 1
-    forcePerSec: 6000
-    mass: 5
+    aimDeadzone: 0.9975
+    forcePerSec: 15000
+    mass: 6
   rarity: 0
   shipClass: 1
   icon: {fileID: 0}
-  description: The down armoured destroyer hull has been somewhat gutted for shield
-    generators and customizability.
-  startingHealth: 1500
-  startingShield: 35000
+  description: 'Ship Desc: This destroyer focuses on ramming its huge mass into opponents
+    for maximum damage.
+
+
+    AI Desc: [TBD]'
+  startingHealth: 2500
+  startingShield: 1250

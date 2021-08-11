@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 747d9766070ae9e4dba88b5444619be4, type: 3}
-  m_Name: player_ship_m4_lammergeier
+  m_Name: ship_s6_butcherbird
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,12 +21,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  title: Lammergeier
-  prefab: {fileID: 2985888577097613501, guid: 585775f713d71ce4084506f8b71008a6, type: 3}
+  title: Butcherbird
+  prefab: {fileID: 2516558698829045457, guid: 0bda108f4b31baf47bcd37cf26d641ee, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:
-    torquePerSec: {x: 3600, y: 4000}
+    torquePerSec: {x: 9000, y: 10000}
     rotationCurve:
       serializedVersion: 2
       m_Curve:
@@ -54,12 +54,15 @@ MonoBehaviour:
     angularDrag: 5
     rotationMaximum: 180
     aimDeadzone: 1
-    forcePerSec: 6000
-    mass: 5
+    forcePerSec: 30000
+    mass: 3
   rarity: 0
-  shipClass: 1
+  shipClass: 0
   icon: {fileID: 0}
-  description: The down armoured destroyer hull has been somewhat gutted for shield
-    generators and customizability.
-  startingHealth: 1500
-  startingShield: 35000
+  description: 'Ship Desc: An experimental prototype corvette sporting a range of
+    bleeding edge technology. Unlocked in the very-late game.
+
+
+    AI Desc: [TBD]'
+  startingHealth: 2250
+  startingShield: 3750

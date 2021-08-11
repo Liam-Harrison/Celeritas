@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1668640792211893623
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3319828324667715000}
-  m_Layer: 0
-  m_Name: floorGroup
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3319828324667715000
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1668640792211893623}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 9191709714329830435}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1806392417096170083
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,9 +78,9 @@ GameObject:
   m_Component:
   - component: {fileID: 491554462589306424}
   - component: {fileID: 5645407429895505911}
-  - component: {fileID: 7640704435510849122}
+  - component: {fileID: 1447214224666652831}
   m_Layer: 0
-  m_Name: player_ship_m2_nankeen
+  m_Name: enemy_ship_m2_nankeen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,7 +100,6 @@ Transform:
   - {fileID: 5743291278745070956}
   - {fileID: 3370796678295513997}
   - {fileID: 7429475824693541519}
-  - {fileID: 5946296258731743789}
   - {fileID: 1496029914930054869}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -156,7 +125,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7640704435510849122
+--- !u!114 &1447214224666652831
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,7 +134,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2446445817722717839}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f07dfa1d16e8cd14e941747a813d8dcb, type: 3}
+  m_Script: {fileID: 11500000, guid: a5a191211b85ecc4e8e3dd17c21431c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
@@ -176,118 +145,7 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: inventory
-      Entry: 7
-      Data: 0|Celeritas.Scriptables.ModuleData[,], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 32
-    - Name: ranks
-      Entry: 1
-      Data: 8|4
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   hasDefaultEffects: 0
   defaultEffects: []
   modules:
@@ -304,47 +162,12 @@ MonoBehaviour:
     maxValue: 0
     currentValue: 0
   lootConfig:
-    gain: 1
+    gain: 5
     isBoss: 0
   dropType: 0
   engineEffects:
   - {fileID: 9097560032768099352}
   - {fileID: 4178655884218865549}
-  selectionViewSize: 8
-  gameViewSize: 25
-  inventorySize: {x: 8, y: 4}
-  hullManager: {fileID: 1881722838375754804}
---- !u!1 &6722582088006328941
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9191709714329830435}
-  m_Layer: 0
-  m_Name: hullGroup
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9191709714329830435
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6722582088006328941}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 3319828324667715000}
-  m_Father: {fileID: 5946296258731743789}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4073479315970538470
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -481,6 +304,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 55b4d4af929430e4688933c585195948, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 55b4d4af929430e4688933c585195948, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 59c789aa98b973645a31572773397538, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 55b4d4af929430e4688933c585195948, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 722849d480eb5e44ebcd0a9ccf63e985, type: 2}
     - target: {fileID: 919132149155446097, guid: 55b4d4af929430e4688933c585195948, type: 3}
       propertyPath: m_Name
       value: Ship_M2_Nankeen
@@ -509,7 +344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7407478660231959734, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7407478660231959734, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
       propertyPath: m_LocalPosition.x
@@ -572,84 +407,3 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5472929849194317294, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
   m_PrefabInstance: {fileID: 8218596325213213283}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &9042407044037067069
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 491554462589306424}
-    m_Modifications:
-    - target: {fileID: 3456628976500431632, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3456628976500431632, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3456628976500431632, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 3456628976500431632, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3456628976500431632, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3456628976500431632, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3456628976500431632, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3456628976500431632, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3456628976500431632, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3456628976500431632, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3456628976500431632, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4360462783298528056, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
-      propertyPath: m_Name
-      value: ship_part_hullGen
-      objectReference: {fileID: 0}
-    - target: {fileID: 7449004084674276617, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
-      propertyPath: hullData
-      value: 
-      objectReference: {fileID: 11400000, guid: 986c59714deccab4d911f2de98c6d6ff, type: 2}
-    - target: {fileID: 7449004084674276617, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
-      propertyPath: playerShipEntity
-      value: 
-      objectReference: {fileID: 7640704435510849122}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
---- !u!4 &5946296258731743789 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3456628976500431632, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
-  m_PrefabInstance: {fileID: 9042407044037067069}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1881722838375754804 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7449004084674276617, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
-  m_PrefabInstance: {fileID: 9042407044037067069}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5420680a338f0942bf77239f5901667, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

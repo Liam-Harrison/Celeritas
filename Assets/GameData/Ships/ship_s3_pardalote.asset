@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 747d9766070ae9e4dba88b5444619be4, type: 3}
-  m_Name: player_ship_m4_lammergeier
+  m_Name: ship_s3_pardalote
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,12 +21,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  title: Lammergeier
-  prefab: {fileID: 2985888577097613501, guid: 585775f713d71ce4084506f8b71008a6, type: 3}
+  title: Pardalote
+  prefab: {fileID: 2647584951759059593, guid: cf2dccf07804a004286094e82e1449e2, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:
-    torquePerSec: {x: 3600, y: 4000}
+    torquePerSec: {x: 4400, y: 5000}
     rotationCurve:
       serializedVersion: 2
       m_Curve:
@@ -54,12 +54,18 @@ MonoBehaviour:
     angularDrag: 5
     rotationMaximum: 180
     aimDeadzone: 1
-    forcePerSec: 6000
-    mass: 5
+    forcePerSec: 12000
+    mass: 3
   rarity: 0
-  shipClass: 1
+  shipClass: 0
   icon: {fileID: 0}
-  description: The down armoured destroyer hull has been somewhat gutted for shield
-    generators and customizability.
-  startingHealth: 1500
-  startingShield: 35000
+  description: 'Ship Desc: This fast and comparatively durable corvette sports 2
+    weapons at the cost of turn-speed and module slots.
+
+
+    AI Desc: This fast-yet-durable
+    enemy ship will attempt to interpose itself between the player ship and its allies,
+    in an attempt to body-block, firing off slow-moving-low-damage projectiles all
+    the while, even from long range.'
+  startingHealth: 500
+  startingShield: 2500
