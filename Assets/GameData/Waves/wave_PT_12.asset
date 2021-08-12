@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea9f1ace7fda4d46a01d02891d7f281, type: 3}
+  m_Name: wave_PT_12
+  m_EditorClassIdentifier: 
+  shipPool:
+  - {fileID: 11400000, guid: 5d862aa4e20a90b4ea00229bd15b6b84, type: 2}
+  - {fileID: 11400000, guid: 3b035f2ec576321408d620c9dc17f3c0, type: 2}
+  - {fileID: 11400000, guid: 6c5b2cdd5dc6e6c47bc857475a9e07f7, type: 2}
+  - {fileID: 11400000, guid: 00bbb8659da6cf341a9e26d928fa79ae, type: 2}
+  - {fileID: 11400000, guid: cbf8c90c108fe074bb9ee54a00a909bc, type: 2}
+  isBoss: 0
+  bossShip: {fileID: 0}
