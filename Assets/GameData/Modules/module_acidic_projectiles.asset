@@ -32,7 +32,7 @@ MonoBehaviour:
       Data: 3|3
     - Name: 
       Entry: 5
-      Data: false
+      Data: true
     - Name: 
       Entry: 5
       Data: false
@@ -41,7 +41,7 @@ MonoBehaviour:
       Data: false
     - Name: 
       Entry: 5
-      Data: false
+      Data: true
     - Name: 
       Entry: 5
       Data: false
@@ -50,7 +50,7 @@ MonoBehaviour:
       Data: false
     - Name: 
       Entry: 5
-      Data: false
+      Data: true
     - Name: 
       Entry: 5
       Data: false
@@ -83,7 +83,7 @@ MonoBehaviour:
       Data: false
     - Name: 
       Entry: 5
-      Data: false
+      Data: true
     - Name: 
       Entry: 5
       Data: false
@@ -105,12 +105,13 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  title: 
-  prefab: {fileID: 0}
+  title: Acidic Projectiles
+  prefab: {fileID: 969170628479752035, guid: 47b26eb0c0423b649a4e576977593942, type: 3}
   capacityHint: 1
   useChunking: 0
   size: 0
   catagory: 0
   rarity: 0
-  icon: {fileID: 0}
-  description: 
+  icon: {fileID: 21300000, guid: 8ebf8571ad1523e4b96f68a7b6bfa53c, type: 3}
+  description: Your projectiles are infused with acid, dealing Damage Over Time to
+    enemy ships

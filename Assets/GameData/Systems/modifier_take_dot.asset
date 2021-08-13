@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ee0d4ee51750af45b7430210d4a5dbd, type: 3}
-  m_Name: effect_take_dot
+  m_Script: {fileID: 11500000, guid: 3b6fee8d61e90fa4e9ea26607f8e0ffc, type: 3}
+  m_Name: modifier_take_dot
   m_EditorClassIdentifier: 
-  title: Effect take damage over time
-  targets: 5
-  stacks: 1
-  systems:
-  - {fileID: 11400000, guid: 04b17800b7489614e88c2b61b1495388, type: 2}
+  title: Take damage over time
+  duration: 5
+  damage: 15
