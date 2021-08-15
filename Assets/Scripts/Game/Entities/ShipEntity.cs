@@ -249,6 +249,12 @@ namespace Celeritas.Game.Entities
         /// </summary>
 		public int damageModifierPercentage = 0;
 
+
+		/// <summary>
+		///	Calculates the amount of damage to apply after the damage modifier has been applied.
+		/// </summary>
+		/// <param name="damage">The original amount of damage taken.</param>
+		/// <returns>The amount of damage to take after the damage modifier has been applied</returns>
 		private int CalculateDamage(float damage)
 		{
 			int calculatedDamage = 0;

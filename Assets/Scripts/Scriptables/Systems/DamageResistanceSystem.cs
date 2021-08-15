@@ -8,7 +8,7 @@ namespace Celeritas.Scriptables.Systems
 {
 
 	/// <summary>
-	/// Repairs shields by set percentage per second if shields have taken damage.
+	/// Reduces incoming damage by set percentage from all sources.
 	/// </summary>
 
 	[CreateAssetMenu(fileName = "New Ship Damage Resistance Modifier", menuName = "Celeritas/Modifiers/Ship Damage Resistance")]
