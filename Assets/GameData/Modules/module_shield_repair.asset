@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: moduleLayout
+    - Name: iconLayout
       Entry: 7
       Data: 0|System.Boolean[,], mscorlib
     - Name: 
@@ -74,3 +74,4 @@ MonoBehaviour:
   description: "A basic module for regenerating shields to withstand greater amounts
     of enemy fire.\n\nRegenerates shields by 3% per second with an additional 3%
     \nfor each level of the module."
+  shape: 1

@@ -24,7 +24,7 @@ namespace Celeritas.Game
 
 		public bool TryGetComponent<T>(ModifierSystem system, out T component) where T: class
 		{
-			component = GetComponent<T>(system) as T;
+			component = GetComponent<T>(system);
 			return component != null;
 		}
 

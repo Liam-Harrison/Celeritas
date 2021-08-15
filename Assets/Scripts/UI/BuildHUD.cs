@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Celeritas;
 using Celeritas.Scriptables;
-using Celeritas.Extensions;
 using Celeritas.Game.Entities;
 using System.Linq;
 using Celeritas.UI.Tooltips;
@@ -125,9 +124,9 @@ namespace Celeritas.UI
 				grid = hull.GetGridFromWorld(hit.point);
 
 				bool isOverModule = false; // Checks to see if any module is overlapping existing modules or overlapping the hull layout
-				dragging.ModuleLayout.ForEach((x, y) =>
+				dragging.TetrisShape.ModuleShape().ForEach((x, y) =>
 				{
-					var currentModule = dragging.ModuleLayout[x, y];
+					var currentModule = dragging.TetrisShape.ModuleShape()[x, y];
 					if (currentModule == true)
 					{
 						var newX = grid.x + x;
@@ -246,16 +245,19 @@ namespace Celeritas.UI
 				var hull = PlayerController.Instance.PlayerShipEntity.HullManager;
 				grid = hull.GetGridFromWorld(hit.point);
 
-				if (hull.Modules[grid.x, grid.y].HasModuleAttatched)
+				if (hull.TryGetModuleEntity(grid.x, grid.y, out var entity))
 				{
-					var entity = hull.Modules[grid.x, grid.y].AttatchedModule;
 					replacingLevel = entity.Level;
 					replacing = true;
 
 					BeginDraggingModule(entity.ModuleData);
-					hull.Modules[grid.x, grid.y].RemoveModule();
-					hull.HullData.HullModuleOrigins[grid.x, grid.y] = null;
-					hull.GenerateModuleWalls();
+
+					if (hull.TryGetModuleFromEntity(entity, out var module))
+					{
+						module.RemoveModule();
+						hull.GenerateModuleWalls();
+					}
+
 					PlayerController.Instance.PlayerShipEntity.Inventory.Add(dragging);
 				}
 			}
@@ -277,7 +279,6 @@ namespace Celeritas.UI
 				var ship = PlayerController.Instance.PlayerShipEntity;
 
 				ship.HullManager.Modules[grid.x, grid.y].SetModule(dragging);
-				ship.HullManager.HullData.HullModuleOrigins[grid.x, grid.y] = dragging;
 				ship.HullManager.GenerateModuleWalls();
 
 				if (replacing)

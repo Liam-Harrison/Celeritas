@@ -25,7 +25,6 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-
 		[SerializeField, Title("Chase Settings")]
 		private float angPerSec;
 

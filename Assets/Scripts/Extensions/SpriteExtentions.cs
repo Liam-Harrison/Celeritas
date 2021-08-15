@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-namespace Celeritas.Extensions
+namespace Celeritas
 {
 	/// <summary>
 	/// Extention for the sprite class.

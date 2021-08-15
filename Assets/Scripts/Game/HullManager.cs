@@ -1,4 +1,3 @@
-using Celeritas.Extensions;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
@@ -70,7 +69,6 @@ namespace Celeritas.Game
 
 		private void Start()
 		{
-			hullData.ResetModuleData();
 			GenerateAll();
 			hullGroup.SetActive(false);
 		}
@@ -103,6 +101,24 @@ namespace Celeritas.Game
 		{
 			entity = Entites[x, y];
 			return entity != null;
+		}
+
+		public bool TryGetModuleFromEntity(ModuleEntity entity, out Module module)
+		{
+			for (int x = 0; x < Modules.GetLength(0); x++)
+			{
+				for (int y = 0; y < Modules.GetLength(1); y++)
+				{
+					if (Modules[x,y] != null && Modules[x,y].HasModuleAttatched && Modules[x,y].AttatchedModule == entity)
+					{
+						module = Modules[x, y];
+						return true;
+					}
+				}
+			}
+
+			module = null;
+			return false;
 		}
 
 		/// <summary>
@@ -194,9 +210,9 @@ namespace Celeritas.Game
 
 					if (module != null && module.HasModuleAttatched)
 					{
-						module.AttatchedModule.ModuleData.ModuleLayout.ForEach((mx, my) =>
+						module.AttatchedModule.ModuleData.TetrisShape.ModuleShape().ForEach((mx, my) =>
 						{
-							if (module.AttatchedModule.ModuleData.ModuleLayout[mx, my] == true)
+							if (module.AttatchedModule.ModuleData.TetrisShape.ModuleShape()[mx, my] == true)
 							{
 								Entites[x + mx, y + my] = module.AttatchedModule;
 							}

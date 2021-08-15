@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 225, y: 0}
-  m_SizeDelta: {x: 434, y: 0}
+  m_SizeDelta: {x: 300, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &813562965578198257
 CanvasRenderer:
@@ -66,7 +66,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<color=green>\u25B2</color> Chase target <color=green>(15\xB0 per level)</color>"
+  m_text: "\u2022 <indent=5%> Chase target <color=green>(15\xB0 per level)</color>
+    for a really long thing"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2165a236c5521c047b32dba5c25d1f21, type: 2}
   m_sharedMaterial: {fileID: -710055089612258192, guid: 2165a236c5521c047b32dba5c25d1f21, type: 2}
@@ -93,8 +94,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22
-  m_fontSizeBase: 22
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

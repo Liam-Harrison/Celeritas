@@ -23,30 +23,29 @@ namespace Celeritas.Game
 		[SerializeField, FoldoutGroup("Rarity Portraits")]
 		private Sprite legendary;
 
-		/// <summary>
-		/// The sprite border for common items.
-		/// </summary>
-		public Sprite CommonBorder { get => common; }
+		[SerializeField, FoldoutGroup("Tetris")]
+		private Sprite single;
 
-		/// <summary>
-		/// The sprite border for uncommon items.
-		/// </summary>
-		public Sprite UncommonBorder { get => uncommon; }
+		[SerializeField, FoldoutGroup("Tetris")]
+		private Sprite smallL;
 
-		/// <summary>
-		/// The sprite border for rare items.
-		/// </summary>
-		public Sprite RareBorder { get => rare; }
+		[SerializeField, FoldoutGroup("Tetris")]
+		private Sprite largeL;
 
-		/// <summary>
-		/// The sprite border for epic items.
-		/// </summary>
-		public Sprite EpicBorder { get => epic; }
+		[SerializeField, FoldoutGroup("Tetris")]
+		private Sprite smallLine;
 
-		/// <summary>
-		/// The sprite border for legendary items.
-		/// </summary>
-		public Sprite LegendaryBorder { get => legendary; }
+		[SerializeField, FoldoutGroup("Tetris")]
+		private Sprite largeLine;
+
+		[SerializeField, FoldoutGroup("Tetris")]
+		private Sprite t;
+
+		[SerializeField, FoldoutGroup("Tetris")]
+		private Sprite smallSquare;
+
+		[SerializeField, FoldoutGroup("Tetris")]
+		private Sprite largeSquare;
 
 		/// <summary>
 		/// Get the border sprite for a given rarity.
@@ -58,15 +57,45 @@ namespace Celeritas.Game
 			switch (rarity)
 			{
 				case Rarity.Common:
-					return CommonBorder;
+					return common;
 				case Rarity.Uncommon:
-					return UncommonBorder;
+					return uncommon;
 				case Rarity.Rare:
-					return RareBorder;
+					return rare;
 				case Rarity.Epic:
-					return EpicBorder;
+					return epic;
 				case Rarity.Legendary:
-					return LegendaryBorder;
+					return legendary;
+				default:
+					return null;
+			}
+		}
+
+		/// <summary>
+		/// Get the sprite for a tetris shape.
+		/// </summary>
+		/// <param name="shape">The shape to get.</param>
+		/// <returns>Returns the sprite which belongs to the given shape.</returns>
+		public Sprite GetTetrisSprite(TetrisShape shape)
+		{
+			switch (shape)
+			{
+				case TetrisShape.Single:
+					return single;
+				case TetrisShape.SmallL:
+					return smallL;
+				case TetrisShape.LargeL:
+					return largeL;
+				case TetrisShape.SmallLine:
+					return smallLine;
+				case TetrisShape.LargeLine:
+					return largeL;
+				case TetrisShape.T:
+					return t;
+				case TetrisShape.SmallSquare:
+					return smallSquare;
+				case TetrisShape.LargeSquare:
+					return largeSquare;
 				default:
 					return null;
 			}

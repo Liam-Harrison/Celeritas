@@ -31,3 +31,18 @@ public enum Rarity
 	Legendary
 }
 
+/// <summary>
+/// The avaliable shapes of tetris pieces.
+/// </summary>
+public enum TetrisShape
+{
+	None,
+	Single,
+	SmallL,
+	LargeL,
+	SmallLine,
+	LargeLine,
+	T,
+	SmallSquare,
+	LargeSquare,
+}

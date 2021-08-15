@@ -1,4 +1,3 @@
-using Celeritas.Extensions;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;

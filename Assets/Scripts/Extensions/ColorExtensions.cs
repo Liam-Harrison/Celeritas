@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Celeritas.Extensions
+namespace Celeritas
 {
 	/// <summary>
 	/// A collection of extensions for the color class.
