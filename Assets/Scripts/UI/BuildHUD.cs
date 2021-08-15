@@ -245,16 +245,20 @@ namespace Celeritas.UI
 				var hull = PlayerController.Instance.PlayerShipEntity.HullManager;
 				grid = hull.GetGridFromWorld(hit.point);
 
-				if (hull.Modules[grid.x, grid.y].HasModuleAttatched)
+				if (hull.TryGetModuleEntity(grid.x, grid.y, out var entity))
 				{
-					var entity = hull.Modules[grid.x, grid.y].AttatchedModule;
 					replacingLevel = entity.Level;
 					replacing = true;
 
 					BeginDraggingModule(entity.ModuleData);
-					hull.Modules[grid.x, grid.y].RemoveModule();
-					hull.HullData.HullModuleOrigins[grid.x, grid.y] = null;
-					hull.GenerateModuleWalls();
+
+					if (hull.TryGetModuleFromEntity(entity, out var module))
+					{
+						module.RemoveModule();
+						hull.HullData.HullModuleOrigins[grid.x, grid.y] = null;
+						hull.GenerateModuleWalls();
+					}
+
 					PlayerController.Instance.PlayerShipEntity.Inventory.Add(dragging);
 				}
 			}

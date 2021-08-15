@@ -45,7 +45,7 @@ namespace Celeritas.UI
 			{
 				var marker = pooledMarkers.ActiveObjects[i];
 
-				if (marker.Entity == null)
+				if (marker.Entity == null || !marker.Entity.IsInitalized)
 				{
 					pooledMarkers.ReleasePooledObject(marker);
 					continue;

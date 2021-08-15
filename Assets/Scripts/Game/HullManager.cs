@@ -104,6 +104,24 @@ namespace Celeritas.Game
 			return entity != null;
 		}
 
+		public bool TryGetModuleFromEntity(ModuleEntity entity, out Module module)
+		{
+			for (int x = 0; x < Modules.GetLength(0); x++)
+			{
+				for (int y = 0; y < Modules.GetLength(1); y++)
+				{
+					if (Modules[x,y] != null && Modules[x,y].HasModuleAttatched && Modules[x,y].AttatchedModule == entity)
+					{
+						module = Modules[x, y];
+						return true;
+					}
+				}
+			}
+
+			module = null;
+			return false;
+		}
+
 		/// <summary>
 		/// Generates ship hull walls.
 		/// </summary>

@@ -76,7 +76,7 @@ namespace Celeritas.Game.Entities
 		public override SystemTargets TargetType { get => SystemTargets.Module; }
 
 		/// <inheritdoc/>
-		public override string Subheader => $"{ModuleData.ModuleCatagory} {ModuleData.ModuleSize} Module";
+		public override string Subheader => $"Level {Level + 1} {ModuleData.ModuleCatagory} {ModuleData.ModuleSize} Module";
 
 		/// <summary>
 		/// The level of this module.

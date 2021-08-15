@@ -62,10 +62,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87afb465625225488a4afe6a7ca82c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  background: {fileID: 1695080543597483176}
   image: {fileID: 3142910960952693822}
   border: {fileID: 8988346911427481616}
   title: {fileID: 55437367697391600}
   subtitle: {fileID: 8076739403512518272}
+  normal: {r: 1, g: 1, b: 1, a: 0}
+  highlighted: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 1}
+  pressed: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
 --- !u!114 &7473307244589263166
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -31,6 +31,12 @@ namespace Celeritas.UI
 		private RectTransform background;
 
 		[SerializeField]
+		private RectTransform owner;
+
+		[SerializeField]
+		private CanvasScaler scaler;
+
+		[SerializeField]
 		private CanvasGroup group;
 
 		[SerializeField]
@@ -55,7 +61,7 @@ namespace Celeritas.UI
 		private GameObject textrow;
 
 		[SerializeField, PropertyRange(0, 1)]
-		private float waitTime = 0.2f;
+		private float waitOutTime = 0.2f;
 
 		[SerializeField, PropertyRange(0, 1)]
 		private float fadeTime = 0.25f;
@@ -88,8 +94,11 @@ namespace Celeritas.UI
 		/// </summary>
 		public Entity Showing { get => requested.entity; }
 
+		public RectTransform RectTransform { get; private set; }
+
 		protected override void Awake()
 		{
+			RectTransform = GetComponent<RectTransform>();
 			CleanupChildren();
 			base.Awake();
 		}
@@ -98,26 +107,54 @@ namespace Celeritas.UI
 		{
 			if (IsShowing)
 			{
-				var pos = Mouse.current.position.ReadValue();
-				var halfHeight = background.sizeDelta.y / 2f;
+				var pos = GetPosition();
 
-				pos.y -= halfHeight;
-
-				background.transform.position = Vector3.Lerp(background.transform.position, pos, 0.95f);
-
-				Vector3[] corners = new Vector3[4];
-				background.GetWorldCorners(corners);
-
-				if (corners[0].x < 0)
-					background.transform.position += new Vector3(-corners[0].x + padding, 0);
-				else if (corners[3].x > Screen.width)
-					background.transform.position -= new Vector3(corners[0].x - Screen.width - padding, 0);
-
-				if (corners[3].y < 0)
-					background.transform.position += new Vector3(0, pos.y - corners[3].y + padding + halfHeight);
-				else if (corners[0].y > Screen.height)
-					background.transform.position -= new Vector3(0, corners[0].y - Screen.height - padding);
+				background.position = Vector3.Lerp(background.position, pos, 24f * Time.smoothDeltaTime);
 			}
+		}
+
+		private Vector3 GetPosition()
+		{
+			var m = Mouse.current.position.ReadValue();
+
+			var pos = new Vector3(m.x, m.y, 0);
+
+			var screen = RectTransform.rect;
+
+			var s_left = -(screen.width / 2);
+			var s_right = screen.width / 2;
+			var s_top = screen.height / 2;
+			var s_bottom = -(screen.height / 2);
+
+			var h_height = background.rect.height / 2f;
+			var h_width = background.rect.width / 2f;
+
+			pos.y -= h_height;
+
+			if (RectTransformUtility.ScreenPointToLocalPointInRectangle(RectTransform, m, null, out var p))
+			{
+				var x = Mathf.InverseLerp(s_left, s_right, p.x) * Screen.width;
+				var y = Mathf.InverseLerp(s_bottom, s_top, p.y) * Screen.height;
+				y -= h_height;
+
+				if (p.x - h_width - padding < s_left)
+				{
+					Debug.Log("Off left");
+				}
+				else if (p.x + h_width + padding > s_right)
+				{
+					//x = s_right - h_width - padding;
+				}
+
+				if (p.y - (h_height * 2) - padding < s_bottom)
+				{
+					//y = m.y + h_height;
+				}
+
+				pos = new Vector3(x, y);
+			}
+
+			return pos;
 		}
 
 		private readonly List<TooltipRequest> requests = new List<TooltipRequest>();
@@ -198,6 +235,8 @@ namespace Celeritas.UI
 
 			tetrisIcon.gameObject.SetActive(module.ModuleData.TetrisShape != TetrisShape.None);
 
+			seperator.SetActive(false);
+
 			CreateEffectRows(module.EntityEffects, effectSubheader);
 
 			if (module.HasShipEffects)
@@ -212,15 +251,10 @@ namespace Celeritas.UI
 			if (module is WeaponEntity weapon)
 				CreateEffectRows(weapon.ProjectileEffects, projectileSubheader);
 
-			seperator.SetActive(HasEffects());
-
-			var pos = Mouse.current.position.ReadValue();
-			pos.y -= background.rect.height / 2;
-			background.transform.position = pos;
+			background.transform.position = GetPosition();
 
 			if (!background.gameObject.activeInHierarchy)
 			{
-				StopAllCoroutines();
 				StartCoroutine(FadeIn());
 			}
 
@@ -244,7 +278,6 @@ namespace Celeritas.UI
 		private void HideTooltip()
 		{
 			requested = null;
-			StopAllCoroutines();
 			StartCoroutine(FadeOut());
 		}
 
@@ -261,23 +294,10 @@ namespace Celeritas.UI
 
 				if (!IsSubheader(child))
 				{
+					child.gameObject.SetActive(false);
 					Destroy(child.gameObject);
 				}
 			}
-		}
-
-		private bool HasEffects()
-		{
-			for (int i = 0; i < parent.childCount; i++)
-			{
-				var child = parent.GetChild(i);
-
-				if (!IsSubheader(child))
-				{
-					return true;
-				}
-			}
-			return false;
 		}
 
 		private bool IsSubheader(Transform value)
@@ -301,15 +321,14 @@ namespace Celeritas.UI
 			subheader.gameObject.SetActive(true);
 			Transform sibling = subheader;
 
-			bool hasOne = false;
 			foreach (var effect in effects)
 			{
 				foreach (var wrapper in effect.EffectCollection.Systems)
 				{
-					hasOne = true;
 					var row = Instantiate(textrow, parent).transform;
 					row.SetSiblingIndex(sibling.GetSiblingIndex() + 1);
 					sibling = row;
+					seperator.gameObject.SetActive(true);
 
 					row.GetComponent<TextMeshProUGUI>().text = $"• <indent=5%> {wrapper.GetTooltip(effect.Level)}";
 				}
@@ -341,6 +360,8 @@ namespace Celeritas.UI
 
 			yield return null;
 
+			background.transform.position = GetPosition();
+
 			yield break;
 		}
 
@@ -366,7 +387,7 @@ namespace Celeritas.UI
 		{
 			float started = Time.unscaledTime;
 
-			while (Time.unscaledTime < started + waitTime)
+			while (Time.unscaledTime < started + waitOutTime)
 				yield return null;
 
 			started = Time.unscaledTime;
