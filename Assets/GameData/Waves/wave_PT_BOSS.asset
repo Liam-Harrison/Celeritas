@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ea9f1ace7fda4d46a01d02891d7f281, type: 3}
-  m_Name: wave_PT_16
+  m_Name: wave_PT_BOSS
   m_EditorClassIdentifier: 
   shipPool:
   - {fileID: 11400000, guid: 00bbb8659da6cf341a9e26d928fa79ae, type: 2}
@@ -18,5 +18,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fcc70be715a9fc54ca7d3d968c8f96dd, type: 2}
   - {fileID: 11400000, guid: 8607195ac87c1714ab31f1f7fa5b7002, type: 2}
   - {fileID: 11400000, guid: 8057c7f879ac5104d969f5d9058089ca, type: 2}
-  isBoss: 0
-  bossShip: {fileID: 0}
+  isBoss: 1
+  bossShip: {fileID: 11400000, guid: f3605a5af603e874ca0c1e6b41c63695, type: 2}
