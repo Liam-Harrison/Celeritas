@@ -139,16 +139,16 @@ namespace Celeritas.UI
 
 				if (p.x - h_width - padding < s_left)
 				{
-					Debug.Log("Off left");
+
 				}
 				else if (p.x + h_width + padding > s_right)
 				{
-					//x = s_right - h_width - padding;
+
 				}
 
 				if (p.y - (h_height * 2) - padding < s_bottom)
 				{
-					//y = m.y + h_height;
+
 				}
 
 				pos = new Vector3(x, y);

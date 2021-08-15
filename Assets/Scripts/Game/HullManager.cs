@@ -69,7 +69,6 @@ namespace Celeritas.Game
 
 		private void Start()
 		{
-			hullData.ResetModuleData();
 			GenerateAll();
 			hullGroup.SetActive(false);
 		}
