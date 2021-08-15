@@ -218,20 +218,22 @@ namespace Celeritas.Game.Entities
 			{
 				base.TakeDamage(attackingEntity);
 
+				int calculatedDamage = CalculateDamage(damage);
+
 				// if damage will go beyond shields
-				if (damage > shield.CurrentValue)
+				if (calculatedDamage > shield.CurrentValue)
 				{
 					// reduce damage by shield amount, reduce shield to 0
-					damage -= shield.CurrentValue;
+					calculatedDamage -= shield.CurrentValue;
 					shield.Damage(shield.CurrentValue);
 
 					// damage health with remaining amount
-					health.Damage(damage);
+					health.Damage(calculatedDamage);
 				}
 				else
 				{
 					// damage won't go beyond shields
-					shield.Damage(damage);
+					shield.Damage(calculatedDamage);
 				}
 
 				if (health.IsEmpty())
@@ -239,6 +241,32 @@ namespace Celeritas.Game.Entities
 					KillEntity();
 				}
 			}
+		}
+
+		/// <summary>
+        /// Current damage modifer on ship.
+        /// Default is 0, negative value = takes less damage, positive value = takes more damage.
+        /// </summary>
+		public int damageModifierPercentage = 0;
+
+		private int CalculateDamage(float damage)
+		{
+			int calculatedDamage = 0;
+
+			if (damageModifierPercentage == 0)
+			{
+				calculatedDamage = Mathf.RoundToInt(damage);
+			}
+			else if (damageModifierPercentage > 0)
+			{
+				calculatedDamage = Mathf.RoundToInt((damage + (damage/100) * damageModifierPercentage));
+			}
+			else
+			{
+				calculatedDamage = (Mathf.RoundToInt(damage + ((damage/100) * damageModifierPercentage)));
+			}
+
+			return calculatedDamage;
 		}
 
 		public override void OnDespawned()

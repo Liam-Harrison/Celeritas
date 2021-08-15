@@ -154,6 +154,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f4b1030f7931e2346b365ac860c456df, type: 2}
     - {fileID: 11400000, guid: 551f9815f83843c4083869b9cc522d52, type: 2}
     - {fileID: 11400000, guid: 37a8333f3d207ce4d81cb5faa19d5389, type: 2}
+    - {fileID: 11400000, guid: 6a7335823fd60d141a9b05ee3504aedb, type: 2}
     - {fileID: 11400000, guid: d09395ca3ec8a454c8932acb7dd201cd, type: 2}
     - {fileID: 11400000, guid: 25fe257e6aedb34499e4dd8d81b00da7, type: 2}
     - {fileID: 11400000, guid: b5684e958385a254cb2c5e106aa29937, type: 2}
@@ -190,25 +191,25 @@ MonoBehaviour:
       Data: 3
     - Name: 
       Entry: 10
-      Data: 1
-    - Name: 
-      Entry: 10
       Data: 4
     - Name: 
       Entry: 10
       Data: 5
     - Name: 
       Entry: 10
-      Data: 1
+      Data: 6
     - Name: 
       Entry: 10
-      Data: 6
+      Data: 1
     - Name: 
       Entry: 10
       Data: 7
     - Name: 
       Entry: 10
       Data: 8
+    - Name: 
+      Entry: 10
+      Data: 9
     - Name: 
       Entry: 13
       Data: 
@@ -242,6 +243,7 @@ MonoBehaviour:
   - {fileID: 7706308572929834596}
   - {fileID: 6694158782653315799}
   - {fileID: 1971162901805115714}
+  damageModifierPercentage: 0
   selectionViewSize: 8
   gameViewSize: 25
   inventorySize: {x: 6, y: 2}
