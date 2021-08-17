@@ -16,8 +16,8 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public class DamageOverTimeData
 		{
-			public float startTime_s;
-			public float damageRemainder;
+			public float startTime_s; // time the effect was added
+			public float damageRemainder; // used to preserve values lost after rounding float -> integer
 		}
 
 		// Note: how will we keep track of different DoT stacks when one entity is damaged with DoT several times? multiple damage/duration pairs?
@@ -31,15 +31,17 @@ namespace Assets.Scripts.Scriptables.Systems
 		[SerializeField, Title("Damage amount")]
 		private float damage;
 
-		private float startTime_s; // will need to be recorded for each entity
 		private float damagePerSecond;
-		private float remainder; // reset time start each time hit
 
 		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Projectiles do 150% damage over {duration} seconds.\n<color=red>▼</color> Projectiles do 50% less initial damage.";
 
 		public void OnEntityEffectAdded(Entity entity, ushort level)
 		{
-			entity.Components.TryGetComponent(this, out DamageOverTimeData data);
+			if (!entity.Components.TryGetComponent(this, out DamageOverTimeData data))
+			{ // if no data existed beforehand, create some
+				data = new DamageOverTimeData();
+				entity.Components.RegisterComponent(this, data);
+			}
 			data.startTime_s = entity.TimeAlive;
 			data.damageRemainder = 0;
 
@@ -49,18 +51,26 @@ namespace Assets.Scripts.Scriptables.Systems
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{
 			var data = entity.Components.GetComponent<DamageOverTimeData>(this);
-			if (entity.TimeAlive - data.startTime_s > duration) {
+
+			if (entity.TimeAlive - data.startTime_s > duration)
+			{ // if DoT has expired, return
 				return; // how to remove system ?
 			}
+
 			float damageToDo = Time.deltaTime * damagePerSecond + data.damageRemainder;
-			entity.TakeDamage(entity, (int)damageToDo);
-			data.damageRemainder = damageToDo - (int)damageToDo;
+			
+			if ((int)damageToDo > 0) { 
+				entity.TakeDamage(entity, (int)damageToDo);
+				Debug.Log((int)damageToDo);
+			}
+			data.damageRemainder = damageToDo - (int)damageToDo; // if damagetodo was < 1, store it as remainder
+			
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, ushort level)
 		{
-			var data = entity.Components.GetComponent<DamageOverTimeData>(this);
-			// remove old data
+			//var data = entity.Components.GetComponent<DamageOverTimeData>(this);
+			entity.Components.ReleaseComponent<DamageOverTimeData>(this);
 		}
 	}
 }
