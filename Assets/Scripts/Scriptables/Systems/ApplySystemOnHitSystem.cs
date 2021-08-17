@@ -15,7 +15,7 @@ namespace Assets.Scripts.Scriptables.Systems
 	{
 		public override bool Stacks => true;
 
-		public override SystemTargets Targets => throw new NotImplementedException();
+		public override SystemTargets Targets => SystemTargets.Projectile;
 
 		[SerializeField, Title("Effects to apply")]
 		private EffectWrapper toApply;

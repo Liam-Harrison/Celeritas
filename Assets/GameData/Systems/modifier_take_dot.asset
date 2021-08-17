@@ -15,3 +15,5 @@ MonoBehaviour:
   title: Take damage over time
   duration: 5
   damage: 15
+  durationReductionPerLevel: 0.5
+  damageExtraPerLevel: 8

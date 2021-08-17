@@ -20,16 +20,24 @@ namespace Assets.Scripts.Scriptables.Systems
 			public float damageRemainder; // used to preserve values lost after rounding float -> integer
 		}
 
-		// Note: how will we keep track of different DoT stacks when one entity is damaged with DoT several times? multiple damage/duration pairs?
 		public override bool Stacks => true;
 
 		public override SystemTargets Targets => SystemTargets.Ship | SystemTargets.Asteroid;
 
-		[SerializeField, Title("Duration")]
+		[SerializeField, Title("DoT Characteristics", "Time measured in seconds")]
 		private float duration;
 
-		[SerializeField, Title("Damage amount")]
+		[SerializeField]
 		private float damage;
+
+		[SerializeField]
+		private float durationReductionPerLevel;
+
+		[SerializeField]
+		private float damageExtraPerLevel;
+
+		private float netDamage; // factoring in level
+		private float netDuration; // note: this must be > 0. If it is too close to 0, system will not have enough time to do any damage.
 
 		private float damagePerSecond;
 
@@ -45,19 +53,23 @@ namespace Assets.Scripts.Scriptables.Systems
 			data.startTime_s = entity.TimeAlive;
 			data.damageRemainder = 0;
 
-			damagePerSecond = damage / duration;
+			// factor in level
+			netDamage = damage + (damageExtraPerLevel * level);
+			netDuration = duration - (durationReductionPerLevel * level); 
+
+			damagePerSecond = netDamage / netDuration;
 		}
 
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{
 			var data = entity.Components.GetComponent<DamageOverTimeData>(this);
 
-			if (entity.TimeAlive - data.startTime_s > duration)
+			if (entity.TimeAlive - data.startTime_s > netDuration)
 			{ // if DoT has expired, return
 				return; // how to remove system ?
 			}
 
-			float damageToDo = Time.deltaTime * damagePerSecond + data.damageRemainder;
+			float damageToDo = (Time.deltaTime * damagePerSecond) + data.damageRemainder;
 			
 			if ((int)damageToDo > 0) { 
 				entity.TakeDamage(entity, (int)damageToDo);
@@ -69,7 +81,6 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public void OnEntityEffectRemoved(Entity entity, ushort level)
 		{
-			//var data = entity.Components.GetComponent<DamageOverTimeData>(this);
 			entity.Components.ReleaseComponent<DamageOverTimeData>(this);
 		}
 	}
