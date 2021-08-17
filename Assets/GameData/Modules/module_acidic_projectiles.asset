@@ -32,16 +32,16 @@ MonoBehaviour:
       Data: 3|3
     - Name: 
       Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
       Data: true
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 5
       Data: false
@@ -74,16 +74,16 @@ MonoBehaviour:
       Data: 3|3
     - Name: 
       Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
       Data: true
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 5
       Data: false
@@ -112,6 +112,6 @@ MonoBehaviour:
   size: 0
   catagory: 0
   rarity: 0
-  icon: {fileID: 21300000, guid: 8ebf8571ad1523e4b96f68a7b6bfa53c, type: 3}
+  icon: {fileID: 21300000, guid: ec3f82dc4a070fc4bb030a131e7b1b38, type: 3}
   description: Your projectiles are infused with acid, dealing Damage Over Time to
     enemy ships
