@@ -3,6 +3,7 @@ using Celeritas.Scriptables;
 using Celeritas.Scriptables.Interfaces;
 using Sirenix.OdinInspector;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Scriptables.Systems
@@ -21,13 +22,19 @@ namespace Assets.Scripts.Scriptables.Systems
 		private EffectWrapper toApply;
 
 		public override string GetTooltip(ushort level) {
-			String toReturn = $"< color = green >▲</color>Applies effects to enemies on-hit";
-			// loop through effects, add their tooltips here?
+			String toReturn = $"Applies effects to enemies on-hit:";
+			IReadOnlyList<ModifierSystem> systems = toApply.EffectCollection.Systems;
+
+			foreach (ModifierSystem m in systems)
+			{
+				toReturn += '\n' + m.GetTooltip(level);
+			}
 			return toReturn;
 		}
 
 		public void OnEntityHit(Entity entity, Entity other, ushort level)
 		{
+			toApply.Level = level;
 			other.EntityEffects.AddEffect(toApply);
 		}
 	}
