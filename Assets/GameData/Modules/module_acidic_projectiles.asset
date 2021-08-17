@@ -112,6 +112,6 @@ MonoBehaviour:
   size: 0
   catagory: 0
   rarity: 0
-  icon: {fileID: 21300000, guid: ec3f82dc4a070fc4bb030a131e7b1b38, type: 3}
+  icon: {fileID: 21300000, guid: b397717f6ae1d104692085f43338844f, type: 3}
   description: Your projectiles are infused with acid, dealing Damage Over Time to
     enemy ships

@@ -61,7 +61,7 @@ namespace Assets.Scripts.Scriptables.Systems
 			
 			if ((int)damageToDo > 0) { 
 				entity.TakeDamage(entity, (int)damageToDo);
-				Debug.Log((int)damageToDo);
+				//Debug.Log((int)damageToDo);
 			}
 			data.damageRemainder = damageToDo - (int)damageToDo; // if damagetodo was < 1, store it as remainder
 			
