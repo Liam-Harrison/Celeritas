@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08bd6193cb3e8a341bdbd9edcfe09d53, type: 3}
-  m_Name: weapon_basic_charge
+  m_Name: weapon_sunburst
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: moduleLayout
+    - Name: iconLayout
       Entry: 7
       Data: 0|System.Boolean[,], mscorlib
     - Name: 
@@ -63,15 +63,17 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  title: Charge
-  capacityHint: 4
+  title: Sunburst Plasma Cannon
   prefab: {fileID: 1948190157008792263, guid: 1a3c68ec0c71468458f5d1c581bfccdb, type: 3}
-  icon: {fileID: 21300000, guid: 3144f6c4f2f2d704db3a0e92791b3265, type: 3}
-  description: Basic charge weapon.
+  capacityHint: 4
+  useChunking: 0
   size: 0
   catagory: 0
   rarity: 0
-  projectile: {fileID: 11400000, guid: 341054bb030d7954ea09976c07126d5b, type: 2}
+  icon: {fileID: 21300000, guid: 3144f6c4f2f2d704db3a0e92791b3265, type: 3}
+  description: A charge weapon that fires superheated plasma globs at the enemy
+  shape: 0
+  projectile: {fileID: 11400000, guid: 5744994016ea6ce489185a43e351c253, type: 2}
   rateOfFire: 5
   charge: 1
   maxCharge: 15
