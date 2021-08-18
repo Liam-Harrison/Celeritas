@@ -43,19 +43,39 @@ namespace Celeritas.Scriptables.Systems
 
 			float amountToAdd = (amount/100) + ((level * amountExtraPerLevel)/100);
 
+			float shipCurrent = (float)ship.Health.CurrentValue;
+			float shipMax = (float)ship.Health.MaxValue;
+			float percentageToHeal = (shipCurrent / shipMax);
+
+			//Updates the maximum health of the ship.
 			ship.Health.MaxValue = Convert.ToUInt32(ship.ShipData.StartingHealth + (ship.ShipData.StartingHealth * amountToAdd));
-			Debug.Log("Changed ship health to " + ship.Health.MaxValue);
+
+			//Calculates how much damage needs to be inflicted to heal the added health.
+			int damageToInflict = (ship.Health.CurrentValue - (Mathf.RoundToInt(ship.Health.MaxValue * percentageToHeal)));
+
+			ship.Health.Damage(damageToInflict);
+			//Debug.Log("Health healed" + damageToInflict);
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, ushort level)
 		{
 			var ship = entity as ShipEntity;
 			float shiphealth = Convert.ToSingle(ship.Health.MaxValue);
-		
+
 			float amountToRemove = (amount / 100) + ((level * amountExtraPerLevel) / 100);
 
+			float shipCurrent = (float)ship.Health.CurrentValue;
+			float shipMax = (float)ship.Health.MaxValue;
+			float percentageToDamage = (shipCurrent / shipMax);
+
+			//Updates the maximum health of the ship.
 			ship.Health.MaxValue = Convert.ToUInt32(shiphealth - (ship.ShipData.StartingHealth * amountToRemove));
-			Debug.Log("Changed ship health to " + ship.Health.MaxValue);
+
+			//Calculates how much damage needs to be inflicted due to added health removal
+			int damageToInflict = ship.Health.CurrentValue - (Mathf.RoundToInt(ship.ShipData.StartingHealth * percentageToDamage));
+
+			ship.Health.Damage((damageToInflict));
+			//Debug.Log("Health damaged" + damageToInflict);
 		}
 	}
 }
