@@ -21,51 +21,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: moduleLayout
-      Entry: 7
-      Data: 0|System.Boolean[,], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 9
-    - Name: ranks
-      Entry: 1
-      Data: 3|3
-    - Name: 
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: iconLayout
       Entry: 7
-      Data: 1|System.Boolean[,], mscorlib
+      Data: 0|System.Boolean[,], mscorlib
     - Name: 
       Entry: 12
       Data: 9
@@ -115,3 +73,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: d49094c1f2b72d847855d707b28d36c9, type: 3}
   description: Reduces damage taken by 15% with an additional 10% for each level
     of the module.
+  shape: 4

@@ -257,21 +257,7 @@ namespace Celeritas.Game.Entities
 		/// <returns>The amount of damage to take after the damage modifier has been applied</returns>
 		private int CalculateDamage(float damage)
 		{
-			int calculatedDamage = 0;
-
-			if (damageModifierPercentage == 0)
-			{
-				calculatedDamage = Mathf.RoundToInt(damage);
-			}
-			else if (damageModifierPercentage > 0)
-			{
-				calculatedDamage = Mathf.RoundToInt((damage + (damage/100) * damageModifierPercentage));
-			}
-			else
-			{
-				calculatedDamage = (Mathf.RoundToInt(damage + ((damage/100) * damageModifierPercentage)));
-			}
-
+			int calculatedDamage = calculatedDamage = Mathf.RoundToInt((damage + (damage / 100) * damageModifierPercentage));
 			return calculatedDamage;
 		}
 
