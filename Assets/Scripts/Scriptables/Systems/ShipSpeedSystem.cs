@@ -52,7 +52,7 @@ namespace Celeritas.Scriptables.Systems
 		public override SystemTargets Targets =>  SystemTargets.Ship;
 
 		/// <inheritdoc/>
-		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Increase {AffectDirections} speed by <color=green>{(Amount + (AmountExtraPerLevel * level)) * 100:0}%</color>.";
+		public override string GetTooltip(ushort level) => $"Increase {AffectDirections} speed by <color=green>{(Amount + (AmountExtraPerLevel * level)) * 100:0}%</color>.";
 
 		public void OnEntityEffectAdded(Entity entity, ushort level)
 		{

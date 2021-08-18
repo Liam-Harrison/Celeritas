@@ -13,19 +13,31 @@ namespace Celeritas.UI.Inventory
 	/// <summary>
 	/// A container for managing a module within the inventory UI.
 	/// </summary>
-	public class InventoryItemUI : MonoBehaviour, IPointerDownHandler, ITooltip
+	public class InventoryItemUI : MonoBehaviour, IPointerDownHandler, ITooltip, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
 	{
-		[SerializeField, Title("Assignments")]
+		[SerializeField, TitleGroup("Assignments")]
+		private Image background;
+
+		[SerializeField, TitleGroup("Assignments")]
 		private Image image;
 
-		[SerializeField]
+		[SerializeField, TitleGroup("Assignments")]
 		private Image border;
 
-		[SerializeField]
+		[SerializeField, TitleGroup("Assignments")]
 		private TextMeshProUGUI title;
 
-		[SerializeField]
+		[SerializeField, TitleGroup("Assignments")]
 		private TextMeshProUGUI subtitle;
+
+		[SerializeField, TitleGroup("Colors")]
+		private Color normal = Color.white;
+
+		[SerializeField, TitleGroup("Colors")]
+		private Color highlighted = Color.white;
+
+		[SerializeField, TitleGroup("Colors")]
+		private Color pressed = Color.white;
 
 		private ModuleData module;
 
@@ -33,9 +45,12 @@ namespace Celeritas.UI.Inventory
 
 		public ModuleEntity TooltipEntity => (ModuleEntity)module.EntityInstance;
 
+		private bool MouseOver { get; set; }
+
 		private void Awake()
 		{
 			hud = GetComponentInParent<BuildHUD>();
+			background.color = normal;
 		}
 
 		/// <summary>
@@ -60,6 +75,30 @@ namespace Celeritas.UI.Inventory
 		public void OnPointerDown(PointerEventData _)
 		{
 			hud.OnItemDragBegin(this);
+			background.color = pressed;
+		}
+
+		public void OnPointerExit(PointerEventData eventData)
+		{
+			MouseOver = false;
+			background.color = normal;
+		}
+
+		public void OnPointerEnter(PointerEventData eventData)
+		{
+			MouseOver = true;
+			background.color = highlighted;
+		}
+
+		public void OnPointerUp(PointerEventData eventData)
+		{
+			background.color = MouseOver ? highlighted : normal;
+		}
+
+		private void OnValidate()
+		{
+			if (background != null)
+				background.color = normal;
 		}
 	}
 }

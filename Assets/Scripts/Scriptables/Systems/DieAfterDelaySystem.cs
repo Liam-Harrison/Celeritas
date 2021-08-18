@@ -21,7 +21,7 @@ namespace Celeritas.Scriptables.Systems
 		/// <inheritdoc/>
 		public override SystemTargets Targets => SystemTargets.Projectile | SystemTargets.Ship | SystemTargets.Loot | SystemTargets.Asteroid;
 
-		public override string GetTooltip(ushort level) => $"<color=red>▼</color> Self destruct after {timeToLive} seconds";
+		public override string GetTooltip(ushort level) => $"Self destruct after {timeToLive} seconds";
 
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{

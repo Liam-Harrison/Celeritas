@@ -1,8 +1,6 @@
 using Celeritas.AI;
-using Celeritas.Extensions;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
-using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 

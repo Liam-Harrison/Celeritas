@@ -280,6 +280,33 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Navigation",
+            "id": "3b84d1a5-c919-4cbd-ac8e-0adc7cebcdf8",
+            "actions": [
+                {
+                    "name": "NavigateForward",
+                    "type": "Button",
+                    "id": "c40002b0-4065-4a64-b3c7-f603edeef5c4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6ed45e5d-7a63-41ab-822d-4aa60e3e90a4",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "NavigateForward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

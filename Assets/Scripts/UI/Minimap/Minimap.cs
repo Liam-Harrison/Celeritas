@@ -1,4 +1,3 @@
-using Celeritas.Extensions;
 using Celeritas.Game;
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
@@ -46,7 +45,7 @@ namespace Celeritas.UI
 			{
 				var marker = pooledMarkers.ActiveObjects[i];
 
-				if (marker.Entity == null)
+				if (marker.Entity == null || !marker.Entity.IsInitalized)
 				{
 					pooledMarkers.ReleasePooledObject(marker);
 					continue;

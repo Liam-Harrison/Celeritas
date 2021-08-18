@@ -1,4 +1,5 @@
 ﻿using Celeritas.Game;
+using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Celeritas.Scriptables.Interfaces;
@@ -30,7 +31,7 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Explodes into {numberToSpawn} subprojectiles when destroyed";
+		public override string GetTooltip(ushort level) => $"Explodes into {numberToSpawn} subprojectiles when destroyed";
 
 		public void OnEntityKilled(Entity entity, ushort level)
 		{

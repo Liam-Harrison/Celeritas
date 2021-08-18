@@ -1,6 +1,5 @@
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
-using Celeritas.Extensions;
 using UnityEngine;
 using Celeritas.Game.Entities;
 
@@ -26,12 +25,6 @@ namespace Celeritas.Scriptables
 		[TableMatrix(HorizontalTitle = "Right of ship", VerticalTitle = "Back of ship", SquareCells = true, DrawElementMethod = nameof(onHullLayoutDraw))]
 		private bool[,] hullLayout = new bool[BaseLayoutResolution, BaseLayoutResolution];
 
-		[HorizontalGroup("Split", GroupSize)]
-		[BoxGroup("Split/Ship Module Origins")]
-		[SerializeField]
-		[TableMatrix(HorizontalTitle = "Right of ship", VerticalTitle = "Back of ship", SquareCells = true, DrawElementMethod = nameof(DrawModuleOriginPreview))]
-		private ModuleData[,] hullModuleOrigins = new ModuleData[BaseLayoutResolution, BaseLayoutResolution];
-
 		// Properties
 
 		/// <summary>
@@ -40,28 +33,12 @@ namespace Celeritas.Scriptables
 		public bool[,] HullLayout { get => hullLayout; }
 
 		/// <summary>
-		/// Ship's original module position data.
-		/// </summary>
-		/// <value></value>
-		public ModuleData[,] HullModuleOrigins { get => hullModuleOrigins; set => hullModuleOrigins = value; }
-
-		/// <summary>
 		/// Removes any data in the 2D arrays
 		/// </summary>
 		[Button]
 		public void ResetData()
 		{
 			hullLayout = new bool[BaseLayoutResolution, BaseLayoutResolution];
-			hullModuleOrigins = new ModuleData[BaseLayoutResolution, BaseLayoutResolution];
-		}
-
-		/// <summary>
-		/// Removes any module data in the 2D arrays
-		/// </summary>
-		[Button]
-		public void ResetModuleData()
-		{
-			hullModuleOrigins = new ModuleData[BaseLayoutResolution, BaseLayoutResolution];
 		}
 
 		private bool isOdd(int value)

@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: moduleLayout
+    - Name: iconLayout
       Entry: 7
       Data: 0|System.Boolean[,], mscorlib
     - Name: 
@@ -72,3 +72,4 @@ MonoBehaviour:
   rarity: 3
   icon: {fileID: 21300000, guid: 99639cdda4d4c23459349b762bad1143, type: 3}
   description: Causes Projectiles to target your cursor
+  shape: 7

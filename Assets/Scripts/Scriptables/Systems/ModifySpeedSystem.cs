@@ -36,9 +36,9 @@ namespace Assets.Scripts.Scriptables.Systems
 		public override string GetTooltip(ushort level)
 		{
 			if (speedFactor > 1)
-				return $"<color=green>▲</color> Speeds up motion by a factor of " + speedFactor;
+				return $"Speeds up motion by a factor of " + speedFactor;
 			else
-				return $"<color=red>▼</color> Slows down motion by a factor of "+speedFactor;
+				return $"Slows down motion by a factor of "+speedFactor;
 		}
 
 		public void OnEntityEffectAdded(Entity entity, ushort level)

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Celeritas.Extensions
+namespace Celeritas
 {
 	/// <summary>
 	/// Contains a collection of Unity monobehaviour extensions.

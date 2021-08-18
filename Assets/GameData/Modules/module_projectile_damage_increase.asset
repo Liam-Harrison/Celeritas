@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: moduleLayout
+    - Name: iconLayout
       Entry: 7
       Data: 0|System.Boolean[,], mscorlib
     - Name: 
@@ -41,10 +41,10 @@ MonoBehaviour:
       Data: false
     - Name: 
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 5
       Data: false
@@ -72,3 +72,4 @@ MonoBehaviour:
   rarity: 0
   icon: {fileID: 21300000, guid: e0526b249dec66940adc72cf27447828, type: 3}
   description: Increases Projectile damage
+  shape: 6

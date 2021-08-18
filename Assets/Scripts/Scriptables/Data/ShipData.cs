@@ -1,9 +1,7 @@
-using UnityEngine;
-using Celeritas.Extensions;
+using AssetIcons;
 using Celeritas.Game.Entities;
 using Sirenix.OdinInspector;
-using AssetIcons;
-using Celeritas.Game.Interfaces;
+using UnityEngine;
 
 namespace Celeritas.Scriptables
 {

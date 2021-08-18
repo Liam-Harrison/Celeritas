@@ -5,8 +5,6 @@ using Celeritas.Scriptables.Interfaces;
 using UnityEngine;
 using Celeritas.Game;
 using Celeritas.Game.Entities;
-using System.Linq;
-using Celeritas.Extensions;
 
 namespace Celeritas.Scriptables.Systems
 {
@@ -47,7 +45,7 @@ namespace Celeritas.Scriptables.Systems
 		public override SystemTargets Targets => SystemTargets.Weapon;
 
 		/// <inheritdoc/>
-		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Fire <color=green>{ExtraProjectileCount + (ExtraProjectileCountPerLevel * level)}</color> extra projectiles.";
+		public override string GetTooltip(ushort level) => $"Fire <color=green>{ExtraProjectileCount + (ExtraProjectileCountPerLevel * level)}</color> extra projectiles.";
 
 
 		public void OnEntityFired(WeaponEntity entity, ProjectileEntity projectile, ushort level)

@@ -16,7 +16,7 @@ namespace Celeritas.Game.Entities
 		[SerializeField, TitleGroup("Weapon Settings")]
 		private bool hasDefaultProjectileEffects;
 
-		[SerializeField, TitleGroup("Weapon Settings")]
+		[SerializeField, TitleGroup("Weapon Settings"), ShowIf(nameof(hasDefaultProjectileEffects))]
 		private EffectWrapper[] projectileEffects;
 
 		private uint rateOfFire;

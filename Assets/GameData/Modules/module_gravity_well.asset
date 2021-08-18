@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: moduleLayout
+    - Name: iconLayout
       Entry: 7
       Data: 0|System.Boolean[,], mscorlib
     - Name: 
@@ -72,3 +72,4 @@ MonoBehaviour:
   rarity: 4
   icon: {fileID: 21300000, guid: 78215ea0105c93745b510953e720a448, type: 3}
   description: Pulls enemies towards you
+  shape: 4

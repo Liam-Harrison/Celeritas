@@ -1,4 +1,3 @@
-using Celeritas.Extensions;
 using Celeritas.Game.Entities;
 using Sirenix.OdinInspector;
 using UnityEngine;

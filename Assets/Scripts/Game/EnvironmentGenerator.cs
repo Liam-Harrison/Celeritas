@@ -31,6 +31,14 @@ namespace Assets.Scripts.Game
 		{
 			EntityDataManager.OnCreatedChunk += SpawnAsteroidsInChunk;
 
+			if (EntityDataManager.Instance == null || !EntityDataManager.Instance.Loaded)
+				EntityDataManager.OnLoadedAssets += SpawnAsteroids;
+			else
+				SpawnAsteroids();
+		}
+
+		private void SpawnAsteroids()
+		{
 			foreach (var chunk in EntityDataManager.ChunkManager.Chunks)
 			{
 				SpawnAsteroidsInChunk(chunk);

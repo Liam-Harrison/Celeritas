@@ -25,7 +25,7 @@ namespace Celeritas.Scriptables.Systems {
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
 		/// <inheritdoc/>
-		public override string GetTooltip(ushort level) => $"<color=green>▲</color> Increases damage by <color=green>{(Percentage + (PercentageExtraPerLevel * level)) * 100:0}%</color>.";
+		public override string GetTooltip(ushort level) => $"Increases damage by <color=green>{(Percentage + (PercentageExtraPerLevel * level)) * 100:0}%</color>.";
 
 		/// <summary>
 		/// How much extra percent damage the projectile gets from this modifier initially
