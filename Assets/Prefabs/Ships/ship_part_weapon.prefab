@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6889710547187974505}
   - component: {fileID: 4029456321391606217}
   m_Layer: 7
-  m_Name: ship_part_weapon (1)
+  m_Name: ship_part_weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,6 +46,6 @@ MonoBehaviour:
   size: 1
   isWeapon: 1
   hasDefaultModule: 1
-  module: {fileID: 11400000, guid: 4823060fc78e6b74fbcc700c5aac91e9, type: 2}
+  module: {fileID: 11400000, guid: 97a0c23b0a22f3147acd966f7f2e4a92, type: 2}
   moduleEffects: []
   projectileEffects: []

@@ -11,12 +11,12 @@ namespace Celeritas.Scriptables
 	public enum SystemTargets
 	{
 		None = 0,
-		Projectile = 1,
-		Module = 2,
-		Ship = 4,
-		Asteroid = 5,
-		Loot = 6,
-		Weapon = 8,
+		Projectile = 1 << 0,
+		Module = 1 << 1,
+		Ship = 1 << 2,
+		Weapon = 1 << 3,
+		Loot = 1 << 4,
+		Asteroid = 1 << 5,
 	}
 
 	/// <summary>

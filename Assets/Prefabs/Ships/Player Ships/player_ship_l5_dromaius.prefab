@@ -615,6 +615,11 @@ MonoBehaviour:
       Data: 
   hasDefaultEffects: 0
   defaultEffects: []
+  hasGraphicalEffects: 0
+  onDestroyEffectPrefab: {fileID: 0}
+  timeToPlayOnDestroyEffect: 0
+  onHitEffectPrefab: {fileID: 0}
+  timeToPlayOnHitEffect: 0
   modules:
   - {fileID: 4931576507969646824}
   - {fileID: 1439799413476197216}
@@ -644,6 +649,7 @@ MonoBehaviour:
   - {fileID: 7207974343857783261}
   - {fileID: 1387327797113249344}
   - {fileID: 6123858116073016789}
+  damageModifierPercentage: 0
   selectionViewSize: 8
   gameViewSize: 25
   inventorySize: {x: 8, y: 4}
