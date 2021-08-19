@@ -128,7 +128,14 @@ namespace Celeritas.Game
 		public void GenerateWalls()
 		{
 			SetupMasterGroup();
-			if (wallGroup != null) DestroyImmediate(wallGroup.gameObject);
+			if (wallGroup != null)
+			{
+#if UNITY_EDITOR
+				DestroyImmediate(wallGroup.gameObject);
+#else
+				Destroy(wallGroup.gameObject);
+#endif
+			}
 
 			wallGroup = new GameObject(nameof(wallGroup)).transform;
 			wallGroup.transform.parent = hullGroup.transform;
@@ -179,7 +186,11 @@ namespace Celeritas.Game
 						PlayerShipEntity.Modules.Remove(module);
 				}
 
+#if UNITY_EDITOR
+				DestroyImmediate(floorGroup.gameObject);
+#else
 				Destroy(floorGroup.gameObject);
+#endif
 			}
 
 			floorGroup = new GameObject(nameof(floorGroup)).transform;
@@ -228,7 +239,13 @@ namespace Celeritas.Game
 			SetupMasterGroup();
 
 			if (moduleGroup != null)
+			{
+#if UNITY_EDITOR
+				DestroyImmediate(moduleGroup.gameObject);
+#else
 				Destroy(moduleGroup.gameObject);
+#endif
+			}
 
 			moduleGroup = new GameObject(nameof(moduleGroup)).transform;
 			moduleGroup.transform.parent = hullGroup.transform;

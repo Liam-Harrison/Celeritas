@@ -21,15 +21,16 @@ namespace Assets.Scripts.Scriptables.Systems
 		[SerializeField, Title("Effects to apply")]
 		private EffectWrapper toApply;
 
-		public override string GetTooltip(ushort level) {
-			String toReturn = $"Applies effects to enemies on-hit:";
+		public override string GetTooltip(ushort level)
+		{
+			var result = $"Applies following effects on hit:";
 			IReadOnlyList<ModifierSystem> systems = toApply.EffectCollection.Systems;
 
 			foreach (ModifierSystem m in systems)
 			{
-				toReturn += '\n' + m.GetTooltip(level);
+				result += $"\n<indent=7.5%>• {m.GetTooltip(level)}</indent>";
 			}
-			return toReturn;
+			return result;
 		}
 
 		public void OnEntityHit(Entity entity, Entity other, ushort level)

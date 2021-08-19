@@ -41,7 +41,7 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		private float damagePerSecond;
 
-		public override string GetTooltip(ushort level) => $"Projectiles do <color=green>{netDamage}</color> extra damage over <color=green>{netDuration}</color> seconds.\n";
+		public override string GetTooltip(ushort level) => $"Projectiles do <color=green>{damage + (damageExtraPerLevel * level)}</color> extra damage over <color=green>{duration - (durationReductionPerLevel * level)}</color> seconds.\n";
 
 		public void OnEntityEffectAdded(Entity entity, ushort level)
 		{
