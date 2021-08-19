@@ -64,5 +64,5 @@ MonoBehaviour:
 
 
     AI Desc: [TBD]'
-  startingHealth: 1500
+  startingHealth: 150
   startingShield: 0

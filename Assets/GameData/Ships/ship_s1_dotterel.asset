@@ -66,5 +66,5 @@ MonoBehaviour:
     AI Desc: Very basic
     and fast enemy the approaches to close-mid range and fires a single low damage
     projectile.'
-  startingHealth: 500
-  startingShield: 1250
+  startingHealth: 50
+  startingShield: 125

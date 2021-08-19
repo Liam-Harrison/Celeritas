@@ -66,5 +66,5 @@ MonoBehaviour:
     AI Desc: Extremely maneuverable skirmishing ship,
     approaches player ship at an angle and attempts to fire on player from the rear
     with an extremely short-range-high-damage attack.'
-  startingHealth: 500
-  startingShield: 2500
+  startingHealth: 50
+  startingShield: 250

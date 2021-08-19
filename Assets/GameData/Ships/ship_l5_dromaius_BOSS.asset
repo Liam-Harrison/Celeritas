@@ -62,5 +62,5 @@ MonoBehaviour:
   description: "Ship Desc: This behemoth of a vessel is the largest ship that the
     station could possibly support; you\u2019re slow, unyielding and unshielded,
     but hell have no wrath like your guns.\n\nAI Desc: [TBD]"
-  startingHealth: 75000
+  startingHealth: 7500
   startingShield: 0
