@@ -17,7 +17,7 @@ namespace Celeritas.Game
 		protected override void Awake()
 		{
 			waveIndex = 0;
-			WaveLootValues = new List<int>() { 5, 10, 15, 20, 25, 40, 50, 60, 70, 80, 125, 150, 175, 200, 225, 300, 350 };
+			WaveLootValues = new List<int>() { 5, 10, 15, 20, 25, 40, 50, 60, 70, 80, 125, 150, 175, 200, 225, 300 };
 		}
 
 		[SerializeField]
