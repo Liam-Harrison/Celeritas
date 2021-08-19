@@ -49,6 +49,12 @@ namespace Celeritas.UI
 		private TextMeshProUGUI description;
 
 		[SerializeField]
+		private RectTransform topLeft;
+
+		[SerializeField]
+		private RectTransform bottomRight;
+
+		[SerializeField]
 		private Image icon;
 
 		[SerializeField]
@@ -117,44 +123,33 @@ namespace Celeritas.UI
 		{
 			var m = Mouse.current.position.ReadValue();
 
-			var pos = new Vector3(m.x, m.y, 0);
+			var s_rect = RectTransformToScreenSpace(background);
+			var h_height = s_rect.height / 2f;
+			var h_width = s_rect.width / 2f;
 
-			var screen = RectTransform.rect;
+			var x = m.x;
+			var y = m.y;
 
-			var s_left = -(screen.width / 2);
-			var s_right = screen.width / 2;
-			var s_top = screen.height / 2;
-			var s_bottom = -(screen.height / 2);
+			y -= h_height + padding;
+			x += h_width + padding;
 
-			var h_height = background.rect.height / 2f;
-			var h_width = background.rect.width / 2f;
-
-			pos.y -= h_height;
-
-			if (RectTransformUtility.ScreenPointToLocalPointInRectangle(RectTransform, m, null, out var p))
+			if (x + h_width + padding > Screen.width)
 			{
-				var x = Mathf.InverseLerp(s_left, s_right, p.x) * Screen.width;
-				var y = Mathf.InverseLerp(s_bottom, s_top, p.y) * Screen.height;
-				y -= h_height;
-
-				if (p.x - h_width - padding < s_left)
-				{
-
-				}
-				else if (p.x + h_width + padding > s_right)
-				{
-
-				}
-
-				if (p.y - (h_height * 2) - padding < s_bottom)
-				{
-
-				}
-
-				pos = new Vector3(x, y);
+				x = m.x - h_width - padding;
 			}
 
-			return pos;
+			if (y - h_height - padding < 0)
+			{
+				y = m.y + h_height + padding;
+			}
+
+			return new Vector3(x, y);
+		}
+
+		private static Rect RectTransformToScreenSpace(RectTransform transform)
+		{
+			Vector2 size = Vector2.Scale(transform.rect.size, transform.lossyScale);
+			return new Rect((Vector2)transform.position - (size * 0.5f), size);
 		}
 
 		private readonly List<TooltipRequest> requests = new List<TooltipRequest>();

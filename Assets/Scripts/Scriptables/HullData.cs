@@ -74,6 +74,7 @@ namespace Celeritas.Scriptables
 			if (isOdd(value))
 			{
 				hullLayout = new bool[LayoutResolution, LayoutResolution];
+				//hullModuleOrigins = new ModuleData[LayoutResolution, LayoutResolution];
 			}
 		}
 

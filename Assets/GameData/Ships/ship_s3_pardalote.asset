@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747d9766070ae9e4dba88b5444619be4, type: 3}
+  m_Name: ship_s3_pardalote
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  title: Pardalote
+  prefab: {fileID: 2647584951759059593, guid: cf2dccf07804a004286094e82e1449e2, type: 3}
+  capacityHint: 1
+  useChunking: 0
+  movementSettings:
+    torquePerSec: {x: 4400, y: 5000}
+    rotationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    angularDrag: 5
+    rotationMaximum: 180
+    aimDeadzone: 1
+    forcePerSec: 12000
+    mass: 3
+  rarity: 0
+  shipClass: 0
+  icon: {fileID: 0}
+  description: 'Ship Desc: This fast and comparatively durable corvette sports 2
+    weapons at the cost of turn-speed and module slots.
+
+
+    AI Desc: This fast-yet-durable
+    enemy ship will attempt to interpose itself between the player ship and its allies,
+    in an attempt to body-block, firing off slow-moving-low-damage projectiles all
+    the while, even from long range.'
+  startingHealth: 500
+  startingShield: 2500
