@@ -67,5 +67,5 @@ MonoBehaviour:
     enemy ship will attempt to interpose itself between the player ship and its allies,
     in an attempt to body-block, firing off slow-moving-low-damage projectiles all
     the while, even from long range.'
-  startingHealth: 500
-  startingShield: 2500
+  startingHealth: 50
+  startingShield: 250

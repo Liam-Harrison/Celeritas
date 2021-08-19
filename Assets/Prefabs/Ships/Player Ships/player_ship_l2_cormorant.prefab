@@ -197,6 +197,11 @@ MonoBehaviour:
       Data: 
   hasDefaultEffects: 0
   defaultEffects: []
+  hasGraphicalEffects: 0
+  onDestroyEffectPrefab: {fileID: 0}
+  timeToPlayOnDestroyEffect: 0
+  onHitEffectPrefab: {fileID: 0}
+  timeToPlayOnHitEffect: 0
   modules:
   - {fileID: 8425582014376070344}
   - {fileID: 6589101521880871615}
@@ -223,6 +228,7 @@ MonoBehaviour:
   - {fileID: 8445912159477737876}
   - {fileID: 9012698492016965219}
   - {fileID: 4228631851705017846}
+  damageModifierPercentage: 0
   selectionViewSize: 8
   gameViewSize: 25
   inventorySize: {x: 8, y: 4}
@@ -544,12 +550,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 475c2918380596949a1caa0fd4991f72, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 475c2918380596949a1caa0fd4991f72, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 722849d480eb5e44ebcd0a9ccf63e985, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 475c2918380596949a1caa0fd4991f72, type: 3}
       propertyPath: m_Name
       value: Ship_L2_Cormorant
