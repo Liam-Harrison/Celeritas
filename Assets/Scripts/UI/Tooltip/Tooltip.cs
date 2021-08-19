@@ -31,12 +31,6 @@ namespace Celeritas.UI
 		private RectTransform background;
 
 		[SerializeField]
-		private RectTransform owner;
-
-		[SerializeField]
-		private CanvasScaler scaler;
-
-		[SerializeField]
 		private CanvasGroup group;
 
 		[SerializeField]
@@ -47,12 +41,6 @@ namespace Celeritas.UI
 
 		[SerializeField]
 		private TextMeshProUGUI description;
-
-		[SerializeField]
-		private RectTransform topLeft;
-
-		[SerializeField]
-		private RectTransform bottomRight;
 
 		[SerializeField]
 		private Image icon;
