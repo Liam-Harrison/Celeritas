@@ -56,17 +56,15 @@ namespace Assets.Scripts.Scriptables.Systems
 			{
 				ProjectileEntity projectile = entity as ProjectileEntity;
 				startSize = projectile.Weapon.Charge * startSizeMultiplier;
-				Debug.Log("charge: " + projectile.Weapon.Charge);
-				Debug.Log("startSize: " + startSize);
 			}
-			Debug.Log("endSize: " + endSize);
 
 			// calculate size delta per second
 			data.sizeChangePerSecond = (endSize - startSize) / duration_s;
-			Debug.Log("size change per second: " + data.sizeChangePerSecond + "\n");
 
 			//entity.transform.localScale = new Vector3(startSize, startSize, startSize);
-			entity.transform.localScale = GetVectorWithMagnitude(startSize);
+			entity.transform.localScale = startSize * entity.transform.localScale;
+			//entity.transform.localScale = GetVectorWithMagnitude(startSize);
+			//entity.transform.localScale = new Vector3(100, 100, 100);
 		}
 
 		public void OnEntityUpdated(Entity entity, ushort level)
@@ -81,7 +79,18 @@ namespace Assets.Scripts.Scriptables.Systems
 			// increase size
 			float sizeToAdd = data.sizeChangePerSecond * Time.deltaTime;
 			//entity.transform.localScale += new Vector3(sizeToAdd, sizeToAdd, sizeToAdd);
-			entity.transform.localScale += GetVectorWithMagnitude(sizeToAdd);
+
+			//entity.transform.localScale *= (1 + sizeToAdd); // hm?
+
+
+
+			//entity.transform.localScale = (entity.transform.localScale / entity.transform.localScale.magnitude)
+			entity.transform.localScale += sizeToAdd * entity.transform.localScale;
+			//entity.transform.localScale += GetVectorWithMagnitude(sizeToAdd);
+
+			//entity.transform.localScale +=entity.transform.localScale * sizeToAdd;
+
+			//entity.transform.localScale = new Vector3(entity.transform.localScale.x + sizeToAdd, entity.transform.localScale.y + sizeToAdd, entity.transform.localScale.z + sizeToAdd);
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, ushort level)
@@ -95,7 +104,7 @@ namespace Assets.Scripts.Scriptables.Systems
 			magnitude = magnitude / 3;
 			float sqrt = Mathf.Sqrt(Mathf.Abs(magnitude));
 			if (magnitude < 0)
-				return new Vector3(-sqrt, -sqrt, -sqrt);
+				return (new Vector3(sqrt, sqrt, sqrt) * -1);
 			return new Vector3(sqrt, sqrt, sqrt);
 			//return new Vector3(magnitude, magnitude, magnitude);
 		}

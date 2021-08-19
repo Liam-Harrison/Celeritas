@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Change Main Charge Projectile Over Time
   duration_s: 5
-  endSize: 0.1
-  baseStartSizeOffWeaponCharge: 1
-  startSizeMultiplier: 0.8
-  startSize: 0
+  endSize: 0.25
+  baseStartSizeOffWeaponCharge: 0
+  startSizeMultiplier: 1
+  startSize: 1
