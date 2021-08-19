@@ -3,6 +3,7 @@ using Celeritas.UI.General;
 using Celeritas.UI.WeaponSelection;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -63,6 +64,9 @@ namespace Celeritas.UI.Runstart
 			}
 			panels.Clear();
 
+			var left = new List<WeaponPanel>();
+			var right = new List<WeaponPanel>();
+
 			foreach (var weapon in ShipSelection.CurrentShip.WeaponEntities)
 			{
 				var view = Camera.main.WorldToViewportPoint(Quaternion.Inverse(weapon.transform.rotation) * weapon.transform.position);
@@ -73,6 +77,24 @@ namespace Celeritas.UI.Runstart
 				panel.SetWeapon(weapon.WeaponData);
 
 				panels.Add(panel);
+
+				if (parent == leftGrid)
+					left.Add(panel);
+				else
+					right.Add(panel);
+			}
+
+			SortGridPanel(left);
+			SortGridPanel(right);
+		}
+
+		private void SortGridPanel(List<WeaponPanel> panels)
+		{
+			var ordered = panels.OrderBy((a) => a.Module.transform.localPosition.y);
+
+			foreach (var panel in ordered)
+			{
+				panel.transform.SetAsFirstSibling();
 			}
 		}
 
