@@ -20,9 +20,6 @@ namespace Celeritas.Game.Entities
 		[SerializeField, Title("Loot")]
 		private LootConfig lootConfig;
 
-		[SerializeField]
-		private GameObject onDestroyEffectPrefab;
-
 		public override SystemTargets TargetType { get => SystemTargets.Asteroid; }
 
 		private EntityStatBar health;
@@ -60,13 +57,6 @@ namespace Celeritas.Game.Entities
 		public override void OnEntityKilled()
 		{
 			LootController.Instance.LootDrop(lootConfig.Gain, DropType.Asteroid, Position);
-
-			if (onDestroyEffectPrefab != null)
-			{
-				GameObject effect = Instantiate(onDestroyEffectPrefab, transform.position, transform.rotation, transform.parent);
-				effect.transform.localScale = transform.localScale;
-				Destroy(effect, 5f);
-			}
 
 			base.OnEntityKilled();
 		}

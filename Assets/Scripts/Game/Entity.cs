@@ -22,6 +22,36 @@ namespace Celeritas.Game
 		[SerializeField, ShowIf(nameof(hasDefaultEffects)), DisableInPlayMode]
 		private EffectWrapper[] defaultEffects;
 
+		[SerializeField, Title("Graphical Effects", "(eg. on hit, on destroy)"), DisableInPlayMode]
+		private bool hasGraphicalEffects;
+
+		/// <summary>
+		/// Effect that will play when the entity is destroyed.
+		/// If null, no effect will play
+		/// Note that entities despawning is different to them being destroyed (eg projectiles exceeding their lifetime)
+		/// OnDestroy effects will not play when an entity is despawned, only when they are destroyed/killed.
+		/// </summary>
+		[SerializeField, Title("On Destroy Effect", "Time is in seconds"), ShowIf(nameof(hasGraphicalEffects)), DisableInPlayMode]
+		private GameObject onDestroyEffectPrefab;
+
+		/// <summary>
+		/// How long the on destroy effect needs to be played.
+		/// </summary>
+		[SerializeField, ShowIf(nameof(hasGraphicalEffects)), DisableInPlayMode]
+		private float timeToPlayOnDestroyEffect;
+
+		/// <summary>
+		/// Effect that will play when the entity is hit
+		/// </summary>
+		[SerializeField, Title("On Hit Effect", "Time is in seconds"), ShowIf(nameof(hasGraphicalEffects)), DisableInPlayMode]
+		private GameObject onHitEffectPrefab;
+
+		/// <summary>
+		/// How long the on hit effect will play for
+		/// </summary>
+		[SerializeField, ShowIf(nameof(hasGraphicalEffects)), DisableInPlayMode]
+		private float timeToPlayOnHitEffect;
+
 		/// <summary>
 		/// Does this entity belong to the player?
 		/// </summary>
@@ -174,6 +204,13 @@ namespace Celeritas.Game
 			EntityEffects.KillEntity();
 			OnKilled?.Invoke(this);
 
+			if (hasGraphicalEffects && onDestroyEffectPrefab != null)
+			{
+				GameObject effect = Instantiate(onDestroyEffectPrefab, transform.position, transform.rotation, transform.parent);
+				effect.transform.localScale = transform.localScale;
+				Destroy(effect, timeToPlayOnDestroyEffect); // destroy after X seconds give effect time to play
+			}
+
 			if (Chunk != null)
 				Chunk.RemoveEntity(this);
 		}
@@ -325,6 +362,13 @@ namespace Celeritas.Game
 		public virtual void OnEntityHit(Entity other)
 		{
 			EntityEffects.EntityHit(other);
+
+			if (hasGraphicalEffects && onHitEffectPrefab != null)
+			{
+				GameObject effect = Instantiate(onHitEffectPrefab, transform.position, transform.rotation, transform.parent);
+				effect.transform.localScale = transform.localScale;
+				Destroy(effect, timeToPlayOnHitEffect); // destroy after X seconds give effect time to play
+			}
 		}
 
 		/// Logic for this entity being damaged by another entity

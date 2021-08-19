@@ -338,6 +338,10 @@ MonoBehaviour:
   defaultEffects:
   - Level: 0
     EffectCollection: {fileID: 11400000, guid: 922abbef8ae38a54da55d963727be36a, type: 2}
+  onDestroyEffectPrefab: {fileID: 0}
+  timeToPlayOnDestroyEffect_s: 0
+  onHitEffectPrefab: {fileID: 0}
+  timeToPlayOnHitEffect_s: 0
   damage: 10
   trails:
   - {fileID: 9010716631335087696}

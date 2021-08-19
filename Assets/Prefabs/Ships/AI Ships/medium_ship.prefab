@@ -156,6 +156,11 @@ MonoBehaviour:
     SerializationNodes: []
   hasDefaultEffects: 0
   defaultEffects: []
+  hasGraphicalEffects: 0
+  onDestroyEffectPrefab: {fileID: 0}
+  timeToPlayOnDestroyEffect: 0
+  onHitEffectPrefab: {fileID: 0}
+  timeToPlayOnHitEffect: 0
   modules:
   - {fileID: 3912116814696063671}
   - {fileID: 4293004831541093639}
@@ -242,7 +247,7 @@ MonoBehaviour:
   size: 1
   isWeapon: 1
   hasDefaultModule: 1
-  module: {fileID: 11400000, guid: 4823060fc78e6b74fbcc700c5aac91e9, type: 2}
+  module: {fileID: 11400000, guid: 97a0c23b0a22f3147acd966f7f2e4a92, type: 2}
   moduleEffects:
   - Level: 1
     EffectCollection: {fileID: 11400000, guid: 4f42264387040ca449cb3add683feec6, type: 2}
@@ -295,7 +300,7 @@ MonoBehaviour:
   size: 1
   isWeapon: 1
   hasDefaultModule: 1
-  module: {fileID: 11400000, guid: 4823060fc78e6b74fbcc700c5aac91e9, type: 2}
+  module: {fileID: 11400000, guid: 97a0c23b0a22f3147acd966f7f2e4a92, type: 2}
   moduleEffects:
   - Level: 0
     EffectCollection: {fileID: 11400000, guid: e3f09900eaa4ffc48af44e95219ce278, type: 2}
