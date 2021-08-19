@@ -55,14 +55,16 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  hasDefaultEffects: 0
-  defaultEffects: []
+  hasDefaultEffects: 1
+  defaultEffects:
+  - Level: 0
+    EffectCollection: {fileID: 11400000, guid: c339b34f6d5bc5e4d8ba21fdfbd63d65, type: 2}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
-  damage: 10
+  damage: 40
   trails: []
 --- !u!58 &3117257827407564721
 CircleCollider2D:

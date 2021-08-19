@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Sunburst main projectile (large, slow)
-  prefab: {fileID: 0}
+  prefab: {fileID: 33890418200756082, guid: 0d8b819d8494ec84b98af6951aa5e3da, type: 3}
   capacityHint: 1
   useChunking: 0
   speed: 5
