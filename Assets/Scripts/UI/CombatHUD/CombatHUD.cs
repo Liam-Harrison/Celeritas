@@ -10,7 +10,6 @@ using UnityEngine;
 /// Responsibilities include:
 /// - displaying notifications & messages to the player via PrintNotification
 /// - setting up stationary health/shield bars for player
-/// - setting up & managing floating health/shield bars for all ships
 /// - putting abilities into the AbilityBar (logic prone to change prior to integration w ability logic)
 ///	- setting up the mouse cursor
 /// </summary>
@@ -24,22 +23,6 @@ public class CombatHUD : Singleton<CombatHUD>
 
 	[SerializeField]
 	private StatBar playerMainShieldBar; // main shield bar for player
-
-	/// <summary>
-	/// 'floating' bars are the bars that follow ships around.
-	/// </summary>
-	[SerializeField]
-	private GameObject floatingHealthBarPrefab;
-
-	[SerializeField]
-	private GameObject floatingShieldBarPrefab;
-
-	// stat bars that follow ship entities
-	[SerializeField]
-	private ObjectPool<MovingStatBar> pooledFloatingHealthStatBars; 
-
-	[SerializeField]
-	private ObjectPool<MovingStatBar> pooledFloatingShieldStatBars;
 
 	[SerializeField]
 	private AbilityBar abilityBar;
@@ -74,8 +57,6 @@ public class CombatHUD : Singleton<CombatHUD>
 
 	protected override void Awake()
 	{
-		pooledFloatingHealthStatBars = new ObjectPool<MovingStatBar>(floatingHealthBarPrefab, statbarParent);
-		pooledFloatingShieldStatBars = new ObjectPool<MovingStatBar>(floatingShieldBarPrefab, statbarParent);
 
 		EntityDataManager.OnCreatedEntity += OnCreatedEntity;
 
@@ -126,9 +107,6 @@ public class CombatHUD : Singleton<CombatHUD>
 			playerMainShieldBar.EntityStats = playerShip.Shield;
 		}
 
-		// update floating health bars every loop (so they can follow their ships)
-		UpdateStatBarPool(pooledFloatingHealthStatBars);
-		UpdateStatBarPool(pooledFloatingShieldStatBars);
 	}
 
 	private void OnWaveStarted()
@@ -170,46 +148,8 @@ public class CombatHUD : Singleton<CombatHUD>
 
 	private void OnCreatedEntity(Entity entity)
 	{
-		if (entity is ShipEntity ship && ship.IsPlayer == false)
-		{
-			AddFloatingHealthBarToShip(ship);
 
-			// don't add shield stat bar to ships without any shield.
-			if (! ship.Shield.IsEmpty())
-				AddFloatingShieldBarToShip(ship);
-		}
 	}
 
-	/// <summary>
-	/// Add a health bar to the provided ship, that will follow it around closely
-	/// </summary>
-	/// <param name="ship">The ship the bar will follow & whose healthbar the bar will show</param>
-	private void AddFloatingHealthBarToShip(ShipEntity ship)
-	{
-		var healthBar = pooledFloatingHealthStatBars.GetPooledObject();
-		healthBar.Initalize(ship, ship.Health);
-		healthBar.transform.SetParent(statbarParent);
-	}
 
-	private void AddFloatingShieldBarToShip(ShipEntity ship)
-	{
-		var shieldBar = pooledFloatingShieldStatBars.GetPooledObject();
-		shieldBar.Initalize(ship, ship.Shield);
-		shieldBar.transform.SetParent(statbarParent);
-	}
-
-	private void UpdateStatBarPool(ObjectPool<MovingStatBar> toUpdate) {
-		for (int i = 0; i < toUpdate.ActiveObjects.Count; i++)
-		{
-			var statBar = toUpdate.ActiveObjects[i];
-
-			if (statBar.Ship == null)
-			{
-				toUpdate.ReleasePooledObject(statBar);
-				continue;
-			}
-
-			statBar.UpdateLocation();
-		}
-	}
 }
