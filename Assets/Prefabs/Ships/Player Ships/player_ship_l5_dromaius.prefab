@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5666833363083265211}
   - component: {fileID: 4644638726401201898}
   - component: {fileID: 8894714778904876210}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Engine 2.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 3517467194119704510}
   - component: {fileID: 5273113002319886624}
   - component: {fileID: 4335789678513448447}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 333595490826671323}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ship_L5_Dromaius
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 7003274559588645308}
   - component: {fileID: 1064838201151998235}
   - component: {fileID: 535455320857871999}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Engine 2.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1688137749943419001}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: hullGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 3337402357521363683}
   - component: {fileID: 213466662797773072}
   - component: {fileID: 2124551969597752286}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Engine 2.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 3234522890685794621}
   - component: {fileID: 3897665299850009787}
   - component: {fileID: 9049202895216108393}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: player_ship_l5_dromaius
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -640,7 +640,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7298644496580966247}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: floorGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -671,7 +671,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3422139653763005904}
   - component: {fileID: 8604105949518145487}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -777,7 +777,7 @@ GameObject:
   - component: {fileID: 6391608475069224612}
   - component: {fileID: 5773225492689935908}
   - component: {fileID: 9121349843068372738}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Engine 2.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -859,7 +859,7 @@ GameObject:
   - component: {fileID: 5353074899916473833}
   - component: {fileID: 7001795284247586988}
   - component: {fileID: 4249585916211420093}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Engine 2.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -941,7 +941,7 @@ GameObject:
   - component: {fileID: 6416191197848507695}
   - component: {fileID: 9077482174598407331}
   - component: {fileID: 4798162708379449198}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Engine 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1023,7 +1023,7 @@ GameObject:
   - component: {fileID: 5449530795453999159}
   - component: {fileID: 6588424694607222365}
   - component: {fileID: 8441188212759542585}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Engine 2.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1105,7 +1105,7 @@ GameObject:
   - component: {fileID: 2025058099324995246}
   - component: {fileID: 316650918928252021}
   - component: {fileID: 8580487344536465191}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Engine 2.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1187,7 +1187,7 @@ GameObject:
   - component: {fileID: 6217709654454924619}
   - component: {fileID: 2803081507923200167}
   - component: {fileID: 8611282334985588418}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Engine 2.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1272,6 +1272,10 @@ PrefabInstance:
     - target: {fileID: 5343893896310761887, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
       propertyPath: m_Name
       value: Large_Engine_Particles (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5343893896310761887, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5792006943557774089, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
       propertyPath: m_Name
@@ -1571,6 +1575,10 @@ PrefabInstance:
     - target: {fileID: 5343893896310761887, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
       propertyPath: m_Name
       value: Large_Engine_Particles (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5343893896310761887, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5792006943557774089, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
       propertyPath: m_Name
@@ -1947,6 +1955,10 @@ PrefabInstance:
     - target: {fileID: 5343893896310761887, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
       propertyPath: m_Name
       value: Large_Engine_Particles (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5343893896310761887, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7868698840925304624, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
       propertyPath: m_RootOrder

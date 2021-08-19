@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5379254196818789214}
   - component: {fileID: 6162068992032953015}
   - component: {fileID: 3076751716027424283}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: player_ship_s3_pardalote
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7875184957596617904}
   - component: {fileID: 7848446139261497888}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,6 +401,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ship_S3_Pardalote
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: df9ae134925d01b4bab43f68c179a170, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df9ae134925d01b4bab43f68c179a170, type: 3}
 --- !u!4 &1447619351631435718 stripped
@@ -539,6 +543,10 @@ PrefabInstance:
     - target: {fileID: 3073256279633522164, guid: 5792a303245743c4a88b3076930e0fa2, type: 3}
       propertyPath: m_Name
       value: Small_Engine_Particles (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3073256279633522164, guid: 5792a303245743c4a88b3076930e0fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5222794966400750603, guid: 5792a303245743c4a88b3076930e0fa2, type: 3}
       propertyPath: m_Name

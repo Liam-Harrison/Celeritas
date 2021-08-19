@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1886157786323730984}
   - component: {fileID: 382425217499545654}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1784763916357435322}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: floorGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 74636587771323884}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ship_M1_Shikra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5597087826003752961}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: hullGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 3852986740547944073}
   - component: {fileID: 5514058056758659095}
   - component: {fileID: 4144388618160919752}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 6535455719027142788}
   - component: {fileID: 5714445827365316070}
   - component: {fileID: 4769759118647851476}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: player_ship_m1_shikra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 6537297444204517430}
   - component: {fileID: 5547306070220503618}
   - component: {fileID: 7309354647033459928}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -658,6 +658,10 @@ PrefabInstance:
     - target: {fileID: 3396330643006647310, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
       propertyPath: m_Name
       value: Medium_Engine_Particles (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3396330643006647310, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7407478660231959734, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
       propertyPath: m_RootOrder

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3319828324667715000}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: floorGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3370796678295513997}
   - component: {fileID: 3321421852589736657}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 491554462589306424}
   - component: {fileID: 5645407429895505911}
   - component: {fileID: 7640704435510849122}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: player_ship_m2_nankeen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9191709714329830435}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: hullGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -484,6 +484,10 @@ PrefabInstance:
     - target: {fileID: 3396330643006647310, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
       propertyPath: m_Name
       value: Medium_Engine_Particles (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3396330643006647310, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7407478660231959734, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
       propertyPath: m_RootOrder
@@ -697,6 +701,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 641034911e871b244a60ee0354a15db8, type: 3}
       propertyPath: m_Name
       value: Ship_M2_Nankeen
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 641034911e871b244a60ee0354a15db8, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 641034911e871b244a60ee0354a15db8, type: 3}

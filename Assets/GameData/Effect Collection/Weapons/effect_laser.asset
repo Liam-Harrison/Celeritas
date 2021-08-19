@@ -16,4 +16,4 @@ MonoBehaviour:
   targets: 1
   stacks: 0
   systems:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 00070c4ce0fdfbc4aa43e7e88c5c26c3, type: 2}

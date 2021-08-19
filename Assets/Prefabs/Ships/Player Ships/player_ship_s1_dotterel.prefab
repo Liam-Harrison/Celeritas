@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2814243720569494503}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: floorGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4135672873304884613}
   - component: {fileID: 4829184087338880748}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 1996551068472711487}
   - component: {fileID: 7516579252634994646}
   - component: {fileID: 72525428227734829}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: player_ship_s1_dotterel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,7 +335,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7333256409539329379}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: hullGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,6 +411,10 @@ PrefabInstance:
     - target: {fileID: 6902592532835741655, guid: 3ce3f926bfbac2d418ebbb8d4e1d6293, type: 3}
       propertyPath: m_Name
       value: ship_part_weapon (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902592532835741655, guid: 3ce3f926bfbac2d418ebbb8d4e1d6293, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ce3f926bfbac2d418ebbb8d4e1d6293, type: 3}
@@ -497,6 +501,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ship_S1_Dotterel
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f27a2bfa2ce9ca749a4c44306c7dfcab, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542089747052505338, guid: f27a2bfa2ce9ca749a4c44306c7dfcab, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416272007918961125, guid: f27a2bfa2ce9ca749a4c44306c7dfcab, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f27a2bfa2ce9ca749a4c44306c7dfcab, type: 3}
 --- !u!4 &876539636226543158 stripped
@@ -511,6 +527,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1996551068472711487}
     m_Modifications:
+    - target: {fileID: 123414052397665333, guid: 5792a303245743c4a88b3076930e0fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1780218441712933044, guid: 5792a303245743c4a88b3076930e0fa2, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -559,13 +579,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: engine_particles (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2000134298349901944, guid: 5792a303245743c4a88b3076930e0fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3073256279633522164, guid: 5792a303245743c4a88b3076930e0fa2, type: 3}
       propertyPath: m_Name
       value: Small_Engine_Particles (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3073256279633522164, guid: 5792a303245743c4a88b3076930e0fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5222794966400750603, guid: 5792a303245743c4a88b3076930e0fa2, type: 3}
       propertyPath: m_Name
       value: internal_engine_particles (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222794966400750603, guid: 5792a303245743c4a88b3076930e0fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7702631495539958095, guid: 5792a303245743c4a88b3076930e0fa2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -642,6 +674,10 @@ PrefabInstance:
     - target: {fileID: 4360462783298528056, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
       propertyPath: m_Name
       value: ship_part_hullGen
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360462783298528056, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7449004084674276617, guid: b0576c1250e194246b7a6760de11ce4d, type: 3}
       propertyPath: hullData
