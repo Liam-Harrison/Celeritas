@@ -53,7 +53,7 @@ namespace Celeritas.Game.Entities
 			{
 				if (item == null)
 					continue;
-
+				
 				Inventory.Add(item);
 			}
 
@@ -85,10 +85,13 @@ namespace Celeritas.Game.Entities
 		{
 			base.OnDespawned();
 
-			foreach (var module in HullManager.Modules)
+			if (HullManager != null && HullManager.Modules != null)
 			{
-				if (module != null)
-					module.RemoveModule();
+				foreach (var module in HullManager.Modules)
+				{
+					if (module != null)
+						module.RemoveModule();
+				}
 			}
 		}
 	}

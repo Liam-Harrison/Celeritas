@@ -33,10 +33,10 @@ namespace Celeritas.Game
 		private HullData hullData;
 
 		// Internal
-		private GameObject hullGroup;
-		private GameObject moduleGroup;
-		private GameObject wallGroup;
-		private GameObject floorGroup;
+		private Transform hullGroup;
+		private Transform moduleGroup;
+		private Transform wallGroup;
+		private Transform floorGroup;
 
 		public Module[,] Modules { get; private set; }
 
@@ -70,7 +70,7 @@ namespace Celeritas.Game
 		private void Start()
 		{
 			GenerateAll();
-			hullGroup.SetActive(false);
+			hullGroup.gameObject.SetActive(false);
 		}
 
 		private void OnEnable()
@@ -129,9 +129,11 @@ namespace Celeritas.Game
 		{
 			SetupMasterGroup();
 			if (wallGroup != null) DestroyImmediate(wallGroup.gameObject);
-			wallGroup = new GameObject(nameof(wallGroup));
-			wallGroup.transform.position = transform.position;
+
+			wallGroup = new GameObject(nameof(wallGroup)).transform;
 			wallGroup.transform.parent = hullGroup.transform;
+			wallGroup.transform.localPosition = Vector3.zero;
+			wallGroup.transform.localRotation = Quaternion.identity;
 
 			hullData.HullLayout.ForEach((x, y) =>
 			{
@@ -145,8 +147,9 @@ namespace Celeritas.Game
 						if (newX >= 0 && newX < hullData.HullLayout.GetLength(0) && newY >= 0 && newY < hullData.HullLayout.GetLength(1))
 						{
 							bool cell = hullData.HullLayout[newX, newY];
-							if (cell == false) // If there is space
+							if (cell == false)
 							{
+								// If there is space
 								PlaceWall(x, y, pair.Key, wallGroup);
 							}
 						}
@@ -179,9 +182,10 @@ namespace Celeritas.Game
 				Destroy(floorGroup.gameObject);
 			}
 
-			floorGroup = new GameObject(nameof(floorGroup));
-			floorGroup.transform.position = transform.position;
+			floorGroup = new GameObject(nameof(floorGroup)).transform;
 			floorGroup.transform.parent = hullGroup.transform;
+			floorGroup.transform.localPosition = Vector3.zero;
+			floorGroup.transform.localRotation = Quaternion.identity;
 
 			Modules = new Module[hullData.HullLayout.GetLength(0), hullData.HullLayout.GetLength(1)];
 
@@ -226,11 +230,12 @@ namespace Celeritas.Game
 			if (moduleGroup != null)
 				Destroy(moduleGroup.gameObject);
 
-			moduleGroup = new GameObject(nameof(moduleGroup));
-			moduleGroup.transform.position = transform.position;
+			moduleGroup = new GameObject(nameof(moduleGroup)).transform;
 			moduleGroup.transform.parent = hullGroup.transform;
+			moduleGroup.transform.localPosition = Vector3.zero;
+			moduleGroup.transform.localRotation = Quaternion.identity;
 
-			moduleGroup.transform.rotation = FindObjectOfType<PlayerShipEntity>().gameObject.transform.rotation;
+			//moduleGroup.transform.rotation = FindObjectOfType<PlayerShipEntity>().gameObject.transform.rotation;
 
 			for (int x = 0; x < hullData.HullLayout.GetLength(0); x++)
 			{
@@ -250,11 +255,13 @@ namespace Celeritas.Game
 								var newCell = Entites[newX, newY];
 
 								if (newCell != originalCell)
-								{ // If cell does not match neighbour
+								{
+									// If cell does not match neighbour
 									PlaceWall(x, y, pair.Key, moduleGroup);
 								}
-								else if (newCell == null) // If there is space
+								else if (newCell == null)
 								{
+									// If there is space
 									PlaceWall(x, y, pair.Key, moduleGroup);
 								}
 
@@ -269,9 +276,10 @@ namespace Celeritas.Game
 		{
 			if (hullGroup == null)
 			{
-				hullGroup = new GameObject(nameof(hullGroup));
-				hullGroup.transform.position = transform.position;
+				hullGroup = new GameObject(nameof(hullGroup)).transform;
 				hullGroup.transform.parent = transform;
+				hullGroup.transform.localPosition = Vector3.zero;
+				hullGroup.transform.localRotation = Quaternion.identity;
 			}
 		}
 
@@ -295,12 +303,12 @@ namespace Celeritas.Game
 			if (hullGroup != null) DestroyImmediate(hullGroup.gameObject);
 		}
 
-		private void PlaceWall(int x, int y, Direction dir, GameObject group)
+		private void PlaceWall(int x, int y, Direction dir, Transform group)
 		{
-			var coords = GetWorldPositionGrid(x, y);
-			var wall = Instantiate(hullWall, coords, Quaternion.identity);
+			var wall = Instantiate(hullWall);
 
-			wall.transform.parent = group.gameObject.transform;
+			wall.transform.parent = group;
+			wall.transform.position = GetWorldPositionGrid(x, y);
 			wall.transform.localRotation = Quaternion.Euler(0, 90, -90);
 
 			switch (dir)
@@ -326,17 +334,17 @@ namespace Celeritas.Game
 			}
 		}
 
-		private void PlaceFloor(int x, int y, GameObject parent)
+		private void PlaceFloor(int x, int y, Transform parent)
 		{
-			Vector3 coords = GetWorldPositionGrid(x, y);
-
-			var floor = Instantiate(hullFloor, coords, Quaternion.identity);
+			var floor = Instantiate(hullFloor);
 			floor.name = $"[{x},{y}]";
 			Modules[x, y] = floor.GetComponent<Module>();
 			Modules[x, y].Initalize(PlayerShipEntity);
 			PlayerShipEntity.Modules.Add(Modules[x, y]);
 
-			floor.transform.parent = parent.transform;
+			floor.transform.parent = parent;
+			floor.transform.position = GetWorldPositionGrid(x, y);
+			floor.transform.localRotation = Quaternion.identity;
 		}
 
 		private void OnDrawGizmos()
@@ -357,7 +365,7 @@ namespace Celeritas.Game
 
 		private void OnGameStateChanged(GameState state)
 		{
-			hullGroup.SetActive(state == GameState.BUILD);
+			hullGroup.gameObject.SetActive(state == GameState.BUILD);
 		}
 
 		private void onAnyDataChanged()
