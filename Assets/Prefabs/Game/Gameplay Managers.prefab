@@ -96,8 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   asteroidPrefab: {fileID: 11400000, guid: 4e070eb5255e47b46bc6150fdd4b5375, type: 2}
-  numberOfRandomAsteroids: 3
-  numberOfAsteroidClusters: 1
-  asteroidNumberPerCluster: 4
-  asteroidClusterSpacing: 5
-  chunkSize: {x: 100, y: 100}
+  numberOfRandomAsteroids: 5
+  numberOfAsteroidClusters: 2
+  asteroidNumberPerCluster: 3
+  minDistanceFromPlayer: 15
