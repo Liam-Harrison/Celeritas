@@ -61,6 +61,7 @@ namespace Assets.Scripts.Scriptables.Systems
 			// calculate size delta per second
 			data.sizeChangePerSecond = (endSize - startSize) / duration_s;
 
+			// the problem is here now I think c: 
 			//entity.transform.localScale = new Vector3(startSize, startSize, startSize);
 			entity.transform.localScale = startSize * entity.transform.localScale;
 			//entity.transform.localScale = GetVectorWithMagnitude(startSize);
