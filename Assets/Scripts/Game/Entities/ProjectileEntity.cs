@@ -91,16 +91,18 @@ namespace Celeritas.Game.Entities
 
 			if (damageOverDistance)
 			{
-				other.TakeDamage(this, CalculatedDamageOverDistance(damage, damagePercentageOverDistance, maxDistance));
+				other.TakeDamage(this, currentDamageOverDistance);
+				//Debug.Log("Damage Dealt: " + currentDamageOverDistance);
 			}
 			else
 			{
 				other.TakeDamage(this, damage);
 			}
-				
 
 			if (ProjectileData.DestroyedOnHit)
 				KillEntity();
+
+			totalDistanceTravelled = 0;
 
 			base.OnEntityHit(other);
 		}
@@ -124,8 +126,6 @@ namespace Celeritas.Game.Entities
 
 			Position += Forward * ProjectileData.Speed * SpeedModifier * Time.smoothDeltaTime;
 
-			RecordDistance();
-
 			if (TimeAlive >= ProjectileData.Lifetime)
 			{
 				Dying = true; // workaround
@@ -136,60 +136,29 @@ namespace Celeritas.Game.Entities
 		}
 
 		/// <summary>
+		/// Determines whether to add damageOverDistance
+		/// </summary>
+		public bool damageOverDistance = false;
+
+		/// <summary>
 		/// Used to record the total distance the projectile has travelled.
 		/// </summary>
 		private float totalDistanceTravelled;
 
+		public float TotalDistanceTravelled { get => totalDistanceTravelled; set => totalDistanceTravelled = value; }
+
 		/// <summary>
-        /// The location of the projectile in the previous update
-        /// </summary>
+		/// The location of the projectile in the previous update
+		/// </summary>
 		private Vector3 previousLocation;
 
-		private void RecordDistance()
-		{
-			totalDistanceTravelled = totalDistanceTravelled + Vector3.Distance(transform.position, previousLocation);
-			previousLocation = transform.position;
-		}
+		public Vector3 PreviousLocation { get => previousLocation; set => previousLocation = value; }
 
 		/// <summary>
-        /// Determines whether to add damageOverDistance
-        /// </summary>
-		public bool damageOverDistance = false;
-
-		private int damagePercentageOverDistance = 0;
-
-		private int maxDistance = 0;
-
-		/// <summary>
-		/// The bonus percentage of damage that will increase per metre until the cap is met
+		/// A seperate value for current damage value if damageOverDistance = true
 		/// </summary>
-		public int DamagePercentageOverDistance { get => damagePercentageOverDistance; set => damagePercentageOverDistance = value; }
+		private int currentDamageOverDistance = 0;
 
-		/// <summary>
-		/// The maximum distance in which the bonus damage will be capped
-		/// </summary>
-		public int MaxDistance { get => maxDistance; set => maxDistance = value; }
-
-		private int CalculatedDamageOverDistance(float damage, int percentage, int maxDistance)
-		{
-			int calculatedDamage = 0;
-			int damageModifierPercentage = 0;
-
-			maxDistance = maxDistance * 10;
-
-			if (totalDistanceTravelled >= maxDistance)
-			{
-				damageModifierPercentage = percentage * (maxDistance / 10);
-			}
-			if (totalDistanceTravelled < maxDistance)
-			{
-				damageModifierPercentage = (Mathf.RoundToInt(totalDistanceTravelled / 10)) * percentage;
-			}
-
-			calculatedDamage = calculatedDamage = Mathf.RoundToInt((damage + (damage / 100) * damageModifierPercentage));
-
-			totalDistanceTravelled = 0;
-			return calculatedDamage;
-		}
+		public int CurrentDamageOverDistance { get => currentDamageOverDistance; set => currentDamageOverDistance = value; }
 	}
 }
