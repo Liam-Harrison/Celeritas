@@ -8,22 +8,16 @@ namespace Celeritas.Game.Entities
 	/// <summary>
 	/// The game entity for a weapon.
 	/// </summary>
-	[RequireComponent(typeof(AudioSource))]
 	public class WeaponEntity : ModuleEntity
 	{
 		[SerializeField, TitleGroup("Weapon Settings")]
 		private Transform projectileSpawn;
 
 		[SerializeField, TitleGroup("Weapon Settings")]
-		private AudioClip fired;
-
-		[SerializeField, TitleGroup("Weapon Settings")]
 		private bool hasDefaultProjectileEffects;
 
 		[SerializeField, TitleGroup("Weapon Settings"), ShowIf(nameof(hasDefaultProjectileEffects))]
 		private EffectWrapper[] projectileEffects;
-
-		private AudioSource source;
 
 		private uint rateOfFire;
 		private float maxCharge = 10.0f;
@@ -50,11 +44,6 @@ namespace Celeritas.Game.Entities
 
 		/// <inheritdoc/>
 		public override SystemTargets TargetType { get => SystemTargets.Weapon; }
-
-		private void Awake()
-		{
-			source = GetComponent<AudioSource>();
-		}
 
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
@@ -125,9 +114,6 @@ namespace Celeritas.Game.Entities
 			var projectile = EntityDataManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile, projectileSpawn.position, projectileSpawn.rotation, this, ProjectileEffects.EffectWrapperCopy);
 			projectile.transform.localScale = projectileSpawn.localScale;
 			EntityEffects.EntityFired(projectile);
-
-			if (fired != null)
-				source.PlayOneShot(fired);
 		}
 	}
 }

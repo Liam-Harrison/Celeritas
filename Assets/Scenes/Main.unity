@@ -4976,6 +4976,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &1030612622 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1764990479278046678, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
+  m_PrefabInstance: {fileID: 1764990479629972339}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1030612624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030612622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 958d4ac57b021644ead492ed05f5e358, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 11400000, guid: e24c2bc119d8ead46b436132d2efd14d, type: 2}
+  - {fileID: 11400000, guid: 99f66b541189bca4a8819658975a6238, type: 2}
+  - {fileID: 11400000, guid: 97428d52a60fe1745adfc20f0f38dcd7, type: 2}
+  - {fileID: 11400000, guid: 2c0b863281769314c864fd8f745b75bb, type: 2}
+  source: {fileID: 1030612625}
+--- !u!82 &1030612625 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1764990479278046676, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
+  m_PrefabInstance: {fileID: 1764990479629972339}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1251141672
 GameObject:
   m_ObjectHideFlags: 0
@@ -5457,15 +5485,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8531167039024123503, guid: d2172ba3cb7fc8a4785379e88f03d366, type: 3}
       propertyPath: m_ChildCameras.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8531167039024123503, guid: d2172ba3cb7fc8a4785379e88f03d366, type: 3}
-      propertyPath: m_ParentHash.Array.data[0].m_Hash
-      value: -2133714340
-      objectReference: {fileID: 0}
-    - target: {fileID: 8531167039024123503, guid: d2172ba3cb7fc8a4785379e88f03d366, type: 3}
-      propertyPath: m_Instructions.Array.data[0].m_FullHash
-      value: -2133714340
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8531167039024123504, guid: d2172ba3cb7fc8a4785379e88f03d366, type: 3}
       propertyPath: m_RootOrder

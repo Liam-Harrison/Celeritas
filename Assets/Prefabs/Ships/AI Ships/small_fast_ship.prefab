@@ -84,7 +84,6 @@ MonoBehaviour:
   engineEffects:
   - {fileID: 2496458183196151647}
   - {fileID: 7285034985057098954}
-  damageModifierPercentage: 0
 --- !u!50 &2516558698829045451
 Rigidbody2D:
   serializedVersion: 4
@@ -98,7 +97,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 5
+  m_LinearDrag: 1
   m_AngularDrag: 5
   m_GravityScale: 0
   m_Material: {fileID: 0}

@@ -53,7 +53,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     angularDrag: 5
     rotationMaximum: 180
-    aimDeadzone: 0.995
+    aimDeadzone: 0.9975
     forcePerSec: 21000
     mass: 50
   rarity: 0

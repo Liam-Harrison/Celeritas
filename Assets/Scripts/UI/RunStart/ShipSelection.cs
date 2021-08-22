@@ -1,4 +1,3 @@
-using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Cinemachine;
@@ -52,11 +51,6 @@ namespace Celeritas.UI.Runstart
 				SetupData();
 			else
 				EntityDataManager.OnLoadedAssets += SetupData;
-		}
-
-		private void Start()
-		{
-			GameStateManager.Instance.SetGameState(GameState.BACKGROUND);
 		}
 
 		private void OnEnable()

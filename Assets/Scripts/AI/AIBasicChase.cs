@@ -11,7 +11,7 @@ namespace Celeritas.AI
 		/// <summary>
 		/// The range this AI will keep from the player.
 		/// </summary>
-		public float Range { get; set; } = 30f;
+		public float Range { get; set; } = 15f;
 
 		/// <inheritdoc/>
 		public override float Deadzone => 1f;

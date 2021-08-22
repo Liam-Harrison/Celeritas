@@ -62,7 +62,7 @@ namespace Celeritas.UI
 		/// <param name="entity">The entity to track.</param>
 		public void TrackEntity(Entity entity)
 		{
-			if (entity is ModuleEntity || entity is ProjectileEntity)
+			if (entity is ModuleEntity)
 				return;
 
 			var marker = pooledMarkers.GetPooledObject();

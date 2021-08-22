@@ -12,14 +12,11 @@ namespace Celeritas.Game.Entities
 	{
 		private static Vector2Int BaseInventorySize = new Vector2Int(8, 4);
 
-		[SerializeField, Range(1, 50), TitleGroup("Camera", "Size settings for various modes.")]
+		[SerializeField, Range(1, 50), Title("Camera")]
 		private float selectionViewSize = 8;
 
-		[SerializeField, Range(1, 50), TitleGroup("Camera", "Size settings for various modes.")]
+		[SerializeField, Range(1, 50)]
 		private float gameViewSize = 25;
-
-		[SerializeField, Range(1, 50), TitleGroup("Camera", "Size settings for various modes.")]
-		private float buildViewSize = 30;
 
 		[Title("Inventory"), SerializeField, OnValueChanged(nameof(onLayoutResolutionChange))]
 		private Vector2Int inventorySize = BaseInventorySize;
