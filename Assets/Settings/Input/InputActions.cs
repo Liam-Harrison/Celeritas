@@ -183,7 +183,7 @@ namespace Celeritas
                 {
                     ""name"": """",
                     ""id"": ""f7da7a28-2901-4f64-81b8-b8e5bac5d23d"",
-                    ""path"": ""<Keyboard>/v"",
+                    ""path"": ""<Keyboard>/n"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controls"",
