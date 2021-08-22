@@ -64,7 +64,6 @@ namespace Celeritas.Game.Entities
 			{
 				trail.Clear();
 			}
-
 			base.OnDespawned();
 		}
 
@@ -90,7 +89,15 @@ namespace Celeritas.Game.Entities
 				}
 			}
 
-			other.TakeDamage(this, damage);
+			if (damageOverDistance)
+			{
+				other.TakeDamage(this, CalculatedDamageOverDistance(damage, damagePercentageOverDistance, maxDistance));
+			}
+			else
+			{
+				other.TakeDamage(this, damage);
+			}
+				
 
 			if (ProjectileData.DestroyedOnHit)
 				KillEntity();
@@ -117,6 +124,11 @@ namespace Celeritas.Game.Entities
 
 			Position += Forward * ProjectileData.Speed * SpeedModifier * Time.smoothDeltaTime;
 
+			if (recordDistance == true)
+			{
+				RecordDistance();
+			}
+
 			if (TimeAlive >= ProjectileData.Lifetime)
 			{
 				Dying = true; // workaround
@@ -124,6 +136,64 @@ namespace Celeritas.Game.Entities
 			}
 
 			base.Update();
+		}
+
+		/// <summary>
+		/// Used to record the total distance the projectile has travelled.
+		/// </summary>
+		public float totalDistanceTravelled;
+
+		/// <summary>
+        /// Determines whether the projectile's distance travelled will be recorded.
+        /// </summary>
+		public bool recordDistance = true;
+
+		/// <summary>
+        /// The location of the projectile in the previous update
+        /// </summary>
+		private Vector3 previousLocation;
+
+		private void RecordDistance()
+		{
+			totalDistanceTravelled = totalDistanceTravelled + Vector3.Distance(transform.position, previousLocation);
+			previousLocation = transform.position;
+		}
+
+		/// <summary>
+        /// Determines whether to add damageOverDistance
+        /// </summary>
+		public bool damageOverDistance = false;
+
+		private int damagePercentageOverDistance = 0;
+
+		private int maxDistance = 0;
+
+		public int DamagePercentageOverDistance { get => damagePercentageOverDistance; set => damagePercentageOverDistance = value; }
+
+		public int MaxDistance { get => maxDistance; set => maxDistance = value; }
+
+		private int CalculatedDamageOverDistance(float damage, int percentage, int maxDistance)
+		{
+			int calculatedDamage = 0;
+			int damageModifierPercentage = 0;
+
+			maxDistance = maxDistance * 10;
+
+			if (totalDistanceTravelled >= maxDistance)
+			{
+				damageModifierPercentage = percentage * (maxDistance / 10);
+				//Debug.Log("Damage percentage: " + damageModifierPercentage);
+			}
+			if (totalDistanceTravelled < maxDistance)
+			{
+				damageModifierPercentage = (Mathf.RoundToInt(totalDistanceTravelled / 10)) * percentage;
+				//Debug.Log("Damage percentage: " + damageModifierPercentage);
+			}
+
+			calculatedDamage = calculatedDamage = Mathf.RoundToInt((damage + (damage / 100) * damageModifierPercentage));
+			//Debug.Log("Damage dealt: " + calculatedDamage);
+			totalDistanceTravelled = 0;
+			return calculatedDamage;
 		}
 	}
 }
