@@ -124,10 +124,7 @@ namespace Celeritas.Game.Entities
 
 			Position += Forward * ProjectileData.Speed * SpeedModifier * Time.smoothDeltaTime;
 
-			if (recordDistance == true)
-			{
-				RecordDistance();
-			}
+			RecordDistance();
 
 			if (TimeAlive >= ProjectileData.Lifetime)
 			{
@@ -141,12 +138,7 @@ namespace Celeritas.Game.Entities
 		/// <summary>
 		/// Used to record the total distance the projectile has travelled.
 		/// </summary>
-		public float totalDistanceTravelled;
-
-		/// <summary>
-        /// Determines whether the projectile's distance travelled will be recorded.
-        /// </summary>
-		public bool recordDistance = true;
+		private float totalDistanceTravelled;
 
 		/// <summary>
         /// The location of the projectile in the previous update
@@ -168,8 +160,14 @@ namespace Celeritas.Game.Entities
 
 		private int maxDistance = 0;
 
+		/// <summary>
+		/// The bonus percentage of damage that will increase per metre until the cap is met
+		/// </summary>
 		public int DamagePercentageOverDistance { get => damagePercentageOverDistance; set => damagePercentageOverDistance = value; }
 
+		/// <summary>
+		/// The maximum distance in which the bonus damage will be capped
+		/// </summary>
 		public int MaxDistance { get => maxDistance; set => maxDistance = value; }
 
 		private int CalculatedDamageOverDistance(float damage, int percentage, int maxDistance)
@@ -182,16 +180,14 @@ namespace Celeritas.Game.Entities
 			if (totalDistanceTravelled >= maxDistance)
 			{
 				damageModifierPercentage = percentage * (maxDistance / 10);
-				//Debug.Log("Damage percentage: " + damageModifierPercentage);
 			}
 			if (totalDistanceTravelled < maxDistance)
 			{
 				damageModifierPercentage = (Mathf.RoundToInt(totalDistanceTravelled / 10)) * percentage;
-				//Debug.Log("Damage percentage: " + damageModifierPercentage);
 			}
 
 			calculatedDamage = calculatedDamage = Mathf.RoundToInt((damage + (damage / 100) * damageModifierPercentage));
-			//Debug.Log("Damage dealt: " + calculatedDamage);
+
 			totalDistanceTravelled = 0;
 			return calculatedDamage;
 		}

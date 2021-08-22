@@ -43,7 +43,7 @@ namespace Celeritas.Scriptables.Systems
 
 		/// <summary>
 		/// How much extra percent damage the projectile gets from this modifier, per level
-		/// So total extra percent damage == (MaxDamage) + (PercentageExtraLevel * level)
+		/// So total extra percent damage == (percentage) + (PercentageExtraLevel * level)
 		/// </summary>
 		public int PercentageExtraPerLevel { get => percentageExtraPerLevel; }
 

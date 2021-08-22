@@ -124,7 +124,6 @@ namespace Celeritas.Game.Entities
 		{
 			var projectile = EntityDataManager.InstantiateEntity<ProjectileEntity>(WeaponData.Projectile, projectileSpawn.position, projectileSpawn.rotation, this, ProjectileEffects.EffectWrapperCopy);
 			projectile.transform.localScale = projectileSpawn.localScale;
-			projectile.totalDistanceTravelled = 0.0f;
 			EntityEffects.EntityFired(projectile);
 
 			if (fired != null)

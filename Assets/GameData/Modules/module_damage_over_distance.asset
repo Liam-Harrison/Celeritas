@@ -63,13 +63,13 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  title: 
-  prefab: {fileID: 0}
+  title: Energy Convalescence Drive
+  prefab: {fileID: 1829948246719290148, guid: a53bc5b8f0afc54408d5a42ae171ded7, type: 3}
   capacityHint: 1
   useChunking: 0
   size: 0
   catagory: 0
   rarity: 1
-  icon: {fileID: 21300000, guid: e0a23195c7c1244478c153d6f913bbdc, type: 3}
-  description: "Increased projectile damage per metre travelled\r until cap is met."
+  icon: {fileID: 21300000, guid: e0526b249dec66940adc72cf27447828, type: 3}
+  description: Increased projectile damage per metre travelled.
   shape: 4
