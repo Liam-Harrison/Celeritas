@@ -29,7 +29,7 @@ namespace Celeritas.UI
 
 		private void OnGameStateChanged(GameState state)
 		{
-			combatHud.gameObject.SetActive(state == GameState.PLAY);
+			combatHud.gameObject.SetActive(state == GameState.BACKGROUND || state == GameState.WAVE);
 			buildHud.gameObject.SetActive(state == GameState.BUILD);
 		}
 
@@ -37,7 +37,7 @@ namespace Celeritas.UI
 		[ButtonGroup]
 		private void ShowPlayHud()
 		{
-			OnGameStateChanged(GameState.PLAY);
+			OnGameStateChanged(GameState.BACKGROUND);
 		}
 
 		[ButtonGroup]

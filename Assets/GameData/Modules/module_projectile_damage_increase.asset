@@ -72,4 +72,4 @@ MonoBehaviour:
   rarity: 0
   icon: {fileID: 21300000, guid: e0526b249dec66940adc72cf27447828, type: 3}
   description: Increases Projectile damage
-  shape: 6
+  shape: 2

@@ -22,6 +22,7 @@ namespace Celeritas.Game
 
 		protected void Start()
 		{
+			GameStateManager.Instance.SetGameState(GameState.BACKGROUND);
 			if (EntityDataManager.Instance.Loaded)
 			{
 				CreatePlayerShip();

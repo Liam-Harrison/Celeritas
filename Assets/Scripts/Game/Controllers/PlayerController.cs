@@ -94,13 +94,13 @@ namespace Celeritas.Game.Controllers
 		{
 			if (context.canceled && !WaveManager.Instance.WaveActive)
 			{
-				if (GameStateManager.Instance.GameState == GameState.PLAY)
+				if (GameStateManager.Instance.GameState == GameState.BACKGROUND)
 				{
 					GameStateManager.Instance.SetGameState(GameState.BUILD);
 				}
 				else
 				{
-					GameStateManager.Instance.SetGameState(GameState.PLAY);
+					GameStateManager.Instance.SetGameState(GameState.BACKGROUND);
 				}
 			}
 		}

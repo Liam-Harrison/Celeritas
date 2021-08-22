@@ -250,7 +250,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 5
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -281,6 +281,11 @@ MonoBehaviour:
     SerializationNodes: []
   hasDefaultEffects: 0
   defaultEffects: []
+  hasGraphicalEffects: 0
+  onDestroyEffectPrefab: {fileID: 0}
+  timeToPlayOnDestroyEffect: 0
+  onHitEffectPrefab: {fileID: 0}
+  timeToPlayOnHitEffect: 0
   modules:
   - {fileID: 7917742191879188431}
   - {fileID: 3630636677728739397}
@@ -306,6 +311,7 @@ MonoBehaviour:
   - {fileID: 857107037770587382}
   - {fileID: 864101811456050592}
   - {fileID: 5494813490680239669}
+  damageModifierPercentage: 0
 --- !u!1 &7826933212656158073
 GameObject:
   m_ObjectHideFlags: 0
