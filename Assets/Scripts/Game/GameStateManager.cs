@@ -7,21 +7,23 @@ namespace Celeritas.Game
 	/// </summary>
 	public enum GameState
 	{
+		BACKGROUND,
 		BUILD,
-		PLAY,
 		WAVE,
-		BOSS,
-		SPACE_STATION
+		BOSS
 	}
 
 	public class GameStateManager : Singleton<GameStateManager>
 	{
-		public GameState GameState { get; private set; } = GameState.PLAY;
+		public GameState GameState { get; private set; } = GameState.BACKGROUND;
 
 		public static event Action<GameState> onStateChanged;
 
 		public void SetGameState(GameState state)
 		{
+			if (state == GameState)
+				return;
+
 			GameState = state;
 			onStateChanged?.Invoke(state);
 		}

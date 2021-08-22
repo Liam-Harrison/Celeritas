@@ -36,8 +36,7 @@ namespace Celeritas.Game
 		public void StartWave()
 		{
 			WaveActive = true;
-			//waveIndex = (int)Mathf.Repeat(waveIndex, data.Length - 1);
-			Debug.Log("WaveIndex: " + waveIndex);
+
 			var wave = data[waveIndex];
 			ships[wave] = new List<ShipEntity>();
 
@@ -57,6 +56,8 @@ namespace Celeritas.Game
 			{
 				waveIndex = 0;
 			}
+
+			GameStateManager.Instance.SetGameState(GameState.WAVE);
 		}
 
 		private Dictionary<WaveData, List<ShipEntity>> ships = new Dictionary<WaveData, List<ShipEntity>>();
@@ -94,8 +95,8 @@ namespace Celeritas.Game
 				waveIndex = 0;
 
 			OnWaveEnded?.Invoke();
+			GameStateManager.Instance.SetGameState(GameState.BACKGROUND);
 		}
-
 	}
 }
 

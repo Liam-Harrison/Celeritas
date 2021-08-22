@@ -22,8 +22,9 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Small Ship
-  capacityHint: 10
   prefab: {fileID: 2516558698829045457, guid: 1dc20ec7ee32d0a4c92b973a2649fea6, type: 3}
+  capacityHint: 10
+  useChunking: 0
   movementSettings:
     torquePerSec: {x: 40, y: 160}
     rotationCurve:
@@ -51,10 +52,11 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     angularDrag: 5
-    rotationMaximum: 75
+    rotationMaximum: 180
     aimDeadzone: 0.995
     forcePerSec: 1000
     mass: 0.5
+  rarity: 0
   shipClass: 0
   icon: {fileID: 0}
   description: 

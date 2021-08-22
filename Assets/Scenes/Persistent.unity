@@ -2582,10 +2582,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
-    - target: {fileID: 8311238803889004164, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004166, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2630,37 +2626,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8311238803889004184, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
-      propertyPath: m_ClearFlags
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8311238803889004184, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
-      propertyPath: field of view
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 8311238803889004184, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
-      propertyPath: orthographic size
-      value: 25
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
---- !u!1 &8311238803136293578 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8311238803889004164, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
-  m_PrefabInstance: {fileID: 8311238803136293577}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8311238803136293579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8311238803136293578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f28c156f7a9ed8b4bae883883f9c937d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!20 &8311238803136293583 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 8311238803889004184, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}

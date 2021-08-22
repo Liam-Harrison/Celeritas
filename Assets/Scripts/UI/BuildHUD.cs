@@ -1,14 +1,13 @@
 using Celeritas.Game.Controllers;
+using Celeritas.Game.Entities;
+using Celeritas.Scriptables;
 using Celeritas.UI.Inventory;
+using Celeritas.UI.Tooltips;
 using Sirenix.OdinInspector;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using Celeritas;
-using Celeritas.Scriptables;
-using Celeritas.Game.Entities;
-using System.Linq;
-using Celeritas.UI.Tooltips;
 
 namespace Celeritas.UI
 {
