@@ -1,6 +1,0 @@
-- name: Unity - Builder
-  uses: game-ci/unity-builder@v2.0-alpha-11
-  env:
-    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-  with:
-    targetPlatform: WebGL
