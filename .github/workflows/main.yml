@@ -3,7 +3,7 @@ name: Unity Actions
 on: [push, pull_request]
 
 jobs:
-  build:
+  buildWIN:
     name: Build Windows ✨
     runs-on: ubuntu-latest
     steps:
@@ -36,9 +36,7 @@ jobs:
         with:
           name: Celeritas-Windows64
           path: build
-
-jobs:
-  build:
+  buildOSX:
     name: Build OSX ✨
     runs-on: ubuntu-latest
     steps:
