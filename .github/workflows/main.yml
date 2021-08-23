@@ -21,7 +21,11 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          targetPlatform: StandaloneWindows
+          unityVersion: 2020.2.2f1
+          targetPlatform: 
+            - StandaloneWindows64
+            - StandaloneLinux64
+            - StandaloneOSX
           versioning: Semantic
 
       # Output
