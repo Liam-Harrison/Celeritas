@@ -75,12 +75,12 @@ namespace Celeritas.Game
 
 		private void OnEnable()
 		{
-			GameStateManager.onStateChanged += OnGameStateChanged;
+			GameStateManager.onStateChanged += OnStateChanged;
 		}
 
 		private void OnDisable()
 		{
-			GameStateManager.onStateChanged -= OnGameStateChanged;
+			GameStateManager.onStateChanged -= OnStateChanged;
 		}
 
 		public Vector3 GetWorldPositionGrid(int x, int y)
@@ -380,7 +380,7 @@ namespace Celeritas.Game
 			});
 		}
 
-		private void OnGameStateChanged(GameState state)
+		private void OnStateChanged(GameState old, GameState state)
 		{
 			hullGroup.gameObject.SetActive(state == GameState.BUILD);
 		}

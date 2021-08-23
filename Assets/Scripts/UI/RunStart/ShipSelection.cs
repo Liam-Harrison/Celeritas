@@ -54,11 +54,6 @@ namespace Celeritas.UI.Runstart
 				EntityDataManager.OnLoadedAssets += SetupData;
 		}
 
-		private void Start()
-		{
-			GameStateManager.Instance.SetGameState(GameState.BACKGROUND);
-		}
-
 		private void OnEnable()
 		{
 			StopAllCoroutines();

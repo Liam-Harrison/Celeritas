@@ -14,37 +14,23 @@ namespace Celeritas.UI
 
 		private void Start()
 		{
-			OnGameStateChanged(GameStateManager.Instance.GameState);
+			OnStateChanged(GameState.MAINMENU, GameStateManager.Instance.GameState);
 		}
 
 		private void OnEnable()
 		{
-			GameStateManager.onStateChanged += OnGameStateChanged;
+			GameStateManager.onStateChanged += OnStateChanged;
 		}
 
 		private void OnDisable()
 		{
-			GameStateManager.onStateChanged -= OnGameStateChanged;
+			GameStateManager.onStateChanged -= OnStateChanged;
 		}
 
-		private void OnGameStateChanged(GameState state)
+		private void OnStateChanged(GameState old, GameState state)
 		{
 			combatHud.gameObject.SetActive(state == GameState.BACKGROUND || state == GameState.WAVE);
 			buildHud.gameObject.SetActive(state == GameState.BUILD);
 		}
-
-#if UNITY_EDITOR
-		[ButtonGroup]
-		private void ShowPlayHud()
-		{
-			OnGameStateChanged(GameState.BACKGROUND);
-		}
-
-		[ButtonGroup]
-		private void ShowBuildHud()
-		{
-			OnGameStateChanged(GameState.BUILD);
-		}
-#endif
 	}
 }

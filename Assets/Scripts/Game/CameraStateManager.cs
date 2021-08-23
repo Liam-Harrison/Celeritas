@@ -34,7 +34,7 @@ namespace Celeritas.Game
 			GameStateManager.onStateChanged -= OnStateChanged;
 		}
 
-		private void OnStateChanged(GameState state)
+		private void OnStateChanged(GameState old, GameState state)
 		{
 			animator.Play(state.ToString());
 		}

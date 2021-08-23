@@ -1,5 +1,132 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &17649864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 17649866}
+  - component: {fileID: 17649865}
+  m_Layer: 0
+  m_Name: Secondary Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &17649866
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17649864}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8311238803889004166}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &17649865
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17649864}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.25
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8311238803889004164
 GameObject:
   m_ObjectHideFlags: 0
@@ -33,7 +160,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.14, y: 4.09, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 17649866}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -84,7 +212,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 25
+  orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -179,19 +307,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   music:
-  - state: 0
-    clips:
-    - {fileID: 8300000, guid: 0d574fbafd913f944aacbf52f6f0678e, type: 3}
-    - {fileID: 8300000, guid: 724e3f4c6c7472f4e948d055a055ef4e, type: 3}
-  - state: 2
-    clips:
-    - {fileID: 8300000, guid: b71c51c14e9f0034385be61a78b1c2c8, type: 3}
-    - {fileID: 8300000, guid: f8c9ded59c8b5f24da9a34a9ad349dab, type: 3}
-    - {fileID: 8300000, guid: 89110d07a373adb40921f4d7c43ec502, type: 3}
-  - state: 3
-    clips:
-    - {fileID: 8300000, guid: df27f34a81c96ff45a9a92c044e07015, type: 3}
-  source: {fileID: 8311238803136293580}
+    all: {fileID: 8300000, guid: 4608d8b8c3753334288d8c4e3f603f4c, type: 3}
+    bed: {fileID: 8300000, guid: ff38d2a2466dd514c803c8927cb6baa2, type: 3}
+    loops:
+    - {fileID: 8300000, guid: 01b12248e87f5764fb8ad00c9a9d1bdc, type: 3}
+    - {fileID: 8300000, guid: e4e3a69521ed9024ba74fadb84b11989, type: 3}
+    - {fileID: 8300000, guid: e4435f21ddd69584ab97e9c6a44bf63e, type: 3}
+    waveStart: {fileID: 8300000, guid: 9044b1bbaae6182439ca903976fdbaa6, type: 3}
+    waveEnd: {fileID: 8300000, guid: 8f5965dfdf2c61a4f8a2b707909512e3, type: 3}
+    levelEnd: {fileID: 8300000, guid: e5d0f337c535ccc4abaa64a38e661d19, type: 3}
+    mainStart: {fileID: 8300000, guid: 69e0693dbc0cb2f4ba94536953c3df5f, type: 3}
+    mainLoop: {fileID: 8300000, guid: 80bc4e8a20fa32a488304dc153e3db52, type: 3}
+  primary: {fileID: 8311238803136293580}
+  secondary: {fileID: 17649865}
   musicVolume: 0.2
 --- !u!82 &8311238803136293580
 AudioSource:

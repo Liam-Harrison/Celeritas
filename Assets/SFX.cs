@@ -9,27 +9,42 @@ namespace Celeritas
 	[System.Serializable]
 	public class SFXList
 	{
-		public GameState state;
-		public List<AudioClip> clips = new List<AudioClip>();
+		public AudioClip all;
+
+		public AudioClip bed;
+
+		public List<AudioClip> loops;
+
+		public AudioClip waveStart;
+
+		public AudioClip waveEnd;
+
+		public AudioClip levelEnd;
+
+		public AudioClip mainStart;
+
+		public AudioClip mainLoop;
 	}
 
 	public class SFX : Singleton<SFX>
 	{
 		[SerializeField]
-		private List<SFXList> music;
+		private SFXList music;
 
 		[SerializeField]
-		private AudioSource source;
+		private AudioSource primary;
+
+		[SerializeField]
+		private AudioSource secondary;
 
 		[SerializeField]
 		private float musicVolume = 0.2f;
 
-		private List<AudioClip> playing;
+		private readonly List<AudioClip> sequence = new List<AudioClip>();
 
-		private void Start()
-		{
-			OnGameStateChanged(GameStateManager.Instance.GameState);
-		}
+		private int loopSequenceIndex = -1;
+		private bool loopSequenceEnd = false;
+		private bool sequenceSmooth = false;
 
 		private void OnEnable()
 		{
@@ -43,75 +58,138 @@ namespace Celeritas
 
 		void Update()
 		{
-			if (!source.isPlaying && playing != null && playing.Count > 0)
+			if (!primary.isPlaying && sequence.Count > 0)
 			{
-				var index = playing.IndexOf(source.clip);
+				var i = sequence.IndexOf(primary.clip);
+				i++;
 
-				if (++index >= playing.Count)
-					index = 0;
-
-				source.clip = playing[index];
-				source.Play();
-			}
-		}
-
-		private void OnGameStateChanged(GameState state)
-		{
-			foreach (var sfx in music)
-			{
-				if (sfx.state == state)
+				if (i == sequence.Count)
 				{
-					ChangePlaylist(sfx.clips);
-					return;
+					if (loopSequenceIndex > -1)
+						i = loopSequenceIndex;
+					else
+						sequence.Clear();
 				}
+
+				if (sequenceSmooth)
+					ChangeClipOverTime(sequence[i], i == sequence.Count - 1 && loopSequenceEnd);
+				else
+					ChangeClip(sequence[i], i == sequence.Count - 1 && loopSequenceEnd, false);
 			}
 		}
 
-		private void ChangePlaylist(List<AudioClip> list)
+		private void OnGameStateChanged(GameState old, GameState state)
 		{
-			if (list == null || list.Count == 0)
+			if (state == GameState.MAINMENU)
+			{
+				ChangeClipOverTime(music.mainLoop, true);
+			}
+			else if (state == GameState.BACKGROUND && old == GameState.MAINMENU)
+			{
+				ChangeClipOverTime(music.bed, true);
+			}
+			else if (state == GameState.BACKGROUND && old == GameState.WAVE)
+			{
+				ChangeSequence(new AudioClip[] { music.waveEnd, music.bed }, true, false, -1, true, true);
+			}
+			else if (state == GameState.BACKGROUND && old != GameState.BUILD)
+			{
+				ChangeClip(music.bed, true, true);
+			}
+			else if (state == GameState.BOSS)
+			{
+				ChangeClip(music.all, true, true);
+			}
+
+			if (state == GameState.WAVE)
+			{
+				secondary.clip = music.loops[Random.Range(0, music.loops.Count - 1)];
+				secondary.time = primary.time;
+				secondary.loop = true;
+				secondary.volume = 0;
+				secondary.Play();
+
+				if (secondary_tweener != null && secondary_tweener.active)
+					secondary_tweener.Kill();
+
+				secondary_tweener = DOTween.To(() => secondary.volume, (x) => secondary.volume = x, musicVolume + 0.05f, ChangeTime + 1);
+			}
+			else
+			{
+				secondary_tweener.Kill();
+				secondary.Stop();
+			}
+		}
+
+		private void ChangeSequence(AudioClip[] list, bool sudden, bool useTime, int loopIndex, bool loopEnd, bool fadeIn)
+		{
+			if (list == null || list.Length == 0)
 				return;
 
-			playing = list;
-			ChangeClip(list[Random.Range(0, list.Count - 1)]);
+			loopSequenceIndex = loopIndex;
+			loopSequenceEnd = loopEnd;
+			sequenceSmooth = fadeIn;
+
+			sequence.Clear();
+			sequence.AddRange(list);
+
+			if (sudden)
+				ChangeClip(sequence[0], false, useTime);
+			else
+				ChangeClipOverTime(sequence[0], false);
 		}
 
-		private const float ChangeTime = 2f;
+		private void ChangeClip(AudioClip clip, bool loop, bool useTime)
+		{
+			var start = primary.time;
+			primary.clip = clip;
+			primary.loop = loop;
+
+			if (useTime)
+				primary.time = start;
+
+			primary.Play();
+		}
+
+		private const float ChangeTime = 0.5f;
 		private Coroutine changing;
 		private Tweener tweener;
+		private Tweener secondary_tweener;
 
-		private void ChangeClip(AudioClip clip)
+		private void ChangeClipOverTime(AudioClip clip, bool loop)
 		{
 			if (changing != null)
 				StopCoroutine(changing);
 
-			changing = StartCoroutine(ChangeClipCoroutine(clip));
+			changing = StartCoroutine(ChangeClipCoroutine(clip, loop));
 		}
 
-		private IEnumerator ChangeClipCoroutine(AudioClip clip)
+		private IEnumerator ChangeClipCoroutine(AudioClip clip, bool loop)
 		{
 			if (tweener != null)
 				tweener.Kill();
 
-			if (!source.isPlaying)
+			if (!primary.isPlaying)
 			{
-				source.clip = clip;
-				source.Play();
+				primary.clip = clip;
+				primary.loop = loop;
+				primary.Play();
 
-				tweener = DOTween.To(() => source.volume, (x) => source.volume = x, musicVolume, ChangeTime);
+				tweener = DOTween.To(() => primary.volume, (x) => primary.volume = x, musicVolume, ChangeTime);
 				while (tweener.active && !tweener.IsComplete())
 					yield return null;
 			}
 			else
 			{
-				tweener = DOTween.To(() => source.volume, (x) => source.volume = x, 0, ChangeTime);
+				tweener = DOTween.To(() => primary.volume, (x) => primary.volume = x, 0, ChangeTime);
 				while (tweener.active && !tweener.IsComplete())
 					yield return null;
 
-				source.clip = clip;
-				source.Play();
+				primary.clip = clip;
+				primary.loop = loop;
+				primary.Play();
 
-				tweener = DOTween.To(() => source.volume, (x) => source.volume = x, musicVolume, ChangeTime);
+				tweener = DOTween.To(() => primary.volume, (x) => primary.volume = x, musicVolume, ChangeTime);
 				while (tweener.active && !tweener.IsComplete())
 					yield return null;
 			}
