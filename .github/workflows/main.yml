@@ -7,6 +7,12 @@ jobs:
     name: Build Unity ✨
     runs-on: ubuntu-latest
     steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      
       # Cache
       - uses: actions/cache@v2
         with:
