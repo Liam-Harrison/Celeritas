@@ -214,7 +214,7 @@ MonoBehaviour:
     maxValue: 0
     currentValue: 0
   lootConfig:
-    gain: 1
+    gain: 4
     isBoss: 0
   dropType: 0
   engineEffects:
