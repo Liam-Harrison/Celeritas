@@ -92,7 +92,6 @@ namespace Celeritas.Game.Entities
 			if (damageOverDistance)
 			{
 				other.TakeDamage(this, currentDamageOverDistance);
-				//Debug.Log("Damage Dealt: " + currentDamageOverDistance);
 			}
 			else
 			{
@@ -101,8 +100,6 @@ namespace Celeritas.Game.Entities
 
 			if (ProjectileData.DestroyedOnHit)
 				KillEntity();
-
-			totalDistanceTravelled = 0;
 
 			base.OnEntityHit(other);
 		}
@@ -138,7 +135,9 @@ namespace Celeritas.Game.Entities
 		/// <summary>
 		/// Determines whether to add damageOverDistance
 		/// </summary>
-		public bool damageOverDistance = false;
+		private bool damageOverDistance = false;
+
+		public bool DamageOverDistance { get => damageOverDistance; set => damageOverDistance = value; }
 
 		/// <summary>
 		/// Used to record the total distance the projectile has travelled.
@@ -146,13 +145,6 @@ namespace Celeritas.Game.Entities
 		private float totalDistanceTravelled;
 
 		public float TotalDistanceTravelled { get => totalDistanceTravelled; set => totalDistanceTravelled = value; }
-
-		/// <summary>
-		/// The location of the projectile in the previous update
-		/// </summary>
-		private Vector3 previousLocation;
-
-		public Vector3 PreviousLocation { get => previousLocation; set => previousLocation = value; }
 
 		/// <summary>
 		/// A seperate value for current damage value if damageOverDistance = true

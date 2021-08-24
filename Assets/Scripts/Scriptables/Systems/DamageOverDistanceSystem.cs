@@ -47,13 +47,13 @@ namespace Celeritas.Scriptables.Systems
 		public void OnEntityEffectAdded(Entity entity, ushort level)
 		{
 			var projectile = entity as ProjectileEntity;
-			projectile.damageOverDistance = true;
+			projectile.DamageOverDistance = true;
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, ushort level)
 		{
 			var projectile = entity as ProjectileEntity;
-			projectile.damageOverDistance = false;
+			projectile.DamageOverDistance = false;
 		}
 
 		public void OnEntityUpdated(Entity entity, ushort level)
@@ -61,9 +61,9 @@ namespace Celeritas.Scriptables.Systems
 			var projectile = entity as ProjectileEntity;
 
 			RecordDistance(projectile);
-			//Debug.Log(projectile.TotalDistanceTravelled);
+			Debug.Log(projectile.TotalDistanceTravelled);
 
-			if (projectile.damageOverDistance)
+			if (projectile.DamageOverDistance)
 			{
 				projectile.CurrentDamageOverDistance = CalculatedDamageOverDistance(projectile, level);
 			}
@@ -105,8 +105,10 @@ namespace Celeritas.Scriptables.Systems
 		{
 			var projectile = entity as ProjectileEntity;
 
-			projectile.TotalDistanceTravelled = projectile.TotalDistanceTravelled + Vector3.Distance(projectile.transform.position, projectile.PreviousLocation);
-			projectile.PreviousLocation = projectile.transform.position;
+			float speed = projectile.ProjectileData.Speed * projectile.SpeedModifier;
+			float time = projectile.TimeAlive;
+
+			projectile.TotalDistanceTravelled = speed * time;
 		}
 	}
 }
