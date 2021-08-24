@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee0d4ee51750af45b7430210d4a5dbd, type: 3}
+  m_Name: eff_sun_subprojectile
+  m_EditorClassIdentifier: 
+  title: Effects for sunburst weapon's sub projectiles
+  targets: 1
+  stacks: 1
+  systems:
+  - {fileID: 11400000, guid: 9e95d827d9a99ae478d0148319d6535f, type: 2}

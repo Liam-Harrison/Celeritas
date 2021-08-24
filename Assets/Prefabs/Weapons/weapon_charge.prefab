@@ -136,8 +136,10 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  hasDefaultEffects: 0
-  defaultEffects: []
+  hasDefaultEffects: 1
+  defaultEffects:
+  - Level: 0
+    EffectCollection: {fileID: 11400000, guid: b904963830ec65b4bbc57a9aef8d80ea, type: 2}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0

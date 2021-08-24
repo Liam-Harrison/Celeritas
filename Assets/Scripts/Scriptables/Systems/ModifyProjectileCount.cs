@@ -27,6 +27,12 @@ namespace Celeritas.Scriptables.Systems
 		[SerializeField]
 		private bool randomSpread;
 
+		[SerializeField]
+		private bool customProjectile;
+
+		[SerializeField, ShowIf(nameof(customProjectile))]
+		ProjectileData customProjectileData;
+
 		/// <summary>
 		/// How many extra projectiles will be fired per 'fire' command
 		/// when system is at level 0
@@ -39,7 +45,7 @@ namespace Celeritas.Scriptables.Systems
 		public uint ExtraProjectileCountPerLevel { get => extraProjectilesPerLevel; }
 
 		/// <inheritdoc/>
-		public override bool Stacks => false;
+		public override bool Stacks => true;
 
 		/// <inheritdoc/>
 		public override SystemTargets Targets => SystemTargets.Weapon;
@@ -51,6 +57,9 @@ namespace Celeritas.Scriptables.Systems
 		public void OnEntityFired(WeaponEntity entity, ProjectileEntity projectile, ushort level)
 		{
 			uint numberOfExtraProjectiles = extraProjectileCount + (level * extraProjectilesPerLevel);
+			ProjectileData projectileData = projectile.ProjectileData;
+			if (customProjectile)
+				projectileData = customProjectileData;
 
 			Vector3 bulletAlignment = new Vector3(spreadScale, spreadScale, 0);
 			for (int i = 0; i < numberOfExtraProjectiles; i++)
@@ -62,7 +71,7 @@ namespace Celeritas.Scriptables.Systems
 					position = numberOfExtraProjectiles / 2;
 				}
 					
-				var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectile.ProjectileData, entity.ProjectileSpawn.position, entity.ProjectileSpawn.rotation, entity, projectile.EntityEffects.EffectWrapperCopy);
+				var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectileData, entity.ProjectileSpawn.position, entity.ProjectileSpawn.rotation, entity, projectile.EntityEffects.EffectWrapperCopy);
 				toFire.transform.localScale = entity.ProjectileSpawn.localScale;
 
 				if (randomSpread) { 

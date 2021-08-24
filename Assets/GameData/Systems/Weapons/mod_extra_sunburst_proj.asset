@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae3e4c46078bf474ba0c760ccbaa737b, type: 3}
+  m_Name: mod_extra_sunburst_proj
+  m_EditorClassIdentifier: 
+  title: Extra mini sunburst projectiles
+  extraProjectileCount: 2
+  extraProjectilesPerLevel: 1
+  spreadScale: 0.5
+  randomSpread: 0
+  customProjectile: 1
+  customProjectileData: {fileID: 11400000, guid: 1c075fc3021048f418f36cda4dcfd400, type: 2}

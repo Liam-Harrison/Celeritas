@@ -80,8 +80,6 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{
-			Debug.Log(entity + " "+ entity.GetInstanceID());
-			Debug.Log(entity.transform.localScale);
 			// if duration has passed, don't do anything
 			var data = entity.Components.GetComponent<ChangeSizeOverTimeData>(this);
 			if (entity.TimeAlive - data.startTime_s > duration)
