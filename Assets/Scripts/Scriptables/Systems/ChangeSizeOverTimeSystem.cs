@@ -15,13 +15,7 @@ namespace Assets.Scripts.Scriptables.Systems
 	[CreateAssetMenu(fileName = "New ChangeSizeOverTime System", menuName = "Celeritas/Modifiers/ChangeSizeOverTime")]
 	class ChangeSizeOverTimeSystem : ModifierSystem, IEntityEffectAdded, IEntityUpdated, IEntityEffectRemoved
 	{
-		[SerializeField, Title("Change Size Over Time Properties", "size is a multiplier (0.5 = 50% original size)")]
-		private float duration_s;
-
-		[SerializeField]
-		private float endSize;
-
-		[SerializeField]
+		[SerializeField, Title("Change Size Over Time Properties", "(0.5 = (0.5, 0.5, 0.5) in prefab scale)")]
 		private bool baseStartSizeOffWeaponCharge; // if true, should be projectile
 
 		[SerializeField, ShowIf(nameof(baseStartSizeOffWeaponCharge))]
@@ -30,10 +24,23 @@ namespace Assets.Scripts.Scriptables.Systems
 		[SerializeField, HideIf(nameof(baseStartSizeOffWeaponCharge))]
 		private float startSize; // set start size if not scaling off weapon charge
 
+		[SerializeField]
+		private float endSize;
+
+		[SerializeField, Title("Duration of size change properties")]
+		private bool durationProportionalToWeaponCharge;
+
+		[SerializeField, HideIf(nameof(durationProportionalToWeaponCharge))]
+		private float duration;
+
+		[SerializeField, ShowIf(nameof(durationProportionalToWeaponCharge))]
+		private float durationMultiplier;
+
 		public class ChangeSizeOverTimeData
 		{
 			public float startTime_s; // time the effect was added
 			public float sizeChangePerSecond;
+			public bool firstUpdate;
 		}
 
 		public override bool Stacks => false;
@@ -49,6 +56,7 @@ namespace Assets.Scripts.Scriptables.Systems
 			{
 				data = new ChangeSizeOverTimeData();
 				entity.Components.RegisterComponent(this, data);
+				data.firstUpdate = true;
 			}
 			data.startTime_s = entity.TimeAlive;
 
@@ -58,40 +66,40 @@ namespace Assets.Scripts.Scriptables.Systems
 				startSize = projectile.Weapon.Charge * startSizeMultiplier;
 			}
 
-			// calculate size delta per second
-			data.sizeChangePerSecond = (endSize - startSize) / duration_s;
+			if (durationProportionalToWeaponCharge)
+			{
+				ProjectileEntity projectile = entity as ProjectileEntity;
+				duration = projectile.Weapon.Charge * durationMultiplier;
+			}
 
-			// the problem is here now I think c: 
-			//entity.transform.localScale = new Vector3(startSize, startSize, startSize);
-			entity.transform.localScale = startSize * entity.transform.localScale;
-			//entity.transform.localScale = GetVectorWithMagnitude(startSize);
-			//entity.transform.localScale = new Vector3(100, 100, 100);
+			// calculate size delta per second
+			data.sizeChangePerSecond = (endSize - startSize) / duration;
+
+			// entity.transform.localScale = startSize * Vector3.one; // must be done in update apparently.
 		}
 
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{
+			Debug.Log(entity + " "+ entity.GetInstanceID());
+			Debug.Log(entity.transform.localScale);
 			// if duration has passed, don't do anything
 			var data = entity.Components.GetComponent<ChangeSizeOverTimeData>(this);
-			if (entity.TimeAlive - data.startTime_s > duration_s)
+			if (entity.TimeAlive - data.startTime_s > duration)
 			{
 				return;
 			}
+			if (data.firstUpdate) // doing this here instead of OnEffectAdded, as that one gets over-ridden to (1,1,1)
+			{
+				entity.transform.localScale = startSize * Vector3.one;
+				data.firstUpdate = false;
+			}
+			else
+			{
+				// increase size
+				float sizeToAdd = data.sizeChangePerSecond * Time.deltaTime;
+				entity.transform.localScale += sizeToAdd * Vector3.one;
+			}
 
-			// increase size
-			float sizeToAdd = data.sizeChangePerSecond * Time.deltaTime;
-			//entity.transform.localScale += new Vector3(sizeToAdd, sizeToAdd, sizeToAdd);
-
-			//entity.transform.localScale *= (1 + sizeToAdd); // hm?
-
-
-
-			//entity.transform.localScale = (entity.transform.localScale / entity.transform.localScale.magnitude)
-			entity.transform.localScale += sizeToAdd * entity.transform.localScale;
-			//entity.transform.localScale += GetVectorWithMagnitude(sizeToAdd);
-
-			//entity.transform.localScale +=entity.transform.localScale * sizeToAdd;
-
-			//entity.transform.localScale = new Vector3(entity.transform.localScale.x + sizeToAdd, entity.transform.localScale.y + sizeToAdd, entity.transform.localScale.z + sizeToAdd);
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, ushort level)
