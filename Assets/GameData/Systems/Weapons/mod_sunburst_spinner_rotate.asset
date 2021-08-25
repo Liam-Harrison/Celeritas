@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: causes sunburst spinner projectile to orbit around main projectile
   orbitAroundParentProjectile: 1
-  degreesPerSecond: 180
+  degreesPerSecond: 270

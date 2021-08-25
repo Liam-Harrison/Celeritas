@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ee0d4ee51750af45b7430210d4a5dbd, type: 3}
-  m_Name: eff_sun_spinner
+  m_Name: eff_spawn_sun_waveprojectiles
   m_EditorClassIdentifier: 
-  title: For sunburst spinning projectile
+  title: Spawn wave sun projectiles
   targets: 1
   stacks: 0
   systems:
-  - {fileID: 11400000, guid: b08e384297fcab94fab57b9885076823, type: 2}
+  - {fileID: 11400000, guid: d11ea407c56f2ab4e9004095d53f94d3, type: 2}
+  - {fileID: 11400000, guid: 4411775467ca8054c9371a6ba658915a, type: 2}

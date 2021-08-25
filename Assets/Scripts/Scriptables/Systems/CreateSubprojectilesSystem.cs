@@ -12,7 +12,7 @@ namespace Assets.Scripts.Scriptables.Systems
 	/// <summary>
 	/// Modifier that will cause an explosion of shrapnel on entity death
 	/// </summary>
-	[CreateAssetMenu(fileName = "New SpawnProjectiles Modifier", menuName = "Celeritas/Modifiers/Spawn projectiles on death or continuously")]
+	[CreateAssetMenu(fileName = "New SpawnProjectiles Modifier", menuName = "Celeritas/Modifiers/Spawn Projectiles On DeathOrCreationOrContinuously")]
 	class CreateSubprojectilesSystem : ModifierSystem, IEntityKilled, IEntityEffectAdded, IEntityEffectRemoved, IEntityUpdated
 	{
 		public class SpawnProjectilesData
@@ -40,6 +40,9 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		[SerializeField, ShowIf(nameof(spawnContinuouslyThroughoutLife))]
 		private float delayBetweenSpawns;
+
+		[SerializeField, DisableInPlayMode]
+		private bool spawnOnCreation; // when effect is added
 
 		[SerializeField]
 		private bool useCustomProjectileSpawnLocation; // use projectileSpawn specified in ProjectileEntity
@@ -104,6 +107,9 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public void OnEntityEffectAdded(Entity entity, ushort level)
 		{
+			if (spawnOnCreation)
+				SpawnProjectiles(entity);
+
 			if (!spawnContinuouslyThroughoutLife)
 				return;
 

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1744d7c3ba1d05418e0947def2e7eb5, type: 3}
+  m_Name: mod_wave_proj_on_creation_inverted
+  m_EditorClassIdentifier: 
+  title: Create Inverted Motion Sun Wave Projectile On Creation
+  shrapnel: {fileID: 11400000, guid: 21fc85030bf04604694d93c5923133ab, type: 2}
+  spacing: 0
+  numberToSpawn: 1
+  effectsToExcludeCopying:
+  - {fileID: 11400000, guid: 5f5146484eb77f84cbcb4135038c244f, type: 2}
+  spawnOnDeath: 0
+  spawnContinuouslyThroughoutLife: 0
+  delayBetweenSpawns: 0
+  spawnOnCreation: 1
+  useCustomProjectileSpawnLocation: 0
