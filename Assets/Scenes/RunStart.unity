@@ -4916,7 +4916,7 @@ PrefabInstance:
       objectReference: {fileID: 32898900}
     - target: {fileID: 4239081621628420484, guid: c7c716a4899c9ab47a2c5ba82d1740d6, type: 3}
       propertyPath: m_text
-      value: battleship
+      value: dreadnought
       objectReference: {fileID: 0}
     - target: {fileID: 4239081621628420484, guid: c7c716a4899c9ab47a2c5ba82d1740d6, type: 3}
       propertyPath: m_fontSize
