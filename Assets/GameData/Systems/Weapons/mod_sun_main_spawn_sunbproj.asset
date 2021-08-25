@@ -21,3 +21,4 @@ MonoBehaviour:
   spawnOnDeath: 0
   spawnContinuouslyThroughoutLife: 1
   delayBetweenSpawns: 0.5
+  useCustomProjectileSpawnLocation: 0

@@ -13,56 +13,111 @@ MonoBehaviour:
   m_Name: mod_wave_inverted
   m_EditorClassIdentifier: 
   title: Inverted wave motion
-  amplitude: -0.2
-  motionCurve:
+  rightLeftMotion: 1
+  rightLeftAmplitude: -0.1
+  rightLeftMotionCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0.20831299
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      time: 0.00023475452
+      value: -0.0034242272
+      inSlope: 4.0429225
+      outSlope: 4.0429225
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.28521118
-      value: -0.8051451
-      inSlope: -0.015759652
-      outSlope: -0.015759652
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.40564147
-      outWeight: 0.19766575
-    - serializedVersion: 3
-      time: 0.490766
-      value: 0.0027199984
-      inSlope: 5.5634775
-      outSlope: 5.5634775
+      time: 0.24806285
+      value: 0.9985256
+      inSlope: 0.08895704
+      outSlope: 0.08895704
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.13340086
+      outWeight: 0.19786726
     - serializedVersion: 3
-      time: 0.6884079
-      value: 0.7961847
-      inSlope: 0.0017809728
-      outSlope: 0.0017809728
+      time: 0.49989983
+      value: -0.10551453
+      inSlope: -4.0516496
+      outSlope: -4.0516496
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7401569
+      value: -0.999115
+      inSlope: -0.014979501
+      outSlope: -0.014979501
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.20476973
-      outWeight: 0.13056721
+      inWeight: 0.20077828
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.9980469
-      value: 0.20040894
-      inSlope: -0.37795106
-      outSlope: -0.37795106
-      tangentMode: 0
+      time: 0.99890137
+      value: -0.09662305
+      inSlope: 3.4879658
+      outSlope: 3.4879658
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.10070704
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 1
     m_RotationOrder: 4
-  phase: 0
+  rightLeftPhase: 0
+  forwardBackMotion: 0
+  forwardBackAmplitude: 0
+  forwardBackMotionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.00023475452
+      value: -0.0034242272
+      inSlope: 4.0429225
+      outSlope: 4.0429225
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.24806285
+      value: 0.9985256
+      inSlope: 0.08895704
+      outSlope: 0.08895704
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.19786726
+    - serializedVersion: 3
+      time: 0.49989983
+      value: -0.10551453
+      inSlope: -4.0516496
+      outSlope: -4.0516496
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7401569
+      value: -0.999115
+      inSlope: -0.014979501
+      outSlope: -0.014979501
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20077828
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.99890137
+      value: -0.09662305
+      inSlope: 3.4879658
+      outSlope: 3.4879658
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 1
+    m_RotationOrder: 4
+  forwardBackPhase: 0

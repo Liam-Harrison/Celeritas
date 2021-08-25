@@ -108,7 +108,6 @@ namespace Celeritas.Scriptables.Systems
 			{
 				effects.Remove(item);
 			}
-			Debug.Log("ping");
 			return effects;
 		}
 	}

@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 097b24dcf56540541b853801ed368a81, type: 3}
-  m_Name: mod_wave_motion
+  m_Name: mod_sunburst_spinner_circlemotion
   m_EditorClassIdentifier: 
-  title: Wave motion
+  title: 
   rightLeftMotion: 1
   rightLeftAmplitude: 0.1
   rightLeftMotionCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.0018730164
-      value: -0.14494324
-      inSlope: 4.6446633
-      outSlope: 4.6446633
+      time: 0.00023475452
+      value: -0.0034242272
+      inSlope: 4.0429225
+      outSlope: 4.0429225
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
@@ -66,13 +66,58 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 1
     m_RotationOrder: 4
-  rightLeftPhase: 0
-  forwardBackMotion: 0
-  forwardBackAmplitude: 0
+  rightLeftPhase: 0.25
+  forwardBackMotion: 1
+  forwardBackAmplitude: 0.1
   forwardBackMotionCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.00023475452
+      value: -0.0034242272
+      inSlope: 4.0429225
+      outSlope: 4.0429225
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.24806285
+      value: 0.9985256
+      inSlope: 0.08895704
+      outSlope: 0.08895704
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.19786726
+    - serializedVersion: 3
+      time: 0.49989983
+      value: -0.10551453
+      inSlope: -4.122691
+      outSlope: -4.122691
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.73191714
+      value: -1.0014343
+      inSlope: -0.014979501
+      outSlope: -0.014979501
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20077828
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.99975586
+      value: -0.006138429
+      inSlope: 3.716027
+      outSlope: 3.716027
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
-    m_PostInfinity: 2
+    m_PostInfinity: 1
     m_RotationOrder: 4
   forwardBackPhase: 0

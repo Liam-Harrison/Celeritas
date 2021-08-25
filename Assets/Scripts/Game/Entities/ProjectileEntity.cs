@@ -16,6 +16,11 @@ namespace Celeritas.Game.Entities
 		[SerializeField, PropertySpace]
 		private TrailRenderer[] trails;
 
+		// used if projectile spawns other projectiles
+		// via a subprojectile system, with appropriate boolean ticked.
+		[SerializeField]
+		public Transform projectileSpawn; 
+
 		/// <summary>
 		/// How much damage this entity does to another
 		/// when it hits
@@ -45,6 +50,11 @@ namespace Celeritas.Game.Entities
 		/// Used for chains of projectiles (following one-another)
 		/// </summary>
 		public Entity Following { get; set; }
+
+		/// <summary>
+		/// Used if this projectile was created by another projectile.
+		/// </summary>
+		public ProjectileEntity ParentProjectile { get; set; }
 
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)

@@ -41,6 +41,9 @@ namespace Assets.Scripts.Scriptables.Systems
 		[SerializeField, ShowIf(nameof(spawnContinuouslyThroughoutLife))]
 		private float delayBetweenSpawns;
 
+		[SerializeField]
+		private bool useCustomProjectileSpawnLocation; // use projectileSpawn specified in ProjectileEntity
+
 		public override bool Stacks => false;
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
@@ -87,7 +90,13 @@ namespace Assets.Scripts.Scriptables.Systems
 				float d = i - (numberToSpawn / 2f);
 				var q = entity.transform.rotation * Quaternion.Euler(0, 0, d * spacing);
 
-				EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnel, entity.Position, q, projectile.Weapon, effects);
+				ProjectileEntity proj;
+				if (useCustomProjectileSpawnLocation)
+					proj = EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnel, projectile.projectileSpawn.position, q, projectile.Weapon, effects);
+				else
+					proj = EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnel, entity.Position, q, projectile.Weapon, effects);
+				proj.ParentProjectile = projectile;
+
 			}
 		}
 
