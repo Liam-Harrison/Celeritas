@@ -57,7 +57,6 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ncipollo/release-action@v1
       with:
-        artifacts: "Celeritas-OSX.zip,Celeritas-Windows64.zip"
+        artifacts: "Celeritas-StandaloneOSX.zip,Celeritas-StandaloneWindows64.zip"
         bodyFile: "body.md"
         token: ${{ secrets.GITHUB_TOKEN }}
-  buildWIN:
