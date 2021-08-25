@@ -30,7 +30,7 @@ namespace Celeritas.Scriptables
 		/// <summary>
 		/// The lifetime of this projectile.
 		/// </summary>
-		public float Lifetime { get => lifetime; }
+		public float Lifetime { get => lifetime; set => lifetime = value; }
 
 		/// <summary>
 		/// How much damage this projectile does when it hits another entity

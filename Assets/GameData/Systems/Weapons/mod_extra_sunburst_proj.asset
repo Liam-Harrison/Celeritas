@@ -19,3 +19,5 @@ MonoBehaviour:
   randomSpread: 0
   customProjectile: 1
   customProjectileData: {fileID: 11400000, guid: 1c075fc3021048f418f36cda4dcfd400, type: 2}
+  effectsToExcludeCopying:
+  - {fileID: 11400000, guid: c339b34f6d5bc5e4d8ba21fdfbd63d65, type: 2}
