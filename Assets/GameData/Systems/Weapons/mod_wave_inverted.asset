@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: mod_wave_inverted
   m_EditorClassIdentifier: 
   title: Inverted wave motion
-  amplitude: -0.8
+  amplitude: -0.2
   motionCurve:
     serializedVersion: 2
     m_Curve:
@@ -27,14 +27,14 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.2548462
-      value: -0.520294
-      inSlope: -0.12505157
-      outSlope: -0.12505157
+      time: 0.28521118
+      value: -0.8051451
+      inSlope: -0.015759652
+      outSlope: -0.015759652
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.40564147
-      outWeight: 0.33333334
+      outWeight: 0.19766575
     - serializedVersion: 3
       time: 0.490766
       value: 0.0027199984
@@ -45,14 +45,14 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.13340086
     - serializedVersion: 3
-      time: 0.69415325
-      value: 0.7765925
-      inSlope: -0.1365712
-      outSlope: -0.1365712
+      time: 0.6884079
+      value: 0.7961847
+      inSlope: 0.0017809728
+      outSlope: 0.0017809728
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.4752849
-      outWeight: 0.33333334
+      inWeight: 0.20476973
+      outWeight: 0.13056721
     - serializedVersion: 3
       time: 0.9980469
       value: -0.0004272461

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: mod_extra_sunburst_proj_inv
   m_EditorClassIdentifier: 
   title: For subprojectiles with inverted motion
-  extraProjectileCount: 2
+  extraProjectileCount: 1
   extraProjectilesPerLevel: 1
   spreadScale: 0.5
   randomSpread: 0

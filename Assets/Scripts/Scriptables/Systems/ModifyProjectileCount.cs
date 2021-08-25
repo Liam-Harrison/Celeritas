@@ -13,7 +13,7 @@ namespace Celeritas.Scriptables.Systems
 	/// ie. how many projectiles fire per 'fire' command
 	/// </summary>
 	[CreateAssetMenu(fileName = "Projectile Count Modifier", menuName= "Celeritas/Modifiers/Projectile Count")]
-	public class ModifyProjectileCount : ModifierSystem, IEntityFired
+	public class ModifyProjectileCount : ModifierSystem, IEntityFired, IEntityEffectAdded
 	{
 		[SerializeField, Title("Extra Projectile Count")]
 		private uint extraProjectileCount;
@@ -53,14 +53,19 @@ namespace Celeritas.Scriptables.Systems
 		/// <inheritdoc/>
 		public override string GetTooltip(ushort level) => $"Fire <color=green>{ExtraProjectileCount + (ExtraProjectileCountPerLevel * level)}</color> extra projectiles.";
 
+		public void OnEntityEffectAdded(Entity entity, ushort level)
+		{
+			Debug.Log("added");
+		}
 
 		public void OnEntityFired(WeaponEntity entity, ProjectileEntity projectile, ushort level)
 		{
+			Debug.Log("ping");
 			uint numberOfExtraProjectiles = extraProjectileCount + (level * extraProjectilesPerLevel);
 			ProjectileData projectileData = projectile.ProjectileData;
 			if (customProjectile)
 				projectileData = customProjectileData;
-
+			Debug.Log(projectileData);
 			Vector3 bulletAlignment = new Vector3(spreadScale, spreadScale, 0);
 			for (int i = 0; i < numberOfExtraProjectiles; i++)
 			{
@@ -73,6 +78,7 @@ namespace Celeritas.Scriptables.Systems
 					
 				var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectileData, entity.ProjectileSpawn.position, entity.ProjectileSpawn.rotation, entity, projectile.EntityEffects.EffectWrapperCopy);
 				toFire.transform.localScale = entity.ProjectileSpawn.localScale;
+				Debug.Log(toFire);
 
 				if (randomSpread) { 
 					bulletAlignment = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));

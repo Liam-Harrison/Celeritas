@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: mod_extra_sunburst_proj
   m_EditorClassIdentifier: 
   title: Extra mini sunburst projectiles
-  extraProjectileCount: 2
+  extraProjectileCount: 1
   extraProjectilesPerLevel: 1
   spreadScale: 0.5
   randomSpread: 0
