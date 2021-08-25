@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1744d7c3ba1d05418e0947def2e7eb5, type: 3}
-  m_Name: modifier_shrapnel_on_death
+  m_Name: mod_sun_main_spawn_sunbproj
   m_EditorClassIdentifier: 
-  title: Shrapnel explosion on death
-  shrapnel: {fileID: 11400000, guid: 3ef6fc6a94cce7b4dbec473dcf5cf1eb, type: 2}
-  spacing: 13
-  numberToSpawn: 10
+  title: For main projectile to spawn little spinny subprojctiles
+  shrapnel: {fileID: 11400000, guid: 0c0552c7794f04544b9eac12d8fbb49b, type: 2}
+  spacing: 1
+  numberToSpawn: 1
   effectsToExcludeCopying:
-  - {fileID: 11400000, guid: 9c66d884c5e31b947bb35d6b55f01e35, type: 2}
-  spawnOnDeath: 1
-  spawnContinuouslyThroughoutLife: 0
-  delayBetweenSpawns: 0
+  - {fileID: 11400000, guid: c339b34f6d5bc5e4d8ba21fdfbd63d65, type: 2}
+  spawnOnDeath: 0
+  spawnContinuouslyThroughoutLife: 1
+  delayBetweenSpawns: 0.5

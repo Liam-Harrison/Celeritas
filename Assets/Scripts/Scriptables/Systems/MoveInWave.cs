@@ -17,6 +17,9 @@ namespace Assets.Scripts.Scriptables.Systems
 		[SerializeField]
 		AnimationCurve motionCurve;
 
+		[SerializeField]
+		float phase;
+
 		public override bool Stacks => true;
 
 		public override SystemTargets Targets => SystemTargets.Projectile; // should be able to work for anything though
@@ -25,7 +28,7 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{
-			entity.transform.position += amplitude * entity.transform.right * motionCurve.Evaluate(entity.TimeAlive);
+			entity.transform.position += amplitude * entity.transform.right * motionCurve.Evaluate(entity.TimeAlive + phase);
 		}
 	}
 }

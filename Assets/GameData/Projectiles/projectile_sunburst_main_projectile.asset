@@ -28,4 +28,4 @@ MonoBehaviour:
   speed: 5
   lifetime: 5
   damage: 40
-  destroyedOnHit: 0
+  destroyedOnHit: 1

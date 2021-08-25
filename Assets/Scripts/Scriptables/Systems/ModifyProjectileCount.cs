@@ -13,7 +13,7 @@ namespace Celeritas.Scriptables.Systems
 	/// ie. how many projectiles fire per 'fire' command
 	/// </summary>
 	[CreateAssetMenu(fileName = "Projectile Count Modifier", menuName= "Celeritas/Modifiers/Projectile Count")]
-	public class ModifyProjectileCount : ModifierSystem, IEntityFired, IEntityEffectAdded
+	public class ModifyProjectileCount : ModifierSystem, IEntityFired
 	{
 		[SerializeField, Title("Extra Projectile Count")]
 		private uint extraProjectileCount;
@@ -32,6 +32,9 @@ namespace Celeritas.Scriptables.Systems
 
 		[SerializeField, ShowIf(nameof(customProjectile))]
 		ProjectileData customProjectileData;
+
+		[SerializeField]
+		private EffectCollection[] effectsToExcludeCopying;
 
 		/// <summary>
 		/// How many extra projectiles will be fired per 'fire' command
@@ -53,19 +56,14 @@ namespace Celeritas.Scriptables.Systems
 		/// <inheritdoc/>
 		public override string GetTooltip(ushort level) => $"Fire <color=green>{ExtraProjectileCount + (ExtraProjectileCountPerLevel * level)}</color> extra projectiles.";
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
-		{
-			Debug.Log("added");
-		}
 
 		public void OnEntityFired(WeaponEntity entity, ProjectileEntity projectile, ushort level)
 		{
-			Debug.Log("ping");
 			uint numberOfExtraProjectiles = extraProjectileCount + (level * extraProjectilesPerLevel);
 			ProjectileData projectileData = projectile.ProjectileData;
 			if (customProjectile)
 				projectileData = customProjectileData;
-			Debug.Log(projectileData);
+			
 			Vector3 bulletAlignment = new Vector3(spreadScale, spreadScale, 0);
 			for (int i = 0; i < numberOfExtraProjectiles; i++)
 			{
@@ -75,10 +73,12 @@ namespace Celeritas.Scriptables.Systems
 				{
 					position = numberOfExtraProjectiles / 2;
 				}
-					
-				var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectileData, entity.ProjectileSpawn.position, entity.ProjectileSpawn.rotation, entity, projectile.EntityEffects.EffectWrapperCopy);
+
+				List<EffectWrapper> projectileEffects = getEffectsForSubProjectiles(entity);
+
+				var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectileData, entity.ProjectileSpawn.position, entity.ProjectileSpawn.rotation, entity, projectileEffects);
+				//var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectileData, entity.ProjectileSpawn.position, entity.ProjectileSpawn.rotation, entity, projectile.EntityEffects.EffectWrapperCopy);
 				toFire.transform.localScale = entity.ProjectileSpawn.localScale;
-				Debug.Log(toFire);
 
 				if (randomSpread) { 
 					bulletAlignment = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
@@ -88,6 +88,28 @@ namespace Celeritas.Scriptables.Systems
 				toFire.transform.position = toFire.transform.position.RemoveAxes(z: true, normalize: false);
 			}
 			
+		}
+
+		private List<EffectWrapper> getEffectsForSubProjectiles(WeaponEntity entity)
+		{
+			var effects = new List<EffectWrapper>(entity.ProjectileEffects.EffectWrapperCopy);
+			var toRemove = new List<EffectWrapper>();
+
+			foreach (var j in effects)
+			{
+				foreach (var k in effectsToExcludeCopying)
+				{
+					if (j.EffectCollection == k)
+						toRemove.Add(j);
+				}
+			}
+
+			foreach (var item in toRemove)
+			{
+				effects.Remove(item);
+			}
+			Debug.Log("ping");
+			return effects;
 		}
 	}
 }
