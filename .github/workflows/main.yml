@@ -1,74 +1,62 @@
 name: Unity Actions
 
 on: 
-  pull_request:
+  push:
     branches:
     - main
 
 jobs:
-  buildWIN:
-    name: Build Windows ✨
+  buildAll:
+    name: Build for ${{ matrix.targetPlatform }} ✨
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        unityVersion:
+          - 2020.2.2f1
+        targetPlatform:
+          - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
+          - StandaloneWindows64 # Build a Windows 64-bit standalone.
     steps:
       # Checkout
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout Files 👀
+      - uses: actions/checkout@v2
         with:
+          fetch-depth: 0
           lfs: true
-      
+
       # Cache
+      - name: Cache Build Files 📦
       - uses: actions/cache@v2
         with:
           path: Library
           key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
             Library-
-            
+
       # Build
-      - name: Build project
-        uses: game-ci/unity-builder@v2
+      - name: Build Game Executables 🔧
+      - uses: game-ci/unity-builder@v2
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          unityVersion: 2020.2.2f1
-          targetPlatform: StandaloneWindows64
+          unityVersion: ${{ matrix.unityVersion }}
+          targetPlatform: ${{ matrix.targetPlatform }}
           versioning: Semantic
 
       # Output
+      - name: Upload Artifacts 📁
       - uses: actions/upload-artifact@v2
         with:
-          name: Celeritas-Windows64
+          name: Celeritas-${{ matrix.targetPlatform }}
           path: build
-  buildOSX:
-    name: Build OSX ✨
+  release:
     runs-on: ubuntu-latest
+    needs: [buildAll]
     steps:
-      # Checkout
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          lfs: true
-      
-      # Cache
-      - uses: actions/cache@v2
-        with:
-          path: Library
-          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: |
-            Library-
-            
-      # Build
-      - name: Build project
-        uses: game-ci/unity-builder@v2
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-        with:
-          unityVersion: 2020.2.2f1
-          targetPlatform: StandaloneOSX
-          versioning: Semantic
-
-      # Output
-      - uses: actions/upload-artifact@v2
-        with:
-          name: Celeritas-OSX
-          path: build
+    - uses: actions/checkout@v2
+    - uses: ncipollo/release-action@v1
+      with:
+        artifacts: "Celeritas-StandaloneOSX.zip,Celeritas-StandaloneWindows64.zip"
+        bodyFile: "body.md"
+        token: ${{ secrets.GITHUB_TOKEN }}
