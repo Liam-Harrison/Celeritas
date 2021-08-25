@@ -9,7 +9,7 @@ namespace Celeritas.Scriptables
 	{
 		Corvette,
 		Destroyer,
-		Battleship
+		Dreadnought
 	}
 
 	/// <summary>
