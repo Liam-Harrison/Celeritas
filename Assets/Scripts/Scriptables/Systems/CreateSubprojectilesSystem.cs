@@ -69,7 +69,6 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		private void SpawnProjectiles(Entity entity)
 		{
-			Debug.Log("ping");
 			ProjectileEntity projectile = entity as ProjectileEntity;
 
 			for (int i = 0; i < numberToSpawn; i++)
@@ -100,9 +99,6 @@ namespace Assets.Scripts.Scriptables.Systems
 				else
 					proj = EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnel, entity.Position, q, projectile.Weapon, effects);
 				proj.ParentProjectile = projectile;
-				Debug.Log(proj.transform.position);
-				Debug.Log(entity.GetInstanceID());
-				Debug.Log(entity.transform.position);
 
 			}
 		}
