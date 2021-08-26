@@ -25,7 +25,7 @@ MonoBehaviour:
   prefab: {fileID: 208216540738557237, guid: 61515cfbae183984ab8591a8e82bd1ee, type: 3}
   capacityHint: 1
   useChunking: 0
-  speed: 4
-  lifetime: 2
+  speed: 5
+  lifetime: 2.5
   damage: 15
   destroyedOnHit: 1
