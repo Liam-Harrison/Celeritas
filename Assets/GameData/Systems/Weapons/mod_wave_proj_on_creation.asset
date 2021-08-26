@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Create Sun Wave Projectile On Creation
   shrapnel: {fileID: 11400000, guid: 1c075fc3021048f418f36cda4dcfd400, type: 2}
-  spacing: 0
+  spacing: 2
   numberToSpawn: 1
   effectsToExcludeCopying:
   - {fileID: 11400000, guid: 5f5146484eb77f84cbcb4135038c244f, type: 2}

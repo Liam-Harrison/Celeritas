@@ -13,6 +13,9 @@ namespace Assets.Scripts.Scriptables.Systems
 	[CreateAssetMenu(fileName = "New SinWaveMotion System", menuName = "Celeritas/Modifiers/Entity Movement/Animation Curve")]
 	class MoveInWave : ModifierSystem, IEntityUpdated
 	{
+		[SerializeField]
+		float frequencyMultiplier;
+
 		[SerializeField, Title("Right/Left motion")]
 		bool rightLeftMotion; // if false, will use up/down axis instead.
 
@@ -46,11 +49,11 @@ namespace Assets.Scripts.Scriptables.Systems
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{
 			if (rightLeftMotion)
-				entity.transform.position += rightLeftAmplitude * entity.transform.right * rightLeftMotionCurve.Evaluate(entity.TimeAlive + rightLeftPhase);
+				entity.transform.position += rightLeftAmplitude * entity.transform.right * rightLeftMotionCurve.Evaluate((frequencyMultiplier * entity.TimeAlive) + rightLeftPhase);
 
 			if (forwardBackMotion)
 			{
-				entity.transform.position += forwardBackAmplitude * entity.Forward * forwardBackMotionCurve.Evaluate(entity.TimeAlive + forwardBackPhase);
+				entity.transform.position += forwardBackAmplitude * entity.Forward * forwardBackMotionCurve.Evaluate((frequencyMultiplier * entity.TimeAlive) + forwardBackPhase);
 			}
 		}
 	}

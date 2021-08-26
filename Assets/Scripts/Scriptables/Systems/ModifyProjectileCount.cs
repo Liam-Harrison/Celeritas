@@ -74,17 +74,20 @@ namespace Celeritas.Scriptables.Systems
 				}
 
 				List<EffectWrapper> projectileEffects = getEffectsForSubProjectiles(entity);
-
-				var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectileData, entity.ProjectileSpawn.position, entity.ProjectileSpawn.rotation, entity, projectileEffects);
-				//var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectileData, entity.ProjectileSpawn.position, entity.ProjectileSpawn.rotation, entity, projectile.EntityEffects.EffectWrapperCopy);
-				toFire.transform.localScale = entity.ProjectileSpawn.localScale;
-
-				if (randomSpread) { 
+				Transform intendedPosition = entity.ProjectileSpawn; // calculate position before instantiation for OnCreate effects
+				if (randomSpread)
+				{
 					bulletAlignment = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
 					position += Random.Range(-1f, 1f);
 				}
-				toFire.transform.Translate(bulletAlignment.normalized * position * spreadScale);
-				toFire.transform.position = toFire.transform.position.RemoveAxes(z: true, normalize: false);
+				intendedPosition.transform.Translate(bulletAlignment.normalized * position * spreadScale);
+				intendedPosition.transform.position = intendedPosition.transform.position.RemoveAxes(z: true, normalize: false);
+				intendedPosition.transform.localScale = entity.ProjectileSpawn.localScale;
+
+
+				var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectileData, intendedPosition.position, intendedPosition.rotation, entity, projectileEffects);
+				//var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectileData, entity.ProjectileSpawn.position, entity.ProjectileSpawn.rotation, entity, projectile.EntityEffects.EffectWrapperCopy);
+
 			}
 			
 		}

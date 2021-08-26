@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08bd6193cb3e8a341bdbd9edcfe09d53, type: 3}
-  m_Name: weapon_sunburst
+  m_Name: weapon_wave
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -63,17 +63,17 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  title: Sunburst Plasma Cannon
-  prefab: {fileID: 6536416700838339447, guid: 7f2b0f20390801842ac4de2eb879efb3, type: 3}
-  capacityHint: 4
+  title: Wave Weapon
+  prefab: {fileID: 1948190157008792263, guid: 1a3c68ec0c71468458f5d1c581bfccdb, type: 3}
+  capacityHint: 1
   useChunking: 0
   size: 1
   catagory: 0
   rarity: 0
   icon: {fileID: 21300000, guid: 3144f6c4f2f2d704db3a0e92791b3265, type: 3}
-  description: A charge weapon that fires superheated plasma globs at the enemy
+  description: 'Placeholder text hello c:'
   shape: 0
-  projectile: {fileID: 11400000, guid: 5744994016ea6ce489185a43e351c253, type: 2}
-  rateOfFire: 5
-  charge: 1
+  projectile: {fileID: 11400000, guid: 64a35cabfa7037a43a396b1f8c8c207d, type: 2}
+  rateOfFire: 2
+  charge: 0
   maxCharge: 15

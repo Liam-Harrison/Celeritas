@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ee0d4ee51750af45b7430210d4a5dbd, type: 3}
-  m_Name: eff_sun_subprojectile
+  m_Name: eff_wave_inv
   m_EditorClassIdentifier: 
-  title: Effects for sunburst weapon's sub projectiles
+  title: Effects for sunburst subprojectile 2 (used on other half of them)
   targets: 1
   stacks: 1
   systems:
-  - {fileID: 11400000, guid: 9e95d827d9a99ae478d0148319d6535f, type: 2}
-  - {fileID: 11400000, guid: f8710bfd6f88634409669db727eb99ff, type: 2}
-  - {fileID: 11400000, guid: effca7f7d738adc4495a8e902f8076ca, type: 2}
+  - {fileID: 11400000, guid: b15f4b36ac65e294ab18e3071b54b573, type: 2}

@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: mod_wave_motion
   m_EditorClassIdentifier: 
   title: Wave motion
+  frequencyMultiplier: 2
   rightLeftMotion: 1
-  rightLeftAmplitude: 0.1
+  rightLeftAmplitude: 0.05
   rightLeftMotionCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.0018730164
-      value: -0.14494324
-      inSlope: 4.6446633
-      outSlope: 4.6446633
+      time: 0.0010528564
+      value: 0.0035552979
+      inSlope: 4.028057
+      outSlope: 4.028057
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
@@ -55,10 +56,10 @@ MonoBehaviour:
       inWeight: 0.20077828
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.99890137
-      value: -0.09662305
-      inSlope: 3.4879658
-      outSlope: 3.4879658
+      time: 0.9996948
+      value: -0.0014997572
+      inSlope: 3.8438127
+      outSlope: 3.8438127
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334

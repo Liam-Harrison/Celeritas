@@ -36,7 +36,6 @@ namespace Assets.Scripts.Scriptables.Systems
 				toOrbitAround = projectile.ParentProjectile;
 			//'forward' appears to work as 'up'.
 			entity.transform.RotateAround(toOrbitAround.transform.position, toOrbitAround.transform.forward, degreesPerSecond * Time.deltaTime);
-			Debug.Log(toOrbitAround);
 		}
 	}
 }

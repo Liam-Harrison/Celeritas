@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 097b24dcf56540541b853801ed368a81, type: 3}
   m_Name: mod_sunburst_spinner_circlemotion
   m_EditorClassIdentifier: 
-  title: 
+  title: '[old logic, replaced by orbitaroundownersystem]'
+  frequencyMultiplier: 1
   rightLeftMotion: 1
   rightLeftAmplitude: 0.1
   rightLeftMotionCurve:

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 964ba3942b684a84d8afc3e63f6671fd, type: 3}
-  m_Name: projectile_sunburst_main_projectile
+  m_Name: proj_wave_sub
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,11 +21,11 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  title: Sunburst main projectile (large, slow)
-  prefab: {fileID: 6393953699254799163, guid: fb09192fb635f6842b7b702d1322f2b0, type: 3}
+  title: Wave projectile inverted motion
+  prefab: {fileID: 1615326853033852305, guid: af42421d9ab8b9f47bd7d45423558b5d, type: 3}
   capacityHint: 1
   useChunking: 0
-  speed: 5
-  lifetime: 7.5
-  damage: 40
+  speed: 15
+  lifetime: 2
+  damage: 20
   destroyedOnHit: 1
