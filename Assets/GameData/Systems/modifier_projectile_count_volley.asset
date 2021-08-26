@@ -17,3 +17,5 @@ MonoBehaviour:
   extraProjectilesPerLevel: 2
   spreadScale: 0.5
   randomSpread: 0
+  customProjectile: 0
+  customProjectileData: {fileID: 0}

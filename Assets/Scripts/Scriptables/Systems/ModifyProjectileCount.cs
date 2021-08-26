@@ -32,8 +32,8 @@ namespace Celeritas.Scriptables.Systems
 		[SerializeField, ShowIf(nameof(customProjectile))]
 		ProjectileData customProjectileData;
 
-		[SerializeField]
-		private EffectCollection[] effectsToExcludeCopying;
+		//[SerializeField]
+		//private EffectCollection[] effectsToExcludeCopying;
 
 		/// <summary>
 		/// How many extra projectiles will be fired per 'fire' command
@@ -85,6 +85,9 @@ namespace Celeritas.Scriptables.Systems
 
 		}
 
+		// leaving this, we might want it later, not currently needed though.
+
+		/*
 		private List<EffectWrapper> getEffectsForSubProjectiles(WeaponEntity entity)
 		{
 			var effects = new List<EffectWrapper>(entity.ProjectileEffects.EffectWrapperCopy);
@@ -104,6 +107,6 @@ namespace Celeritas.Scriptables.Systems
 				effects.Remove(item);
 			}
 			return effects;
-		}
+		}*/
 	}
 }
