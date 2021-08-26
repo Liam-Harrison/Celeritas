@@ -55,14 +55,10 @@ namespace Celeritas.Scriptables.Systems
 		/// <inheritdoc/>
 		public override string GetTooltip(ushort level) => $"Fire <color=green>{ExtraProjectileCount + (ExtraProjectileCountPerLevel * level)}</color> extra projectiles.";
 
-
 		public void OnEntityFired(WeaponEntity entity, ProjectileEntity projectile, ushort level)
 		{
 			uint numberOfExtraProjectiles = extraProjectileCount + (level * extraProjectilesPerLevel);
-			ProjectileData projectileData = projectile.ProjectileData;
-			if (customProjectile)
-				projectileData = customProjectileData;
-			
+
 			Vector3 bulletAlignment = new Vector3(spreadScale, spreadScale, 0);
 			for (int i = 0; i < numberOfExtraProjectiles; i++)
 			{
@@ -73,23 +69,20 @@ namespace Celeritas.Scriptables.Systems
 					position = numberOfExtraProjectiles / 2;
 				}
 
-				List<EffectWrapper> projectileEffects = getEffectsForSubProjectiles(entity);
-				Transform intendedPosition = entity.ProjectileSpawn; // calculate position before instantiation for OnCreate effects
+				var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectile.ProjectileData, entity.ProjectileSpawn.position, entity.ProjectileSpawn.rotation, entity);
+				toFire.transform.localScale = entity.ProjectileSpawn.localScale;
+
 				if (randomSpread)
 				{
 					bulletAlignment = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
 					position += Random.Range(-1f, 1f);
 				}
-				intendedPosition.transform.Translate(bulletAlignment.normalized * position * spreadScale);
-				intendedPosition.transform.position = intendedPosition.transform.position.RemoveAxes(z: true, normalize: false);
-				intendedPosition.transform.localScale = entity.ProjectileSpawn.localScale;
+				toFire.transform.Translate(bulletAlignment.normalized * position * spreadScale);
+				toFire.transform.position = toFire.transform.position.RemoveAxes(z: true, normalize: false);
 
-
-				var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectileData, intendedPosition.position, intendedPosition.rotation, entity, projectileEffects);
-				//var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectileData, entity.ProjectileSpawn.position, entity.ProjectileSpawn.rotation, entity, projectile.EntityEffects.EffectWrapperCopy);
-
+				toFire.EntityEffects.AddEffectRange(projectile.EntityEffects.EffectWrapperCopy); // add effects once position has been finalised
 			}
-			
+
 		}
 
 		private List<EffectWrapper> getEffectsForSubProjectiles(WeaponEntity entity)
