@@ -64,7 +64,6 @@ namespace Celeritas.Game.Entities
 			{
 				trail.Clear();
 			}
-
 			base.OnDespawned();
 		}
 
@@ -90,7 +89,14 @@ namespace Celeritas.Game.Entities
 				}
 			}
 
-			other.TakeDamage(this, damage);
+			if (damageOverDistance)
+			{
+				other.TakeDamage(this, currentDamageOverDistance);
+			}
+			else
+			{
+				other.TakeDamage(this, damage);
+			}
 
 			if (ProjectileData.DestroyedOnHit)
 				KillEntity();
@@ -125,5 +131,26 @@ namespace Celeritas.Game.Entities
 
 			base.Update();
 		}
+
+		/// <summary>
+		/// Determines whether to add damageOverDistance
+		/// </summary>
+		private bool damageOverDistance = false;
+
+		public bool DamageOverDistance { get => damageOverDistance; set => damageOverDistance = value; }
+
+		/// <summary>
+		/// Used to record the total distance the projectile has travelled.
+		/// </summary>
+		private float totalDistanceTravelled;
+
+		public float TotalDistanceTravelled { get => totalDistanceTravelled; set => totalDistanceTravelled = value; }
+
+		/// <summary>
+		/// A seperate value for current damage value if damageOverDistance = true
+		/// </summary>
+		private int currentDamageOverDistance = 0;
+
+		public int CurrentDamageOverDistance { get => currentDamageOverDistance; set => currentDamageOverDistance = value; }
 	}
 }
