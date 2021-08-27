@@ -16,7 +16,12 @@ jobs:
           - 2020.2.2f1
         targetPlatform:
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
+          # - StandaloneWindows # Build a Windows standalone.
           # - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
+          # - StandaloneLinux64 # Build a Linux 64-bit standalone.
+          # - iOS # Build an iOS player.
+          # - Android # Build an Android .apk standalone app.
+          # - WebGL # WebGL.
     steps:
       # Checkout
       - uses: actions/checkout@v2
@@ -52,7 +57,9 @@ jobs:
     needs: [buildAll]
     steps:
     - uses: actions/download-artifact@v2
+    with:
+      path: ./
     - uses: ncipollo/release-action@v1
       with:
-        artifacts: "*.zip"
+        artifacts: "*"
         token: ${{ secrets.GITHUB_TOKEN }}
