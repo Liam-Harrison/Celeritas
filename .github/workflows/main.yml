@@ -2,8 +2,8 @@ name: Unity Actions
 
 on: 
   push:
-    branches:
-    - main
+    tags:
+    - '*'
 
 jobs:
   buildAll:
