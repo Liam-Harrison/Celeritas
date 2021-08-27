@@ -145,7 +145,7 @@ namespace Celeritas.UI
 				if (PlayerController.Instance.PlayerShipEntity.TryGetModuleEntity(dragging, out var entity))
 				{
 					placeObject.SetActive(true);
-					placingMaterial.color = new Color(0, 0, 1);
+					placingMaterial.SetColor("Color_b8f2ba6eebb347aea8d6b1c5ee337cf4", new Color(0, 0, 1));
 
 					placeObject.transform.position = entity.transform.position;
 					placeObject.transform.rotation = hull.transform.rotation;
@@ -158,14 +158,14 @@ namespace Celeritas.UI
 					if (hull.Entites[grid.x, grid.y] == null && hull.Modules[grid.x, grid.y].HasModuleAttatched == false && isOverModule != true)
 					{
 						placeObject.SetActive(true);
-						placingMaterial.color = new Color(0, 1, 0);
+						placingMaterial.SetColor("Color_b8f2ba6eebb347aea8d6b1c5ee337cf4", new Color(0, 1, 0));
 						canPlace = true;
 						canUpgrade = false;
 					}
 					else
 					{
 						placeObject.SetActive(true);
-						placingMaterial.color = new Color(1, 0, 0);
+						placingMaterial.SetColor("Color_b8f2ba6eebb347aea8d6b1c5ee337cf4", new Color(1, 0, 0));
 						canPlace = false;
 						canUpgrade = false;
 					}
@@ -177,7 +177,7 @@ namespace Celeritas.UI
 			else
 			{
 				placeObject.SetActive(false);
-				placingMaterial.color = new Color(1, 0, 0);
+				placingMaterial.SetColor("Color_b8f2ba6eebb347aea8d6b1c5ee337cf4", new Color(1, 0, 0));
 				canPlace = false;
 				canUpgrade = false;
 			}

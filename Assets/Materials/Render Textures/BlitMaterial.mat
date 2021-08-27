@@ -116,7 +116,7 @@ Material:
     - _Height: 59
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _PixelDensity: 2.23
+    - _PixelDensity: 5
     - _Poseterize: 0
     - _PosterizationCount: 6
     - _Power: 100

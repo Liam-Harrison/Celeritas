@@ -19,7 +19,7 @@ MonoBehaviour:
       m_Bits: 128
     Event: 450
     blitMat: {fileID: 2100000, guid: ef563c8e0bf6403458e1c495c1663abf, type: 2}
-    pixelDensity: 2.23
+    pixelDensity: 5
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
