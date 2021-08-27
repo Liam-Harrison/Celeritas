@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Struthio
-  prefab: {fileID: 2516558698829045457, guid: b446706955a35834c903d52b0b890fcb, type: 3}
+  prefab: {fileID: 5591058833882306891, guid: a031c5f0fd8dddd4c97038619c39bb38, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:

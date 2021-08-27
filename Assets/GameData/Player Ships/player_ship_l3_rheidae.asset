@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Rheidae
-  prefab: {fileID: 2516558698829045457, guid: b446706955a35834c903d52b0b890fcb, type: 3}
+  prefab: {fileID: 1817539349523737968, guid: 3d8d4994c70ff5344b17b4a566198794, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:
