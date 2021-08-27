@@ -54,5 +54,5 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ncipollo/release-action@v1
       with:
-        artifacts: "*.zip,buid/*.zip"
+        artifacts: "*.zip,build/*.zip,./*.zip, *"
         token: ${{ secrets.GITHUB_TOKEN }}
