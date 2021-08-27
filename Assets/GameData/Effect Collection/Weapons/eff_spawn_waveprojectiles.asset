@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee0d4ee51750af45b7430210d4a5dbd, type: 3}
+  m_Name: eff_spawn_waveprojectiles
+  m_EditorClassIdentifier: 
+  title: Spawn wave sun projectiles [not used, would be solution to volley]
+  targets: 1
+  stacks: 0
+  systems:
+  - {fileID: 11400000, guid: d11ea407c56f2ab4e9004095d53f94d3, type: 2}
+  - {fileID: 11400000, guid: 4411775467ca8054c9371a6ba658915a, type: 2}

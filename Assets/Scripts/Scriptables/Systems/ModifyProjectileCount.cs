@@ -1,5 +1,4 @@
 ﻿using Sirenix.OdinInspector;
-using System.Collections;
 using System.Collections.Generic;
 using Celeritas.Scriptables.Interfaces;
 using UnityEngine;
@@ -27,6 +26,15 @@ namespace Celeritas.Scriptables.Systems
 		[SerializeField]
 		private bool randomSpread;
 
+		[SerializeField]
+		private bool customProjectile;
+
+		[SerializeField, ShowIf(nameof(customProjectile))]
+		ProjectileData customProjectileData;
+
+		//[SerializeField]
+		//private EffectCollection[] effectsToExcludeCopying;
+
 		/// <summary>
 		/// How many extra projectiles will be fired per 'fire' command
 		/// when system is at level 0
@@ -39,14 +47,13 @@ namespace Celeritas.Scriptables.Systems
 		public uint ExtraProjectileCountPerLevel { get => extraProjectilesPerLevel; }
 
 		/// <inheritdoc/>
-		public override bool Stacks => false;
+		public override bool Stacks => true;
 
 		/// <inheritdoc/>
 		public override SystemTargets Targets => SystemTargets.Weapon;
 
 		/// <inheritdoc/>
 		public override string GetTooltip(ushort level) => $"Fire <color=green>{ExtraProjectileCount + (ExtraProjectileCountPerLevel * level)}</color> extra projectiles.";
-
 
 		public void OnEntityFired(WeaponEntity entity, ProjectileEntity projectile, ushort level)
 		{
@@ -61,18 +68,45 @@ namespace Celeritas.Scriptables.Systems
 				{
 					position = numberOfExtraProjectiles / 2;
 				}
-					
-				var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectile.ProjectileData, entity.ProjectileSpawn.position, entity.ProjectileSpawn.rotation, entity, projectile.EntityEffects.EffectWrapperCopy);
+
+				var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectile.ProjectileData, entity.ProjectileSpawn.position, entity.ProjectileSpawn.rotation, entity);
 				toFire.transform.localScale = entity.ProjectileSpawn.localScale;
 
-				if (randomSpread) { 
+				if (randomSpread)
+				{
 					bulletAlignment = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
 					position += Random.Range(-1f, 1f);
 				}
 				toFire.transform.Translate(bulletAlignment.normalized * position * spreadScale);
 				toFire.transform.position = toFire.transform.position.RemoveAxes(z: true, normalize: false);
+
+				toFire.EntityEffects.AddEffectRange(projectile.EntityEffects.EffectWrapperCopy); // add effects once position has been finalised
 			}
-			
+
 		}
+
+		// leaving this, we might want it later, not currently needed though.
+
+		/*
+		private List<EffectWrapper> getEffectsForSubProjectiles(WeaponEntity entity)
+		{
+			var effects = new List<EffectWrapper>(entity.ProjectileEffects.EffectWrapperCopy);
+			var toRemove = new List<EffectWrapper>();
+
+			foreach (var j in effects)
+			{
+				foreach (var k in effectsToExcludeCopying)
+				{
+					if (j.EffectCollection == k)
+						toRemove.Add(j);
+				}
+			}
+
+			foreach (var item in toRemove)
+			{
+				effects.Remove(item);
+			}
+			return effects;
+		}*/
 	}
 }

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1744d7c3ba1d05418e0947def2e7eb5, type: 3}
+  m_Name: mod_sun_main_spawn_sunbproj
+  m_EditorClassIdentifier: 
+  title: For main projectile to spawn little spinny subprojctiles
+  shrapnel: {fileID: 11400000, guid: 0c0552c7794f04544b9eac12d8fbb49b, type: 2}
+  spacing: 1
+  numberToSpawn: 1
+  effectsToExcludeCopying:
+  - {fileID: 11400000, guid: c339b34f6d5bc5e4d8ba21fdfbd63d65, type: 2}
+  - {fileID: 11400000, guid: 5f5146484eb77f84cbcb4135038c244f, type: 2}
+  spawnOnDeath: 0
+  spawnContinuouslyThroughoutLife: 1
+  delayBetweenSpawns: 0.25
+  spawnOnCreation: 0
+  useCustomProjectileSpawnLocation: 0

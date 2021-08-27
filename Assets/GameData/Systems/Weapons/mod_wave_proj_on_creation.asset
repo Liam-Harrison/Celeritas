@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1744d7c3ba1d05418e0947def2e7eb5, type: 3}
-  m_Name: modifier_shrapnel_on_death
+  m_Name: mod_wave_proj_on_creation
   m_EditorClassIdentifier: 
-  title: Shrapnel explosion on death
-  shrapnel: {fileID: 11400000, guid: 3ef6fc6a94cce7b4dbec473dcf5cf1eb, type: 2}
-  spacing: 13
-  numberToSpawn: 10
+  title: Create Sun Wave Projectile On Creation
+  shrapnel: {fileID: 11400000, guid: 1c075fc3021048f418f36cda4dcfd400, type: 2}
+  spacing: 2
+  numberToSpawn: 1
   effectsToExcludeCopying:
-  - {fileID: 11400000, guid: 9c66d884c5e31b947bb35d6b55f01e35, type: 2}
-  spawnOnDeath: 1
+  - {fileID: 11400000, guid: 5f5146484eb77f84cbcb4135038c244f, type: 2}
+  spawnOnDeath: 0
   spawnContinuouslyThroughoutLife: 0
   delayBetweenSpawns: 0
+  spawnOnCreation: 1
+  useCustomProjectileSpawnLocation: 0

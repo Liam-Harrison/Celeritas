@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae3e4c46078bf474ba0c760ccbaa737b, type: 3}
-  m_Name: modifier_projectile_count_volley
+  m_Name: mod_extra_sunburst_proj_inv
   m_EditorClassIdentifier: 
-  title: Modify Projectile Count
-  extraProjectileCount: 2
-  extraProjectilesPerLevel: 2
+  title: For subprojectiles with inverted motion
+  extraProjectileCount: 1
+  extraProjectilesPerLevel: 1
   spreadScale: 0.5
   randomSpread: 0
-  customProjectile: 0
-  customProjectileData: {fileID: 0}
+  customProjectile: 1
+  customProjectileData: {fileID: 11400000, guid: 21fc85030bf04604694d93c5923133ab, type: 2}
+  effectsToExcludeCopying:
+  - {fileID: 11400000, guid: c339b34f6d5bc5e4d8ba21fdfbd63d65, type: 2}
