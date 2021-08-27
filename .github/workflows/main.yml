@@ -58,8 +58,8 @@ jobs:
     steps:
     - uses: actions/download-artifact@v2
     with:
-      path: /
+      path: artifacts/
     - uses: ncipollo/release-action@v1
       with:
-        artifacts: "*"
+        artifacts: "artifacts/*"
         token: ${{ secrets.GITHUB_TOKEN }}
