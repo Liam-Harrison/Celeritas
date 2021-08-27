@@ -51,7 +51,7 @@ jobs:
         with:
           name: Celeritas-${{ matrix.targetPlatform }}
           path: build
-  release:dawd
+  release:
     name: Release Artifacts 📁
     runs-on: ubuntu-latest
     needs: [buildAll]
