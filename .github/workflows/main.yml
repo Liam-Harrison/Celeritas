@@ -57,8 +57,8 @@ jobs:
     needs: [buildAll]
     steps:
     - uses: actions/download-artifact@v2
-    with:
-      path: artifacts/
+      with:
+        path: artifacts/
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "artifacts/*"
