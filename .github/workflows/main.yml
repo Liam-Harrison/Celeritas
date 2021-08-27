@@ -58,8 +58,13 @@ jobs:
     steps:
     - uses: actions/download-artifact@v2
       with:
-        path: artifacts/
+        path: /
+    - uses: thedoctor0/zip-release@master
+      with:
+        type: 'zip'
+        filename: 'release.zip'
+        exclusions: '*.git* /*node_modules/* .editorconfig'
     - uses: ncipollo/release-action@v1
       with:
-        artifacts: "artifacts/*"
+        artifacts: "*.zip"
         token: ${{ secrets.GITHUB_TOKEN }}
