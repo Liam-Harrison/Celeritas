@@ -54,7 +54,7 @@ MonoBehaviour:
     angularDrag: 5
     rotationMaximum: 180
     aimDeadzone: 0.995
-    forcePerSec: 1000
+    forcePerSec: 7855
     mass: 1
   rarity: 0
   shipClass: 0
