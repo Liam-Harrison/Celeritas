@@ -55,7 +55,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 5
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -231,6 +231,7 @@ MonoBehaviour:
   damageModifierPercentage: 0
   selectionViewSize: 8
   gameViewSize: 25
+  buildViewSize: 30
   inventorySize: {x: 8, y: 4}
   hullManager: {fileID: 64154473170779183}
 --- !u!1 &6391438725233177338
