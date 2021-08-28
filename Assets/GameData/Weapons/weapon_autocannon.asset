@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: moduleLayout
+    - Name: iconLayout
       Entry: 7
       Data: 0|System.Boolean[,], mscorlib
     - Name: 
@@ -64,13 +64,16 @@ MonoBehaviour:
       Entry: 8
       Data: 
   title: Autocannon
-  capacityHint: 4
   prefab: {fileID: 1948190157008792263, guid: ce606aac3fc5c174b9ba1c5c73b3c145, type: 3}
-  icon: {fileID: 21300000, guid: 3144f6c4f2f2d704db3a0e92791b3265, type: 3}
-  description: Basic autocannon weapon.
+  capacityHint: 4
+  useChunking: 0
   size: 0
   catagory: 0
   rarity: 0
+  icon: {fileID: 21300000, guid: 3144f6c4f2f2d704db3a0e92791b3265, type: 3}
+  description: A reasonably fast firing solid projectile cannon. A good all-rounder
+    starting weapon.
+  shape: 0
   projectile: {fileID: 11400000, guid: 341054bb030d7954ea09976c07126d5b, type: 2}
   rateOfFire: 5
   charge: 0

@@ -30,11 +30,23 @@ namespace Celeritas.Game
 		public static event Action OnWaveEnded;
 		public static event Action OnWaveStarted;
 
+		//[SerializeField]
+		private float MIN_TIME_BETWEEN_WAVES = 5; // for build
+		private float timeOfLastWave = 0;
+
 		/// <summary>
 		/// Start a wave.
 		/// </summary>
 		public void StartWave()
 		{
+			if (Time.time - timeOfLastWave < MIN_TIME_BETWEEN_WAVES) // todo: hide button if not usable
+			{
+				Debug.Log("StartWave button in cooldown... Active in: " + (MIN_TIME_BETWEEN_WAVES - (Time.time - timeOfLastWave))+" seconds.");
+				return;
+			}
+
+			timeOfLastWave = Time.time;
+
 			WaveActive = true;
 
 			var wave = data[waveIndex];
@@ -46,7 +58,7 @@ namespace Celeritas.Game
 
 			foreach (ShipData ship in NewWave)
 			{
-				var spawned = EnemyManager.Instance.SpawnShip<AIBasicChase>(ship, PlayerController.Instance.PlayerShipEntity.transform.position.RandomPointOnCircle(20f));
+				var spawned = EnemyManager.Instance.SpawnShip<AIBasicChase>(ship, PlayerController.Instance.PlayerShipEntity.transform.position.RandomPointOnCircle(55f));
 				ships[wave].Add(spawned);
 			}
 
