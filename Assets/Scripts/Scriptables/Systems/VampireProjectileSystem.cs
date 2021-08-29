@@ -53,13 +53,13 @@ namespace Celeritas.Scriptables.Systems
 		/// </summary>
 		public float DamageReducedByPerLevel { get => damageReducedByPerLevel; }
 
-		private ShipEntity Ship = null;
+		private ShipEntity targetShip = null;
 
 		public void OnEntityEffectAdded(Entity entity, ushort level)
 		{
 			if (entity is ShipEntity ship)
 			{
-				Ship = ship;
+				targetShip = ship;
 			}
 
 			if (entity is ProjectileEntity projectile)
@@ -67,9 +67,13 @@ namespace Celeritas.Scriptables.Systems
 				float baseDamage = (float)projectile.Damage;
 				projectile.Damage = projectile.Damage - Mathf.RoundToInt((baseDamage / 100.0f) * (DamageReducedBy - (DamageReducedByPerLevel * level)));
 				float amountToHeal = ((baseDamage / 100.0f) * (Percentage + (PercentageExtraPerLevel * level)));
-				if (Ship != null)
+				if (targetShip != null)
 				{
-					Ship.Health.Damage(Mathf.RoundToInt(amountToHeal) * -1);
+					if (targetShip.Health.CurrentValue < targetShip.Health.MaxValue)
+					{
+					projectile.HealOnHit = (Mathf.RoundToInt(amountToHeal) * -1);
+					projectile.HealShip = targetShip;
+					}
 				}
 			}
 		}
