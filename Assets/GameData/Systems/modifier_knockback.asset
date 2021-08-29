@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: modifier_knockback
   m_EditorClassIdentifier: 
   title: Knockback
-  percentage: 10
-  percentageExtraPerLevel: 4
+  percentage: 20
+  percentageExtraPerLevel: 6

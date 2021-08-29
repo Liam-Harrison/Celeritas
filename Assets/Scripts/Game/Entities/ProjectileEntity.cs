@@ -161,6 +161,12 @@ namespace Celeritas.Game.Entities
 			var entity = other.gameObject.GetComponentInParent<Entity>();
 			if (entity != null)
 			{
+				if (knockBack != 0)
+				{
+					objectHit = other.gameObject;
+					ApplyKnockback();
+				}
+
 				OnEntityHit(entity);
 			}
 		}
@@ -202,5 +208,42 @@ namespace Celeritas.Game.Entities
 		private int currentDamageOverDistance = 0;
 
 		public int CurrentDamageOverDistance { get => currentDamageOverDistance; set => currentDamageOverDistance = value; }
+
+		/// <summary>
+        /// The GameObject of the target hit.
+        /// </summary>
+		public GameObject objectHit { get; set; }
+
+		/// <summary>
+        /// The knockback multiplier.
+        /// A higher value will increase the force of the knockback.
+        /// </summary>
+		private float knockBack = 0;
+
+		public float KnockBack { get => knockBack; set => knockBack = value; }
+
+		/// <summary>
+        /// Applies knockback to target.
+        /// </summary>
+		private void ApplyKnockback()
+		{
+			if (objectHit != null)
+			{
+				Vector3 direction = objectHit.transform.position - transform.position;
+				direction.z = 0;
+
+				Rigidbody2D rb = objectHit.GetComponent<Rigidbody2D>();
+				if (rb == null)
+				{
+					rb = objectHit.GetComponentInParent<Rigidbody2D>();
+				}
+				if (rb != null)
+				{
+					rb.AddForce(direction.normalized * knockBack, ForceMode2D.Impulse);
+					Debug.Log(knockBack);
+				}
+				objectHit = null;
+			}
+		}
 	}
 }
