@@ -21,9 +21,51 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: iconLayout
+    - Name: moduleLayout
       Entry: 7
       Data: 0|System.Boolean[,], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 9
+    - Name: ranks
+      Entry: 1
+      Data: 3|3
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: iconLayout
+      Entry: 7
+      Data: 1|System.Boolean[,], mscorlib
     - Name: 
       Entry: 12
       Data: 9
@@ -70,12 +112,9 @@ MonoBehaviour:
   size: 0
   catagory: 0
   rarity: 0
-  icon: {fileID: 21300000, guid: 171b4d973e646db43a1659b321b2420a, type: 3}
-  description: A reasonably fast firing solid projectile cannon. A good all-rounder
-    starting weapon.
-  shape: 0
+  icon: {fileID: 21300000, guid: 3144f6c4f2f2d704db3a0e92791b3265, type: 3}
+  description: Basic autocannon weapon.
   projectile: {fileID: 11400000, guid: 341054bb030d7954ea09976c07126d5b, type: 2}
   rateOfFire: 5
   charge: 0
   maxCharge: 0
-  placeholder: 0

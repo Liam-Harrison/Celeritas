@@ -59,10 +59,10 @@ MonoBehaviour:
   hasDefaultEffects: 0
   defaultEffects: []
   hasGraphicalEffects: 1
-  onDestroyEffectPrefab: {fileID: 2516007055564396064, guid: cdbe87aa8fcee444f89240e0628f0cee, type: 3}
+  onDestroyEffectPrefab: {fileID: 3745834012832840761, guid: 3ea10c9bd0cdad94b85d5038a50b62d2, type: 3}
   timeToPlayOnDestroyEffect: 4
-  onHitEffectPrefab: {fileID: 0}
-  timeToPlayOnHitEffect: 0
+  onHitEffectPrefab: {fileID: 944521539114987493, guid: 1ec5cd34395d64349b39cc84f22f8ff3, type: 3}
+  timeToPlayOnHitEffect: 4
   startingHealth: 100
   lootConfig:
     gain: 100
