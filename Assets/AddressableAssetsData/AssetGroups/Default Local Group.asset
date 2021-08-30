@@ -94,6 +94,13 @@ MonoBehaviour:
     - Environment
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 2b5c9c97a0faf09478b713ec5f15e658
+    m_Address: Assets/GameData/Events
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Events
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 586fbc35d44629b4bae51c87ba516ab4, type: 2}
   m_SchemaSet:

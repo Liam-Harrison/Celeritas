@@ -1,3 +1,4 @@
+using Celeritas.Game.Events;
 using Celeritas.Scriptables;
 using System;
 using System.Collections.Generic;
@@ -13,72 +14,75 @@ namespace Celeritas.Game.Entities
 	/// </summary>
 	public class EntityDataManager : Singleton<EntityDataManager>
 	{
-		private readonly List<ShipData> ships = new List<ShipData>();
-		private readonly List<WeaponData> weapons = new List<WeaponData>();
-		private readonly List<ModuleData> modules = new List<ModuleData>();
-		private readonly List<ModifierSystem> systems = new List<ModifierSystem>();
-		private readonly List<ProjectileData> projectiles = new List<ProjectileData>();
-		private readonly List<EffectCollection> effectColletions = new List<EffectCollection>();
-		private readonly List<ActionData> actions = new List<ActionData>();
-		private readonly List<HullData> hulls = new List<HullData>();
-		private readonly List<WaveData> waves = new List<WaveData>();
-		private readonly List<ShipData> playerShips = new List<ShipData>();
-		private readonly List<EntityData> enviormentEntities = new List<EntityData>();
+		private readonly HashSet<ShipData> ships = new HashSet<ShipData>();
+		private readonly HashSet<WeaponData> weapons = new HashSet<WeaponData>();
+		private readonly HashSet<ModuleData> modules = new HashSet<ModuleData>();
+		private readonly HashSet<ModifierSystem> systems = new HashSet<ModifierSystem>();
+		private readonly HashSet<ProjectileData> projectiles = new HashSet<ProjectileData>();
+		private readonly HashSet<EffectCollection> effectColletions = new HashSet<EffectCollection>();
+		private readonly HashSet<ActionData> actions = new HashSet<ActionData>();
+		private readonly HashSet<HullData> hulls = new HashSet<HullData>();
+		private readonly HashSet<WaveData> waves = new HashSet<WaveData>();
+		private readonly HashSet<ShipData> playerShips = new HashSet<ShipData>();
+		private readonly HashSet<EntityData> enviormentEntities = new HashSet<EntityData>();
+		private readonly HashSet<EventData> events = new HashSet<EventData>();
 
 		/// <summary>
 		/// All loaded ship data entites.
 		/// </summary>
-		public IReadOnlyList<ShipData> Ships { get => ships.AsReadOnly(); }
+		public IReadOnlyCollection<ShipData> Ships { get => ships; }
 
 		/// <summary>
 		/// All loaded weapon entites.
 		/// </summary>
-		public IReadOnlyList<WeaponData> Weapons { get => weapons.AsReadOnly(); }
+		public IReadOnlyCollection<WeaponData> Weapons { get => weapons; }
 
 		/// <summary>
 		/// All loaded module entites.
 		/// </summary>
-		public IReadOnlyList<ModuleData> Modules { get => modules.AsReadOnly(); }
+		public IReadOnlyCollection<ModuleData> Modules { get => modules; }
 
 		/// <summary>
 		/// All loaded system entites.
 		/// </summary>
-		public IReadOnlyList<ModifierSystem> Systems { get => systems.AsReadOnly(); }
+		public IReadOnlyCollection<ModifierSystem> Systems { get => systems; }
 
 		/// <summary>
 		/// All loaded projectile entites.
 		/// </summary>
-		public IReadOnlyList<ProjectileData> Projectiles { get => projectiles.AsReadOnly(); }
+		public IReadOnlyCollection<ProjectileData> Projectiles { get => projectiles; }
 
 		/// <summary>
 		/// All loaded effect collection entites.
 		/// </summary>
-		public IReadOnlyList<EffectCollection> EffectCollections { get => effectColletions.AsReadOnly(); }
+		public IReadOnlyCollection<EffectCollection> EffectCollections { get => effectColletions; }
 
 		/// <summary>
 		/// All the action entites.
 		/// </summary>
-		public IReadOnlyList<ActionData> Actions { get => actions.AsReadOnly(); }
+		public IReadOnlyCollection<ActionData> Actions { get => actions; }
 
 		/// <summary>
 		/// All the hull entites.
 		/// </summary>
-		public IReadOnlyList<HullData> Hulls { get => hulls.AsReadOnly(); }
+		public IReadOnlyCollection<HullData> Hulls { get => hulls; }
 
 		/// <summary>
 		/// All the wave entites.
 		/// </summary>
-		public IReadOnlyList<WaveData> Waves { get => waves.AsReadOnly(); }
+		public IReadOnlyCollection<WaveData> Waves { get => waves; }
 
 		/// <summary>
 		/// All the asteroid entites.
 		/// </summary>
-		public IReadOnlyList<EntityData> EnviromentEntities { get => enviormentEntities.AsReadOnly(); }
+		public IReadOnlyCollection<EntityData> EnviromentEntities { get => enviormentEntities; }
 
 		/// <summary>
 		/// All the player ship entries.
 		/// </summary>
-		public IReadOnlyList<ShipData> PlayerShips { get => playerShips.AsReadOnly(); }
+		public IReadOnlyCollection<ShipData> PlayerShips { get => playerShips; }
+
+		public IReadOnlyCollection<EventData> Events { get => events; }
 
 		public bool Loaded { get; private set; }
 
@@ -233,6 +237,7 @@ namespace Celeritas.Game.Entities
 				LoadTags(waves, Constants.WAVES_TAG),
 				LoadTags(playerShips, Constants.PLAYER_SHIP_TAG),
 				LoadTags(enviormentEntities, Constants.ENVIRONMENT_TAG),
+				LoadTags(events, Constants.EVENT_TAG),
 			};
 
 			await Task.WhenAll(tasks);
@@ -244,7 +249,7 @@ namespace Celeritas.Game.Entities
 			OnLoadedAssets?.Invoke();
 		}
 
-		private async Task LoadTags<T>(IList<T> list, string tag)
+		private async Task LoadTags<T>(ICollection<T> list, string tag)
 		{
 			var handle = Addressables.LoadAssetsAsync<T>(tag, (_) => { });
 

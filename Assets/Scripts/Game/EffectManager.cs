@@ -74,7 +74,9 @@ namespace Celeritas.Game
 			else if (wrapper.EffectCollection.Stacks || !effects.Contains(wrapper))
 			{
 				effects.Add(wrapper);
-				wrapper.EffectCollection.OnAdded(owner, wrapper.Level);
+
+				if (!owner.Instanced)
+					wrapper.EffectCollection.OnAdded(owner, wrapper.Level);
 			}
 			else
 			{

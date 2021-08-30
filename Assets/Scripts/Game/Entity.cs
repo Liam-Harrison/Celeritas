@@ -100,6 +100,11 @@ namespace Celeritas.Game
 		public bool IsInitalized { get; protected set; } = false;
 
 		/// <summary>
+		/// Is this entity instanced.
+		/// </summary>
+		public bool Instanced { get; private set; }
+
+		/// <summary>
 		/// The data associated with this entity.
 		/// </summary>
 		public virtual EntityData Data { get; protected set; }
@@ -179,6 +184,7 @@ namespace Celeritas.Game
 			Spawned = Time.time;
 			Owner = owner;
 			IsInitalized = true;
+			Instanced = instanced;
 
 			if (forceIsPlayer)
 				IsPlayer = true;

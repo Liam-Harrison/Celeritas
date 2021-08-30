@@ -13,10 +13,6 @@ namespace Celeritas.Game
 
 		private const int UNLOAD_CHUNK_DIST = 6;
 
-		private const int EVENT_CREATION_DIST = 6;
-
-		private const int EVENT_DESTROY_DIST = 10;
-
 		private const float UPDATE_FREQ = 2;
 
 		private float lastUpdate;

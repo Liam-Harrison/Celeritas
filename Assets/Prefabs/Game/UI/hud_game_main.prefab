@@ -163,6 +163,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6497059532437801869, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
+      propertyPath: radiusPadding
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6923601512839842711, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
