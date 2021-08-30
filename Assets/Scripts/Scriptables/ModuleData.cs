@@ -1,5 +1,6 @@
 using AssetIcons;
 using Celeritas.Game.Entities;
+using Celeritas.Game.Events;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;

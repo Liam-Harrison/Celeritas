@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6771433546541588246}
   - component: {fileID: 6771433546541588247}
   - component: {fileID: 6771433546541588241}
+  - component: {fileID: 2382963773502784429}
   m_Layer: 0
   m_Name: Persistent Managers
   m_TagString: Untagged
@@ -111,3 +112,15 @@ MonoBehaviour:
   t: {fileID: 21300000, guid: eda8880bc6af60e40af3f1defcb447e9, type: 3}
   smallSquare: {fileID: 21300000, guid: 6d348c936fd8f5b47800cfad7974a81b, type: 3}
   largeSquare: {fileID: 21300000, guid: c35e5cc338a970543b8e7e3541e0dad8, type: 3}
+--- !u!114 &2382963773502784429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6771433546541588235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 626eb82907fecef4a856449c5295f312, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
