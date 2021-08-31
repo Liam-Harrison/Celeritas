@@ -68,6 +68,7 @@ MonoBehaviour:
   trails:
   - {fileID: 1701396079780719382}
   projectileSpawn: {fileID: 0}
+  floatingTextPrefab: {fileID: 4679094507319831066, guid: 287e23708f3f68242b6112d84df56568, type: 3}
 --- !u!58 &2909153840342931133
 CircleCollider2D:
   m_ObjectHideFlags: 0
