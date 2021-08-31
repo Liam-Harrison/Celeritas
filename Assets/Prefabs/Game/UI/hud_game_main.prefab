@@ -164,6 +164,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6497059532437801869, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
+      propertyPath: worldRadius
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6497059532437801869, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
       propertyPath: radiusPadding
       value: 15
       objectReference: {fileID: 0}

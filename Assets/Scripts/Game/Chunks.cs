@@ -7,7 +7,7 @@ namespace Celeritas.Game
 {
 	public class Chunks : Singleton<Chunks>
 	{
-		private const float CHUNK_SIZE = 100;
+		public const float CHUNK_SIZE = 100;
 
 		private const int DISABLE_CHUNK_DIST = 3;
 

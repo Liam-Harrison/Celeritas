@@ -29,6 +29,9 @@ namespace Celeritas.UI
 		[SerializeField, TitleGroup("Minimap Settings")]
 		private float markerRadius = 100;
 
+		[SerializeField, TitleGroup("Minimap Settings")]
+		private float fudge = 0;
+
 		[SerializeField, PropertySpace(20), TitleGroup("Prefabs")]
 		private GameObject markerPrefab;
 
@@ -67,11 +70,6 @@ namespace Celeritas.UI
 		protected override void OnGameLoaded()
 		{
 			base.OnGameLoaded();
-
-			CreateScrollable(new Vector2Int(0, 1));
-			CreateScrollable(new Vector2Int(1, 1));
-			CreateScrollable(new Vector2Int(1, 2));
-			CreateScrollable(new Vector2Int(2, 2));
 		}
 
 		private void Update()
@@ -85,9 +83,9 @@ namespace Celeritas.UI
 
 			string size;
 			if (worldRadius < 1000)
-				size = $"{RoundToNearest(worldRadius, 100)}m";
+				size = $"{RoundToNearest(worldRadius, 50)}m";
 			else
-				size = $"{RoundToNearest(worldRadius, 250)}km";
+				size = $"{RoundToNearest(worldRadius, 250)/1000:0.00}km";
 
 			scale.text = size;
 		}
@@ -117,6 +115,12 @@ namespace Celeritas.UI
 
 			foreach (var scrollable in scrollables)
 			{
+				float scale = Chunks.CHUNK_SIZE / worldRadius / 2;
+				scale *= transform.rect.width;
+				scale -= radiusPadding / 2;
+				scale += fudge;
+
+				scrollable.transform.sizeDelta = new Vector2(scale, scale);
 				scrollable.transform.anchoredPosition = GetPositionUnclamped(center, scrollable.Position, radius);
 			}
 		}
@@ -148,13 +152,27 @@ namespace Celeritas.UI
 
 		private void UpdateDirectionMarkers()
 		{
+			var radius = GetUIRadius();
+
 			foreach (var marker in directionMarkers)
 			{
-				var dir = (marker.Point - center).normalized;
-				var rot = Quaternion.LookRotation(Vector3.forward, dir);
+				var d = marker.Point - center;
 
-				marker.transform.anchoredPosition3D = rot * Vector3.up * markerRadius;
-				marker.transform.rotation = rot;
+				if (d.magnitude / worldRadius > 1f)
+				{
+					var dir = (marker.Point - center).normalized;
+					var rot = Quaternion.LookRotation(Vector3.forward, dir);
+
+					marker.Marker.gameObject.SetActive(true);
+					marker.transform.anchoredPosition3D = rot * Vector3.up * markerRadius;
+					marker.transform.rotation = rot;
+				}
+				else
+				{
+					marker.Marker.gameObject.SetActive(false);
+					marker.transform.anchoredPosition = GetPosition(center, marker.Point, radius);
+					marker.transform.rotation = Quaternion.identity;
+				}
 			}
 		}
 

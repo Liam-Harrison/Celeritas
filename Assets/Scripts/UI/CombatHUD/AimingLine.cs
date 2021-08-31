@@ -70,6 +70,7 @@ public class AimingLine : MonoBehaviour
 		// these additions to centre the line if required (eg cursor)
 		toAimAt.x += xDisplacementFromCursorCentre;
 		toAimAt.y += yDisplacementFromCursonCentre;
+		toAimAt = Vector3.Lerp(line.GetPosition(1), toAimAt, 48 * Time.smoothDeltaTime);
 		line.SetPosition(1, toAimAt);
 	}
 }

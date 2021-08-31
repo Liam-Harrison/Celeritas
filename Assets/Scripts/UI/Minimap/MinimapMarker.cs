@@ -1,4 +1,5 @@
 ﻿using Celeritas.Game;
+using Celeritas.Game.Entities;
 using Celeritas.Game.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -17,6 +18,9 @@ namespace Celeritas.UI
 		[SerializeField]
 		private Color enemyColor = Color.white;
 
+		[SerializeField]
+		private Color lootColor = Color.white;
+
 		public Entity Entity { get; private set; }
 
 		public RectTransform RectTransform { get; private set; }
@@ -25,7 +29,9 @@ namespace Celeritas.UI
 		{
 			Entity = entity;
 
-			if (entity.IsPlayer)
+			if (entity is LootEntity)
+				sprite.color = lootColor;
+			else if (entity.IsPlayer)
 				sprite.color = playerColor;
 			else
 				sprite.color = enemyColor;

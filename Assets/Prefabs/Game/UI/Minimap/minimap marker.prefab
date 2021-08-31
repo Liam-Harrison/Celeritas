@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2459245193920962518}
   - component: {fileID: 2459245193920962519}
   m_Layer: 5
-  m_Name: minimap_marker
+  m_Name: minimap marker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,3 +91,4 @@ MonoBehaviour:
   sprite: {fileID: 2459245193920962518}
   playerColor: {r: 0.21039516, g: 0.5660378, b: 0.2817277, a: 0.3529412}
   enemyColor: {r: 0.6981132, g: 0.27265927, b: 0.27265927, a: 0.3529412}
+  lootColor: {r: 0.836052, g: 0.8962264, b: 0.20630117, a: 0.3529412}

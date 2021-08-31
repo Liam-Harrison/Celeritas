@@ -101,7 +101,7 @@ namespace Celeritas.UI
 		{
 			if (IsShowing)
 			{
-				background.position = Vector3.Lerp(background.position, GetPosition(), 32f * Time.smoothDeltaTime);
+				background.position = Vector3.Lerp(background.position, GetPosition(), 48f * Time.smoothDeltaTime);
 			}
 		}
 

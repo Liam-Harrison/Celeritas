@@ -5517,10 +5517,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: hud_game_main
       objectReference: {fileID: 0}
-    - target: {fileID: 5641295164972117327, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
-      propertyPath: worldRadius
-      value: 1000
-      objectReference: {fileID: 0}
     - target: {fileID: 8705050899766348185, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_IsActive
       value: 0

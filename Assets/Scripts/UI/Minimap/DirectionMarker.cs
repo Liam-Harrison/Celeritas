@@ -18,6 +18,8 @@ namespace Celeritas.UI
 
 		public new RectTransform transform;
 
+		public Image Marker { get => marker; }
+
 		public Vector3 Point { get; private set; }
 
 		private void Awake()
