@@ -71,6 +71,11 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public ShipEntity HealShip { get; set; }
 
+		/// <summary>
+        /// Used to determine how long a project will stun the target for.
+        /// </summary>
+		public float StunDuration { get; set; }
+
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
@@ -89,6 +94,7 @@ namespace Celeritas.Game.Entities
 				else if (owner is ProjectileEntity projectile)
 					BaseVelcoity = projectile.BaseVelcoity;
 			}
+			StunDuration = 0;
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
@@ -121,6 +127,14 @@ namespace Celeritas.Game.Entities
 				if (HealOnHit != 0 && HealShip != null)
 				{
 					HealShip.Health.Damage(HealOnHit);
+				}
+
+				if (StunDuration != 0)
+				{
+					if (ship.Stunned == false)
+					{
+						ship.Stun(StunDuration);
+					}
 				}
 
 				if (ship.WeaponEntities.Contains(Weapon))

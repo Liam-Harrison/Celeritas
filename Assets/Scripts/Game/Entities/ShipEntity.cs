@@ -4,6 +4,7 @@ using Celeritas.Scriptables;
 using Celeritas.UI;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 namespace Celeritas.Game.Entities
@@ -150,6 +151,11 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public bool IsStationary { get; set; }
 
+		/// <summary>
+        /// Determines if the ship is currently stunned.
+        /// </summary>
+		public bool Stunned { get; set; }
+
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
@@ -244,9 +250,29 @@ namespace Celeritas.Game.Entities
 		}
 
 		/// <summary>
-        /// Current damage modifer on ship.
-        /// Default is 0, negative value = takes less damage, positive value = takes more damage.
+        /// Starts coroutine for stun
         /// </summary>
+		public void Stun(float duration)
+		{
+			StartCoroutine(StunTimer(duration));
+		}
+
+		/// <summary>
+        /// Coroutine that will set the ship to stationary for duration.
+        /// </summary>
+		public IEnumerator StunTimer(float duration)
+		{
+			Stunned = true;
+			IsStationary = true;
+			yield return new WaitForSeconds(duration);
+			IsStationary = false;
+			Stunned = false;
+		}
+
+		/// <summary>
+		/// Current damage modifer on ship.
+		/// Default is 0, negative value = takes less damage, positive value = takes more damage.
+		/// </summary>
 		public int damageModifierPercentage = 0;
 
 
