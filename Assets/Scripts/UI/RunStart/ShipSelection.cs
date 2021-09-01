@@ -30,12 +30,6 @@ namespace Celeritas.UI.Runstart
 		[SerializeField, TitleGroup("Spawn")]
 		private Transform shipSpawn;
 
-		[SerializeField, Title("Launch Button")]
-		private Button launchButton;
-
-		[SerializeField, Title("Error Text")]
-		private GameObject errorText;
-
 		/// <summary>
 		/// The currently selected ship.
 		/// </summary>
@@ -113,15 +107,6 @@ namespace Celeritas.UI.Runstart
 
 		public void Launch()
 		{
-			// first, check that the player has selected all weapons correctly. If not, message + don't allow launch
-			foreach (WeaponEntity w in CurrentShip.WeaponEntities)
-			{
-				if (w.WeaponData.Placeholder)
-				{
-					errorText.SetActive(true);
-					return;
-				}
-			}
 
 			// no placeholder weapons selected. Proceed to launch.
 			StopAllCoroutines();
