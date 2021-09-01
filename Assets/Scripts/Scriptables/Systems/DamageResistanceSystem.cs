@@ -41,13 +41,13 @@ namespace Celeritas.Scriptables.Systems
 		public void OnEntityEffectAdded(Entity entity, ushort level)
 		{
 			var ship = entity as ShipEntity;
-			ship.damageModifierPercentage = (Amount + (AmountExtraPerLevel * level));
+			ship.DamageModifierPercentage = (Amount + (AmountExtraPerLevel * level));
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, ushort level)
 		{
 			var ship = entity as ShipEntity;
-			ship.damageModifierPercentage = (ship.damageModifierPercentage - (Amount + (AmountExtraPerLevel * level)));
+			ship.DamageModifierPercentage = (ship.DamageModifierPercentage - (Amount + (AmountExtraPerLevel * level)));
 		}
 	}
 }
