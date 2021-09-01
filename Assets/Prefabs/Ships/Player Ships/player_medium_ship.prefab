@@ -364,7 +364,7 @@ MonoBehaviour:
   size: 1
   isWeapon: 1
   hasDefaultModule: 1
-  module: {fileID: 11400000, guid: 97a0c23b0a22f3147acd966f7f2e4a92, type: 2}
+  module: {fileID: 11400000, guid: 229cee54320deba40908a1d4e04d0c6b, type: 2}
   moduleEffects: []
   projectileEffects: []
 --- !u!1 &8593195112231694218

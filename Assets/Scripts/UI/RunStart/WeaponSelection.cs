@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Celeritas.UI.Runstart
 {
@@ -31,6 +32,9 @@ namespace Celeritas.UI.Runstart
 
 		[SerializeField, TitleGroup("Dragging")]
 		private IconUI dragIcon;
+
+		[SerializeField, TitleGroup("ErrorText")]
+		private GameObject errorText; // used to show 'please select a weapon before launching' text
 
 		private readonly List<WeaponPanel> panels = new List<WeaponPanel>();
 
@@ -73,7 +77,8 @@ namespace Celeritas.UI.Runstart
 				var parent = view.x > 0.5f ? rightGrid : leftGrid;
 
 				var panel = Instantiate(panelPrefab, parent).GetComponent<WeaponPanel>();
-				panel.SetModule(weapon.AttatchedModule);
+					
+				panel.SetModule(weapon.AttatchedModule); // maybe make a placeholder weapon?
 				panel.SetWeapon(weapon.WeaponData);
 
 				panels.Add(panel);
@@ -126,6 +131,8 @@ namespace Celeritas.UI.Runstart
 
 			foreach (var weapon in EntityDataManager.Instance.Weapons)
 			{
+				if (weapon.Placeholder) // don't let players equip placeholder weapons
+					continue;
 				var panel = Instantiate(itemPrefab, itemContent).GetComponent<WeaponItem>();
 				panel.SetWeapon(weapon);
 			}
@@ -155,6 +162,21 @@ namespace Celeritas.UI.Runstart
 			dragIcon.gameObject.SetActive(false);
 			Dragging = false;
 			DraggingItem = null;
+
+			// if no placeholder weapons are left, ready to launch
+			bool readyToLaunch = true;
+			foreach (WeaponPanel w in panels)
+			{
+				if (w.Weapon.Placeholder)
+				{ 
+					readyToLaunch = false;
+					break;
+				}
+			}
+			if (readyToLaunch)
+			{
+				errorText.SetActive(false);
+			}
 		}
 
 		private bool TryGetPanel(out WeaponPanel panel)
