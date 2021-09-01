@@ -54,6 +54,9 @@ public class AimingLine : MonoBehaviour
 	/// <param name="playerShip"></param>
 	public void Draw(ShipEntity playerShip)
 	{
+		if (Time.timeScale < 0.95f)
+			return;
+
 		// aim at mouse if aimAtMouse, else aim at target if it isn't null
 		Vector3 toAimAt;
 		if (aimAtMouse)

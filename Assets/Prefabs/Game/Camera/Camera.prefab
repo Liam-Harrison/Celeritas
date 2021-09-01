@@ -320,7 +320,7 @@ MonoBehaviour:
     mainLoop: {fileID: 8300000, guid: 80bc4e8a20fa32a488304dc153e3db52, type: 3}
   primary: {fileID: 8311238803136293580}
   secondary: {fileID: 17649865}
-  musicVolume: 0.2
+  musicVolume: 0.1
 --- !u!82 &8311238803136293580
 AudioSource:
   m_ObjectHideFlags: 0

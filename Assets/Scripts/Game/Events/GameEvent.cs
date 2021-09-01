@@ -16,6 +16,8 @@ namespace Celeritas.Game.Events
 
 		private DirectionMarker marker;
 
+		public bool AreaEntered { get; private set; } = false;
+
 		public virtual void Initalize(EventData data, Vector2Int chunk)
 		{
 			EventData = data;
@@ -60,7 +62,13 @@ namespace Celeritas.Game.Events
 
 		public void EnterEventArea()
 		{
+			AreaEntered = true;
 			EventData.OnEntered();
+
+			if (EventData.ShowDialogue)
+			{
+				DialogueManager.Instance.ShowDialogue(EventData.DialogueInfo, null);
+			}
 		}
 
 		public void EndEvent()

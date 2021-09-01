@@ -6,6 +6,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using Celeritas.UI.Runstart;
 
 namespace Celeritas.UI
 {
@@ -58,6 +59,9 @@ namespace Celeritas.UI
 			pooledMarkers = new ObjectPool<MinimapMarker>(markerPrefab, transform);
 			EntityDataManager.OnCreatedEntity += OnCreatedEntity;
 
+			if (ShipSelection.CurrentShip != null)
+				TrackEntity(ShipSelection.CurrentShip);
+
 			base.Awake();
 		}
 
@@ -65,11 +69,6 @@ namespace Celeritas.UI
 		{
 			EntityDataManager.OnCreatedEntity -= OnCreatedEntity;
 			base.OnDestroy();
-		}
-
-		protected override void OnGameLoaded()
-		{
-			base.OnGameLoaded();
 		}
 
 		private void Update()

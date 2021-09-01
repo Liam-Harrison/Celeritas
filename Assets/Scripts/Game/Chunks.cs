@@ -24,6 +24,8 @@ namespace Celeritas.Game
 
 		public static event Action<Chunk> OnCreatedChunk;
 
+		public static event Action<Chunk> OnEnteredChunk;
+
 		private new Camera camera;
 
 		protected override void Awake()
@@ -68,6 +70,8 @@ namespace Celeritas.Game
 			UpdateChunks();
 		}
 
+		private Vector2Int last;
+
 		private void UpdateChunks()
 		{
 			var middle = ChunkManager.GetChunkIndex(camera.transform.position);
@@ -107,6 +111,13 @@ namespace Celeritas.Game
 			{
 				ChunkManager.UnloadChunk(chunk);
 			}
+
+			if (last != middle && ChunkManager.TryGetChunk(middle, out var mid))
+			{
+				OnEnteredChunk?.Invoke(mid);
+			}
+
+			last = middle;
 		}
 	}
 }

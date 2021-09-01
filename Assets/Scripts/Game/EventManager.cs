@@ -24,11 +24,13 @@ namespace Celeritas.Game
 				CreateRandomEvent();
 
 			GameStateManager.onStateChanged += OnStateChanged;
+			Chunks.OnEnteredChunk += OnEnteredChunk;
 		}
 
 		private void OnDisable()
 		{
 			GameStateManager.onStateChanged -= OnStateChanged;
+			Chunks.OnEnteredChunk -= OnEnteredChunk;
 		}
 
 		private void OnStateChanged(GameState old, GameState state)
@@ -43,7 +45,7 @@ namespace Celeritas.Game
 		{
 			foreach (var e in EntityDataManager.Instance.Events)
 			{
-				var pos = Camera.main.transform.position + (Quaternion.Euler(0, Random.Range(0, 360), 0) * Vector3.forward * (Chunks.ChunkManager.ChunkSize.x * EVENT_CREATION_DIST));
+				var pos = Camera.main.transform.position + (Quaternion.Euler(0, 0, Random.Range(0, 360)) * Vector3.up * (Chunks.ChunkManager.ChunkSize.x * EVENT_CREATION_DIST));
 				CreateEvent(e, Chunks.ChunkManager.GetChunkIndex(pos));
 			}
 		}
@@ -52,6 +54,25 @@ namespace Celeritas.Game
 		{
 			var gameEvent = new GameEvent();
 			gameEvent.Initalize(data, chunk);
+			events.Add(gameEvent);
+		}
+
+		private void OnEnteredChunk(Chunk chunk)
+		{
+			foreach (var e in events)
+			{
+				if (e.AreaEntered)
+					continue;
+
+				foreach (var id in e.ChunkIds)
+				{
+					if (id == chunk.Index)
+					{
+						e.EnterEventArea();
+						break;
+					}
+				}
+			}
 		}
 	}
 }

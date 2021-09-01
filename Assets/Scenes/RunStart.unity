@@ -2228,6 +2228,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toggle Blue Setup
       objectReference: {fileID: 0}
+    - target: {fileID: 4239081621532955504, guid: c7c716a4899c9ab47a2c5ba82d1740d6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4239081621532955507, guid: c7c716a4899c9ab47a2c5ba82d1740d6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2246,7 +2250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4239081621532955507, guid: c7c716a4899c9ab47a2c5ba82d1740d6, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4239081621532955507, guid: c7c716a4899c9ab47a2c5ba82d1740d6, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2254,11 +2258,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4239081621532955507, guid: c7c716a4899c9ab47a2c5ba82d1740d6, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4239081621532955507, guid: c7c716a4899c9ab47a2c5ba82d1740d6, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 239.33333
       objectReference: {fileID: 0}
     - target: {fileID: 4239081621532955507, guid: c7c716a4899c9ab47a2c5ba82d1740d6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2294,11 +2298,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4239081621532955507, guid: c7c716a4899c9ab47a2c5ba82d1740d6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 622.3333
       objectReference: {fileID: 0}
     - target: {fileID: 4239081621532955507, guid: c7c716a4899c9ab47a2c5ba82d1740d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -30.5
       objectReference: {fileID: 0}
     - target: {fileID: 4239081621532955507, guid: c7c716a4899c9ab47a2c5ba82d1740d6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5880,7 +5884,6 @@ MonoBehaviour:
   toggles:
   - {fileID: 1725190614}
   - {fileID: 2142305872}
-  - {fileID: 1877512562}
   shipSpawn: {fileID: 2141348488}
 --- !u!114 &1638285563
 MonoBehaviour:
@@ -7482,23 +7485,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1986173541449577325, guid: 81f5c9ab83a971949b7b15d24c7f9975, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1986173541449577325, guid: 81f5c9ab83a971949b7b15d24c7f9975, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2142305872}
+      objectReference: {fileID: 1638285562}
     - target: {fileID: 1986173541449577325, guid: 81f5c9ab83a971949b7b15d24c7f9975, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1986173541449577325, guid: 81f5c9ab83a971949b7b15d24c7f9975, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: set_isOn
+      value: Launch
       objectReference: {fileID: 0}
     - target: {fileID: 1986173541449577325, guid: 81f5c9ab83a971949b7b15d24c7f9975, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UnityEngine.UI.Toggle, UnityEngine.UI
+      value: Celeritas.UI.Runstart.ShipSelection, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1986173541449577325, guid: 81f5c9ab83a971949b7b15d24c7f9975, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument

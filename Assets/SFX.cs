@@ -46,6 +46,14 @@ namespace Celeritas
 		private bool loopSequenceEnd = false;
 		private bool sequenceSmooth = false;
 
+		protected override void OnGameLoaded()
+		{
+			base.OnGameLoaded();
+
+			if (GameStateManager.Instance.GameState != GameState.MAINMENU)
+				OnGameStateChanged(GameState.MAINMENU, GameState.BACKGROUND);
+		}
+
 		private void OnEnable()
 		{
 			GameStateManager.onStateChanged += OnGameStateChanged;

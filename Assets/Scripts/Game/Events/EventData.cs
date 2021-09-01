@@ -1,6 +1,7 @@
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
+using Celeritas.UI;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -38,6 +39,12 @@ namespace Celeritas.Game.Events
 		[SerializeField, TitleGroup("Arrow"), ShowIf(nameof(showArrow))]
 		private Sprite arrowIcon;
 
+		[SerializeField, TitleGroup("Dialogue")]
+		private bool showDialogue;
+
+		[SerializeField, TitleGroup("Dialogue"), ShowIf(nameof(showDialogue))]
+		private DialogueInfo dialogue;
+
 		public abstract void OnCreated();
 
 		public abstract void OnEntered();
@@ -61,6 +68,10 @@ namespace Celeritas.Game.Events
 		public string ArrowText { get => arrowText; }
 
 		public Sprite ArrowIcon { get => arrowIcon; }
+
+		public bool ShowDialogue {  get => showDialogue; }
+
+		public DialogueInfo DialogueInfo {  get => dialogue; }
 
 		public Vector2Int GetRelativeToMiddle(int x, int y)
 		{
