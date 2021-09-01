@@ -77,7 +77,6 @@ namespace Celeritas.UI.Runstart
 				var parent = view.x > 0.5f ? rightGrid : leftGrid;
 
 				var panel = Instantiate(panelPrefab, parent).GetComponent<WeaponPanel>();
-				
 				panel.SetModule(weapon.AttatchedModule); // maybe make a placeholder weapon?
 				panel.SetWeapon(weapon.WeaponData);
 
