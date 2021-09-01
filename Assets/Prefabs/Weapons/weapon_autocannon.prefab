@@ -51,6 +51,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -151,7 +152,7 @@ MonoBehaviour:
   hasShipProjectileEffects: 0
   shipProjectileEffects: []
   projectileSpawn: {fileID: 61269802584779653}
-  fired: {fileID: 0}
+  fired: {fileID: 8300000, guid: 063add99ea8fc4268872334bd211cf21, type: 3}
   hasDefaultProjectileEffects: 0
   projectileEffects: []
 --- !u!82 &3337043044260095785
@@ -166,7 +167,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.03
   m_Pitch: 1
   Loop: 0
   Mute: 0

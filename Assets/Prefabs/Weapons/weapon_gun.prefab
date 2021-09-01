@@ -75,10 +75,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02f66742312f564981c4afbf046ac96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 0
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   hasDefaultEffects: 0
   defaultEffects: []
-  damage: 0
+  hasGraphicalEffects: 0
+  onDestroyEffectPrefab: {fileID: 0}
+  timeToPlayOnDestroyEffect: 0
+  onHitEffectPrefab: {fileID: 0}
+  timeToPlayOnHitEffect: 0
+  level: 0
+  hasShipEffects: 0
+  shipEffects: []
+  hasShipWeaponEffects: 0
+  shipWeaponEffects: []
+  hasShipProjectileEffects: 0
+  shipProjectileEffects: []
   projectileSpawn: {fileID: 2290273869816000492}
+  fired: {fileID: 0}
+  hasDefaultProjectileEffects: 0
+  projectileEffects: []
 --- !u!1 &1012961668822416307
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,6 +153,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

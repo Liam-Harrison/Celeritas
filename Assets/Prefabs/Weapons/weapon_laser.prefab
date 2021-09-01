@@ -81,6 +81,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -167,6 +168,11 @@ MonoBehaviour:
     SerializationNodes: []
   hasDefaultEffects: 0
   defaultEffects: []
+  hasGraphicalEffects: 0
+  onDestroyEffectPrefab: {fileID: 0}
+  timeToPlayOnDestroyEffect: 0
+  onHitEffectPrefab: {fileID: 0}
+  timeToPlayOnHitEffect: 0
   level: 0
   hasShipEffects: 0
   shipEffects: []
@@ -175,6 +181,7 @@ MonoBehaviour:
   hasShipProjectileEffects: 0
   shipProjectileEffects: []
   projectileSpawn: {fileID: 8433288825458548499}
+  fired: {fileID: 0}
   hasDefaultProjectileEffects: 1
   projectileEffects:
   - Level: 0
