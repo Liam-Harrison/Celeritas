@@ -1,6 +1,7 @@
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 namespace Celeritas.Game.Entities
@@ -61,6 +62,8 @@ namespace Celeritas.Game.Entities
 			}
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
+
+			PlayerShip = true;
 		}
 
 		private ModuleData DrawModulePreview(Rect rect, ModuleData value, int x, int y)
@@ -95,6 +98,22 @@ namespace Celeritas.Game.Entities
 					if (module != null)
 						module.RemoveModule();
 				}
+			}
+		}
+
+		public void GameOver ()
+        {
+			GameObject gameOverScreen = GameObject.Find("GameOverUI");
+			GameObject gameUI = GameObject.Find("hud_game_main");
+
+			if (gameUI != null)
+			{
+				gameUI.SetActive(false);
+			}
+
+			if (gameOverScreen != null)
+			{
+				gameOverScreen.GetComponent<Canvas>().enabled = true;
 			}
 		}
 	}

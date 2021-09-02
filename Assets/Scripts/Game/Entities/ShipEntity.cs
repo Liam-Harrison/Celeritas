@@ -244,6 +244,11 @@ namespace Celeritas.Game.Entities
 
 				if (health.IsEmpty())
 				{
+					if (PlayerShip == true)
+					{
+						PlayerShipEntity shipEntity = (PlayerShipEntity)this.GetComponent("PlayerShipEntity");
+						shipEntity.GameOver();
+					}
 					KillEntity();
 				}
 			}
