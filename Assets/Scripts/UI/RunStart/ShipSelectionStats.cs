@@ -14,6 +14,9 @@ namespace Assets.Scripts.UI.RunStart
 		public TextMeshProUGUI title;
 
 		[SerializeField]
+		public TextMeshProUGUI titleUnderlay;
+
+		[SerializeField]
 		public Slider slider;
 
 		[SerializeField]
@@ -36,10 +39,11 @@ namespace Assets.Scripts.UI.RunStart
 			rectFill.color = colourGradient.Evaluate(value / slider.maxValue);
 		}
 
-		public void setSliderMaxValue(float value)
+		public void setTitle(string titleText)
 		{
-			slider.maxValue = value;
+			title.text = titleText;
+			if (titleUnderlay != null)
+				titleUnderlay.text = titleText;
 		}
-
 	}
 }

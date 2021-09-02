@@ -169,27 +169,27 @@ namespace Celeritas.UI.Runstart
 			statLines[0].hideSlider();
 
 			// health
-			statLines[1].title.text = $"Health: ({ship.StartingHealth})";
-			statLines[1].setSliderMaxValue(maxStats["health"]);
+			statLines[1].setTitle($"Health: ({ship.StartingHealth})");
+			statLines[1].slider.maxValue = maxStats["health"];
 			statLines[1].setSliderValue(ship.StartingHealth);
 
 			// shield
-			statLines[2].title.text = $"Shield: ({ship.StartingShield})";
+			statLines[2].setTitle($"Shield: ({ship.StartingShield})");
 			statLines[2].slider.maxValue = maxStats["shield"];
 			statLines[2].setSliderValue(ship.StartingShield);
 
 			// weight
-			statLines[3].title.text = $"Weight: ({ship.MovementSettings.mass})";
+			statLines[3].setTitle($"Weight: ({ship.MovementSettings.mass})");
 			statLines[3].slider.maxValue = maxStats["weight"];
 			statLines[3].setSliderValue(ship.MovementSettings.mass);
 
 			// speed
-			statLines[4].title.text = $"Speed: ";
+			statLines[4].setTitle($"Speed: ");
 			statLines[4].slider.maxValue = maxStats["speed"];
 			statLines[4].setSliderValue(ship.MovementSettings.forcePerSec / ship.MovementSettings.mass);
 
 			// speed (turning)
-			statLines[5].title.text = $"Turning Speed: ";
+			statLines[5].setTitle($"Turning Speed: ");
 			statLines[5].slider.maxValue = maxStats["torque"];
 			statLines[5].setSliderValue(ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass);
 
