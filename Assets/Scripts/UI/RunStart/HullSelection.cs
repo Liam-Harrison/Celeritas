@@ -52,7 +52,7 @@ namespace Celeritas.UI.Runstart
 		[SerializeField, TitleGroup("Ship Stats")]
 		GameObject shipStatsLinePrefab;
 
-		private Dictionary<string, int> maxStats;
+		private Dictionary<string, float> maxStats;
 
 		private List<ShipSelectionStats> statLines;
 
@@ -90,7 +90,7 @@ namespace Celeritas.UI.Runstart
 			battleshipToggle.onValueChanged.AddListener((b) => { if (b) LoadClassHulls(ShipClass.Dreadnought); });
 
 			setupStatUI();
-			maxStats = new Dictionary<string, int>();
+			maxStats = new Dictionary<string, float>();
 			LoadClassHulls(ShipClass.Destroyer);
 			LoadClassHulls(ShipClass.Dreadnought);
 			LoadClassHulls(ShipClass.Corvette);
@@ -143,10 +143,19 @@ namespace Celeritas.UI.Runstart
 		{
 			// if ship has any max stats, record them for sliders later
 			if (!maxStats.ContainsKey("health") || maxStats["health"] < ship.StartingHealth)
-				maxStats["health"] = (int)ship.StartingHealth;
+				maxStats["health"] = ship.StartingHealth;
 
 			if (!maxStats.ContainsKey("shield") || maxStats["shield"] < ship.StartingShield)
-				maxStats["shield"] = (int)ship.StartingShield;
+				maxStats["shield"] = ship.StartingShield;
+
+			if (!maxStats.ContainsKey("weight") || maxStats["weight"] < ship.MovementSettings.mass)
+				maxStats["weight"] = ship.MovementSettings.mass;
+
+			if (!maxStats.ContainsKey("speed") || maxStats["speed"] < ship.MovementSettings.forcePerSec / ship.MovementSettings.mass)
+				maxStats["speed"] = ship.MovementSettings.forcePerSec / ship.MovementSettings.mass;
+
+			if (!maxStats.ContainsKey("torque") || maxStats["torque"] < ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass)
+				maxStats["torque"] = ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass;
 		}
 
 		/// <summary>
@@ -156,6 +165,9 @@ namespace Celeritas.UI.Runstart
 		/// <param name="ship">currently selected ship</param>
 		private void SetupShipStatsText(ShipData ship)
 		{
+			// weapons count
+
+
 			// health
 			statLines[0].title.text = $"Health: {ship.StartingHealth}";
 			statLines[0].slider.maxValue = maxStats["health"];
@@ -166,6 +178,21 @@ namespace Celeritas.UI.Runstart
 			statLines[1].slider.maxValue = maxStats["shield"];
 			statLines[1].slider.value = ship.StartingShield;
 
+			// weight
+			statLines[2].title.text = $"Weight: {ship.MovementSettings.mass}";
+			statLines[2].slider.maxValue = maxStats["weight"];
+			statLines[2].slider.value = ship.MovementSettings.mass;
+
+			// speed
+			statLines[3].title.text = $"Speed: ";
+			statLines[3].slider.maxValue = maxStats["speed"];
+			statLines[3].slider.value = ship.MovementSettings.forcePerSec / ship.MovementSettings.mass;
+
+			// speed (turning)
+			statLines[4].title.text = $"Turning Speed: ";
+			statLines[4].slider.maxValue = maxStats["torque"];
+			statLines[4].slider.value = ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass;
+
 		}
 
 		/// <summary>
@@ -175,7 +202,7 @@ namespace Celeritas.UI.Runstart
 		{
 			statLines = new List<ShipSelectionStats>();
 			var lastLine = shipStatsLinePrefab;
-			int numberOfLines = 4;
+			int numberOfLines = 6;
 			statLines.Add(lastLine.GetComponent<ShipSelectionStats>());
 
 			for(int i = 0; i < numberOfLines - 1; i++) { // -1 as one line already exists 
