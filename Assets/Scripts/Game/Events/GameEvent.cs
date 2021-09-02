@@ -64,11 +64,7 @@ namespace Celeritas.Game.Events
 		{
 			AreaEntered = true;
 			EventData.OnEntered();
-
-			if (EventData.ShowDialogue)
-			{
-				DialogueManager.Instance.ShowDialogue(EventData.DialogueInfo, null);
-			}
+			EventData.EventOutcome.DoEventOutcome();
 		}
 
 		public void EndEvent()

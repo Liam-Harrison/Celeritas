@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: sos_start
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: SOS Signal
+    content: You have stumbled across an SOS signal, it seems pirate ships are trying
+      to scavange a freshly destroyed ship.
+    options:
+    - type: 2
+      content: Engage them!
+      outcome: {fileID: 11400000, guid: bf004554035c4e545816042a2a252373, type: 2}
+    - type: 0
+      content: Leave them be.
+      outcome: {fileID: 11400000, guid: c6fc530d09d6bd14495380d931039f88, type: 2}
+  hasRewards: 0
+  lootType: 0
+  lootRewardRange: {x: 0, y: 0}
+  moduleRewards: []
+  hasWaves: 0
+  waves: []

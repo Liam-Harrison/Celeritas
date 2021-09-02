@@ -39,11 +39,8 @@ namespace Celeritas.Game.Events
 		[SerializeField, TitleGroup("Arrow"), ShowIf(nameof(showArrow))]
 		private Sprite arrowIcon;
 
-		[SerializeField, TitleGroup("Dialogue")]
-		private bool showDialogue;
-
-		[SerializeField, TitleGroup("Dialogue"), ShowIf(nameof(showDialogue))]
-		private DialogueInfo dialogue;
+		[SerializeField, TitleGroup("Event")]
+		private EventOutcome eventOutcome;
 
 		public abstract void OnCreated();
 
@@ -69,9 +66,7 @@ namespace Celeritas.Game.Events
 
 		public Sprite ArrowIcon { get => arrowIcon; }
 
-		public bool ShowDialogue {  get => showDialogue; }
-
-		public DialogueInfo DialogueInfo {  get => dialogue; }
+		public EventOutcome EventOutcome {  get => eventOutcome; }
 
 		public Vector2Int GetRelativeToMiddle(int x, int y)
 		{

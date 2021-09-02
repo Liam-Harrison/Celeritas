@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
-  m_Name: Module Reward
+  m_Name: sos_fight_end
   m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: SOS Signal
+    content: Your actions have given you a chance to gain a random module.
+    options: []
   hasRewards: 1
-  moduleRewardRange: {x: 1, y: 3}
-  rewards:
-  - chance: 0.5402599
-    module: {fileID: 11400000, guid: 551f9815f83843c4083869b9cc522d52, type: 2}
-  - chance: 0.3321424
-    module: {fileID: 11400000, guid: b5684e958385a254cb2c5e106aa29937, type: 2}
-  - chance: 0.12759766
-    module: {fileID: 11400000, guid: 4c32c870bdc025a41afc515c8f6b6d93, type: 2}
+  lootType: 0
+  lootRewardRange: {x: 0, y: 0}
+  moduleRewards: []
+  hasWaves: 0
+  waves: []
