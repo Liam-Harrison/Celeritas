@@ -1,6 +1,6 @@
 using Celeritas.Game;
+using Celeritas.Game.Events;
 using Celeritas.UI.Dialogue;
-using DG.Tweening;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
@@ -15,6 +15,8 @@ namespace Celeritas.UI
 		public OptionType type;
 
 		public string content;
+
+		public EventOutcome outcome;
 	}
 
 	[Serializable]
