@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Celeritas.UI.General;
+using System.Collections.Generic;
 
 namespace Celeritas.UI.Runstart
 {
@@ -44,6 +45,17 @@ namespace Celeritas.UI.Runstart
 		[SerializeField, TitleGroup("Info Panel")]
 		private LineUI lineUI;
 
+		//[SerializeField, TitleGroup("Ship Stats Line prefab")]
+		//GameObject shipStatsLinePrefab;
+
+		[SerializeField, TitleGroup("Ship Stats")]
+		TextMeshProUGUI shipStatsText;
+
+		[SerializeField, TitleGroup("Ship Stats")]
+		Slider shipHealthSlider;
+
+		private Dictionary<string, int> maxStats;
+
 		public ShipSelection ShipSelection { get; private set; }
 
 		public ShipClass ShipClass { get; private set; }
@@ -77,6 +89,7 @@ namespace Celeritas.UI.Runstart
 			destroyerToggle.onValueChanged.AddListener((b) => { if (b) LoadClassHulls(ShipClass.Destroyer); });
 			battleshipToggle.onValueChanged.AddListener((b) => { if (b) LoadClassHulls(ShipClass.Dreadnought); });
 
+			maxStats = new Dictionary<string, int>();
 			LoadClassHulls(ShipClass.Corvette);
 		}
 
@@ -100,6 +113,10 @@ namespace Celeritas.UI.Runstart
 				}
 
 				toggle.onValueChanged.AddListener((b) => { if (b) SelectHull(ship); });
+
+				// if ship has any max stats, record them for sliders later
+				if (!maxStats.ContainsKey("health") || maxStats["health"] < ship.StartingHealth)
+					maxStats.Add("health", (int)ship.StartingHealth);
 			}
 
 			SelectHull(ships.First());
@@ -113,6 +130,17 @@ namespace Celeritas.UI.Runstart
 			shipDescription.text = ship.Description;
 
 			lineUI.WorldTarget = ShipSelection.CurrentShip.transform;
+
+			SetupShipStatsText(ship);
+		}
+
+		private void SetupShipStatsText(ShipData ship)
+		{
+			string toWrite = "";
+			toWrite += $"Health: {ship.StartingHealth}";
+			shipStatsText.text = toWrite;
+			shipHealthSlider.maxValue = maxStats["health"];
+			shipHealthSlider.value = ship.StartingHealth;
 		}
 	}
 }
