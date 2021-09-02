@@ -47,6 +47,7 @@ namespace Celeritas.Game.Entities
 			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity)
 			{
 				base.TakeDamage(attackingEntity, damage);
+				ShowDamage(damage.ToString(), this.transform.position);
 				health.Damage(damage);
 
 				if (health.IsEmpty())
@@ -78,6 +79,5 @@ namespace Celeritas.Game.Entities
 			ApplyCollisionDamage(Rigidbody, other);
 			base.OnEntityHit(other);
 		}
-
 	}
 }
