@@ -90,6 +90,8 @@ namespace Celeritas.UI.Runstart
 			battleshipToggle.onValueChanged.AddListener((b) => { if (b) LoadClassHulls(ShipClass.Dreadnought); });
 
 			maxStats = new Dictionary<string, int>();
+			LoadClassHulls(ShipClass.Destroyer);
+			LoadClassHulls(ShipClass.Dreadnought);
 			LoadClassHulls(ShipClass.Corvette);
 		}
 
@@ -114,9 +116,7 @@ namespace Celeritas.UI.Runstart
 
 				toggle.onValueChanged.AddListener((b) => { if (b) SelectHull(ship); });
 
-				// if ship has any max stats, record them for sliders later
-				if (!maxStats.ContainsKey("health") || maxStats["health"] < ship.StartingHealth)
-					maxStats.Add("health", (int)ship.StartingHealth);
+				checkShipForMaxStats(ship);
 			}
 
 			SelectHull(ships.First());
@@ -134,6 +134,21 @@ namespace Celeritas.UI.Runstart
 			SetupShipStatsText(ship);
 		}
 
+		/// <summary>
+		/// Use when loading ships. Checks the passed ship for any max stats, if any exist, will record them in 'maxStats'
+		/// </summary>
+		/// <param name="ship">ship to check</param>
+		private void checkShipForMaxStats(ShipData ship)
+		{
+			// if ship has any max stats, record them for sliders later
+			if (!maxStats.ContainsKey("health") || maxStats["health"] < ship.StartingHealth)
+				maxStats["health"] = (int)ship.StartingHealth;
+		}
+
+		/// <summary>
+		/// Setup 'stats' section of the UI for the currently selected ship
+		/// </summary>
+		/// <param name="ship">currently selected ship</param>
 		private void SetupShipStatsText(ShipData ship)
 		{
 			string toWrite = "";
