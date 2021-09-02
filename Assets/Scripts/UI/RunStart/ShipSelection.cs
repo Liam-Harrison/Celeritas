@@ -107,8 +107,6 @@ namespace Celeritas.UI.Runstart
 
 		public void Launch()
 		{
-
-			// no placeholder weapons selected. Proceed to launch.
 			StopAllCoroutines();
 
 			foreach (var ship in shipObjects)
