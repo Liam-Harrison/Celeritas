@@ -19,9 +19,26 @@ namespace Assets.Scripts.UI.RunStart
 		[SerializeField]
 		public GameObject sliderObject;
 
+		[SerializeField]
+		public Image rectFill;
+
+		[SerializeField]
+		Gradient colourGradient;
+
 		public void hideSlider()
 		{
 			sliderObject.SetActive(false);
+		}
+
+		public void setSliderValue(float value)
+		{
+			slider.value = value;
+			rectFill.color = colourGradient.Evaluate(value / slider.maxValue);
+		}
+
+		public void setSliderMaxValue(float value)
+		{
+			slider.maxValue = value;
 		}
 
 	}
