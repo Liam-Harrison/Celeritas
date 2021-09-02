@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using Celeritas.UI.General;
 using System.Collections.Generic;
+using Assets.Scripts.UI.RunStart;
 
 namespace Celeritas.UI.Runstart
 {
@@ -45,16 +46,15 @@ namespace Celeritas.UI.Runstart
 		[SerializeField, TitleGroup("Info Panel")]
 		private LineUI lineUI;
 
-		//[SerializeField, TitleGroup("Ship Stats Line prefab")]
-		//GameObject shipStatsLinePrefab;
+		[SerializeField, TitleGroup("Ship Stats")]
+		ShipSelectionStats shipSelectionStatsHealth;
 
 		[SerializeField, TitleGroup("Ship Stats")]
-		TextMeshProUGUI shipStatsText;
-
-		[SerializeField, TitleGroup("Ship Stats")]
-		Slider shipHealthSlider;
+		GameObject shipStatsLinePrefab;
 
 		private Dictionary<string, int> maxStats;
+
+		private List<ShipSelectionStats> statLines;
 
 		public ShipSelection ShipSelection { get; private set; }
 
@@ -89,6 +89,7 @@ namespace Celeritas.UI.Runstart
 			destroyerToggle.onValueChanged.AddListener((b) => { if (b) LoadClassHulls(ShipClass.Destroyer); });
 			battleshipToggle.onValueChanged.AddListener((b) => { if (b) LoadClassHulls(ShipClass.Dreadnought); });
 
+			setupStatUI();
 			maxStats = new Dictionary<string, int>();
 			LoadClassHulls(ShipClass.Destroyer);
 			LoadClassHulls(ShipClass.Dreadnought);
@@ -143,19 +144,53 @@ namespace Celeritas.UI.Runstart
 			// if ship has any max stats, record them for sliders later
 			if (!maxStats.ContainsKey("health") || maxStats["health"] < ship.StartingHealth)
 				maxStats["health"] = (int)ship.StartingHealth;
+
+			if (!maxStats.ContainsKey("shield") || maxStats["shield"] < ship.StartingShield)
+				maxStats["shield"] = (int)ship.StartingShield;
 		}
 
 		/// <summary>
 		/// Setup 'stats' section of the UI for the currently selected ship
+		/// (ie, fill them with the currently selected ship's values)
 		/// </summary>
 		/// <param name="ship">currently selected ship</param>
 		private void SetupShipStatsText(ShipData ship)
 		{
-			string toWrite = "";
-			toWrite += $"Health: {ship.StartingHealth}";
-			shipStatsText.text = toWrite;
-			shipHealthSlider.maxValue = maxStats["health"];
-			shipHealthSlider.value = ship.StartingHealth;
+			// health
+			statLines[0].title.text = $"Health: {ship.StartingHealth}";
+			statLines[0].slider.maxValue = maxStats["health"];
+			statLines[0].slider.value = ship.StartingHealth;
+
+			// shield
+			statLines[1].title.text = $"Shield: {ship.StartingShield}";
+			statLines[1].slider.maxValue = maxStats["shield"];
+			statLines[1].slider.value = ship.StartingShield;
+
+		}
+
+		/// <summary>
+		/// Setup the lines in the UI that show the ship stat value + a bar
+		/// </summary>
+		private void setupStatUI()
+		{
+			statLines = new List<ShipSelectionStats>();
+			var lastLine = shipStatsLinePrefab;
+			int numberOfLines = 4;
+			statLines.Add(lastLine.GetComponent<ShipSelectionStats>());
+
+			for(int i = 0; i < numberOfLines - 1; i++) { // -1 as one line already exists 
+
+				var currentLine = Instantiate(lastLine, lastLine.transform);
+				currentLine.transform.position += new Vector3(16, 0, 0);
+				ShipSelectionStats stats = currentLine.GetComponent<ShipSelectionStats>();
+				currentLine.SetActive(true);
+				statLines.Add(stats);
+
+				//if (i == 0)
+				//	lastLine.SetActive(false);
+				lastLine = currentLine;
+
+			}
 		}
 	}
 }
