@@ -47,9 +47,6 @@ namespace Celeritas.UI.Runstart
 		private LineUI lineUI;
 
 		[SerializeField, TitleGroup("Ship Stats")]
-		ShipSelectionStats shipSelectionStatsHealth;
-
-		[SerializeField, TitleGroup("Ship Stats")]
 		GameObject shipStatsLinePrefab;
 
 		private Dictionary<string, float> maxStats;
@@ -156,6 +153,8 @@ namespace Celeritas.UI.Runstart
 
 			if (!maxStats.ContainsKey("torque") || maxStats["torque"] < ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass)
 				maxStats["torque"] = ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass;
+
+			// no slider for weapon count so don't need max
 		}
 
 		/// <summary>
@@ -166,32 +165,33 @@ namespace Celeritas.UI.Runstart
 		private void SetupShipStatsText(ShipData ship)
 		{
 			// weapons count
-
+			statLines[0].title.text = $"Number Of Weapons: {ShipSelection.CurrentShip.WeaponEntities.Count}";
+			statLines[0].hideSlider();
 
 			// health
-			statLines[0].title.text = $"Health: {ship.StartingHealth}";
-			statLines[0].slider.maxValue = maxStats["health"];
-			statLines[0].slider.value = ship.StartingHealth;
+			statLines[1].title.text = $"Health: {ship.StartingHealth}";
+			statLines[1].slider.maxValue = maxStats["health"];
+			statLines[1].slider.value = ship.StartingHealth;
 
 			// shield
-			statLines[1].title.text = $"Shield: {ship.StartingShield}";
-			statLines[1].slider.maxValue = maxStats["shield"];
-			statLines[1].slider.value = ship.StartingShield;
+			statLines[2].title.text = $"Shield: {ship.StartingShield}";
+			statLines[2].slider.maxValue = maxStats["shield"];
+			statLines[2].slider.value = ship.StartingShield;
 
 			// weight
-			statLines[2].title.text = $"Weight: {ship.MovementSettings.mass}";
-			statLines[2].slider.maxValue = maxStats["weight"];
-			statLines[2].slider.value = ship.MovementSettings.mass;
+			statLines[3].title.text = $"Weight: {ship.MovementSettings.mass}";
+			statLines[3].slider.maxValue = maxStats["weight"];
+			statLines[3].slider.value = ship.MovementSettings.mass;
 
 			// speed
-			statLines[3].title.text = $"Speed: ";
-			statLines[3].slider.maxValue = maxStats["speed"];
-			statLines[3].slider.value = ship.MovementSettings.forcePerSec / ship.MovementSettings.mass;
+			statLines[4].title.text = $"Speed: ";
+			statLines[4].slider.maxValue = maxStats["speed"];
+			statLines[4].slider.value = ship.MovementSettings.forcePerSec / ship.MovementSettings.mass;
 
 			// speed (turning)
-			statLines[4].title.text = $"Turning Speed: ";
-			statLines[4].slider.maxValue = maxStats["torque"];
-			statLines[4].slider.value = ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass;
+			statLines[5].title.text = $"Turning Speed: ";
+			statLines[5].slider.maxValue = maxStats["torque"];
+			statLines[5].slider.value = ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass;
 
 		}
 

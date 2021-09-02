@@ -16,5 +16,13 @@ namespace Assets.Scripts.UI.RunStart
 		[SerializeField]
 		public Slider slider;
 
+		[SerializeField]
+		public GameObject sliderObject;
+
+		public void hideSlider()
+		{
+			sliderObject.SetActive(false);
+		}
+
 	}
 }
