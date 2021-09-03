@@ -81,7 +81,6 @@ namespace Celeritas.Game
 
 		public void StartFinalWave()
 		{
-			Debug.Log("StartFinalWave triggered");
 			waveIndex = data.Length - 1;
 			StartWave();
 		}

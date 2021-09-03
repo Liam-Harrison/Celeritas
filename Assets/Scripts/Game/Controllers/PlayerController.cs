@@ -233,7 +233,6 @@ namespace Celeritas.Game.Controllers
 		}
 		public void OnFinalWave(InputAction.CallbackContext context)
 		{
-			Debug.Log("OnFinalWave triggered");
 			if (GameStateManager.Instance.GameState == GameState.BUILD)
 				return;
 

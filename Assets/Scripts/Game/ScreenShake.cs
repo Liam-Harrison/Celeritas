@@ -2,20 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-
+/// <summary>
+/// Screen shake effect.
+/// </summary>
+[RequireComponent(typeof(AudioSource))]
 public class ScreenShake : MonoBehaviour
 {
 	private CinemachineVirtualCamera camera;
 	private CinemachineBasicMultiChannelPerlin perlin;
+	private AudioSource source;
+
+	[SerializeField]
+	private AudioClip shakeSfx;
+
 
 	private void Awake()
 	{
 		camera = GetComponent<CinemachineVirtualCamera>();
 		perlin = camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+		source = GetComponent<AudioSource>();
 	}
 
-	public float intensity;
-	private void shakeThatScreen(float intensity)
+	[SerializeField]
+	private float intensity;
+	private void shake(float intensity)
 	{
 
 		perlin.m_AmplitudeGain = intensity;
@@ -33,24 +43,26 @@ public class ScreenShake : MonoBehaviour
 
 			if (shakeTime > 0)
 			{
-				shakeThatScreen(intensity);
+				shake(intensity);
 			}
 			else
 			{
-				shakeThatScreen(0f);
+				shake(0f);
 				isShaking = false;
 			}
 		}
 
 	}
 
-	public float time;
+	[SerializeField]
+	private float time;
 	public void triggerShake(float shieldValue)
 	{
 		if (shieldValue == 0)
 		{
 			isShaking = true;
 			shakeTime = time;
+			source.PlayOneShot(shakeSfx);
 		}
 	}
 }
