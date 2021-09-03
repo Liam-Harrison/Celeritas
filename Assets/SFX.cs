@@ -38,6 +38,9 @@ namespace Celeritas
 		private AudioSource secondary;
 
 		[SerializeField]
+		private AudioSource tetriary;
+
+		[SerializeField]
 		private float musicVolume = 0.2f;
 
 		private readonly List<AudioClip> sequence = new List<AudioClip>();
@@ -45,6 +48,8 @@ namespace Celeritas
 		private int loopSequenceIndex = -1;
 		private bool loopSequenceEnd = false;
 		private bool sequenceSmooth = false;
+
+		public AudioSource TetriaryDevice { get => tetriary; }
 
 		protected override void OnGameLoaded()
 		{

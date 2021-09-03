@@ -22,9 +22,12 @@ namespace Celeritas.Scriptables
 
 		private void OnEnable()
 		{
-			EntityInstance = Prefab.GetComponent<Entity>();
-			EntityInstance.Initalize(this, instanced: true);
-			EntityType = EntityInstance.GetType();
+			if (prefab != null)
+			{
+				EntityInstance = Prefab.GetComponent<Entity>();
+				EntityInstance.Initalize(this, instanced: true);
+				EntityType = EntityInstance.GetType();
+			}
 		}
 
 		/// <summary>

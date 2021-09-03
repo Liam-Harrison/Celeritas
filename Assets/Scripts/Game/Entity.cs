@@ -22,6 +22,12 @@ namespace Celeritas.Game
 		[SerializeField, ShowIf(nameof(hasDefaultEffects)), DisableInPlayMode]
 		private EffectWrapper[] defaultEffects;
 
+		[SerializeField, Title("Audio Effects", "(eg. on hit, on destroy)"), DisableInPlayMode]
+		private bool hasAudio;
+
+		[SerializeField, DisableInPlayMode]
+		private AudioClip onDeath;
+
 		[SerializeField, Title("Graphical Effects", "(eg. on hit, on destroy)"), DisableInPlayMode]
 		private bool hasGraphicalEffects;
 
@@ -172,6 +178,11 @@ namespace Celeritas.Game
 		public virtual string Subheader { get; } = "Missing Subheader";
 
 		/// <summary>
+		/// Does this entity have audio effects.
+		/// </summary>
+		public bool HasAudio { get => hasAudio; }
+
+		/// <summary>
 		/// Initalize this entity.
 		/// </summary>
 		/// <param name="data">The data to attatch this entity to.</param>
@@ -215,6 +226,12 @@ namespace Celeritas.Game
 				GameObject effect = Instantiate(onDestroyEffectPrefab, transform.position, transform.rotation, transform.parent);
 				effect.transform.localScale = transform.localScale;
 				Destroy(effect, timeToPlayOnDestroyEffect); // destroy after X seconds give effect time to play
+			}
+
+			if (hasAudio)
+			{
+				if (onDeath != null)
+					SFX.Instance.TetriaryDevice.PlayOneShot(onDeath);
 			}
 
 			if (Chunk != null)

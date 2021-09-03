@@ -165,7 +165,7 @@ namespace Celeritas.Game.Events
 			AddValue(ref paramaters, reward);
 			AddValue(ref paramaters, modules);
 
-			return string.Format(content, paramaters);
+			return string.Format(content, paramaters.ToArray());
 		}
 
 		private void AddValue(ref List<string> paramaters, object value)
