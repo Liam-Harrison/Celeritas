@@ -4956,7 +4956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea60475cb8eb98f4db07e8054864a881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ship: {fileID: 11400000, guid: 2354894fc65befa43a573e4e81bedc30, type: 2}
+  ship: {fileID: 11400000, guid: 27e0919cb6ad6bc44a58690b54a2089a, type: 2}
   action: {fileID: 11400000, guid: 0470f1c9400b5264c800d2e109a8f682, type: 2}
 --- !u!4 &1251141674
 Transform:

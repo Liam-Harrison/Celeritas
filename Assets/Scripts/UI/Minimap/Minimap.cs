@@ -138,6 +138,7 @@ namespace Celeritas.UI
 			if (scrollables.Contains(scrollable))
 			{
 				scrollables.Remove(scrollable);
+				Destroy(scrollable.gameObject);
 			}
 		}
 
@@ -178,7 +179,10 @@ namespace Celeritas.UI
 		public void RemoveDirectionMarker(DirectionMarker marker)
 		{
 			if (directionMarkers.Contains(marker))
+			{
 				directionMarkers.Remove(marker);
+				Destroy(marker.gameObject);
+			}
 		}
 
 		private float RoundToNearest(float value, float amount)

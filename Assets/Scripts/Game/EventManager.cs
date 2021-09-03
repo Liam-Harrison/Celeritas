@@ -2,6 +2,7 @@ using Celeritas.Game.Entities;
 using Celeritas.Game.Events;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Celeritas.Game
@@ -43,11 +44,8 @@ namespace Celeritas.Game
 
 		private void CreateRandomEvent()
 		{
-			foreach (var e in EntityDataManager.Instance.Events)
-			{
-				var pos = Camera.main.transform.position + (Quaternion.Euler(0, 0, Random.Range(0, 360)) * Vector3.up * (Chunks.ChunkManager.ChunkSize.x * EVENT_CREATION_DIST));
-				CreateEvent(e, Chunks.ChunkManager.GetChunkIndex(pos));
-			}
+			var e = EntityDataManager.Instance.Events.OrderBy(x => Random.value).Take(1);
+			CreateEvent(e.First(), GetRandomLocation());
 		}
 
 		public void CreateEvent(EventData data, Vector2Int chunk)
@@ -55,6 +53,36 @@ namespace Celeritas.Game
 			var gameEvent = new GameEvent();
 			gameEvent.Initalize(data, chunk);
 			events.Add(gameEvent);
+		}
+
+		public void RemoveEvent(GameEvent gameEvent)
+		{
+			if (events.Contains(gameEvent))
+			{
+				gameEvent.UnloadEvent();
+			}
+		}
+
+		public void EventUnloaded(GameEvent gameEvent)
+		{
+			if (events.Contains(gameEvent))
+			{
+				events.Remove(gameEvent);
+			}
+
+			if (events.Count == 0)
+				CreateRandomEvent();
+		}
+
+		public void CreateEvent(EventData data)
+		{
+			CreateEvent(data, GetRandomLocation());
+		}
+
+		private Vector2Int GetRandomLocation()
+		{
+			var pos = Camera.main.transform.position + (Quaternion.Euler(0, 0, Random.Range(0, 360)) * Vector3.up * (Chunks.ChunkManager.ChunkSize.x * EVENT_CREATION_DIST));
+			return Chunks.ChunkManager.GetChunkIndex(pos);
 		}
 
 		private void OnEnteredChunk(Chunk chunk)

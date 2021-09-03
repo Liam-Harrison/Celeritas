@@ -1,4 +1,5 @@
 using Celeritas.Game.Entities;
+using Celeritas.Scriptables;
 using Celeritas.UI.General;
 using Celeritas.UI.WeaponSelection;
 using Sirenix.OdinInspector;
@@ -132,6 +133,7 @@ namespace Celeritas.UI.Runstart
 			{
 				if (weapon.Placeholder) // don't let players equip placeholder weapons
 					continue;
+
 				var panel = Instantiate(itemPrefab, itemContent).GetComponent<WeaponItem>();
 				panel.SetWeapon(weapon);
 			}

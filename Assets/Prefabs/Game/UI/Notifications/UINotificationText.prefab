@@ -60,7 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 4236482125908070149}
   timeToLive: 2
-  moveRate: 0.5
+  moveRate: 40
 --- !u!114 &4236482125908070149
 MonoBehaviour:
   m_ObjectHideFlags: 0

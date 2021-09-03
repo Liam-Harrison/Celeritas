@@ -2547,6 +2547,8 @@ MonoBehaviour:
   rightGrid: {fileID: 767420399}
   itemPrefab: {fileID: 1821902623792475624, guid: 5fa9cc7b3f2523d43836e2442d75bba0, type: 3}
   itemContent: {fileID: 883621509}
+  excludeWeapons:
+  - {fileID: 11400000, guid: 229cee54320deba40908a1d4e04d0c6b, type: 2}
   dragIcon: {fileID: 930439760}
   errorText: {fileID: 113869452}
 --- !u!1001 &587982097

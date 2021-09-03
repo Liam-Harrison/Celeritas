@@ -53,7 +53,7 @@ namespace Celeritas.Game.Events
 			{
 				foreach (var c in ChunkIds)
 				{
-					Minimap.Instance.CreateScrollable(c);
+					scrollables.Add(Minimap.Instance.CreateScrollable(c));
 				}
 			}
 

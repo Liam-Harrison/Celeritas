@@ -24,7 +24,7 @@ namespace Celeritas.UI
 	{
 		public string title;
 
-		[MultiLineProperty]
+		[TextArea]
 		public string content;
 
 		public Option[] options;

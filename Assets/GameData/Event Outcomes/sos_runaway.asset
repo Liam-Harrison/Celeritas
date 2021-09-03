@@ -26,6 +26,8 @@ MonoBehaviour:
     module: {fileID: 11400000, guid: b5684e958385a254cb2c5e106aa29937, type: 2}
   - chance: 0.23331833
     module: {fileID: 11400000, guid: a4dfa5d3274ed674db3b5d2688a6667e, type: 2}
+  hasEvent: 1
+  eventData: {fileID: 11400000, guid: 824888e538696a44fb0b96953af8f4c6, type: 2}
   hasWaves: 0
   waveOutcome: {fileID: 0}
   waves: []

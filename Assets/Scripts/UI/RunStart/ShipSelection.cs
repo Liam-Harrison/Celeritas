@@ -150,6 +150,9 @@ namespace Celeritas.UI.Runstart
 
 			foreach (ShipData data in EntityDataManager.Instance.PlayerShips)
 			{
+				if (data.IsPlaceholder)
+					continue;
+
 				var ship = EntityDataManager.InstantiateEntity<PlayerShipEntity>(data, forceIsPlayer: true);
 
 				ship.IsStationary = true;

@@ -38,6 +38,12 @@ namespace Celeritas.Game.Events
 		[SerializeField, TitleGroup("Reward"), ShowIf(nameof(hasRewards))]
 		private ModuleRewardChance[] moduleRewards;
 
+		[SerializeField, TitleGroup("Event")]
+		private bool hasEvent;
+
+		[SerializeField, TitleGroup("Event"), ShowIf(nameof(hasEvent))]
+		private EventData eventData;
+
 		[SerializeField, TitleGroup("Waves")]
 		private bool hasWaves;
 
@@ -127,6 +133,9 @@ namespace Celeritas.Game.Events
 			if (lootRewardOutcome != null)
 				LootController.Instance.GivePlayerLoot(lootType, lootRewardOutcome.Value);
 
+			if (hasEvent && eventData != null)
+				EventManager.Instance.CreateEvent(eventData);
+
 			if (hasWaves)
 			{
 				waveParentEvent = gameEvent;
@@ -149,7 +158,10 @@ namespace Celeritas.Game.Events
 			if (waveOutcome != null)
 				waveOutcome.DoEventOutcome(waveParentEvent);
 			else
+			{
+				Debug.Log("Fired end event");
 				waveParentEvent.EndEvent();
+			}
 		}
 
 		private string GetFullDialogueContent(string content, int? modules, ModuleData reward)
