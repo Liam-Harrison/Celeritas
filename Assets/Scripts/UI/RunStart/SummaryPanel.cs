@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.WeaponSelection
 {
+	/// <summary>
+	/// Logic for the 'summary panel' section of the ship selection / run start UI
+	/// Right now it just ensures that the player ship has active weapons (no 'empty slots') before they can start their run.
+	/// </summary>
 	class SummaryPanel :MonoBehaviour
 	{
 		[SerializeField, Title("LaunchButton")]

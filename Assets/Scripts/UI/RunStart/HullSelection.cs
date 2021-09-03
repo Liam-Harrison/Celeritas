@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Celeritas.UI.General;
+using System.Collections.Generic;
+using Assets.Scripts.UI.RunStart;
 
 namespace Celeritas.UI.Runstart
 {
@@ -44,6 +46,13 @@ namespace Celeritas.UI.Runstart
 		[SerializeField, TitleGroup("Info Panel")]
 		private LineUI lineUI;
 
+		[SerializeField, TitleGroup("Ship Stats")]
+		GameObject shipStatsLinePrefab;
+
+		private Dictionary<string, float> maxStats;
+
+		private List<ShipSelectionStats> statLines;
+
 		public ShipSelection ShipSelection { get; private set; }
 
 		public ShipClass ShipClass { get; private set; }
@@ -77,6 +86,10 @@ namespace Celeritas.UI.Runstart
 			destroyerToggle.onValueChanged.AddListener((b) => { if (b) LoadClassHulls(ShipClass.Destroyer); });
 			battleshipToggle.onValueChanged.AddListener((b) => { if (b) LoadClassHulls(ShipClass.Dreadnought); });
 
+			setupStatUI();
+			maxStats = new Dictionary<string, float>();
+			LoadClassHulls(ShipClass.Destroyer);
+			LoadClassHulls(ShipClass.Dreadnought);
 			LoadClassHulls(ShipClass.Corvette);
 		}
 
@@ -100,6 +113,8 @@ namespace Celeritas.UI.Runstart
 				}
 
 				toggle.onValueChanged.AddListener((b) => { if (b) SelectHull(ship); });
+
+				checkShipForMaxStats(ship);
 			}
 
 			SelectHull(ships.First());
@@ -113,6 +128,96 @@ namespace Celeritas.UI.Runstart
 			shipDescription.text = ship.Description;
 
 			lineUI.WorldTarget = ShipSelection.CurrentShip.transform;
+
+			SetupShipStatsText(ship);
+		}
+
+		/// <summary>
+		/// Use when loading ships. Checks the passed ship for any max stats, if any exist, will record them in 'maxStats'
+		/// </summary>
+		/// <param name="ship">ship to check</param>
+		private void checkShipForMaxStats(ShipData ship)
+		{
+			// if ship has any max stats, record them for sliders later
+			if (!maxStats.ContainsKey("health") || maxStats["health"] < ship.StartingHealth)
+				maxStats["health"] = ship.StartingHealth;
+
+			if (!maxStats.ContainsKey("shield") || maxStats["shield"] < ship.StartingShield)
+				maxStats["shield"] = ship.StartingShield;
+
+			if (!maxStats.ContainsKey("weight") || maxStats["weight"] < ship.MovementSettings.mass)
+				maxStats["weight"] = ship.MovementSettings.mass;
+
+			if (!maxStats.ContainsKey("speed") || maxStats["speed"] < ship.MovementSettings.forcePerSec / ship.MovementSettings.mass)
+				maxStats["speed"] = ship.MovementSettings.forcePerSec / ship.MovementSettings.mass;
+
+			if (!maxStats.ContainsKey("torque") || maxStats["torque"] < ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass)
+				maxStats["torque"] = ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass;
+
+			// no slider for weapon count so don't need max
+		}
+
+		/// <summary>
+		/// Setup 'stats' section of the UI for the currently selected ship
+		/// (ie, fill them with the currently selected ship's values)
+		/// </summary>
+		/// <param name="ship">currently selected ship</param>
+		private void SetupShipStatsText(ShipData ship)
+		{
+			// weapons count
+			statLines[0].title.text = $"Number Of Weapons: \t{ShipSelection.CurrentShip.WeaponEntities.Count}";
+			statLines[0].hideSlider();
+
+			// health
+			statLines[1].setTitle($"Health: ({ship.StartingHealth/1000}k)");
+			statLines[1].slider.maxValue = maxStats["health"];
+			statLines[1].setSliderValue(ship.StartingHealth);
+
+			// shield
+			statLines[2].setTitle($"Shield: ({ship.StartingShield/1000}k)");
+			statLines[2].slider.maxValue = maxStats["shield"];
+			statLines[2].setSliderValue(ship.StartingShield);
+
+			// weight
+			statLines[3].setTitle($"Weight: ({ship.MovementSettings.mass})");
+			statLines[3].slider.maxValue = maxStats["weight"];
+			statLines[3].setSliderValue(ship.MovementSettings.mass);
+
+			// speed
+			statLines[4].setTitle($"Speed: ");
+			statLines[4].slider.maxValue = maxStats["speed"];
+			statLines[4].setSliderValue(ship.MovementSettings.forcePerSec / ship.MovementSettings.mass);
+
+			// speed (turning)
+			statLines[5].setTitle($"Turning Speed: ");
+			statLines[5].slider.maxValue = maxStats["torque"];
+			statLines[5].setSliderValue(ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass);
+
+		}
+
+		/// <summary>
+		/// Setup the lines in the UI that show the ship stat value + a bar
+		/// </summary>
+		private void setupStatUI()
+		{
+			statLines = new List<ShipSelectionStats>();
+			var lastLine = shipStatsLinePrefab;
+			int numberOfLines = 6;
+			statLines.Add(lastLine.GetComponent<ShipSelectionStats>());
+
+			for(int i = 0; i < numberOfLines - 1; i++) { // -1 as one line already exists 
+
+				var currentLine = Instantiate(lastLine, lastLine.transform);
+				currentLine.transform.position += new Vector3(16, 0, 0);
+				ShipSelectionStats stats = currentLine.GetComponent<ShipSelectionStats>();
+				currentLine.SetActive(true);
+				statLines.Add(stats);
+
+				//if (i == 0)
+				//	lastLine.SetActive(false);
+				lastLine = currentLine;
+
+			}
 		}
 	}
 }

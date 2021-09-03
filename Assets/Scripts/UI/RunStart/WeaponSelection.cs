@@ -77,8 +77,7 @@ namespace Celeritas.UI.Runstart
 				var parent = view.x > 0.5f ? rightGrid : leftGrid;
 
 				var panel = Instantiate(panelPrefab, parent).GetComponent<WeaponPanel>();
-					
-				panel.SetModule(weapon.AttatchedModule);
+				panel.SetModule(weapon.AttatchedModule); // maybe make a placeholder weapon?
 				panel.SetWeapon(weapon.WeaponData);
 
 				panels.Add(panel);
@@ -168,7 +167,7 @@ namespace Celeritas.UI.Runstart
 			foreach (WeaponPanel w in panels)
 			{
 				if (w.Weapon.Placeholder)
-				{ 
+				{
 					readyToLaunch = false;
 					break;
 				}
@@ -176,7 +175,7 @@ namespace Celeritas.UI.Runstart
 			if (readyToLaunch)
 			{
 				// remove error message if all weapons are equipped correctly.
-				errorText.SetActive(false); 
+				errorText.SetActive(false);
 			}
 		}
 
