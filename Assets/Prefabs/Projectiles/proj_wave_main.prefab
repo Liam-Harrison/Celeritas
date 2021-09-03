@@ -67,7 +67,7 @@ MonoBehaviour:
   timeToPlayOnDestroyEffect: 0
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
-  inheirtVelcoity: 0
+  inheirtVelcoity: 1
   damage: 20
   trails: []
   projectileSpawn: {fileID: 0}

@@ -157,7 +157,7 @@ MonoBehaviour:
   hasDefaultProjectileEffects: 1
   projectileEffects:
   - Level: 0
-    EffectCollection: {fileID: 11400000, guid: c72876703da8a49418b96d6e850fff04, type: 2}
+    EffectCollection: {fileID: 11400000, guid: 5f5146484eb77f84cbcb4135038c244f, type: 2}
 --- !u!82 &9132217078248741859
 AudioSource:
   m_ObjectHideFlags: 0

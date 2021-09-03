@@ -54,10 +54,12 @@ namespace Assets.Scripts.Scriptables.Systems
 		public override string GetTooltip(ushort level)
 		{
 			string toReturn = "";
+			if (spawnOnCreation)
+				toReturn += $"Creates {numberToSpawn} subprojectile(s).";
 			if (spawnOnDeath)
-				toReturn += $"Explodes into {numberToSpawn} subprojectiles when destroyed";
+				toReturn += $"Explodes into {numberToSpawn} subprojectiles when destroyed.";
 			if (spawnContinuouslyThroughoutLife)
-				toReturn += $"Spawns {numberToSpawn} subprojectiles every {delayBetweenSpawns} second(s)";
+				toReturn += $"Spawns {numberToSpawn} subprojectiles every {delayBetweenSpawns} second(s).";
 			return toReturn;
 		}
 
