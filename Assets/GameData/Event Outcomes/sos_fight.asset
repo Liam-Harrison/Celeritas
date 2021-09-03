@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
   m_Name: sos_fight
   m_EditorClassIdentifier: 
-  hasDialogue: 0
+  hasDialogue: 1
   dialogue:
     title: SOS Signal
-    content: Your actions have given you a chance to gain a random module.
+    content: The pirates turn around and lock onto you. Prepare for battle!
     options: []
   hasRewards: 0
   lootType: 0
   lootRewardRange: {x: 0, y: 0}
   moduleRewards: []
   hasWaves: 1
+  waveOutcome: {fileID: 11400000, guid: 9f8db4f7bc209b3419e7ca6179e9edaf, type: 2}
   waves:
   - {fileID: 11400000, guid: 635ce7d663b1466468e422a1d568600f, type: 2}

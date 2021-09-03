@@ -67,7 +67,7 @@ namespace Celeritas.UI
 
 			if (info.options.Length == 0)
 			{
-				CreateOption("Continue...", 0, OptionType.Neutral, callback);
+				CreateOption("Continue...", 0, OptionType.Neutral, (_) => callback?.Invoke(-1));
 			}
 			else
 			{
@@ -78,6 +78,7 @@ namespace Celeritas.UI
 				}
 			}
 
+			StopAllCoroutines();
 			ChangeTimeScale(0);
 			background.SetActive(true);
 			CombatHUD.Instance.SetGameCursor(false);
@@ -90,10 +91,10 @@ namespace Celeritas.UI
 			option.Text = text;
 			option.OnClicked += () =>
 			{
-				background.SetActive(false);
-				callback?.Invoke(index);
 				ChangeTimeScale(1);
 				CombatHUD.Instance.SetGameCursor(true);
+				background.SetActive(false);
+				callback?.Invoke(index);
 			};
 		}
 

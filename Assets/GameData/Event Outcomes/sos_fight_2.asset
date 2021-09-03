@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
-  m_Name: sos_fight_end
+  m_Name: sos_fight_2
   m_EditorClassIdentifier: 
-  hasDialogue: 1
+  hasDialogue: 0
   dialogue:
     title: SOS Signal
-    content: You fought and destroyed the pirates, however it was too late for the
-      victim. You gained {0} modules.
+    content: The pirates turn around and lock onto you. Prepare for battle!
     options: []
-  hasRewards: 1
+  hasRewards: 0
   lootType: 0
-  lootRewardRange: {x: 2, y: 4}
+  lootRewardRange: {x: 0, y: 0}
   moduleRewards: []
-  hasWaves: 0
-  waveOutcome: {fileID: 0}
-  waves: []
+  hasWaves: 1
+  waveOutcome: {fileID: 11400000, guid: 5d048d453a35e06428f7d7d150fb5b35, type: 2}
+  waves:
+  - {fileID: 11400000, guid: c32686ce95473734ba52821ac14e8b55, type: 2}

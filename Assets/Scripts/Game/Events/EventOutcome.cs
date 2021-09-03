@@ -42,6 +42,9 @@ namespace Celeritas.Game.Events
 		private bool hasWaves;
 
 		[SerializeField, TitleGroup("Waves"), ShowIf(nameof(hasWaves))]
+		private EventOutcome waveOutcome;
+
+		[SerializeField, TitleGroup("Waves"), ShowIf(nameof(hasWaves))]
 		private WaveData[] waves;
 
 		public bool HasRewards { get => hasRewards; }
@@ -57,6 +60,8 @@ namespace Celeritas.Game.Events
 		public bool HasDialogue { get => hasDialogue; }
 
 		public DialogueInfo Dialogue { get => dialogue; }
+
+		public EventOutcome WaveOutcome { get => waveOutcome; }
 
 		private readonly List<float> lastChances = new List<float>();
 
@@ -77,6 +82,8 @@ namespace Celeritas.Game.Events
 				moduleDataRewardOutcome = null;
 			}
 
+			// change player health, modules, inventory, ect.
+
 			if (hasDialogue)
 			{
 				if (string.IsNullOrEmpty(originalDialogueContent))
@@ -96,9 +103,12 @@ namespace Celeritas.Game.Events
 		{
 			CompleteOutcome();
 
-			var option = dialogue.options[i];
-			if (option.outcome != null)
-				option.outcome.DoEventOutcome();
+			if (i != -1)
+			{
+				var option = dialogue.options[i];
+				if (option.outcome != null)
+					option.outcome.DoEventOutcome();
+			}
 		}
 
 		private void CompleteOutcome()
@@ -111,11 +121,19 @@ namespace Celeritas.Game.Events
 
 			if (hasWaves)
 			{
+				WaveManager.OnWaveEnded += WaveFinished;
 				foreach (var wave in waves)
 				{
 					WaveManager.Instance.StartWave(wave);
 				}
 			}
+		}
+
+		private void WaveFinished()
+		{
+			WaveManager.OnWaveEnded -= WaveFinished;
+			if (waveOutcome != null)
+				waveOutcome.DoEventOutcome();
 		}
 
 		private string GetFullDialogueContent(string content, int? modules, ModuleData reward)
