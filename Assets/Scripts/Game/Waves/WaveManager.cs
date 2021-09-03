@@ -79,6 +79,13 @@ namespace Celeritas.Game
 			GameStateManager.Instance.SetGameState(GameState.WAVE);
 		}
 
+		public void StartFinalWave()
+		{
+			Debug.Log("StartFinalWave triggered");
+			waveIndex = data.Length - 1;
+			StartWave();
+		}
+
 		private Dictionary<WaveData, List<ShipEntity>> ships = new Dictionary<WaveData, List<ShipEntity>>();
 
 		public IReadOnlyDictionary<WaveData, List<ShipEntity>> Waves { get => ships; }

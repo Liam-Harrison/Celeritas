@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Final Wave",
+                    "type": "Button",
+                    "id": "f3925e4a-b79c-431a-a5c8-6380c93b3dfc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -173,6 +181,17 @@
                     "processors": "",
                     "groups": "Controls",
                     "action": "New Wave",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "25a9a930-fe5f-4d1a-b771-40e518b2ddba",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Final Wave",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

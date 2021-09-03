@@ -67,6 +67,14 @@ namespace Celeritas
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Final Wave"",
+                    ""type"": ""Button"",
+                    ""id"": ""f3925e4a-b79c-431a-a5c8-6380c93b3dfc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -188,6 +196,17 @@ namespace Celeritas
                     ""processors"": """",
                     ""groups"": ""Controls"",
                     ""action"": ""New Wave"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25a9a930-fe5f-4d1a-b771-40e518b2ddba"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls"",
+                    ""action"": ""Final Wave"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -356,6 +375,7 @@ namespace Celeritas
             m_Basic_Action = m_Basic.FindAction("Action", throwIfNotFound: true);
             m_Basic_TractorBeam = m_Basic.FindAction("Tractor Beam", throwIfNotFound: true);
             m_Basic_NewWave = m_Basic.FindAction("New Wave", throwIfNotFound: true);
+            m_Basic_FinalWave = m_Basic.FindAction("Final Wave", throwIfNotFound: true);
             // Console
             m_Console = asset.FindActionMap("Console", throwIfNotFound: true);
             m_Console_Toggle = m_Console.FindAction("Toggle", throwIfNotFound: true);
@@ -421,6 +441,7 @@ namespace Celeritas
         private readonly InputAction m_Basic_Action;
         private readonly InputAction m_Basic_TractorBeam;
         private readonly InputAction m_Basic_NewWave;
+        private readonly InputAction m_Basic_FinalWave;
         public struct BasicActions
         {
             private @InputActions m_Wrapper;
@@ -431,6 +452,7 @@ namespace Celeritas
             public InputAction @Action => m_Wrapper.m_Basic_Action;
             public InputAction @TractorBeam => m_Wrapper.m_Basic_TractorBeam;
             public InputAction @NewWave => m_Wrapper.m_Basic_NewWave;
+            public InputAction @FinalWave => m_Wrapper.m_Basic_FinalWave;
             public InputActionMap Get() { return m_Wrapper.m_Basic; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -458,6 +480,9 @@ namespace Celeritas
                     @NewWave.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnNewWave;
                     @NewWave.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnNewWave;
                     @NewWave.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnNewWave;
+                    @FinalWave.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnFinalWave;
+                    @FinalWave.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnFinalWave;
+                    @FinalWave.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnFinalWave;
                 }
                 m_Wrapper.m_BasicActionsCallbackInterface = instance;
                 if (instance != null)
@@ -480,6 +505,9 @@ namespace Celeritas
                     @NewWave.started += instance.OnNewWave;
                     @NewWave.performed += instance.OnNewWave;
                     @NewWave.canceled += instance.OnNewWave;
+                    @FinalWave.started += instance.OnFinalWave;
+                    @FinalWave.performed += instance.OnFinalWave;
+                    @FinalWave.canceled += instance.OnFinalWave;
                 }
             }
         }
@@ -599,6 +627,7 @@ namespace Celeritas
             void OnAction(InputAction.CallbackContext context);
             void OnTractorBeam(InputAction.CallbackContext context);
             void OnNewWave(InputAction.CallbackContext context);
+            void OnFinalWave(InputAction.CallbackContext context);
         }
         public interface IConsoleActions
         {
