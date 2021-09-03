@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: hive_fire
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: Infested!
+    content: You blast the station with a full volley of your weapons. A few infested
+      ships hidden within the station survive, but it seems like most of the infested,
+      along with any valuables on the station, have been destroyed.
+    options: []
+  hasRewards: 0
+  lootType: 0
+  lootRewardRange: {x: 0, y: 0}
+  moduleRewards: []
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 1
+  waveOutcome: {fileID: 0}
+  waves:
+  - {fileID: 11400000, guid: 5f3fd8a6d48e53c4ab0922b5a4ae6d57, type: 2}
