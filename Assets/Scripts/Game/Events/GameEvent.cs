@@ -64,7 +64,7 @@ namespace Celeritas.Game.Events
 		{
 			AreaEntered = true;
 			EventData.OnEntered();
-			EventData.EventOutcome.DoEventOutcome();
+			EventData.EventOutcome.DoEventOutcome(this);
 		}
 
 		public void EndEvent()

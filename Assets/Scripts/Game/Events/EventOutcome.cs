@@ -68,8 +68,9 @@ namespace Celeritas.Game.Events
 		private int? lootRewardOutcome = null;
 		private ModuleData moduleDataRewardOutcome = null;
 		private string originalDialogueContent;
+		private GameEvent waveParentEvent;
 
-		public void DoEventOutcome()
+		public void DoEventOutcome(GameEvent gameEvent)
 		{
 			if (hasRewards)
 			{
@@ -82,8 +83,6 @@ namespace Celeritas.Game.Events
 				moduleDataRewardOutcome = null;
 			}
 
-			// change player health, modules, inventory, ect.
-
 			if (hasDialogue)
 			{
 				if (string.IsNullOrEmpty(originalDialogueContent))
@@ -91,27 +90,36 @@ namespace Celeritas.Game.Events
 
 				dialogue.content = GetFullDialogueContent(originalDialogueContent, lootRewardOutcome, moduleDataRewardOutcome);
 
-				DialogueManager.Instance.ShowDialogue(dialogue, DialogueFinished);
+				DialogueManager.Instance.ShowDialogue(dialogue, (i) => DialogueFinished(i, gameEvent));
 			}
 			else
 			{
-				CompleteOutcome();
+				CompleteOutcome(false, gameEvent);
 			}
 		}
 
-		private void DialogueFinished(int i)
+		private void DialogueFinished(int i, GameEvent gameEvent)
 		{
-			CompleteOutcome();
-
 			if (i != -1)
 			{
 				var option = dialogue.options[i];
 				if (option.outcome != null)
-					option.outcome.DoEventOutcome();
+				{
+					CompleteOutcome(true, gameEvent);
+					option.outcome.DoEventOutcome(gameEvent);
+				}
+				else
+				{
+					CompleteOutcome(false, gameEvent);
+				}
+			}
+			else
+			{
+				CompleteOutcome(false, gameEvent);
 			}
 		}
 
-		private void CompleteOutcome()
+		private void CompleteOutcome(bool hasOutcome, GameEvent gameEvent)
 		{
 			if (moduleDataRewardOutcome != null)
 				PlayerController.Instance.PlayerShipEntity.Inventory.Add(moduleDataRewardOutcome);
@@ -121,42 +129,45 @@ namespace Celeritas.Game.Events
 
 			if (hasWaves)
 			{
+				waveParentEvent = gameEvent;
 				WaveManager.OnWaveEnded += WaveFinished;
 				foreach (var wave in waves)
 				{
 					WaveManager.Instance.StartWave(wave);
 				}
 			}
+			else if (!hasOutcome)
+			{
+				gameEvent.EndEvent();
+			}
 		}
 
 		private void WaveFinished()
 		{
 			WaveManager.OnWaveEnded -= WaveFinished;
+
 			if (waveOutcome != null)
-				waveOutcome.DoEventOutcome();
+				waveOutcome.DoEventOutcome(waveParentEvent);
+			else
+				waveParentEvent.EndEvent();
 		}
 
 		private string GetFullDialogueContent(string content, int? modules, ModuleData reward)
 		{
-			var a = "";
-			var b = "";
+			var paramaters = new List<string>();
 
-			string result = "No Dialogue.";
+			AddValue(ref paramaters, reward);
+			AddValue(ref paramaters, modules);
 
-			if (reward != null)
+			return string.Format(content, paramaters);
+		}
+
+		private void AddValue(ref List<string> paramaters, object value)
+		{
+			if (value != null)
 			{
-				a = reward.Title;
-				if (modules != null)
-					b = modules.Value.ToString();
+				paramaters.Add(value.ToString());
 			}
-			else if (modules != null)
-			{
-				a = modules.Value.ToString();
-			}
-
-			result = string.Format(content, a, b);
-
-			return result;
 		}
 
 		public ModuleData GetReward()

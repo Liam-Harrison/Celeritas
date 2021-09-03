@@ -4187,7 +4187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1986173543171527234, guid: 81f5c9ab83a971949b7b15d24c7f9975, type: 3}
       propertyPath: m_text
-      value: NEXT
+      value: LAUNCH
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81f5c9ab83a971949b7b15d24c7f9975, type: 3}
@@ -7187,7 +7187,7 @@ GameObject:
   - component: {fileID: 2116599760}
   - component: {fileID: 2116599759}
   m_Layer: 5
-  m_Name: ' Ship Stats Old'
+  m_Name: Ship Stats Old
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7267,7 +7267,7 @@ GameObject:
   - component: {fileID: 2122025636}
   - component: {fileID: 2122025635}
   m_Layer: 5
-  m_Name: ' Ship Stats'
+  m_Name: Ship Stats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

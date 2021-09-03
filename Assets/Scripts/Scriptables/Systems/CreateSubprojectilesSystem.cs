@@ -95,7 +95,7 @@ namespace Assets.Scripts.Scriptables.Systems
 
 				ProjectileEntity proj;
 				if (useCustomProjectileSpawnLocation)
-					proj = EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnel, projectile.projectileSpawn.position, q, projectile.Weapon, effects);
+					proj = EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnel, projectile.ProjectileSpawn.position, q, projectile.Weapon, effects);
 				else
 					proj = EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnel, entity.Position, q, projectile.Weapon, effects);
 				proj.ParentProjectile = projectile;
