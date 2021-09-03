@@ -80,9 +80,6 @@ namespace Celeritas.Scriptables.Systems
 		private int CalculatedDamageOverDistance(Entity entity, ushort level)
 		{
 			var projectile = entity as ProjectileEntity;
-
-			int calculatedDamage = 0;
-			
 			int rangeCap = maxDistance * 10;
 
 			if (Mathf.RoundToInt(projectile.TotalDistanceTravelled) > rangeCap)
@@ -94,8 +91,7 @@ namespace Celeritas.Scriptables.Systems
 				damageModifierPercentage = (Mathf.RoundToInt(projectile.TotalDistanceTravelled) / 10) * (Percentage + (PercentageExtraPerLevel * level));
 			}
 
-			calculatedDamage = projectile.Damage + Mathf.RoundToInt(((float)projectile.Damage / 100.0f) * (float)damageModifierPercentage);
-			return calculatedDamage;
+			return projectile.Damage + Mathf.RoundToInt((projectile.Damage / 100.0f) * damageModifierPercentage);
 		}
 
 		/// <summary>

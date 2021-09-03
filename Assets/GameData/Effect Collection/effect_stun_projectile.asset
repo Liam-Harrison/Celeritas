@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ee0d4ee51750af45b7430210d4a5dbd, type: 3}
-  m_Name: effect_shield_increase
+  m_Name: effect_stun_projectile
   m_EditorClassIdentifier: 
-  title: Shield Booster
-  targets: 4
+  title: Stun Projectile
+  targets: 1
   stacks: 0
   systems:
-  - {fileID: 11400000, guid: 549639acd9f79f845a9e5282fcfd6113, type: 2}
+  - {fileID: 11400000, guid: 0925092caaa4d3b4aa392e202088b7a4, type: 2}

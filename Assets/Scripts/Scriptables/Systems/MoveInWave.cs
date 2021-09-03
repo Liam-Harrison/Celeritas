@@ -44,7 +44,7 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile; // should be able to work for anything though
 
-		public override string GetTooltip(ushort level) => $"";
+		public override string GetTooltip(ushort level) => $"Moves on a curve.";
 
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{

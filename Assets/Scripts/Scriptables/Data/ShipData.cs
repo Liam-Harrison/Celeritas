@@ -81,7 +81,7 @@ namespace Celeritas.Scriptables
 		/// <summary>
 		/// Is this a placeholder ship.
 		/// </summary>
-		public bool IsPlaceholder { get => IsPlaceholder; }
+		public bool IsPlaceholder { get => isPlaceholder; }
 
 		public override string Tooltip => $"A <color=\"orange\">{ShipClass}</color> class ship.";
 

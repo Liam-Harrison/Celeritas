@@ -47,7 +47,7 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		public override string GetTooltip(ushort level) => $"";
+		public override string GetTooltip(ushort level) => $"Size increases over <color=\"green\">{duration}</color> seconds.";
 
 		public void OnEntityEffectAdded(Entity entity, ushort level)
 		{

@@ -57,13 +57,15 @@ MonoBehaviour:
     SerializationNodes: []
   hasDefaultEffects: 0
   defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
   level: 0
-  hasShipEffects: 1
+  hasShipEffects: 0
   shipEffects:
   - Level: 0
     EffectCollection: {fileID: 11400000, guid: ac40c405a729fe14cb1c0d7f211d12b7, type: 2}

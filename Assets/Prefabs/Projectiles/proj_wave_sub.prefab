@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 818042294756664602, guid: 5c7069a0ea7969143a8a7403d56dd0df, type: 3}
       propertyPath: m_Name
-      value: proj_sunburst_sub
+      value: proj_wave_sub
       objectReference: {fileID: 0}
     - target: {fileID: 3402885767140972041, guid: 5c7069a0ea7969143a8a7403d56dd0df, type: 3}
       propertyPath: m_Radius

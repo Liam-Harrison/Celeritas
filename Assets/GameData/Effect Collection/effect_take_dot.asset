@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Effect take damage over time
   targets: 36
-  stacks: 1
+  stacks: 0
   systems:
   - {fileID: 11400000, guid: 04b17800b7489614e88c2b61b1495388, type: 2}

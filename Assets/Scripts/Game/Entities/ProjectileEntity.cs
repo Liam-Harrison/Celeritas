@@ -62,14 +62,9 @@ namespace Celeritas.Game.Entities
 		public float BaseVelcoity { get; set; }
 
 		/// <summary>
-		/// Amount of health that is healed when projectile hits.
-		/// </summary>
-		public int HealOnHit { get; set; }
-
-		/// <summary>
-		/// The ship that recieves the heal.
-		/// </summary>
-		public ShipEntity HealShip { get; set; }
+        /// Used to determine how long a project will stun the target for.
+        /// </summary>
+		public float StunDuration { get; set; }
 
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
@@ -79,8 +74,6 @@ namespace Celeritas.Game.Entities
 			Weapon = owner as WeaponEntity;
 			SpeedModifier = 1;
 			Following = null;
-			HealOnHit = 0;
-			HealShip = null;
 
 			if (inheirtVelcoity && owner != null && !instanced)
 			{
@@ -89,6 +82,7 @@ namespace Celeritas.Game.Entities
 				else if (owner is ProjectileEntity projectile)
 					BaseVelcoity = projectile.BaseVelcoity;
 			}
+			StunDuration = 0;
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
@@ -116,11 +110,16 @@ namespace Celeritas.Game.Entities
 			if (other.IsPlayer == IsPlayer)
 				return;
 
+			base.OnEntityHit(other);
+
 			if (other is ShipEntity ship)
 			{
-				if (HealOnHit != 0 && HealShip != null)
+				if (StunDuration != 0)
 				{
-					HealShip.Health.Damage(HealOnHit);
+					if (ship.Stunned == false)
+					{
+						ship.Stun(StunDuration);
+					}
 				}
 
 				if (ship.WeaponEntities.Contains(Weapon))
@@ -140,8 +139,6 @@ namespace Celeritas.Game.Entities
 
 			if (ProjectileData.DestroyedOnHit)
 				KillEntity();
-
-			base.OnEntityHit(other);
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)

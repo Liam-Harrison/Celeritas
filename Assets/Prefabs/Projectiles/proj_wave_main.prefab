@@ -58,16 +58,17 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  hasDefaultEffects: 1
-  defaultEffects:
-  - Level: 0
-    EffectCollection: {fileID: 11400000, guid: 5f5146484eb77f84cbcb4135038c244f, type: 2}
+  hasDefaultEffects: 0
+  defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
-  damage: 10
+  inheirtVelcoity: 1
+  damage: 20
   trails: []
   projectileSpawn: {fileID: 0}
 --- !u!58 &3117257827407564721
