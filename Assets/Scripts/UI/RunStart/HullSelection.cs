@@ -169,12 +169,12 @@ namespace Celeritas.UI.Runstart
 			statLines[0].hideSlider();
 
 			// health
-			statLines[1].setTitle($"Health: ({ship.StartingHealth})");
+			statLines[1].setTitle($"Health: ({ship.StartingHealth/1000}k)");
 			statLines[1].slider.maxValue = maxStats["health"];
 			statLines[1].setSliderValue(ship.StartingHealth);
 
 			// shield
-			statLines[2].setTitle($"Shield: ({ship.StartingShield})");
+			statLines[2].setTitle($"Shield: ({ship.StartingShield/1000}k)");
 			statLines[2].slider.maxValue = maxStats["shield"];
 			statLines[2].setSliderValue(ship.StartingShield);
 
