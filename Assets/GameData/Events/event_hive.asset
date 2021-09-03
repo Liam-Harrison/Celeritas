@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e81afd5e3fc38f04a85d551b5ddbf13e, type: 3}
-  m_Name: module_projectile_damage_increase
+  m_Script: {fileID: 11500000, guid: 4db6201628f752148971b3fd2430c3a5, type: 3}
+  m_Name: event_hive
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,21 +21,69 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: iconLayout
+    - Name: grid
       Entry: 7
       Data: 0|System.Boolean[,], mscorlib
     - Name: 
       Entry: 12
-      Data: 9
+      Data: 25
     - Name: ranks
       Entry: 1
-      Data: 3|3
+      Data: 5|5
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 5
       Data: true
     - Name: 
       Entry: 5
       Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 5
       Data: false
@@ -63,13 +111,11 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  title: Projectile Damage
-  prefab: {fileID: 1344871616590283930, guid: 66db8ef85b269074e8ee6e3102ac40bf, type: 3}
-  capacityHint: 1
-  useChunking: 0
-  size: 0
-  catagory: 0
-  rarity: 0
-  icon: {fileID: 21300000, guid: e0526b249dec66940adc72cf27447828, type: 3}
-  description: Increases Projectile damage
-  shape: 1
+  cannotUnloadDynamically: 0
+  showOnMap: 1
+  mapColor: {r: 0.754717, g: 0.6009256, b: 0.6009256, a: 1}
+  showArrow: 0
+  arrowColor: {r: 1, g: 1, b: 1, a: 1}
+  arrowText: 
+  arrowIcon: {fileID: 0}
+  eventOutcome: {fileID: 11400000, guid: f559246fcec4af64c94be26f8c753f14, type: 2}

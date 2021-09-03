@@ -72,4 +72,4 @@ MonoBehaviour:
   rarity: 1
   icon: {fileID: 21300000, guid: ae4e1dd400b2c7544a9acadb150fc541, type: 3}
   description: Speeds up your ship!
-  shape: 2
+  shape: 1
