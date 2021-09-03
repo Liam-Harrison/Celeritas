@@ -30,19 +30,21 @@ namespace Assets.Scripts.Game
 		[SerializeField, PropertyRange(5, 25)]
 		int minDistanceFromPlayer;
 
-		private void OnEnable()
+		protected override void Awake()
 		{
-			EntityDataManager.OnCreatedChunk += SpawnAsteroidsInChunk;
+			Chunks.OnCreatedChunk += SpawnAsteroidsInChunk;
+			base.Awake();
+		}
 
-			if (EntityDataManager.Instance == null || !EntityDataManager.Instance.Loaded)
-				EntityDataManager.OnLoadedAssets += SpawnAsteroids;
-			else
-				SpawnAsteroids();
+		protected override void OnGameLoaded()
+		{
+			base.OnGameLoaded();
+			SpawnAsteroids();
 		}
 
 		private void SpawnAsteroids()
 		{
-			foreach (var chunk in EntityDataManager.ChunkManager.Chunks)
+			foreach (var chunk in Chunks.ChunkManager.Chunks)
 			{
 				SpawnAsteroidsInChunk(chunk, true);
 			}
@@ -50,7 +52,7 @@ namespace Assets.Scripts.Game
 
 		private void OnDisable()
 		{
-			EntityDataManager.OnCreatedChunk -= SpawnAsteroidsInChunk;
+			Chunks.OnCreatedChunk -= SpawnAsteroidsInChunk;
 		}
 
 		private void SpawnAsteroidsInChunk(Chunk chunk)

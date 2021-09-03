@@ -34,6 +34,9 @@ namespace Celeritas.Scriptables
 		[SerializeField, TitleGroup("Ship"), TextArea]
 		private string description;
 
+		[SerializeField, TitleGroup("Ship")]
+		private bool isPlaceholder;
+
 		[SerializeField, TitleGroup("Ship Start Settings")]
 		private uint startingHealth;
 
@@ -74,6 +77,11 @@ namespace Celeritas.Scriptables
 		/// The rarity of the ship.
 		/// </summary>
 		public Rarity Rarity { get => rarity; }
+
+		/// <summary>
+		/// Is this a placeholder ship.
+		/// </summary>
+		public bool IsPlaceholder { get => IsPlaceholder; }
 
 		public override string Tooltip => $"A <color=\"orange\">{ShipClass}</color> class ship.";
 

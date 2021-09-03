@@ -21,12 +21,12 @@ public class TemporaryNotificationText : MonoBehaviour
 
     void Start()
     {
-		text.CrossFadeAlpha(0.0f, timeToLive, false);
+		text.CrossFadeAlpha(0.0f, timeToLive, true);
 	}
-
+	 
     void Update()
     {
-		transform.position = new Vector3(transform.position.x, transform.position.y + moveRate, 0);
+		transform.position = new Vector3(transform.position.x, transform.position.y + (moveRate * Time.unscaledDeltaTime), 0);
 
 		if (text.color.a == 0)
 			Destroy(gameObject);

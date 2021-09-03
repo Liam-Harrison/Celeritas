@@ -54,6 +54,9 @@ public class AimingLine : MonoBehaviour
 	/// <param name="playerShip"></param>
 	public void Draw(ShipEntity playerShip)
 	{
+		if (Time.timeScale < 0.95f)
+			return;
+
 		// aim at mouse if aimAtMouse, else aim at target if it isn't null
 		Vector3 toAimAt;
 		if (aimAtMouse)
@@ -70,6 +73,7 @@ public class AimingLine : MonoBehaviour
 		// these additions to centre the line if required (eg cursor)
 		toAimAt.x += xDisplacementFromCursorCentre;
 		toAimAt.y += yDisplacementFromCursonCentre;
+		toAimAt = Vector3.Lerp(line.GetPosition(1), toAimAt, 48 * Time.smoothDeltaTime);
 		line.SetPosition(1, toAimAt);
 	}
 }

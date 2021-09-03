@@ -30,9 +30,13 @@ namespace Celeritas.Game
 		public static event Action OnWaveEnded;
 		public static event Action OnWaveStarted;
 
-		//[SerializeField]
 		private float MIN_TIME_BETWEEN_WAVES = 5; // for build
 		private float timeOfLastWave = 0;
+
+		public void StartWave(WaveData wave)
+		{
+			StartWaveInternal(wave);
+		}
 
 		/// <summary>
 		/// Start a wave.
@@ -45,11 +49,19 @@ namespace Celeritas.Game
 				return;
 			}
 
+			StartWaveInternal(data[waveIndex]);
+
+			waveIndex++;
+			if (waveIndex >= data.Length)
+			{
+				waveIndex = 0;
+			}
+		}
+
+		private void StartWaveInternal(WaveData wave)
+		{
 			timeOfLastWave = Time.time;
-
 			WaveActive = true;
-
-			var wave = data[waveIndex];
 			ships[wave] = new List<ShipEntity>();
 
 			List<ShipData> NewWave = new List<ShipData>();
@@ -63,11 +75,6 @@ namespace Celeritas.Game
 			}
 
 			OnWaveStarted?.Invoke();
-			waveIndex++;
-			if (waveIndex >= data.Length)
-			{
-				waveIndex = 0;
-			}
 
 			GameStateManager.Instance.SetGameState(GameState.WAVE);
 		}

@@ -11,15 +11,18 @@ namespace Celeritas.Game.Entities
 	public class ProjectileEntity : Entity
 	{
 		[SerializeField, PropertySpace]
+		private bool inheirtVelcoity;
+
+		[SerializeField, PropertySpace]
 		protected int damage;
 
 		[SerializeField, PropertySpace]
 		private TrailRenderer[] trails;
 
-		// used if projectile spawns other projectiles
-		// via a subprojectile system, with appropriate boolean ticked.
 		[SerializeField]
-		public Transform projectileSpawn; 
+		private Transform projectileSpawn;
+
+		public Transform ProjectileSpawn { get => projectileSpawn; }
 
 		/// <summary>
 		/// How much damage this entity does to another
@@ -56,6 +59,8 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public ProjectileEntity ParentProjectile { get; set; }
 
+		public float BaseVelcoity { get; set; }
+
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
@@ -64,6 +69,14 @@ namespace Celeritas.Game.Entities
 			Weapon = owner as WeaponEntity;
 			SpeedModifier = 1;
 			Following = null;
+
+			if (inheirtVelcoity && owner != null && !instanced)
+			{
+				if (owner is WeaponEntity weapon)
+					BaseVelcoity = Mathf.Clamp01(Vector3.Dot(Forward, weapon.AttatchedModule.Ship.Rigidbody.velocity.normalized)) * weapon.AttatchedModule.Ship.Rigidbody.velocity.magnitude;
+				else if (owner is ProjectileEntity projectile)
+					BaseVelcoity = projectile.BaseVelcoity;
+			}
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
@@ -132,10 +145,11 @@ namespace Celeritas.Game.Entities
 				return;
 
 			Position += Forward * ProjectileData.Speed * SpeedModifier * Time.smoothDeltaTime;
+			Position += Forward * BaseVelcoity * Time.smoothDeltaTime;
 
 			if (TimeAlive >= ProjectileData.Lifetime)
 			{
-				Dying = true; // workaround
+				Dying = true;
 				UnloadEntity();
 			}
 
