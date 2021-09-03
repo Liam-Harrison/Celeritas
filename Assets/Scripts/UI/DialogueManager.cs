@@ -22,12 +22,16 @@ namespace Celeritas.UI
 	[Serializable]
 	public class DialogueInfo
 	{
+		[PropertySpace]
 		public string title;
 
-		[TextArea]
+		[TextArea(6,12)]
 		public string content;
 
+		[PropertySpace]
 		public Option[] options;
+
+		public string DynamicContent { get; set; }
 	}
 
 	public class DialogueManager : Singleton<DialogueManager>
@@ -58,7 +62,11 @@ namespace Celeritas.UI
 		{
 			Dialogue = info;
 			title.text = info.title;
-			content.text = info.content;
+
+			if (string.IsNullOrEmpty(info.DynamicContent))
+				content.text = info.content;
+			else
+				content.text = info.DynamicContent;
 
 			for (int i = dialogueOptionParent.childCount - 1; i >= 0; i--)
 			{

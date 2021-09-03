@@ -29,7 +29,7 @@ namespace Celeritas.Game.Events
 		[SerializeField, TitleGroup("Reward")]
 		private bool hasRewards;
 
-		[SerializeField, ShowIf(nameof(hasRewards)), TitleGroup("Reward"), InfoBox("You can use the results of the rewards in your dialogue content string with the {0} and {1} symbols. The {0} will be the module, if possible, otherwise it will be the loot amount. If {0} is used then {1} will be the loot amount.")]
+		[SerializeField, ShowIf(nameof(hasRewards)), TitleGroup("Reward"), InfoBox("You can use the standard string format to place variables in the dialogue content, by using the symbols {0}, {1}, ect. The symbols are in this order: Module Reward, Loot Drop Amount")]
 		private LootType lootType;
 
 		[SerializeField, ShowIf(nameof(hasRewards)), TitleGroup("Reward"), MinMaxSlider(0, 4)]
@@ -73,7 +73,6 @@ namespace Celeritas.Game.Events
 
 		private int? lootRewardOutcome = null;
 		private ModuleData moduleDataRewardOutcome = null;
-		private string originalDialogueContent;
 		private GameEvent waveParentEvent;
 
 		public void DoEventOutcome(GameEvent gameEvent)
@@ -91,11 +90,7 @@ namespace Celeritas.Game.Events
 
 			if (hasDialogue)
 			{
-				if (string.IsNullOrEmpty(originalDialogueContent))
-					originalDialogueContent = dialogue.content;
-
-				dialogue.content = GetFullDialogueContent(originalDialogueContent, lootRewardOutcome, moduleDataRewardOutcome);
-
+				dialogue.DynamicContent = GetFullDialogueContent(dialogue.content, lootRewardOutcome, moduleDataRewardOutcome);
 				DialogueManager.Instance.ShowDialogue(dialogue, (i) => DialogueFinished(i, gameEvent));
 			}
 			else
