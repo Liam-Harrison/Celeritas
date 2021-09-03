@@ -102,6 +102,9 @@ namespace Celeritas.UI.Runstart
 			bool added = false;
 			foreach (var ship in ships)
 			{
+				if (ship.IsPlaceholder)
+					continue;
+
 				var toggle = Instantiate(togglePrefab, hullParent).GetComponent<Toggle>();
 				toggle.GetComponentInChildren<TextMeshProUGUI>().text = ship.Title;
 				toggle.group = hullGroup;
