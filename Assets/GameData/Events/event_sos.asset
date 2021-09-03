@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2632016ce39037c4eb07668fe705fb9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 4db6201628f752148971b3fd2430c3a5, type: 3}
   m_Name: event_sos
   m_EditorClassIdentifier: 
   serializationData:
@@ -111,11 +111,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  icon: {fileID: 21300000, guid: d8f1bee4770ec434083b24ce48178b5e, type: 3}
   showOnMap: 1
-  mapColor: {r: 0.6698113, g: 0.23632964, b: 0.23632964, a: 1}
+  mapColor: {r: 0.94509804, g: 0.34901962, b: 0.34901962, a: 1}
   showArrow: 1
-  arrowColor: {r: 0.6698113, g: 0.23632964, b: 0.23632964, a: 1}
+  arrowColor: {r: 0.9433962, g: 0.35065857, b: 0.35065857, a: 1}
   arrowText: SOS
   arrowIcon: {fileID: 21300000, guid: 99639cdda4d4c23459349b762bad1143, type: 3}
   eventOutcome: {fileID: 11400000, guid: 8ee654c579a02ed44a68da146c311ab3, type: 2}

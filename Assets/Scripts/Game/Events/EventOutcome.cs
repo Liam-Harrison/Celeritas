@@ -154,7 +154,6 @@ namespace Celeritas.Game.Events
 				waveOutcome.DoEventOutcome(waveParentEvent);
 			else
 			{
-				Debug.Log("Fired end event");
 				waveParentEvent.EndEvent();
 			}
 		}

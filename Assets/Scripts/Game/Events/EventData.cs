@@ -9,16 +9,17 @@ using UnityEditor;
 
 namespace Celeritas.Game.Events
 {
-	public abstract class EventData : SerializedScriptableObject
+	[CreateAssetMenu(fileName = "New Event", menuName = "Celeritas/Events/New Event", order = 10)]
+	public class EventData : SerializedScriptableObject
 	{
-		private const int MAX_CHUNK_SIZE = 6;
+		private const int MAX_CHUNK_SIZE = 5;
 
-		private static readonly int MIDDLE = MAX_CHUNK_SIZE / 2 - 1;
+		private static readonly int MIDDLE = MAX_CHUNK_SIZE / 2;
 
 		[SerializeField, TitleGroup("Settings", "The general settings for this event.")]
-		private Sprite icon;
+		private bool cannotUnloadDynamically = false;
 
-		[SerializeField, Indent(11), TitleGroup("Settings"), TableMatrix(DrawElementMethod = "DrawCell", HideColumnIndices = true, HideRowIndices = true, SquareCells = true, HorizontalTitle = "X Axis", VerticalTitle = "Y Axis")]
+		[SerializeField, TitleGroup("Settings"), Indent(11), TableMatrix(DrawElementMethod = "DrawCell", HideColumnIndices = true, HideRowIndices = true, SquareCells = true, HorizontalTitle = "X Axis", VerticalTitle = "Y Axis")]
 		private bool[,] grid;
 
 		[SerializeField, TitleGroup("Map", "Information about the minimap and presentation.")]
@@ -42,15 +43,7 @@ namespace Celeritas.Game.Events
 		[SerializeField, TitleGroup("Event")]
 		private EventOutcome eventOutcome;
 
-		public abstract void OnCreated();
-
-		public abstract void OnEntered();
-
-		public abstract void OnEnded();
-
-		public abstract void OnUnloaded();
-
-		public Sprite Icon { get => icon; }
+		public bool CannotUnloadDynamically { get => cannotUnloadDynamically; }
 
 		public bool [,] Grid { get => grid; }
 
@@ -117,7 +110,7 @@ namespace Celeritas.Game.Events
 				EditorGUI.LabelField(top.AlignBottom(0), $"Origin", style);
 
 			y++;
-			if (y == MAX_CHUNK_SIZE - 1)
+			if (y == MAX_CHUNK_SIZE)
 			{
 				y = 0;
 				x++;

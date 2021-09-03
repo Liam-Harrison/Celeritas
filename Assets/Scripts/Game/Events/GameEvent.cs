@@ -56,27 +56,21 @@ namespace Celeritas.Game.Events
 					scrollables.Add(Minimap.Instance.CreateScrollable(c));
 				}
 			}
-
-			EventData.OnCreated();
 		}
 
 		public void EnterEventArea()
 		{
 			AreaEntered = true;
-			EventData.OnEntered();
 			EventData.EventOutcome.DoEventOutcome(this);
 		}
 
 		public void EndEvent()
 		{
-			EventData.OnEnded();
 			UnloadEvent();
 		}
 
 		public void UnloadEvent()
 		{
-			EventData.OnUnloaded();
-
 			if (marker != null)
 				Minimap.Instance.RemoveDirectionMarker(marker);
 
@@ -84,6 +78,8 @@ namespace Celeritas.Game.Events
 			{
 				Minimap.Instance.RemoveScrollable(scrollable);
 			}
+
+			EventManager.Instance.EventUnloaded(this);
 		}
 	}
 }

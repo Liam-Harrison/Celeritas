@@ -9,16 +9,23 @@ namespace Celeritas.Game
 {
 	public class EventManager : Singleton<EventManager>
 	{
-		private const int EVENT_CREATION_DIST = 6;
+		private const int EVENT_CREATION_DIST = 4;
 
 		private const int EVENT_DESTROY_DIST = 10;
 
+		private const float UPDATE_RATE = 1 / 2;
+
 		private readonly HashSet<GameEvent> events = new HashSet<GameEvent>();
+
+		private float lastUpdate;
 
 		public IReadOnlyCollection<GameEvent> Events { get => events; }
 
+		private new Camera camera;
+
 		protected override void OnGameLoaded()
 		{
+			camera = Camera.main;
 			base.OnGameLoaded();
 
 			if (GameStateManager.Instance.GameState != GameState.MAINMENU)
@@ -32,6 +39,27 @@ namespace Celeritas.Game
 		{
 			GameStateManager.onStateChanged -= OnStateChanged;
 			Chunks.OnEnteredChunk -= OnEnteredChunk;
+		}
+
+		private void FixedUpdate()
+		{
+			if (Time.time - lastUpdate > UPDATE_RATE)
+			{
+				lastUpdate = Time.time;
+				var toUnload = new HashSet<GameEvent>();
+				foreach (var e in events)
+				{
+					if (e.EventData.CannotUnloadDynamically == false && Chunks.ChunkManager.GetManhattenDistance(Chunks.ChunkManager.GetChunkIndex(camera.transform.position), e.OriginChunk) > EVENT_DESTROY_DIST)
+					{
+						toUnload.Add(e);
+					}
+				}
+
+				foreach (var e in toUnload)
+				{
+					e.UnloadEvent();
+				}
+			}
 		}
 
 		private void OnStateChanged(GameState old, GameState state)
