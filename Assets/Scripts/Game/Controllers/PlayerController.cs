@@ -231,5 +231,15 @@ namespace Celeritas.Game.Controllers
 				WaveManager.Instance.StartWave();
 			}
 		}
+		public void OnFinalWave(InputAction.CallbackContext context)
+		{
+			if (GameStateManager.Instance.GameState == GameState.BUILD)
+				return;
+
+			if (context.performed)
+			{
+				WaveManager.Instance.StartFinalWave();
+			}
+		}
 	}
 }
