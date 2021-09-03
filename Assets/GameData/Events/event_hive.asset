@@ -53,10 +53,25 @@ MonoBehaviour:
       Data: false
     - Name: 
       Entry: 5
+      Data: true
+    - Name: 
+      Entry: 5
       Data: false
     - Name: 
       Entry: 5
       Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 5
       Data: false
@@ -91,31 +106,16 @@ MonoBehaviour:
       Entry: 5
       Data: false
     - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
   cannotUnloadDynamically: 0
-  showOnMap: 0
-  mapColor: {r: 1, g: 1, b: 1, a: 1}
+  showOnMap: 1
+  mapColor: {r: 0.754717, g: 0.6009256, b: 0.6009256, a: 1}
   showArrow: 0
   arrowColor: {r: 1, g: 1, b: 1, a: 1}
   arrowText: 
   arrowIcon: {fileID: 0}
-  eventOutcome: {fileID: 0}
+  eventOutcome: {fileID: 11400000, guid: f559246fcec4af64c94be26f8c753f14, type: 2}
