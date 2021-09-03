@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Shield Repairer
   targets: 4
-  stacks: 1
+  stacks: 0
   systems:
   - {fileID: 11400000, guid: 15f1427e1f97c884eb89353da0fdf324, type: 2}

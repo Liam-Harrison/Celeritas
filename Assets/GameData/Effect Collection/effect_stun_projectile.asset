@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Stun Projectile
   targets: 1
-  stacks: 1
+  stacks: 0
   systems:
   - {fileID: 11400000, guid: 0925092caaa4d3b4aa392e202088b7a4, type: 2}
