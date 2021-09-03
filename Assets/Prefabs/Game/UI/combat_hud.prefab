@@ -852,7 +852,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Build Mode Ready [TAB]
+  m_text: Build Mode [TAB]
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2165a236c5521c047b32dba5c25d1f21, type: 2}
   m_sharedMaterial: {fileID: -710055089612258192, guid: 2165a236c5521c047b32dba5c25d1f21, type: 2}
@@ -2257,10 +2257,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scale: {fileID: 1374816182442559500}
   directionMarkerParent: {fileID: 2022809346604302438}
-  worldRadius: 100
+  worldRadius: 500
   radiusPadding: 15
   markerRadius: 110
-  fudge: 0
+  fudge: 4.5
   markerPrefab: {fileID: 2459245193920962517, guid: 6cbe42782b16f644dadae1d8a14b1e8f, type: 3}
   directionMarkerPrefab: {fileID: 4593666497565384694, guid: eb2b02dc7414ef24c976e76a2614cdaa, type: 3}
   scrollablePrefab: {fileID: 7127688712670550666, guid: 8dad172adb976c84ea5e595f6bfcb27f, type: 3}

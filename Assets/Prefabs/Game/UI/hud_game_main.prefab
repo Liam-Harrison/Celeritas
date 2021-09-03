@@ -646,54 +646,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5641295164953991232}
     m_Modifications:
-    - target: {fileID: 26520538488888160, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
-      propertyPath: m_fontSize
-      value: 38.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 2418666476075922556, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
-      propertyPath: m_fontSize
-      value: 25.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4107538776931588496, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4107538776931588496, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5595659149958543484, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
-      propertyPath: m_fontSize
-      value: 38.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 5802384426496940938, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
-      propertyPath: m_text
-      value: Build Mode [TAB]
-      objectReference: {fileID: 0}
-    - target: {fileID: 6497059531769059733, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6497059531769059733, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6497059532155627799, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6497059532155627799, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6497059532437801869, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
-      propertyPath: worldRadius
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 6497059532437801869, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
-      propertyPath: radiusPadding
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 6923601512839842711, guid: e6f96dc982ed3bd4aa727925db072f6d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
