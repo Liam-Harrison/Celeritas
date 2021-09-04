@@ -21,8 +21,9 @@ public class LowHealthVignette : MonoBehaviour
 		vignetteVolume.profile.TryGet(out pulseIntensity);
 		if (pulseIntensity == null)
 		{
-			Debug.Log("pulsecolour null :(");
+			Debug.Log("pulseIntensity null :(");
 		}
+		modifyVignetteIntensity();
 	}
 
 
@@ -36,13 +37,14 @@ public class LowHealthVignette : MonoBehaviour
 		if (playerShip == null && PlayerController.Instance != null)
 		{
 			playerShip = PlayerController.Instance.PlayerShipEntity;
-			onHealthChange(1f);
 		}
 		temp = Math.Abs(Math.Sin(Time.time));
-		pulse = 1.5f + (float)temp;
+		pulse = 1f + (float)temp;
 		pulseIntensity.postExposure.value = pulse;
 	}
 
+	[SerializeField]
+	private float vignetteThreshold;
 	private float intensity;
 	/// <summary>
 	/// Modifies the low-health vignette when HP changes.
@@ -60,25 +62,34 @@ public class LowHealthVignette : MonoBehaviour
 	// Currently a simple 1:1 HP-goes-lower-intensity-goes-higher calculation.
 	// This will almost certainally change, which is why it's a seperate function.
 	private float calculatedValue;
+	private float shipHealthPercentage;
 	private float calculateIntensity()
 	{
-		calculatedValue = 1 - ((float) playerShip.Health.CurrentValue / (float) playerShip.Health.MaxValue);
+		shipHealthPercentage = ((float)playerShip.Health.CurrentValue / (float)playerShip.Health.MaxValue);
+		calculatedValue = 1 - shipHealthPercentage;
+		shipHealthPercentage *= 100;
 		//calculatedValue = (float) PlayerController.Instance.PlayerShipEntity.Health.CurrentValue / (float) PlayerController.Instance.PlayerShipEntity.Health.MaxValue; //for testing!
 		return calculatedValue;
 	}
 
 	[SerializeField]
 	private AudioClip sfx;
-	[SerializeField]
-	private float sfxThreshold;
+
 	private void modifyVignetteIntensity()
 	{
-		vignetteVolume.weight = intensity;
-
-		if (intensity < sfxThreshold)
+		if (shipHealthPercentage < vignetteThreshold)
 		{
-			audio.PlayOneShot(sfx);
+			vignetteVolume.weight = intensity;
+			if (sfx != null)
+			{
+				audio.PlayOneShot(sfx);
+			}
 		}
+		else
+		{
+			vignetteVolume.weight = 0f;  //in case you come into the scene with something weird, turns the vignette off again
+		}
+
 	}
 
 
