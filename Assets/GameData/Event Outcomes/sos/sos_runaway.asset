@@ -15,8 +15,8 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: SOS Signal
-    content: You run away from the pirates, but you find a Homing and 2 metals as
-      you do so.
+    content: You run away from the pirates, but you find a Homing module and 2 tons
+      of rare metals as you do so.
     options: []
   hasRewards: 1
   lootType: 1

@@ -15,8 +15,8 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: A good find!
-    content: With all the infested ships destroyed, you take a closer look at the
-      station. It's totally infested, but a quick search reveals a module hidden
+    content: With all the Infested ships destroyed, you take a closer look at the
+      station. It's totally contaminated, but a quick search reveals a module hidden
       in an armoury that is untouched. You take your bounty and quickly leave.
     options: []
   hasRewards: 1

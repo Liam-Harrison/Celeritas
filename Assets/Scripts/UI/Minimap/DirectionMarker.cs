@@ -16,11 +16,15 @@ namespace Celeritas.UI
 		[SerializeField, TitleGroup("Assignments")]
 		private Image icon;
 
+		[SerializeField, TitleGroup("Assignments")]
+		private RectTransform groupParent;
+
 		public new RectTransform transform;
 
 		public Image Marker { get => marker; }
 
 		public Vector3 Point { get; private set; }
+
 
 		private void Awake()
 		{
@@ -37,6 +41,18 @@ namespace Celeritas.UI
 
 			icon.sprite = sprite;
 			icon.gameObject.SetActive(sprite != null);
+		}
+
+		public void SetEdgeMode(bool value)
+		{
+			if (value)
+			{
+				groupParent.pivot = new Vector2(0.5f, 1);
+			}
+			else
+			{
+				groupParent.pivot = new Vector2(0.5f, 0.5f);
+			}
 		}
 	}
 }

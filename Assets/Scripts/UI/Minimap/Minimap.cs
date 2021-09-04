@@ -164,12 +164,14 @@ namespace Celeritas.UI
 					var rot = Quaternion.LookRotation(Vector3.forward, dir);
 
 					marker.Marker.gameObject.SetActive(true);
+					marker.SetEdgeMode(true);
 					marker.transform.anchoredPosition3D = rot * Vector3.up * markerRadius;
 					marker.transform.rotation = rot;
 				}
 				else
 				{
 					marker.Marker.gameObject.SetActive(false);
+					marker.SetEdgeMode(false);
 					marker.transform.anchoredPosition = GetPosition(center, marker.Point, radius);
 					marker.transform.rotation = Quaternion.identity;
 				}

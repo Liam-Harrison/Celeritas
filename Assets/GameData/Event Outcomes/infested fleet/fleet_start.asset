@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: fleet_start
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: Infested Fleet
+    content: A huge fleet of Infested is visible on your scanners. Any closer and
+      they're almost certain to spot you... They might have some valuable resources
+      on their ships, but it will be one hell of a fight.
+    options:
+    - type: 0
+      content: Open fire!
+      outcome: {fileID: 11400000, guid: 037d9beb65964fb4181c4a78b9927cc2, type: 2}
+    - type: 0
+      content: Flee to fight another day
+      outcome: {fileID: 11400000, guid: 648845d4cde72e04e86dde5ba0e53e6c, type: 2}
+  hasRewards: 0
+  lootType: 0
+  lootRewardRange: {x: 0, y: 0}
+  moduleRewards: []
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 0
+  waveOutcome: {fileID: 0}
+  waves: []

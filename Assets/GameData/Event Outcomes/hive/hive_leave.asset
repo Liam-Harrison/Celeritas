@@ -16,7 +16,7 @@ MonoBehaviour:
   dialogue:
     title: Infested
     content: As you leave the station alone, you notice a small infested ship dart
-      out of one of the docking bays and quickly fly around the station out of sight.
+      out of one of the docking bays and quickly fly around the station, out of sight.
       Looks like you've avoided yourself some trouble.
     options: []
   hasRewards: 0

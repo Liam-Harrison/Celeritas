@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: ambush_start
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: Ambush!
+    content: It seems the Infested were waiting for you, they blast out from behind
+      various asteroids and debris, ready to your ship to wreckage.
+    options: []
+  hasRewards: 0
+  lootType: 0
+  lootRewardRange: {x: 0, y: 0}
+  moduleRewards: []
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 1
+  waveOutcome: {fileID: 11400000, guid: 0145ba6592b2d4c4cad820b148803ba3, type: 2}
+  waves:
+  - {fileID: 11400000, guid: 678df9090c342a7418800bcbf065aaea, type: 2}

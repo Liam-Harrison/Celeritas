@@ -70,7 +70,7 @@ MonoBehaviour:
   size: 0
   catagory: 0
   rarity: 0
-  icon: {fileID: 21300000, guid: 3144f6c4f2f2d704db3a0e92791b3265, type: 3}
+  icon: {fileID: 21300006, guid: f6e0548d6f5a7064eaef1aae7c62514f, type: 3}
   description: Empty weapon slot
   shape: 0
   projectile: {fileID: 11400000, guid: 341054bb030d7954ea09976c07126d5b, type: 2}
