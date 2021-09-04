@@ -1,29 +1,53 @@
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Rendering.Universal;
 
 public class LowHealthVignette : MonoBehaviour
 {
+	private AudioSource audio;
 	[SerializeField]
 	private Volume vignetteVolume;
+	private ColorAdjustments pulseIntensity;
+
+	private void Awake()
+	{
+		audio = GetComponent<AudioSource>();
+		vignetteVolume.profile.TryGet(out pulseIntensity);
+		if (pulseIntensity == null)
+		{
+			Debug.Log("pulsecolour null :(");
+		}
+	}
+
+
 	private ShipEntity playerShip;
-	//Update() because Awake() was giving nullrefs :(
+	private double temp;
+	private float pulse;
+	
 	private void Update()
 	{
-		// if just starting, link stationary stat bars to PlayerShip
+		// In Update() because Awake() was giving nullrefs :(
 		if (playerShip == null && PlayerController.Instance != null)
 		{
 			playerShip = PlayerController.Instance.PlayerShipEntity;
 			onHealthChange(1f);
 		}
-
+		temp = Math.Abs(Math.Sin(Time.time));
+		pulse = 1.5f + (float)temp;
+		pulseIntensity.postExposure.value = pulse;
 	}
 
 	private float intensity;
-	private float maxHP;
+	/// <summary>
+	/// Modifies the low-health vignette when HP changes.
+	/// </summary>
+	/// <param name="hp">Any float (needed to attach to an onValueChange)</param>
 	// Is sent current hp  from the HP bar. We ignore this, since we're using values
 	// from the playerShip entity instead.
 	// Intensity needed is calculated, then the vignette modified.
@@ -43,9 +67,18 @@ public class LowHealthVignette : MonoBehaviour
 		return calculatedValue;
 	}
 
+	[SerializeField]
+	private AudioClip sfx;
+	[SerializeField]
+	private float sfxThreshold;
 	private void modifyVignetteIntensity()
 	{
 		vignetteVolume.weight = intensity;
+
+		if (intensity < sfxThreshold)
+		{
+			audio.PlayOneShot(sfx);
+		}
 	}
 
 
