@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db6201628f752148971b3fd2430c3a5, type: 3}
-  m_Name: event_sos
+  m_Name: event_enemyplanet
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -50,22 +50,7 @@ MonoBehaviour:
       Data: false
     - Name: 
       Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
       Data: true
-    - Name: 
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 5
       Data: true
@@ -80,13 +65,28 @@ MonoBehaviour:
       Data: false
     - Name: 
       Entry: 5
-      Data: false
+      Data: true
+    - Name: 
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 5
       Data: false
     - Name: 
       Entry: 5
       Data: false
+    - Name: 
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 5
       Data: false
@@ -114,8 +114,8 @@ MonoBehaviour:
   cannotUnloadDynamically: 0
   showOnMap: 1
   mapColor: {r: 0.94509804, g: 0.34901962, b: 0.34901962, a: 1}
-  showArrow: 1
-  arrowColor: {r: 0.9433962, g: 0.35065857, b: 0.35065857, a: 1}
-  arrowText: SOS
-  arrowIcon: {fileID: 21300000, guid: 99639cdda4d4c23459349b762bad1143, type: 3}
-  eventOutcome: {fileID: 11400000, guid: 8ee654c579a02ed44a68da146c311ab3, type: 2}
+  showArrow: 0
+  arrowColor: {r: 1, g: 1, b: 1, a: 1}
+  arrowText: 
+  arrowIcon: {fileID: 0}
+  eventOutcome: {fileID: 11400000, guid: b9832cd6b1cd089439cd0aa27b622e59, type: 2}

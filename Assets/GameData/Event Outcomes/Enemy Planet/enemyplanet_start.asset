@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: enemyplanet_start
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: Off The Map
+    content: 'As you travel, you see an uncharted planet in the distance, far from
+      the light of any star. Despite this, your scanners pick up indications of life
+      on its surface. '
+    options:
+    - type: 0
+      content: 'Enter orbit and investigate '
+      outcome: {fileID: 11400000, guid: 65fea039f41973b44bfb2399a7990285, type: 2}
+    - type: 0
+      content: Leave. Nothing good can come of this
+      outcome: {fileID: 11400000, guid: db1cfdd940d53914c92004e584f88dfc, type: 2}
+    - type: 0
+      content: Fire! Nothing other than the Infested could survive these conditions
+      outcome: {fileID: 11400000, guid: a667fc7de17ec3c478ed19d874016ef8, type: 2}
+  hasRewards: 0
+  lootType: 0
+  lootRewardRange: {x: 0, y: 0}
+  moduleRewards: []
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 0
+  waveOutcome: {fileID: 0}
+  waves: []
