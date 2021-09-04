@@ -4978,7 +4978,7 @@ Transform:
   m_GameObject: {fileID: 4697836428843076994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.11, y: 1.11, z: 1.11}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 6217230582000350901}
   - {fileID: 3379626712454313517}
@@ -5020,6 +5020,7 @@ MonoBehaviour:
   trails:
   - {fileID: 3596544735388632740}
   - {fileID: 7673119644549111555}
+  projectileSpawn: {fileID: 0}
 --- !u!70 &3607648881644850802
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
