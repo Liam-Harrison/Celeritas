@@ -47,13 +47,16 @@ namespace Celeritas.Game.Events
 				middle /= ChunkIds.Count;
 
 				marker = Minimap.Instance.CreateMarker(middle, data.ArrowColor, data.ArrowText, data.ArrowIcon);
+				marker.Marker.color = data.ArrowColor;
 			}
 
 			if (data.ShowOnMap)
 			{
 				foreach (var c in ChunkIds)
 				{
-					scrollables.Add(Minimap.Instance.CreateScrollable(c));
+					var s = Minimap.Instance.CreateScrollable(c);
+					s.Image.color = data.MapColor;
+					scrollables.Add(s);
 				}
 			}
 		}

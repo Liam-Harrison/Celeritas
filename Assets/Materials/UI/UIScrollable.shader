@@ -125,8 +125,8 @@ Shader "Celeritas/Scrollable"
                     //Unity_Rotate_Degrees_float(IN.texcoord, float2(0.5, 0.5), 45, rotUV);
 
                     IN.texcoord.y += _Time.x * 4;
-
-                    half4 base = tex2D(_Texture, IN.texcoord) * _Color;
+                    
+                    half4 base = tex2D(_Texture, IN.texcoord) * IN.color;
 
                     return half4(base);
                 }

@@ -30,6 +30,6 @@ MonoBehaviour:
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 1
-  waveOutcome: {fileID: 11400000, guid: 709f6f4a4130b934396f1a657db472c9, type: 2}
+  waveOutcome: {fileID: 0}
   waves:
   - {fileID: 11400000, guid: 6d5a66289cc7cda428c80cccc7167974, type: 2}
