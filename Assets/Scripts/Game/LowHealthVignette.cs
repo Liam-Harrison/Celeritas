@@ -39,7 +39,7 @@ public class LowHealthVignette : MonoBehaviour
 			playerShip = PlayerController.Instance.PlayerShipEntity;
 		}
 		temp = Math.Abs(Math.Sin(Time.time));
-		pulse = 1f + (float)temp;
+		pulse = (float)temp;
 		pulseIntensity.postExposure.value = pulse;
 	}
 
