@@ -15,7 +15,7 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: Reduced to ash
-    content: Looks like the station and all of its' ships have been destroyed, nothing
+    content: Looks like the station and all of its ships have been destroyed, nothing
       of value remains.
     options: []
   hasRewards: 0

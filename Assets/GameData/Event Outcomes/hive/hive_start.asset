@@ -15,9 +15,9 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: Silent Station
-    content: "As you approach a nearby asteroid you notice a small station built
-      into the side of the rock. \nIt weapon systems and reactors seem to be offline
-      and it's not broadcasting any IFF."
+    content: "As you approach a nearby asteroid, you notice a small station built
+      into the side of the rock. \nIts weapon systems and reactors seem to be offline
+      and it's not broadcasting any IFF signal."
     options:
     - type: 0
       content: Open comms and request repairs

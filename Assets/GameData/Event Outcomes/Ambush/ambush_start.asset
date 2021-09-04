@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
-  m_Name: fleet_open_fire
+  m_Name: ambush_start
   m_EditorClassIdentifier: 
   hasDialogue: 1
   dialogue:
-    title: Weapons free!
-    content: As soon as you power up your weapons, the Infested sweep in to surround
-      you.
+    title: Ambush!
+    content: It seems the Infested were waiting for you, they blast out from behind
+      various asteroids and debris, ready to your ship to wreckage.
     options: []
   hasRewards: 0
   lootType: 0
@@ -25,6 +25,6 @@ MonoBehaviour:
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 1
-  waveOutcome: {fileID: 11400000, guid: b049bfa590bce4845b4a588f39a57aa7, type: 2}
+  waveOutcome: {fileID: 11400000, guid: 0145ba6592b2d4c4cad820b148803ba3, type: 2}
   waves:
-  - {fileID: 11400000, guid: af4e86ec0cb158148b00b968ab5a5857, type: 2}
+  - {fileID: 11400000, guid: 678df9090c342a7418800bcbf065aaea, type: 2}

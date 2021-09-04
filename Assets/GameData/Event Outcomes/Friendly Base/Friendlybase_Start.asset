@@ -10,13 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
-  m_Name: fleet_open_fire
+  m_Name: Friendlybase_Start
   m_EditorClassIdentifier: 
   hasDialogue: 1
   dialogue:
-    title: Weapons free!
-    content: As soon as you power up your weapons, the Infested sweep in to surround
-      you.
+    title: Under siege!
+    content: 'You arrive at a local repair station to find it under attack by the
+      Infested.
+
+
+      There''s no time to react, the base''s shields are already
+      failing!'
     options: []
   hasRewards: 0
   lootType: 0
@@ -25,6 +29,6 @@ MonoBehaviour:
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 1
-  waveOutcome: {fileID: 11400000, guid: b049bfa590bce4845b4a588f39a57aa7, type: 2}
+  waveOutcome: {fileID: 11400000, guid: 7e1245e168d4f114bafdcc476ce1577a, type: 2}
   waves:
-  - {fileID: 11400000, guid: af4e86ec0cb158148b00b968ab5a5857, type: 2}
+  - {fileID: 11400000, guid: 4aea9d59d619961488fbc475d08e207c, type: 2}

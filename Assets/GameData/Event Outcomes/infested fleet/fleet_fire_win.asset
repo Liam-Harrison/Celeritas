@@ -15,7 +15,7 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: Victory!
-    content: With the enemy ships reduced to wreckage you begin to search of valuables,
+    content: With the enemy ships reduced to wrecks, you begin to search of valuables,
       finding {0} modules!
     options: []
   hasRewards: 1

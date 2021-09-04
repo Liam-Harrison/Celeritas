@@ -15,7 +15,7 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: Infested Fleet
-    content: A huge fleet of infested is visible on your scanners. Any closer and
+    content: A huge fleet of Infested is visible on your scanners. Any closer and
       they're almost certain to spot you... They might have some valuable resources
       on their ships, but it will be one hell of a fight.
     options:
