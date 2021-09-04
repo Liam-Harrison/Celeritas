@@ -70,7 +70,7 @@ MonoBehaviour:
   size: 0
   catagory: 0
   rarity: 0
-  icon: {fileID: 21300000, guid: 3144f6c4f2f2d704db3a0e92791b3265, type: 3}
+  icon: {fileID: 21300000, guid: 171b4d973e646db43a1659b321b2420a, type: 3}
   description: A reasonably fast firing solid projectile cannon. A good all-rounder
     starting weapon.
   shape: 0
@@ -78,3 +78,4 @@ MonoBehaviour:
   rateOfFire: 5
   charge: 0
   maxCharge: 0
+  placeholder: 0

@@ -113,7 +113,7 @@ MonoBehaviour:
       Data: 
   cannotUnloadDynamically: 0
   showOnMap: 1
-  mapColor: {r: 0.754717, g: 0.6009256, b: 0.6009256, a: 1}
+  mapColor: {r: 0, g: 0.5882353, b: 0, a: 1}
   showArrow: 0
   arrowColor: {r: 1, g: 1, b: 1, a: 1}
   arrowText: 
