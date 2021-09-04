@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: 
-  prefab: {fileID: 208216540738557237, guid: 61515cfbae183984ab8591a8e82bd1ee, type: 3}
+  prefab: {fileID: 208216540738557237, guid: c79885a331e652749846fb3c7799e44f, type: 3}
   capacityHint: 1
   useChunking: 0
   speed: 5

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1498185639510805683}
   - component: {fileID: 3117257827407564721}
   m_Layer: 0
-  m_Name: proj_wave_main
+  m_Name: proj_wave_main_enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,17 +58,16 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  hasDefaultEffects: 0
-  defaultEffects: []
-  hasAudio: 0
-  onDeath: {fileID: 0}
+  hasDefaultEffects: 1
+  defaultEffects:
+  - Level: 0
+    EffectCollection: {fileID: 11400000, guid: 5f5146484eb77f84cbcb4135038c244f, type: 2}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
-  inheirtVelcoity: 1
-  damage: 20
+  damage: 10
   trails: []
   projectileSpawn: {fileID: 0}
 --- !u!58 &3117257827407564721
@@ -241,7 +240,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: 4adeaf2d2b1c7417e89f026626d8264f, type: 3}
-  m_Color: {r: 0.78923416, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.45672938, g: 0, b: 0.754717, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -512,7 +511,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.95294124, g: 0.93725497, b: 0.7960785, a: 1}
+  m_Color: {r: 0.74230075, g: 0, b: 0.8962264, a: 1}
   m_Intensity: 2
   m_Range: 7
   m_SpotAngle: 30

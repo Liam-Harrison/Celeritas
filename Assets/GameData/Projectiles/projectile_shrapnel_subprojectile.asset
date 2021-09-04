@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Shrapnel
-  prefab: {fileID: 8815647227271311356, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}
+  prefab: {fileID: 8815647227271311356, guid: 9474eb68f601c8b4383badc442ca51de, type: 3}
   capacityHint: 30
   useChunking: 0
   speed: 30

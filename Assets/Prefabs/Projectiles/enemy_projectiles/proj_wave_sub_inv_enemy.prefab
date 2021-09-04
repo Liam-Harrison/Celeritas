@@ -102,9 +102,9 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 0.9960785, b: 0.9803922, a: 1}
-      key1: {r: 0.0047169924, g: 0.6730832, b: 1, a: 1}
-      key2: {r: 0, g: 0.9960785, b: 0.9803922, a: 0.98039216}
+      key0: {r: 0.23529413, g: 0.9960785, b: 0, a: 1}
+      key1: {r: 0.17861637, g: 0.6415094, b: 0, a: 1}
+      key2: {r: 0.23529413, g: 0.9960785, b: 0, a: 0.98039216}
       key3: {r: 0.040905975, g: 0.054517023, b: 0.19477698, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 4383199078604351104}
   - component: {fileID: 3402885767140972041}
   m_Layer: 0
-  m_Name: proj_wave_sub_inv
+  m_Name: proj_wave_sub_inv_enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,15 +198,12 @@ MonoBehaviour:
   defaultEffects:
   - Level: 0
     EffectCollection: {fileID: 11400000, guid: 7555a9d063dd7ac48957016350dcf15f, type: 2}
-  hasAudio: 0
-  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
-  inheirtVelcoity: 1
-  damage: 20
+  damage: 15
   trails:
   - {fileID: 6504427990470375925}
   - {fileID: 5264805449867955830}
@@ -329,8 +326,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 0.15188739, b: 0.99607843, a: 1}
-      key1: {r: 0, g: 0.084301665, b: 0.2830189, a: 0.5529412}
+      key0: {r: 0.003070495, g: 0.6509434, b: 0.029992344, a: 1}
+      key1: {r: 0, g: 0.2830189, b: 0.060180407, a: 0.5529412}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -437,7 +434,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: 4adeaf2d2b1c7417e89f026626d8264f, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.98099947, a: 1}
+  m_Color: {r: 0.24372911, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

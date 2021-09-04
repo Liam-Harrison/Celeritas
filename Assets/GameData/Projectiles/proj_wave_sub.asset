@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Wave projectile inverted motion
-  prefab: {fileID: 1615326853033852305, guid: af42421d9ab8b9f47bd7d45423558b5d, type: 3}
+  prefab: {fileID: 818042294756664602, guid: d224ee7401ec2cf4d994c7c6b91ea97c, type: 3}
   capacityHint: 1
   useChunking: 0
   speed: 15
