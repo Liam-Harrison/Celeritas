@@ -228,7 +228,7 @@ namespace Celeritas.Game.Controllers
 
 			if (context.performed)
 			{
-				WaveManager.Instance.StartWave();
+				WaveManager.Instance.StartRandomWave();
 			}
 		}
 		public void OnFinalWave(InputAction.CallbackContext context)
