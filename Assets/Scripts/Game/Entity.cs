@@ -182,6 +182,12 @@ namespace Celeritas.Game
 		/// </summary>
 		public bool HasAudio { get => hasAudio; }
 
+		
+		/// <summary>
+		/// Determines if this is the player ship
+		/// </summary>
+		public bool PlayerShip { get; set; }
+
 		/// <summary>
 		/// Initalize this entity.
 		/// </summary>
@@ -196,6 +202,7 @@ namespace Celeritas.Game
 			Owner = owner;
 			IsInitalized = true;
 			Instanced = instanced;
+			PlayerShip = false;
 
 			if (forceIsPlayer)
 				IsPlayer = true;
