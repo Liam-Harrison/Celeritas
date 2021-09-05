@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Shrapnel bullet (parent)
-  prefab: {fileID: 2763803640919661845, guid: a1324832b7f563e4bbfe28131faea339, type: 3}
+  prefab: {fileID: 2763803640919661845, guid: 6bd3dd9aac2efb7428b18e6448210ab4, type: 3}
   capacityHint: 30
   useChunking: 0
   speed: 20

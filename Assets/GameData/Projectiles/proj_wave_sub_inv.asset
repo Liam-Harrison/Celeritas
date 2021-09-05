@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Wave Projectile
-  prefab: {fileID: 1615326853033852305, guid: fe5e6e7a4bd73a849a9d32b5ffc308ad, type: 3}
+  prefab: {fileID: 1615326853033852305, guid: af42421d9ab8b9f47bd7d45423558b5d, type: 3}
   capacityHint: 1
   useChunking: 0
   speed: 15
