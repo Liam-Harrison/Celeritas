@@ -107,7 +107,7 @@ namespace Celeritas.Game.Entities
 				return list;
 			}
 		}
-		
+
 		/// <summary>
 		/// The attatched ship data.
 		/// </summary>
@@ -152,8 +152,8 @@ namespace Celeritas.Game.Entities
 		public bool IsStationary { get; set; }
 
 		/// <summary>
-        /// Determines if the ship is currently stunned.
-        /// </summary>
+		/// Determines if the ship is currently stunned.
+		/// </summary>
 		public bool Stunned { get; set; }
 
 		/// <inheritdoc/>
@@ -246,8 +246,7 @@ namespace Celeritas.Game.Entities
 				{
 					if (PlayerShip == true)
 					{
-						PlayerShipEntity shipEntity = (PlayerShipEntity)this.GetComponent("PlayerShipEntity");
-						shipEntity.GameOver();
+						GameOver();
 					}
 					KillEntity();
 				}
@@ -255,16 +254,16 @@ namespace Celeritas.Game.Entities
 		}
 
 		/// <summary>
-        /// Starts coroutine for stun
-        /// </summary>
+		/// Starts coroutine for stun
+		/// </summary>
 		public void Stun(float duration)
 		{
 			StartCoroutine(StunTimer(duration));
 		}
 
 		/// <summary>
-        /// Coroutine that will set the ship to stationary for duration.
-        /// </summary>
+		/// Coroutine that will set the ship to stationary for duration.
+		/// </summary>
 		public IEnumerator StunTimer(float duration)
 		{
 			Stunned = true;
@@ -272,6 +271,13 @@ namespace Celeritas.Game.Entities
 			yield return new WaitForSeconds(duration);
 			IsStationary = false;
 			Stunned = false;
+		}
+
+		private void GameOver()
+		{
+			GameObject gameOverScreen = GameObject.Find("GameOverUI");
+			GameOverScript gameOverScript = (GameOverScript)gameOverScreen.GetComponent("GameOverScript");
+			gameOverScript.GameOver();
 		}
 
 		/// <summary>

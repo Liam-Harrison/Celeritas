@@ -100,21 +100,5 @@ namespace Celeritas.Game.Entities
 				}
 			}
 		}
-
-		public void GameOver ()
-        {
-			GameObject gameOverScreen = GameObject.Find("GameOverUI");
-			GameObject gameUI = GameObject.Find("hud_game_main");
-
-			if (gameUI != null)
-			{
-				gameUI.SetActive(false);
-			}
-
-			if (gameOverScreen != null)
-			{
-				gameOverScreen.GetComponent<Canvas>().enabled = true;
-			}
-		}
 	}
 }
