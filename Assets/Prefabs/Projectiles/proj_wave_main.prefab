@@ -67,6 +67,7 @@ MonoBehaviour:
   timeToPlayOnDestroyEffect: 0
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
+  floatingTextPrefab: {fileID: 4679094507319831066, guid: 287e23708f3f68242b6112d84df56568, type: 3}
   inheirtVelcoity: 1
   damage: 20
   trails: []

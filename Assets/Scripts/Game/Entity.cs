@@ -189,6 +189,12 @@ namespace Celeritas.Game
 		public bool PlayerShip { get; set; }
 
 		/// <summary>
+		/// Used to apply floating text to entity
+		/// </summary>
+		[SerializeField]
+		private GameObject floatingTextPrefab;
+
+		/// <summary>
 		/// Initalize this entity.
 		/// </summary>
 		/// <param name="data">The data to attatch this entity to.</param>
@@ -430,6 +436,18 @@ namespace Celeritas.Game
 
 				// take half damage yourself
 				TakeDamage(this, (int)force / 2);
+			}
+		}
+
+		/// <summary>
+		/// Displays floating text at the projectile's location.
+		/// </summary>
+		public void ShowDamage(string text, Vector3 position)
+		{
+			if (floatingTextPrefab)
+			{
+				GameObject prefab = Instantiate(floatingTextPrefab, position, Quaternion.identity);
+				prefab.GetComponentInChildren<TextMesh>().text = text;
 			}
 		}
 	}

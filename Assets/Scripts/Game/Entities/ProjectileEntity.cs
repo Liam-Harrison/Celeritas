@@ -119,6 +119,8 @@ namespace Celeritas.Game.Entities
 
 			base.OnEntityHit(other);
 
+			int calculatedDamage = damage;
+
 			if (other is ShipEntity ship)
 			{
 				if (StunDuration != 0)
@@ -129,23 +131,40 @@ namespace Celeritas.Game.Entities
 					}
 				}
 
+				calculatedDamage = CalculateDamage(damage, ship);
+
+				if (damageOverDistance)
+				{
+					calculatedDamage = CalculateDamage(currentDamageOverDistance, ship);
+				}
+
 				if (ship.WeaponEntities.Contains(Weapon))
 				{
 					return;
 				}
 			}
+			else if (damageOverDistance)
+			{
+				calculatedDamage = currentDamageOverDistance;
+			}
 
-			if (damageOverDistance)
-			{
-				other.TakeDamage(this, currentDamageOverDistance);
-			}
-			else
-			{
-				other.TakeDamage(this, damage);
-			}
+			ShowDamage(calculatedDamage.ToString(), this.transform.position);
+			other.TakeDamage(this, calculatedDamage);
+
 
 			if (ProjectileData.DestroyedOnHit)
 				KillEntity();
+		}
+
+		/// <summary>
+		///	Calculates the amount of damage to apply after the damage modifier has been applied.
+		/// </summary>
+		/// <param name="damage">The original amount of damage taken.</param>
+		/// <returns>The amount of damage to take after the damage modifier has been applied</returns>
+		private int CalculateDamage(float damage, ShipEntity ship)
+		{
+			int calculatedDamage = calculatedDamage = Mathf.RoundToInt((damage + (damage / 100) * ship.DamageModifierPercentage));
+			return calculatedDamage;
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)

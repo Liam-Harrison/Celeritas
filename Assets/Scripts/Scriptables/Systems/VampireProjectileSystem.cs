@@ -13,10 +13,10 @@ namespace Celeritas.Scriptables.Systems
 	[CreateAssetMenu(fileName = "New Vampiric Projectile Modifier", menuName = "Celeritas/Modifiers/Vampiric Projectiles")]
 	public class VampireProjectileSystem : ModifierSystem, IEntityHit
 	{
-		[SerializeField, PropertyRange(0, 1), TitleGroup("Vampire")]
+		[SerializeField, TitleGroup("Vampire")]
 		private float percentage;
 
-		[SerializeField, PropertyRange(0, 1), TitleGroup("Vampire")]
+		[SerializeField, TitleGroup("Vampire")]
 		private float percentageExtraPerLevel;
 
 		public override bool Stacks => false;
