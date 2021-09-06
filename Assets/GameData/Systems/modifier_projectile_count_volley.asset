@@ -15,10 +15,7 @@ MonoBehaviour:
   title: Modify Projectile Count
   extraProjectileCount: 2
   extraProjectilesPerLevel: 2
-  spreadScale: 5
+  spreadScale: 6
   randomSpread: 0
   customProjectile: 0
   customProjectileData: {fileID: 0}
-  arcLayout: 1
-  degreesSpread: 15
-  weaponOriginDisplacement: -5
