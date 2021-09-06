@@ -241,5 +241,12 @@ namespace Celeritas.Game.Controllers
 				WaveManager.Instance.StartFinalWave();
 			}
 		}
+
+
+
+		public void OnToggleTutorial(InputAction.CallbackContext context)
+		{
+			CombatHUD.Instance.OnToggleTutorial();
+		}
 	}
 }

@@ -75,6 +75,14 @@ namespace Celeritas
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ToggleTutorial"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e4119ed-efb7-4739-86a5-5a3f10327aea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -207,6 +215,17 @@ namespace Celeritas
                     ""processors"": """",
                     ""groups"": ""Controls"",
                     ""action"": ""Final Wave"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""82503b2c-eaa9-4104-bf13-6f91bbd68122"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleTutorial"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -376,6 +395,7 @@ namespace Celeritas
             m_Basic_TractorBeam = m_Basic.FindAction("Tractor Beam", throwIfNotFound: true);
             m_Basic_NewWave = m_Basic.FindAction("New Wave", throwIfNotFound: true);
             m_Basic_FinalWave = m_Basic.FindAction("Final Wave", throwIfNotFound: true);
+            m_Basic_ToggleTutorial = m_Basic.FindAction("ToggleTutorial", throwIfNotFound: true);
             // Console
             m_Console = asset.FindActionMap("Console", throwIfNotFound: true);
             m_Console_Toggle = m_Console.FindAction("Toggle", throwIfNotFound: true);
@@ -442,6 +462,7 @@ namespace Celeritas
         private readonly InputAction m_Basic_TractorBeam;
         private readonly InputAction m_Basic_NewWave;
         private readonly InputAction m_Basic_FinalWave;
+        private readonly InputAction m_Basic_ToggleTutorial;
         public struct BasicActions
         {
             private @InputActions m_Wrapper;
@@ -453,6 +474,7 @@ namespace Celeritas
             public InputAction @TractorBeam => m_Wrapper.m_Basic_TractorBeam;
             public InputAction @NewWave => m_Wrapper.m_Basic_NewWave;
             public InputAction @FinalWave => m_Wrapper.m_Basic_FinalWave;
+            public InputAction @ToggleTutorial => m_Wrapper.m_Basic_ToggleTutorial;
             public InputActionMap Get() { return m_Wrapper.m_Basic; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -483,6 +505,9 @@ namespace Celeritas
                     @FinalWave.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnFinalWave;
                     @FinalWave.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnFinalWave;
                     @FinalWave.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnFinalWave;
+                    @ToggleTutorial.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnToggleTutorial;
+                    @ToggleTutorial.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnToggleTutorial;
+                    @ToggleTutorial.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnToggleTutorial;
                 }
                 m_Wrapper.m_BasicActionsCallbackInterface = instance;
                 if (instance != null)
@@ -508,6 +533,9 @@ namespace Celeritas
                     @FinalWave.started += instance.OnFinalWave;
                     @FinalWave.performed += instance.OnFinalWave;
                     @FinalWave.canceled += instance.OnFinalWave;
+                    @ToggleTutorial.started += instance.OnToggleTutorial;
+                    @ToggleTutorial.performed += instance.OnToggleTutorial;
+                    @ToggleTutorial.canceled += instance.OnToggleTutorial;
                 }
             }
         }
@@ -628,6 +656,7 @@ namespace Celeritas
             void OnTractorBeam(InputAction.CallbackContext context);
             void OnNewWave(InputAction.CallbackContext context);
             void OnFinalWave(InputAction.CallbackContext context);
+            void OnToggleTutorial(InputAction.CallbackContext context);
         }
         public interface IConsoleActions
         {
