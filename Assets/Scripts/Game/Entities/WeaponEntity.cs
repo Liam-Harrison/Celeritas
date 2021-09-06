@@ -109,7 +109,14 @@ namespace Celeritas.Game.Entities
 				Charge += (1f / rateOfFire);
 				if (Charge > maxCharge)
 				{
-					Charge = maxCharge;
+					if (WeaponData.Autofire)
+					{
+						Fire();
+						lastFired = Time.time;
+						Charge = 0;
+					}
+					else
+						Charge = maxCharge;
 				}
 				//TODO: add animation to show weapon is charging (see: git issue #35)
 			}
