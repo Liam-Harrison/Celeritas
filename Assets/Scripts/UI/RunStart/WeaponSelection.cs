@@ -37,6 +37,9 @@ namespace Celeritas.UI.Runstart
 		[SerializeField, TitleGroup("ErrorText")]
 		private GameObject errorText; // used to show 'please select a weapon before launching' text
 
+		[SerializeField, Title("LaunchButton")]
+		private Button launchButton;
+
 		private readonly List<WeaponPanel> panels = new List<WeaponPanel>();
 
 		public ShipSelection ShipSelection { get; private set; }
@@ -178,6 +181,7 @@ namespace Celeritas.UI.Runstart
 			{
 				// remove error message if all weapons are equipped correctly.
 				errorText.SetActive(false);
+				launchButton.interactable = true;
 			}
 		}
 
