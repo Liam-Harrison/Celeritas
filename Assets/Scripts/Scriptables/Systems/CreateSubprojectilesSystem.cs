@@ -47,6 +47,12 @@ namespace Assets.Scripts.Scriptables.Systems
 		[SerializeField]
 		private bool useCustomProjectileSpawnLocation; // use projectileSpawn specified in ProjectileEntity
 
+		[SerializeField]
+		private bool setLifeTimeToBeProportionalToParent;
+
+		[SerializeField, ShowIf(nameof(setLifeTimeToBeProportionalToParent))]
+		private float lifeTimeMultiplier;
+
 		public override bool Stacks => false;
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
@@ -96,12 +102,13 @@ namespace Assets.Scripts.Scriptables.Systems
 				var q = entity.transform.rotation * Quaternion.Euler(0, 0, d * spacing);
 
 				ProjectileEntity proj;
+
 				if (useCustomProjectileSpawnLocation)
 					proj = EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnel, projectile.ProjectileSpawn.position, q, projectile.Weapon, effects);
 				else
 					proj = EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnel, entity.Position, q, projectile.Weapon, effects);
 				proj.ParentProjectile = projectile;
-
+					
 			}
 		}
 
@@ -124,6 +131,12 @@ namespace Assets.Scripts.Scriptables.Systems
 			{
 				data = new SpawnProjectilesData();
 				entity.Components.RegisterComponent<SpawnProjectilesData>(this, data);
+			}
+
+			if (setLifeTimeToBeProportionalToParent) // setup projectile data with updated lifetime
+			{
+				ProjectileEntity parent = entity as ProjectileEntity;
+				shrapnel.Lifetime = parent.ProjectileData.Lifetime * lifeTimeMultiplier;
 			}
 		}
 

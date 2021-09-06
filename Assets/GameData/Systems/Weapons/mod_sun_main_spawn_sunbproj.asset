@@ -24,3 +24,5 @@ MonoBehaviour:
   delayBetweenSpawns: 0.25
   spawnOnCreation: 0
   useCustomProjectileSpawnLocation: 0
+  setLifeTimeToBeProportionalToParent: 1
+  lifeTimeMultiplier: 0.4
