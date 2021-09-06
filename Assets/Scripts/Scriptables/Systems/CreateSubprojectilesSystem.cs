@@ -108,13 +108,7 @@ namespace Assets.Scripts.Scriptables.Systems
 				else
 					proj = EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnel, entity.Position, q, projectile.Weapon, effects);
 				proj.ParentProjectile = projectile;
-
-				if (setLifeTimeToBeProportionalToParent) // setup projectile data with updated lifetime
-				{
-					ProjectileEntity parent = entity as ProjectileEntity;
-					proj.Lifetime = parent.Lifetime * lifeTimeMultiplier;
-				}
-
+					
 			}
 		}
 
@@ -139,6 +133,11 @@ namespace Assets.Scripts.Scriptables.Systems
 				entity.Components.RegisterComponent<SpawnProjectilesData>(this, data);
 			}
 
+			if (setLifeTimeToBeProportionalToParent) // setup projectile data with updated lifetime
+			{
+				ProjectileEntity parent = entity as ProjectileEntity;
+				shrapnel.Lifetime = parent.ProjectileData.Lifetime * lifeTimeMultiplier;
+			}
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, ushort level)
