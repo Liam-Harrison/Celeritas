@@ -59,7 +59,7 @@ namespace Celeritas.Scriptables.Systems
 		{
 			uint numberOfExtraProjectiles = extraProjectileCount + (level * extraProjectilesPerLevel);
 
-			Vector3 bulletAlignment = new Vector3(spreadScale, spreadScale, 0);
+			Vector3 bulletAlignment = new Vector3(1, 0, 0);
 			for (int i = 0; i < numberOfExtraProjectiles; i++)
 			{
 				float position = i - (numberOfExtraProjectiles / 2);
