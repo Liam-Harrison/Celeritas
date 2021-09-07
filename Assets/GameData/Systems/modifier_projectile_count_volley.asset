@@ -19,3 +19,5 @@ MonoBehaviour:
   randomSpread: 0
   customProjectile: 0
   customProjectileData: {fileID: 0}
+  arcLayout: 1
+  degreesSpread: 15
