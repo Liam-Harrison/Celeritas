@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: mod_lifetime_prop_weapon_charge_sun
   m_EditorClassIdentifier: 
   title: Proj lifetime proportional to weapon charge. For SunBurst weapon.
-  multiplier: 0.4
+  multiplier: 0.5

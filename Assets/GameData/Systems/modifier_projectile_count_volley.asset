@@ -21,3 +21,4 @@ MonoBehaviour:
   customProjectileData: {fileID: 0}
   arcLayout: 1
   degreesSpread: 15
+  weaponOriginDisplacement: -5
