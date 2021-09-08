@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The combat tutorial!
+/// Mainly controls whether or not it's visible.
+/// </summary>
+
 public class CombatTutorial : MonoBehaviour
 {
 	private bool tutorialOn;
@@ -11,17 +16,17 @@ public class CombatTutorial : MonoBehaviour
 	}
 
 	private float timer = 0.0f;
-	public float secondsToDisplay;
+	public float SecondsToDisplay;
 	private void Update()
 	{
 		timer += Time.deltaTime;
-		if ((timer > secondsToDisplay) && tutorialOn)
+		if ((timer > SecondsToDisplay) && tutorialOn)
 		{
-			toggleTutorial();
+			ToggleTutorial();
 		}
 	}
 
-	public void toggleTutorial()
+	public void ToggleTutorial()
 	{
 		tutorialOn = !tutorialOn;
 		gameObject.SetActive(tutorialOn);

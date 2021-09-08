@@ -168,7 +168,7 @@ public class CombatHUD : Singleton<CombatHUD>
 
 	public void OnToggleTutorial()
 	{
-		combatTutorial.GetComponent<CombatTutorial>().toggleTutorial();
+		combatTutorial.GetComponent<CombatTutorial>().ToggleTutorial();
 	}
 
 
