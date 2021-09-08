@@ -150,6 +150,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 551f9815f83843c4083869b9cc522d52, type: 2}
     - {fileID: 11400000, guid: 965c2321d0976cd458a9716871746b5d, type: 2}
     - {fileID: 11400000, guid: 37a8333f3d207ce4d81cb5faa19d5389, type: 2}
+    - {fileID: 11400000, guid: e1db92f30cc85e0468276a73953ef7cc, type: 2}
     - {fileID: 11400000, guid: d09395ca3ec8a454c8932acb7dd201cd, type: 2}
     - {fileID: 11400000, guid: 25fe257e6aedb34499e4dd8d81b00da7, type: 2}
     - {fileID: 11400000, guid: b5684e958385a254cb2c5e106aa29937, type: 2}
@@ -160,6 +161,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: ShieldRegenAmount
+      Entry: 4
+      Data: 50
+    - Name: ShieldRegenDelay
+      Entry: 4
+      Data: 4
     - Name: inventory
       Entry: 7
       Data: 0|Celeritas.Scriptables.ModuleData[,], Assembly-CSharp
@@ -186,25 +193,25 @@ MonoBehaviour:
       Data: 4
     - Name: 
       Entry: 10
-      Data: 1
-    - Name: 
-      Entry: 10
       Data: 5
     - Name: 
       Entry: 10
       Data: 6
     - Name: 
       Entry: 10
-      Data: 1
+      Data: 7
     - Name: 
       Entry: 10
-      Data: 7
+      Data: 1
     - Name: 
       Entry: 10
       Data: 8
     - Name: 
       Entry: 10
       Data: 9
+    - Name: 
+      Entry: 10
+      Data: 10
     - Name: 
       Entry: 13
       Data: 
@@ -215,6 +222,8 @@ MonoBehaviour:
   defaultEffects:
   - Level: 1
     EffectCollection: {fileID: 11400000, guid: b5a7799e420c4cf40bbcdbe0932ea6da, type: 2}
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
