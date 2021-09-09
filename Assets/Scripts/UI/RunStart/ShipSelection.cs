@@ -93,25 +93,6 @@ namespace Celeritas.UI.Runstart
 			camera.m_Lens.OrthographicSize = CurrentShip.SelectionViewSize;
 
 			CurrentShip.gameObject.SetActive(true);
-
-			// try to print out hull layout in debug
-			bool [,] hullLayout = CurrentShip.HullManager.HullData.HullLayout;
-			int xMax = hullLayout.GetUpperBound(0);
-			int yMax = hullLayout.GetUpperBound(1);
-			string toPrint = "\n";
-			for (int i = 0; i < xMax; i++)
-			{
-				for (int j = 0; j < yMax; j++)
-				{
-					if (hullLayout[i, j])
-						toPrint += "O";
-					else
-						toPrint += "X";
-				}
-				toPrint += "/";
-			}
-			Debug.Log(toPrint);
-			Debug.Log("----");
 		}
 
 		/// <summary>

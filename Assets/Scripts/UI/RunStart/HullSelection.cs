@@ -49,6 +49,15 @@ namespace Celeritas.UI.Runstart
 		[SerializeField, TitleGroup("Ship Stats")]
 		GameObject shipStatsLinePrefab;
 
+		[SerializeField, TitleGroup("Hull Preview")]
+		private GridLayoutGroup hullPreviewGridLayout;
+
+		[SerializeField, TitleGroup("Hull Preview")]
+		private Image hullSectionImage; // for use in hull preview layout
+
+		[SerializeField, TitleGroup("Hull Preview")]
+		private int maxHullDimension = 10;
+
 		private Dictionary<string, float> maxStats;
 
 		private List<ShipSelectionStats> statLines;
@@ -87,6 +96,7 @@ namespace Celeritas.UI.Runstart
 			battleshipToggle.onValueChanged.AddListener((b) => { if (b) LoadClassHulls(ShipClass.Dreadnought); });
 
 			setupStatUI();
+			setupHullUI();
 			maxStats = new Dictionary<string, float>();
 			LoadClassHulls(ShipClass.Destroyer);
 			LoadClassHulls(ShipClass.Dreadnought);
@@ -133,6 +143,7 @@ namespace Celeritas.UI.Runstart
 			lineUI.WorldTarget = ShipSelection.CurrentShip.transform;
 
 			SetupShipStatsText(ship);
+			setupHullLayoutPreview();
 		}
 
 		/// <summary>
@@ -222,5 +233,63 @@ namespace Celeritas.UI.Runstart
 
 			}
 		}
+
+		private Image[,] hullPreviewImages;
+
+		/// <summary>
+		/// Use on initial setup or if the maxHullDimension of ship is less than that of the current ship's.
+		/// </summary>
+		private void setupHullUI()
+		{
+			if (hullPreviewImages == null)
+				hullPreviewImages = new Image[10,10];
+
+			for (int i = 0; i < maxHullDimension; i++)
+			{
+				for (int j = 0; j < maxHullDimension; j++)
+				{
+					hullPreviewImages[i, j] = Instantiate(hullSectionImage, hullPreviewGridLayout.gameObject.transform);
+					hullPreviewImages[i, j].color = Color.clear;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Display the currently selected ship's hull layout in the UI
+		/// </summary>
+		private void setupHullLayoutPreview()
+		{
+			// try to print out hull layout in debug
+			// retrieves the 'selected ship's data from ShipSelection
+			bool [,] hullLayout = ShipSelection.CurrentShip.HullManager.HullData.HullLayout;
+			int xMax = hullLayout.GetUpperBound(0);
+			int yMax = hullLayout.GetUpperBound(1);
+			
+
+			for (int i = 0; i < maxHullDimension; i++)
+			{
+				for (int j = 0; j < maxHullDimension; j++)
+				{
+					if (i < xMax && j < yMax)
+					{
+						hullPreviewImages[i, j].gameObject.SetActive(true);
+						if (hullLayout[i, j])
+						{
+							hullPreviewImages[i, j].color = Color.white;
+						}
+						else
+						{
+							hullPreviewImages[i, j].color = Color.clear;
+						}
+					}
+					else
+					{ // trim any usued (late) columns / rows
+						hullPreviewImages[i, j].gameObject.SetActive(false);
+						hullPreviewImages[i, j].color = Color.clear;
+					}
+				}
+			}
+		}
+
 	}
 }
