@@ -261,11 +261,25 @@ namespace Celeritas.UI.Runstart
 		{
 			// try to print out hull layout in debug
 			// retrieves the 'selected ship's data from ShipSelection
-			bool [,] hullLayout = ShipSelection.CurrentShip.HullManager.HullData.HullLayout;
+			bool[,] hullLayout = ShipSelection.CurrentShip.HullManager.HullData.HullLayout;
 			int xMax = hullLayout.GetUpperBound(0);
 			int yMax = hullLayout.GetUpperBound(1);
-			
 
+			// resize grid depending on how large it appears to be.
+			if (yMax >= maxHullDimension - 1)
+			{
+				hullPreviewGridLayout.cellSize = new Vector2(15, 15);
+			}
+			else if (yMax >= maxHullDimension - 2)
+			{
+				hullPreviewGridLayout.cellSize = new Vector2(20, 20);
+			}
+			else
+			{ 
+				hullPreviewGridLayout.cellSize = new Vector2(25, 25);
+			}
+
+			// colour 'hull' cells.
 			for (int i = 0; i < maxHullDimension; i++)
 			{
 				for (int j = 0; j < maxHullDimension; j++)
