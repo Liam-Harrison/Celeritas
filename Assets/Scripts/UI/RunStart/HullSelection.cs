@@ -233,8 +233,9 @@ namespace Celeritas.UI.Runstart
 			for (int i = 0; i < maxNumberOfWeaponSlots; i++)
 			{
 				if (i < ShipSelection.CurrentShip.WeaponEntities.Count)
-				{ 
-					weaponIcons[i].color = weaponIconGradient.Evaluate((float)i / maxNumberOfWeaponSlots);
+				{
+					//weaponIcons[i].color = weaponIconGradient.Evaluate((float)i / maxNumberOfWeaponSlots);
+					weaponIcons[i].color = weaponIconGradient.Evaluate((float)ShipSelection.CurrentShip.WeaponEntities.Count / maxNumberOfWeaponSlots);
 				}
 				else
 					weaponIcons[i].color = Color.clear;
