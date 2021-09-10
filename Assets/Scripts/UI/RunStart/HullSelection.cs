@@ -182,9 +182,6 @@ namespace Celeritas.UI.Runstart
 
 			if (!maxStats.ContainsKey("torque") || maxStats["torque"] < ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass)
 				maxStats["torque"] = ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass;
-
-			// unsure how to count for weapon slots >>
-			// add slider for weapon slots ? wont' have room with icons.
 		}
 
 		private Image[] weaponIcons;
@@ -230,6 +227,7 @@ namespace Celeritas.UI.Runstart
 			statLines[6].slider.maxValue = maxStats["torque"];
 			statLines[6].setSliderValue(ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass);
 
+			// setup weapon count icons.
 			for (int i = 0; i < maxNumberOfWeaponSlots; i++)
 			{
 				if (i < ShipSelection.CurrentShip.WeaponEntities.Count)
@@ -267,16 +265,16 @@ namespace Celeritas.UI.Runstart
 
 			}
 
+			// setup weapon slot icons
 			if (weaponIcons == null)
 			{
 				weaponIcons = new Image[maxNumberOfWeaponSlots];
 				for (int i = 0; i < maxNumberOfWeaponSlots; i++)
 				{
-					var icon = Instantiate(weaponCountIcon, statLines[1].transform); // don't worry about position yet
+					var icon = Instantiate(weaponCountIcon, statLines[1].transform);
 					icon.transform.position += new Vector3(30 * i - 50, 5, 0);
 					weaponIcons[i] = icon.GetComponentInChildren<Image>();
-					weaponIcons[i].color = Color.clear;
-					// make them all clear
+					weaponIcons[i].color = Color.clear; // all clear by default
 				}
 			}
 		}
@@ -327,7 +325,7 @@ namespace Celeritas.UI.Runstart
 				hullPreviewGridLayout.cellSize = new Vector2(25, 25);
 			}
 
-			// colour 'hull' cells.
+			// colour 'hull' cells. Unused ones will be clear.
 			for (int i = 0; i < maxHullDimension; i++)
 			{
 				for (int j = 0; j < maxHullDimension; j++)
