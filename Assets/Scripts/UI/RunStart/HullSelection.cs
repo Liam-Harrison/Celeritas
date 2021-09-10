@@ -66,6 +66,8 @@ namespace Celeritas.UI.Runstart
 
 		public ShipClass ShipClass { get; private set; }
 
+		private int numberOfModuleSlots; // in currently selected ship.
+
 		private void Awake()
 		{
 			ShipSelection = FindObjectOfType<ShipSelection>();
@@ -142,8 +144,9 @@ namespace Celeritas.UI.Runstart
 
 			lineUI.WorldTarget = ShipSelection.CurrentShip.transform;
 
-			SetupShipStatsText(ship);
 			setupHullLayoutPreview();
+			SetupShipStatsText(ship);
+			
 		}
 
 		/// <summary>
@@ -207,6 +210,7 @@ namespace Celeritas.UI.Runstart
 			statLines[5].slider.maxValue = maxStats["torque"];
 			statLines[5].setSliderValue(ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass);
 
+			// update module slot count with the number of module slots.
 		}
 
 		/// <summary>
@@ -264,6 +268,7 @@ namespace Celeritas.UI.Runstart
 			bool[,] hullLayout = ShipSelection.CurrentShip.HullManager.HullData.HullLayout;
 			int xMax = hullLayout.GetUpperBound(0);
 			int yMax = hullLayout.GetUpperBound(1);
+			numberOfModuleSlots = 0;
 
 			// resize grid depending on how large it appears to be.
 			if (yMax >= maxHullDimension - 1)
@@ -290,6 +295,7 @@ namespace Celeritas.UI.Runstart
 						if (hullLayout[i, j])
 						{
 							hullPreviewImages[i, j].color = Color.white;
+							numberOfModuleSlots++;
 						}
 						else
 						{
@@ -303,6 +309,7 @@ namespace Celeritas.UI.Runstart
 					}
 				}
 			}
+
 		}
 
 	}
