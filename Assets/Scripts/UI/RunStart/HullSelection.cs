@@ -234,7 +234,7 @@ namespace Celeritas.UI.Runstart
 			{
 				if (i < ShipSelection.CurrentShip.WeaponEntities.Count)
 				{
-					//weaponIcons[i].color = weaponIconGradient.Evaluate((float)i / maxNumberOfWeaponSlots);
+					//weaponIcons[i].color = weaponIconGradient.Evaluate((float)i / maxNumberOfWeaponSlots); // if you want rainbow bullets.
 					weaponIcons[i].color = weaponIconGradient.Evaluate((float)ShipSelection.CurrentShip.WeaponEntities.Count / maxNumberOfWeaponSlots);
 				}
 				else
