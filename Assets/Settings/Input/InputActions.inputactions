@@ -60,6 +60,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ToggleTutorial",
+                    "type": "Button",
+                    "id": "4e4119ed-efb7-4739-86a5-5a3f10327aea",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -192,6 +200,17 @@
                     "processors": "",
                     "groups": "Controls",
                     "action": "Final Wave",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "82503b2c-eaa9-4104-bf13-6f91bbd68122",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleTutorial",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

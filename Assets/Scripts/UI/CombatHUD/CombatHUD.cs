@@ -163,5 +163,13 @@ public class CombatHUD : Singleton<CombatHUD>
 
 	}
 
+	[SerializeField]
+	private GameObject combatTutorial;
+
+	public void OnToggleTutorial()
+	{
+		combatTutorial.GetComponent<CombatTutorial>().ToggleTutorial();
+	}
+
 
 }
