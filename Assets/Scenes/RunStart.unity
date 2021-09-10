@@ -4853,6 +4853,7 @@ MonoBehaviour:
   shipDescription: {fileID: 1290564446}
   lineUI: {fileID: 926818625}
   shipStatsLinePrefab: {fileID: 2122025633}
+  verticalSpacingBetweenElements: 60
   hullPreviewGridLayout: {fileID: 540487034}
   hullSectionImage: {fileID: 1753371773417908352, guid: f975606560f98cf4ab6dad5dbf38b887, type: 3}
   maxHullDimension: 10
@@ -7549,7 +7550,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -16, y: -63.2}
+  m_AnchoredPosition: {x: -16, y: 6}
   m_SizeDelta: {x: 450, y: 60}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &2122025635

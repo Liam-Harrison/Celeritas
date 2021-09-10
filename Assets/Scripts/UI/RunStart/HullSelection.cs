@@ -49,6 +49,9 @@ namespace Celeritas.UI.Runstart
 		[SerializeField, TitleGroup("Ship Stats")]
 		GameObject shipStatsLinePrefab;
 
+		[SerializeField, TitleGroup("Ship Stats")]
+		private int verticalSpacingBetweenElements;
+
 		[SerializeField, TitleGroup("Hull Preview")]
 		private GridLayoutGroup hullPreviewGridLayout;
 
@@ -181,36 +184,39 @@ namespace Celeritas.UI.Runstart
 		/// <param name="ship">currently selected ship</param>
 		private void SetupShipStatsText(ShipData ship)
 		{
-			// weapons count
-			statLines[0].title.text = $"Number Of Weapons: \t{ShipSelection.CurrentShip.WeaponEntities.Count}";
+			// module slots
+			statLines[0].title.text = $"Module Slots: {numberOfModuleSlots}";
 			statLines[0].hideSlider();
 
+			// weapons count
+			statLines[1].title.text = $"Number Of Weapons: {ShipSelection.CurrentShip.WeaponEntities.Count}";
+			statLines[1].hideSlider();
+
 			// health
-			statLines[1].setTitle($"Health: ({ship.StartingHealth/1000}k)");
-			statLines[1].slider.maxValue = maxStats["health"];
-			statLines[1].setSliderValue(ship.StartingHealth);
+			statLines[2].setTitle($"Health: ({ship.StartingHealth/1000}k)");
+			statLines[2].slider.maxValue = maxStats["health"];
+			statLines[2].setSliderValue(ship.StartingHealth);
 
 			// shield
-			statLines[2].setTitle($"Shield: ({ship.StartingShield/1000}k)");
-			statLines[2].slider.maxValue = maxStats["shield"];
-			statLines[2].setSliderValue(ship.StartingShield);
+			statLines[3].setTitle($"Shield: ({ship.StartingShield/1000}k)");
+			statLines[3].slider.maxValue = maxStats["shield"];
+			statLines[3].setSliderValue(ship.StartingShield);
 
 			// weight
-			statLines[3].setTitle($"Weight: ({ship.MovementSettings.mass})");
-			statLines[3].slider.maxValue = maxStats["weight"];
-			statLines[3].setSliderValue(ship.MovementSettings.mass);
+			statLines[4].setTitle($"Weight: ({ship.MovementSettings.mass})");
+			statLines[4].slider.maxValue = maxStats["weight"];
+			statLines[4].setSliderValue(ship.MovementSettings.mass);
 
 			// speed
-			statLines[4].setTitle($"Speed: ");
-			statLines[4].slider.maxValue = maxStats["speed"];
-			statLines[4].setSliderValue(ship.MovementSettings.forcePerSec / ship.MovementSettings.mass);
+			statLines[5].setTitle($"Speed: ");
+			statLines[5].slider.maxValue = maxStats["speed"];
+			statLines[5].setSliderValue(ship.MovementSettings.forcePerSec / ship.MovementSettings.mass);
 
 			// speed (turning)
-			statLines[5].setTitle($"Turning Speed: ");
-			statLines[5].slider.maxValue = maxStats["torque"];
-			statLines[5].setSliderValue(ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass);
+			statLines[6].setTitle($"Turning Speed: ");
+			statLines[6].slider.maxValue = maxStats["torque"];
+			statLines[6].setSliderValue(ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass);
 
-			// update module slot count with the number of module slots.
 		}
 
 		/// <summary>
@@ -220,13 +226,14 @@ namespace Celeritas.UI.Runstart
 		{
 			statLines = new List<ShipSelectionStats>();
 			var lastLine = shipStatsLinePrefab;
-			int numberOfLines = 6;
+			int numberOfLines = 7;
 			statLines.Add(lastLine.GetComponent<ShipSelectionStats>());
 
 			for(int i = 0; i < numberOfLines - 1; i++) { // -1 as one line already exists 
 
-				var currentLine = Instantiate(lastLine, lastLine.transform);
-				currentLine.transform.position += new Vector3(16, 0, 0);
+				//var currentLine = Instantiate(lastLine, lastLine.transform);
+				var currentLine = Instantiate(lastLine, lastLine.transform.parent);
+				currentLine.transform.position += new Vector3(0, - verticalSpacingBetweenElements * (i+1), 0); // 16, 0
 				ShipSelectionStats stats = currentLine.GetComponent<ShipSelectionStats>();
 				currentLine.SetActive(true);
 				statLines.Add(stats);
