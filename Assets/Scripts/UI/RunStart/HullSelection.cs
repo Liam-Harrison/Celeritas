@@ -52,6 +52,15 @@ namespace Celeritas.UI.Runstart
 		[SerializeField, TitleGroup("Ship Stats")]
 		private int verticalSpacingBetweenElements;
 
+		[SerializeField, TitleGroup("Ship Stats")]
+		private GameObject weaponCountIcon;
+
+		[SerializeField, TitleGroup("Ship Stats")]
+		private int maxNumberOfWeaponSlots;
+
+		[SerializeField, TitleGroup("Ship Stats")]
+		private Gradient weaponIconGradient;
+
 		[SerializeField, TitleGroup("Hull Preview")]
 		private GridLayoutGroup hullPreviewGridLayout;
 
@@ -174,8 +183,11 @@ namespace Celeritas.UI.Runstart
 			if (!maxStats.ContainsKey("torque") || maxStats["torque"] < ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass)
 				maxStats["torque"] = ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass;
 
-			// no slider for weapon count so don't need max
+			// unsure how to count for weapon slots >>
+			// add slider for weapon slots ? wont' have room with icons.
 		}
+
+		private Image[] weaponIcons;
 
 		/// <summary>
 		/// Setup 'stats' section of the UI for the currently selected ship
@@ -189,7 +201,8 @@ namespace Celeritas.UI.Runstart
 			statLines[0].hideSlider();
 
 			// weapons count
-			statLines[1].title.text = $"Number Of Weapons: {ShipSelection.CurrentShip.WeaponEntities.Count}";
+			//statLines[1].title.text = $"Weapon Slots: {ShipSelection.CurrentShip.WeaponEntities.Count}";
+			statLines[1].title.text = $"Weapon Slots: ";
 			statLines[1].hideSlider();
 
 			// health
@@ -217,6 +230,15 @@ namespace Celeritas.UI.Runstart
 			statLines[6].slider.maxValue = maxStats["torque"];
 			statLines[6].setSliderValue(ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass);
 
+			for (int i = 0; i < maxNumberOfWeaponSlots; i++)
+			{
+				if (i < ShipSelection.CurrentShip.WeaponEntities.Count)
+				{ 
+					weaponIcons[i].color = weaponIconGradient.Evaluate((float)i / maxNumberOfWeaponSlots);
+				}
+				else
+					weaponIcons[i].color = Color.clear;
+			}
 		}
 
 		/// <summary>
@@ -242,6 +264,19 @@ namespace Celeritas.UI.Runstart
 				//	lastLine.SetActive(false);
 				lastLine = currentLine;
 
+			}
+
+			if (weaponIcons == null)
+			{
+				weaponIcons = new Image[maxNumberOfWeaponSlots];
+				for (int i = 0; i < maxNumberOfWeaponSlots; i++)
+				{
+					var icon = Instantiate(weaponCountIcon, statLines[1].transform); // don't worry about position yet
+					icon.transform.position += new Vector3(30 * i - 50, 5, 0);
+					weaponIcons[i] = icon.GetComponentInChildren<Image>();
+					weaponIcons[i].color = Color.clear;
+					// make them all clear
+				}
 			}
 		}
 
