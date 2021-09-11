@@ -71,5 +71,5 @@ MonoBehaviour:
   catagory: 0
   rarity: 1
   icon: {fileID: 21300000, guid: ae4e1dd400b2c7544a9acadb150fc541, type: 3}
-  description: Speeds up your ship!
+  description: Increases speed and acceleration by 50%.
   shape: 1

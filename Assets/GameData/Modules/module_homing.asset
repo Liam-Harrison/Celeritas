@@ -63,7 +63,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  title: Homing
+  title: Foreign Attraction
   prefab: {fileID: 6558493142542108636, guid: cdf918428713c57469e7c5f228e88759, type: 3}
   capacityHint: 1
   useChunking: 0
@@ -71,5 +71,6 @@ MonoBehaviour:
   catagory: 0
   rarity: 4
   icon: {fileID: 21300000, guid: 982d9317e9fc87e4e9ecd6ad8d19d120, type: 3}
-  description: Bullets home in on closest enemy
+  description: Projectiles will aim for targets closest to ship, and travel towards
+    them.
   shape: 2

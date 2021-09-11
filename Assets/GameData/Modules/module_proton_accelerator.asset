@@ -71,5 +71,5 @@ MonoBehaviour:
   catagory: 0
   rarity: 0
   icon: {fileID: 21300000, guid: f72ea2651d81b2b45b0417f82681ddf9, type: 3}
-  description: Increased rate of fire
+  description: Increases rate of fire.
   shape: 1

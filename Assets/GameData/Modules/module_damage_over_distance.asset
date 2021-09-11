@@ -71,5 +71,5 @@ MonoBehaviour:
   catagory: 0
   rarity: 1
   icon: {fileID: 21300000, guid: e0526b249dec66940adc72cf27447828, type: 3}
-  description: Increased projectile damage per metre travelled.
+  description: Damage increases with range travelled.
   shape: 4

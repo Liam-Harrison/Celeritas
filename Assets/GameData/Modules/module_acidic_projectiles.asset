@@ -63,7 +63,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  title: Acidic Projectiles
+  title: Acidic Infusion
   prefab: {fileID: 969170628479752035, guid: 47b26eb0c0423b649a4e576977593942, type: 3}
   capacityHint: 1
   useChunking: 0
@@ -71,6 +71,6 @@ MonoBehaviour:
   catagory: 0
   rarity: 0
   icon: {fileID: 21300000, guid: b397717f6ae1d104692085f43338844f, type: 3}
-  description: Your projectiles are infused with acid, dealing Damage Over Time to
-    enemy ships
+  description: Projectiles seeping with corrosive material slowly disintegrate the
+    target's hull, dealing damage over time.
   shape: 1
