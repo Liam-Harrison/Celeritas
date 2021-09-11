@@ -244,6 +244,8 @@ MonoBehaviour:
       Data: 
   hasDefaultEffects: 0
   defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
@@ -670,37 +672,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8298990098040533090}
     m_Modifications:
-    - target: {fileID: 958692261484303242, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3498325625561183268, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 7139208914555393015, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
       propertyPath: m_Name
       value: Ship_L3_Rheidae
       objectReference: {fileID: 0}
-    - target: {fileID: 7139208914555393015, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 8245255028705770888, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8245255028705770888, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8245255028705770888, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8245255028705770888, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8245255028705770888, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
       propertyPath: m_LocalPosition.x
