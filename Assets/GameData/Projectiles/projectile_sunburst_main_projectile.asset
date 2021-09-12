@@ -26,6 +26,6 @@ MonoBehaviour:
   capacityHint: 1
   useChunking: 0
   speed: 5
-  lifetime: 7.5
+  lifetime: 5.599997
   damage: 40
   destroyedOnHit: 1

@@ -94,11 +94,10 @@ MonoBehaviour:
     - Environment
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: 2b5c9c97a0faf09478b713ec5f15e658
-    m_Address: Assets/GameData/Events
+  - m_GUID: 722849d480eb5e44ebcd0a9ccf63e985
+    m_Address: Assets/Materials/General/Goop.mat
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - Events
+    m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
