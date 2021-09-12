@@ -157,6 +157,11 @@ namespace Celeritas.Game.Entities
 		public bool Stunned { get; set; }
 		
 
+		/// <summary>
+		/// Determines if the ship is currently stunned.
+		/// </summary>
+		public bool KnockedBack { get; set; }
+
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
@@ -164,6 +169,8 @@ namespace Celeritas.Game.Entities
 
 			Rigidbody = GetComponent<Rigidbody2D>();
 			ShipData = data as ShipData;
+			Stunned = false;
+			KnockedBack = false;
 
 			var ai = GetComponent<AIBase>();
 			if (ai != null && instanced == false)
@@ -264,6 +271,10 @@ namespace Celeritas.Game.Entities
 
 				if (health.IsEmpty())
 				{
+					if (PlayerShip == true)
+					{
+						GameOver();
+					}
 					KillEntity();
 				}
 			}
@@ -334,6 +345,14 @@ namespace Celeritas.Game.Entities
 			yield return new WaitForSeconds(duration);
 			IsStationary = false;
 			Stunned = false;
+		}
+
+		public void KnockBack(Vector3 position, float strength)
+		{
+			Vector3 direction = this.transform.position - position;
+			direction.z = 0;
+			Rigidbody.AddForce(direction.normalized * strength, ForceMode2D.Impulse);
+			Debug.Log("Knocked Back");
 		}
 
 		/// <summary>
@@ -497,6 +516,13 @@ namespace Celeritas.Game.Entities
 					LootController.Instance.LootDrop(gain, dropType, Position);
 			}
 		}
+
+		private void GameOver()
+		{
+			GameObject gameOverScreen = GameObject.Find("GameOverUI");
+			GameOverScript gameOverScript = (GameOverScript)gameOverScreen.GetComponent("GameOverScript");
+			gameOverScript.GameOver();
+		}
 	}
 
 	/// <summary>
@@ -564,5 +590,4 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public bool IsBoss { get => isBoss; set => isBoss = value; }
 	}
-
 }
