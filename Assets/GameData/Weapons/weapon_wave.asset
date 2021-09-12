@@ -78,4 +78,5 @@ MonoBehaviour:
   rateOfFire: 2
   charge: 0
   maxCharge: 15
+  autofire: 0
   placeholder: 0

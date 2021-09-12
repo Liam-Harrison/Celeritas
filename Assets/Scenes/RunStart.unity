@@ -2360,6 +2360,7 @@ GameObject:
   m_Component:
   - component: {fileID: 576568003}
   - component: {fileID: 576568004}
+  - component: {fileID: 576568005}
   m_Layer: 5
   m_Name: Weapons
   m_TagString: Untagged
@@ -2411,6 +2412,21 @@ MonoBehaviour:
   itemContent: {fileID: 883621509}
   dragIcon: {fileID: 930439760}
   errorText: {fileID: 113869452}
+  launchButton: {fileID: 1247632121}
+--- !u!114 &576568005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576568002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0686f01b859957140aba011df8995013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  launchButton: {fileID: 1247632121}
+  errorMessage: {fileID: 113869452}
 --- !u!1001 &587982097
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4709,6 +4725,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4267104260893258951, guid: 69ffff6fa5a40b84f86f23b32a96b7a1, type: 3}
   m_PrefabInstance: {fileID: 1211852283}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1247632121 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1986173541449577325, guid: 81f5c9ab83a971949b7b15d24c7f9975, type: 3}
+  m_PrefabInstance: {fileID: 941444994}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1250018509 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4239081621532955508, guid: c7c716a4899c9ab47a2c5ba82d1740d6, type: 3}

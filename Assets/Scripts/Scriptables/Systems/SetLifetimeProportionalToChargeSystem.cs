@@ -25,7 +25,7 @@ namespace Assets.Scripts.Scriptables.Systems
 		{
 			ProjectileEntity projectile = entity as ProjectileEntity;
 			WeaponEntity weapon = projectile.Weapon;
-			projectile.ProjectileData.Lifetime = multiplier * weapon.Charge;
+			projectile.Lifetime = multiplier * weapon.Charge;
 		}
 	}
 }

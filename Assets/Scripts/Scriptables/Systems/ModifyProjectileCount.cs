@@ -23,7 +23,7 @@ namespace Celeritas.Scriptables.Systems
 		[SerializeField]
 		private float spreadScale = 0.5f; // default
 
-		[SerializeField]
+		[SerializeField] // only for linear
 		private bool randomSpread;
 
 		[SerializeField]
@@ -31,6 +31,15 @@ namespace Celeritas.Scriptables.Systems
 
 		[SerializeField, ShowIf(nameof(customProjectile))]
 		ProjectileData customProjectileData;
+
+		[SerializeField]
+		private bool arcLayout;
+
+		[SerializeField, ShowIf(nameof(arcLayout))]
+		private float degreesSpread;
+
+		[SerializeField, ShowIf(nameof(arcLayout))]
+		private float weaponOriginDisplacement = -5; // default = -5
 
 		//[SerializeField]
 		//private EffectCollection[] effectsToExcludeCopying;
@@ -55,32 +64,54 @@ namespace Celeritas.Scriptables.Systems
 		/// <inheritdoc/>
 		public override string GetTooltip(ushort level) => $"Fire <color=green>{ExtraProjectileCount + (ExtraProjectileCountPerLevel * level)}</color> extra projectiles.";
 
-		public void OnEntityFired(WeaponEntity entity, ProjectileEntity projectile, ushort level)
+		public void OnEntityFired(WeaponEntity weapon, ProjectileEntity projectile, ushort level)
 		{
 			uint numberOfExtraProjectiles = extraProjectileCount + (level * extraProjectilesPerLevel);
 
-			Vector3 bulletAlignment = new Vector3(spreadScale, spreadScale, 0);
-			for (int i = 0; i < numberOfExtraProjectiles; i++)
+			// arc layout logic
+			if (arcLayout)
 			{
-				float position = i - (numberOfExtraProjectiles / 2);
-				// to address the '0' position projectile lying directly on top of originally shot projectile:
-				if (position < 0.00001 && position > -0.00001)
+				for (int i = -((int)numberOfExtraProjectiles/2); i <= (int)numberOfExtraProjectiles/2; i++)
 				{
-					position = numberOfExtraProjectiles / 2;
+					// rotate around, using weapon position as origin
+					var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectile.ProjectileData, weapon.ProjectileSpawn.position, weapon.ProjectileSpawn.rotation, weapon);
+					toFire.transform.localScale = weapon.ProjectileSpawn.localScale;
+
+					//toFire.transform.RotateAround(weapon.transform.position, weapon.transform.forward , degreesSpread * i);
+					toFire.transform.RotateAround(weapon.transform.position + (weapon.transform.up * weaponOriginDisplacement), weapon.transform.forward, degreesSpread * i);
+					//
+
+					toFire.EntityEffects.AddEffectRange(projectile.EntityEffects.EffectWrapperCopy); // add effects once position has been finalised
 				}
+			}
+			else
+			{ 
+				// linear layout logic
+				
 
-				var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectile.ProjectileData, entity.ProjectileSpawn.position, entity.ProjectileSpawn.rotation, entity);
-				toFire.transform.localScale = entity.ProjectileSpawn.localScale;
-
-				if (randomSpread)
+				Vector3 bulletAlignment = new Vector3(1, 0, 0);
+				for (int i = 0; i < numberOfExtraProjectiles; i++)
 				{
-					bulletAlignment = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-					position += Random.Range(-1f, 1f);
-				}
-				toFire.transform.Translate(bulletAlignment.normalized * position * spreadScale);
-				toFire.transform.position = toFire.transform.position.RemoveAxes(z: true, normalize: false);
+					float position = i - (numberOfExtraProjectiles / 2);
+					// to address the '0' position projectile lying directly on top of originally shot projectile:
+					if (position < 0.00001 && position > -0.00001)
+					{
+						position = numberOfExtraProjectiles / 2;
+					}
 
-				toFire.EntityEffects.AddEffectRange(projectile.EntityEffects.EffectWrapperCopy); // add effects once position has been finalised
+					var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectile.ProjectileData, weapon.ProjectileSpawn.position, weapon.ProjectileSpawn.rotation, weapon);
+					toFire.transform.localScale = weapon.ProjectileSpawn.localScale;
+
+					if (randomSpread)
+					{
+						bulletAlignment = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+						position += Random.Range(-1f, 1f);
+					}
+					toFire.transform.Translate(bulletAlignment.normalized * position * spreadScale);
+					toFire.transform.position = toFire.transform.position.RemoveAxes(z: true, normalize: false);
+
+					toFire.EntityEffects.AddEffectRange(projectile.EntityEffects.EffectWrapperCopy); // add effects once position has been finalised
+				}
 			}
 
 		}

@@ -31,6 +31,12 @@ namespace Celeritas.Game.Entities
 		public int Damage { get => damage; set => damage = value; }
 
 		/// <summary>
+		/// The lifetime of this projectile
+		/// (in seconds)
+		/// </summary>
+		public float Lifetime { get; set; }
+
+		/// <summary>
 		/// The attatched projectile data.
 		/// </summary>
 		public ProjectileData ProjectileData { get; private set; }
@@ -71,6 +77,7 @@ namespace Celeritas.Game.Entities
 		{
 			ProjectileData = data as ProjectileData;
 			damage = ProjectileData.Damage;
+			Lifetime = ProjectileData.Lifetime;
 			Weapon = owner as WeaponEntity;
 			SpeedModifier = 1;
 			Following = null;
@@ -161,7 +168,7 @@ namespace Celeritas.Game.Entities
 			Position += Forward * ProjectileData.Speed * SpeedModifier * Time.smoothDeltaTime;
 			Position += Forward * BaseVelcoity * Time.smoothDeltaTime;
 
-			if (TimeAlive >= ProjectileData.Lifetime)
+			if (TimeAlive >= Lifetime)
 			{
 				Dying = true;
 				UnloadEntity();
