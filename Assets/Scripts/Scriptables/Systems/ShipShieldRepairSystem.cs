@@ -39,32 +39,28 @@ namespace Celeritas.Scriptables.Systems
 		public override string GetTooltip(ushort level) => $"Repairs shields by <color=green>{(Amount + (AmountExtraPerLevel * level)):0}%</color> per second.";
 
 		/// <summary>
-		/// Determines whether the shield repairs or not.
+		/// Seconds between repairs
 		/// </summary>
-		private bool IsActive = false;
+		private float interval = 1.0f;
+
+		[SerializeField, Title("Interval between repairs", "Seconds between each repair")]
+		public float Interval { get => interval; set => interval = value; }
+
+		/// <summary>
+		/// Timer
+		/// </summary>
+		private float nextTime = 0.0f;
 
 		public void OnEntityEffectAdded(Entity entity, ushort level)
 		{
 			var ship = entity as ShipEntity;
-			IsActive = true;
-			nextTime = (Time.time + interval);
+			nextTime = (Time.deltaTime + interval);
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, ushort level)
 		{
 			var ship = entity as ShipEntity;
-			IsActive = false;
 		}
-
-		/// <summary>
-		/// Seconds between repairs
-		/// </summary>
-		private int interval = 1;
-
-		/// <summary>
-		/// Timer
-		/// </summary>
-		private float nextTime = 0;
 
 		/// <summary>
 		/// Checks if shield isn't full and will repair the ship by sending negative damage to the shield.
@@ -72,23 +68,21 @@ namespace Celeritas.Scriptables.Systems
 		public void OnEntityUpdated(Entity entity, ushort level)
 		{
 			var ship = entity as ShipEntity;
-
 			
 			float amountToAdd = (ship.Shield.MaxValue / 100) * (amount + (level * amountExtraPerLevel));
 
-			if (IsActive == true)
-			{
-				if (Time.time > nextTime)
-				{
-					if (ship.Shield.CurrentValue < ship.Shield.MaxValue)
-					{
-						
-						ship.Shield.Damage(Mathf.RoundToInt(-1 * amountToAdd));
+			nextTime = nextTime + Time.deltaTime;
 
-					}
-					nextTime = (nextTime + interval);
-		
+			if (nextTime >= interval)
+			{
+				if (ship.Shield.CurrentValue < ship.Shield.MaxValue)
+				{
+
+					ship.Shield.Damage(Mathf.RoundToInt(-1 * amountToAdd));
+					//Debug.Log("Healed: " + Mathf.RoundToInt(-1 * amountToAdd));
+
 				}
+				nextTime = 0.0f;
 			}
 		}
 	}

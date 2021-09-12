@@ -107,7 +107,7 @@ namespace Celeritas.Game.Entities
 				return list;
 			}
 		}
-
+		
 		/// <summary>
 		/// The attatched ship data.
 		/// </summary>
@@ -152,8 +152,8 @@ namespace Celeritas.Game.Entities
 		public bool IsStationary { get; set; }
 
 		/// <summary>
-		/// Determines if the ship is currently stunned.
-		/// </summary>
+        /// Determines if the ship is currently stunned.
+        /// </summary>
 		public bool Stunned { get; set; }
 
 		/// <inheritdoc/>
@@ -200,6 +200,10 @@ namespace Celeritas.Game.Entities
 				TranslationLogic();
 				RotationLogic();
 			}
+
+			shieldDelayTimer = Mathf.Max(shieldDelayTimer - Time.deltaTime, 0f);
+			timeSinceLastShieldRegen = timeSinceLastShieldRegen + Time.deltaTime;
+			RegenShield();
 		}
 
 		/// <summary>
@@ -225,6 +229,7 @@ namespace Celeritas.Game.Entities
 				base.TakeDamage(attackingEntity);
 
 				int calculatedDamage = CalculateDamage(damage);
+				shieldDelayTimer = shieldRegenDelay;
 
 				// if damage will go beyond shields
 				if (calculatedDamage > shield.CurrentValue)
@@ -244,11 +249,54 @@ namespace Celeritas.Game.Entities
 
 				if (health.IsEmpty())
 				{
-					if (PlayerShip == true)
-					{
-						GameOver();
-					}
 					KillEntity();
+				}
+			}
+		}
+
+		/// <summary>
+		/// The amount of shields is regenerated per tick
+		/// </summary>
+		private float shieldRegenAmount = 50.0f;
+		[SerializeField, Title("Base Shield Regeneration Amount", "The base amount of shields that is regenerated per tick.")]
+		public float ShieldRegenAmount { get => shieldRegenAmount; set => shieldRegenAmount = value; }
+
+
+		/// <summary>
+		/// The amount of time the shield regeneration is delayed by after taking damage
+		/// </summary>
+		private float shieldRegenDelay = 4.0f;
+		[SerializeField, Title("Base Shield Regeneration Delay", "The timer in which the shield will not regenerate after taking damage.")]
+		public float ShieldRegenDelay { get => shieldRegenDelay; set => shieldRegenDelay = value; }
+
+		/// <summary>
+        /// Timer for the delayed shield regen
+        /// </summary>
+		private float shieldDelayTimer = 0.0f;
+
+		/// <summary>
+		/// Number of seconds between shield regen.
+		/// </summary>
+		private float timeBetweenShieldRegen = 1.0f;
+		public float TimeBetweenShieldRegen { get => timeBetweenShieldRegen; set => timeBetweenShieldRegen = value; }
+
+		/// <summary>
+		/// Timer for shield regen
+		/// </summary>
+		private float timeSinceLastShieldRegen = 0.0f;
+
+		private void RegenShield()
+		{
+			if (shieldDelayTimer == 0f)
+			{
+				if (timeSinceLastShieldRegen >= timeBetweenShieldRegen)
+				{
+					if (shield.CurrentValue < shield.MaxValue)
+					{
+						shield.Damage(Mathf.RoundToInt(shieldRegenAmount * -1));
+						//Debug.Log("Healed: " + Mathf.RoundToInt(shieldRegenAmount * -1));
+					}
+					timeSinceLastShieldRegen = 0.0f;
 				}
 			}
 		}
@@ -262,8 +310,8 @@ namespace Celeritas.Game.Entities
 		}
 
 		/// <summary>
-		/// Coroutine that will set the ship to stationary for duration.
-		/// </summary>
+        /// Coroutine that will set the ship to stationary for duration.
+        /// </summary>
 		public IEnumerator StunTimer(float duration)
 		{
 			Stunned = true;
@@ -271,13 +319,6 @@ namespace Celeritas.Game.Entities
 			yield return new WaitForSeconds(duration);
 			IsStationary = false;
 			Stunned = false;
-		}
-
-		private void GameOver()
-		{
-			GameObject gameOverScreen = GameObject.Find("GameOverUI");
-			GameOverScript gameOverScript = (GameOverScript)gameOverScreen.GetComponent("GameOverScript");
-			gameOverScript.GameOver();
 		}
 
 		/// <summary>
