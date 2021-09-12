@@ -49,6 +49,27 @@ namespace Celeritas.UI.Runstart
 		[SerializeField, TitleGroup("Ship Stats")]
 		GameObject shipStatsLinePrefab;
 
+		[SerializeField, TitleGroup("Ship Stats")]
+		private int verticalSpacingBetweenElements;
+
+		[SerializeField, TitleGroup("Ship Stats")]
+		private GameObject weaponCountIcon;
+
+		[SerializeField, TitleGroup("Ship Stats")]
+		private int maxNumberOfWeaponSlots;
+
+		[SerializeField, TitleGroup("Ship Stats")]
+		private Gradient weaponIconGradient;
+
+		[SerializeField, TitleGroup("Hull Preview")]
+		private GridLayoutGroup hullPreviewGridLayout;
+
+		[SerializeField, TitleGroup("Hull Preview")]
+		private Image hullSectionImage; // for use in hull preview layout
+
+		[SerializeField, TitleGroup("Hull Preview")]
+		private int maxHullDimension = 10;
+
 		private Dictionary<string, float> maxStats;
 
 		private List<ShipSelectionStats> statLines;
@@ -56,6 +77,8 @@ namespace Celeritas.UI.Runstart
 		public ShipSelection ShipSelection { get; private set; }
 
 		public ShipClass ShipClass { get; private set; }
+
+		private int numberOfModuleSlots; // in currently selected ship.
 
 		private void Awake()
 		{
@@ -87,6 +110,7 @@ namespace Celeritas.UI.Runstart
 			battleshipToggle.onValueChanged.AddListener((b) => { if (b) LoadClassHulls(ShipClass.Dreadnought); });
 
 			setupStatUI();
+			setupHullUI();
 			maxStats = new Dictionary<string, float>();
 			LoadClassHulls(ShipClass.Destroyer);
 			LoadClassHulls(ShipClass.Dreadnought);
@@ -132,7 +156,9 @@ namespace Celeritas.UI.Runstart
 
 			lineUI.WorldTarget = ShipSelection.CurrentShip.transform;
 
+			setupHullLayoutPreview();
 			SetupShipStatsText(ship);
+			
 		}
 
 		/// <summary>
@@ -156,9 +182,9 @@ namespace Celeritas.UI.Runstart
 
 			if (!maxStats.ContainsKey("torque") || maxStats["torque"] < ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass)
 				maxStats["torque"] = ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass;
-
-			// no slider for weapon count so don't need max
 		}
+
+		private Image[] weaponIcons;
 
 		/// <summary>
 		/// Setup 'stats' section of the UI for the currently selected ship
@@ -167,35 +193,51 @@ namespace Celeritas.UI.Runstart
 		/// <param name="ship">currently selected ship</param>
 		private void SetupShipStatsText(ShipData ship)
 		{
-			// weapons count
-			statLines[0].title.text = $"Number Of Weapons: \t{ShipSelection.CurrentShip.WeaponEntities.Count}";
+			// module slots
+			statLines[0].title.text = $"Module Slots: {numberOfModuleSlots}";
 			statLines[0].hideSlider();
 
+			// weapons count
+			//statLines[1].title.text = $"Weapon Slots: {ShipSelection.CurrentShip.WeaponEntities.Count}";
+			statLines[1].title.text = $"Weapon Slots: ";
+			statLines[1].hideSlider();
+
 			// health
-			statLines[1].setTitle($"Health: ({ship.StartingHealth/1000}k)");
-			statLines[1].slider.maxValue = maxStats["health"];
-			statLines[1].setSliderValue(ship.StartingHealth);
+			statLines[2].setTitle($"Health: ({ship.StartingHealth/1000}k)");
+			statLines[2].slider.maxValue = maxStats["health"];
+			statLines[2].setSliderValue(ship.StartingHealth);
 
 			// shield
-			statLines[2].setTitle($"Shield: ({ship.StartingShield/1000}k)");
-			statLines[2].slider.maxValue = maxStats["shield"];
-			statLines[2].setSliderValue(ship.StartingShield);
+			statLines[3].setTitle($"Shield: ({ship.StartingShield/1000}k)");
+			statLines[3].slider.maxValue = maxStats["shield"];
+			statLines[3].setSliderValue(ship.StartingShield);
 
 			// weight
-			statLines[3].setTitle($"Weight: ({ship.MovementSettings.mass})");
-			statLines[3].slider.maxValue = maxStats["weight"];
-			statLines[3].setSliderValue(ship.MovementSettings.mass);
+			statLines[4].setTitle($"Weight: ({ship.MovementSettings.mass})");
+			statLines[4].slider.maxValue = maxStats["weight"];
+			statLines[4].setSliderValue(ship.MovementSettings.mass);
 
 			// speed
-			statLines[4].setTitle($"Speed: ");
-			statLines[4].slider.maxValue = maxStats["speed"];
-			statLines[4].setSliderValue(ship.MovementSettings.forcePerSec / ship.MovementSettings.mass);
+			statLines[5].setTitle($"Speed: ");
+			statLines[5].slider.maxValue = maxStats["speed"];
+			statLines[5].setSliderValue(ship.MovementSettings.forcePerSec / ship.MovementSettings.mass);
 
 			// speed (turning)
-			statLines[5].setTitle($"Turning Speed: ");
-			statLines[5].slider.maxValue = maxStats["torque"];
-			statLines[5].setSliderValue(ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass);
+			statLines[6].setTitle($"Turning Speed: ");
+			statLines[6].slider.maxValue = maxStats["torque"];
+			statLines[6].setSliderValue(ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass);
 
+			// setup weapon count icons.
+			for (int i = 0; i < maxNumberOfWeaponSlots; i++)
+			{
+				if (i < ShipSelection.CurrentShip.WeaponEntities.Count)
+				{
+					//weaponIcons[i].color = weaponIconGradient.Evaluate((float)i / maxNumberOfWeaponSlots); // if you want rainbow bullets.
+					weaponIcons[i].color = weaponIconGradient.Evaluate((float)ShipSelection.CurrentShip.WeaponEntities.Count / maxNumberOfWeaponSlots);
+				}
+				else
+					weaponIcons[i].color = Color.clear;
+			}
 		}
 
 		/// <summary>
@@ -205,13 +247,14 @@ namespace Celeritas.UI.Runstart
 		{
 			statLines = new List<ShipSelectionStats>();
 			var lastLine = shipStatsLinePrefab;
-			int numberOfLines = 6;
+			int numberOfLines = 7;
 			statLines.Add(lastLine.GetComponent<ShipSelectionStats>());
 
 			for(int i = 0; i < numberOfLines - 1; i++) { // -1 as one line already exists 
 
-				var currentLine = Instantiate(lastLine, lastLine.transform);
-				currentLine.transform.position += new Vector3(16, 0, 0);
+				//var currentLine = Instantiate(lastLine, lastLine.transform);
+				var currentLine = Instantiate(lastLine, lastLine.transform.parent);
+				currentLine.transform.position += new Vector3(0, - verticalSpacingBetweenElements * (i+1), 0); // 16, 0
 				ShipSelectionStats stats = currentLine.GetComponent<ShipSelectionStats>();
 				currentLine.SetActive(true);
 				statLines.Add(stats);
@@ -221,6 +264,94 @@ namespace Celeritas.UI.Runstart
 				lastLine = currentLine;
 
 			}
+
+			// setup weapon slot icons
+			if (weaponIcons == null)
+			{
+				weaponIcons = new Image[maxNumberOfWeaponSlots];
+				for (int i = 0; i < maxNumberOfWeaponSlots; i++)
+				{
+					var icon = Instantiate(weaponCountIcon, statLines[1].transform);
+					icon.transform.position += new Vector3(30 * i - 50, 5, 0);
+					weaponIcons[i] = icon.GetComponentInChildren<Image>();
+					weaponIcons[i].color = Color.clear; // all clear by default
+				}
+			}
 		}
+
+		private Image[,] hullPreviewImages;
+
+		/// <summary>
+		/// Use on initial setup or if the maxHullDimension of ship is less than that of the current ship's.
+		/// </summary>
+		private void setupHullUI()
+		{
+			if (hullPreviewImages == null)
+				hullPreviewImages = new Image[10,10];
+
+			for (int i = 0; i < maxHullDimension; i++)
+			{
+				for (int j = 0; j < maxHullDimension; j++)
+				{
+					hullPreviewImages[i, j] = Instantiate(hullSectionImage, hullPreviewGridLayout.gameObject.transform);
+					hullPreviewImages[i, j].color = Color.clear;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Display the currently selected ship's hull layout in the UI
+		/// </summary>
+		private void setupHullLayoutPreview()
+		{
+			// try to print out hull layout in debug
+			// retrieves the 'selected ship's data from ShipSelection
+			bool[,] hullLayout = ShipSelection.CurrentShip.HullManager.HullData.HullLayout;
+			int xMax = hullLayout.GetUpperBound(0);
+			int yMax = hullLayout.GetUpperBound(1);
+			numberOfModuleSlots = 0;
+
+			// resize grid depending on how large it appears to be.
+			if (yMax >= maxHullDimension - 1)
+			{
+				hullPreviewGridLayout.cellSize = new Vector2(15, 15);
+			}
+			else if (yMax >= maxHullDimension - 2)
+			{
+				hullPreviewGridLayout.cellSize = new Vector2(20, 20);
+			}
+			else
+			{ 
+				hullPreviewGridLayout.cellSize = new Vector2(25, 25);
+			}
+
+			// colour 'hull' cells. Unused ones will be clear.
+			for (int i = 0; i < maxHullDimension; i++)
+			{
+				for (int j = 0; j < maxHullDimension; j++)
+				{
+					if (i < xMax && j < yMax)
+					{
+						hullPreviewImages[i, j].gameObject.SetActive(true);
+						if (hullLayout[i, j])
+						{
+							hullPreviewImages[i, j].color = Color.white;
+							numberOfModuleSlots++;
+						}
+						else
+						{
+							hullPreviewImages[i, j].color = Color.clear;
+						}
+					}
+					else
+					{ // trim any usued (late) columns / rows
+						hullPreviewImages[i, j].gameObject.SetActive(false);
+						hullPreviewImages[i, j].color = Color.clear;
+					}
+				}
+			}
+
+		}
+
 	}
 }
