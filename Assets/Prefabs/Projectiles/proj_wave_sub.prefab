@@ -28,6 +28,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: c72876703da8a49418b96d6e850fff04, type: 2}
     - target: {fileID: 5264805449867955830, guid: 5c7069a0ea7969143a8a7403d56dd0df, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+    - target: {fileID: 5264805449867955830, guid: 5c7069a0ea7969143a8a7403d56dd0df, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.b
       value: 0.9529412
       objectReference: {fileID: 0}
@@ -51,6 +55,10 @@ PrefabInstance:
       propertyPath: m_Parameters.colorGradient.key1.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6504427990470375925, guid: 5c7069a0ea7969143a8a7403d56dd0df, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 6504427990470375925, guid: 5c7069a0ea7969143a8a7403d56dd0df, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.b
       value: 1
