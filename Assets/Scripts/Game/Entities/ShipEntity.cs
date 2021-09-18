@@ -121,7 +121,7 @@ namespace Celeritas.Game.Entities
 		/// <summary>
 		/// The current aim target for this ship.
 		/// </summary>
-		public Vector3 Target { get; set; }
+		public Vector3 AimTarget { get; set; }
 
 		/// <summary>
 		/// The current translation input for this ship.
@@ -163,6 +163,10 @@ namespace Celeritas.Game.Entities
 
 			Rigidbody = GetComponent<Rigidbody2D>();
 			ShipData = data as ShipData;
+
+			var ai = GetComponent<AIBase>();
+			if (ai != null && instanced == false)
+				AttatchToAI(ai);
 
 			if (instanced == false)
 			{
@@ -398,7 +402,7 @@ namespace Celeritas.Game.Entities
 			Gizmos.color = Color.green;
 			Gizmos.DrawLine(transform.position, transform.position + Velocity);
 			Gizmos.color = Color.white;
-			Gizmos.DrawLine(transform.position, Target);
+			Gizmos.DrawLine(transform.position, AimTarget);
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawLine(transform.position, transform.position + Forward);
 		}
@@ -406,6 +410,7 @@ namespace Celeritas.Game.Entities
 		public void AttatchToAI(AIBase ai)
 		{
 			AttatchedAI = ai;
+			AttatchedAI.OnAttatched();
 		}
 
 		private void TranslationLogic()
@@ -420,7 +425,7 @@ namespace Celeritas.Game.Entities
 
 		private void RotationLogic()
 		{
-			var dir = (Target - transform.position).normalized;
+			var dir = (AimTarget - transform.position).normalized;
 			var dot = Vector3.Dot(Forward, dir);
 
 			if (dot < ShipData.MovementSettings.aimDeadzone)

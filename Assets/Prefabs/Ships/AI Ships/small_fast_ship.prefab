@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 1338593059165622246}
   - component: {fileID: 2516558698829045451}
   - component: {fileID: 5825814217527976905}
-  m_Layer: 0
+  - component: {fileID: 7916887160740750592}
+  m_Layer: 7
   m_Name: small_fast_ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,9 +57,17 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: ShieldRegenAmount
+      Entry: 4
+      Data: 50
+    - Name: ShieldRegenDelay
+      Entry: 4
+      Data: 4
   hasDefaultEffects: 0
   defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
@@ -132,6 +141,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.6}
   m_EdgeRadius: 0
+--- !u!114 &7916887160740750592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2516558698829045457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c08fe5db4b47a42a1594eb01af3d17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacle:
+    name: 
+    sight: 15
+    force: 4
+    scale: 0.75
+  approach:
+    name: 
+    sight: 5
+    force: 4
+    scale: 0.75
 --- !u!1 &2516558699759650295
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,7 +175,7 @@ GameObject:
   - component: {fileID: 2516558699759650283}
   - component: {fileID: 2516558699759650292}
   - component: {fileID: 2516558699759650293}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2489298676919761349}
   - component: {fileID: 4293004831541093639}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

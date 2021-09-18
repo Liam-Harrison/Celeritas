@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 431136117474867184}
   - component: {fileID: 7633790245299188776}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,8 @@ GameObject:
   - component: {fileID: 5924774236876810962}
   - component: {fileID: 6339106529553195163}
   - component: {fileID: 3074930969652065285}
-  m_Layer: 0
+  - component: {fileID: 2391683696305861545}
+  m_Layer: 7
   m_Name: enemy_ship_s5_alcedines
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,9 +193,17 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: ShieldRegenAmount
+      Entry: 4
+      Data: 50
+    - Name: ShieldRegenDelay
+      Entry: 4
+      Data: 4
   hasDefaultEffects: 0
   defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
@@ -223,6 +232,28 @@ MonoBehaviour:
   - {fileID: 3088348825830723268}
   - {fileID: 7881461121209310545}
   damageModifierPercentage: 0
+--- !u!114 &2391683696305861545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7914912813352834011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c08fe5db4b47a42a1594eb01af3d17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacle:
+    name: 
+    sight: 15
+    force: 4
+    scale: 0.75
+  approach:
+    name: 
+    sight: 5
+    force: 4
+    scale: 0.75
 --- !u!1001 &1679760864002985610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -281,6 +312,10 @@ PrefabInstance:
     - target: {fileID: 3073256279633522164, guid: 5792a303245743c4a88b3076930e0fa2, type: 3}
       propertyPath: m_Name
       value: Small_Engine_Particles (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3073256279633522164, guid: 5792a303245743c4a88b3076930e0fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5222794966400750603, guid: 5792a303245743c4a88b3076930e0fa2, type: 3}
       propertyPath: m_Name
@@ -435,6 +470,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small_Engine_Particles (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3073256279633522164, guid: 5792a303245743c4a88b3076930e0fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5222794966400750603, guid: 5792a303245743c4a88b3076930e0fa2, type: 3}
       propertyPath: m_Name
       value: internal_engine_particles (1)
@@ -534,6 +573,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9c1b2a21ee187b946924be4342604615, type: 3}
       propertyPath: m_Name
       value: Ship_S5_Alcedines
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9c1b2a21ee187b946924be4342604615, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c1b2a21ee187b946924be4342604615, type: 3}

@@ -26,19 +26,28 @@ MonoBehaviour:
   capacityHint: 1
   useChunking: 0
   movementSettings:
-    torquePerSec: {x: 9000, y: 10000}
+    torquePerSec: {x: 2400, y: 3000}
     rotationCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0
+        time: 0.15416718
+        value: -0.009552002
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
         outWeight: 0
+      - serializedVersion: 3
+        time: 0.71857744
+        value: 0.48513946
+        inSlope: 2.5311916
+        outSlope: 2.5311916
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.06502252
       - serializedVersion: 3
         time: 1
         value: 1
@@ -54,8 +63,8 @@ MonoBehaviour:
     angularDrag: 5
     rotationMaximum: 180
     aimDeadzone: 0.995
-    forcePerSec: 1200
-    mass: 1
+    forcePerSec: 40000
+    mass: 6
   rarity: 0
   shipClass: 0
   icon: {fileID: 0}
@@ -66,5 +75,6 @@ MonoBehaviour:
     AI Desc: Very basic
     and fast enemy the approaches to close-mid range and fires a single low damage
     projectile.'
+  isPlaceholder: 0
   startingHealth: 50
   startingShield: 125

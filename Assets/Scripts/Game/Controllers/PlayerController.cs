@@ -51,13 +51,13 @@ namespace Celeritas.Game.Controllers
 		{
 			if (GameStateManager.Instance.GameState == GameState.BUILD)
 			{
-				PlayerShipEntity.Target = transform.position + PlayerShipEntity.Forward * 50f;
+				PlayerShipEntity.AimTarget = transform.position + PlayerShipEntity.Forward * 50f;
 				PlayerShipEntity.Translation = Vector3.zero;
 			}
 			else
 			{
 				var target = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-				PlayerShipEntity.Target = Vector3.ProjectOnPlane(target, Vector3.forward);
+				PlayerShipEntity.AimTarget = Vector3.ProjectOnPlane(target, Vector3.forward);
 				PlayerShipEntity.Translation = locomotion;
 				TractorLogic();
 			}
