@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7816546348132808347}
   - component: {fileID: 8807681204983190767}
   - component: {fileID: 6030563228058360437}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,8 @@ GameObject:
   - component: {fileID: 7295775993103618229}
   - component: {fileID: 379467859252706525}
   - component: {fileID: 1654123860687424407}
-  m_Layer: 0
+  - component: {fileID: 3541465907552683730}
+  m_Layer: 7
   m_Name: enemy_ship_m4_lammergeier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,9 +161,17 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: ShieldRegenAmount
+      Entry: 4
+      Data: 50
+    - Name: ShieldRegenDelay
+      Entry: 4
+      Data: 4
   hasDefaultEffects: 0
   defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
@@ -190,6 +199,28 @@ MonoBehaviour:
   - {fileID: 6607772819678897329}
   - {fileID: 2021854117343278884}
   damageModifierPercentage: 0
+--- !u!114 &3541465907552683730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2985888577097613501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c08fe5db4b47a42a1594eb01af3d17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacle:
+    name: 
+    sight: 15
+    force: 4
+    scale: 0.75
+  approach:
+    name: 
+    sight: 5
+    force: 4
+    scale: 0.75
 --- !u!1 &3925141969338166357
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5658501702878605389}
   - component: {fileID: 7508233685855945174}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +318,7 @@ GameObject:
   - component: {fileID: 268062137854873636}
   - component: {fileID: 8810457629144852154}
   - component: {fileID: 1099728658220939877}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4020025110968617793}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ship_M4_Lammergeier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,6 +504,14 @@ PrefabInstance:
     - target: {fileID: 3396330643006647310, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
       propertyPath: m_Name
       value: Medium_Engine_Particles (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3396330643006647310, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583998654766664668, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7407478660231959734, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
       propertyPath: m_RootOrder

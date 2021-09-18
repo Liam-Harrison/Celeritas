@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3312917368834455039}
   - component: {fileID: 5508884083018400456}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,8 @@ GameObject:
   - component: {fileID: 2516558698829045460}
   - component: {fileID: 808745327819978095}
   - component: {fileID: 2516558698829045451}
-  m_Layer: 0
+  - component: {fileID: -8534472890130276672}
+  m_Layer: 7
   m_Name: medium_ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,9 +154,17 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: ShieldRegenAmount
+      Entry: 4
+      Data: 50
+    - Name: ShieldRegenDelay
+      Entry: 4
+      Data: 4
   hasDefaultEffects: 0
   defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
@@ -202,6 +211,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-8534472890130276672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2516558698829045457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c08fe5db4b47a42a1594eb01af3d17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacle:
+    name: 
+    sight: 15
+    force: 4
+    scale: 0.75
+  approach:
+    name: 
+    sight: 5
+    force: 4
+    scale: 0.75
 --- !u!1 &2861370460507122289
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2489298676919761349}
   - component: {fileID: 4293004831541093639}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6790315075628685847}
   - component: {fileID: 3912116814696063671}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -530,6 +561,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0a4475f09a4ee2040a58c83ffe4eb488, type: 3}
       propertyPath: m_Name
       value: ship
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0a4475f09a4ee2040a58c83ffe4eb488, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 968022964083750120, guid: 0a4475f09a4ee2040a58c83ffe4eb488, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a4475f09a4ee2040a58c83ffe4eb488, type: 3}

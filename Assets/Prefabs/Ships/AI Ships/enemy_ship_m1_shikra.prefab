@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1886157786323730984}
   - component: {fileID: 382425217499545654}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 74636587771323884}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ship_M1_Shikra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 3852986740547944073}
   - component: {fileID: 5514058056758659095}
   - component: {fileID: 4144388618160919752}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,8 @@ GameObject:
   - component: {fileID: 6535455719027142788}
   - component: {fileID: 5714445827365316070}
   - component: {fileID: 6476631600362315062}
-  m_Layer: 0
+  - component: {fileID: 751284176829323438}
+  m_Layer: 7
   m_Name: enemy_ship_m1_shikra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,9 +281,17 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: ShieldRegenAmount
+      Entry: 4
+      Data: 50
+    - Name: ShieldRegenDelay
+      Entry: 4
+      Data: 4
   hasDefaultEffects: 0
   defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
@@ -310,6 +319,28 @@ MonoBehaviour:
   - {fileID: 4249387504704942595}
   - {fileID: 9026423867130962326}
   damageModifierPercentage: 0
+--- !u!114 &751284176829323438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2370809816317616486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c08fe5db4b47a42a1594eb01af3d17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacle:
+    name: 
+    sight: 15
+    force: 4
+    scale: 0.75
+  approach:
+    name: 
+    sight: 5
+    force: 4
+    scale: 0.75
 --- !u!1 &3763526531719957511
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,7 +352,7 @@ GameObject:
   - component: {fileID: 6537297444204517430}
   - component: {fileID: 5547306070220503618}
   - component: {fileID: 7309354647033459928}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -406,6 +437,14 @@ PrefabInstance:
     - target: {fileID: 3396330643006647310, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
       propertyPath: m_Name
       value: Medium_Engine_Particles (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3396330643006647310, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583998654766664668, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7407478660231959734, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
       propertyPath: m_RootOrder

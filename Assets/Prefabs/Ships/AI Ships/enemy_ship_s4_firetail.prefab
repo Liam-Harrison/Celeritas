@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9134203541658102856}
   - component: {fileID: 6259453584018288719}
   - component: {fileID: 4314947017955537596}
+  - component: {fileID: 271237337736556684}
   m_Layer: 7
   m_Name: enemy_ship_s4_firetail
   m_TagString: Untagged
@@ -79,9 +80,17 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: ShieldRegenAmount
+      Entry: 4
+      Data: 50
+    - Name: ShieldRegenDelay
+      Entry: 4
+      Data: 4
   hasDefaultEffects: 0
   defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
@@ -111,6 +120,28 @@ MonoBehaviour:
   - {fileID: 882172212078583980}
   - {fileID: 5441066566260306745}
   damageModifierPercentage: 0
+--- !u!114 &271237337736556684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751546083619562759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c08fe5db4b47a42a1594eb01af3d17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacle:
+    name: 
+    sight: 15
+    force: 4
+    scale: 0.75
+  approach:
+    name: 
+    sight: 5
+    force: 4
+    scale: 0.75
 --- !u!1 &2158584084746967192
 GameObject:
   m_ObjectHideFlags: 0

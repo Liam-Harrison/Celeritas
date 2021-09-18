@@ -51,11 +51,11 @@ namespace Celeritas.Scriptables.Systems
 			
 			if (entity is ProjectileEntity projectile)
 			{
-				target = projectile.Weapon.AttatchedModule.Ship.Target;
+				target = projectile.Weapon.AttatchedModule.Ship.AimTarget;
 			}
 			else if (entity is WeaponEntity weapon)
 			{
-				target = weapon.AttatchedModule.Ship.Target;
+				target = weapon.AttatchedModule.Ship.AimTarget;
 			}
 
 			var dir = (target - entity.Position).normalized;

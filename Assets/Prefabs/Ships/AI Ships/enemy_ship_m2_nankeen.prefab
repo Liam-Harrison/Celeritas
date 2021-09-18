@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 491554462589306424}
   - component: {fileID: 5645407429895505911}
   - component: {fileID: 1447214224666652831}
-  m_Layer: 0
+  - component: {fileID: 1124491050202627809}
+  m_Layer: 7
   m_Name: enemy_ship_m2_nankeen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,9 +78,17 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: ShieldRegenAmount
+      Entry: 4
+      Data: 50
+    - Name: ShieldRegenDelay
+      Entry: 4
+      Data: 4
   hasDefaultEffects: 0
   defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
@@ -106,6 +115,28 @@ MonoBehaviour:
   - {fileID: 9097560032768099352}
   - {fileID: 4178655884218865549}
   damageModifierPercentage: 0
+--- !u!114 &1124491050202627809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2446445817722717839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c08fe5db4b47a42a1594eb01af3d17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacle:
+    name: 
+    sight: 15
+    force: 4
+    scale: 0.75
+  approach:
+    name: 
+    sight: 5
+    force: 4
+    scale: 0.75
 --- !u!1 &7294989878683120645
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3237774868468946704}
   - component: {fileID: 3198199697513581115}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,6 +409,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ship_M2_Nankeen
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 641034911e871b244a60ee0354a15db8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 641034911e871b244a60ee0354a15db8, type: 3}
 --- !u!4 &7736337390558338618 stripped
@@ -399,6 +434,14 @@ PrefabInstance:
     - target: {fileID: 3396330643006647310, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
       propertyPath: m_Name
       value: Medium_Engine_Particles (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3396330643006647310, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583998654766664668, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7407478660231959734, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
       propertyPath: m_RootOrder

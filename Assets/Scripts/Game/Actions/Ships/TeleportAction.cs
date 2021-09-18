@@ -13,10 +13,10 @@ namespace Celeritas.Game.Actions
 		{
 			var ship = entity as ShipEntity;
 
-			var target = ship.Target;
+			var target = ship.AimTarget;
 			if ((target - ship.Position).magnitude > TeleportData.distance)
 			{
-				target = (ship.Target - ship.Position).normalized * TeleportData.distance;
+				target = (ship.AimTarget - ship.Position).normalized * TeleportData.distance;
 			}
 
 			ship.Position = target;

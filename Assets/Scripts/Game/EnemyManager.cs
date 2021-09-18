@@ -30,9 +30,9 @@ namespace Celeritas.Game
 		/// <param name="ship">The ship data object to create.</param>
 		/// <param name="position">The position to place this ship at.</param>
 		/// <returns>Returns the created ship.</returns>
-		public ShipEntity SpawnShip<T>(ShipData ship, Vector3 position) where T : AIBase
+		public ShipEntity SpawnShip(ShipData ship, Vector3 position)
 		{
-			return SpawnShip<T>(ship, position, Quaternion.identity);
+			return SpawnShip(ship, position, Quaternion.identity);
 		}
 
 		/// <summary>
@@ -43,7 +43,7 @@ namespace Celeritas.Game
 		/// <param name="position">The position to place this ship at.</param>
 		/// <param name="rotation">The rotation to place this ship with.</param>
 		/// <returns>Returns the created ship.</returns>
-		public ShipEntity SpawnShip<T>(ShipData ship, Vector3 position, Quaternion rotation) where T: AIBase
+		public ShipEntity SpawnShip(ShipData ship, Vector3 position, Quaternion rotation)
 		{
 			if (!EntityDataManager.Instance.Loaded)
 			{
@@ -52,7 +52,6 @@ namespace Celeritas.Game
 			}
 
 			var enemy = EntityDataManager.InstantiateEntity<ShipEntity>(ship, position, rotation);
-			enemy.AttatchToAI(enemy.gameObject.AddComponent<T>());
 			enemy.OnKilled += OnShipDestroyed;
 			ships.Add(enemy);
 			return enemy;

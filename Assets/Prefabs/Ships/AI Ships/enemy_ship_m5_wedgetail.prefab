@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4539636134241682272}
   - component: {fileID: 4686078888814773566}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,8 @@ GameObject:
   - component: {fileID: 7782843085196936398}
   - component: {fileID: -3206631879474449524}
   - component: {fileID: 7090306146213438699}
-  m_Layer: 0
+  - component: {fileID: -7871417455970124088}
+  m_Layer: 7
   m_Name: enemy_ship_m5_wedgetail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,9 +168,17 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: ShieldRegenAmount
+      Entry: 4
+      Data: 50
+    - Name: ShieldRegenDelay
+      Entry: 4
+      Data: 4
   hasDefaultEffects: 0
   defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
@@ -198,6 +207,28 @@ MonoBehaviour:
   - {fileID: 6206444534837820868}
   - {fileID: 1269223098179464785}
   damageModifierPercentage: 0
+--- !u!114 &-7871417455970124088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3990379344072591755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c08fe5db4b47a42a1594eb01af3d17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacle:
+    name: 
+    sight: 15
+    force: 4
+    scale: 0.75
+  approach:
+    name: 
+    sight: 5
+    force: 4
+    scale: 0.75
 --- !u!1 &5569041611297606995
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +240,7 @@ GameObject:
   - component: {fileID: 2579062601867549026}
   - component: {fileID: 3857460473648790294}
   - component: {fileID: 2018604345388037516}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +321,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8681435068800246968}
   - component: {fileID: 4776933450978595750}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ship_M5_Wedgetail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +376,7 @@ GameObject:
   - component: {fileID: 5479475162217201629}
   - component: {fileID: 3888383496759363907}
   - component: {fileID: 4679343210861499804}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -572,6 +603,14 @@ PrefabInstance:
     - target: {fileID: 3396330643006647310, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
       propertyPath: m_Name
       value: Medium_Engine_Particles (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3396330643006647310, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583998654766664668, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7407478660231959734, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
       propertyPath: m_RootOrder

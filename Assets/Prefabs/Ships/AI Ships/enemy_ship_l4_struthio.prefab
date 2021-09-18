@@ -271,6 +271,7 @@ GameObject:
   - component: {fileID: 4593526060273699834}
   - component: {fileID: 8651742738929828515}
   - component: {fileID: 8647781210589027276}
+  - component: {fileID: 6049594189363630367}
   m_Layer: 7
   m_Name: enemy_ship_l4_struthio
   m_TagString: Untagged
@@ -338,9 +339,17 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: ShieldRegenAmount
+      Entry: 4
+      Data: 50
+    - Name: ShieldRegenDelay
+      Entry: 4
+      Data: 4
   hasDefaultEffects: 0
   defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
@@ -368,6 +377,28 @@ MonoBehaviour:
   - {fileID: 8827211320933305825}
   - {fileID: 4412430497222778484}
   damageModifierPercentage: 0
+--- !u!114 &6049594189363630367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5591058833882306891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c08fe5db4b47a42a1594eb01af3d17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacle:
+    name: 
+    sight: 15
+    force: 4
+    scale: 0.75
+  approach:
+    name: 
+    sight: 5
+    force: 4
+    scale: 0.75
 --- !u!1001 &3395817407046522186
 PrefabInstance:
   m_ObjectHideFlags: 0
