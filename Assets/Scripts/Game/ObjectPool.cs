@@ -101,6 +101,13 @@ namespace Celeritas.Game
 			}
 		}
 
+		public T CreateUnpooledObject()
+		{
+			var item = Object.Instantiate(prefab, parent).GetComponent<T>();
+			item.gameObject.SetActive(true);
+			return item;
+		}
+
 		/// <summary>
 		/// Release an object and return it to the pool.
 		/// </summary>
@@ -113,6 +120,7 @@ namespace Celeritas.Game
 				active.Remove(item);
 				pool.Add(item);
 				item.OnDespawned();
+				item.transform.parent = parent;
 			}
 			else if (pool.Contains(item))
 			{
@@ -121,6 +129,7 @@ namespace Celeritas.Game
 			else
 			{
 				item.OnDespawned();
+				active.Remove(item);
 				Object.Destroy(item.gameObject);
 			}
 		}

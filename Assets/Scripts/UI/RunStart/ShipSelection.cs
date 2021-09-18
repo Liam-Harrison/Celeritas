@@ -1,4 +1,3 @@
-using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Cinemachine;
@@ -52,6 +51,20 @@ namespace Celeritas.UI.Runstart
 				SetupData();
 			else
 				EntityDataManager.OnLoadedAssets += SetupData;
+		}
+
+		private void OnDestroy()
+		{
+#if UNITY_EDITOR
+			if (UnityEditor.EditorApplication.isPlaying == false)
+				return;
+#endif
+
+			foreach (var ship in shipObjects)
+			{
+				ship.Value.UnloadEntity();
+			}
+			shipObjects.Clear();
 		}
 
 		private void OnEnable()
@@ -144,6 +157,9 @@ namespace Celeritas.UI.Runstart
 		private void SetupData()
 		{
 			EntityDataManager.OnLoadedAssets -= SetupData;
+
+			shipObjects.Clear();
+			weaponList.Clear();
 
 			if (shipObjects.Count > 0)
 				return;

@@ -6,7 +6,7 @@ namespace Celeritas.Game
 	/// <summary>
 	/// Rotates the camera slightly in the +y direction.
 	/// </summary>
-	public class CameraMove : MonoBehaviour
+	public class BasicMove : MonoBehaviour
 	{
 		[SerializeField, PropertyRange(0f, 1000f)]
 		private float speed;
