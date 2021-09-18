@@ -244,6 +244,8 @@ MonoBehaviour:
       Data: 
   hasDefaultEffects: 0
   defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
@@ -491,6 +493,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ship_part_weapon (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6902592532835741655, guid: 3ce3f926bfbac2d418ebbb8d4e1d6293, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ce3f926bfbac2d418ebbb8d4e1d6293, type: 3}
 --- !u!4 &4894657382916300806 stripped
@@ -567,6 +573,10 @@ PrefabInstance:
     - target: {fileID: 6902592532835741655, guid: 3ce3f926bfbac2d418ebbb8d4e1d6293, type: 3}
       propertyPath: m_Name
       value: ship_part_weapon (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902592532835741655, guid: 3ce3f926bfbac2d418ebbb8d4e1d6293, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ce3f926bfbac2d418ebbb8d4e1d6293, type: 3}
@@ -645,6 +655,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ship_part_weapon (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6902592532835741655, guid: 3ce3f926bfbac2d418ebbb8d4e1d6293, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ce3f926bfbac2d418ebbb8d4e1d6293, type: 3}
 --- !u!4 &1423686318252035072 stripped
@@ -670,11 +684,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8298990098040533090}
     m_Modifications:
-    - target: {fileID: 958692261484303242, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
+    - target: {fileID: 1913052063433644182, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913052063433644182, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567195356285611736, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
+      propertyPath: prewarm
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3498325625561183268, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538568754121714581, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526072429122845860, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
@@ -689,18 +719,6 @@ PrefabInstance:
     - target: {fileID: 8245255028705770888, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8245255028705770888, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8245255028705770888, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8245255028705770888, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8245255028705770888, guid: cca797033c7b28d438a77fe90a5abcc1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -760,6 +778,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: engine_particles (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 278001022752794490, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4888417190214115601, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5343893896310761887, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
       propertyPath: m_Name
       value: Large_Engine_Particles (2)
@@ -771,6 +797,10 @@ PrefabInstance:
     - target: {fileID: 5792006943557774089, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
       propertyPath: m_Name
       value: internal_engine_particles (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5792006943557774089, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7868698840925304624, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
       propertyPath: m_RootOrder
@@ -892,6 +922,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ship_part_weapon (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6902592532835741655, guid: 3ce3f926bfbac2d418ebbb8d4e1d6293, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ce3f926bfbac2d418ebbb8d4e1d6293, type: 3}
 --- !u!4 &3727162230469962569 stripped
@@ -917,11 +951,23 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8298990098040533090}
     m_Modifications:
+    - target: {fileID: 278001022752794490, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4888417190214115601, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5343893896310761887, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
       propertyPath: m_Name
       value: Large_Engine_Particles (1)
       objectReference: {fileID: 0}
     - target: {fileID: 5343893896310761887, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5792006943557774089, guid: f16439ec09a6ec042aa7d4fd52959fe8, type: 3}
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
