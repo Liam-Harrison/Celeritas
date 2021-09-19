@@ -55,6 +55,12 @@ public class CombatHUD : Singleton<CombatHUD>
 
 	public AbilityBar AbilityBar { get => abilityBar; }
 
+	/// <summary>
+	/// Used to apply floating text to entity
+	/// </summary>
+	[SerializeField]
+	private GameObject floatingTextPrefab;
+
 	protected override void Awake()
 	{
 
@@ -171,5 +177,15 @@ public class CombatHUD : Singleton<CombatHUD>
 		combatTutorial.GetComponent<CombatTutorial>().ToggleTutorial();
 	}
 
+	public void PrintFloatingText(string text, Vector3 position)
+	{
+		if (floatingTextPrefab)
+		{
+			{
+				GameObject prefab = Instantiate(floatingTextPrefab, position, Quaternion.identity);
+				prefab.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = text;
+			}
+		}
+	}
 
 }

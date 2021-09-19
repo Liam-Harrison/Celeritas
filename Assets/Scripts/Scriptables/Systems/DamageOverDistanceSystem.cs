@@ -61,7 +61,7 @@ namespace Celeritas.Scriptables.Systems
 			var projectile = entity as ProjectileEntity;
 
 			RecordDistance(projectile);
-			Debug.Log(projectile.TotalDistanceTravelled);
+			//Debug.Log(projectile.TotalDistanceTravelled);
 
 			if (projectile.DamageOverDistance)
 			{

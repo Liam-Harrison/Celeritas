@@ -117,7 +117,21 @@ namespace Celeritas.Game.Entities
 			if (other.IsPlayer == IsPlayer)
 				return;
 
+			//int calculatedDamage = damage;
+
+			if (other.ShowDamageOnEntity != null)
+			{
+				//Tells target not to display damage from projectile
+				other.ShowDamageOnEntity = false;
+				other.ShowDamageLocation = this.transform.position;
+			}
+
 			base.OnEntityHit(other);
+
+			if (damageOverDistance)
+			{
+				damage = currentDamageOverDistance;
+			}
 
 			if (other is ShipEntity ship)
 			{
@@ -135,14 +149,8 @@ namespace Celeritas.Game.Entities
 				}
 			}
 
-			if (damageOverDistance)
-			{
-				other.TakeDamage(this, currentDamageOverDistance);
-			}
-			else
-			{
-				other.TakeDamage(this, damage);
-			}
+			other.TakeDamage(this, damage);
+
 
 			if (ProjectileData.DestroyedOnHit)
 				KillEntity();

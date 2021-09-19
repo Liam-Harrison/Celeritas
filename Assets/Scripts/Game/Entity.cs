@@ -189,6 +189,12 @@ namespace Celeritas.Game
 		public bool PlayerShip { get; set; }
 
 		/// <summary>
+		/// Used to apply floating text to entity
+		/// </summary>
+		[SerializeField]
+		private GameObject floatingTextPrefab;
+
+		/// <summary>
 		/// Initalize this entity.
 		/// </summary>
 		/// <param name="data">The data to attatch this entity to.</param>
@@ -221,6 +227,9 @@ namespace Celeritas.Game
 			{
 				EntityEffects.AddEffectRange(defaultEffects);
 			}
+
+			ShowDamageOnEntity = true;
+			ShowDamageLocation = this.transform.position;
 		}
 
 		public virtual void OnEntityKilled()
@@ -430,6 +439,44 @@ namespace Celeritas.Game
 
 				// take half damage yourself
 				TakeDamage(this, (int)force / 2);
+				ShowDamage(((int)force / 2).ToString(), this.transform.position);
+			}
+		}
+
+		/// <summary>
+        /// Used to determine if floating text will be shown on top of the entity.
+        /// </summary>
+		public bool ShowDamageOnEntity { get; set; }
+
+		public Vector3 ShowDamageLocation { get; set; }
+
+		/// <summary>
+		/// Displays floating text at the projectile's location.
+		/// </summary>
+		public void ShowDamage(string text, Vector3 position)
+		{
+			try
+			{
+				CombatHUD combatHud = GameObject.Find("combat_hud").GetComponent<CombatHUD>();
+
+				if (combatHud)
+				{
+					if (ShowDamageOnEntity == true)
+					{
+
+						combatHud.PrintFloatingText(text, this.transform.position);
+					}
+					else
+					{
+						combatHud.PrintFloatingText(text, position);
+						ShowDamageOnEntity = true;
+					}
+				}
+			}
+			catch (NullReferenceException)
+			{
+				//Debug.Log("CombatHUD doesn't exist");
+				return;
 			}
 		}
 	}

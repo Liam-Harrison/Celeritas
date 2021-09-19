@@ -152,9 +152,10 @@ namespace Celeritas.Game.Entities
 		public bool IsStationary { get; set; }
 
 		/// <summary>
-        /// Determines if the ship is currently stunned.
-        /// </summary>
+		/// Determines if the ship is currently stunned.
+		/// </summary>
 		public bool Stunned { get; set; }
+		
 
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
@@ -180,6 +181,9 @@ namespace Celeritas.Game.Entities
 					module.Initalize(this);
 				}
 			}
+
+			Stunned = false;
+			IsStationary = false;
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
@@ -250,6 +254,13 @@ namespace Celeritas.Game.Entities
 					// damage won't go beyond shields
 					shield.Damage(calculatedDamage);
 				}
+
+				if (ShowDamageOnEntity == true)
+				{
+					ShowDamageLocation = this.transform.position;
+				}
+
+				ShowDamage(calculatedDamage.ToString(), ShowDamageLocation);
 
 				if (health.IsEmpty())
 				{
@@ -329,8 +340,9 @@ namespace Celeritas.Game.Entities
 		/// Current damage modifer on ship.
 		/// Default is 0, negative value = takes less damage, positive value = takes more damage.
 		/// </summary>
-		public int damageModifierPercentage = 0;
+		private int damageModifierPercentage = 0;
 
+		public int DamageModifierPercentage { get => damageModifierPercentage; set => damageModifierPercentage = value; }
 
 		/// <summary>
 		///	Calculates the amount of damage to apply after the damage modifier has been applied.

@@ -16,6 +16,10 @@ PrefabInstance:
       value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 4383199078604351104, guid: 5c7069a0ea7969143a8a7403d56dd0df, type: 3}
+      propertyPath: floatingTextPrefab
+      value: 
+      objectReference: {fileID: 4679094507319831066, guid: 287e23708f3f68242b6112d84df56568, type: 3}
+    - target: {fileID: 4383199078604351104, guid: 5c7069a0ea7969143a8a7403d56dd0df, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4383199078604351104, guid: 5c7069a0ea7969143a8a7403d56dd0df, type: 3}

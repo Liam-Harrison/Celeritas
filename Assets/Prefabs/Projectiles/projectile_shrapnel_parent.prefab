@@ -76,6 +76,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3985316679026307340, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}
+      propertyPath: floatingTextPrefab
+      value: 
+      objectReference: {fileID: 4679094507319831066, guid: 287e23708f3f68242b6112d84df56568, type: 3}
+    - target: {fileID: 3985316679026307340, guid: 93df1da8ff8fc4a479dc3d5e8da8129f, type: 3}
       propertyPath: hasGraphicalEffects
       value: 0
       objectReference: {fileID: 0}
