@@ -251,6 +251,13 @@ namespace Celeritas.Game.Entities
 					shield.Damage(calculatedDamage);
 				}
 
+				if (ShowDamageOnEntity == true)
+				{
+					ShowDamageLocation = this.transform.position;
+				}
+
+				ShowDamage(calculatedDamage.ToString(), ShowDamageLocation);
+
 				if (health.IsEmpty())
 				{
 					KillEntity();
@@ -329,8 +336,9 @@ namespace Celeritas.Game.Entities
 		/// Current damage modifer on ship.
 		/// Default is 0, negative value = takes less damage, positive value = takes more damage.
 		/// </summary>
-		public int damageModifierPercentage = 0;
+		private int damageModifierPercentage = 0;
 
+		public int DamageModifierPercentage { get => damageModifierPercentage; set => damageModifierPercentage = value; }
 
 		/// <summary>
 		///	Calculates the amount of damage to apply after the damage modifier has been applied.

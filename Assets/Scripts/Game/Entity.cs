@@ -479,17 +479,5 @@ namespace Celeritas.Game
 				return;
 			}
 		}
-
-		/// <summary>
-		/// Displays floating text at the projectile's location.
-		/// </summary>
-		public void ShowDamage(string text, Vector3 position)
-		{
-			if (floatingTextPrefab)
-			{
-				GameObject prefab = Instantiate(floatingTextPrefab, position, Quaternion.identity);
-				prefab.GetComponentInChildren<TextMesh>().text = text;
-			}
-		}
 	}
 }

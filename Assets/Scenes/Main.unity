@@ -5383,6 +5383,10 @@ PrefabInstance:
       propertyPath: combatTutorial
       value: 
       objectReference: {fileID: 91412890}
+    - target: {fileID: 737836300923066407, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
+      propertyPath: floatingTextPrefab
+      value: 
+      objectReference: {fileID: 4679094507319831066, guid: 287e23708f3f68242b6112d84df56568, type: 3}
     - target: {fileID: 2103531393438106933, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
