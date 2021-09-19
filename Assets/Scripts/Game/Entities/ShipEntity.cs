@@ -152,9 +152,10 @@ namespace Celeritas.Game.Entities
 		public bool IsStationary { get; set; }
 
 		/// <summary>
-        /// Determines if the ship is currently stunned.
-        /// </summary>
+		/// Determines if the ship is currently stunned.
+		/// </summary>
 		public bool Stunned { get; set; }
+		
 
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
@@ -180,6 +181,9 @@ namespace Celeritas.Game.Entities
 					module.Initalize(this);
 				}
 			}
+
+			Stunned = false;
+			IsStationary = false;
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
