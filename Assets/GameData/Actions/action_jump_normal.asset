@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: action_jump_normal
   m_EditorClassIdentifier: 
   title: Jump
-  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: 7699ec922342d4ba385f8cb330a162fd, type: 3}
   cooldownSeconds: 4
   distance: 50

@@ -62,7 +62,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "ToggleTutorial",
+                    "name": "Toggle Tutorial",
                     "type": "Button",
                     "id": "4e4119ed-efb7-4739-86a5-5a3f10327aea",
                     "expectedControlType": "Button",
@@ -71,17 +71,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "004c9eb3-0260-464e-8b3b-d5e9b41c35e3",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controls",
-                    "action": "Locomotion",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "2D Vector",
                     "id": "3529d6df-ded3-44a3-8c6e-47a772a6894c",
@@ -152,7 +141,7 @@
                     "name": "",
                     "id": "28225b8e-9b6a-4d82-b798-e4cbcc3d429c",
                     "path": "<Keyboard>/tab",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Controls",
                     "action": "Build",
@@ -210,7 +199,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleTutorial",
+                    "action": "Toggle Tutorial",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -324,7 +313,7 @@
             "id": "3b84d1a5-c919-4cbd-ac8e-0adc7cebcdf8",
             "actions": [
                 {
-                    "name": "NavigateForward",
+                    "name": "Navigate UI",
                     "type": "Button",
                     "id": "c40002b0-4065-4a64-b3c7-f603edeef5c4",
                     "expectedControlType": "Button",
@@ -340,7 +329,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controls",
-                    "action": "NavigateForward",
+                    "action": "Navigate UI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

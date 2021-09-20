@@ -183,7 +183,7 @@ namespace Celeritas.UI.Runstart
 			}
 		}
 
-		public void OnNavigateForward(InputAction.CallbackContext context)
+		public void OnNavigateUI(InputAction.CallbackContext context)
 		{
 			if (context.started)
 			{
