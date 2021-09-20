@@ -16,6 +16,7 @@ namespace Celeritas.Game
 
 		private readonly List<T> pool = new List<T>();
 		private readonly List<T> active = new List<T>();
+		private readonly HashSet<T> unpooled = new HashSet<T>();
 
 		private int _capacity;
 
@@ -28,15 +29,13 @@ namespace Celeritas.Game
 			set
 			{
 				_capacity = value;
-				pool.Capacity = _capacity;
-				active.Capacity = _capacity;
 			}
 		}
 
 		/// <summary>
 		/// Get all the current active objects in this pool.
 		/// </summary>
-		public IReadOnlyList<T> ActiveObjects { get => active.AsReadOnly(); }
+		public IReadOnlyList<T> ActiveObjects { get => active; }
 
 		private GameObject prefab;
 		private Transform parent;
@@ -105,7 +104,26 @@ namespace Celeritas.Game
 		{
 			var item = Object.Instantiate(prefab, parent).GetComponent<T>();
 			item.gameObject.SetActive(true);
+			unpooled.Add(item);
 			return item;
+		}
+
+		public void ReleaseAllObjects()
+		{
+			foreach (var item in active)
+			{
+				pool.Add(item);
+				item.OnDespawned();
+				item.transform.parent = parent;
+			}
+			foreach (var item in unpooled)
+			{
+				item.OnDespawned();
+				Object.Destroy(item.gameObject);
+			}
+
+			active.Clear();
+			unpooled.Clear();
 		}
 
 		/// <summary>
@@ -130,6 +148,10 @@ namespace Celeritas.Game
 			{
 				item.OnDespawned();
 				active.Remove(item);
+
+				if (unpooled.Contains(item))
+					unpooled.Remove(item);
+
 				Object.Destroy(item.gameObject);
 			}
 		}

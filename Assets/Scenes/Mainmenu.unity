@@ -171,7 +171,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 92754365}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -909.1876, y: -540, z: -14.3760395}
+  m_LocalPosition: {x: -908.69135, y: -539.88824, z: -14.311152}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 574887180}
@@ -1879,6 +1879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: 48
   mode: 0
+  unloadAllEntities: 0
   loadOnAwake: 0
 --- !u!1 &1263044000
 GameObject:
@@ -3135,6 +3136,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5613321995330951977, guid: 1e06b0f06a5cf86499cf9047d87facc3, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613321995330951979, guid: 1e06b0f06a5cf86499cf9047d87facc3, type: 3}
+      propertyPath: m_Color.a
+      value: 0.47058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613321995330951979, guid: 1e06b0f06a5cf86499cf9047d87facc3, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613321995330951979, guid: 1e06b0f06a5cf86499cf9047d87facc3, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613321995330951979, guid: 1e06b0f06a5cf86499cf9047d87facc3, type: 3}
+      propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5613321995771866274, guid: 1e06b0f06a5cf86499cf9047d87facc3, type: 3}

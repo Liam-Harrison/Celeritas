@@ -1,3 +1,4 @@
+using Celeritas.Game.Entities;
 using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
@@ -25,6 +26,9 @@ namespace Celeritas
 		[SerializeField]
 		private LoadSceneMode mode;
 
+		[SerializeField]
+		private bool unloadAllEntities;
+
 		[SerializeField, InfoBox("Load on awake only works in builds, does not occur in editor. Destroys component")]
 		private bool loadOnAwake;
 
@@ -45,6 +49,9 @@ namespace Celeritas
 		public void LoadScene()
 		{
 			bool loaded = false;
+
+			if (unloadAllEntities)
+				EntityDataManager.UnloadAllEntities();
 
 			if (scene.HasFlag(Scene.Main))
 			{

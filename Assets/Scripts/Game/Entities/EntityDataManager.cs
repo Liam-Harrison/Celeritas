@@ -205,6 +205,17 @@ namespace Celeritas.Game.Entities
 		}
 
 		/// <summary>
+		/// Unload all the entities in the game.
+		/// </summary>
+		public static void UnloadAllEntities()
+		{
+			foreach (var op in entites)
+			{
+				op.Value.ReleaseAllObjects();
+			}
+		}
+
+		/// <summary>
 		/// Find and return all entities of the provided type.
 		/// </summary>
 		/// <typeparam name="T">The type to find.</typeparam>
