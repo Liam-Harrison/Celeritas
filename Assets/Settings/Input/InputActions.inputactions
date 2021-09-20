@@ -6,7 +6,7 @@
             "id": "a5a6cbb2-d233-4086-b5f9-bd4e9905bee2",
             "actions": [
                 {
-                    "name": "Locomotion",
+                    "name": "Move",
                     "type": "Value",
                     "id": "b04b367e-c4c0-4a5a-bc67-ce7d3d1aa72c",
                     "expectedControlType": "Vector2",
@@ -78,7 +78,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Locomotion",
+                    "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -89,7 +89,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controls",
-                    "action": "Locomotion",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -100,7 +100,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controls",
-                    "action": "Locomotion",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -111,7 +111,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controls",
-                    "action": "Locomotion",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -122,7 +122,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controls",
-                    "action": "Locomotion",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },

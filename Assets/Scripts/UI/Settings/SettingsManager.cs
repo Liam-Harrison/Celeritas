@@ -1,8 +1,10 @@
+using Celeritas.Commands;
 using Celeritas.Game;
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-namespace Celeritas.UI
+namespace Celeritas
 {
 	public enum SettingKey
 	{
@@ -14,15 +16,20 @@ namespace Celeritas.UI
 
 	public class SettingsManager : Singleton<SettingsManager>
 	{
+
+		public static InputActions InputActions { get; private set; }
+
 		protected override void Awake()
 		{
 			base.Awake();
+			InputActions = new InputActions();
 			FetchStoredSettings();
 		}
 
 		private void FetchStoredSettings()
 		{
 			SetupScreen();
+			LoadKeybinds();
 			PlayerPrefs.Save();
 		}
 
@@ -40,6 +47,58 @@ namespace Celeritas.UI
 			}
 
 			Screen.SetResolution(width, height, mode, hz);
+		}
+
+		private void LoadKeybinds()
+		{
+			foreach (var action in InputActions)
+			{
+				for (int i = 0; i < action.bindings.Count; i++)
+				{
+					var binding = action.bindings[i];
+					var key = $"{action.name},{binding.name}";
+
+					if (PlayerPrefs.HasKey(key))
+					{
+						if (PlayerPrefs.GetString(key) == "")
+							PlayerPrefs.DeleteKey(key);
+						else
+						{
+							action.ApplyBindingOverride(i, PlayerPrefs.GetString(key));
+						}
+					}
+				}
+			}
+		}
+
+		public static void SaveActionKeybind(InputAction action)
+		{
+			for (int i = 0; i < action.bindings.Count; i++)
+			{
+				var binding = action.bindings[i];
+				var key = $"{action.name},{binding.name}";
+
+				if (binding.overridePath == "")
+				{
+					if (PlayerPrefs.HasKey(key))
+					{
+						PlayerPrefs.DeleteKey(key);
+					}
+				}
+				else
+				{
+					PlayerPrefs.SetString(key, binding.overridePath);
+				}
+			}
+		}
+
+		public static void SaveAllKeybinds()
+		{
+			foreach (var action in InputActions)
+			{
+				SaveActionKeybind(action);
+			}
+			PlayerPrefs.Save();
 		}
 
 		public static int GetInt(SettingKey key)

@@ -4,26 +4,35 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using Sirenix.OdinInspector;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Celeritas.UI
 {
 	public class KeybindSettings : MonoBehaviour
 	{
 		[SerializeField, TitleGroup("Assignments")]
-		private GameObject keybindItemPrefab;
+		private GameObject rebindUI;
 
 		[SerializeField, TitleGroup("Assignments")]
+		private TextMeshProUGUI selectionText;
+
+		[SerializeField, TitleGroup("Prefabs")]
+		private GameObject keybindItemPrefab;
+
+		[SerializeField, TitleGroup("Prefabs")]
 		private GameObject settingsGroup;
 
-		private InputActions inputActions;
+		[SerializeField, TitleGroup("Prefabs")]
+		private GameObject settingsButton;
+
+		private readonly HashSet<KeybindItemUI> items = new HashSet<KeybindItemUI>();
 
 		private void Awake()
 		{
-			inputActions = new InputActions();
-
 			List<string> names = new List<string>();
 
-			foreach (var action in inputActions)
+			foreach (var action in SettingsManager.InputActions)
 			{
 				var group = action.actionMap.name;
 				if (names.Contains(group) == false)
@@ -33,9 +42,77 @@ namespace Celeritas.UI
 					text.text = group;
 				}
 
-				var keybind = Instantiate(keybindItemPrefab, transform).GetComponent<KeybindItemUI>();
-				keybind.BindToAction(action);
+				if (action.bindings.Count > 1)
+				{
+					for (int i = 1; i < action.bindings.Count; i++)
+					{
+						var keybind = Instantiate(keybindItemPrefab, transform).GetComponent<KeybindItemUI>();
+						keybind.BindToAction(action, RebindItem, i);
+						items.Add(keybind);
+					}
+				}
+				else
+				{
+					var keybind = Instantiate(keybindItemPrefab, transform).GetComponent<KeybindItemUI>();
+					keybind.BindToAction(action, RebindItem);
+					items.Add(keybind);
+				}
 			}
+
+			var button = Instantiate(settingsButton, transform).GetComponentInChildren<Button>();
+			button.GetComponentInChildren<TextMeshProUGUI>().text = $"Reset";
+			button.onClick.AddListener(ResetKeybinds);
+		}
+
+		public void ResetKeybinds()
+		{
+			foreach (var action in SettingsManager.InputActions)
+			{
+				action.RemoveAllBindingOverrides();
+			}
+
+			foreach (var keybind in items)
+			{
+				keybind.UpdateText();
+			}
+
+			SettingsManager.SaveAllKeybinds();
+		}
+
+		InputActionRebindingExtensions.RebindingOperation operation;
+
+		private void RebindItem(KeybindItemUI keybind)
+		{
+			var action = keybind.InputAction;
+
+			rebindUI.SetActive(true);
+			selectionText.text = keybind.GetBindingName();
+
+			operation = action.PerformInteractiveRebinding(keybind.Binding)
+							.OnMatchWaitForAnother(0.1f)
+							.WithCancelingThrough("<Keyboard>/escape")
+							.OnCancel(_ => RebindCancelled())
+							.OnComplete(_ => RebindComplete(keybind))
+							.Start();
+		}
+
+		private void RebindCancelled()
+		{
+			HideKeybindUI();
+		}
+
+		private void RebindComplete(KeybindItemUI keybind)
+		{
+			HideKeybindUI();
+			keybind.UpdateText();
+			SettingsManager.SaveActionKeybind(keybind.InputAction);
+			PlayerPrefs.Save();
+		}
+
+		private void HideKeybindUI()
+		{
+			operation.Dispose();
+			rebindUI.SetActive(false);
 		}
 	}
 }

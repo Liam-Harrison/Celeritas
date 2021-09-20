@@ -22,7 +22,7 @@ namespace Celeritas.Game.Controllers
 
 		protected override void Awake()
 		{
-			actions = new InputActions.BasicActions(new InputActions());
+			actions = new InputActions.BasicActions(SettingsManager.InputActions);
 			actions.SetCallbacks(this);
 
 			PlayerShipEntity = GetComponent<PlayerShipEntity>();
@@ -79,11 +79,6 @@ namespace Celeritas.Game.Controllers
 					weapon.Firing = false;
 				}
 			}
-		}
-
-		public void OnLocomotion(InputAction.CallbackContext context)
-		{
-			locomotion = context.ReadValue<Vector2>();
 		}
 
 		public void OnBuild(InputAction.CallbackContext context)
@@ -151,6 +146,11 @@ namespace Celeritas.Game.Controllers
 		public void OnToggleTutorial(InputAction.CallbackContext context)
 		{
 			CombatHUD.Instance.OnToggleTutorial();
+		}
+
+		public void OnMove(InputAction.CallbackContext context)
+		{
+			locomotion = context.ReadValue<Vector2>();
 		}
 	}
 }

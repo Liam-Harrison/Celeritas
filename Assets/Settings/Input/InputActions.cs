@@ -21,7 +21,7 @@ namespace Celeritas
             ""id"": ""a5a6cbb2-d233-4086-b5f9-bd4e9905bee2"",
             ""actions"": [
                 {
-                    ""name"": ""Locomotion"",
+                    ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""b04b367e-c4c0-4a5a-bc67-ce7d3d1aa72c"",
                     ""expectedControlType"": ""Vector2"",
@@ -93,7 +93,7 @@ namespace Celeritas
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Locomotion"",
+                    ""action"": ""Move"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -104,7 +104,7 @@ namespace Celeritas
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controls"",
-                    ""action"": ""Locomotion"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -115,7 +115,7 @@ namespace Celeritas
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controls"",
-                    ""action"": ""Locomotion"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -126,7 +126,7 @@ namespace Celeritas
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controls"",
-                    ""action"": ""Locomotion"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -137,7 +137,7 @@ namespace Celeritas
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controls"",
-                    ""action"": ""Locomotion"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -377,7 +377,7 @@ namespace Celeritas
 }");
             // Basic
             m_Basic = asset.FindActionMap("Basic", throwIfNotFound: true);
-            m_Basic_Locomotion = m_Basic.FindAction("Locomotion", throwIfNotFound: true);
+            m_Basic_Move = m_Basic.FindAction("Move", throwIfNotFound: true);
             m_Basic_Fire = m_Basic.FindAction("Fire", throwIfNotFound: true);
             m_Basic_Build = m_Basic.FindAction("Build", throwIfNotFound: true);
             m_Basic_Action = m_Basic.FindAction("Action", throwIfNotFound: true);
@@ -444,7 +444,7 @@ namespace Celeritas
         // Basic
         private readonly InputActionMap m_Basic;
         private IBasicActions m_BasicActionsCallbackInterface;
-        private readonly InputAction m_Basic_Locomotion;
+        private readonly InputAction m_Basic_Move;
         private readonly InputAction m_Basic_Fire;
         private readonly InputAction m_Basic_Build;
         private readonly InputAction m_Basic_Action;
@@ -456,7 +456,7 @@ namespace Celeritas
         {
             private @InputActions m_Wrapper;
             public BasicActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Locomotion => m_Wrapper.m_Basic_Locomotion;
+            public InputAction @Move => m_Wrapper.m_Basic_Move;
             public InputAction @Fire => m_Wrapper.m_Basic_Fire;
             public InputAction @Build => m_Wrapper.m_Basic_Build;
             public InputAction @Action => m_Wrapper.m_Basic_Action;
@@ -473,9 +473,9 @@ namespace Celeritas
             {
                 if (m_Wrapper.m_BasicActionsCallbackInterface != null)
                 {
-                    @Locomotion.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnLocomotion;
-                    @Locomotion.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnLocomotion;
-                    @Locomotion.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnLocomotion;
+                    @Move.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnMove;
+                    @Move.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnMove;
+                    @Move.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnMove;
                     @Fire.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnFire;
                     @Fire.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnFire;
                     @Fire.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnFire;
@@ -501,9 +501,9 @@ namespace Celeritas
                 m_Wrapper.m_BasicActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    @Locomotion.started += instance.OnLocomotion;
-                    @Locomotion.performed += instance.OnLocomotion;
-                    @Locomotion.canceled += instance.OnLocomotion;
+                    @Move.started += instance.OnMove;
+                    @Move.performed += instance.OnMove;
+                    @Move.canceled += instance.OnMove;
                     @Fire.started += instance.OnFire;
                     @Fire.performed += instance.OnFire;
                     @Fire.canceled += instance.OnFire;
@@ -638,7 +638,7 @@ namespace Celeritas
         }
         public interface IBasicActions
         {
-            void OnLocomotion(InputAction.CallbackContext context);
+            void OnMove(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
             void OnBuild(InputAction.CallbackContext context);
             void OnAction(InputAction.CallbackContext context);

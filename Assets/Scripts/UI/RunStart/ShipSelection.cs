@@ -44,7 +44,7 @@ namespace Celeritas.UI.Runstart
 
 		private void Awake()
 		{
-			actions = new InputActions.NavigationActions(new InputActions());
+			actions = new InputActions.NavigationActions(SettingsManager.InputActions);
 			actions.SetCallbacks(this);
 
 			if (EntityDataManager.Instance != null && EntityDataManager.Instance.Loaded)
