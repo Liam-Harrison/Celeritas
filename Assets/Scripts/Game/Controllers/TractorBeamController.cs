@@ -57,9 +57,15 @@ namespace Assets.Scripts.Game.Controllers
 						return;
 
 					// move target towards mouse w force proportional to distance ^ 2 ( == dirToPull * dirToPull.magnitude)
-					// update: now divides force by mass of object
+					
+					// og logic, here just in case
 					//Vector2 toApply = dirToPull * TRACTOR_FORCE_MULTIPLIER * dirToPull.magnitude * TractorForceModifier / tractorTarget.Rigidbody.mass;
-					Vector2 toApply = dirToPull * dirToPull.magnitude * TRACTOR_FORCE_MULTIPLIER / (tractorTarget.Rigidbody.mass * TargetMassMultiplier);
+
+					float effectiveMass = tractorTarget.Rigidbody.mass * TargetMassMultiplier;
+					if (effectiveMass == 0) // no dividing by zero
+						effectiveMass = 0.01f;
+
+					Vector2 toApply = dirToPull * dirToPull.magnitude * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
 					if (toApply.magnitude > TRACTOR_FORCE_CAP)
 						toApply = toApply.normalized * TRACTOR_FORCE_CAP;
 

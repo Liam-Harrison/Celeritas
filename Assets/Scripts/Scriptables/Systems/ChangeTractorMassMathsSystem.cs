@@ -15,6 +15,7 @@ namespace Assets.Scripts.Scriptables.Systems
 	/// Changes how 'heavy' the tractor beam considers whatever it is holding.
 	/// Note that all values are multipliers. 1 = 100%
 	/// </summary>
+	[CreateAssetMenu(fileName = "New Tractor MassModifier System", menuName = "Celeritas/Modifiers/Tractor/Mass")]
 	class ChangeTractorMassMathsSystem: ModifierSystem, IEntityEffectAdded, IEntityEffectRemoved
 	{
 
