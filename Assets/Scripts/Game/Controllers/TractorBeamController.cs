@@ -13,16 +13,18 @@ namespace Assets.Scripts.Game.Controllers
 	/// </summary>
 	class TractorBeamController : Singleton<TractorBeamController>
 	{
-
-		int TRACTOR_RANGE = 10; // radius the tractor beam can reach, to lock onto a target
-		float TRACTOR_FORCE_MULTIPLIER = 0.5f;
-		float TRACTOR_FORCE_CAP = 100; // max force tractor beam can apply
-		float TRACTOR_DEAD_ZONE_RADIUS = 1; // if an object is this close to the cursor, tractor will stop applying force
+		
+		[SerializeField] int TRACTOR_RANGE = 10; // radius the tractor beam can reach, to lock onto a target
+		[SerializeField] float TRACTOR_FORCE_MULTIPLIER = 20f;
+		[SerializeField] float TRACTOR_FORCE_CAP = 1000; // max force tractor beam can apply
+		[SerializeField] float TRACTOR_DEAD_ZONE_RADIUS = 0.1f; // if an object is this close to the cursor, tractor will stop applying force
 
 		bool tractorActive = false;
 		ITractorBeamTarget tractorTarget; // the target the tractor beam is locked onto. Null if no valid target in range or tractor not active.
 		Object tractorBeamEffectPrefab;
 		private Camera _camera;
+
+		public float TargetMassMultiplier = 1; // multiplies
 
 		public Object TractorBeamEffectPrefab { set => TractorBeamEffectPrefab = value; }
 
@@ -55,7 +57,9 @@ namespace Assets.Scripts.Game.Controllers
 						return;
 
 					// move target towards mouse w force proportional to distance ^ 2 ( == dirToPull * dirToPull.magnitude)
-					Vector2 toApply = dirToPull * TRACTOR_FORCE_MULTIPLIER * dirToPull.magnitude;
+					// update: now divides force by mass of object
+					//Vector2 toApply = dirToPull * TRACTOR_FORCE_MULTIPLIER * dirToPull.magnitude * TractorForceModifier / tractorTarget.Rigidbody.mass;
+					Vector2 toApply = dirToPull * dirToPull.magnitude * TRACTOR_FORCE_MULTIPLIER / (tractorTarget.Rigidbody.mass * TargetMassMultiplier);
 					if (toApply.magnitude > TRACTOR_FORCE_CAP)
 						toApply = toApply.normalized * TRACTOR_FORCE_CAP;
 
