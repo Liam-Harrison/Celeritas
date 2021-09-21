@@ -1,6 +1,7 @@
 ﻿using Celeritas;
 using Celeritas.Game;
 using Celeritas.Game.Entities;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,17 +15,17 @@ namespace Assets.Scripts.Game.Controllers
 	class TractorBeamController : Singleton<TractorBeamController>
 	{
 		
-		[SerializeField] int TRACTOR_RANGE = 10; // radius the tractor beam can reach, to lock onto a target
-		[SerializeField] float TRACTOR_FORCE_MULTIPLIER = 20f;
-		[SerializeField] float TRACTOR_FORCE_CAP = 1000; // max force tractor beam can apply
-		[SerializeField] float TRACTOR_DEAD_ZONE_RADIUS = 0.1f; // if an object is this close to the cursor, tractor will stop applying force
+		[SerializeField, TitleGroup("Tractor Beam Settings")] int TRACTOR_RANGE = 10; // radius the tractor beam can reach, to lock onto a target
+		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_FORCE_MULTIPLIER = 20f;
+		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_FORCE_CAP = 1000; // max force tractor beam can apply
+		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_DEAD_ZONE_RADIUS = 0.1f; // if an object is this close to the cursor, tractor will stop applying force
 
 		bool tractorActive = false;
 		ITractorBeamTarget tractorTarget; // the target the tractor beam is locked onto. Null if no valid target in range or tractor not active.
 		Object tractorBeamEffectPrefab;
 		private Camera _camera;
 
-		public float TargetMassMultiplier = 1; // multiplies
+		[ReadOnly, TitleGroup("Used By Modules")] public float TargetMassMultiplier = 1; // multiplies, this is used for Module Logic Only
 
 		public Object TractorBeamEffectPrefab { set => TractorBeamEffectPrefab = value; }
 
