@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: wave_PT_01
   m_EditorClassIdentifier: 
   shipPool:
-  - {fileID: 11400000, guid: acc51c52135d49746bf88e3b9868d040, type: 2}
+  - {fileID: 11400000, guid: 00bbb8659da6cf341a9e26d928fa79ae, type: 2}
   isBoss: 0
   bossShip: {fileID: 0}
