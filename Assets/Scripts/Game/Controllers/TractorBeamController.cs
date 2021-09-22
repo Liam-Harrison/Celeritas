@@ -19,13 +19,17 @@ namespace Assets.Scripts.Game.Controllers
 		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_FORCE_MULTIPLIER = 20f;
 		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_FORCE_CAP = 1000; // max force tractor beam can apply
 		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_DEAD_ZONE_RADIUS = 0.1f; // if an object is this close to the cursor, tractor will stop applying force
+		[SerializeField, TitleGroup("Tractor Beam Settings")] int MAX_NUMBER_OF_SIMULTANEOUS_TARGETS = 10;
+
 
 		bool tractorActive = false;
-		ITractorBeamTarget tractorTarget; // the target the tractor beam is locked onto. Null if no valid target in range or tractor not active.
+		ITractorBeamTarget[] tractorTargets; // the target the tractor beam is locked onto. Null if no valid target in range or tractor not active.
 		Object tractorBeamEffectPrefab;
 		private Camera _camera;
 
 		[ReadOnly, TitleGroup("Used By Modules")] public float TargetMassMultiplier = 1; // multiplies, this is used for Module Logic Only
+		[ReadOnly, TitleGroup("Used By Modules")] bool usesAreaOfEffect = false;
+		[ReadOnly, TitleGroup("Used By Modules")] float radiusOfEffect = 1f;
 
 		public Object TractorBeamEffectPrefab { set => TractorBeamEffectPrefab = value; }
 
@@ -33,6 +37,10 @@ namespace Assets.Scripts.Game.Controllers
 		{
 			_camera = Camera.main;
 			tractorBeamEffectPrefab = Resources.Load("TractorBeamEffect");
+			tractorTargets = new ITractorBeamTarget[MAX_NUMBER_OF_SIMULTANEOUS_TARGETS];
+			tractorGraphicalEffects = new Object[MAX_NUMBER_OF_SIMULTANEOUS_TARGETS];
+			UseAreaOfEffect(true, 10); // just for testing, change back
+
 			base.Awake();
 		}
 
@@ -42,41 +50,16 @@ namespace Assets.Scripts.Game.Controllers
 		}
 
 		/// <summary>
-		/// Pull tractorTarget around if tractor beam is active.
+		/// Set Tractor Beam to use / not use its area of effect logic
 		/// </summary>
-		private void TractorLogic()
+		/// <param name="active">true = set tractor beam to use area of effect</param>
+		/// <param name="radiusOfEffect">Radius of the AoE (will grab all non-player entities within this radius of the target)</param>
+		public void UseAreaOfEffect(bool active, float radiusOfEffect)
 		{
-			if (tractorActive)
-			{
-				if (tractorTarget != null && tractorTarget.Rigidbody != null)
-				{
-					Vector3 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-					Vector2 dirToPull = mousePos - tractorTarget.Rigidbody.transform.position;
-
-					// don't pull target if it's close to mouse (ie, in 'deadzone')
-					if (dirToPull.magnitude <= TRACTOR_DEAD_ZONE_RADIUS)
-						return;
-
-					// move target towards mouse w force proportional to distance ^ 2 ( == dirToPull * dirToPull.magnitude)
-					
-					// og logic, here just in case
-					//Vector2 toApply = dirToPull * TRACTOR_FORCE_MULTIPLIER * dirToPull.magnitude * TractorForceModifier / tractorTarget.Rigidbody.mass;
-
-					float effectiveMass = tractorTarget.Rigidbody.mass * TargetMassMultiplier;
-					if (effectiveMass == 0) // no dividing by zero
-						effectiveMass = 0.01f;
-
-					Vector2 toApply = dirToPull * dirToPull.magnitude * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
-					if (toApply.magnitude > TRACTOR_FORCE_CAP)
-						toApply = toApply.normalized * TRACTOR_FORCE_CAP;
-
-					tractorTarget.Rigidbody.AddForce(toApply);
-
-				}
-			}
+			usesAreaOfEffect = active;
 		}
 
-		Object tractorGraphicalEffect;
+		Object[] tractorGraphicalEffects;
 
 		/// <summary>
 		/// Toggles tractorActive on/off when corrosponding input is pressed/released.
@@ -90,11 +73,18 @@ namespace Assets.Scripts.Game.Controllers
 				// toggle tractorActive on
 				tractorActive = true;
 
+				// if using area of effect, process max of 10 targets. Otherwise only process 1.
+				int maxNumberOfTargetsToProcess = 1;
+				if (usesAreaOfEffect) maxNumberOfTargetsToProcess = MAX_NUMBER_OF_SIMULTANEOUS_TARGETS;
+
+
 				// if no tractor target, find closest target within mouse range (if possible), and set it as tractorTarget
-				if (tractorTarget == null)
+				if (tractorTargets[0] == null)
 				{
+
 					if (_camera == null) // if you run directly from the Game scene, this avoids null errors.
 						Awake();
+
 
 					// find all entities within radius, around the cursor
 					Vector3 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -103,7 +93,9 @@ namespace Assets.Scripts.Game.Controllers
 					filter.NoFilter();
 					Physics2D.OverlapCircle(mousePos, TRACTOR_RANGE, filter, withinRange);
 
-					float lowestDistance = TRACTOR_RANGE + 1;
+					float LowestDistanceFound = TRACTOR_RANGE + 1;
+
+					SortedList<float, ITractorBeamTarget> targets = new SortedList<float, ITractorBeamTarget>();
 
 					// loop through all entities, set the closest ship (within range) as tractorTarget
 					foreach (Collider2D collider in withinRange)
@@ -123,35 +115,132 @@ namespace Assets.Scripts.Game.Controllers
 							continue;
 
 						float distance = Vector2.Distance(target.Rigidbody.transform.position, mousePos);
-						if (distance < lowestDistance)
-						{
-							lowestDistance = distance;
-							tractorTarget = target;
+
+						foreach (KeyValuePair<float, ITractorBeamTarget> kvp in targets) { Debug.Log($"{kvp.Value},{kvp.Key}"); }
+						Debug.Log(targets.Count);
+
+						if (target is ShipEntity || target is Asteroid) {
+							if (!targets.ContainsKey(distance))
+								targets.Add(distance, target);
 						}
+
+						/*
+						if (distance < LowestDistanceFound)
+						{
+							LowestDistanceFound = distance;
+							tractorTargets[0] = target;
+						}*/
 					}
+
+					int i = 0;
+					foreach (KeyValuePair<float, ITractorBeamTarget> kvp in targets)
+					{
+						tractorTargets[i] = kvp.Value;
+
+						i++;
+						if (i > maxNumberOfTargetsToProcess)
+							break;
+					}
+
 				}
 
-				if (tractorTarget != null)
+				if (tractorTargets != null)
 				{
-					// add graphical effect
-					tractorGraphicalEffect = Instantiate(tractorBeamEffectPrefab, tractorTarget.Rigidbody.transform);
 					CombatHUD.Instance.TractorAimingLine.SetActive(true);
-					CombatHUD.Instance.TractorAimingLine.GetComponent<AimingLine>().TargetToAimAt = tractorTarget.Rigidbody;
-					// todo: scale effect depending on size of ship.
+					CombatHUD.Instance.TractorAimingLine.GetComponent<AimingLine>().TargetToAimAt = tractorTargets[0].Rigidbody;
+
+					int i = 0;
+					foreach (ITractorBeamTarget t in tractorTargets)
+					{
+						if (t == null)
+							break;
+						// add graphical effect
+						tractorGraphicalEffects[i] = Instantiate(tractorBeamEffectPrefab, t.Rigidbody.transform);
+						
+						// todo: scale effect depending on size of ship.
+						i++;
+					}
+
 				}
 			}
 
 			if (context.canceled)
 			{ 
-				tractorTarget = null;
+				tractorTargets = new ITractorBeamTarget[MAX_NUMBER_OF_SIMULTANEOUS_TARGETS];
 				tractorActive = false;
-				if (tractorGraphicalEffect != null)
+				foreach (Object o in tractorGraphicalEffects)
 				{
-					Destroy(tractorGraphicalEffect);
-					CombatHUD.Instance.TractorAimingLine.SetActive(false);
+					if (o != null) Destroy(o);
 				}
+
+				CombatHUD.Instance.TractorAimingLine.SetActive(false);
 			}
 
+		}
+
+		/// <summary>
+		/// Pull tractorTarget around if tractor beam is active.
+		/// </summary>
+		private void TractorLogic()
+		{
+			if (tractorActive)
+			{
+				foreach (ITractorBeamTarget t in tractorTargets)
+				{
+					if (t == null)
+						break;
+					if (t.Rigidbody == null)
+						continue;
+
+					Vector3 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+					Vector2 dirToPull = mousePos - t.Rigidbody.transform.position;
+
+					// don't pull target if it's close to mouse (ie, in 'deadzone')
+					if (dirToPull.magnitude <= TRACTOR_DEAD_ZONE_RADIUS)
+						return;
+
+					// move target towards mouse w force proportional to distance ^ 2 ( == dirToPull * dirToPull.magnitude)
+
+					// og logic, here just in case
+					//Vector2 toApply = dirToPull * TRACTOR_FORCE_MULTIPLIER * dirToPull.magnitude * TractorForceModifier / tractorTarget.Rigidbody.mass;
+
+					float effectiveMass = t.Rigidbody.mass * TargetMassMultiplier;
+					if (effectiveMass == 0) // no dividing by zero
+						effectiveMass = 0.01f;
+
+					Vector2 toApply = dirToPull * dirToPull.magnitude * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
+					if (toApply.magnitude > TRACTOR_FORCE_CAP)
+						toApply = toApply.normalized * TRACTOR_FORCE_CAP;
+
+					t.Rigidbody.AddForce(toApply);
+				}
+				/*
+				if (tractorTargets != null && tractorTargets[0].Rigidbody != null)
+				{
+					Vector3 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+					Vector2 dirToPull = mousePos - tractorTargets[0].Rigidbody.transform.position;
+
+					// don't pull target if it's close to mouse (ie, in 'deadzone')
+					if (dirToPull.magnitude <= TRACTOR_DEAD_ZONE_RADIUS)
+						return;
+
+					// move target towards mouse w force proportional to distance ^ 2 ( == dirToPull * dirToPull.magnitude)
+
+					// og logic, here just in case
+					//Vector2 toApply = dirToPull * TRACTOR_FORCE_MULTIPLIER * dirToPull.magnitude * TractorForceModifier / tractorTarget.Rigidbody.mass;
+
+					float effectiveMass = tractorTargets[0].Rigidbody.mass * TargetMassMultiplier;
+					if (effectiveMass == 0) // no dividing by zero
+						effectiveMass = 0.01f;
+
+					Vector2 toApply = dirToPull * dirToPull.magnitude * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
+					if (toApply.magnitude > TRACTOR_FORCE_CAP)
+						toApply = toApply.normalized * TRACTOR_FORCE_CAP;
+
+					tractorTargets[0].Rigidbody.AddForce(toApply);
+
+				}*/
+			}
 		}
 
 	}
