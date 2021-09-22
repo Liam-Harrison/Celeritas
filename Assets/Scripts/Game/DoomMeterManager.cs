@@ -15,10 +15,14 @@ namespace Celeritas.Game
 	/// </summary>
 	public class DoomMeterManager : Singleton<DoomMeterManager>
 	{
+		// Determines how much time is given at the beginning of the game.
 		[SerializeField]
 		public float timer = 10;
+
+		// How much time remains.
 		private float timeLeft;
 
+		// Whether the count down is running.
 		private bool isActive = false;
 
 		public TextMeshProUGUI timeText;
@@ -50,11 +54,12 @@ namespace Celeritas.Game
 			}
 		}
 
+		// Adds X amount of time in seconds.
 		public void AddTime(float timeToAdd)
 		{
 			if (timeLeft > 0)
 			{
-				timeLeft = timeLeft + timeToAdd;
+				timeLeft = Mathf.FloorToInt(timeLeft + timeToAdd);
 			}
 			else
 			{
@@ -62,11 +67,12 @@ namespace Celeritas.Game
 			}
 		}
 
+		// Removes X amount of time in seconds.
 		public void RemoveTime(float timeToRemove)
 		{
 			if (timeLeft > 0)
 			{
-				timeLeft = timeLeft - timeToRemove;
+				timeLeft = Mathf.FloorToInt(timeLeft - timeToRemove);
 			}
 			else
 			{
@@ -74,6 +80,7 @@ namespace Celeritas.Game
 			}
 		}
 
+		// displays timer. Will be swapped out for a bar of some sort in the near future.
 		void ShowTime(float timeToShow)
 		{
 			float minutes = Mathf.FloorToInt(timeToShow / 60);
@@ -90,6 +97,7 @@ namespace Celeritas.Game
 			}
 		}
 
+		// What happens when the timer reaches zero.
 		void DoSomething()
 		{
 			Debug.Log("Times run out.");
