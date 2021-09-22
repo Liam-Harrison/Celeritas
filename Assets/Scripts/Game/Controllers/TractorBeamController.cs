@@ -126,7 +126,7 @@ namespace Assets.Scripts.Game.Controllers
 					int i = 0;
 					foreach (KeyValuePair<float, ITractorBeamTarget> kvp in targets) // list list is used to grab entities in order of proximity
 					{
-						if (i >= maxNumberOfTargetsToProcess)
+						if (i >= maxNumberOfTargetsToProcess) // once you have all the targets you want, break
 						{
 							break;
 						}
@@ -139,6 +139,7 @@ namespace Assets.Scripts.Game.Controllers
 
 				}
 
+				// do graphical things for all tractored targets
 				if (tractorTargets.Count != 0)
 				{
 					CombatHUD.Instance.TractorAimingLine.SetActive(true);
@@ -148,7 +149,7 @@ namespace Assets.Scripts.Game.Controllers
 					{
 						if (t == null)
 							break;
-						// add graphical effect
+
 						tractorGraphicalEffects.Add(Instantiate(tractorBeamEffectPrefab, t.Rigidbody.transform));
 					}
 
