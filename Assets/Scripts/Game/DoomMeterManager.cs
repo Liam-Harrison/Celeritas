@@ -16,7 +16,8 @@ namespace Celeritas.Game
 	public class DoomMeterManager : Singleton<DoomMeterManager>
 	{
 		[SerializeField]
-		public float timeLeft = 10;
+		public float timer = 10;
+		private float timeLeft;
 
 		private bool isActive = false;
 
@@ -25,6 +26,7 @@ namespace Celeritas.Game
 		// Start is called before the first frame update
 		void Start()
 		{
+			timeLeft = Mathf.FloorToInt(timer * 60);
 			isActive = true;
 		}
 
