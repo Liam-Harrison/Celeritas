@@ -39,7 +39,6 @@ namespace Assets.Scripts.Game.Controllers
 			tractorBeamEffectPrefab = Resources.Load("TractorBeamEffect");
 			tractorTargets = new ITractorBeamTarget[MAX_NUMBER_OF_SIMULTANEOUS_TARGETS];
 			tractorGraphicalEffects = new Object[MAX_NUMBER_OF_SIMULTANEOUS_TARGETS];
-			UseAreaOfEffect(true, 10); // just for testing, change back
 
 			base.Awake();
 		}
@@ -75,7 +74,7 @@ namespace Assets.Scripts.Game.Controllers
 
 				// if using area of effect, process max of 10 targets. Otherwise only process 1.
 				int maxNumberOfTargetsToProcess = 1;
-				if (usesAreaOfEffect) maxNumberOfTargetsToProcess = MAX_NUMBER_OF_SIMULTANEOUS_TARGETS;
+				if (usesAreaOfEffect) { maxNumberOfTargetsToProcess = MAX_NUMBER_OF_SIMULTANEOUS_TARGETS; }
 
 
 				// if no tractor target, find closest target within mouse range (if possible), and set it as tractorTarget
@@ -116,30 +115,24 @@ namespace Assets.Scripts.Game.Controllers
 
 						float distance = Vector2.Distance(target.Rigidbody.transform.position, mousePos);
 
-						foreach (KeyValuePair<float, ITractorBeamTarget> kvp in targets) { Debug.Log($"{kvp.Value},{kvp.Key}"); }
-						Debug.Log(targets.Count);
-
 						if (target is ShipEntity || target is Asteroid) {
 							if (!targets.ContainsKey(distance))
 								targets.Add(distance, target);
 						}
-
-						/*
-						if (distance < LowestDistanceFound)
-						{
-							LowestDistanceFound = distance;
-							tractorTargets[0] = target;
-						}*/
 					}
 
 					int i = 0;
 					foreach (KeyValuePair<float, ITractorBeamTarget> kvp in targets)
 					{
+						if (i >= maxNumberOfTargetsToProcess)
+						{
+							break;
+						}
+
 						tractorTargets[i] = kvp.Value;
 
 						i++;
-						if (i > maxNumberOfTargetsToProcess)
-							break;
+						
 					}
 
 				}
