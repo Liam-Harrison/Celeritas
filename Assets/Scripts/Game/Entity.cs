@@ -434,7 +434,9 @@ namespace Celeritas.Game
 			{
 				// momentum is velocity * mass
 				float force = ownerRigidBody.velocity.magnitude * ownerRigidBody.mass * collisionDamageMultiplier;
-
+				if ((int)force == 0)
+					return;
+				
 				other.TakeDamage(this, (int)force);
 
 				// take half damage yourself

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e81afd5e3fc38f04a85d551b5ddbf13e, type: 3}
-  m_Name: module_tractor_mass_reduce
+  m_Name: module_tractor_aoe
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -63,15 +63,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  title: Improved Gravity Clamps
-  prefab: {fileID: 1886572174874606573, guid: 06aa43b932b86e64d91aaf0d71299106, type: 3}
+  title: Expansive Grasp
+  prefab: {fileID: 193074158683236982, guid: 522743d8e1b4cea4d8f6913ba12e5f55, type: 3}
   capacityHint: 1
   useChunking: 0
   size: 0
-  catagory: 2
-  rarity: 1
-  icon: {fileID: 21300000, guid: ae32df141ea3e7d41a16063c4a59bf42, type: 3}
-  description: Using the power of science, this module reduces the effective mass
-    of any object you grab with your tractor beam. This allows you to pull enemies
-    into the firing lines, or throw them into their allies with ease.
+  catagory: 0
+  rarity: 0
+  icon: {fileID: 21300000, guid: e3c0ea27e45e6f145aa99d2dc70b0087, type: 3}
+  description: Your tractor beam now effects all entities in an area around your
+    target, rather than a single entities. Note that different entities of differing
+    mass may be moved at varying speeds by the beam.
   shape: 1

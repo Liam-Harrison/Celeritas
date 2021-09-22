@@ -17,6 +17,8 @@ namespace Celeritas.Game.Entities
 		[SerializeField]
 		private uint startingHealth;
 
+		public uint StartingHealth { get => startingHealth; set => startingHealth = value; }
+
 		[SerializeField, Title("Loot")]
 		private LootConfig lootConfig;
 
@@ -44,9 +46,11 @@ namespace Celeritas.Game.Entities
 
 		public override void TakeDamage(Entity attackingEntity, int damage)
 		{
-			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity)
+			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity || attackingEntity is Asteroid) // 
 			{
 				base.TakeDamage(attackingEntity, damage);
+				if (Dying)
+					return;
 
 				if (ShowDamageOnEntity == true)
 				{

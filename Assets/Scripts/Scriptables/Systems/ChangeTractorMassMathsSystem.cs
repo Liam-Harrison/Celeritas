@@ -2,11 +2,6 @@
 using Celeritas.Game;
 using Celeritas.Scriptables;
 using Celeritas.Scriptables.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Scriptables.Systems
@@ -14,8 +9,9 @@ namespace Assets.Scripts.Scriptables.Systems
 	/// <summary>
 	/// Changes how 'heavy' the tractor beam considers whatever it is holding.
 	/// Note that all values are multipliers. 1 = 100%
+	/// Effectively makes the tractor beam stronger
 	/// </summary>
-	[CreateAssetMenu(fileName = "New Tractor MassModifier System", menuName = "Celeritas/Modifiers/Tractor/Mass")]
+	[CreateAssetMenu(fileName = "New Tractor Strength System", menuName = "Celeritas/Modifiers/Tractor/Mass")]
 	class ChangeTractorMassMathsSystem: ModifierSystem, IEntityEffectAdded, IEntityEffectRemoved
 	{
 
