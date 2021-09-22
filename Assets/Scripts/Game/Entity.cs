@@ -441,7 +441,7 @@ namespace Celeritas.Game
 
 				// take half damage yourself
 				TakeDamage(this, (int)force / 2);
-				ShowDamage(((int)force / 2).ToString(), this.transform.position);
+				//ShowDamage(((int)force / 2).ToString(), this.transform.position);
 			}
 		}
 
