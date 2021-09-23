@@ -63,7 +63,7 @@ namespace Assets.Scripts.Game.Controllers
 
 		/// <summary>
 		/// Toggles tractorActive on/off when corrosponding input is pressed/released.
-		/// Also finds the closest entity within range, sets it as tractorTarget
+		/// Also finds the closest entity/ies within range, stores it/them in tractorTarget
 		/// </summary>
 		/// <param name="context"></param>
 		public void OnTractorBeam(InputAction.CallbackContext context, PlayerShipEntity playerShip)
@@ -73,12 +73,12 @@ namespace Assets.Scripts.Game.Controllers
 				// toggle tractorActive on
 				tractorActive = true;
 
-				// if using area of effect, process max of 10 targets. Otherwise only process 1.
+				// if using area of effect, set max number of targets. Otherwise only process 1.
 				int maxNumberOfTargetsToProcess = 1;
 				if (usesAreaOfEffect) { maxNumberOfTargetsToProcess = MAX_NUMBER_OF_SIMULTANEOUS_TARGETS; }
 
 
-				// if no tractor target, find closest target(s) within mouse range (if possible), and set it as tractorTarget
+				// if no tractor target, find closest target(s) within mouse range (if possible), and set it in tractorTarget
 				if (tractorTargets.Count == 0)
 				{
 
@@ -124,7 +124,7 @@ namespace Assets.Scripts.Game.Controllers
 
 					
 					int i = 0;
-					foreach (KeyValuePair<float, ITractorBeamTarget> kvp in targets) // list list is used to grab entities in order of proximity
+					foreach (KeyValuePair<float, ITractorBeamTarget> kvp in targets) // sorted list used to grab entities in order of proximity
 					{
 						if (i >= maxNumberOfTargetsToProcess) // once you have all the targets you want, break
 						{
@@ -194,7 +194,7 @@ namespace Assets.Scripts.Game.Controllers
 
 					// move target towards mouse w force proportional to distance ^ 2 ( == dirToPull * dirToPull.magnitude)
 
-					// og logic, here just in case
+					// old logic, here just in case
 					//Vector2 toApply = dirToPull * TRACTOR_FORCE_MULTIPLIER * dirToPull.magnitude * TractorForceModifier / tractorTarget.Rigidbody.mass;
 
 					float effectiveMass = t.Rigidbody.mass * TargetMassMultiplier;
