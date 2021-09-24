@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
   m_Name: cache_tractorSafe
   m_EditorClassIdentifier: 
-  hasDialogue: 0
+  hasDialogue: 1
   dialogue:
-    title: 
-    content: 
+    title: Free stuff!
+    content: After pulling the cache onboard your ship you open the metallic crate
+      to find useful materials inside. These could be repurposed into a module or
+      two!
     options: []
-  hasRewards: 0
+  hasRewards: 1
   lootType: 0
-  lootRewardRange: {x: 0, y: 0}
+  lootRewardRange: {x: 1, y: 2}
   moduleRewards: []
   hasEvent: 0
   eventData: {fileID: 0}

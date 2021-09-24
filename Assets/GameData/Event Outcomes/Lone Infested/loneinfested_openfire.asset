@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
   m_Name: loneinfested_openfire
   m_EditorClassIdentifier: 
-  hasDialogue: 0
+  hasDialogue: 1
   dialogue:
-    title: 
-    content: 
+    title: Hardly a fight
+    content: 'The infested doesn''t even fire back as your blast it out of existence.
+
+'
     options: []
   hasRewards: 0
   lootType: 0

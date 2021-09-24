@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
   m_Name: cache_noRisk
   m_EditorClassIdentifier: 
-  hasDialogue: 0
+  hasDialogue: 1
   dialogue:
-    title: 
-    content: 
+    title: Safe and sound
+    content: With the cache left behind you, any chance of harm has passed you by.
     options: []
   hasRewards: 0
   lootType: 0

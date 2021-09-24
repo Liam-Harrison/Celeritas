@@ -114,8 +114,8 @@ MonoBehaviour:
   cannotUnloadDynamically: 0
   showOnMap: 0
   mapColor: {r: 1, g: 1, b: 1, a: 1}
-  showArrow: 0
-  arrowColor: {r: 1, g: 1, b: 1, a: 1}
-  arrowText: 
-  arrowIcon: {fileID: 0}
-  eventOutcome: {fileID: 0}
+  showArrow: 1
+  arrowColor: {r: 0, g: 0.5882353, b: 0, a: 1}
+  arrowText: Repair
+  arrowIcon: {fileID: 21300000, guid: 88acbbcea2e22184595defa3aa419521, type: 3}
+  eventOutcome: {fileID: 11400000, guid: bf2d42f8f9f827447aebec38cb1939c0, type: 2}

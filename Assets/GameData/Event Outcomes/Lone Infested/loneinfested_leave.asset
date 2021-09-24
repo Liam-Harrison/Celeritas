@@ -12,10 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
   m_Name: loneinfested_leave
   m_EditorClassIdentifier: 
-  hasDialogue: 0
+  hasDialogue: 1
   dialogue:
-    title: 
-    content: 
+    title: A terrible fate
+    content: 'As you begin to leave you receive a comms hail from the ship in question.
+      The camera feed flickers to life revealing a small cockpit drenched in the
+      seeping death of the infestation. Sitting, still seemingly alive, in the command
+      chair is a terrified looking man, face twisted in pure agony, eye wide in abject
+      horror and legs partially melted into the infestation itself as it slowly consumes
+      more and more of his flesh.
+
+
+      You... May take a while to get to sleep
+      tonight.'
     options: []
   hasRewards: 0
   lootType: 0

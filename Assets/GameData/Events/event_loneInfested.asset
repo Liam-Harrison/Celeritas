@@ -112,10 +112,10 @@ MonoBehaviour:
       Entry: 8
       Data: 
   cannotUnloadDynamically: 0
-  showOnMap: 0
-  mapColor: {r: 1, g: 1, b: 1, a: 1}
+  showOnMap: 1
+  mapColor: {r: 0.94509804, g: 0.34901962, b: 0.34901962, a: 1}
   showArrow: 0
   arrowColor: {r: 1, g: 1, b: 1, a: 1}
   arrowText: 
   arrowIcon: {fileID: 0}
-  eventOutcome: {fileID: 0}
+  eventOutcome: {fileID: 11400000, guid: eaa07a61cfbf165409147102cba017ec, type: 2}

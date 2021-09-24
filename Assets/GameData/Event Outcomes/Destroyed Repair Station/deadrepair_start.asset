@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
   m_Name: deadrepair_start
   m_EditorClassIdentifier: 
-  hasDialogue: 0
+  hasDialogue: 1
   dialogue:
-    title: 
-    content: 
+    title: In Ruins...
+    content: "As you arrive at the repair station it very quickly becomes apparent
+      that it was destroyed some time ago. Small hints of infestation at the periphery
+      indicate that it may have self-detonated as the infestation was seeping in.\r\n\r\nYou
+      manage to scrap a module before you move on.\r"
     options: []
-  hasRewards: 0
+  hasRewards: 1
   lootType: 0
-  lootRewardRange: {x: 0, y: 0}
+  lootRewardRange: {x: 1, y: 1}
   moduleRewards: []
   hasEvent: 0
   eventData: {fileID: 0}

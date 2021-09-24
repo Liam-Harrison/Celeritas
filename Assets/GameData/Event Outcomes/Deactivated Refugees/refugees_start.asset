@@ -12,11 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
   m_Name: refugees_start
   m_EditorClassIdentifier: 
-  hasDialogue: 0
+  hasDialogue: 1
   dialogue:
-    title: 
-    content: 
-    options: []
+    title: The Dark Fleet
+    content: Your scanners pick up a trully massive fleet ahead of you. As you approach
+      you notice that none of these ships are producing any kind of power signiture.
+    options:
+    - type: 0
+      content: Get closer, a visual inspection is required
+      outcome: {fileID: 11400000, guid: 9277ea7512d216743937449949359e51, type: 2}
+    - type: 0
+      content: Open fire from maximum range! No ambush today
+      outcome: {fileID: 11400000, guid: f487d3946cd7b43489f58fe6fb3b24ec, type: 2}
+    - type: 0
+      content: Leave, it's not worth the trouble
+      outcome: {fileID: 0}
   hasRewards: 0
   lootType: 0
   lootRewardRange: {x: 0, y: 0}

@@ -12,11 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
   m_Name: deadship_start
   m_EditorClassIdentifier: 
-  hasDialogue: 0
+  hasDialogue: 1
   dialogue:
-    title: 
-    content: 
-    options: []
+    title: Infested Vessal
+    content: You come across a partially infested ship in the depths of space. You
+      might be able to scrap it for parts, but it could be dangerous.
+    options:
+    - type: 0
+      content: Scrap it
+      outcome: {fileID: 11400000, guid: d1ae904003a533e42ad44188949c4315, type: 2}
+    - type: 0
+      content: Leave it alone
+      outcome: {fileID: 11400000, guid: 709f6f4a4130b934396f1a657db472c9, type: 2}
   hasRewards: 0
   lootType: 0
   lootRewardRange: {x: 0, y: 0}

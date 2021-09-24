@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
   m_Name: refugees_openFire
   m_EditorClassIdentifier: 
-  hasDialogue: 0
+  hasDialogue: 1
   dialogue:
-    title: 
-    content: 
+    title: Oops
+    content: Whilst the fleet of ships ahead of you certainly wasn't hostile, the
+      infested drawn to their explosions certainly are.
     options: []
   hasRewards: 0
   lootType: 0
@@ -23,6 +24,7 @@ MonoBehaviour:
   moduleRewards: []
   hasEvent: 0
   eventData: {fileID: 0}
-  hasWaves: 0
+  hasWaves: 1
   waveOutcome: {fileID: 0}
-  waves: []
+  waves:
+  - {fileID: 11400000, guid: 9259f43d060fc8d4f8681fd8477b01bb, type: 2}

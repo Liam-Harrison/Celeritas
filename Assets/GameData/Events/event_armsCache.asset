@@ -118,4 +118,4 @@ MonoBehaviour:
   arrowColor: {r: 1, g: 1, b: 1, a: 1}
   arrowText: 
   arrowIcon: {fileID: 0}
-  eventOutcome: {fileID: 0}
+  eventOutcome: {fileID: 11400000, guid: 09f6155417a021a4b82c2dab77b866da, type: 2}
