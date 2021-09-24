@@ -57,8 +57,8 @@ namespace Celeritas.Game
 				if (timeLeft > 0)
 				{
 					timeLeft -= Time.deltaTime;
-					ShowTime(timeLeft);
 					timeElapsed = Mathf.FloorToInt(timer - timeLeft);
+					ShowTime(timeLeft);
 				}
 				else
 				{
