@@ -15,23 +15,38 @@ namespace Celeritas.Game
 	/// </summary>
 	public class DoomMeterManager : Singleton<DoomMeterManager>
 	{
-		// Determines how much time is given at the beginning of the game.
+		// Determines how much time (in minutes) is given at the beginning of the game.
 		[SerializeField]
 		public float timer = 10;
 
 		// How much time remains.
 		private float timeLeft;
 
+		// How much time has passed. Useful for UI elements.
+		private int timeElapsed = 0;
+		public int TimeElapsed { get => timeElapsed; }
+
 		// Whether the count down is running.
 		private bool isActive = false;
 
-		public TextMeshProUGUI timeText;
+		[SerializeField]
+		protected TextMeshProUGUI timeText;
+
+		[SerializeField]
+		protected Slider slider;
 
 		// Start is called before the first frame update
 		void Start()
 		{
-			timeLeft = Mathf.FloorToInt(timer * 60);
+			timer = timer * 60;
+			timeLeft = Mathf.FloorToInt(timer);
 			isActive = true;
+
+			if (slider)
+			{
+				slider.maxValue = timer;
+				slider.value = 0;
+			}
 		}
 
 		// Update is called once per frame
@@ -43,10 +58,12 @@ namespace Celeritas.Game
 				{
 					timeLeft -= Time.deltaTime;
 					ShowTime(timeLeft);
+					timeElapsed = Mathf.FloorToInt(timer - timeLeft);
 				}
 				else
 				{
 					timeLeft = 0;
+					timeElapsed = Mathf.FloorToInt(timer);
 					ShowTime(timeLeft);
 					isActive = false;
 					DoSomething();
@@ -88,12 +105,12 @@ namespace Celeritas.Game
 
 			if (timeText)
 			{
-				
 				timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 			}
-			else
+
+			if (slider)
 			{
-				Debug.Log("No time text field located.");
+				slider.value = timeElapsed;
 			}
 		}
 
