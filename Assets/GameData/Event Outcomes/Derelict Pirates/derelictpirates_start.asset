@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: derelictpirates_start
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: The Dreadfleet
+    content: As you continue on your journeys you're suddenly startled by an alarm
+      blaring, your IFF has picked up the telltale signature of the pirate dreadfleet!
+      The dreadfleet was once renowned for destroying entire system fleets and raiding
+      whole sectors.
+    options:
+    - type: 0
+      content: Out here in blackspace? Somethings off, let's take a look.
+      outcome: {fileID: 11400000, guid: c21c69538b49db2438aa8a849fa30cbe, type: 2}
+    - type: 0
+      content: Nope. Rear thrusters to full!
+      outcome: {fileID: 11400000, guid: 709f6f4a4130b934396f1a657db472c9, type: 2}
+  hasRewards: 0
+  lootType: 0
+  lootRewardRange: {x: 0, y: 0}
+  moduleRewards: []
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 0
+  waveOutcome: {fileID: 0}
+  waves: []

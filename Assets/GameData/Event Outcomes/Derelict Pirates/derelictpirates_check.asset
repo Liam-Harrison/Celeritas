@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: derelictpirates_check
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: It's... All destroyed!
+    content: "After getting closer it becomes clear that the entire fleet was destroyed,
+      thoroughly. Hints of the infested can be found through the wreckage, but it
+      seems clear that the pirates were intentionally detonating their own ships
+      before the infestation could take hold. Checking your scans to your databases,
+      it seems only one vessel is missing, the dreadfleets capital ship. \r\n\r\nThe
+      Cold Fury was an enormous vessel that hosted the dreadfleets leader, who seemingly
+      couldn't bring himself to destroy his favoured vessel while he was presumably
+      on board. Now the infested control the Cold Fury, and someone will have to
+      deal with it some day. You manage to scrap {0} modules and move on, carrying
+      a little dread yourself.\r"
+    options: []
+  hasRewards: 1
+  lootType: 0
+  lootRewardRange: {x: 4, y: 4}
+  moduleRewards: []
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 0
+  waveOutcome: {fileID: 0}
+  waves: []
