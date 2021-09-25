@@ -319,6 +319,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Pause Menu",
+                    "type": "Button",
+                    "id": "b868e02d-6ee8-4f2f-90b8-a309f47af83e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -330,6 +338,17 @@
                     "processors": "",
                     "groups": "Controls",
                     "action": "Navigate UI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7bd93bc7-be11-4381-bd31-c879c10d0fca",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Pause Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

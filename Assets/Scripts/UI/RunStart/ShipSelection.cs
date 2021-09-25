@@ -42,10 +42,11 @@ namespace Celeritas.UI.Runstart
 		private readonly Dictionary<ShipData, PlayerShipEntity> shipObjects = new Dictionary<ShipData, PlayerShipEntity>();
 		private readonly List<WeaponData> weaponList = new List<WeaponData>();
 
-		private void Awake()
+		private void Start()
 		{
 			actions = new InputActions.NavigationActions(SettingsManager.InputActions);
 			actions.SetCallbacks(this);
+			actions.Enable();
 
 			if (EntityDataManager.Instance != null && EntityDataManager.Instance.Loaded)
 				SetupData();
@@ -71,7 +72,6 @@ namespace Celeritas.UI.Runstart
 		{
 			StopAllCoroutines();
 			ShipSpawn.rotation = Quaternion.Euler(rotation);
-			actions.Enable();
 		}
 
 		private void OnDisable()
@@ -199,6 +199,11 @@ namespace Celeritas.UI.Runstart
 					}
 				}
 			}
+		}
+
+		public void OnPauseMenu(InputAction.CallbackContext context)
+		{
+			// Unused.
 		}
 	}
 }

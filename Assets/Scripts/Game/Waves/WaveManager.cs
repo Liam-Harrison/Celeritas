@@ -25,9 +25,6 @@ namespace Celeritas.Game
 		public static event Action OnWaveEnded;
 		public static event Action OnWaveStarted;
 
-		private float MIN_TIME_BETWEEN_WAVES = 5; // for build
-		private float timeOfLastWave = 0;
-
 		public void StartWave(WaveData wave)
 		{
 			GenerateWave(wave);
@@ -38,14 +35,7 @@ namespace Celeritas.Game
 		/// </summary>
 		public void StartRandomWave()
 		{
-			//if (Time.time - timeOfLastWave < MIN_TIME_BETWEEN_WAVES) // todo: hide button if not usable
-			//{
-			//	Debug.Log("StartWave button in cooldown... Active in: " + (MIN_TIME_BETWEEN_WAVES - (Time.time - timeOfLastWave))+" seconds.");
-			//	return;
-			//}
-
-			GenerateWave(data[UnityEngine.Random.Range(0,data.Length-1)]);
-
+			GenerateWave(data[UnityEngine.Random.Range(0, data.Length - 1)]);
 		}
 
 		public void StartFinalWave()
@@ -59,7 +49,6 @@ namespace Celeritas.Game
 
 		private void GenerateWave(WaveData wave)
 		{
-			//timeOfLastWave = Time.time;
 			WaveActive = true;
 			ships[wave] = new List<ShipEntity>();
 

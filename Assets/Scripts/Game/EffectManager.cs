@@ -95,7 +95,15 @@ namespace Celeritas.Game
 
 			foreach (var effect in effects)
 			{
-				AddEffect(effect);
+				AddEffectWithoutNotify(effect);
+			}
+
+			if (owner.Instanced == false)
+			{
+				foreach (var effect in effects)
+				{
+					effect.EffectCollection.OnAdded(owner, effect.Level);
+				}
 			}
 		}
 
@@ -203,6 +211,23 @@ namespace Celeritas.Game
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return EffectWrapperCopy.GetEnumerator();
+		}
+
+		private void AddEffectWithoutNotify(EffectWrapper wrapper)
+		{
+			if (!wrapper.EffectCollection.Targets.HasFlag(TargetType))
+			{
+				Debug.LogError($"Tried to add an effect (<color=\"orange\">{wrapper.EffectCollection.Title}</color>) to an entity whose type (<color=\"orange\">{TargetType}</color>) is not " +
+					$"supported by the effect collection (<color=\"orange\">{wrapper.EffectCollection.Targets}</color>), If the system supports this type add it as a target to the collection. Otherwise remove the effect collection.");
+			}
+			else if (wrapper.EffectCollection.Stacks || !effects.Contains(wrapper))
+			{
+				effects.Add(wrapper);
+			}
+			else
+			{
+				Debug.LogError($"Tried to add effect colltion which does not stack (<color=\"orange\">{wrapper.EffectCollection.Title}</color>) to an entity who already has this system.");
+			}
 		}
 	}
 }

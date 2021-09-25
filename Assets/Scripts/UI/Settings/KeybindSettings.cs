@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using TMPro;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -60,7 +58,7 @@ namespace Celeritas.UI
 			}
 
 			var button = Instantiate(settingsButton, transform).GetComponentInChildren<Button>();
-			button.GetComponentInChildren<TextMeshProUGUI>().text = $"Reset";
+			button.GetComponentInChildren<TextMeshProUGUI>().text = $"Reset All Keybinds";
 			button.onClick.AddListener(ResetKeybinds);
 		}
 

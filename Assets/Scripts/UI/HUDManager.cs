@@ -29,7 +29,7 @@ namespace Celeritas.UI
 
 		private void OnStateChanged(GameState old, GameState state)
 		{
-			combatHud.gameObject.SetActive(state != GameState.BUILD);
+			combatHud.gameObject.SetActive(state == GameState.BACKGROUND || state == GameState.WAVE);
 			buildHud.gameObject.SetActive(state == GameState.BUILD);
 		}
 	}

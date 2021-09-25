@@ -334,6 +334,14 @@ namespace Celeritas
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""b868e02d-6ee8-4f2f-90b8-a309f47af83e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -345,6 +353,17 @@ namespace Celeritas
                     ""processors"": """",
                     ""groups"": ""Controls"",
                     ""action"": ""Navigate UI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7bd93bc7-be11-4381-bd31-c879c10d0fca"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls"",
+                    ""action"": ""Pause Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -395,6 +414,7 @@ namespace Celeritas
             // Navigation
             m_Navigation = asset.FindActionMap("Navigation", throwIfNotFound: true);
             m_Navigation_NavigateUI = m_Navigation.FindAction("Navigate UI", throwIfNotFound: true);
+            m_Navigation_PauseMenu = m_Navigation.FindAction("Pause Menu", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -599,11 +619,13 @@ namespace Celeritas
         private readonly InputActionMap m_Navigation;
         private INavigationActions m_NavigationActionsCallbackInterface;
         private readonly InputAction m_Navigation_NavigateUI;
+        private readonly InputAction m_Navigation_PauseMenu;
         public struct NavigationActions
         {
             private @InputActions m_Wrapper;
             public NavigationActions(@InputActions wrapper) { m_Wrapper = wrapper; }
             public InputAction @NavigateUI => m_Wrapper.m_Navigation_NavigateUI;
+            public InputAction @PauseMenu => m_Wrapper.m_Navigation_PauseMenu;
             public InputActionMap Get() { return m_Wrapper.m_Navigation; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -616,6 +638,9 @@ namespace Celeritas
                     @NavigateUI.started -= m_Wrapper.m_NavigationActionsCallbackInterface.OnNavigateUI;
                     @NavigateUI.performed -= m_Wrapper.m_NavigationActionsCallbackInterface.OnNavigateUI;
                     @NavigateUI.canceled -= m_Wrapper.m_NavigationActionsCallbackInterface.OnNavigateUI;
+                    @PauseMenu.started -= m_Wrapper.m_NavigationActionsCallbackInterface.OnPauseMenu;
+                    @PauseMenu.performed -= m_Wrapper.m_NavigationActionsCallbackInterface.OnPauseMenu;
+                    @PauseMenu.canceled -= m_Wrapper.m_NavigationActionsCallbackInterface.OnPauseMenu;
                 }
                 m_Wrapper.m_NavigationActionsCallbackInterface = instance;
                 if (instance != null)
@@ -623,6 +648,9 @@ namespace Celeritas
                     @NavigateUI.started += instance.OnNavigateUI;
                     @NavigateUI.performed += instance.OnNavigateUI;
                     @NavigateUI.canceled += instance.OnNavigateUI;
+                    @PauseMenu.started += instance.OnPauseMenu;
+                    @PauseMenu.performed += instance.OnPauseMenu;
+                    @PauseMenu.canceled += instance.OnPauseMenu;
                 }
             }
         }
@@ -658,6 +686,7 @@ namespace Celeritas
         public interface INavigationActions
         {
             void OnNavigateUI(InputAction.CallbackContext context);
+            void OnPauseMenu(InputAction.CallbackContext context);
         }
     }
 }

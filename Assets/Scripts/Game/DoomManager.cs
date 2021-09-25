@@ -1,43 +1,79 @@
-using Celeritas.Commands;
+using Sirenix.OdinInspector;
 using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Celeritas.Game
 {
+	/// <summary>
+	/// Manages doom meter / timer.
+	/// </summary>
 	public class DoomManager : Singleton<DoomManager>
 	{
-		public const int MAX_DOOM = 10;
-
+		private const int MAX_DOOM = 5;
 		private const float ANIMATE_TIME = 1;
 
-		[SerializeField]
-		private Image fill;
+		[SerializeField, TitleGroup("Assignments")]
+		public float duration = 90;
 
-		public int DoomMeter { get; private set; }
+		[SerializeField, TitleGroup("Assignments")]
+		protected TextMeshProUGUI timeText;
 
-		[ConsoleCommand]
-		public static void SetDoom(int amount)
+		[SerializeField, TitleGroup("Assignments")]
+		protected TextMeshProUGUI levelText;
+
+		[SerializeField, TitleGroup("Assignments")]
+		protected Slider slider;
+
+		private float elasped;
+
+		public bool DoomEnabled { get; set; } = true;
+
+		public int DoomLevel { get; private set; } = 0;
+
+		void Start()
 		{
-			Instance.SetDoomMeterLevel(amount);
+			elasped = 0;
+
+			slider.maxValue = 1;
+			slider.value = 0;
 		}
 
-		public void SetDoomMeterLevel(int level)
+		void Update()
 		{
-			DoomMeter = Mathf.Clamp(level, 0, MAX_DOOM);
-			UpdateDoomGraphic();
+			if (DoomEnabled)
+			{
+				elasped += Time.smoothDeltaTime;
+
+				if (elasped >= duration)
+				{
+					elasped = 0;
+					ChangeDoomMeter(1);
+				}
+			}
+
+			UpdateTime(duration - elasped);
+		}
+
+		void UpdateTime(float timeToShow)
+		{
+			float minutes = Mathf.FloorToInt(timeToShow / 60);
+			float seconds = Mathf.FloorToInt(timeToShow % 60);
+
+			timeText.text = $"{minutes:0}:{seconds:00}";
 		}
 
 		public void ChangeDoomMeter(int amount)
 		{
-			DoomMeter = Mathf.Clamp(DoomMeter + amount, 0, MAX_DOOM);
+			DoomLevel = Mathf.Clamp(DoomLevel + amount, 0, MAX_DOOM);
 			UpdateDoomGraphic();
 		}
 
 		private void UpdateDoomGraphic()
 		{
-			float p = Mathf.Clamp01(DoomMeter / (float)MAX_DOOM);
+			float p = Mathf.Clamp01(DoomLevel / (float)MAX_DOOM);
+			levelText.text = DoomLevel.ToString();
 
 			StopAllCoroutines();
 			StartCoroutine(AnimateDoomMeter(p));
@@ -45,18 +81,18 @@ namespace Celeritas.Game
 
 		private IEnumerator AnimateDoomMeter(float goal)
 		{
-			float start = fill.fillAmount;
+			float start = slider.value;
 			float time = Time.unscaledTime;
 
 			float p;
 			do
 			{
 				p = Mathf.Clamp01(Time.unscaledTime - time / ANIMATE_TIME);
-				fill.fillAmount = Mathf.Lerp(start, goal, p);
+				slider.value = Mathf.Lerp(start, goal, p);
 				yield return null;
 			} while (p < 1);
 
-			fill.fillAmount = goal;
+			slider.value = goal;
 			yield break;
 		}
 	}

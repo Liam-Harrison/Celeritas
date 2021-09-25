@@ -1,6 +1,6 @@
 using Assets.Scripts.Game.Controllers;
+using Celeritas.Commands;
 using Celeritas.Game.Entities;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -83,15 +83,19 @@ namespace Celeritas.Game.Controllers
 
 		public void OnBuild(InputAction.CallbackContext context)
 		{
-			if (context.canceled && !WaveManager.Instance.WaveActive)
+			if (context.performed && !WaveManager.Instance.WaveActive)
 			{
 				if (GameStateManager.Instance.GameState == GameState.BACKGROUND)
 				{
 					GameStateManager.Instance.SetGameState(GameState.BUILD);
 				}
-				else
+				else if (GameStateManager.Instance.GameState == GameState.BUILD)
 				{
 					GameStateManager.Instance.SetGameState(GameState.BACKGROUND);
+
+					Instance.actions = new InputActions.BasicActions(SettingsManager.InputActions);
+					Instance.actions.SetCallbacks(Instance);
+					Instance.actions.Enable();
 				}
 			}
 		}
@@ -140,8 +144,6 @@ namespace Celeritas.Game.Controllers
 				WaveManager.Instance.StartFinalWave();
 			}
 		}
-
-
 
 		public void OnToggleTutorial(InputAction.CallbackContext context)
 		{

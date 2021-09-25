@@ -141,16 +141,12 @@ public class CombatHUD : Singleton<CombatHUD>
 	{
 		if (gameObject.activeInHierarchy)
 			PrintNotification("+" + amount + " Modules!");
-
-		moduleCountText.text = modules.ToString();
 	}
 
 	private void OnRareComponentsChanged(int components, int amount)
 	{
 		if (gameObject.activeInHierarchy)
 			PrintNotification("+" + amount + " Rare Metals!");
-
-		rareMetalsCountText.text = components.ToString();
 	}
 
 	/// <summary>
