@@ -65,6 +65,7 @@ MonoBehaviour:
   timeToPlayOnDestroyEffect: 4
   onHitEffectPrefab: {fileID: 944521539114987493, guid: 1ec5cd34395d64349b39cc84f22f8ff3, type: 3}
   timeToPlayOnHitEffect: 4
+  floatingTextPrefab: {fileID: 0}
   startingHealth: 35
   lootConfig:
     gain: 100
@@ -97,7 +98,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 20
   m_LinearDrag: 0.1
   m_AngularDrag: 0.1
   m_GravityScale: 0

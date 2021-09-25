@@ -91,6 +91,9 @@ namespace Assets.Scripts.Game
 			Vector3 position = GetRandomLocationInChunk(chunk, avoidSpawn);
 			for (int i = 0; i < amountToSpawn; i++)
 			{
+				Vector3 variedPosition = position;
+				variedPosition.x += Random.Range(-1, 1);
+				variedPosition.y += Random.Range(-1, 1);
 				SpawnAsteroid(position);
 			}
 		}
@@ -127,6 +130,8 @@ namespace Assets.Scripts.Game
 		{
 			float scale = Random.Range(minScale, maxScale);
 			asteroid.transform.localScale = new Vector3(scale, scale, scale);
+			asteroid.Rigidbody.mass *= scale;
+			asteroid.StartingHealth = (uint)Mathf.RoundToInt(asteroid.StartingHealth * Mathf.Abs(scale));
 		}
 
 		private Asteroid SpawnAsteroid(Vector3 position)

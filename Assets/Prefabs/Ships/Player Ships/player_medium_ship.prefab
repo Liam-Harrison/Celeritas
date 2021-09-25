@@ -153,8 +153,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: e1db92f30cc85e0468276a73953ef7cc, type: 2}
     - {fileID: 11400000, guid: d09395ca3ec8a454c8932acb7dd201cd, type: 2}
     - {fileID: 11400000, guid: 25fe257e6aedb34499e4dd8d81b00da7, type: 2}
+    - {fileID: 11400000, guid: 32964318bf0351b4a8736033a94155d2, type: 2}
     - {fileID: 11400000, guid: b5684e958385a254cb2c5e106aa29937, type: 2}
-    - {fileID: 11400000, guid: 4c32c870bdc025a41afc515c8f6b6d93, type: 2}
+    - {fileID: 11400000, guid: bb8b6e2ce7af7484bb3bc04bdfbeb0fa, type: 2}
     - {fileID: 11400000, guid: 4b1f7686334068249871612315de6691, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -202,9 +203,6 @@ MonoBehaviour:
       Data: 7
     - Name: 
       Entry: 10
-      Data: 1
-    - Name: 
-      Entry: 10
       Data: 8
     - Name: 
       Entry: 10
@@ -212,6 +210,9 @@ MonoBehaviour:
     - Name: 
       Entry: 10
       Data: 10
+    - Name: 
+      Entry: 10
+      Data: 11
     - Name: 
       Entry: 13
       Data: 
