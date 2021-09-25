@@ -171,7 +171,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 22}
+  m_SizeDelta: {x: 400, y: 22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2823372699612003617
 CanvasRenderer:
@@ -224,9 +224,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   label: {fileID: 720706828401244321}
-  neutralNormal: {r: 1, g: 1, b: 1, a: 1}
-  neutralHighlighted: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
-  neutralPressed: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 1}
+  neutralNormal: {r: 0.9056604, g: 0.69631135, b: 0.25119257, a: 1}
+  neutralHighlighted: {r: 0.5754717, g: 0.44521523, b: 0.16504091, a: 1}
+  neutralPressed: {r: 0.3679245, g: 0.27693477, b: 0.08122106, a: 1}
   goodNormal: {r: 0, g: 0.8024306, b: 0.9245283, a: 1}
   goodHighlighted: {r: 0, g: 0.59821707, b: 0.6886792, a: 1}
   goodPressed: {r: 0, g: 0.36876395, b: 0.4245283, a: 1}

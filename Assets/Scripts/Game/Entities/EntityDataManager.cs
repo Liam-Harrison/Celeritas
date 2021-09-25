@@ -109,14 +109,22 @@ namespace Celeritas.Game.Entities
 		/// <param name="effects">The effects to start this entity with.</param>
 		/// <param name="forceIsPlayer">Force this entity to be a player entity.</param>
 		/// <returns>Returns the created entity.</returns>
-		public static T InstantiateEntity<T>(EntityData data, Vector3 position, Quaternion rotation, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false) where T : Entity
+		public static T InstantiateEntity<T>(EntityData data, Vector3 position, Quaternion rotation, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool dontPool = false) where T : Entity
 		{
 			if (!entites.ContainsKey(data))
 			{
 				entites[data] = new ObjectPool<Entity>(data.CapacityHint, data.Prefab, Instance.transform);
 			}
 
-			var entity = entites[data].GetPooledObject().GetComponent<T>();
+			T entity;
+			if (dontPool)
+			{
+				entity = entites[data].CreateUnpooledObject().GetComponent<T>();
+			}
+			else
+			{
+				entity = entites[data].GetPooledObject().GetComponent<T>();
+			}
 
 			entity.transform.position = position;
 			entity.transform.rotation = rotation;
@@ -150,9 +158,9 @@ namespace Celeritas.Game.Entities
 		/// <param name="effects">The effects to start this entity with.</param>
 		/// <param name="forceIsPlayer">Force this entity to be a player entity.</param>
 		/// <returns>Returns the created entity.</returns>
-		public static T InstantiateEntity<T>(EntityData data, Vector3 position, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false) where T : Entity
+		public static T InstantiateEntity<T>(EntityData data, Vector3 position, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool dontPool = false) where T : Entity
 		{
-			return InstantiateEntity<T>(data, position, Quaternion.identity, owner, effects, forceIsPlayer);
+			return InstantiateEntity<T>(data, position, Quaternion.identity, owner, effects, forceIsPlayer, dontPool);
 		}
 
 		/// <summary>
@@ -164,9 +172,9 @@ namespace Celeritas.Game.Entities
 		/// <param name="effects">The effects to start this entity with.</param>
 		/// <param name="forceIsPlayer">Force this entity to be a player entity.</param>
 		/// <returns>Returns the created entity.</returns>
-		public static T InstantiateEntity<T>(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false) where T : Entity
+		public static T InstantiateEntity<T>(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool dontPool = false) where T : Entity
 		{
-			return InstantiateEntity<T>(data, Vector3.zero, Quaternion.identity, owner, effects, forceIsPlayer);
+			return InstantiateEntity<T>(data, Vector3.zero, Quaternion.identity, owner, effects, forceIsPlayer, dontPool);
 		}
 
 		/// <summary>
@@ -194,6 +202,17 @@ namespace Celeritas.Game.Entities
 		{
 			entity.OnEntityKilled();
 			UnloadEntity(entity);
+		}
+
+		/// <summary>
+		/// Unload all the entities in the game.
+		/// </summary>
+		public static void UnloadAllEntities()
+		{
+			foreach (var op in entites)
+			{
+				op.Value.ReleaseAllObjects();
+			}
 		}
 
 		/// <summary>

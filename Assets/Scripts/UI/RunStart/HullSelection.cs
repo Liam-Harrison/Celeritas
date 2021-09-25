@@ -158,7 +158,6 @@ namespace Celeritas.UI.Runstart
 
 			setupHullLayoutPreview();
 			SetupShipStatsText(ship);
-			
 		}
 
 		/// <summary>

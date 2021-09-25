@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: projectile_sunburst_main_projectile
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 0
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -26,6 +26,6 @@ MonoBehaviour:
   capacityHint: 1
   useChunking: 0
   speed: 5
-  lifetime: 5.599997
+  lifetime: 5.6
   damage: 40
   destroyedOnHit: 1

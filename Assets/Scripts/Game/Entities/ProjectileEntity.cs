@@ -119,12 +119,9 @@ namespace Celeritas.Game.Entities
 
 			//int calculatedDamage = damage;
 
-			if (other.ShowDamageOnEntity != null)
-			{
-				//Tells target not to display damage from projectile
-				other.ShowDamageOnEntity = false;
-				other.ShowDamageLocation = this.transform.position;
-			}
+			//Tells target not to display damage from projectile
+			other.ShowDamageOnEntity = false;
+			other.ShowDamageLocation = this.transform.position;
 
 			base.OnEntityHit(other);
 

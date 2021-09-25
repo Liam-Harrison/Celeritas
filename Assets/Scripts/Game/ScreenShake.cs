@@ -8,7 +8,7 @@ using Cinemachine;
 [RequireComponent(typeof(AudioSource))]
 public class ScreenShake : MonoBehaviour
 {
-	private CinemachineVirtualCamera camera;
+	private new CinemachineVirtualCamera camera;
 	private CinemachineBasicMultiChannelPerlin perlin;
 	private AudioSource source;
 

@@ -68,7 +68,7 @@ namespace Celeritas.Game.Console
 
 			DontDestroyOnLoad(this);
 
-			actions = new InputActions.ConsoleActions(new InputActions());
+			actions = new InputActions.ConsoleActions(SettingsManager.InputActions);
 			actions.SetCallbacks(this);
 			actions.Enable();
 

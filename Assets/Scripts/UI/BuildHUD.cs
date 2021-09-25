@@ -42,7 +42,7 @@ namespace Celeritas.UI
 		private void Awake()
 		{
 			mainCamera = Camera.main;
-			actions = new InputActions.BasicActions(new InputActions());
+			actions = new InputActions.BasicActions(SettingsManager.InputActions);
 			tooltip = GetComponent<ShowTooltip>();
 		}
 
@@ -313,6 +313,5 @@ namespace Celeritas.UI
 
 			drop.gameObject.SetActive(false);
 		}
-
 	}
 }

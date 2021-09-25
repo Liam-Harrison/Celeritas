@@ -32,5 +32,26 @@ namespace Celeritas
 			int index = source.IndexOf(delimiter);
 			return source.Substring(0, index);
 		}
+
+		/// <summary>
+		/// Formats the given string to use Unity's rules of string assembly for editor display.
+		/// </summary>
+		/// <param name="source">The source string.</param>
+		/// <returns>The display version of the string.</returns>
+		public static string AsDisplayString(this string source)
+		{
+			if (source.Length == 0)
+				return source;
+
+			string result = source[0].ToString();
+			for (int i = 1; i < source.Length; i++)
+			{
+				if (char.IsUpper(source[i]))
+					result += " ";
+				result += source[i].ToString();
+			}
+
+			return result;
+		}
 	}
 }

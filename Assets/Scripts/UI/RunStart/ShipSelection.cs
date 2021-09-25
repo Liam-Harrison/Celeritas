@@ -1,4 +1,3 @@
-using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Cinemachine;
@@ -43,10 +42,11 @@ namespace Celeritas.UI.Runstart
 		private readonly Dictionary<ShipData, PlayerShipEntity> shipObjects = new Dictionary<ShipData, PlayerShipEntity>();
 		private readonly List<WeaponData> weaponList = new List<WeaponData>();
 
-		private void Awake()
+		private void Start()
 		{
-			actions = new InputActions.NavigationActions(new InputActions());
+			actions = new InputActions.NavigationActions(SettingsManager.InputActions);
 			actions.SetCallbacks(this);
+			actions.Enable();
 
 			if (EntityDataManager.Instance != null && EntityDataManager.Instance.Loaded)
 				SetupData();
@@ -54,11 +54,24 @@ namespace Celeritas.UI.Runstart
 				EntityDataManager.OnLoadedAssets += SetupData;
 		}
 
+		private void OnDestroy()
+		{
+#if UNITY_EDITOR
+			if (UnityEditor.EditorApplication.isPlaying == false)
+				return;
+#endif
+
+			foreach (var ship in shipObjects)
+			{
+				ship.Value.UnloadEntity();
+			}
+			shipObjects.Clear();
+		}
+
 		private void OnEnable()
 		{
 			StopAllCoroutines();
 			ShipSpawn.rotation = Quaternion.Euler(rotation);
-			actions.Enable();
 		}
 
 		private void OnDisable()
@@ -145,6 +158,9 @@ namespace Celeritas.UI.Runstart
 		{
 			EntityDataManager.OnLoadedAssets -= SetupData;
 
+			shipObjects.Clear();
+			weaponList.Clear();
+
 			if (shipObjects.Count > 0)
 				return;
 
@@ -167,7 +183,7 @@ namespace Celeritas.UI.Runstart
 			}
 		}
 
-		public void OnNavigateForward(InputAction.CallbackContext context)
+		public void OnNavigateUI(InputAction.CallbackContext context)
 		{
 			if (context.started)
 			{
@@ -183,6 +199,11 @@ namespace Celeritas.UI.Runstart
 					}
 				}
 			}
+		}
+
+		public void OnPauseMenu(InputAction.CallbackContext context)
+		{
+			// Unused.
 		}
 	}
 }

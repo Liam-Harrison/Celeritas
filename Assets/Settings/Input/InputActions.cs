@@ -21,7 +21,7 @@ namespace Celeritas
             ""id"": ""a5a6cbb2-d233-4086-b5f9-bd4e9905bee2"",
             ""actions"": [
                 {
-                    ""name"": ""Locomotion"",
+                    ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""b04b367e-c4c0-4a5a-bc67-ce7d3d1aa72c"",
                     ""expectedControlType"": ""Vector2"",
@@ -77,7 +77,7 @@ namespace Celeritas
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""ToggleTutorial"",
+                    ""name"": ""Toggle Tutorial"",
                     ""type"": ""Button"",
                     ""id"": ""4e4119ed-efb7-4739-86a5-5a3f10327aea"",
                     ""expectedControlType"": ""Button"",
@@ -87,24 +87,13 @@ namespace Celeritas
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""004c9eb3-0260-464e-8b3b-d5e9b41c35e3"",
-                    ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controls"",
-                    ""action"": ""Locomotion"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": ""2D Vector"",
                     ""id"": ""3529d6df-ded3-44a3-8c6e-47a772a6894c"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Locomotion"",
+                    ""action"": ""Move"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -115,7 +104,7 @@ namespace Celeritas
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controls"",
-                    ""action"": ""Locomotion"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -126,7 +115,7 @@ namespace Celeritas
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controls"",
-                    ""action"": ""Locomotion"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -137,7 +126,7 @@ namespace Celeritas
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controls"",
-                    ""action"": ""Locomotion"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -148,7 +137,7 @@ namespace Celeritas
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controls"",
-                    ""action"": ""Locomotion"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -167,7 +156,7 @@ namespace Celeritas
                     ""name"": """",
                     ""id"": ""28225b8e-9b6a-4d82-b798-e4cbcc3d429c"",
                     ""path"": ""<Keyboard>/tab"",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controls"",
                     ""action"": ""Build"",
@@ -225,7 +214,7 @@ namespace Celeritas
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleTutorial"",
+                    ""action"": ""Toggle Tutorial"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -339,9 +328,17 @@ namespace Celeritas
             ""id"": ""3b84d1a5-c919-4cbd-ac8e-0adc7cebcdf8"",
             ""actions"": [
                 {
-                    ""name"": ""NavigateForward"",
+                    ""name"": ""Navigate UI"",
                     ""type"": ""Button"",
                     ""id"": ""c40002b0-4065-4a64-b3c7-f603edeef5c4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""b868e02d-6ee8-4f2f-90b8-a309f47af83e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -355,7 +352,18 @@ namespace Celeritas
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controls"",
-                    ""action"": ""NavigateForward"",
+                    ""action"": ""Navigate UI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7bd93bc7-be11-4381-bd31-c879c10d0fca"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls"",
+                    ""action"": ""Pause Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -388,14 +396,14 @@ namespace Celeritas
 }");
             // Basic
             m_Basic = asset.FindActionMap("Basic", throwIfNotFound: true);
-            m_Basic_Locomotion = m_Basic.FindAction("Locomotion", throwIfNotFound: true);
+            m_Basic_Move = m_Basic.FindAction("Move", throwIfNotFound: true);
             m_Basic_Fire = m_Basic.FindAction("Fire", throwIfNotFound: true);
             m_Basic_Build = m_Basic.FindAction("Build", throwIfNotFound: true);
             m_Basic_Action = m_Basic.FindAction("Action", throwIfNotFound: true);
             m_Basic_TractorBeam = m_Basic.FindAction("Tractor Beam", throwIfNotFound: true);
             m_Basic_NewWave = m_Basic.FindAction("New Wave", throwIfNotFound: true);
             m_Basic_FinalWave = m_Basic.FindAction("Final Wave", throwIfNotFound: true);
-            m_Basic_ToggleTutorial = m_Basic.FindAction("ToggleTutorial", throwIfNotFound: true);
+            m_Basic_ToggleTutorial = m_Basic.FindAction("Toggle Tutorial", throwIfNotFound: true);
             // Console
             m_Console = asset.FindActionMap("Console", throwIfNotFound: true);
             m_Console_Toggle = m_Console.FindAction("Toggle", throwIfNotFound: true);
@@ -405,7 +413,8 @@ namespace Celeritas
             m_Console_Focus = m_Console.FindAction("Focus", throwIfNotFound: true);
             // Navigation
             m_Navigation = asset.FindActionMap("Navigation", throwIfNotFound: true);
-            m_Navigation_NavigateForward = m_Navigation.FindAction("NavigateForward", throwIfNotFound: true);
+            m_Navigation_NavigateUI = m_Navigation.FindAction("Navigate UI", throwIfNotFound: true);
+            m_Navigation_PauseMenu = m_Navigation.FindAction("Pause Menu", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -455,7 +464,7 @@ namespace Celeritas
         // Basic
         private readonly InputActionMap m_Basic;
         private IBasicActions m_BasicActionsCallbackInterface;
-        private readonly InputAction m_Basic_Locomotion;
+        private readonly InputAction m_Basic_Move;
         private readonly InputAction m_Basic_Fire;
         private readonly InputAction m_Basic_Build;
         private readonly InputAction m_Basic_Action;
@@ -467,7 +476,7 @@ namespace Celeritas
         {
             private @InputActions m_Wrapper;
             public BasicActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Locomotion => m_Wrapper.m_Basic_Locomotion;
+            public InputAction @Move => m_Wrapper.m_Basic_Move;
             public InputAction @Fire => m_Wrapper.m_Basic_Fire;
             public InputAction @Build => m_Wrapper.m_Basic_Build;
             public InputAction @Action => m_Wrapper.m_Basic_Action;
@@ -484,9 +493,9 @@ namespace Celeritas
             {
                 if (m_Wrapper.m_BasicActionsCallbackInterface != null)
                 {
-                    @Locomotion.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnLocomotion;
-                    @Locomotion.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnLocomotion;
-                    @Locomotion.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnLocomotion;
+                    @Move.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnMove;
+                    @Move.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnMove;
+                    @Move.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnMove;
                     @Fire.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnFire;
                     @Fire.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnFire;
                     @Fire.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnFire;
@@ -512,9 +521,9 @@ namespace Celeritas
                 m_Wrapper.m_BasicActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    @Locomotion.started += instance.OnLocomotion;
-                    @Locomotion.performed += instance.OnLocomotion;
-                    @Locomotion.canceled += instance.OnLocomotion;
+                    @Move.started += instance.OnMove;
+                    @Move.performed += instance.OnMove;
+                    @Move.canceled += instance.OnMove;
                     @Fire.started += instance.OnFire;
                     @Fire.performed += instance.OnFire;
                     @Fire.canceled += instance.OnFire;
@@ -609,12 +618,14 @@ namespace Celeritas
         // Navigation
         private readonly InputActionMap m_Navigation;
         private INavigationActions m_NavigationActionsCallbackInterface;
-        private readonly InputAction m_Navigation_NavigateForward;
+        private readonly InputAction m_Navigation_NavigateUI;
+        private readonly InputAction m_Navigation_PauseMenu;
         public struct NavigationActions
         {
             private @InputActions m_Wrapper;
             public NavigationActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-            public InputAction @NavigateForward => m_Wrapper.m_Navigation_NavigateForward;
+            public InputAction @NavigateUI => m_Wrapper.m_Navigation_NavigateUI;
+            public InputAction @PauseMenu => m_Wrapper.m_Navigation_PauseMenu;
             public InputActionMap Get() { return m_Wrapper.m_Navigation; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -624,16 +635,22 @@ namespace Celeritas
             {
                 if (m_Wrapper.m_NavigationActionsCallbackInterface != null)
                 {
-                    @NavigateForward.started -= m_Wrapper.m_NavigationActionsCallbackInterface.OnNavigateForward;
-                    @NavigateForward.performed -= m_Wrapper.m_NavigationActionsCallbackInterface.OnNavigateForward;
-                    @NavigateForward.canceled -= m_Wrapper.m_NavigationActionsCallbackInterface.OnNavigateForward;
+                    @NavigateUI.started -= m_Wrapper.m_NavigationActionsCallbackInterface.OnNavigateUI;
+                    @NavigateUI.performed -= m_Wrapper.m_NavigationActionsCallbackInterface.OnNavigateUI;
+                    @NavigateUI.canceled -= m_Wrapper.m_NavigationActionsCallbackInterface.OnNavigateUI;
+                    @PauseMenu.started -= m_Wrapper.m_NavigationActionsCallbackInterface.OnPauseMenu;
+                    @PauseMenu.performed -= m_Wrapper.m_NavigationActionsCallbackInterface.OnPauseMenu;
+                    @PauseMenu.canceled -= m_Wrapper.m_NavigationActionsCallbackInterface.OnPauseMenu;
                 }
                 m_Wrapper.m_NavigationActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    @NavigateForward.started += instance.OnNavigateForward;
-                    @NavigateForward.performed += instance.OnNavigateForward;
-                    @NavigateForward.canceled += instance.OnNavigateForward;
+                    @NavigateUI.started += instance.OnNavigateUI;
+                    @NavigateUI.performed += instance.OnNavigateUI;
+                    @NavigateUI.canceled += instance.OnNavigateUI;
+                    @PauseMenu.started += instance.OnPauseMenu;
+                    @PauseMenu.performed += instance.OnPauseMenu;
+                    @PauseMenu.canceled += instance.OnPauseMenu;
                 }
             }
         }
@@ -649,7 +666,7 @@ namespace Celeritas
         }
         public interface IBasicActions
         {
-            void OnLocomotion(InputAction.CallbackContext context);
+            void OnMove(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
             void OnBuild(InputAction.CallbackContext context);
             void OnAction(InputAction.CallbackContext context);
@@ -668,7 +685,8 @@ namespace Celeritas
         }
         public interface INavigationActions
         {
-            void OnNavigateForward(InputAction.CallbackContext context);
+            void OnNavigateUI(InputAction.CallbackContext context);
+            void OnPauseMenu(InputAction.CallbackContext context);
         }
     }
 }

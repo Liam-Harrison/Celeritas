@@ -1,6 +1,6 @@
 using Assets.Scripts.Game.Controllers;
+using Celeritas.Commands;
 using Celeritas.Game.Entities;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,7 +22,7 @@ namespace Celeritas.Game.Controllers
 
 		protected override void Awake()
 		{
-			actions = new InputActions.BasicActions(new InputActions());
+			actions = new InputActions.BasicActions(SettingsManager.InputActions);
 			actions.SetCallbacks(this);
 
 			PlayerShipEntity = GetComponent<PlayerShipEntity>();
@@ -81,22 +81,21 @@ namespace Celeritas.Game.Controllers
 			}
 		}
 
-		public void OnLocomotion(InputAction.CallbackContext context)
-		{
-			locomotion = context.ReadValue<Vector2>();
-		}
-
 		public void OnBuild(InputAction.CallbackContext context)
 		{
-			if (context.canceled && !WaveManager.Instance.WaveActive)
+			if (context.performed && !WaveManager.Instance.WaveActive)
 			{
 				if (GameStateManager.Instance.GameState == GameState.BACKGROUND)
 				{
 					GameStateManager.Instance.SetGameState(GameState.BUILD);
 				}
-				else
+				else if (GameStateManager.Instance.GameState == GameState.BUILD)
 				{
 					GameStateManager.Instance.SetGameState(GameState.BACKGROUND);
+
+					Instance.actions = new InputActions.BasicActions(SettingsManager.InputActions);
+					Instance.actions.SetCallbacks(Instance);
+					Instance.actions.Enable();
 				}
 			}
 		}
@@ -146,11 +145,14 @@ namespace Celeritas.Game.Controllers
 			}
 		}
 
-
-
 		public void OnToggleTutorial(InputAction.CallbackContext context)
 		{
 			CombatHUD.Instance.OnToggleTutorial();
+		}
+
+		public void OnMove(InputAction.CallbackContext context)
+		{
+			locomotion = context.ReadValue<Vector2>();
 		}
 	}
 }
