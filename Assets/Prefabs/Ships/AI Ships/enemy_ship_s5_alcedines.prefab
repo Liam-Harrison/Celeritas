@@ -333,6 +333,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: goop_bubbles
       objectReference: {fileID: 0}
+    - target: {fileID: 5960620747955086295, guid: d62cb0b2c64455741b1d95e2fcc3e28c, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d62cb0b2c64455741b1d95e2fcc3e28c, type: 3}
 --- !u!199 &373432331485522148 stripped
