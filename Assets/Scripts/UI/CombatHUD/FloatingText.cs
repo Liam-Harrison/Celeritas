@@ -8,7 +8,9 @@ namespace Celeritas.UI
 {
 	public class FloatingText : MonoBehaviour, IPooledObject<FloatingText>
 	{
-		private const float ShowTime = 1f;
+		private const float SHOW_TIME = 1f;
+
+		private const float ANIMATE_OUT_TIME = 0.2f;
 
 		[SerializeField, TitleGroup("Assignments")]
 		private TextMeshProUGUI text;
@@ -26,6 +28,8 @@ namespace Celeritas.UI
 
 		private Vector3 pos;
 
+		private bool crossfading = false;
+
 		public void Initalize(Entity entity, float damage)
 		{
 			Entity = entity;
@@ -38,12 +42,18 @@ namespace Celeritas.UI
 
 		private void Update()
 		{
-			if (Time.unscaledTime > lastSetText + ShowTime)
+			if (Time.unscaledTime > lastSetText + SHOW_TIME)
 			{
 				OwningPool.ReleasePooledObject(this);
 			}
 			else
 			{
+				if (Time.unscaledTime > lastSetText + SHOW_TIME - ANIMATE_OUT_TIME && crossfading == false)
+				{
+					crossfading = true;
+					text.CrossFadeAlpha(0f, ANIMATE_OUT_TIME, true);
+				}
+
 				SetPosition(pos);
 			}
 		}
@@ -58,6 +68,9 @@ namespace Celeritas.UI
 			ShownDamage = damage;
 			text.text = damage.ToString("0");
 			lastSetText = Time.unscaledTime;
+
+			crossfading = false;
+			text.CrossFadeAlpha(1f, 0f, true);
 		}
 
 		public void IncreaseNumber(float damage)

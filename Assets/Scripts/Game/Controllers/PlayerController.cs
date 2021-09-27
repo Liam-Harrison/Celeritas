@@ -124,27 +124,6 @@ namespace Celeritas.Game.Controllers
 			}
 		}
 
-		public void OnNewWave(InputAction.CallbackContext context)
-		{
-			if (GameStateManager.Instance.GameState == GameState.BUILD)
-				return;
-
-			if (context.performed)
-			{
-				WaveManager.Instance.StartRandomWave();
-			}
-		}
-		public void OnFinalWave(InputAction.CallbackContext context)
-		{
-			if (GameStateManager.Instance.GameState == GameState.BUILD)
-				return;
-
-			if (context.performed)
-			{
-				WaveManager.Instance.StartFinalWave();
-			}
-		}
-
 		public void OnToggleTutorial(InputAction.CallbackContext context)
 		{
 			CombatHUD.Instance.OnToggleTutorial();

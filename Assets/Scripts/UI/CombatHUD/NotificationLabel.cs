@@ -14,11 +14,12 @@ namespace Celeritas.UI
 	[RequireComponent(typeof(TextMeshProUGUI))]
 	public class NotificationLabel : MonoBehaviour, IPooledObject<NotificationLabel>
 	{
+		private const float SHOW_TIME = 2f;
+
+		private const float ANIMATE_OUT_TIME = 0.5f;
+
 		[SerializeField, Title("Assignments")]
 		private TextMeshProUGUI text;
-
-		[SerializeField, Title("Settings")]
-		private float timeToLive;
 
 		[SerializeField]
 		private float moveRate;
@@ -27,24 +28,57 @@ namespace Celeritas.UI
 
 		public ObjectPool<NotificationLabel> OwningPool { get; set; }
 
+		private static NotificationLabel latest;
+
+		private new RectTransform transform;
+
+		private bool crossfading = false;
+
+		void Awake()
+		{
+			transform = GetComponent<RectTransform>();
+		}
+
 		public void OnSpawned()
 		{
-			text.alpha = 1;
-			text.CrossFadeAlpha(0f, timeToLive, true);
+			crossfading = false;
+			text.CrossFadeAlpha(1, 0, true);
 			spawned = Time.unscaledTime;
+
+			if (latest != null)
+			{
+				transform.position = latest.transform.position - new Vector3(0, transform.rect.height + 5, 0);
+			}
+			else
+			{
+				transform.anchoredPosition = new Vector2(0, 0);
+			}
+
+			latest = this;
 		}
 
 		public void OnDespawned()
 		{
-
+			if (latest == this)
+				latest = null;
 		}
 
 		void Update()
 		{
-			transform.position = new Vector3(transform.position.x, transform.position.y + moveRate * Time.unscaledDeltaTime, 0);
-
-			if (Time.unscaledTime > spawned + timeToLive)
+			if (Time.unscaledTime > spawned + SHOW_TIME)
+			{
 				OwningPool.ReleasePooledObject(this);
+			}
+			else
+			{
+				if (Time.unscaledTime > spawned + SHOW_TIME - ANIMATE_OUT_TIME && crossfading == false)
+				{
+					crossfading = true;
+					text.CrossFadeAlpha(0f, ANIMATE_OUT_TIME, true);
+				}
+
+				transform.position = new Vector3(transform.position.x, transform.position.y + moveRate * Time.unscaledDeltaTime, 0);
+			}
 		}
 
 		public void SetText(string text)
