@@ -1,9 +1,13 @@
-﻿namespace Celeritas.Game.Interfaces
+﻿using UnityEngine;
+
+namespace Celeritas.Game.Interfaces
 {
-	public interface IPooledObject
+	public interface IPooledObject<T> where T : MonoBehaviour, IPooledObject<T>
 	{
 		void OnSpawned();
 
 		void OnDespawned();
+
+		ObjectPool<T> OwningPool { get; set; }
 	}
 }

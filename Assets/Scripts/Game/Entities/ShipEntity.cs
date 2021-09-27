@@ -156,7 +156,6 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public bool Stunned { get; set; }
 		
-
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
@@ -210,7 +209,6 @@ namespace Celeritas.Game.Entities
 			}
 
 			shieldDelayTimer = Mathf.Max(shieldDelayTimer - Time.deltaTime, 0f);
-			timeSinceLastShieldRegen = timeSinceLastShieldRegen + Time.deltaTime;
 			RegenShield();
 		}
 
@@ -230,13 +228,13 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		/// <param name="attackingEntity">The entity which has attacked.</param>
 		/// <param name="damage">The amount of damage to take.</param>
-		public override void TakeDamage(Entity attackingEntity, int damage)
+		public override void TakeDamage(Entity attackingEntity, float damage)
 		{
 			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity)
 			{
 				base.TakeDamage(attackingEntity);
 
-				int calculatedDamage = CalculateDamage(damage);
+				float calculatedDamage = CalculateDamage(damage);
 				shieldDelayTimer = shieldRegenDelay;
 
 				// if damage will go beyond shields
@@ -260,7 +258,7 @@ namespace Celeritas.Game.Entities
 					ShowDamageLocation = this.transform.position;
 				}
 
-				ShowDamage(calculatedDamage.ToString(), ShowDamageLocation);
+				ShowDamage(calculatedDamage, ShowDamageLocation);
 
 				if (health.IsEmpty())
 				{
@@ -270,10 +268,10 @@ namespace Celeritas.Game.Entities
 		}
 
 		/// <summary>
-		/// The amount of shields is regenerated per tick
+		/// The amount of shields is regenerated per second
 		/// </summary>
 		private float shieldRegenAmount = 50.0f;
-		[SerializeField, Title("Base Shield Regeneration Amount", "The base amount of shields that is regenerated per tick.")]
+		[SerializeField, Title("Base Shield Regeneration Amount", "The base amount of shields that is regenerated per second.")]
 		public float ShieldRegenAmount { get => shieldRegenAmount; set => shieldRegenAmount = value; }
 
 
@@ -295,23 +293,13 @@ namespace Celeritas.Game.Entities
 		private float timeBetweenShieldRegen = 1.0f;
 		public float TimeBetweenShieldRegen { get => timeBetweenShieldRegen; set => timeBetweenShieldRegen = value; }
 
-		/// <summary>
-		/// Timer for shield regen
-		/// </summary>
-		private float timeSinceLastShieldRegen = 0.0f;
-
 		private void RegenShield()
 		{
 			if (shieldDelayTimer == 0f)
 			{
-				if (timeSinceLastShieldRegen >= timeBetweenShieldRegen)
+				if (shield.CurrentValue < shield.MaxValue)
 				{
-					if (shield.CurrentValue < shield.MaxValue)
-					{
-						shield.Damage(Mathf.RoundToInt(shieldRegenAmount * -1));
-						//Debug.Log("Healed: " + Mathf.RoundToInt(shieldRegenAmount * -1));
-					}
-					timeSinceLastShieldRegen = 0.0f;
+					shield.Damage(Mathf.RoundToInt(shieldRegenAmount * Time.smoothDeltaTime * -1));
 				}
 			}
 		}

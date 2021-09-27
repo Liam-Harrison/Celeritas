@@ -11,12 +11,14 @@ namespace Celeritas
 		Height,
 		RefreshRate,
 		FullscreenMode,
+		StackingNumbers,
 	}
 
 	public class SettingsManager : Singleton<SettingsManager>
 	{
-
 		public static InputActions InputActions { get; private set; }
+
+		public static bool StackingDamageNumbers { get; set; }
 
 		protected override void Awake()
 		{
@@ -29,7 +31,13 @@ namespace Celeritas
 		{
 			SetupScreen();
 			LoadKeybinds();
+			LoadGameplaySettings();
 			PlayerPrefs.Save();
+		}
+
+		private void LoadGameplaySettings()
+		{
+			StackingDamageNumbers = GetBool(SettingKey.StackingNumbers, true);
 		}
 
 		private void SetupScreen()

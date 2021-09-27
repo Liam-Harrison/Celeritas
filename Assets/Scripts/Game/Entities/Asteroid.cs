@@ -44,7 +44,7 @@ namespace Celeritas.Game.Entities
 			health = new EntityStatBar(startingHealth);
 		}
 
-		public override void TakeDamage(Entity attackingEntity, int damage)
+		public override void TakeDamage(Entity attackingEntity, float damage)
 		{
 			// uncomment if you'd like asteroids to collide with one-another
 			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity)// || attackingEntity is Asteroid) 
@@ -58,7 +58,7 @@ namespace Celeritas.Game.Entities
 					ShowDamageLocation = this.transform.position;
 				}
 
-				ShowDamage(damage.ToString(), ShowDamageLocation);
+				ShowDamage(damage, ShowDamageLocation);
 
 				health.Damage(damage);
 

@@ -9,7 +9,7 @@ namespace Celeritas.Game
 	/// Allows for the pooling and access of various objects.
 	/// </summary>
 	[System.Serializable]
-	public class ObjectPool<T> where T : MonoBehaviour, IPooledObject
+	public class ObjectPool<T> where T : MonoBehaviour, IPooledObject<T>
 	{
 		[SerializeField, Title("Pooled Object Settings"), DisableInPlayMode]
 		private int capacity = 16;
@@ -69,9 +69,10 @@ namespace Celeritas.Game
 		{
 			for (int i = 0; i < Capacity; i++)
 			{
-				var item = Object.Instantiate(prefab, parent);
-				item.SetActive(false);
-				pool.Add(item.GetComponent<T>());
+				var item = Object.Instantiate(prefab, parent).GetComponent<T>();
+				item.gameObject.SetActive(false);
+				item.OwningPool = this;
+				pool.Add(item);
 			}
 		}
 
@@ -84,6 +85,7 @@ namespace Celeritas.Game
 			if (pool.Count == 0)
 			{
 				var item = Object.Instantiate(prefab, parent).GetComponent<T>();
+				item.OwningPool = this;
 				item.gameObject.SetActive(true);
 				active.Add(item);
 				item.OnSpawned();
@@ -103,6 +105,7 @@ namespace Celeritas.Game
 		public T CreateUnpooledObject()
 		{
 			var item = Object.Instantiate(prefab, parent).GetComponent<T>();
+			item.OwningPool = this;
 			item.gameObject.SetActive(true);
 			unpooled.Add(item);
 			return item;
@@ -140,11 +143,7 @@ namespace Celeritas.Game
 				item.OnDespawned();
 				item.transform.parent = parent;
 			}
-			else if (pool.Contains(item))
-			{
-				Debug.Log($"Attempted to release pool item which was already released", item.gameObject);
-			}
-			else
+			else if (pool.Contains(item) == false)
 			{
 				item.OnDespawned();
 				active.Remove(item);
