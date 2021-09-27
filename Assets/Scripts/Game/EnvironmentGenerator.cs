@@ -131,7 +131,7 @@ namespace Assets.Scripts.Game
 			float scale = Random.Range(minScale, maxScale);
 			asteroid.transform.localScale = new Vector3(scale, scale, scale);
 			asteroid.Rigidbody.mass *= scale;
-			asteroid.StartingHealth = (uint)Mathf.RoundToInt(asteroid.StartingHealth * Mathf.Abs(scale));
+			asteroid.SetHealth(Mathf.InverseLerp(minScale, maxScale, scale));
 		}
 
 		private Asteroid SpawnAsteroid(Vector3 position)

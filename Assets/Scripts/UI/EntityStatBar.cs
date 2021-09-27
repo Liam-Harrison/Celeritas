@@ -29,6 +29,11 @@ namespace Celeritas.UI
 			currentValue = startingValue;
 		}
 
+		public void SetHealth(float amount)
+		{
+			currentValue = Mathf.Clamp(amount, 0, float.MaxValue);
+		}
+
 		/// <summary>
 		/// Checks whether the stat is empty or not, returns true if so
 		/// </summary>
