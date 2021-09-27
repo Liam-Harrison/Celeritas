@@ -25,4 +25,4 @@ MonoBehaviour:
   prefab: {fileID: 2582153226312631470, guid: 772751c7f4b2ed84a85f1f1961c7098c, type: 3}
   capacityHint: 75
   useChunking: 1
-  health: 30
+  health: {x: 50, y: 150}
