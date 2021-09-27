@@ -65,6 +65,11 @@ namespace Celeritas.UI
 
 		public void SetText(float damage)
 		{
+			if (Vector3.Distance(pos, Camera.main.WorldToScreenPoint(Entity.transform.position)) > 20)
+			{
+				pos = Entity.transform.position;
+			}
+
 			ShownDamage = damage;
 			text.text = damage.ToString("0");
 			lastSetText = Time.unscaledTime;

@@ -23,17 +23,7 @@ namespace Celeritas.Game.Events
 			EventData = data;
 			OriginChunk = chunk;
 
-			for (int x = 0; x < data.Grid.GetLength(0); x++)
-			{
-				for (int y = 0; y < data.Grid.GetLength(1); y++)
-				{
-					if (data.Grid[x, y])
-					{
-						var delta = data.GetRelativeToMiddle(x, y);
-						ChunkIds.Add(OriginChunk + delta);
-					}
-				}
-			}
+			ChunkIds.AddRange(GetChunks(OriginChunk, data));
 
 			if (data.ShowArrow)
 			{
@@ -59,6 +49,23 @@ namespace Celeritas.Game.Events
 					scrollables.Add(s);
 				}
 			}
+		}
+
+		public static List<Vector2Int> GetChunks(Vector2Int origin, EventData data)
+		{
+			var chunks = new List<Vector2Int>();
+			for (int x = 0; x < data.Grid.GetLength(0); x++)
+			{
+				for (int y = 0; y < data.Grid.GetLength(1); y++)
+				{
+					if (data.Grid[x, y])
+					{
+						var delta = data.GetRelativeToMiddle(x, y);
+						chunks.Add(origin + delta);
+					}
+				}
+			}
+			return chunks;
 		}
 
 		public void EnterEventArea()

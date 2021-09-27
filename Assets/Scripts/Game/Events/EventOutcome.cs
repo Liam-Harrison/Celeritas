@@ -38,10 +38,10 @@ namespace Celeritas.Game.Events
 		[SerializeField, TitleGroup("Reward"), ShowIf(nameof(hasRewards))]
 		private ModuleRewardChance[] moduleRewards;
 
-		[SerializeField, TitleGroup("Healing / Harming")]
+		[SerializeField, TitleGroup("Healing & Harming")]
 		private bool changeHealth;
 
-		[SerializeField, TitleGroup("Healing / Harming"), ShowIf(nameof(changeHealth)), PropertyRange(-1, 1)]
+		[SerializeField, TitleGroup("Healing & Harming"), ShowIf(nameof(changeHealth)), PropertyRange(-1, 1)]
 		private float percentChangeHealth;
 
 		[SerializeField, TitleGroup("Event")]
