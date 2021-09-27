@@ -2,6 +2,7 @@ using Celeritas.Game.Actions;
 using Celeritas.Game.Entities;
 using Celeritas.Game.Interfaces;
 using Celeritas.Scriptables;
+using Celeritas.UI;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Celeritas.Game
 	/// <summary>
 	/// The Entity class provides basic functionality for on-screen objects.
 	/// </summary>
-	public abstract class Entity : SerializedMonoBehaviour, IPooledObject
+	public abstract class Entity : SerializedMonoBehaviour, IPooledObject<Entity>
 	{
 		private const float SCHEDULE_DIE_INVINCIBLE_TIME = 0.5f;
 
@@ -30,6 +31,8 @@ namespace Celeritas.Game
 
 		[SerializeField, Title("Graphical Effects", "(eg. on hit, on destroy)"), DisableInPlayMode]
 		private bool hasGraphicalEffects;
+
+		public ObjectPool<Entity> OwningPool { get; set; }
 
 		/// <summary>
 		/// Effect that will play when the entity is destroyed.
@@ -189,10 +192,9 @@ namespace Celeritas.Game
 		public bool PlayerShip { get; set; }
 
 		/// <summary>
-		/// Used to apply floating text to entity
+		/// The floating text attatched to this ship, if any.
 		/// </summary>
-		[SerializeField]
-		private GameObject floatingTextPrefab;
+		public FloatingText AttatchedFloatingText { get; set; }
 
 		/// <summary>
 		/// Initalize this entity.
@@ -414,7 +416,7 @@ namespace Celeritas.Game
 		/// </summary>
 		/// <param name="attackingEntity">the entity that is attacking this entity</param>
 		/// <param name="damage">the amount of damage being done</param>
-		public virtual void TakeDamage(Entity attackingEntity, int damage = 0)
+		public virtual void TakeDamage(Entity attackingEntity, float damage = 0)
 		{
 			// by default, entities have no health, so this does nothing. Will be overridden by children.
 		}
@@ -454,31 +456,9 @@ namespace Celeritas.Game
 		/// <summary>
 		/// Displays floating text at the projectile's location.
 		/// </summary>
-		public void ShowDamage(string text, Vector3 position)
+		public void ShowDamage(float damage, Vector3 position)
 		{
-			try
-			{
-				CombatHUD combatHud = GameObject.Find("combat_hud").GetComponent<CombatHUD>();
-
-				if (combatHud)
-				{
-					if (ShowDamageOnEntity == true)
-					{
-
-						combatHud.PrintFloatingText(text, this.transform.position);
-					}
-					else
-					{
-						combatHud.PrintFloatingText(text, position);
-						ShowDamageOnEntity = true;
-					}
-				}
-			}
-			catch (NullReferenceException)
-			{
-				//Debug.Log("CombatHUD doesn't exist");
-				return;
-			}
+			CombatHUD.Instance.PrintFloatingText(this, damage);
 		}
 	}
 }

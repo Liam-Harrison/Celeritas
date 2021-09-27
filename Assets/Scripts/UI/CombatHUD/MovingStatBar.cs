@@ -1,3 +1,4 @@
+using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Game.Interfaces;
 using Celeritas.UI;
@@ -11,7 +12,7 @@ using UnityEngine.UI;
 /// Logic for changing the bar's fill color (to make it easier as its a prefab)
 /// and updating the bar to follow a target ship is contained here.
 /// </summary>
-public class MovingStatBar : StatBar, IPooledObject
+public class MovingStatBar : StatBar, IPooledObject<MovingStatBar>
 {
 	private ShipEntity ship; // the ship this bar's position is locked onto.
 
@@ -26,6 +27,8 @@ public class MovingStatBar : StatBar, IPooledObject
 	public void OnDespawned(){ }
 
 	public void OnSpawned(){ }
+
+	public ObjectPool<MovingStatBar> OwningPool { get; set; }
 
 	/// <summary>
 	/// Setup the MovingStatBar

@@ -11,10 +11,10 @@ namespace Assets.Scripts.Scriptables.Data
 	[CreateAssetMenu(fileName = "New Asteroid", menuName = "Celeritas/New Asteroid", order = 50)]
 	public class AsteroidData : EntityData
 	{
-		[SerializeField, TitleGroup("Asteroid")]
-		private uint health;
+		[SerializeField, TitleGroup("Asteroid"), MinMaxSlider(0, 200)]
+		private Vector2 health;
 
-		public uint Health { get => health; }
+		public Vector2 Health { get => health; }
 
 		public override string Tooltip => "An asteroid! What will happen if you destroy it?";
 	}

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4477257796416552750}
   - component: {fileID: 896733420529650260}
   - component: {fileID: 852609842}
+  - component: {fileID: 2934228656961476985}
   m_Layer: 0
   m_Name: Gameplay Managers
   m_TagString: Untagged
@@ -99,3 +100,21 @@ MonoBehaviour:
   numberOfAsteroidClusters: 2
   asteroidNumberPerCluster: 3
   minDistanceFromPlayer: 15
+--- !u!114 &2934228656961476985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4477257796416552756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5066621c47170444b86adfedf547bdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TRACTOR_RANGE_BASE: 10
+  TRACTOR_FORCE_MULTIPLIER: 20
+  TRACTOR_FORCE_CAP: 1000
+  TRACTOR_DEAD_ZONE_RADIUS: 0.1
+  MAX_NUMBER_OF_SIMULTANEOUS_TARGETS: 99
+  TargetMassMultiplier: 1

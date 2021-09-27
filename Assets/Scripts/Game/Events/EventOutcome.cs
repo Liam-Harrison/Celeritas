@@ -29,7 +29,7 @@ namespace Celeritas.Game.Events
 		[SerializeField, TitleGroup("Reward")]
 		private bool hasRewards;
 
-		[SerializeField, ShowIf(nameof(hasRewards)), TitleGroup("Reward"), InfoBox("You can use the standard string format to place variables in the dialogue content, by using the symbols {0}, {1}, ect. The symbols are in this order: Module Reward, Loot Drop Amount")]
+		[SerializeField, ShowIf(nameof(hasRewards)), TitleGroup("Reward")]
 		private LootType lootType;
 
 		[SerializeField, ShowIf(nameof(hasRewards)), TitleGroup("Reward"), MinMaxSlider(0, 4)]
@@ -37,6 +37,12 @@ namespace Celeritas.Game.Events
 
 		[SerializeField, TitleGroup("Reward"), ShowIf(nameof(hasRewards))]
 		private ModuleRewardChance[] moduleRewards;
+
+		[SerializeField, TitleGroup("Healing & Harming")]
+		private bool changeHealth;
+
+		[SerializeField, TitleGroup("Healing & Harming"), ShowIf(nameof(changeHealth)), PropertyRange(-1, 1)]
+		private float percentChangeHealth;
 
 		[SerializeField, TitleGroup("Event")]
 		private bool hasEvent;
@@ -71,12 +77,14 @@ namespace Celeritas.Game.Events
 
 		private readonly List<float> lastChances = new List<float>();
 
-		private int? lootRewardOutcome = null;
-		private ModuleData moduleDataRewardOutcome = null;
 		private GameEvent waveParentEvent;
 
 		public void DoEventOutcome(GameEvent gameEvent)
 		{
+			int? lootRewardOutcome = null;
+			ModuleData moduleDataRewardOutcome = null;
+			float? healthChangeOutcome = null;
+
 			if (hasRewards)
 			{
 				lootRewardOutcome = Mathf.Clamp(Mathf.RoundToInt(Mathf.Lerp(lootRewardRange.x, lootRewardRange.y, Random.value)), lootRewardRange.x, lootRewardRange.y);
@@ -88,9 +96,14 @@ namespace Celeritas.Game.Events
 				moduleDataRewardOutcome = null;
 			}
 
+			if (changeHealth)
+			{
+				healthChangeOutcome = percentChangeHealth;
+			}
+
 			if (hasDialogue)
 			{
-				dialogue.DynamicContent = GetFullDialogueContent(dialogue.content, lootRewardOutcome, moduleDataRewardOutcome);
+				dialogue.DynamicContent = GetFullDialogueContent(dialogue.content, lootRewardOutcome, moduleDataRewardOutcome, healthChangeOutcome);
 				DialogueManager.Instance.ShowDialogue(dialogue, (i) => DialogueFinished(i, gameEvent));
 			}
 			else
@@ -120,13 +133,16 @@ namespace Celeritas.Game.Events
 			}
 		}
 
-		private void CompleteOutcome(bool hasOutcome, GameEvent gameEvent)
+		private void CompleteOutcome(bool hasOutcome, GameEvent gameEvent, int? lootRewardOutcome = null, ModuleData moduleDataRewardOutcome = null, float? healthChange = null)
 		{
 			if (moduleDataRewardOutcome != null)
 				PlayerController.Instance.PlayerShipEntity.Inventory.Add(moduleDataRewardOutcome);
 
 			if (lootRewardOutcome != null)
 				LootController.Instance.GivePlayerLoot(lootType, lootRewardOutcome.Value);
+
+			if (healthChange != null)
+				PlayerController.Instance.PlayerShipEntity.TakeDamage(PlayerController.Instance.PlayerShipEntity, PlayerController.Instance.PlayerShipEntity.Health.MaxValue * healthChange.Value);
 
 			if (hasEvent && eventData != null)
 				EventManager.Instance.CreateEvent(eventData);
@@ -158,12 +174,13 @@ namespace Celeritas.Game.Events
 			}
 		}
 
-		private string GetFullDialogueContent(string content, int? modules, ModuleData reward)
+		private string GetFullDialogueContent(string content, int? modules, ModuleData reward, float? health)
 		{
 			var paramaters = new List<string>();
 
 			AddValue(ref paramaters, reward);
 			AddValue(ref paramaters, modules);
+			AddValue(ref paramaters, health, "0");
 
 			return string.Format(content, paramaters.ToArray());
 		}
@@ -173,6 +190,14 @@ namespace Celeritas.Game.Events
 			if (value != null)
 			{
 				paramaters.Add(value.ToString());
+			}
+		}
+
+		private void AddValue(ref List<string> paramaters, object value, string format)
+		{
+			if (value != null)
+			{
+				paramaters.Add(string.Format("{0:" + format + "}", value.ToString()));
 			}
 		}
 

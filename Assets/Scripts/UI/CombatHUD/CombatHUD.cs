@@ -1,6 +1,8 @@
+using Celeritas;
 using Celeritas.Game;
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
+using Celeritas.UI;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -15,54 +17,54 @@ using UnityEngine;
 /// </summary>
 public class CombatHUD : Singleton<CombatHUD>
 {
-	[SerializeField, Title("Assignments")]
-	private Transform statbarParent;
+	[SerializeField, TitleGroup("Assignments")]
+	private StatBar playerMainHealthBar;
 
-	[SerializeField]
-	private StatBar playerMainHealthBar; // main health bar at the bottom of the screen
+	[SerializeField, TitleGroup("Assignments")]
+	private StatBar playerMainShieldBar;
 
-	[SerializeField]
-	private StatBar playerMainShieldBar; // main shield bar for player
-
-	[SerializeField]
+	[SerializeField, TitleGroup("Assignments")]
 	private AbilityBar abilityBar;
 
-	[SerializeField]
+	[SerializeField, TitleGroup("Assignments")]
 	public GameObject TractorAimingLine;
 
-	// to display how many rare metals the player has
-	[SerializeField]
-	private TextMeshProUGUI rareMetalsCountText;
-
-	// to display how many modules the player has
-	[SerializeField]
-	private TextMeshProUGUI moduleCountText;
-
-	[SerializeField]
+	[SerializeField, TitleGroup("Assignments")]
 	private TextMeshProUGUI switchLabel;
 
-	// just used for dummy ability display right now
-	[SerializeField]
-	private Sprite defaultAbilityIcon;
+	[SerializeField, TitleGroup("Assignments")]
+	private GameObject combatTutorial;
 
-	[SerializeField]
+	[SerializeField, TitleGroup("Mouse")]
 	private Texture2D mouseTexture;
 
-	[SerializeField]
-	private GameObject floatingNotificationPrefab;
+	[SerializeField, TitleGroup("Notifications")]
+	private GameObject notificationPrefab;
+
+	[SerializeField, TitleGroup("Notifications")]
+	private Transform notificationParent;
+
+	[SerializeField, TitleGroup("Floating Text")]
+	private Transform floatingParent;
+
+	[SerializeField, TitleGroup("Floating Text")]
+	private GameObject floatingTextPrefab;
 
 	private ShipEntity playerShip;
 
 	public AbilityBar AbilityBar { get => abilityBar; }
 
+	private ObjectPool<FloatingText> floatingTextPool;
+
+	private ObjectPool<NotificationLabel> labelPool;
+
 	/// <summary>
 	/// Used to apply floating text to entity
 	/// </summary>
-	[SerializeField]
-	private GameObject floatingTextPrefab;
-
 	protected override void Awake()
 	{
+		floatingTextPool = new ObjectPool<FloatingText>(floatingTextPrefab, floatingParent);
+		labelPool = new ObjectPool<NotificationLabel>(notificationPrefab, notificationParent);
 
 		EntityDataManager.OnCreatedEntity += OnCreatedEntity;
 
@@ -155,9 +157,8 @@ public class CombatHUD : Singleton<CombatHUD>
 	/// <param name="message"></param>
 	public void PrintNotification(string message)
 	{
-		GameObject toPrint = Instantiate(floatingNotificationPrefab, statbarParent.transform);
-		toPrint.transform.SetParent(statbarParent.transform);
-		toPrint.GetComponent<TextMeshProUGUI>().text = message;
+		var label = labelPool.GetPooledObject();
+		label.SetText(message);
 	}
 
 	private void OnCreatedEntity(Entity entity)
@@ -165,23 +166,21 @@ public class CombatHUD : Singleton<CombatHUD>
 
 	}
 
-	[SerializeField]
-	private GameObject combatTutorial;
-
 	public void OnToggleTutorial()
 	{
 		combatTutorial.GetComponent<CombatTutorial>().ToggleTutorial();
 	}
 
-	public void PrintFloatingText(string text, Vector3 position)
+	public void PrintFloatingText(Entity entity, float damage)
 	{
-		if (floatingTextPrefab)
+		if (entity.AttatchedFloatingText != null && SettingsManager.StackingDamageNumbers)
 		{
-			{
-				GameObject prefab = Instantiate(floatingTextPrefab, position, Quaternion.identity);
-				prefab.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = text;
-			}
+			entity.AttatchedFloatingText.IncreaseNumber(damage);
+		}
+		else
+		{
+			var floating = floatingTextPool.GetPooledObject();
+			floating.Initalize(entity, damage);
 		}
 	}
-
 }

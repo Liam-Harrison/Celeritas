@@ -46,22 +46,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "New Wave",
-                    "type": "Button",
-                    "id": "45ba3b74-48a9-450a-b50e-636de7b856da",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Final Wave",
-                    "type": "Button",
-                    "id": "f3925e4a-b79c-431a-a5c8-6380c93b3dfc",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Toggle Tutorial",
                     "type": "Button",
                     "id": "4e4119ed-efb7-4739-86a5-5a3f10327aea",
@@ -167,28 +151,6 @@
                     "processors": "",
                     "groups": "Controls",
                     "action": "Tractor Beam",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f7da7a28-2901-4f64-81b8-b8e5bac5d23d",
-                    "path": "<Keyboard>/n",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controls",
-                    "action": "New Wave",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "25a9a930-fe5f-4d1a-b771-40e518b2ddba",
-                    "path": "<Keyboard>/p",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controls",
-                    "action": "Final Wave",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

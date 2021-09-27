@@ -14,7 +14,6 @@ namespace Assets.Scripts.Game.Controllers
 	/// </summary>
 	class TractorBeamController : Singleton<TractorBeamController>
 	{
-		
 		[SerializeField, TitleGroup("Tractor Beam Settings")] int TRACTOR_RANGE_BASE = 10; // radius the tractor beam can reach, to lock onto a target
 		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_FORCE_MULTIPLIER = 20f;
 		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_FORCE_CAP = 1000; // max force tractor beam can apply

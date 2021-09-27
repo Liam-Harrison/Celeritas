@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Celeritas.UI
 {
-	class MinimapMarker : MonoBehaviour, IPooledObject
+	class MinimapMarker : MonoBehaviour, IPooledObject<MinimapMarker>
 	{
 		[SerializeField, Title("Minimap Marker Settings")]
 		private Image sprite;
@@ -24,6 +24,8 @@ namespace Celeritas.UI
 		public Entity Entity { get; private set; }
 
 		public RectTransform RectTransform { get; private set; }
+
+		public ObjectPool<MinimapMarker> OwningPool { get; set; }
 
 		public void Initalize(Entity entity)
 		{

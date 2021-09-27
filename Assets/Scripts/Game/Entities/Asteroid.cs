@@ -14,10 +14,7 @@ namespace Celeritas.Game.Entities
 	/// </summary>
 	public class Asteroid : Entity, ITractorBeamTarget
 	{
-		[SerializeField]
-		private uint startingHealth;
-
-		public uint StartingHealth { get => startingHealth; set => startingHealth = value; }
+		public uint StartingHealth { get; set; }
 
 		[SerializeField, Title("Loot")]
 		private LootConfig lootConfig;
@@ -33,18 +30,32 @@ namespace Celeritas.Game.Entities
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
 			AsteroidData = data as AsteroidData;
-			startingHealth = AsteroidData.Health;
 			Rigidbody = GetComponent<Rigidbody2D>();
+			health = new EntityStatBar(AsteroidData.Health.x);
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
 
-		void Start()
+		public void SetHealth(float percent)
 		{
-			health = new EntityStatBar(startingHealth);
+			var hp = Mathf.Lerp(AsteroidData.Health.x, AsteroidData.Health.y, percent);
+			health.MaxValue = hp;
+			health.SetHealth(hp);
 		}
 
-		public override void TakeDamage(Entity attackingEntity, int damage)
+		public override void OnSpawned()
+		{
+			base.OnSpawned();
+
+		}
+
+		public override void OnDespawned()
+		{
+			base.OnDespawned();
+
+		}
+
+		public override void TakeDamage(Entity attackingEntity, float damage)
 		{
 			// uncomment if you'd like asteroids to collide with one-another
 			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity)// || attackingEntity is Asteroid) 
@@ -58,7 +69,7 @@ namespace Celeritas.Game.Entities
 					ShowDamageLocation = this.transform.position;
 				}
 
-				ShowDamage(damage.ToString(), ShowDamageLocation);
+				ShowDamage(damage, ShowDamageLocation);
 
 				health.Damage(damage);
 

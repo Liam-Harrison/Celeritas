@@ -11,12 +11,14 @@ namespace Celeritas
 		Height,
 		RefreshRate,
 		FullscreenMode,
+		StackingNumbers,
 	}
 
 	public class SettingsManager : Singleton<SettingsManager>
 	{
-
 		public static InputActions InputActions { get; private set; }
+
+		public static bool StackingDamageNumbers { get; set; }
 
 		protected override void Awake()
 		{
@@ -29,7 +31,13 @@ namespace Celeritas
 		{
 			SetupScreen();
 			LoadKeybinds();
+			LoadGameplaySettings();
 			PlayerPrefs.Save();
+		}
+
+		private void LoadGameplaySettings()
+		{
+			StackingDamageNumbers = GetBool(SettingKey.StackingNumbers, true);
 		}
 
 		private void SetupScreen()
@@ -110,12 +118,6 @@ namespace Celeritas
 			return PlayerPrefs.GetInt(key.ToString(), defaultValue);
 		}
 
-		public static void SetInt(SettingKey key, int value)
-		{
-			PlayerPrefs.SetInt(key.ToString(), value);
-			PlayerPrefs.Save();
-		}
-
 		public static bool GetBool(SettingKey key)
 		{
 			return PlayerPrefs.GetInt(key.ToString()) == 1;
@@ -126,12 +128,6 @@ namespace Celeritas
 			return PlayerPrefs.GetInt(key.ToString(), defaultValue ? 1 : 0) == 1;
 		}
 
-		public static void SetBool(SettingKey key, bool value)
-		{
-			PlayerPrefs.SetInt(key.ToString(), value ? 1 : 0);
-			PlayerPrefs.Save();
-		}
-
 		public static string GetString(SettingKey key)
 		{
 			return PlayerPrefs.GetString(key.ToString());
@@ -140,6 +136,18 @@ namespace Celeritas
 		public static string GetString(SettingKey key, string defaultValue)
 		{
 			return PlayerPrefs.GetString(key.ToString(), defaultValue);
+		}
+
+		public static void SetInt(SettingKey key, int value)
+		{
+			PlayerPrefs.SetInt(key.ToString(), value);
+			PlayerPrefs.Save();
+		}
+
+		public static void SetBool(SettingKey key, bool value)
+		{
+			PlayerPrefs.SetInt(key.ToString(), value ? 1 : 0);
+			PlayerPrefs.Save();
 		}
 
 		public static void SetString(SettingKey key, string value)

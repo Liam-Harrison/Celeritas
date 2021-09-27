@@ -7,26 +7,31 @@ namespace Celeritas.UI
 	[Serializable]
 	public class EntityStatBar
 	{
-		[SerializeField, PropertyRange(1, 100), Title("Max Health")]
-		private uint maxValue;
+		[SerializeField, PropertyRange(0, 100), Title("Max Health")]
+		private float maxValue;
 
-		[SerializeField, PropertyRange(1, 100), Title("Current Health")]
-		private int currentValue;
+		[SerializeField, PropertyRange(0, 100), Title("Current Health")]
+		private float currentValue;
 
 		/// <summary>
 		/// The entity's maximum health
 		/// </summary>
-		public uint MaxValue { get => maxValue; set => maxValue = value; }
+		public float MaxValue { get => maxValue; set => maxValue = value; }
 
 		/// <summary>
 		/// The entity's current health
 		/// </summary>
-		public int CurrentValue { get => currentValue; }
+		public float CurrentValue { get => currentValue; }
 
-		public EntityStatBar(uint startingValue)
+		public EntityStatBar(float startingValue)
 		{
 			maxValue = startingValue;
-			currentValue = (int)startingValue;
+			currentValue = startingValue;
+		}
+
+		public void SetHealth(float amount)
+		{
+			currentValue = Mathf.Clamp(amount, 0, float.MaxValue);
 		}
 
 		/// <summary>
@@ -35,19 +40,16 @@ namespace Celeritas.UI
 		/// <returns>true if bar is empty (ie, current value == 0). If health, entity is dead.</returns>
 		public bool IsEmpty()
 		{
-			if (currentValue < 1)
-				return true;
-			else
-				return false;
+			return currentValue == 0;
 		}
 
 		/// <summary>
 		/// damages entity's stat equal to the passed amount
 		/// </summary>
 		/// <param name="amount">Amount to damage entity with</param>
-		public void Damage(int amount)
+		public void Damage(float amount)
 		{
-			currentValue -= amount;
+			currentValue = Mathf.Clamp(currentValue - amount, 0, float.MaxValue);
 		}
 	}
 }
