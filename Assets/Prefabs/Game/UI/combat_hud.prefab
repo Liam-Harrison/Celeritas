@@ -1,5 +1,40 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &664087100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 664087101}
+  m_Layer: 5
+  m_Name: Floating Damage Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &664087101
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664087100}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6923601512839842711}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &109090674022113118
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +45,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4040577071702291077}
   m_Layer: 5
-  m_Name: stat bars
+  m_Name: Notification Labels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +63,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6923601512839842711}
-  m_RootOrder: 4
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -299,7 +334,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6923601512839842711}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -562,6 +597,7 @@ GameObject:
   - component: {fileID: 4282842939857771625}
   - component: {fileID: 2693427895602530068}
   - component: {fileID: 2728799568940353646}
+  - component: {fileID: 91412894}
   m_Layer: 5
   m_Name: Combat Tutorial
   m_TagString: Untagged
@@ -581,7 +617,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6923601512839842711}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -640,6 +676,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 0.4651163
+--- !u!114 &91412894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3479791238943746499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20eb2763c8e87554fbed813fa3d18d97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SecondsToDisplay: 30
 --- !u!1 &3982150869224754146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,10 +1250,22 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.831
+  m_Value: 0.602
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: LowHealthVignette, Assembly-CSharp
+        m_MethodName: onHealthChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6497059532258294284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1430,7 +1491,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6923601512839842711}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1507,10 +1568,11 @@ RectTransform:
   - {fileID: 6497059532033066850}
   - {fileID: 2979874076318814159}
   - {fileID: 1469256673402902542}
-  - {fileID: 4040577071702291077}
   - {fileID: 6248302725277501176}
   - {fileID: 6681772535903028683}
   - {fileID: 1359392333000163751}
+  - {fileID: 4040577071702291077}
+  - {fileID: 664087101}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1531,19 +1593,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 810c274393548be418afbc4c9825b366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statbarParent: {fileID: 4040577071702291077}
   playerMainHealthBar: {fileID: 6497059532258294284}
   playerMainShieldBar: {fileID: 6497059531969569528}
   abilityBar: {fileID: 6497059532849478452}
   TractorAimingLine: {fileID: 1469256673402902539}
-  rareMetalsCountText: {fileID: 0}
-  moduleCountText: {fileID: 0}
   switchLabel: {fileID: 5802384426496940938}
-  defaultAbilityIcon: {fileID: 21300000, guid: 90856b338da0de040bdaba99d967d93c, type: 3}
+  combatTutorial: {fileID: 3479791238943746499}
   mouseTexture: {fileID: 2800000, guid: 2a36305686ecfb14a83afbe7cf09fd91, type: 3}
-  floatingNotificationPrefab: {fileID: 4507332763464691178, guid: 43656d6eb104d4e488341fd34ae92eea, type: 3}
-  floatingTextPrefab: {fileID: 0}
-  combatTutorial: {fileID: 0}
+  notificationPrefab: {fileID: 4507332763464691178, guid: 43656d6eb104d4e488341fd34ae92eea, type: 3}
+  notificationParent: {fileID: 4040577071702291077}
+  floatingParent: {fileID: 664087101}
+  floatingTextPrefab: {fileID: 4679094507319831066, guid: 287e23708f3f68242b6112d84df56568, type: 3}
 --- !u!1 &9071190322934040630
 GameObject:
   m_ObjectHideFlags: 0

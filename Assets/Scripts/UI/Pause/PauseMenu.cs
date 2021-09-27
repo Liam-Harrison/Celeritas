@@ -13,6 +13,8 @@ namespace Celeritas.UI
 
 		private float timescale;
 
+		public bool PauseLocked { get; set; }
+
 		private void Start()
 		{
 			actions = new InputActions.NavigationActions(SettingsManager.InputActions);
@@ -43,9 +45,9 @@ namespace Celeritas.UI
 
 		public void OnPauseMenu(InputAction.CallbackContext context)
 		{
-			if (context.performed)
+			if (context.performed && PauseLocked == false)
 			{
-				if (blocker.activeInHierarchy)
+				if (blocker.activeSelf)
 					Hide();
 				else
 					Show();

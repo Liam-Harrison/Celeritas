@@ -8,10 +8,6 @@ namespace Celeritas.UI
 {
 	public class FloatingText : MonoBehaviour, IPooledObject<FloatingText>
 	{
-		private const float MOVE_SPEED = 1f;
-
-		private const float MAX_Y = 5;
-
 		private const float ShowTime = 1f;
 
 		[SerializeField, TitleGroup("Assignments")]
@@ -28,13 +24,14 @@ namespace Celeritas.UI
 
 		private float lastSetText;
 
-		private float yoffset;
+		private Vector3 pos;
 
 		public void Initalize(Entity entity, float damage)
 		{
 			Entity = entity;
 			Entity.AttatchedFloatingText = this;
-			transform.position = Camera.main.WorldToScreenPoint(entity.transform.position);
+			SetPosition(entity.transform.position);
+			pos = entity.transform.position;
 			animation.Play();
 			SetText(damage);
 		}
@@ -45,12 +42,15 @@ namespace Celeritas.UI
 			{
 				OwningPool.ReleasePooledObject(this);
 			}
-			else if (yoffset < MAX_Y)
+			else
 			{
-				var old = yoffset;
-				yoffset = Mathf.Clamp(yoffset + (MOVE_SPEED * Time.unscaledDeltaTime), 0, MAX_Y);
-				transform.position += new Vector3(0, yoffset - old, 0);
+				SetPosition(pos);
 			}
+		}
+
+		private void SetPosition(Vector3 pos)
+		{
+			transform.position = Camera.main.WorldToScreenPoint(pos);
 		}
 
 		public void SetText(float damage)
@@ -74,7 +74,7 @@ namespace Celeritas.UI
 
 		public void OnSpawned()
 		{
-			yoffset = 0;
+			transform.SetAsLastSibling();
 		}
 	}
 }

@@ -144,9 +144,9 @@ Animation:
   m_GameObject: {fileID: 956958981163862970}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: b87e9abcb50419d459ae30b8897698b8, type: 2}
+  m_Animation: {fileID: 7400000, guid: 9f0fd2c594df128498c4ff82481782c8, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: b87e9abcb50419d459ae30b8897698b8, type: 2}
+  - {fileID: 7400000, guid: 9f0fd2c594df128498c4ff82481782c8, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 6803531934280323561}
   - component: {fileID: 3982533020617888734}
   m_Layer: 0
-  m_Name: FloatingTextParent
+  m_Name: FloatingText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

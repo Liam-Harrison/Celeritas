@@ -86,6 +86,7 @@ namespace Celeritas.UI
 			rebindUI.SetActive(true);
 			selectionText.text = keybind.GetBindingName();
 
+			action.Disable();
 			operation = action.PerformInteractiveRebinding(keybind.Binding)
 							.OnMatchWaitForAnother(0.1f)
 							.WithCancelingThrough("<Keyboard>/escape")
@@ -102,6 +103,7 @@ namespace Celeritas.UI
 		private void RebindComplete(KeybindItemUI keybind)
 		{
 			HideKeybindUI();
+			keybind.InputAction.Enable();
 			keybind.UpdateText();
 			SettingsManager.SaveActionKeybind(keybind.InputAction);
 			PlayerPrefs.Save();

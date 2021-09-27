@@ -18,9 +18,6 @@ using UnityEngine;
 public class CombatHUD : Singleton<CombatHUD>
 {
 	[SerializeField, TitleGroup("Assignments")]
-	private Transform statbarParent;
-
-	[SerializeField, TitleGroup("Assignments")]
 	private StatBar playerMainHealthBar;
 
 	[SerializeField, TitleGroup("Assignments")]
@@ -42,7 +39,10 @@ public class CombatHUD : Singleton<CombatHUD>
 	private Texture2D mouseTexture;
 
 	[SerializeField, TitleGroup("Notifications")]
-	private GameObject floatingNotificationPrefab;
+	private GameObject notificationPrefab;
+
+	[SerializeField, TitleGroup("Notifications")]
+	private Transform notificationParent;
 
 	[SerializeField, TitleGroup("Floating Text")]
 	private Transform floatingParent;
@@ -50,11 +50,13 @@ public class CombatHUD : Singleton<CombatHUD>
 	[SerializeField, TitleGroup("Floating Text")]
 	private GameObject floatingTextPrefab;
 
-	private ObjectPool<FloatingText> floatingTextPool;
-
 	private ShipEntity playerShip;
 
 	public AbilityBar AbilityBar { get => abilityBar; }
+
+	private ObjectPool<FloatingText> floatingTextPool;
+
+	private ObjectPool<NotificationLabel> labelPool;
 
 	/// <summary>
 	/// Used to apply floating text to entity
@@ -62,6 +64,8 @@ public class CombatHUD : Singleton<CombatHUD>
 	protected override void Awake()
 	{
 		floatingTextPool = new ObjectPool<FloatingText>(floatingTextPrefab, floatingParent);
+		labelPool = new ObjectPool<NotificationLabel>(notificationPrefab, notificationParent);
+
 		EntityDataManager.OnCreatedEntity += OnCreatedEntity;
 
 		WaveManager.OnWaveStarted += OnWaveStarted;
@@ -153,9 +157,8 @@ public class CombatHUD : Singleton<CombatHUD>
 	/// <param name="message"></param>
 	public void PrintNotification(string message)
 	{
-		GameObject toPrint = Instantiate(floatingNotificationPrefab, statbarParent.transform);
-		toPrint.transform.SetParent(statbarParent.transform);
-		toPrint.GetComponent<TextMeshProUGUI>().text = message;
+		var label = labelPool.GetPooledObject();
+		label.SetText(message);
 	}
 
 	private void OnCreatedEntity(Entity entity)

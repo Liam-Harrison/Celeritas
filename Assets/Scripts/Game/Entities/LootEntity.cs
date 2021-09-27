@@ -17,7 +17,7 @@ namespace Celeritas.Game.Entities
 
 		public const float SUCK_DIST = 50;
 
-		public const float MAX_VEL = 20;
+		public const float MAX_VEL = 15;
 
 		public const float VEL_PER_SEC = 40;
 
@@ -58,8 +58,8 @@ namespace Celeritas.Game.Entities
 			if (m <= SUCK_DIST)
 			{
 				var p = Mathf.Sin(1 - Mathf.Clamp01(m / SUCK_DIST) * (Mathf.PI / 2));
-				var change = n * VEL_PER_SEC * p * Time.smoothDeltaTime;
-				vel = Vector3.ClampMagnitude(vel + (n - vel), MAX_VEL);
+				var change = n * VEL_PER_SEC * p;
+				vel = Vector3.ClampMagnitude(vel + ((change - vel) * Time.smoothDeltaTime), MAX_VEL);
 			}
 			else 
 			{
