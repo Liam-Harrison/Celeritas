@@ -45,9 +45,41 @@ namespace Celeritas
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Action"",
+                    ""name"": ""Ability 1"",
                     ""type"": ""Button"",
                     ""id"": ""a8104ea1-d7a9-4a37-b683-cf4214f4c126"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Ability 2"",
+                    ""type"": ""Button"",
+                    ""id"": ""27ce111f-4c66-43cf-ab30-2b35e3f81c5a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Ability 3"",
+                    ""type"": ""Button"",
+                    ""id"": ""1e9b049c-2004-4835-a083-73f713505710"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Ability 4"",
+                    ""type"": ""Button"",
+                    ""id"": ""770d712b-4f41-40aa-87a4-12441485f7a3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Alternate Abilities"",
+                    ""type"": ""Button"",
+                    ""id"": ""7bec8b9d-b59b-43e2-b28e-76f45762d85d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -150,11 +182,11 @@ namespace Celeritas
                 {
                     ""name"": """",
                     ""id"": ""ba885465-5fae-4a0d-8e35-508be89fad19"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controls"",
-                    ""action"": ""Action"",
+                    ""action"": ""Ability 1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -177,6 +209,50 @@ namespace Celeritas
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Toggle Tutorial"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""07610bc5-6ed4-460b-8048-102e212e5203"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls"",
+                    ""action"": ""Ability 2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e75c58e-d9a4-4837-8724-a099dbf29d4d"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls"",
+                    ""action"": ""Ability 3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fe935ce8-fdee-4ef7-b3f1-c48c6a3d212c"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls"",
+                    ""action"": ""Ability 4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b43fb0f-7ba0-440e-bdbe-3bed44cd11fd"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls"",
+                    ""action"": ""Alternate Abilities"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -361,7 +437,11 @@ namespace Celeritas
             m_Basic_Move = m_Basic.FindAction("Move", throwIfNotFound: true);
             m_Basic_Fire = m_Basic.FindAction("Fire", throwIfNotFound: true);
             m_Basic_Build = m_Basic.FindAction("Build", throwIfNotFound: true);
-            m_Basic_Action = m_Basic.FindAction("Action", throwIfNotFound: true);
+            m_Basic_Ability1 = m_Basic.FindAction("Ability 1", throwIfNotFound: true);
+            m_Basic_Ability2 = m_Basic.FindAction("Ability 2", throwIfNotFound: true);
+            m_Basic_Ability3 = m_Basic.FindAction("Ability 3", throwIfNotFound: true);
+            m_Basic_Ability4 = m_Basic.FindAction("Ability 4", throwIfNotFound: true);
+            m_Basic_AlternateAbilities = m_Basic.FindAction("Alternate Abilities", throwIfNotFound: true);
             m_Basic_TractorBeam = m_Basic.FindAction("Tractor Beam", throwIfNotFound: true);
             m_Basic_ToggleTutorial = m_Basic.FindAction("Toggle Tutorial", throwIfNotFound: true);
             // Console
@@ -427,7 +507,11 @@ namespace Celeritas
         private readonly InputAction m_Basic_Move;
         private readonly InputAction m_Basic_Fire;
         private readonly InputAction m_Basic_Build;
-        private readonly InputAction m_Basic_Action;
+        private readonly InputAction m_Basic_Ability1;
+        private readonly InputAction m_Basic_Ability2;
+        private readonly InputAction m_Basic_Ability3;
+        private readonly InputAction m_Basic_Ability4;
+        private readonly InputAction m_Basic_AlternateAbilities;
         private readonly InputAction m_Basic_TractorBeam;
         private readonly InputAction m_Basic_ToggleTutorial;
         public struct BasicActions
@@ -437,7 +521,11 @@ namespace Celeritas
             public InputAction @Move => m_Wrapper.m_Basic_Move;
             public InputAction @Fire => m_Wrapper.m_Basic_Fire;
             public InputAction @Build => m_Wrapper.m_Basic_Build;
-            public InputAction @Action => m_Wrapper.m_Basic_Action;
+            public InputAction @Ability1 => m_Wrapper.m_Basic_Ability1;
+            public InputAction @Ability2 => m_Wrapper.m_Basic_Ability2;
+            public InputAction @Ability3 => m_Wrapper.m_Basic_Ability3;
+            public InputAction @Ability4 => m_Wrapper.m_Basic_Ability4;
+            public InputAction @AlternateAbilities => m_Wrapper.m_Basic_AlternateAbilities;
             public InputAction @TractorBeam => m_Wrapper.m_Basic_TractorBeam;
             public InputAction @ToggleTutorial => m_Wrapper.m_Basic_ToggleTutorial;
             public InputActionMap Get() { return m_Wrapper.m_Basic; }
@@ -458,9 +546,21 @@ namespace Celeritas
                     @Build.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnBuild;
                     @Build.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnBuild;
                     @Build.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnBuild;
-                    @Action.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnAction;
-                    @Action.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnAction;
-                    @Action.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnAction;
+                    @Ability1.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnAbility1;
+                    @Ability1.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnAbility1;
+                    @Ability1.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnAbility1;
+                    @Ability2.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnAbility2;
+                    @Ability2.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnAbility2;
+                    @Ability2.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnAbility2;
+                    @Ability3.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnAbility3;
+                    @Ability3.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnAbility3;
+                    @Ability3.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnAbility3;
+                    @Ability4.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnAbility4;
+                    @Ability4.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnAbility4;
+                    @Ability4.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnAbility4;
+                    @AlternateAbilities.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnAlternateAbilities;
+                    @AlternateAbilities.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnAlternateAbilities;
+                    @AlternateAbilities.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnAlternateAbilities;
                     @TractorBeam.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnTractorBeam;
                     @TractorBeam.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnTractorBeam;
                     @TractorBeam.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnTractorBeam;
@@ -480,9 +580,21 @@ namespace Celeritas
                     @Build.started += instance.OnBuild;
                     @Build.performed += instance.OnBuild;
                     @Build.canceled += instance.OnBuild;
-                    @Action.started += instance.OnAction;
-                    @Action.performed += instance.OnAction;
-                    @Action.canceled += instance.OnAction;
+                    @Ability1.started += instance.OnAbility1;
+                    @Ability1.performed += instance.OnAbility1;
+                    @Ability1.canceled += instance.OnAbility1;
+                    @Ability2.started += instance.OnAbility2;
+                    @Ability2.performed += instance.OnAbility2;
+                    @Ability2.canceled += instance.OnAbility2;
+                    @Ability3.started += instance.OnAbility3;
+                    @Ability3.performed += instance.OnAbility3;
+                    @Ability3.canceled += instance.OnAbility3;
+                    @Ability4.started += instance.OnAbility4;
+                    @Ability4.performed += instance.OnAbility4;
+                    @Ability4.canceled += instance.OnAbility4;
+                    @AlternateAbilities.started += instance.OnAlternateAbilities;
+                    @AlternateAbilities.performed += instance.OnAlternateAbilities;
+                    @AlternateAbilities.canceled += instance.OnAlternateAbilities;
                     @TractorBeam.started += instance.OnTractorBeam;
                     @TractorBeam.performed += instance.OnTractorBeam;
                     @TractorBeam.canceled += instance.OnTractorBeam;
@@ -613,7 +725,11 @@ namespace Celeritas
             void OnMove(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
             void OnBuild(InputAction.CallbackContext context);
-            void OnAction(InputAction.CallbackContext context);
+            void OnAbility1(InputAction.CallbackContext context);
+            void OnAbility2(InputAction.CallbackContext context);
+            void OnAbility3(InputAction.CallbackContext context);
+            void OnAbility4(InputAction.CallbackContext context);
+            void OnAlternateAbilities(InputAction.CallbackContext context);
             void OnTractorBeam(InputAction.CallbackContext context);
             void OnToggleTutorial(InputAction.CallbackContext context);
         }

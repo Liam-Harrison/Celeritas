@@ -1,4 +1,5 @@
 using Celeritas.Game;
+using Celeritas.Game.Actions;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Celeritas.UI.Tooltips;
@@ -44,6 +45,8 @@ namespace Celeritas.UI.Inventory
 		private BuildHUD hud;
 
 		public ModuleEntity TooltipEntity => (ModuleEntity)module.EntityInstance;
+
+		public GameAction TooltipAction => null;
 
 		private bool MouseOver { get; set; }
 

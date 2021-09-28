@@ -1,5 +1,5 @@
 using Assets.Scripts.Game.Controllers;
-using Celeritas.Commands;
+using Celeritas.Game.Actions;
 using Celeritas.Game.Entities;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,13 +12,26 @@ namespace Celeritas.Game.Controllers
 	[RequireComponent(typeof(PlayerShipEntity))]
 	public class PlayerController : Singleton<PlayerController>, InputActions.IBasicActions
 	{
+		public class BindedAbilities
+		{
+			public GameAction ability;
+			public GameAction alternate;
+		}
+
 		private InputActions.BasicActions actions = default;
 		private Camera _camera;
+
+		private readonly BindedAbilities ability_one = new BindedAbilities();
+		private readonly BindedAbilities ability_two = new BindedAbilities();
+		private readonly BindedAbilities ability_three = new BindedAbilities();
+		private readonly BindedAbilities ability_four = new BindedAbilities();
 
 		/// <summary>
 		/// The ship entity that this controller is attatched to.
 		/// </summary>
 		public PlayerShipEntity PlayerShipEntity { get; private set; }
+
+		private bool IsAlternateMode { get; set; }
 
 		protected override void Awake()
 		{
@@ -100,11 +113,6 @@ namespace Celeritas.Game.Controllers
 			}
 		}
 
-		public void OnAction(InputAction.CallbackContext context)
-		{
-			PlayerShipEntity.UseActions();
-		}
-
 		TractorBeamController tractorBeam;
 
 		/// <summary>
@@ -132,6 +140,50 @@ namespace Celeritas.Game.Controllers
 		public void OnMove(InputAction.CallbackContext context)
 		{
 			locomotion = context.ReadValue<Vector2>();
+		}
+
+		public void OnAbility1(InputAction.CallbackContext context)
+		{
+			UseAbility(ability_one);
+		}
+
+		public void OnAbility2(InputAction.CallbackContext context)
+		{
+			UseAbility(ability_two);
+		}
+
+		public void OnAbility3(InputAction.CallbackContext context)
+		{
+			UseAbility(ability_three);
+		}
+
+		public void OnAbility4(InputAction.CallbackContext context)
+		{
+			UseAbility(ability_four);
+		}
+
+		public void OnAlternateAbilities(InputAction.CallbackContext context)
+		{
+			if (context.performed)
+			{
+				IsAlternateMode = true;
+			}
+			else if (context.canceled)
+			{
+				IsAlternateMode = false;
+			}
+		}
+
+		private void UseAbility(BindedAbilities ability)
+		{
+			if (IsAlternateMode == false)
+			{
+				ability.ability.ExecuteAction(PlayerShipEntity);
+			}
+			else
+			{
+				ability.alternate.ExecuteAction(PlayerShipEntity);
+			}
 		}
 	}
 }

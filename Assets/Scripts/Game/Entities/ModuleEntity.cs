@@ -1,3 +1,4 @@
+using Celeritas.Game.Actions;
 using Celeritas.Scriptables;
 using Celeritas.UI.Tooltips;
 using Sirenix.OdinInspector;
@@ -85,6 +86,9 @@ namespace Celeritas.Game.Entities
 
 		///<inheritdoc/>
 		public ModuleEntity TooltipEntity => this;
+
+		///<inheritdoc/>
+		public GameAction TooltipAction => null;
 
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)

@@ -30,9 +30,41 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Action",
+                    "name": "Ability 1",
                     "type": "Button",
                     "id": "a8104ea1-d7a9-4a37-b683-cf4214f4c126",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Ability 2",
+                    "type": "Button",
+                    "id": "27ce111f-4c66-43cf-ab30-2b35e3f81c5a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Ability 3",
+                    "type": "Button",
+                    "id": "1e9b049c-2004-4835-a083-73f713505710",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Ability 4",
+                    "type": "Button",
+                    "id": "770d712b-4f41-40aa-87a4-12441485f7a3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Alternate Abilities",
+                    "type": "Button",
+                    "id": "7bec8b9d-b59b-43e2-b28e-76f45762d85d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -135,11 +167,11 @@
                 {
                     "name": "",
                     "id": "ba885465-5fae-4a0d-8e35-508be89fad19",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controls",
-                    "action": "Action",
+                    "action": "Ability 1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -162,6 +194,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "Toggle Tutorial",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "07610bc5-6ed4-460b-8048-102e212e5203",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Ability 2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e75c58e-d9a4-4837-8724-a099dbf29d4d",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Ability 3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe935ce8-fdee-4ef7-b3f1-c48c6a3d212c",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Ability 4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9b43fb0f-7ba0-440e-bdbe-3bed44cd11fd",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Alternate Abilities",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

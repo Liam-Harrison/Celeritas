@@ -20,6 +20,8 @@ namespace Celeritas
 
 		public static bool StackingDamageNumbers { get; set; }
 
+		public static event Action OnKeybindChanged;
+
 		protected override void Awake()
 		{
 			base.Awake();
@@ -76,6 +78,7 @@ namespace Celeritas
 					}
 				}
 			}
+			OnKeybindChanged?.Invoke();
 		}
 
 		public static void SaveActionKeybind(InputAction action)
@@ -97,6 +100,7 @@ namespace Celeritas
 					PlayerPrefs.SetString(key, binding.overridePath);
 				}
 			}
+			OnKeybindChanged?.Invoke();
 		}
 
 		public static void SaveAllKeybinds()
@@ -106,6 +110,7 @@ namespace Celeritas
 				SaveActionKeybind(action);
 			}
 			PlayerPrefs.Save();
+			OnKeybindChanged?.Invoke();
 		}
 
 		public static int GetInt(SettingKey key)
