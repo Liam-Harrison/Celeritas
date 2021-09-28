@@ -352,6 +352,19 @@ namespace Celeritas.Game.Entities
 			Stunned = false;
 		}
 
+		public void Immortality(float duration)
+		{
+			StartCoroutine(ImmortalityTimer(duration));
+		}
+
+		public IEnumerator ImmortalityTimer(float duration)
+		{
+			int currentDamageModifier = DamageModifierPercentage;
+			DamageModifierPercentage = -100;
+			yield return new WaitForSeconds(duration);
+			DamageModifierPercentage = currentDamageModifier;
+		}
+
 		/// <summary>
 		/// Current damage modifer on ship.
 		/// Default is 0, negative value = less damage, positive value = takes more damage.
