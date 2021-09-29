@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0821e90255175004685e67ca8d9212a9, type: 3}
-  m_Name: action_immortality
+  m_Script: {fileID: 11500000, guid: 3ee0d4ee51750af45b7430210d4a5dbd, type: 3}
+  m_Name: effect_immortality
   m_EditorClassIdentifier: 
   title: Immortality
-  icon: {fileID: 21300000, guid: 1dc64af4e33f845f6aa34f04a9f67676, type: 3}
-  cooldownSeconds: 30
-  isPassive: 0
-  duration: 1.5
-  cooldownPerLevel: 2
+  targets: 4
+  stacks: 1
+  systems:
+  - {fileID: 11400000, guid: 8fd55b9f13b01104da8729e3155b571c, type: 2}
