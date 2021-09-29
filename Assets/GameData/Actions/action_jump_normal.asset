@@ -15,4 +15,6 @@ MonoBehaviour:
   title: Jump
   icon: {fileID: 21300000, guid: ae4e1dd400b2c7544a9acadb150fc541, type: 3}
   cooldownSeconds: 4
+  isPassive: 0
   distance: 50
+  distancePerLevel: 0
