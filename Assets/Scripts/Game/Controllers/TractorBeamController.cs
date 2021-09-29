@@ -200,7 +200,17 @@ namespace Assets.Scripts.Game.Controllers
 					if (effectiveMass == 0) // no dividing by zero
 						effectiveMass = 0.01f;
 
-					Vector2 toApply = dirToPull * dirToPull.magnitude * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
+					 Vector2 toApply = dirToPull * dirToPull.magnitude * TRACTOR_FORCE_MULTIPLIER / effectiveMass; // old throwing logic (inverted)
+
+					//Vector2 toApply = dirToPull * (1/dirToPull.magnitude) * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
+
+					//Vector2 toApply = dirToPull * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
+
+					// something different
+					//Vector2 velocity = t.Rigidbody.velocity;
+					//t.Rigidbody.position = Vector2.SmoothDamp(t.Rigidbody.position, mousePos, ref velocity, 0.6f, Mathf.Infinity, Time.deltaTime); // if using, gotta factor in mass
+
+					
 					if (toApply.magnitude > TRACTOR_FORCE_CAP)
 						toApply = toApply.normalized * TRACTOR_FORCE_CAP;
 
