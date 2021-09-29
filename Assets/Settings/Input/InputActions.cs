@@ -248,7 +248,7 @@ namespace Celeritas
                 {
                     ""name"": """",
                     ""id"": ""9b43fb0f-7ba0-440e-bdbe-3bed44cd11fd"",
-                    ""path"": ""<Keyboard>/ctrl"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controls"",

@@ -26,6 +26,9 @@ namespace Celeritas.UI.Inventory
 		private Image border;
 
 		[SerializeField, TitleGroup("Assignments")]
+		private Image shape;
+
+		[SerializeField, TitleGroup("Assignments")]
 		private TextMeshProUGUI title;
 
 		[SerializeField, TitleGroup("Assignments")]
@@ -69,9 +72,10 @@ namespace Celeritas.UI.Inventory
 				image.sprite = module.Icon;
 				border.sprite = GameDataManager.Instance.GetBorderSprite(module.Rarity);
 				title.text = module.Title;
+				shape.sprite = GameDataManager.Instance.GetTetrisSprite(module.TetrisShape);
 
 				if (module.EntityInstance is ModuleEntity entity)
-					subtitle.text = $"{module.ModuleCatagory} - {module.ModuleSize} - Level {entity.Level}";
+					subtitle.text = $"{module.ModuleCatagory} - {module.ModuleSize} - Level {entity.Level + 1}";
 			}
 		}
 

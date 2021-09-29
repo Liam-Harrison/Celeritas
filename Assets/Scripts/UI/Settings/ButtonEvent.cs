@@ -47,6 +47,9 @@ namespace Celeritas.UI
 
 		private void OnValidate()
 		{
+			if (asset == null)
+				return;
+
 			if (GetCurrentActionMap() == null)
 			{
 				selectedMap = "";

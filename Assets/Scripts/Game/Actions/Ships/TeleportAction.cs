@@ -9,14 +9,16 @@ namespace Celeritas.Game.Actions
 
 		public TeleportActionData TeleportData { get; private set; }
 
-		protected override void Execute(Entity entity)
+		protected override void Execute(Entity entity, int level)
 		{
 			var ship = entity as ShipEntity;
+
+			var dist = TeleportData.distance + (TeleportData.distancePerLevel * level);
 
 			var target = ship.AimTarget;
 			if ((target - ship.Position).magnitude > TeleportData.distance)
 			{
-				target = (ship.AimTarget - ship.Position).normalized * TeleportData.distance;
+				target = (ship.AimTarget - ship.Position).normalized * dist;
 			}
 
 			ship.Position = target;

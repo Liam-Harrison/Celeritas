@@ -1,4 +1,5 @@
 using Celeritas.Game.Actions;
+using Celeritas.Game.Controllers;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,7 +29,8 @@ namespace Celeritas.UI
 		[SerializeField, TitleGroup("Prefabs")]
 		private GameObject abilityPrefab;
 
-		public List<UIAbilitySlot> AbilitySlots { get; private set; } = new List<UIAbilitySlot>();
+		private UIAbilitySlot[] primaries = new UIAbilitySlot[4];
+		private UIAbilitySlot[] alternates = new UIAbilitySlot[4];
 
 		void Start()
 		{
@@ -46,7 +48,8 @@ namespace Celeritas.UI
 				else
 					action = SettingsManager.InputActions.Basic.Ability4;
 
-				CreateAction(i <= 3 ? primaryBar : secondaryBar, action);
+				bool isSecondary = i > 3;
+				CreateAction(j, isSecondary, action, isSecondary ? secondaryBar : primaryBar);
 
 				if (i == 3)
 					j = 0;
@@ -56,38 +59,42 @@ namespace Celeritas.UI
 
 			SettingsManager.InputActions.Basic.AlternateAbilities.performed += AlternateAbilitiesPerformed;
 			SettingsManager.InputActions.Basic.AlternateAbilities.canceled += AlternateAbilitiesCanceled;
+
+			PlayerController.OnActionLinked += OnActionLinked;
+			PlayerController.OnActionUnlinked += OnActionUnlinked;
 		}
 
-		private void CreateAction(Transform parent, InputAction action)
+		private void OnDestroy()
+		{
+			PlayerController.OnActionLinked -= OnActionLinked;
+			PlayerController.OnActionUnlinked -= OnActionUnlinked;
+		}
+
+		private void OnActionLinked(int index, bool isAlternate, GameAction action)
+		{
+			if (isAlternate)
+				alternates[index].LinkToAction(action);
+			else
+				primaries[index].LinkToAction(action);
+		}
+
+		private void OnActionUnlinked(int index, bool isAlternate)
+		{
+			if (isAlternate)
+				alternates[index].UnlinkAction();
+			else
+				alternates[index].UnlinkAction();
+		}
+
+		private void CreateAction(int index, bool isAlternate, InputAction action, Transform parent)
 		{
 			var slot = Instantiate(abilityPrefab, parent).GetComponent<UIAbilitySlot>();
-			slot.Initalize(this, action);
-			AbilitySlots.Add(slot);
-		}
+			slot.Initalize(index, isAlternate, this, action);
 
-		public void LinkAction(GameAction action)
-		{
-			foreach (var slot in AbilitySlots)
-			{
-				if (slot.LinkedAction == null)
-				{
-					slot.LinkToAction(action);
-					return;
-				}
-			}
-		}
-
-		public void UnlinkAction(GameAction action)
-		{
-			for (int i = 0; i < AbilitySlots.Count; i++)
-			{
-				if (AbilitySlots[i].LinkedAction == action)
-				{
-					Destroy(AbilitySlots[i].gameObject);
-					AbilitySlots.RemoveAt(i);
-					return;
-				}
-			}
+			if (isAlternate)
+				alternates[index] = slot;
+			else
+				primaries[index] = slot;
 		}
 
 		private void AlternateAbilitiesPerformed(InputAction.CallbackContext obj)
@@ -104,7 +111,7 @@ namespace Celeritas.UI
 
 		public void ChangeAction(UIAbilitySlot slot)
 		{
-			actionSelection.Show(slot);
+			actionSelection.Show(slot, PlayerController.Instance.PlayerShipEntity.Actions);
 		}
 	}
 }

@@ -3,6 +3,9 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
+using UnityEngine.UI;
+using Celeritas.Game.Controllers;
 
 namespace Celeritas.UI
 {
@@ -11,7 +14,9 @@ namespace Celeritas.UI
 		[SerializeField, TitleGroup("Assignments")]
 		private GameObject optionPrefab;
 
-		public new RectTransform transform {  get; set; }
+		public new RectTransform transform;
+
+		private UIAbilitySlot slot;
 
 		private void Awake()
 		{
@@ -30,8 +35,25 @@ namespace Celeritas.UI
 
 		public void Show(UIAbilitySlot slot, List<GameAction> actions)
 		{
-			// draw a button for each action
+			if (actions.Count == 0)
+				return;
 
+			if (transform == null)
+				transform = GetComponent<RectTransform>();
+
+			PlayerController.Instance.LockInput = true;
+
+			if (transform.childCount == 0)
+			{
+				foreach (var action in actions)
+				{
+					var button = Instantiate(optionPrefab, transform);
+					button.GetComponentInChildren<TextMeshProUGUI>().text = $"{action.Data.Title}";
+					button.GetComponentInChildren<Button>().onClick.AddListener(() => ActionSelected(action));
+				}
+			}
+
+			this.slot = slot;
 			gameObject.SetActive(true);
 			CombatHUD.Instance.SetGameCursor(false);
 
@@ -46,6 +68,7 @@ namespace Celeritas.UI
 			gameObject.SetActive(false);
 			CombatHUD.Instance.SetGameCursor(true);
 			transform.DestroyAllChildren();
+			PlayerController.Instance.LockInput = false;
 		}
 
 		private void FirePerformed(InputAction.CallbackContext obj)
@@ -62,6 +85,7 @@ namespace Celeritas.UI
 		private void ActionSelected(GameAction action)
 		{
 			Hide();
+			PlayerController.Instance.BindAction(slot.AbilityIndex, slot.IsAlternate, action);
 		}
 	}
 }

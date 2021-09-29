@@ -1,4 +1,5 @@
 using Celeritas.Game.Actions;
+using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
 using Celeritas.UI.Tooltips;
 using Sirenix.OdinInspector;
@@ -43,6 +44,10 @@ namespace Celeritas.UI
 
 		public new RectTransform transform { get; set; }
 
+		public int AbilityIndex { get; set; }
+
+		public bool IsAlternate { get; set; }
+
 		private void Awake()
 		{
 			transform = GetComponent<RectTransform>();
@@ -50,10 +55,37 @@ namespace Celeritas.UI
 			time.enabled = false;
 			highlight.enabled = false;
 			SettingsManager.OnKeybindChanged += OnSettingsChanged;
+
+			if (PlayerController.Instance != null)
+				BindActionEvent();
+			else
+				PlayerController.OnPlayerShipCreated += BindActionEvent;
 		}
 
-		public void Initalize(AbilityBar abilityBar,  InputAction inputAction)
+		private void BindActionEvent()
 		{
+			PlayerController.OnPlayerShipCreated -= BindActionEvent;
+			PlayerController.Instance.PlayerShipEntity.OnActionRemoved += OnActionRemoved;
+		}
+
+		private void OnDestroy()
+		{
+			SettingsManager.OnKeybindChanged -= OnSettingsChanged;
+			PlayerController.Instance.PlayerShipEntity.OnActionRemoved -= OnActionRemoved;
+		}
+
+		private void OnActionRemoved(GameAction action)
+		{
+			if (action == LinkedAction)
+			{
+				UnlinkAction();
+			}
+		}
+
+		public void Initalize(int abilityNumber, bool isAlternate, AbilityBar abilityBar, InputAction inputAction)
+		{
+			IsAlternate = isAlternate;
+			AbilityIndex = abilityNumber;
 			AbilityBar = abilityBar;
 			InputAction = inputAction;
 			key.text = inputAction.GetBindingDisplayString();
@@ -85,7 +117,7 @@ namespace Celeritas.UI
 			else
 				icon.enabled = false;
 
-			time.text = "0.0";
+			time.text = $"{LinkedAction.TimeLeftOnCooldown:0.0}";
 			time.enabled = true;
 		}
 

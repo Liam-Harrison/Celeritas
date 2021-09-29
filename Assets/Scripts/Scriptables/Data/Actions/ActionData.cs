@@ -44,5 +44,7 @@ namespace Celeritas.Scriptables
 		/// The type of this action.
 		/// </summary>
 		public abstract Type ActionType { get; }
+
+		public abstract string GetTooltip(int level);
 	}
 }
