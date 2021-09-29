@@ -209,9 +209,9 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public static void UnloadAllEntities()
 		{
-			foreach (var op in entites)
+			foreach (var item in entites)
 			{
-				op.Value.ReleaseAllObjects();
+				item.Value.ReleaseAllObjects();
 			}
 		}
 

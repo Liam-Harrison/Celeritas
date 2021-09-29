@@ -90,10 +90,10 @@ namespace Celeritas.Scriptables
 			if (prefab != null)
 			{
 				if (prefab.HasComponent<ShipEntity>() == false)
-					Debug.LogError($"Assigned prefab must have a {nameof(ShipEntity)} attatched to it.", this);
+					Debug.LogError($"Assigned prefab must have a {nameof(ShipEntity)} attatched to it ({Title}).", this);
 
 				if (prefab.HasComponent<Rigidbody2D>() == false)
-					Debug.LogError($"Assigned prefab must have a {nameof(Rigidbody2D)} attatched to it.", this);
+					Debug.LogError($"Assigned prefab must have a {nameof(Rigidbody2D)} attatched to it ({Title}).", this);
 			}
 		}
 	}

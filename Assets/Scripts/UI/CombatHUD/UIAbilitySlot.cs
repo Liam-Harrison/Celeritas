@@ -62,24 +62,21 @@ namespace Celeritas.UI
 				PlayerController.OnPlayerShipCreated += BindActionEvent;
 		}
 
-		private void BindActionEvent()
-		{
-			PlayerController.OnPlayerShipCreated -= BindActionEvent;
-			PlayerController.Instance.PlayerShipEntity.OnActionRemoved += OnActionRemoved;
-		}
-
 		private void OnDestroy()
 		{
 			SettingsManager.OnKeybindChanged -= OnSettingsChanged;
-			PlayerController.Instance.PlayerShipEntity.OnActionRemoved -= OnActionRemoved;
+
+			if (PlayerController.Instance != null)
+				PlayerController.Instance.PlayerShipEntity.OnActionRemoved -= OnActionRemoved;
 		}
 
-		private void OnActionRemoved(GameAction action)
+		public void ClearEvents()
 		{
-			if (action == LinkedAction)
-			{
-				UnlinkAction();
-			}
+			if (InputAction == null)
+				return;
+
+			InputAction.performed -= InputAction_performed;
+			InputAction.canceled -= InputAction_canceled;
 		}
 
 		public void Initalize(int abilityNumber, bool isAlternate, AbilityBar abilityBar, InputAction inputAction)
@@ -91,6 +88,20 @@ namespace Celeritas.UI
 			key.text = inputAction.GetBindingDisplayString();
 			inputAction.performed += InputAction_performed;
 			inputAction.canceled += InputAction_canceled;
+		}
+
+		private void BindActionEvent()
+		{
+			PlayerController.OnPlayerShipCreated -= BindActionEvent;
+			PlayerController.Instance.PlayerShipEntity.OnActionRemoved += OnActionRemoved;
+		}
+
+		private void OnActionRemoved(GameAction action)
+		{
+			if (action == LinkedAction)
+			{
+				UnlinkAction();
+			}
 		}
 
 		private void Update()

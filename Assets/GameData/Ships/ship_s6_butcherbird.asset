@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Butcherbird
-  prefab: {fileID: 2610966746807770240, guid: 0b2333e852ea9bb429766eb61a356776, type: 3}
+  prefab: {fileID: 329113809059369630, guid: 2910eb887eb54fb47af2af4e96012bdc, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:

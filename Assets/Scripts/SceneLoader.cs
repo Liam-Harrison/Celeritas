@@ -53,6 +53,8 @@ namespace Celeritas
 			if (unloadAllEntities)
 				EntityDataManager.UnloadAllEntities();
 
+			Time.timeScale = 1;
+
 			if (scene.HasFlag(Scene.Main))
 			{
 				SceneManager.LoadSceneAsync(Constants.MAIN_SCENE_PATH, loaded ? LoadSceneMode.Additive : mode);

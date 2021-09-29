@@ -66,8 +66,20 @@ namespace Celeritas.UI
 
 		private void OnDestroy()
 		{
+			SettingsManager.InputActions.Basic.AlternateAbilities.performed -= AlternateAbilitiesPerformed;
+			SettingsManager.InputActions.Basic.AlternateAbilities.canceled -= AlternateAbilitiesCanceled;
+
 			PlayerController.OnActionLinked -= OnActionLinked;
 			PlayerController.OnActionUnlinked -= OnActionUnlinked;
+
+			foreach (var item in primaries)
+			{
+				item.ClearEvents();
+			}
+			foreach (var item in alternates)
+			{
+				item.ClearEvents();
+			}
 		}
 
 		private void OnActionLinked(int index, bool isAlternate, GameAction action)

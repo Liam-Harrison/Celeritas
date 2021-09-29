@@ -57,7 +57,11 @@ namespace Celeritas.AI
 
 		private void FetchBounds()
 		{
-			var collider = GetComponentInChildren<EdgeCollider2D>();
+			var collider = GetComponentInChildren<Collider2D>();
+
+			if (collider == null)
+				Debug.LogError($"AI ship is missing a 2D collider ({ShipEntity.ShipData.Title}). Add one to this ship.");
+
 			Bounds = collider.bounds;
 		}
 
