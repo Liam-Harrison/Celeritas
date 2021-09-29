@@ -115,12 +115,20 @@ namespace Celeritas.Game
 		{
 			foreach (var item in active)
 			{
+				if (item == null)
+					continue;
+
+				item.gameObject.SetActive(false);
 				pool.Add(item);
 				item.OnDespawned();
 				item.transform.parent = parent;
 			}
 			foreach (var item in unpooled)
 			{
+				if (item == null)
+					continue;
+
+				item.gameObject.SetActive(false);
 				item.OnDespawned();
 				Object.Destroy(item.gameObject);
 			}

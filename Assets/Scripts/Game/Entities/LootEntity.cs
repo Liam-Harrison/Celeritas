@@ -23,7 +23,6 @@ namespace Celeritas.Game.Entities
 
 		public LootData lootData;
 		private uint pickupRadius;
-		private PlayerShipEntity player;
 
 		private int amount;
 		private LootType lootType;
@@ -42,11 +41,6 @@ namespace Celeritas.Game.Entities
 			lootType = lootData.LootType;
 			
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
-		}
-
-		private void Start()
-		{
-			player = PlayerController.Instance.PlayerShipEntity;
 		}
 
 		protected override void Update()
@@ -68,7 +62,7 @@ namespace Celeritas.Game.Entities
 
 			transform.position += vel * Time.smoothDeltaTime;
 
-			if (Vector3.Distance(transform.position, player.transform.position) <= pickupRadius)
+			if (m <= pickupRadius)
 			{
 				PickedUpByPlayer();
 			}

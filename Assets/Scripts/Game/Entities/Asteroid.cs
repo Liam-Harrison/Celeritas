@@ -52,7 +52,6 @@ namespace Celeritas.Game.Entities
 		public override void OnDespawned()
 		{
 			base.OnDespawned();
-
 		}
 
 		public override void TakeDamage(Entity attackingEntity, float damage)
@@ -66,7 +65,7 @@ namespace Celeritas.Game.Entities
 
 				if (ShowDamageOnEntity == true)
 				{
-					ShowDamageLocation = this.transform.position;
+					ShowDamageLocation = transform.position;
 				}
 
 				ShowDamage(damage, ShowDamageLocation);

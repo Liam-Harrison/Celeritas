@@ -37,6 +37,7 @@ namespace Celeritas.Game.Controllers
 		TractorBeamController tractorBeam;
 
 		public static event Action OnPlayerShipCreated;
+		public static event Action OnPlayerShipKilled;
 
 		public static event Action<int, bool, GameAction> OnActionLinked;
 		public static event Action<int, bool> OnActionUnlinked;
@@ -61,6 +62,13 @@ namespace Celeritas.Game.Controllers
 				BindAction(action);
 			}
 			OnPlayerShipCreated?.Invoke();
+			PlayerShipEntity.OnKilled += OnKilled;
+		}
+
+		protected override void OnDestroy()
+		{
+			base.OnDestroy();
+			PlayerShipEntity.OnKilled -= OnKilled;
 		}
 
 		protected virtual void OnEnable()
@@ -71,6 +79,11 @@ namespace Celeritas.Game.Controllers
 		protected virtual void OnDisable()
 		{
 			actions.Disable();
+		}
+
+		private void OnKilled(Entity entity)
+		{
+			OnPlayerShipKilled?.Invoke();
 		}
 
 		private Vector2 locomotion;
