@@ -14,11 +14,11 @@ namespace Assets.Scripts.Game.Controllers
 	/// </summary>
 	class TractorBeamController : Singleton<TractorBeamController>
 	{
-		[SerializeField, TitleGroup("Tractor Beam Settings")] int TRACTOR_RANGE_BASE = 10; // radius the tractor beam can reach, to lock onto a target
-		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_FORCE_MULTIPLIER = 20f;
-		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_FORCE_CAP = 1000; // max force tractor beam can apply
-		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_DEAD_ZONE_RADIUS = 0.1f; // if an object is this close to the cursor, tractor will stop applying force
-		[SerializeField, TitleGroup("Tractor Beam Settings")] int MAX_NUMBER_OF_SIMULTANEOUS_TARGETS = 99;
+		[SerializeField, TitleGroup("Tractor Beam Settings")] int TRACTOR_RANGE_BASE;// = 10; // radius the tractor beam can reach, to lock onto a target
+		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_FORCE_MULTIPLIER;// = 20f;
+		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_FORCE_CAP; //= 1000; // max force tractor beam can apply
+		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_LOCK_ON_RADIUS; // = 2f; // if an object is this close to the cursor, tractor will 'lock on' to it, keeping it pretty much on top of the cursor
+		[SerializeField, TitleGroup("Tractor Beam Settings")] int MAX_NUMBER_OF_SIMULTANEOUS_TARGETS;// = 99;
 
 
 		bool tractorActive = false;
@@ -30,6 +30,9 @@ namespace Assets.Scripts.Game.Controllers
 		[ReadOnly, TitleGroup("Used By Modules")] public float TargetMassMultiplier = 1; // multiplies, this is used for Module Logic Only
 		[ReadOnly, TitleGroup("Used By Modules")] bool usesAreaOfEffect = false;
 		[ReadOnly, TitleGroup("Used By Modules")] float effectiveTractorRange;
+
+		[SerializeField, TitleGroup("Tractor Beam Settings")] AnimationCurve forceToApplyDependingOnDistance;
+		[SerializeField, TitleGroup("Tractor Beam Settings")] float distanceFromMouseMultiplier; // used for animation curve evaluation
 
 		public Object TractorBeamEffectPrefab { set => TractorBeamEffectPrefab = value; }
 
@@ -157,7 +160,11 @@ namespace Assets.Scripts.Game.Controllers
 
 			if (context.canceled)
 			{
+				foreach (ITractorBeamTarget t in tractorTargets)
+					if (t != null) t.Rigidbody.drag = 0.1f;
+
 				tractorTargets.Clear();
+				
 				tractorActive = false;
 				foreach (Object o in tractorGraphicalEffects)
 				{
@@ -186,21 +193,38 @@ namespace Assets.Scripts.Game.Controllers
 
 					Vector3 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 					Vector2 dirToPull = mousePos - t.Rigidbody.transform.position;
+					Vector2 toApply;
+					float effectiveMass = t.Rigidbody.mass * TargetMassMultiplier;
+					if (effectiveMass == 0) // no dividing by zero
+						effectiveMass = 0.01f;
 
-					// don't pull target if it's close to mouse (ie, in 'deadzone')
-					if (dirToPull.magnitude <= TRACTOR_DEAD_ZONE_RADIUS)
-						return;
+					// lock on to target it within radius
+					if (dirToPull.magnitude <= TRACTOR_LOCK_ON_RADIUS)
+					{
+						//t.Rigidbody.velocity = Vector2.zero;
+						// something different
+						Vector2 velocity = t.Rigidbody.velocity;
+						//velocity = Vector2.zero;
+						//t.Rigidbody.position = Vector2.SmoothDamp(t.Rigidbody.position, mousePos, ref velocity, 0.9f, Mathf.Infinity, Time.deltaTime); // if using, gotta factor in mass
+
+						toApply = dirToPull.normalized * forceToApplyDependingOnDistance.Evaluate(dirToPull.magnitude) * TRACTOR_FORCE_MULTIPLIER;
+
+					}
+					else
+					{
+						toApply = dirToPull * dirToPull.magnitude * TRACTOR_FORCE_MULTIPLIER / effectiveMass; // old throwing logic (inverted)
+					}
+					t.Rigidbody.drag = 0.75f;
+					//toApply = dirToPull.normalized * forceToApplyDependingOnDistance.Evaluate(dirToPull.magnitude * distanceFromMouseMultiplier) * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
+					toApply = dirToPull * forceToApplyDependingOnDistance.Evaluate(dirToPull.magnitude * distanceFromMouseMultiplier) * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
 
 					// move target towards mouse w force proportional to distance ^ 2 ( == dirToPull * dirToPull.magnitude)
 
 					// old logic, here just in case
 					//Vector2 toApply = dirToPull * TRACTOR_FORCE_MULTIPLIER * dirToPull.magnitude * TractorForceModifier / tractorTarget.Rigidbody.mass;
 
-					float effectiveMass = t.Rigidbody.mass * TargetMassMultiplier;
-					if (effectiveMass == 0) // no dividing by zero
-						effectiveMass = 0.01f;
 
-					 Vector2 toApply = dirToPull * dirToPull.magnitude * TRACTOR_FORCE_MULTIPLIER / effectiveMass; // old throwing logic (inverted)
+
 
 					//Vector2 toApply = dirToPull * (1/dirToPull.magnitude) * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
 
@@ -210,7 +234,7 @@ namespace Assets.Scripts.Game.Controllers
 					//Vector2 velocity = t.Rigidbody.velocity;
 					//t.Rigidbody.position = Vector2.SmoothDamp(t.Rigidbody.position, mousePos, ref velocity, 0.6f, Mathf.Infinity, Time.deltaTime); // if using, gotta factor in mass
 
-					
+
 					if (toApply.magnitude > TRACTOR_FORCE_CAP)
 						toApply = toApply.normalized * TRACTOR_FORCE_CAP;
 

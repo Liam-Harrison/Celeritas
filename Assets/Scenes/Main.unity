@@ -5143,6 +5143,74 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: TRACTOR_LOCK_ON_RADIUS
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: TRACTOR_FORCE_MULTIPLIER
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: distanceFromMouseMultiplier
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: forceToApplyDependingOnDistance.m_PostInfinity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: forceToApplyDependingOnDistance.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: forceToApplyDependingOnDistance.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: forceToApplyDependingOnDistance.m_Curve.Array.data[1].time
+      value: 1.2030671
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: forceToApplyDependingOnDistance.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: forceToApplyDependingOnDistance.m_Curve.Array.data[1].value
+      value: 0.29616585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: forceToApplyDependingOnDistance.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: forceToApplyDependingOnDistance.m_Curve.Array.data[1].inSlope
+      value: -1.4151636
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: forceToApplyDependingOnDistance.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: forceToApplyDependingOnDistance.m_Curve.Array.data[1].inWeight
+      value: 0.029546421
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: forceToApplyDependingOnDistance.m_Curve.Array.data[1].outSlope
+      value: -1.4151636
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: forceToApplyDependingOnDistance.m_Curve.Array.data[0].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: forceToApplyDependingOnDistance.m_Curve.Array.data[0].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: forceToApplyDependingOnDistance.m_Curve.Array.data[1].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4477257796416552746, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5242,7 +5310,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 265552455341241694, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -13.000061
+      value: -13.000244
       objectReference: {fileID: 0}
     - target: {fileID: 485915107945260901, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_SizeDelta.y
