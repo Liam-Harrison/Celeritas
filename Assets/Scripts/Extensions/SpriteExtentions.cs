@@ -18,14 +18,24 @@ namespace Celeritas
 			if (sprite.rect.width != sprite.texture.width)
 			{
 				Texture2D newText = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height, TextureFormat.ARGB32, false);
-				Color[] newColors = sprite.texture.GetPixels((int)sprite.textureRect.x,
-															 (int)sprite.textureRect.y,
-															 (int)sprite.textureRect.width,
-															 (int)sprite.textureRect.height);
-				newText.SetPixels(newColors);
-				newText.filterMode = FilterMode.Point;
-				newText.Apply();
-				return newText;
+
+				try
+				{
+					Color[] newColors = sprite.texture.GetPixels((int)sprite.textureRect.x,
+																 (int)sprite.textureRect.y,
+																 (int)sprite.textureRect.width,
+																 (int)sprite.textureRect.height);
+
+					newText.SetPixels(newColors);
+					newText.filterMode = FilterMode.Point;
+					newText.Apply();
+
+					return newText;
+				}
+				catch
+				{
+					return null;
+				}
 			}
 			else
 			{

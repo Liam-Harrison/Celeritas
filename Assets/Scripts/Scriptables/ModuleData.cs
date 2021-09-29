@@ -42,7 +42,6 @@ namespace Celeritas.Scriptables
 		[SerializeField, Title("Module Layout")]
 		private TetrisShape shape;
 		
-
 		/// <summary>
 		/// The icon for the module.
 		/// </summary>

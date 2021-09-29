@@ -151,7 +151,7 @@ namespace Celeritas.Game
 		/// <summary>
 		/// Get all the actions on this entity.
 		/// </summary>
-		public IReadOnlyList<GameAction> Actions { get => actions.AsReadOnly(); }
+		public List<GameAction> Actions { get => actions; }
 
 		private readonly List<GameAction> actions = new List<GameAction>();
 

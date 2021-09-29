@@ -154,6 +154,9 @@ MonoBehaviour:
   shipWeaponEffects: []
   hasShipProjectileEffects: 0
   shipProjectileEffects: []
+  hasShipActions: 1
+  shipActions:
+  - {fileID: 11400000, guid: 0470f1c9400b5264c800d2e109a8f682, type: 2}
 --- !u!114 &7789369590281410074
 MonoBehaviour:
   m_ObjectHideFlags: 0

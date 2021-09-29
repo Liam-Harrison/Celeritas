@@ -17,26 +17,9 @@ namespace Celeritas.Game
 		[SerializeField, Title("Settings")]
 		private ShipData ship;
 
-		[SerializeField]
-		private ActionData action;
-
-		protected void Start()
+		protected override void OnGameLoaded()
 		{
 			GameStateManager.Instance.SetGameState(GameState.BACKGROUND);
-			if (EntityDataManager.Instance.Loaded)
-			{
-				CreatePlayerShip();
-			}
-			else
-			{
-				EntityDataManager.OnLoadedAssets += CreatePlayerShip;
-			}
-		}
-
-		private void CreatePlayerShip()
-		{
-			EntityDataManager.OnLoadedAssets -= CreatePlayerShip;
-
 			ShipEntity ship = ShipSelection.CurrentShip;
 
 			if (ship == null)
@@ -48,24 +31,6 @@ namespace Celeritas.Game
 
 			transform.parent = ship.transform;
 			transform.localPosition = Vector3.zero;
-
-			ship.OnActionAdded += OnPlayerActionAdded;
-			ship.OnActionRemoved += OnPlayerActionRemoved;
-
-			if (action != null)
-			{
-				ship.AddAction(action);
-			}
-		}
-
-		private void OnPlayerActionAdded(GameAction action)
-		{
-			CombatHUD.Instance.AbilityBar.LinkAction(action);
-		}
-
-		private void OnPlayerActionRemoved(GameAction action)
-		{
-			CombatHUD.Instance.AbilityBar.UnlinkAction(action);
 		}
 	}
 }

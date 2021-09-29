@@ -148,7 +148,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: a4dfa5d3274ed674db3b5d2688a6667e, type: 2}
     - {fileID: 11400000, guid: f4b1030f7931e2346b365ac860c456df, type: 2}
     - {fileID: 11400000, guid: 551f9815f83843c4083869b9cc522d52, type: 2}
-    - {fileID: 11400000, guid: 3d8c8ad1c4c0c0e4cb5c762325704238, type: 2}
+    - {fileID: 11400000, guid: 700a3d56c6e840f4f982ce2b75fbd807, type: 2}
     - {fileID: 11400000, guid: 37a8333f3d207ce4d81cb5faa19d5389, type: 2}
     - {fileID: 11400000, guid: 965c2321d0976cd458a9716871746b5d, type: 2}
     - {fileID: 11400000, guid: d09395ca3ec8a454c8932acb7dd201cd, type: 2}
@@ -161,6 +161,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: ShieldRegenAmount
+      Entry: 4
+      Data: 50
+    - Name: ShieldRegenDelay
+      Entry: 4
+      Data: 4
     - Name: inventory
       Entry: 7
       Data: 0|Celeritas.Scriptables.ModuleData[,], Assembly-CSharp
@@ -246,7 +252,6 @@ MonoBehaviour:
   - {fileID: 7706308572929834596}
   - {fileID: 6694158782653315799}
   - {fileID: 1971162901805115714}
-  damageModifierPercentage: 0
   selectionViewSize: 8
   gameViewSize: 25
   buildViewSize: 30

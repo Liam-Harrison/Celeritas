@@ -17,7 +17,15 @@ namespace Celeritas.Scriptables
 		[PropertyRange(0, 100)]
 		public float distance;
 
+		[PropertyRange(0, 100)]
+		public float distancePerLevel;
+
 		/// <inheritdoc/>
 		public override Type ActionType => typeof(TeleportAction);
+
+		public override string GetTooltip(int level)
+		{
+			return $"Teleports you up to <color=\"green\">{distance:0}m</color> + (<color=\"green\">{distancePerLevel:0}m</color>) in the direction of your crossheir.";
+		}
 	}
 }

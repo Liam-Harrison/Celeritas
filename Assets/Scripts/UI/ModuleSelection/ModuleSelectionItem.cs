@@ -1,3 +1,4 @@
+using Celeritas.Game.Actions;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Celeritas.UI.Tooltips;
@@ -44,5 +45,7 @@ namespace Celeritas.UI
 
 		/// <inheritdoc/>
 		public ModuleEntity TooltipEntity => (ModuleEntity) Module.EntityInstance;
+
+		public GameAction TooltipAction => null;
 	}
 }
