@@ -33,6 +33,7 @@ namespace Assets.Scripts.Game.Controllers
 
 		[SerializeField, TitleGroup("Tractor Beam Settings")] AnimationCurve forceToApplyDependingOnDistance;
 		[SerializeField, TitleGroup("Tractor Beam Settings")] float distanceFromMouseMultiplier; // used for animation curve evaluation
+		[SerializeField, TitleGroup("Tractor Beam Settings")] float tractoredObjectsDrag; // = 0.75f;
 
 		public Object TractorBeamEffectPrefab { set => TractorBeamEffectPrefab = value; }
 
@@ -214,7 +215,7 @@ namespace Assets.Scripts.Game.Controllers
 					{
 						toApply = dirToPull * dirToPull.magnitude * TRACTOR_FORCE_MULTIPLIER / effectiveMass; // old throwing logic (inverted)
 					}
-					t.Rigidbody.drag = 0.75f;
+					t.Rigidbody.drag = tractoredObjectsDrag;
 					//toApply = dirToPull.normalized * forceToApplyDependingOnDistance.Evaluate(dirToPull.magnitude * distanceFromMouseMultiplier) * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
 					toApply = dirToPull * forceToApplyDependingOnDistance.Evaluate(dirToPull.magnitude * distanceFromMouseMultiplier) * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
 

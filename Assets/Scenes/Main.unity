@@ -5144,6 +5144,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: tractoredObjectsDrag
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2934228656961476985, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: TRACTOR_LOCK_ON_RADIUS
       value: 3
       objectReference: {fileID: 0}
