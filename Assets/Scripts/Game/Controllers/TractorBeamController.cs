@@ -17,7 +17,6 @@ namespace Assets.Scripts.Game.Controllers
 		[SerializeField, TitleGroup("Tractor Beam Settings")] int TRACTOR_RANGE_BASE;// = 10; // radius the tractor beam can reach, to lock onto a target
 		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_FORCE_MULTIPLIER;// = 20f;
 		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_FORCE_CAP; //= 1000; // max force tractor beam can apply
-		[SerializeField, TitleGroup("Tractor Beam Settings")] float TRACTOR_LOCK_ON_RADIUS; // = 2f; // if an object is this close to the cursor, tractor will 'lock on' to it, keeping it pretty much on top of the cursor
 		[SerializeField, TitleGroup("Tractor Beam Settings")] int MAX_NUMBER_OF_SIMULTANEOUS_TARGETS;// = 99;
 
 
