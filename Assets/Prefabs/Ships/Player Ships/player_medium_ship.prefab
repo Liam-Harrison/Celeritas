@@ -146,7 +146,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: a4dfa5d3274ed674db3b5d2688a6667e, type: 2}
-    - {fileID: 11400000, guid: f4b1030f7931e2346b365ac860c456df, type: 2}
+    - {fileID: 11400000, guid: 965c2321d0976cd458a9716871746b5d, type: 2}
     - {fileID: 11400000, guid: 551f9815f83843c4083869b9cc522d52, type: 2}
     - {fileID: 11400000, guid: 3d8c8ad1c4c0c0e4cb5c762325704238, type: 2}
     - {fileID: 11400000, guid: 37a8333f3d207ce4d81cb5faa19d5389, type: 2}
@@ -230,7 +230,6 @@ MonoBehaviour:
   timeToPlayOnDestroyEffect: 0
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
-  floatingTextPrefab: {fileID: 0}
   modules:
   - {fileID: 3912116814696063671}
   - {fileID: 4293004831541093639}

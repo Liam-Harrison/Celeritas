@@ -194,47 +194,18 @@ namespace Assets.Scripts.Game.Controllers
 
 					Vector3 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 					Vector2 dirToPull = mousePos - t.Rigidbody.transform.position;
-					Vector2 toApply;
+					
 					float effectiveMass = t.Rigidbody.mass * TargetMassMultiplier;
 					if (effectiveMass == 0) // no dividing by zero
 						effectiveMass = 0.01f;
 
-					// lock on to target it within radius
-					if (dirToPull.magnitude <= TRACTOR_LOCK_ON_RADIUS)
-					{
-						//t.Rigidbody.velocity = Vector2.zero;
-						// something different
-						Vector2 velocity = t.Rigidbody.velocity;
-						//velocity = Vector2.zero;
-						//t.Rigidbody.position = Vector2.SmoothDamp(t.Rigidbody.position, mousePos, ref velocity, 0.9f, Mathf.Infinity, Time.deltaTime); // if using, gotta factor in mass
-
-						toApply = dirToPull.normalized * forceToApplyDependingOnDistance.Evaluate(dirToPull.magnitude) * TRACTOR_FORCE_MULTIPLIER;
-
-					}
-					else
-					{
-						toApply = dirToPull * dirToPull.magnitude * TRACTOR_FORCE_MULTIPLIER / effectiveMass; // old throwing logic (inverted)
-					}
 					t.Rigidbody.drag = tractoredObjectsDrag;
-					//toApply = dirToPull.normalized * forceToApplyDependingOnDistance.Evaluate(dirToPull.magnitude * distanceFromMouseMultiplier) * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
-					toApply = dirToPull * forceToApplyDependingOnDistance.Evaluate(dirToPull.magnitude * distanceFromMouseMultiplier) * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
 
-					// move target towards mouse w force proportional to distance ^ 2 ( == dirToPull * dirToPull.magnitude)
+					Vector2 toApply = dirToPull * forceToApplyDependingOnDistance.Evaluate(dirToPull.magnitude * distanceFromMouseMultiplier) * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
 
 					// old logic, here just in case
+					// move target towards mouse w force proportional to distance ^ 2 ( == dirToPull * dirToPull.magnitude)
 					//Vector2 toApply = dirToPull * TRACTOR_FORCE_MULTIPLIER * dirToPull.magnitude * TractorForceModifier / tractorTarget.Rigidbody.mass;
-
-
-
-
-					//Vector2 toApply = dirToPull * (1/dirToPull.magnitude) * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
-
-					//Vector2 toApply = dirToPull * TRACTOR_FORCE_MULTIPLIER / effectiveMass;
-
-					// something different
-					//Vector2 velocity = t.Rigidbody.velocity;
-					//t.Rigidbody.position = Vector2.SmoothDamp(t.Rigidbody.position, mousePos, ref velocity, 0.6f, Mathf.Infinity, Time.deltaTime); // if using, gotta factor in mass
-
 
 					if (toApply.magnitude > TRACTOR_FORCE_CAP)
 						toApply = toApply.normalized * TRACTOR_FORCE_CAP;

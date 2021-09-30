@@ -63,7 +63,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  title: Stun
+  title: Stunning Projectiles
   prefab: {fileID: 6046806890423200233, guid: 667871a0799ab564dad7739e17cf3aa6, type: 3}
   capacityHint: 1
   useChunking: 0
