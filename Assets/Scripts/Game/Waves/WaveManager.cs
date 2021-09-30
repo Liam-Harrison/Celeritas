@@ -54,7 +54,7 @@ namespace Celeritas.Game
 
 			foreach (ShipData ship in wave.ShipPool)
 			{
-				var spawned = EnemyManager.Instance.SpawnShip(ship, PlayerController.Instance.PlayerShipEntity.transform.position.RandomPointOnCircle(20f));
+				var spawned = EnemyManager.Instance.SpawnShip(ship, PlayerController.Instance.PlayerShipEntity.transform.position.RandomPointOnCircle(60f));
 				ships[wave].Add(spawned);
 			}
 
