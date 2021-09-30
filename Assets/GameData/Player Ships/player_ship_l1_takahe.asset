@@ -61,5 +61,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: "This is a relatively small dreadnought, fast for it\u2019s class.
     Thankfully, it\u2019s still a dreadnought and therefore enormous."
-  startingHealth: 10000
-  startingShield: 25000
+  isPlaceholder: 0
+  startingHealth: 1000
+  startingShield: 2500

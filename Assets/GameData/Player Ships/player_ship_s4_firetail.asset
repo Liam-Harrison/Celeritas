@@ -61,5 +61,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: This generalist corvette supports good offensive power at the cost
     of defence.
-  startingHealth: 1500
-  startingShield: 5000
+  isPlaceholder: 0
+  startingHealth: 150
+  startingShield: 500

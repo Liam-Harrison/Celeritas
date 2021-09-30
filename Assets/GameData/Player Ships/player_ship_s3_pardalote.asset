@@ -61,5 +61,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: This fast and comparatively durable corvette sports 2 weapons at the
     cost of turn-speed and module slots.
-  startingHealth: 2000
-  startingShield: 10000
+  isPlaceholder: 0
+  startingHealth: 200
+  startingShield: 1000

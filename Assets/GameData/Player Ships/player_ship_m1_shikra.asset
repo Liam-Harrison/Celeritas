@@ -61,5 +61,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: A basic generalist destroyer, capable of a wide range of roles with
     the right upgrades.
-  startingHealth: 5000
-  startingShield: 15000
+  isPlaceholder: 0
+  startingHealth: 500
+  startingShield: 1500

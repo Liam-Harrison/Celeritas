@@ -27,5 +27,5 @@ MonoBehaviour:
   useChunking: 0
   speed: 20
   lifetime: 3
-  damage: 10
+  damage: 25
   destroyedOnHit: 1

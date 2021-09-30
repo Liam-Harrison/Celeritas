@@ -61,5 +61,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: Very basic and fast ship that will allow players to get a feel for
     the controls in their first few missions.
-  startingHealth: 2000
-  startingShield: 5000
+  isPlaceholder: 0
+  startingHealth: 200
+  startingShield: 500

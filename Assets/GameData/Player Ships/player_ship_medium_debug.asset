@@ -70,5 +70,5 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: f714725e334a1174681c0dd57665666b, type: 3}
   description: Medium Ship Description
   isPlaceholder: 1
-  startingHealth: 10000
-  startingShield: 5000
+  startingHealth: 1000
+  startingShield: 500
