@@ -70,6 +70,6 @@ MonoBehaviour:
   size: 0
   catagory: 1
   rarity: 2
-  icon: {fileID: 21300000, guid: d49094c1f2b72d847855d707b28d36c9, type: 3}
+  icon: {fileID: 21300000, guid: e5a70bd51f919bd48a7e45336ebfd09b, type: 3}
   description: Restores health when hitting enemy ships but reduces damage dealt.
   shape: 1

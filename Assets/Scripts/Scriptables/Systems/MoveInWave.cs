@@ -48,6 +48,9 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
+			if (Time.deltaTime==0) // if paused
+				return;
+
 			if (rightLeftMotion)
 				entity.transform.position += rightLeftAmplitude * entity.transform.right * rightLeftMotionCurve.Evaluate((frequencyMultiplier * entity.TimeAlive) + rightLeftPhase);
 
