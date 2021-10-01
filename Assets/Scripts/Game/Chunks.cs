@@ -17,6 +17,8 @@ namespace Celeritas.Game
 
 		private float lastUpdate;
 
+		public bool Active { get; private set; } = false;
+
 		/// <summary>
 		/// The chunk manager for the game.
 		/// </summary>
@@ -38,7 +40,7 @@ namespace Celeritas.Game
 
 		private void FixedUpdate()
 		{
-			if (!EntityDataManager.Instance.Loaded || Time.unscaledTime < lastUpdate + (1f / UPDATE_FREQ))
+			if (!EntityDataManager.Instance.Loaded || Time.unscaledTime < lastUpdate + (1f / UPDATE_FREQ) || Active == false)
 				return;
 
 			lastUpdate = Time.unscaledTime;
@@ -67,6 +69,36 @@ namespace Celeritas.Game
 		protected override void OnGameLoaded()
 		{
 			base.OnGameLoaded();
+
+			Active = true;
+
+			if (GameStateManager.Instance.GameState == GameState.BACKGROUND)
+				ReloadAndEnable();
+
+			GameStateManager.onStateChanged += StateChanged;
+		}
+
+		private void StateChanged(GameState previous, GameState state)
+		{
+			if (state == GameState.BACKGROUND && Active == false)
+			{
+				ReloadAndEnable();
+			}
+			else if (state == GameState.MAINMENU && Active)
+			{
+				UnloadAndDisable();
+			}
+		}
+
+		public void UnloadAndDisable()
+		{
+			Active = false;
+			ChunkManager.UnloadAllChunks();
+		}
+
+		public void ReloadAndEnable()
+		{
+			Active = true;
 			UpdateChunks();
 		}
 

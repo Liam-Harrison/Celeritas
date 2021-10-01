@@ -1,3 +1,4 @@
+using Celeritas.Game;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Cinemachine;
@@ -93,6 +94,8 @@ namespace Celeritas.UI.Runstart
 		/// <param name="ship">The player ship data to select.</param>
 		public void SelectShip(ShipData ship)
 		{
+			GameStateManager.Instance.SetGameState(GameState.MAINMENU);
+
 			if (shipObjects.Count == 0)
 				SetupData();
 
