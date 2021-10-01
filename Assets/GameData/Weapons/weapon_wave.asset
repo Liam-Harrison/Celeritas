@@ -70,7 +70,7 @@ MonoBehaviour:
   size: 1
   catagory: 0
   rarity: 0
-  icon: {fileID: 21300000, guid: 69d442747b59d214f825c372c77eeb0b, type: 3}
+  icon: {fileID: 21300000, guid: 17a66e2de240cfa4a95e1f360ac311de, type: 3}
   description: This weapon uses harmonic audio frequencies to pulse waves of discordant
     force at the enemy! Earplugs recommended.
   shape: 0

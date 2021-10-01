@@ -70,7 +70,7 @@ MonoBehaviour:
   size: 1
   catagory: 0
   rarity: 0
-  icon: {fileID: 21300000, guid: 1306e9e85adde0043ac0d0d2a89f77c5, type: 3}
+  icon: {fileID: 21300000, guid: 6187d8d2bb13c63468149f7b007e5fd7, type: 3}
   description: A charge weapon that fires spirals of superheated plasma globs at
     the enemy. Difficult to aim, but very good area damage.
   shape: 0
