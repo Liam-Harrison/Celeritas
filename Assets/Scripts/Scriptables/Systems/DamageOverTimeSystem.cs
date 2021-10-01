@@ -16,10 +16,7 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public class DamageOverTimeData
 		{
-			public float startTime_s; // time the effect was added
-			public float damageRemainder; // used to preserve values lost after rounding float -> integer
-			public float damagePerSecond;
-			public float netDuration;
+			public float timeApplied;
 		}
 
 		public override bool Stacks => true;
@@ -33,12 +30,12 @@ namespace Assets.Scripts.Scriptables.Systems
 		private float damagePerSecond;
 
 		[SerializeField]
-		private float durationReductionPerLevel;
+		private float durationIncreasePerLevel;
 
 		[SerializeField]
 		private float damageExtraPerLevel;
 
-		public override string GetTooltip(int level) => $"Projectiles do <color=green>{damagePerSecond + (damageExtraPerLevel * level)}</color> extra damage over <color=green>{duration - (durationReductionPerLevel * level)}</color> seconds.\n";
+		public override string GetTooltip(int level) => $"Deals <color=green>{GetDPS(level)}</color> damage per second over <color=green>{GetDuration(level)}</color> seconds.\n";
 
 		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
@@ -48,32 +45,21 @@ namespace Assets.Scripts.Scriptables.Systems
 				entity.Components.RegisterComponent(this, data);
 			}
 
-			var netDamage = damagePerSecond + (damageExtraPerLevel * wrapper.Level);
-			var netDuration = duration - (durationReductionPerLevel * wrapper.Level);
-
-			data.startTime_s = entity.TimeAlive;
-			data.damageRemainder = 0;
-			data.netDuration = netDuration;
-			data.damagePerSecond = netDamage / netDuration;
+			data.timeApplied = entity.TimeAlive;
 		}
 
 		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			var data = entity.Components.GetComponent<DamageOverTimeData>(this);
 
-			if (entity.TimeAlive - data.startTime_s > data.netDuration)
+			if (entity.TimeAlive - data.timeApplied > GetDuration(wrapper.Level))
 			{
 				entity.EntityEffects.RemoveEffect(wrapper);
 				return;
 			}
 
-			float damageToDo = (Time.deltaTime * data.damagePerSecond) + data.damageRemainder;
-			
-			if (damageToDo > 0)
-			{ 
-				entity.TakeDamage(entity, damageToDo);
-			}
-			data.damageRemainder = damageToDo - (int)damageToDo;
+			float damage = Time.smoothDeltaTime * GetDPS(wrapper.Level);
+			entity.TakeDamage(entity, damage);
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
@@ -84,8 +70,17 @@ namespace Assets.Scripts.Scriptables.Systems
 		public void OnReset(Entity entity, EffectWrapper wrapper)
 		{
 			var data = entity.Components.GetComponent<DamageOverTimeData>(this);
+			data.timeApplied = entity.TimeAlive;
+		}
 
-			data.startTime_s = entity.TimeAlive;
+		private float GetDPS(int level)
+		{
+			return damagePerSecond + (damageExtraPerLevel * level);
+		}
+
+		private float GetDuration(int level)
+		{
+			return duration + (durationIncreasePerLevel * level);
 		}
 	}
 }
