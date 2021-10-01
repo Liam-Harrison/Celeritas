@@ -64,7 +64,7 @@ MonoBehaviour:
   timeToPlayOnDestroyEffect: 0
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
-  level: 0
+  level: 1
   hasShipEffects: 0
   shipEffects: []
   hasShipWeaponEffects: 0
@@ -73,6 +73,8 @@ MonoBehaviour:
   shipProjectileEffects:
   - Level: 0
     EffectCollection: {fileID: 11400000, guid: c3d1c7991029b6743829040b433016b6, type: 2}
+  hasShipActions: 0
+  shipActions: []
 --- !u!114 &6356886736803627854
 MonoBehaviour:
   m_ObjectHideFlags: 0

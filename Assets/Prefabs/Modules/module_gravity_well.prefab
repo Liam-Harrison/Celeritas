@@ -332,7 +332,14 @@ MonoBehaviour:
     SerializationNodes: []
   hasDefaultEffects: 0
   defaultEffects: []
-  level: 0
+  hasAudio: 0
+  onDeath: {fileID: 0}
+  hasGraphicalEffects: 0
+  onDestroyEffectPrefab: {fileID: 0}
+  timeToPlayOnDestroyEffect: 0
+  onHitEffectPrefab: {fileID: 0}
+  timeToPlayOnHitEffect: 0
+  level: 1
   hasShipEffects: 1
   shipEffects:
   - Level: 0
@@ -341,6 +348,8 @@ MonoBehaviour:
   shipWeaponEffects: []
   hasShipProjectileEffects: 0
   shipProjectileEffects: []
+  hasShipActions: 0
+  shipActions: []
 --- !u!114 &-8544852144077730100
 MonoBehaviour:
   m_ObjectHideFlags: 0

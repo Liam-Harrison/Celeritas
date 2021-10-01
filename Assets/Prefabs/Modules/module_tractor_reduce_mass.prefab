@@ -64,8 +64,7 @@ MonoBehaviour:
   timeToPlayOnDestroyEffect: 0
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
-  floatingTextPrefab: {fileID: 0}
-  level: 0
+  level: 1
   hasShipEffects: 1
   shipEffects:
   - Level: 0
@@ -74,6 +73,8 @@ MonoBehaviour:
   shipWeaponEffects: []
   hasShipProjectileEffects: 0
   shipProjectileEffects: []
+  hasShipActions: 0
+  shipActions: []
 --- !u!114 &3518215260212892331
 MonoBehaviour:
   m_ObjectHideFlags: 0
