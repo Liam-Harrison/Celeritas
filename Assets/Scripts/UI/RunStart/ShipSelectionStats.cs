@@ -14,9 +14,6 @@ namespace Assets.Scripts.UI.RunStart
 		public TextMeshProUGUI title;
 
 		[SerializeField]
-		public TextMeshProUGUI titleUnderlay;
-
-		[SerializeField]
 		public Slider slider;
 
 		[SerializeField]
@@ -27,6 +24,11 @@ namespace Assets.Scripts.UI.RunStart
 
 		[SerializeField]
 		Gradient colourGradient;
+
+		[SerializeField]
+		Transform imageAnchor;
+
+		public Transform ImageAnchor { get => imageAnchor; }
 
 		public void hideSlider()
 		{
@@ -42,8 +44,6 @@ namespace Assets.Scripts.UI.RunStart
 		public void setTitle(string titleText)
 		{
 			title.text = titleText;
-			if (titleUnderlay != null)
-				titleUnderlay.text = titleText;
 		}
 	}
 }

@@ -50,6 +50,9 @@ namespace Celeritas.UI.Runstart
 		GameObject shipStatsLinePrefab;
 
 		[SerializeField, TitleGroup("Ship Stats")]
+		Transform shipStatsParent;
+
+		[SerializeField, TitleGroup("Ship Stats")]
 		private int verticalSpacingBetweenElements;
 
 		[SerializeField, TitleGroup("Ship Stats")]
@@ -205,26 +208,31 @@ namespace Celeritas.UI.Runstart
 			statLines[2].setTitle($"Health: ({ship.StartingHealth/1000}k)");
 			statLines[2].slider.maxValue = maxStats["health"];
 			statLines[2].setSliderValue(ship.StartingHealth);
+			statLines[2].slider.gameObject.SetActive(true);
 
 			// shield
 			statLines[3].setTitle($"Shield: ({ship.StartingShield/1000}k)");
 			statLines[3].slider.maxValue = maxStats["shield"];
 			statLines[3].setSliderValue(ship.StartingShield);
+			statLines[3].slider.gameObject.SetActive(true);
 
 			// weight
 			statLines[4].setTitle($"Weight: ({ship.MovementSettings.mass})");
 			statLines[4].slider.maxValue = maxStats["weight"];
 			statLines[4].setSliderValue(ship.MovementSettings.mass);
+			statLines[4].slider.gameObject.SetActive(true);
 
 			// speed
 			statLines[5].setTitle($"Speed: ");
 			statLines[5].slider.maxValue = maxStats["speed"];
 			statLines[5].setSliderValue(ship.MovementSettings.forcePerSec / ship.MovementSettings.mass);
+			statLines[5].slider.gameObject.SetActive(true);
 
 			// speed (turning)
 			statLines[6].setTitle($"Turning Speed: ");
 			statLines[6].slider.maxValue = maxStats["torque"];
 			statLines[6].setSliderValue(ship.MovementSettings.torquePerSec.magnitude / ship.MovementSettings.mass);
+			statLines[6].slider.gameObject.SetActive(true);
 
 			// setup weapon count icons.
 			for (int i = 0; i < maxNumberOfWeaponSlots; i++)
@@ -245,23 +253,14 @@ namespace Celeritas.UI.Runstart
 		private void setupStatUI()
 		{
 			statLines = new List<ShipSelectionStats>();
-			var lastLine = shipStatsLinePrefab;
 			int numberOfLines = 7;
-			statLines.Add(lastLine.GetComponent<ShipSelectionStats>());
 
-			for(int i = 0; i < numberOfLines - 1; i++) { // -1 as one line already exists 
-
-				//var currentLine = Instantiate(lastLine, lastLine.transform);
-				var currentLine = Instantiate(lastLine, lastLine.transform.parent);
-				currentLine.transform.position += new Vector3(0, - verticalSpacingBetweenElements * (i+1), 0); // 16, 0
+			for(int i = 0; i < numberOfLines; i++)
+			{
+				var currentLine = Instantiate(shipStatsLinePrefab, shipStatsParent);
 				ShipSelectionStats stats = currentLine.GetComponent<ShipSelectionStats>();
 				currentLine.SetActive(true);
 				statLines.Add(stats);
-
-				//if (i == 0)
-				//	lastLine.SetActive(false);
-				lastLine = currentLine;
-
 			}
 
 			// setup weapon slot icons
@@ -270,8 +269,7 @@ namespace Celeritas.UI.Runstart
 				weaponIcons = new Image[maxNumberOfWeaponSlots];
 				for (int i = 0; i < maxNumberOfWeaponSlots; i++)
 				{
-					var icon = Instantiate(weaponCountIcon, statLines[1].transform);
-					icon.transform.position += new Vector3(30 * i - 50, 5, 0);
+					var icon = Instantiate(weaponCountIcon, statLines[1].ImageAnchor);
 					weaponIcons[i] = icon.GetComponentInChildren<Image>();
 					weaponIcons[i].color = Color.clear; // all clear by default
 				}
