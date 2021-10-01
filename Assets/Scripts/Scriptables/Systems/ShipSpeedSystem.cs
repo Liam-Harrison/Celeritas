@@ -54,13 +54,13 @@ namespace Celeritas.Scriptables.Systems
 		/// <inheritdoc/>
 		public override string GetTooltip(ushort level) => $"Increase {AffectDirections} speed by <color=green>{(Amount + (AmountExtraPerLevel * level)) * 100:0}%</color>.";
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			// TODO: may need to update effect when system levels up, depending on how game loop works.
 			// otherwise effects may not reflect levels
 
 			var ship = entity as ShipEntity;
-			float amountToAdd = amount + (level * amountExtraPerLevel);
+			float amountToAdd = amount + (wrapper.Level * amountExtraPerLevel);
 
 			if (affectedDirections.HasFlag(ShipDirections.Forward))
 				ship.MovementModifier.Forward += amountToAdd;
@@ -72,7 +72,7 @@ namespace Celeritas.Scriptables.Systems
 				ship.MovementModifier.Back += amountToAdd;
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			var ship = entity as ShipEntity;
 

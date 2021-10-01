@@ -28,7 +28,7 @@ namespace Assets.Scripts.Scriptables.Systems
 			return "Causes an entity to orbit around its creator";
 		}
 
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			ProjectileEntity projectile = entity as ProjectileEntity;
 			Entity toOrbitAround = projectile.Owner;

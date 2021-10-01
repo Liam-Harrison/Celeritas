@@ -36,13 +36,13 @@ namespace Celeritas.Scriptables.Systems
 		/// </summary>
 		public float DurationExtraPerLevel { get => durationExtraPerLevel; }
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			var projectile = entity as ProjectileEntity;
 			projectile.StunDuration = projectile.StunDuration + (duration + durationExtraPerLevel);
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			var projectile = entity as ProjectileEntity;
 			projectile.StunDuration = projectile.StunDuration - (duration + durationExtraPerLevel);

@@ -44,19 +44,19 @@ namespace Celeritas.Scriptables.Systems
 		/// </summary>
 		public int PercentageExtraPerLevel { get => percentageExtraPerLevel; }
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			var projectile = entity as ProjectileEntity;
 			projectile.DamageOverDistance = true;
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			var projectile = entity as ProjectileEntity;
 			projectile.DamageOverDistance = false;
 		}
 
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			var projectile = entity as ProjectileEntity;
 
@@ -65,7 +65,7 @@ namespace Celeritas.Scriptables.Systems
 
 			if (projectile.DamageOverDistance)
 			{
-				projectile.CurrentDamageOverDistance = CalculatedDamageOverDistance(projectile, level);
+				projectile.CurrentDamageOverDistance = CalculatedDamageOverDistance(projectile, wrapper.Level);
 			}
 		}
 

@@ -42,7 +42,7 @@ namespace Celeritas.Scriptables.Systems {
 		/// <inheritdoc/>
 		public override string GetTooltip(ushort level) => $"Pulls in objects with <color=green>{flatForceMultiplier + (extraForceMultiplierPerLevel * level)}N</color> of force in a <color=green>{radiusOfEffect + (extraRadiusPerLevel * level)}m</color> radius.";
 
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			var ownerShip = entity as ShipEntity; // the ship that the effect originates from
 
@@ -54,7 +54,7 @@ namespace Celeritas.Scriptables.Systems {
 
 			// factor owner ship size into radius of effect
 			//float radius = radiusOfEffect + colliderSize + level * extraRadiusPerLevel;
-			float radius = radiusOfEffect + level * extraRadiusPerLevel;
+			float radius = radiusOfEffect + wrapper.Level * extraRadiusPerLevel;
 
 			// find all entities within the specified radius, around ownerShip
 			List <Collider2D> withinRange = new List<Collider2D>();
@@ -81,7 +81,7 @@ namespace Celeritas.Scriptables.Systems {
 
 					float curveMultiplier = forceVariation.Evaluate(betweenShips.magnitude);
 
-					float levelMultiplier = 1 + (level * extraForceMultiplierPerLevel);
+					float levelMultiplier = 1 + (wrapper.Level * extraForceMultiplierPerLevel);
 					rigidBody.AddForce(directionToPull * curveMultiplier * levelMultiplier * flatForceMultiplier, ForceMode2D.Force);
 					//rigidBody.AddForce(directionToPull * curveMultiplier * levelMultiplier * flatForceMultiplier * Time.smoothDeltaTime, ForceMode2D.Force);
 				}

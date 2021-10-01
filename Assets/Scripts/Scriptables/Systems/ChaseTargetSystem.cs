@@ -45,7 +45,7 @@ namespace Celeritas.Scriptables.Systems
 		/// <inheritdoc/>
 		public override string GetTooltip(ushort level) => $"Chases target at <color=green>{AngPerSec + (AngPerLevel * level)}°</color> per second.";
 
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			Vector3 target = Vector3.zero;
 			
@@ -63,7 +63,7 @@ namespace Celeritas.Scriptables.Systems
 			if (Vector3.Dot(entity.Forward, dir) >= 0.975)
 				return;
 
-			var angle = (AngPerSec + AngPerLevel * level) * Time.smoothDeltaTime;
+			var angle = (AngPerSec + AngPerLevel * wrapper.Level) * Time.smoothDeltaTime;
 			if (Vector3.Dot(entity.Right, dir) > 0)
 			{
 				angle = -angle;

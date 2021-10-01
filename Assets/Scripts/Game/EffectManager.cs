@@ -26,6 +26,8 @@ namespace Celeritas.Game
 		private readonly List<EffectWrapper> effects = new List<EffectWrapper>();
 		private SystemTargets targetType;
 		private Entity owner;
+		private readonly HashSet<EffectWrapper> requests = new HashSet<EffectWrapper>();
+		private bool processing = false;
 
 		public EffectManager(Entity owner, SystemTargets target, IList<EffectWrapper> effects = null)
 		{
@@ -71,16 +73,31 @@ namespace Celeritas.Game
 				Debug.LogError($"Tried to add an effect (<color=\"orange\">{wrapper.EffectCollection.Title}</color>) to an entity whose type (<color=\"orange\">{TargetType}</color>) is not " +
 					$"supported by the effect collection (<color=\"orange\">{wrapper.EffectCollection.Targets}</color>), If the system supports this type add it as a target to the collection. Otherwise remove the effect collection.");
 			}
-			else if (wrapper.EffectCollection.Stacks || !effects.Contains(wrapper))
-			{
-				effects.Add(wrapper);
-
-				if (!owner.Instanced)
-					wrapper.EffectCollection.OnAdded(owner, wrapper.Level);
-			}
 			else
 			{
-				Debug.LogError($"Tried to add effect colltion which does not stack (<color=\"orange\">{wrapper.EffectCollection.Title}</color>) to an entity who already has this system.");
+				if (effects.Contains(wrapper) == false)
+				{
+					effects.Add(wrapper);
+
+					if (!owner.Instanced)
+					{
+						processing = true;
+
+						wrapper.EffectCollection.OnAdded(owner, wrapper);
+
+						processing = false;
+						HandleRemoveRequests();
+					}
+				}
+				else
+				{
+					processing = true;
+
+					wrapper.EffectCollection.OnReset(owner, wrapper);
+
+					processing = false;
+					HandleRemoveRequests();
+				}
 			}
 		}
 
@@ -100,10 +117,15 @@ namespace Celeritas.Game
 
 			if (owner.Instanced == false)
 			{
+				processing = true;
+
 				foreach (var effect in effects)
 				{
-					effect.EffectCollection.OnAdded(owner, effect.Level);
+					effect.EffectCollection.OnAdded(owner, effect);
 				}
+
+				processing = false;
+				HandleRemoveRequests();
 			}
 		}
 
@@ -126,9 +148,24 @@ namespace Celeritas.Game
 		{
 			if (effects.Contains(wrapper))
 			{
-				effects.Remove(wrapper);
-				wrapper.EffectCollection.OnRemoved(owner, wrapper.Level);
+				if (processing)
+				{
+					requests.Add(wrapper);
+				}
+				else
+				{
+					InternalRemoveEffect(wrapper);
+				}
 			}
+		}
+
+		/// <summary>
+		/// Request for this effect to be removed. To be used inside effect functions.
+		/// </summary>
+		/// <param name="wrapper"></param>
+		public void RequestRemovedEffect(EffectWrapper wrapper)
+		{
+			requests.Add(wrapper);
 		}
 
 		/// <summary>
@@ -151,10 +188,14 @@ namespace Celeritas.Game
 		/// </summary>
 		public void UpdateEntity()
 		{
+			processing = true;
 			foreach (var effect in effects)
 			{
-				effect.EffectCollection.UpdateEntity(owner, effect.Level);
+				effect.EffectCollection.UpdateEntity(owner, effect);
 			}
+
+			HandleRemoveRequests();
+			processing = false;
 		}
 
 		/// <summary>
@@ -162,10 +203,14 @@ namespace Celeritas.Game
 		/// </summary>
 		public void KillEntity()
 		{
+			processing = true;
 			foreach (var effect in effects)
 			{
-				effect.EffectCollection.KillEntity(owner, effect.Level);
+				effect.EffectCollection.KillEntity(owner, effect);
 			}
+
+			processing = false;
+			HandleRemoveRequests();
 		}
 
 		/// <summary>
@@ -173,10 +218,14 @@ namespace Celeritas.Game
 		/// </summary>
 		public void OnEntityBeforeDie()
 		{
+			processing = true;
 			foreach (var effect in effects)
 			{
-				effect.EffectCollection.OnEntityBeforeDie(owner, effect.Level);
+				effect.EffectCollection.OnEntityBeforeDie(owner, effect);
 			}
+
+			processing = false;
+			HandleRemoveRequests();
 		}
 
 		/// <summary>
@@ -185,10 +234,14 @@ namespace Celeritas.Game
 		/// <param name="other">The other entity hit.</param>
 		public void EntityHit(Entity other)
 		{
+			processing = true;
 			foreach (var effect in effects)
 			{
-				effect.EffectCollection.HitEntity(owner, other, effect.Level);
+				effect.EffectCollection.HitEntity(owner, other, effect);
 			}
+
+			processing = false;
+			HandleRemoveRequests();
 		}
 
 		/// <summary>
@@ -197,10 +250,19 @@ namespace Celeritas.Game
 		/// <param name="projectile">The fired projectile.</param>
 		public void EntityFired(ProjectileEntity projectile)
 		{
+			processing = true;
 			foreach (var effect in effects)
 			{
-				effect.EffectCollection.OnFired(owner as WeaponEntity, projectile, effect.Level);
+				effect.EffectCollection.OnFired(owner as WeaponEntity, projectile, effect);
 			}
+
+			processing = false;
+			HandleRemoveRequests();
+		}
+
+		public void EntityLevelChanged(Entity entity, int previous, int newLevel)
+		{
+
 		}
 
 		public IEnumerator<EffectWrapper> GetEnumerator()
@@ -227,6 +289,31 @@ namespace Celeritas.Game
 			else
 			{
 				Debug.LogError($"Tried to add effect colltion which does not stack (<color=\"orange\">{wrapper.EffectCollection.Title}</color>) to an entity who already has this system.");
+			}
+		}
+
+		private void InternalRemoveEffect(EffectWrapper wrapper)
+		{
+			processing = true;
+
+			effects.Remove(wrapper);
+			wrapper.EffectCollection.OnRemoved(owner, wrapper);
+
+			processing = false;
+			HandleRemoveRequests();
+		}
+
+		private void HandleRemoveRequests()
+		{
+			var todo = new HashSet<EffectWrapper>(requests);
+			requests.Clear();
+
+			if (todo.Count == 0)
+				return;
+
+			foreach (var request in todo)
+			{
+				InternalRemoveEffect(request);
 			}
 		}
 	}

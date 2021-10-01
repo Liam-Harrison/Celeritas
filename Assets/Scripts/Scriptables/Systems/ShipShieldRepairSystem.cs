@@ -51,13 +51,13 @@ namespace Celeritas.Scriptables.Systems
 		/// </summary>
 		private float nextTime = 0.0f;
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			var ship = entity as ShipEntity;
 			nextTime = (Time.deltaTime + interval);
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			var ship = entity as ShipEntity;
 		}
@@ -65,11 +65,11 @@ namespace Celeritas.Scriptables.Systems
 		/// <summary>
 		/// Checks if shield isn't full and will repair the ship by sending negative damage to the shield.
 		/// </summary>
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			var ship = entity as ShipEntity;
 			
-			float amountToAdd = (ship.Shield.MaxValue / 100) * (amount + (level * amountExtraPerLevel));
+			float amountToAdd = (ship.Shield.MaxValue / 100) * (amount + (wrapper.Level * amountExtraPerLevel));
 
 			nextTime = nextTime + Time.deltaTime;
 

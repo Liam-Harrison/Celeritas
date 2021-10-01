@@ -32,19 +32,19 @@ namespace Celeritas.Scriptables.Systems
 		/// </summary>
 		public float AmountPerLevel { get => amountPerLevel; }
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			if (entity is ProjectileEntity projectile)
 			{
-				projectile.Damage += Mathf.RoundToInt(projectile.ProjectileData.Damage * GetReduction(level));
+				projectile.Damage += Mathf.RoundToInt(projectile.ProjectileData.Damage * GetReduction(wrapper.Level));
 			}
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			if (entity is ProjectileEntity projectile)
 			{
-				projectile.Damage -= Mathf.RoundToInt(projectile.ProjectileData.Damage * GetReduction(level));
+				projectile.Damage -= Mathf.RoundToInt(projectile.ProjectileData.Damage * GetReduction(wrapper.Level));
 			}
 		}
 

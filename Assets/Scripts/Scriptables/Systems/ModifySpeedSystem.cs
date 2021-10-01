@@ -41,7 +41,7 @@ namespace Assets.Scripts.Scriptables.Systems
 				return $"Slows down motion by a factor of "+speedFactor;
 		}
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			ProjectileEntity target = entity as ProjectileEntity;
 
@@ -55,7 +55,7 @@ namespace Assets.Scripts.Scriptables.Systems
 			}
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			ProjectileEntity target = entity as ProjectileEntity;
 
@@ -70,7 +70,7 @@ namespace Assets.Scripts.Scriptables.Systems
 			}
 		}
 
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			if (!applyOvertime)
 				return;

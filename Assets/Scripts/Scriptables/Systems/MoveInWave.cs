@@ -46,7 +46,7 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public override string GetTooltip(ushort level) => $"Moves on a curve.";
 
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			if (rightLeftMotion)
 				entity.transform.position += rightLeftAmplitude * entity.transform.right * rightLeftMotionCurve.Evaluate((frequencyMultiplier * entity.TimeAlive) + rightLeftPhase);

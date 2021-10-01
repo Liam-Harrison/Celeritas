@@ -26,14 +26,16 @@ namespace Celeritas.Scriptables
 		[SerializeField]
 		protected List<ModifierSystem> systems;
 
-		protected Action<Entity, ushort> onKilled;
-		protected Action<Entity, ushort> onAdded;
-		protected Action<Entity, ushort> onRemoved;
-		protected Action<Entity, ushort> onUpdated;
-		protected Action<WeaponEntity, ProjectileEntity, ushort> onFired;
-		protected Action<Entity, Entity, ushort> onHit;
-		protected Action<Entity, ushort> onEntityBeforeDie;
-		
+		protected Action<Entity, EffectWrapper> onKilled;
+		protected Action<Entity, EffectWrapper> onAdded;
+		protected Action<Entity, EffectWrapper> onRemoved;
+		protected Action<Entity, EffectWrapper> onUpdated;
+		protected Action<WeaponEntity, ProjectileEntity, EffectWrapper> onFired;
+		protected Action<Entity, Entity, EffectWrapper> onHit;
+		protected Action<Entity, EffectWrapper> onEntityBeforeDie;
+		protected Action<Entity, EffectWrapper> onEntityReset;
+		protected Action<Entity, int, int, EffectWrapper> onEntityLevelChanged;
+
 		protected virtual void OnEnable()
 		{
 			ResetAllListeners();
@@ -113,39 +115,39 @@ namespace Celeritas.Scriptables
 		/// Update the provided entity against this effect when updated.
 		/// </summary>
 		/// <param name="entity">The entity to update.</param>
-		/// <param name="level">The level of the effect.</param>
-		public void UpdateEntity(Entity entity, ushort level)
+		/// <param name="wrapper">The level of the effect.</param>
+		public void UpdateEntity(Entity entity, EffectWrapper wrapper)
 		{
 			if (!IsValidEntity(entity))
 				return;
 
-			onUpdated?.Invoke(entity, level);
+			onUpdated?.Invoke(entity, wrapper);
 		}
 
 		/// <summary>
 		/// Update the provided entity against this effect when destroyed.
 		/// </summary>
 		/// <param name="entity">The entity to update when destroyed.</param>
-		/// <param name="level">The level of the effect.</param>
-		public void KillEntity(Entity entity, ushort level)
+		/// <param name="wrapper">The level of the effect.</param>
+		public void KillEntity(Entity entity, EffectWrapper wrapper)
 		{
 			if (!IsValidEntity(entity))
 				return;
 
-			onKilled?.Invoke(entity, level);
+			onKilled?.Invoke(entity, wrapper);
 		}
 
 		/// <summary>
 		/// Update the provided entity against this effect when scheduled to be destroyed.
 		/// </summary>
 		/// <param name="entity">The entity to update when destroyed.</param>
-		/// <param name="level">The level of the effect.</param>
-		public void OnEntityBeforeDie(Entity entity, ushort level)
+		/// <param name="wrapper">The level of the effect.</param>
+		public void OnEntityBeforeDie(Entity entity, EffectWrapper wrapper)
 		{
 			if (!IsValidEntity(entity))
 				return;
 
-			onEntityBeforeDie?.Invoke(entity, level);
+			onEntityBeforeDie?.Invoke(entity, wrapper);
 		}
 
 		/// <summary>
@@ -153,25 +155,25 @@ namespace Celeritas.Scriptables
 		/// </summary>
 		/// <param name="entity">The entity who had this effect added to.</param>
 		/// <param name="level">The level of the effect.</param>
-		public void OnAdded(Entity entity, ushort level)
+		public void OnAdded(Entity entity, EffectWrapper wrapper)
 		{
 			if (!IsValidEntity(entity))
 				return;
 
-			onAdded?.Invoke(entity, level);
+			onAdded?.Invoke(entity, wrapper);
 		}
 
 		/// <summary>
 		/// Updated the provided entity against this effect when the effect is removed.
 		/// </summary>
 		/// <param name="entity">The entity who had this effect added to.</param>
-		/// <param name="level">The level of the effect.</param>
-		public void OnRemoved(Entity entity, ushort level)
+		/// <param name="wrapper">The level of the effect.</param>
+		public void OnRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			if (!IsValidEntity(entity))
 				return;
 
-			onRemoved?.Invoke(entity, level);
+			onRemoved?.Invoke(entity, wrapper);
 		}
 
 		/// <summary>
@@ -179,26 +181,47 @@ namespace Celeritas.Scriptables
 		/// </summary>
 		/// <param name="entity">The subject entity.</param>
 		/// <param name="other">The other entity hit.</param>
-		/// <param name="level">The level of the effect.</param>
-		public void HitEntity(Entity entity, Entity other, ushort level)
+		/// <param name="wrapper">The level of the effect.</param>
+		public void HitEntity(Entity entity, Entity other, EffectWrapper wrapper)
 		{
 			if (!IsValidEntity(entity))
 				return;
 
-			onHit?.Invoke(entity, other, level);
+			onHit?.Invoke(entity, other, wrapper);
 		}
 
 		/// <summary>
 		/// Update the provided entity against this effect when fired.
 		/// </summary>
 		/// <param name="entity">The subject entity.</param>
-		/// <param name="level">The level of the effect.</param>
-		public void OnFired(WeaponEntity entity, ProjectileEntity projectile, ushort level)
+		/// <param name="wrapper">The wrapper of the effect.</param>
+		public void OnFired(WeaponEntity entity, ProjectileEntity projectile, EffectWrapper wrapper)
 		{
 			if (!IsValidEntity(entity))
 				return;
 
-			onFired?.Invoke(entity, projectile, level);
+			onFired?.Invoke(entity, projectile, wrapper);
+		}
+
+		/// <summary>
+		/// Update the provided against this effect when reset.
+		/// </summary>
+		/// <param name="entity">The subject entity.</param>
+		/// <param name="wrapper"></param>
+		public void OnReset(Entity entity, EffectWrapper wrapper)
+		{
+			if (!IsValidEntity(entity))
+				return;
+
+			onEntityReset?.Invoke(entity, wrapper);
+		}
+
+		public void OnLevelChanged(Entity entity, int previous, int newLevel, EffectWrapper wrapper)
+		{
+			if (!IsValidEntity(entity))
+				return;
+
+			onEntityLevelChanged?.Invoke(entity, previous, newLevel, wrapper);
 		}
 
 		private bool IsValidEntity(Entity entity)
@@ -230,6 +253,8 @@ namespace Celeritas.Scriptables
 			onRemoved = null;
 			onFired = null;
 			onEntityBeforeDie = null;
+			onEntityReset = null;
+			onEntityLevelChanged = null;
 
 			foreach (var modifier in systems)
 			{
@@ -259,6 +284,12 @@ namespace Celeritas.Scriptables
 
 			if (system is IEntityBeforeDie scheduled)
 				onEntityBeforeDie += scheduled.OnEntityBeforeDie;
+
+			if (system is IEntityResetable resetable)
+				onEntityReset += resetable.OnReset;
+
+			if (system is IEntityLevelChanged changed)
+				onEntityLevelChanged += changed.OnLevelChanged;
 		}
 
 		private void RemoveModifierSystemListeners(ModifierSystem system)
@@ -283,6 +314,12 @@ namespace Celeritas.Scriptables
 
 			if (system is IEntityBeforeDie scheduled)
 				onEntityBeforeDie -= scheduled.OnEntityBeforeDie;
+
+			if (system is IEntityResetable resetable)
+				onEntityReset -= resetable.OnReset;
+
+			if (system is IEntityLevelChanged changed)
+				onEntityLevelChanged -= changed.OnLevelChanged;
 		}
 	}
 }

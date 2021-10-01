@@ -38,16 +38,16 @@ namespace Celeritas.Scriptables.Systems
 
 		public override string GetTooltip(ushort level) => $"Reduces amount of damage taken by <color=green>{(Amount + (AmountExtraPerLevel * level)):0}%</color>.";
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			var ship = entity as ShipEntity;
-			ship.DamageModifierPercentage = (Amount + (AmountExtraPerLevel * level));
+			ship.DamageModifierPercentage = (Amount + (AmountExtraPerLevel * wrapper.Level));
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			var ship = entity as ShipEntity;
-			ship.DamageModifierPercentage = (ship.DamageModifierPercentage - (Amount + (AmountExtraPerLevel * level)));
+			ship.DamageModifierPercentage = (ship.DamageModifierPercentage - (Amount + (AmountExtraPerLevel * wrapper.Level)));
 		}
 	}
 }

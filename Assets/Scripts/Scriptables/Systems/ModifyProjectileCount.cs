@@ -64,10 +64,10 @@ namespace Celeritas.Scriptables.Systems
 		/// <inheritdoc/>
 		public override string GetTooltip(ushort level) => $"Fire <color=green>{ExtraProjectileCount + (ExtraProjectileCountPerLevel * level)}</color> extra projectiles.";
 
-		public void OnEntityFired(WeaponEntity weapon, ProjectileEntity projectile, ushort level)
+		public void OnEntityFired(WeaponEntity weapon, ProjectileEntity projectile, EffectWrapper wrapper)
 		{
-			uint numberOfExtraProjectiles = extraProjectileCount + (level * extraProjectilesPerLevel);
-
+			uint numberOfExtraProjectiles = extraProjectileCount + (wrapper.Level * extraProjectilesPerLevel);
+			
 			// arc layout logic
 			if (arcLayout)
 			{
@@ -87,8 +87,6 @@ namespace Celeritas.Scriptables.Systems
 			else
 			{ 
 				// linear layout logic
-				
-
 				Vector3 bulletAlignment = new Vector3(1, 0, 0);
 				for (int i = 0; i < numberOfExtraProjectiles; i++)
 				{

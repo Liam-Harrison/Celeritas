@@ -38,19 +38,19 @@ namespace Celeritas.Scriptables.Systems {
 		/// </summary>
 		public float PercentageExtraPerLevel { get => percentageExtraPerLevel; }
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			var projectile = entity as ProjectileEntity;
-			float percentageToAdd = percentage + (level * percentageExtraPerLevel);
+			float percentageToAdd = percentage + (wrapper.Level * percentageExtraPerLevel);
 			int amountToAdd = Mathf.RoundToInt(projectile.Damage * (percentageToAdd));
 
 			projectile.Damage += amountToAdd;
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			var projectile = entity as ProjectileEntity;
-			float percentageToSubtract = percentage + (level * percentageExtraPerLevel);
+			float percentageToSubtract = percentage + (wrapper.Level * percentageExtraPerLevel);
 			int amountToSubtract = Mathf.RoundToInt(projectile.Damage * (percentageToSubtract));
 
 			projectile.Damage -= amountToSubtract;
