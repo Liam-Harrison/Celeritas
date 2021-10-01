@@ -26,7 +26,7 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		public override string GetTooltip(ushort level) => $"Increases damage by <color=green>{Percentage + (PercentageExtraPerLevel * level)}%</color> per metre up to a maximum of <color=green>{maxDistance}</color> metres.";
+		public override string GetTooltip(int level) => $"Increases damage by <color=green>{Percentage + (PercentageExtraPerLevel * level)}%</color> per metre up to a maximum of <color=green>{maxDistance}</color> metres.";
 
 		/// <summary>
 		/// How much extra percent damage the projectile gets from this modifier per metre.
@@ -61,7 +61,6 @@ namespace Celeritas.Scriptables.Systems
 			var projectile = entity as ProjectileEntity;
 
 			RecordDistance(projectile);
-			//Debug.Log(projectile.TotalDistanceTravelled);
 
 			if (projectile.DamageOverDistance)
 			{
@@ -77,7 +76,7 @@ namespace Celeritas.Scriptables.Systems
 		/// <summary>
         /// Calculates the damage that the projectile will inflict.
         /// </summary>
-		private int CalculatedDamageOverDistance(Entity entity, ushort level)
+		private int CalculatedDamageOverDistance(Entity entity, int level)
 		{
 			var projectile = entity as ProjectileEntity;
 			int rangeCap = maxDistance * 10;

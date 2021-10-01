@@ -40,7 +40,7 @@ namespace Celeritas.Scriptables.Systems {
 		private bool affectsAsteroids;
 
 		/// <inheritdoc/>
-		public override string GetTooltip(ushort level) => $"Pulls in objects with <color=green>{flatForceMultiplier + (extraForceMultiplierPerLevel * level)}N</color> of force in a <color=green>{radiusOfEffect + (extraRadiusPerLevel * level)}m</color> radius.";
+		public override string GetTooltip(int level) => $"Pulls in objects with <color=green>{flatForceMultiplier + (extraForceMultiplierPerLevel * level)}N</color> of force in a <color=green>{radiusOfEffect + (extraRadiusPerLevel * level)}m</color> radius.";
 
 		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{

@@ -39,7 +39,7 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile | SystemTargets.Weapon;
 
-		public override string GetTooltip(ushort level) => $"Homes in on target at <color=green>{AngPerSec + (AngPerLevel * level)}°</color> per second.";
+		public override string GetTooltip(int level) => $"Homes in on target at <color=green>{AngPerSec + (AngPerLevel * level)}°</color> per second.";
 
 		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{

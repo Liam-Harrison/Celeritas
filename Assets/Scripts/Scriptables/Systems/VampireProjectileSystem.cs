@@ -23,7 +23,7 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		public override string GetTooltip(ushort level) => $"Restore <color=green>{Percentage + (PercentageExtraPerLevel * level)}%</color> of damage dealt as health.";
+		public override string GetTooltip(int level) => $"Restore <color=green>{Percentage + (PercentageExtraPerLevel * level)}%</color> of damage dealt as health.";
 
 		/// <summary>
 		/// How much is healed.

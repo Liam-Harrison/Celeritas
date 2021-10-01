@@ -20,7 +20,7 @@ namespace Assets.Scripts.Scriptables.Systems
 		public override SystemTargets Targets => SystemTargets.Ship;
 
 		// PLACEHOLDER, PLEASE UPDATE WHEN WE HAVE DESIRED BEHAVIOUR FINALISED
-		public override string GetTooltip(ushort level) => $"Tractor beam now affects <color=\"green\">{10}%</color> more area and can target <color=\"green\">{4}</color> objects simultaneously.";
+		public override string GetTooltip(int level) => $"Tractor beam now affects <color=\"green\">{10}%</color> more area and can target <color=\"green\">{4}</color> objects simultaneously.";
 
 		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
@@ -38,7 +38,7 @@ namespace Assets.Scripts.Scriptables.Systems
 			TractorBeamController.Instance.UseAreaOfEffect(false, 1/calculateRangeMultiplier(wrapper.Level));
 		}
 
-		private float calculateRangeMultiplier(ushort level)
+		private float calculateRangeMultiplier(int level)
 		{
 			return initialRangeMultiplier + (level * extraRangePerLevel);
 		}

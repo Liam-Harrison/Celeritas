@@ -41,7 +41,7 @@ namespace Celeritas.Scriptables.Systems
 		/// </summary>
 		public float MaximumAngle { get => maximumAngle; }
 
-		public override string GetTooltip(ushort level) => $"Chase first fired projectile.";
+		public override string GetTooltip(int level) => $"Chase first fired projectile.";
 
 		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{

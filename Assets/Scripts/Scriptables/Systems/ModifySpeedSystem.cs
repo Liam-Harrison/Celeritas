@@ -33,7 +33,7 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		private readonly Dictionary<Entity, (float b, float mod)> applying = new Dictionary<Entity, (float b, float mod)>();
 
-		public override string GetTooltip(ushort level)
+		public override string GetTooltip(int level)
 		{
 			if (speedFactor > 1)
 				return $"Speeds up motion by a factor of " + speedFactor;

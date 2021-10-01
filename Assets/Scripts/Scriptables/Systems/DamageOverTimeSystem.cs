@@ -11,7 +11,7 @@ namespace Assets.Scripts.Scriptables.Systems
 	/// The entity with this system will take a set amount of damage over a set amount of time (DoT)
 	/// </summary>
 	[CreateAssetMenu(fileName = "New DoT System", menuName = "Celeritas/Modifiers/Take DoT")]
-	class DamageOverTimeSystem : ModifierSystem, IEntityEffectAdded, IEntityUpdated, IEntityEffectRemoved
+	class DamageOverTimeSystem : ModifierSystem, IEntityEffectAdded, IEntityUpdated, IEntityEffectRemoved, IEntityResetable
 	{
 
 		public class DamageOverTimeData
@@ -30,7 +30,7 @@ namespace Assets.Scripts.Scriptables.Systems
 		private float duration;
 
 		[SerializeField]
-		private float damage;
+		private float damagePerSecond;
 
 		[SerializeField]
 		private float durationReductionPerLevel;
@@ -38,7 +38,7 @@ namespace Assets.Scripts.Scriptables.Systems
 		[SerializeField]
 		private float damageExtraPerLevel;
 
-		public override string GetTooltip(ushort level) => $"Projectiles do <color=green>{damage + (damageExtraPerLevel * level)}</color> extra damage over <color=green>{duration - (durationReductionPerLevel * level)}</color> seconds.\n";
+		public override string GetTooltip(int level) => $"Projectiles do <color=green>{damagePerSecond + (damageExtraPerLevel * level)}</color> extra damage over <color=green>{duration - (durationReductionPerLevel * level)}</color> seconds.\n";
 
 		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
@@ -48,15 +48,13 @@ namespace Assets.Scripts.Scriptables.Systems
 				entity.Components.RegisterComponent(this, data);
 			}
 
-			var netDamage = damage + (damageExtraPerLevel * wrapper.Level);
+			var netDamage = damagePerSecond + (damageExtraPerLevel * wrapper.Level);
 			var netDuration = duration - (durationReductionPerLevel * wrapper.Level);
 
 			data.startTime_s = entity.TimeAlive;
 			data.damageRemainder = 0;
 			data.netDuration = netDuration;
 			data.damagePerSecond = netDamage / netDuration;
-
-			Debug.Log($"On Added");
 		}
 
 		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
@@ -65,7 +63,6 @@ namespace Assets.Scripts.Scriptables.Systems
 
 			if (entity.TimeAlive - data.startTime_s > data.netDuration)
 			{
-				Debug.Log($"Removing DoT");
 				entity.EntityEffects.RemoveEffect(wrapper);
 				return;
 			}
@@ -75,15 +72,20 @@ namespace Assets.Scripts.Scriptables.Systems
 			if (damageToDo > 0)
 			{ 
 				entity.TakeDamage(entity, damageToDo);
-				Debug.Log($"DoT dealt {damageToDo:0.00}");
 			}
 			data.damageRemainder = damageToDo - (int)damageToDo;
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
-			Debug.Log($"On Removed");
 			entity.Components.ReleaseComponent<DamageOverTimeData>(this);
+		}
+
+		public void OnReset(Entity entity, EffectWrapper wrapper)
+		{
+			var data = entity.Components.GetComponent<DamageOverTimeData>(this);
+
+			data.startTime_s = entity.TimeAlive;
 		}
 	}
 }

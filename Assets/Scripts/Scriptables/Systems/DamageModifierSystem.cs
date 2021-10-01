@@ -19,7 +19,7 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		public override string GetTooltip(ushort level) => $"Damage {(GetReduction(level) >= 0 ? "increased" : "decreased")} by <color={(GetReduction(level) >= 0 ? "green" : "red")}>{GetReduction(level) * 100:0}%</color>.";
+		public override string GetTooltip(int level) => $"Damage {(GetReduction(level) >= 0 ? "increased" : "decreased")} by <color={(GetReduction(level) >= 0 ? "green" : "red")}>{GetReduction(level) * 100:0}%</color>.";
 
 		/// <summary>
 		/// How much damage is changed.
@@ -48,7 +48,7 @@ namespace Celeritas.Scriptables.Systems
 			}
 		}
 
-		private float GetReduction(ushort level)
+		private float GetReduction(int level)
 		{
 			return baseAmount + (amountPerLevel * level);
 		}

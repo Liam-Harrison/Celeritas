@@ -215,7 +215,7 @@ namespace Celeritas.Game.Entities
 		/// <param name="level">The level to set to.</param>
 		public void SetLevel(int level)
 		{
-			Level = (ushort)Mathf.Clamp(level, 0, Constants.MAX_EFFECT_LEVEL);
+			Level = Mathf.Clamp(level, 0, Constants.MAX_EFFECT_LEVEL);
 
 			if (HasShipEffects)
 				SetEffectLevel(Level, ShipEffects);
@@ -261,7 +261,9 @@ namespace Celeritas.Game.Entities
 		{
 			foreach (var wrapper in effects)
 			{
-				wrapper.Level = (ushort) level;
+				var prev = wrapper.Level;
+				wrapper.Level = level;
+				wrapper.EffectCollection.OnLevelChanged(this, prev, level, wrapper);
 			}
 		}
 	}

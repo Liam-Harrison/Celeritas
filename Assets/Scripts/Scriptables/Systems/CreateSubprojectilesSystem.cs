@@ -57,7 +57,7 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		public override string GetTooltip(ushort level)
+		public override string GetTooltip(int level)
 		{
 			string toReturn = "";
 			if (spawnOnCreation)

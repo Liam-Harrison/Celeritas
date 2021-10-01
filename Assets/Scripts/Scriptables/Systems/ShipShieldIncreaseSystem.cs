@@ -34,7 +34,7 @@ namespace Celeritas.Scriptables.Systems
 		public override SystemTargets Targets => SystemTargets.Ship;
 
 		/// <inheritdoc/>
-		public override string GetTooltip(ushort level) => $"Increase shield capacity by <color=green>{(Amount + (AmountExtraPerLevel * level)) * 100:0}%</color>.";
+		public override string GetTooltip(int level) => $"Increase shield capacity by <color=green>{(Amount + (AmountExtraPerLevel * level)) * 100:0}%</color>.";
 
 		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{

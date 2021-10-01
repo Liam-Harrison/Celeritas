@@ -27,7 +27,7 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Ship;
 
-		public override string GetTooltip(ushort level) => $"Reduces the mass of tractor-beamed objects by {startingMultiplier + (amountToAddPerLevel * level) * 100}%";
+		public override string GetTooltip(int level) => $"Reduces the mass of tractor-beamed objects by {startingMultiplier + (amountToAddPerLevel * level) * 100}%";
 
 		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{

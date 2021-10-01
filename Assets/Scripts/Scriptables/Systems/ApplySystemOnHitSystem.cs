@@ -20,7 +20,7 @@ namespace Assets.Scripts.Scriptables.Systems
 		[SerializeField, Title("Effects to apply")]
 		private EffectWrapper toApply;
 
-		public override string GetTooltip(ushort level)
+		public override string GetTooltip(int level)
 		{
 			var result = $"Applies following effects on hit:";
 			IReadOnlyList<ModifierSystem> systems = toApply.EffectCollection.Systems;

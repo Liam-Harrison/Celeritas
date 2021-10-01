@@ -36,7 +36,7 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Ship;
 
-		public override string GetTooltip(ushort level) => $"Repairs shields by <color=green>{(Amount + (AmountExtraPerLevel * level)):0}%</color> per second.";
+		public override string GetTooltip(int level) => $"Repairs shields by <color=green>{(Amount + (AmountExtraPerLevel * level)):0}%</color> per second.";
 
 		/// <summary>
 		/// Seconds between repairs

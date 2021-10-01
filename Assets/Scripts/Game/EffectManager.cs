@@ -14,7 +14,7 @@ namespace Celeritas.Game
 	public class EffectWrapper
 	{
 		[Title("Effect Settings"), PropertyRange(0, 5)]
-		public ushort Level;
+		public int Level;
 		public EffectCollection EffectCollection;
 	}
 
@@ -101,6 +101,27 @@ namespace Celeritas.Game
 			}
 		}
 
+		private void AddEffectWithoutNotify(EffectWrapper wrapper, ref HashSet<EffectWrapper> added, ref HashSet<EffectWrapper> reset)
+		{
+			if (!wrapper.EffectCollection.Targets.HasFlag(TargetType))
+			{
+				Debug.LogError($"Tried to add an effect (<color=\"orange\">{wrapper.EffectCollection.Title}</color>) to an entity whose type (<color=\"orange\">{TargetType}</color>) is not " +
+					$"supported by the effect collection (<color=\"orange\">{wrapper.EffectCollection.Targets}</color>), If the system supports this type add it as a target to the collection. Otherwise remove the effect collection.");
+			}
+			else
+			{
+				if (effects.Contains(wrapper) == false)
+				{
+					effects.Add(wrapper);
+					added.Add(wrapper);
+				}
+				else
+				{
+					reset.Add(wrapper);
+				}
+			}
+		}
+
 		/// <summary>
 		/// Add a collection of effects.
 		/// </summary>
@@ -110,18 +131,26 @@ namespace Celeritas.Game
 			if (effects == null)
 				return;
 
+			var added = new HashSet<EffectWrapper>();
+			var reset = new HashSet<EffectWrapper>();
+
 			foreach (var effect in effects)
 			{
-				AddEffectWithoutNotify(effect);
+				AddEffectWithoutNotify(effect, ref added, ref reset);
 			}
 
 			if (owner.Instanced == false)
 			{
 				processing = true;
 
-				foreach (var effect in effects)
+				foreach (var effect in added)
 				{
 					effect.EffectCollection.OnAdded(owner, effect);
+				}
+
+				foreach (var effect in reset)
+				{
+					effect.EffectCollection.OnReset(owner, effect);
 				}
 
 				processing = false;
@@ -260,9 +289,20 @@ namespace Celeritas.Game
 			HandleRemoveRequests();
 		}
 
-		public void EntityLevelChanged(Entity entity, int previous, int newLevel)
+		/// <summary>
+		/// Update the effects when this entity changes level.
+		/// </summary>
+		/// <param name="previous">The previous level of this entity.</param>
+		public void EntityLevelChanged(int previous)
 		{
+			processing = true;
+			foreach (var effect in effects)
+			{
+				effect.EffectCollection.OnLevelChanged(owner, previous, effect.Level, effect);
+			}
 
+			processing = false;
+			HandleRemoveRequests();
 		}
 
 		public IEnumerator<EffectWrapper> GetEnumerator()
@@ -273,23 +313,6 @@ namespace Celeritas.Game
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return EffectWrapperCopy.GetEnumerator();
-		}
-
-		private void AddEffectWithoutNotify(EffectWrapper wrapper)
-		{
-			if (!wrapper.EffectCollection.Targets.HasFlag(TargetType))
-			{
-				Debug.LogError($"Tried to add an effect (<color=\"orange\">{wrapper.EffectCollection.Title}</color>) to an entity whose type (<color=\"orange\">{TargetType}</color>) is not " +
-					$"supported by the effect collection (<color=\"orange\">{wrapper.EffectCollection.Targets}</color>), If the system supports this type add it as a target to the collection. Otherwise remove the effect collection.");
-			}
-			else if (wrapper.EffectCollection.Stacks || !effects.Contains(wrapper))
-			{
-				effects.Add(wrapper);
-			}
-			else
-			{
-				Debug.LogError($"Tried to add effect colltion which does not stack (<color=\"orange\">{wrapper.EffectCollection.Title}</color>) to an entity who already has this system.");
-			}
 		}
 
 		private void InternalRemoveEffect(EffectWrapper wrapper)

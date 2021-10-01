@@ -36,7 +36,7 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Ship;
 
-		public override string GetTooltip(ushort level) => $"Reduces amount of damage taken by <color=green>{(Amount + (AmountExtraPerLevel * level)):0}%</color>.";
+		public override string GetTooltip(int level) => $"Reduces amount of damage taken by <color=green>{(Amount + (AmountExtraPerLevel * level)):0}%</color>.";
 
 		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{

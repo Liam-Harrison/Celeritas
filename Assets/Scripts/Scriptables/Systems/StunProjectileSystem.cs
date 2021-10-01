@@ -23,7 +23,7 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		public override string GetTooltip(ushort level) => $"Projectiles stun the target by <color=green>{(Duration + (DurationExtraPerLevel * level)):0}</color> seconds.";
+		public override string GetTooltip(int level) => $"Projectiles stun the target by <color=green>{(Duration + (DurationExtraPerLevel * level)):0}</color> seconds.";
 
 		/// <summary>
 		/// How long the target will get stunned by initially.
