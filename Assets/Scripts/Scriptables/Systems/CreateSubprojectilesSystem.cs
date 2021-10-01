@@ -57,7 +57,7 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		public override string GetTooltip(ushort level)
+		public override string GetTooltip(int level)
 		{
 			string toReturn = "";
 			if (spawnOnCreation)
@@ -69,7 +69,7 @@ namespace Assets.Scripts.Scriptables.Systems
 			return toReturn;
 		}
 
-		public void OnEntityKilled(Entity entity, ushort level)
+		public void OnEntityKilled(Entity entity, EffectWrapper wrapper)
 		{
 			if (spawnOnDeath)
 				SpawnProjectiles(entity);
@@ -113,7 +113,7 @@ namespace Assets.Scripts.Scriptables.Systems
 			}
 		}
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			if (spawnOnCreation)
 				SpawnProjectiles(entity);
@@ -133,13 +133,13 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			if (entity.Components.TryGetComponent(this, out SpawnProjectilesData data))
 				entity.Components.ReleaseComponent<SpawnProjectilesData>(this);
 		}
 
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			if (!spawnContinuouslyThroughoutLife)
 				return;

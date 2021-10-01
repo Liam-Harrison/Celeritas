@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: modifier_take_dot
   m_EditorClassIdentifier: 
   title: Take damage over time
-  duration: 5
-  damage: 15
-  durationReductionPerLevel: 0.5
-  damageExtraPerLevel: 8
+  duration: 4
+  damagePerSecond: 4
+  durationIncreasePerLevel: 0.25
+  damageExtraPerLevel: 4

@@ -23,7 +23,7 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		public override string GetTooltip(ushort level) => $"Restore <color=green>{Percentage + (PercentageExtraPerLevel * level)}%</color> of damage dealt as health.";
+		public override string GetTooltip(int level) => $"Restore <color=green>{Percentage + (PercentageExtraPerLevel * level)}%</color> of damage dealt as health.";
 
 		/// <summary>
 		/// How much is healed.
@@ -36,11 +36,11 @@ namespace Celeritas.Scriptables.Systems
 		/// </summary>
 		public float PercentageExtraPerLevel { get => percentageExtraPerLevel; }
 
-		public void OnEntityHit(Entity entity, Entity other, ushort level)
+		public void OnEntityHit(Entity entity, Entity other, EffectWrapper wrapper)
 		{
 			if (entity is ProjectileEntity projectile && other is ShipEntity)
 			{
-				float amountToHeal = projectile.Damage * Mathf.Clamp01(Percentage + (PercentageExtraPerLevel * level));
+				float amountToHeal = projectile.Damage * Mathf.Clamp01(Percentage + (PercentageExtraPerLevel * wrapper.Level));
 
 				var amount = Mathf.RoundToInt(amountToHeal) * -1;
 				projectile.Weapon.AttatchedModule.Ship.Health.Damage(amount);

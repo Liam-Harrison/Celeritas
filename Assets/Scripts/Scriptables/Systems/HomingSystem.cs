@@ -39,9 +39,9 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile | SystemTargets.Weapon;
 
-		public override string GetTooltip(ushort level) => $"Homes in on target at <color=green>{AngPerSec + (AngPerLevel * level)}°</color> per second.";
+		public override string GetTooltip(int level) => $"Homes in on target at <color=green>{AngPerSec + (AngPerLevel * level)}°</color> per second.";
 
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			ShipEntity closest = null;
 			float distance = 0;
@@ -66,7 +66,7 @@ namespace Celeritas.Scriptables.Systems
 			if (Vector3.Dot(entity.Forward, dir) >= 0.975)
 				return;
 
-			var angle = (AngPerSec + AngPerLevel * level) * Time.smoothDeltaTime;
+			var angle = (AngPerSec + AngPerLevel * wrapper.Level) * Time.smoothDeltaTime;
 			if (Vector3.Dot(entity.Right, dir) > 0)
 			{
 				angle = -angle;

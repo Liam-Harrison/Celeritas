@@ -2,7 +2,6 @@
 using Celeritas.Scriptables;
 using Celeritas.Scriptables.Interfaces;
 using Sirenix.OdinInspector;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,7 +20,7 @@ namespace Assets.Scripts.Scriptables.Systems
 		[SerializeField, Title("Effects to apply")]
 		private EffectWrapper toApply;
 
-		public override string GetTooltip(ushort level)
+		public override string GetTooltip(int level)
 		{
 			var result = $"Applies following effects on hit:";
 			IReadOnlyList<ModifierSystem> systems = toApply.EffectCollection.Systems;
@@ -33,9 +32,9 @@ namespace Assets.Scripts.Scriptables.Systems
 			return result;
 		}
 
-		public void OnEntityHit(Entity entity, Entity other, ushort level)
+		public void OnEntityHit(Entity entity, Entity other, EffectWrapper wrapper)
 		{
-			toApply.Level = level;
+			toApply.Level = wrapper.Level;
 			other.EntityEffects.AddEffect(toApply);
 		}
 	}

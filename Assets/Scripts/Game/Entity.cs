@@ -456,7 +456,7 @@ namespace Celeritas.Game
 		/// <summary>
 		/// Displays floating text at the projectile's location.
 		/// </summary>
-		public void ShowDamage(float damage, Vector3 position)
+		public void ShowDamage(float damage)
 		{
 			CombatHUD.Instance.PrintFloatingText(this, damage);
 		}

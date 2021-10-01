@@ -41,9 +41,9 @@ namespace Celeritas.Scriptables.Systems
 		/// </summary>
 		public float MaximumAngle { get => maximumAngle; }
 
-		public override string GetTooltip(ushort level) => $"Chase first fired projectile.";
+		public override string GetTooltip(int level) => $"Chase first fired projectile.";
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			ProjectileEntity projectile = entity as ProjectileEntity;
 
@@ -60,7 +60,7 @@ namespace Celeritas.Scriptables.Systems
 			}
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			ProjectileEntity projectile = entity as ProjectileEntity;
 			var data = projectile.Weapon.Components.GetComponent<FollowLeaderData>(this);
@@ -73,7 +73,7 @@ namespace Celeritas.Scriptables.Systems
 			}
 		}
 
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			ProjectileEntity projectile = entity as ProjectileEntity;
 			var data = projectile.Weapon.Components.GetComponent<FollowLeaderData>(this);

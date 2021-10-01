@@ -128,7 +128,7 @@ MonoBehaviour:
   isGlobal: 1
   priority: 0
   blendDistance: 0
-  weight: 0.421
+  weight: 0
   sharedProfile: {fileID: 11400000, guid: e9d70c3a13d64a54ebc00ce97fed66a0, type: 2}
 --- !u!114 &8813669304308284252
 MonoBehaviour:
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vignetteVolume: {fileID: 226690503173609295}
-  vignetteThreshold: 15
+  vignetteThreshold: 0.8
   sfx: {fileID: 0}
 --- !u!82 &4210258547385732026
 AudioSource:

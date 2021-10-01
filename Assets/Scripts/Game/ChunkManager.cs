@@ -167,6 +167,19 @@ namespace Celeritas.Game
 		}
 
 		/// <summary>
+		/// Unload all the chunks in the game and remove them.
+		/// </summary>
+		public void UnloadAllChunks()
+		{
+			var copy = new HashSet<Chunk>(Chunks);
+			foreach (var chunk in copy)
+			{
+				UnloadChunk(chunk);
+			}
+			chunks.Clear();
+		}
+
+		/// <summary>
 		/// Does this chunk manager have the current chunk.
 		/// </summary>
 		/// <param name="index">The index of the chunk.</param>

@@ -230,7 +230,7 @@ namespace Celeritas.Game.Entities
 		/// <param name="damage">The amount of damage to take.</param>
 		public override void TakeDamage(Entity attackingEntity, float damage)
 		{
-			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity)
+			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity || attackingEntity == this)
 			{
 				base.TakeDamage(attackingEntity);
 
@@ -253,12 +253,7 @@ namespace Celeritas.Game.Entities
 					shield.Damage(calculatedDamage);
 				}
 
-				if (ShowDamageOnEntity == true)
-				{
-					ShowDamageLocation = this.transform.position;
-				}
-
-				ShowDamage(calculatedDamage, ShowDamageLocation);
+				ShowDamage(calculatedDamage);
 
 				if (health.IsEmpty())
 				{
@@ -339,7 +334,7 @@ namespace Celeritas.Game.Entities
 		/// <returns>The amount of damage to take after the damage modifier has been applied</returns>
 		private int CalculateDamage(float damage)
 		{
-			int calculatedDamage = calculatedDamage = Mathf.RoundToInt((damage + (damage / 100) * damageModifierPercentage));
+			int calculatedDamage = Mathf.RoundToInt(damage + damage / 100 * damageModifierPercentage);
 			return calculatedDamage;
 		}
 

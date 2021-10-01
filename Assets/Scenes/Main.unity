@@ -5082,13 +5082,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 226690503173609295, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
-      propertyPath: weight
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 627083987495544363, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      propertyPath: weight
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1764990478256428806, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
       propertyPath: m_RootOrder
@@ -5137,10 +5133,6 @@ PrefabInstance:
     - target: {fileID: 1764990478256428807, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
       propertyPath: m_Name
       value: Settings
-      objectReference: {fileID: 0}
-    - target: {fileID: 1764990479278046676, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
-      propertyPath: m_audioClip
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
@@ -5326,6 +5318,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5641295164690157525, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5641295164851739855, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5641295164851739855, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}

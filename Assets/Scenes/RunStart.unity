@@ -3416,6 +3416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: 40
   mode: 0
+  unloadAllEntities: 0
   loadOnAwake: 0
 --- !u!1 &767420398
 GameObject:
@@ -5593,6 +5594,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settings
       objectReference: {fileID: 0}
+    - target: {fileID: 8813669304308284252, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
 --- !u!1 &1469014729
@@ -6203,6 +6208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: 8
   mode: 0
+  unloadAllEntities: 0
   loadOnAwake: 0
 --- !u!114 &1638285564
 MonoBehaviour:

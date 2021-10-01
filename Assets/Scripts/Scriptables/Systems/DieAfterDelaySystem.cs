@@ -15,19 +15,25 @@ namespace Celeritas.Scriptables.Systems
 		[SerializeField, TitleGroup("Time to Live")]
 		private float timeToLive;
 
+		[SerializeField]
+		private bool autoRemove = false;
+
 		/// <inheritdoc/>
 		public override bool Stacks => false;
 
 		/// <inheritdoc/>
 		public override SystemTargets Targets => SystemTargets.Projectile | SystemTargets.Ship | SystemTargets.Loot | SystemTargets.Asteroid;
 
-		public override string GetTooltip(ushort level) => $"Self destruct after {timeToLive} seconds";
+		public override string GetTooltip(int level) => $"Self destruct after {timeToLive} seconds";
 
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			// if entity has been alive for longer than TimeToLive and it isn't already dying, kill it
 			if (!entity.Dying && entity.TimeAlive >= timeToLive) { 
 				entity.KillEntity();
+
+				if (autoRemove)
+					entity.EntityEffects.RemoveEffect(wrapper);
 			}
 		}
 	}

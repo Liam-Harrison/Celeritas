@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Acidic Projectiles
   toApply:
-    Level: 0
+    Level: 1
     EffectCollection: {fileID: 11400000, guid: 48639bca6e01427468109f8581ef719c, type: 2}

@@ -21,11 +21,6 @@ namespace Celeritas.UI.General
 
 		private float desiredAlpha = 1.0f;
 
-		/// <summary>
-		/// Determines if the Canvas will fade in or not.
-		/// </summary>
-		private bool fade = false;
-
 		private CanvasGroup canvas;
 
 		private void OnEnable()
@@ -66,7 +61,6 @@ namespace Celeritas.UI.General
 			} while (p < 1);
 
 			canvas.alpha = desiredAlpha;
-			fade = true;
 		}
 	}
 }

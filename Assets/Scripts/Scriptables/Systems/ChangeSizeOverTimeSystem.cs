@@ -47,9 +47,9 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		public override string GetTooltip(ushort level) => $"Size increases over <color=\"green\">{duration}</color> seconds.";
+		public override string GetTooltip(int level) => $"Size increases over <color=\"green\">{duration}</color> seconds.";
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			// check if data exists, if not create some
 			if (!entity.Components.TryGetComponent(this, out ChangeSizeOverTimeData data))
@@ -78,7 +78,7 @@ namespace Assets.Scripts.Scriptables.Systems
 			// entity.transform.localScale = startSize * Vector3.one; // must be done in update apparently.
 		}
 
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			// if duration has passed, don't do anything
 			var data = entity.Components.GetComponent<ChangeSizeOverTimeData>(this);
@@ -100,7 +100,7 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			entity.Components.ReleaseComponent<ChangeSizeOverTimeData>(this);
 		}

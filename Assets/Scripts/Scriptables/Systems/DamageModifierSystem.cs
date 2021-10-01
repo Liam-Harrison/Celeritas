@@ -19,7 +19,7 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		public override string GetTooltip(ushort level) => $"Damage {(GetReduction(level) >= 0 ? "increased" : "decreased")} by <color={(GetReduction(level) >= 0 ? "green" : "red")}>{GetReduction(level) * 100:0}%</color>.";
+		public override string GetTooltip(int level) => $"Damage {(GetReduction(level) >= 0 ? "increased" : "decreased")} by <color={(GetReduction(level) >= 0 ? "green" : "red")}>{GetReduction(level) * 100:0}%</color>.";
 
 		/// <summary>
 		/// How much damage is changed.
@@ -32,23 +32,23 @@ namespace Celeritas.Scriptables.Systems
 		/// </summary>
 		public float AmountPerLevel { get => amountPerLevel; }
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			if (entity is ProjectileEntity projectile)
 			{
-				projectile.Damage += Mathf.RoundToInt(projectile.ProjectileData.Damage * GetReduction(level));
+				projectile.Damage += Mathf.RoundToInt(projectile.ProjectileData.Damage * GetReduction(wrapper.Level));
 			}
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			if (entity is ProjectileEntity projectile)
 			{
-				projectile.Damage -= Mathf.RoundToInt(projectile.ProjectileData.Damage * GetReduction(level));
+				projectile.Damage -= Mathf.RoundToInt(projectile.ProjectileData.Damage * GetReduction(wrapper.Level));
 			}
 		}
 
-		private float GetReduction(ushort level)
+		private float GetReduction(int level)
 		{
 			return baseAmount + (amountPerLevel * level);
 		}

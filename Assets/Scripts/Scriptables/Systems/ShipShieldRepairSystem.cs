@@ -36,7 +36,7 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Ship;
 
-		public override string GetTooltip(ushort level) => $"Repairs shields by <color=green>{(Amount + (AmountExtraPerLevel * level)):0}%</color> per second.";
+		public override string GetTooltip(int level) => $"Repairs shields by <color=green>{(Amount + (AmountExtraPerLevel * level)):0}%</color> per second.";
 
 		/// <summary>
 		/// Seconds between repairs
@@ -51,13 +51,13 @@ namespace Celeritas.Scriptables.Systems
 		/// </summary>
 		private float nextTime = 0.0f;
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			var ship = entity as ShipEntity;
 			nextTime = (Time.deltaTime + interval);
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			var ship = entity as ShipEntity;
 		}
@@ -65,11 +65,11 @@ namespace Celeritas.Scriptables.Systems
 		/// <summary>
 		/// Checks if shield isn't full and will repair the ship by sending negative damage to the shield.
 		/// </summary>
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			var ship = entity as ShipEntity;
 			
-			float amountToAdd = (ship.Shield.MaxValue / 100) * (amount + (level * amountExtraPerLevel));
+			float amountToAdd = (ship.Shield.MaxValue / 100) * (amount + (wrapper.Level * amountExtraPerLevel));
 
 			nextTime = nextTime + Time.deltaTime;
 

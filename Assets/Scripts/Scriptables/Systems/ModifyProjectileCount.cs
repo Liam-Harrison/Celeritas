@@ -15,10 +15,10 @@ namespace Celeritas.Scriptables.Systems
 	public class ModifyProjectileCount : ModifierSystem, IEntityFired
 	{
 		[SerializeField, Title("Extra Projectile Count")]
-		private uint extraProjectileCount;
+		private int extraProjectileCount;
 
 		[SerializeField]
-		private uint extraProjectilesPerLevel;
+		private int extraProjectilesPerLevel;
 
 		[SerializeField]
 		private float spreadScale = 0.5f; // default
@@ -48,12 +48,12 @@ namespace Celeritas.Scriptables.Systems
 		/// How many extra projectiles will be fired per 'fire' command
 		/// when system is at level 0
 		/// </summary>
-		public uint ExtraProjectileCount { get => extraProjectileCount; }
+		public int ExtraProjectileCount { get => extraProjectileCount; }
 
 		/// <summary>
 		/// How many extra projectiles will be added per level
 		/// </summary>
-		public uint ExtraProjectileCountPerLevel { get => extraProjectilesPerLevel; }
+		public int ExtraProjectileCountPerLevel { get => extraProjectilesPerLevel; }
 
 		/// <inheritdoc/>
 		public override bool Stacks => true;
@@ -62,16 +62,16 @@ namespace Celeritas.Scriptables.Systems
 		public override SystemTargets Targets => SystemTargets.Weapon;
 
 		/// <inheritdoc/>
-		public override string GetTooltip(ushort level) => $"Fire <color=green>{ExtraProjectileCount + (ExtraProjectileCountPerLevel * level)}</color> extra projectiles.";
+		public override string GetTooltip(int level) => $"Fire <color=green>{ExtraProjectileCount + (ExtraProjectileCountPerLevel * level)}</color> extra projectiles.";
 
-		public void OnEntityFired(WeaponEntity weapon, ProjectileEntity projectile, ushort level)
+		public void OnEntityFired(WeaponEntity weapon, ProjectileEntity projectile, EffectWrapper wrapper)
 		{
-			uint numberOfExtraProjectiles = extraProjectileCount + (level * extraProjectilesPerLevel);
-
+			int numberOfExtraProjectiles = extraProjectileCount + (wrapper.Level * extraProjectilesPerLevel);
+			
 			// arc layout logic
 			if (arcLayout)
 			{
-				for (int i = -((int)numberOfExtraProjectiles/2); i <= (int)numberOfExtraProjectiles/2; i++)
+				for (int i = -(numberOfExtraProjectiles / 2); i <= numberOfExtraProjectiles / 2; i++)
 				{
 					// rotate around, using weapon position as origin
 					var toFire = EntityDataManager.InstantiateEntity<ProjectileEntity>(projectile.ProjectileData, weapon.ProjectileSpawn.position, weapon.ProjectileSpawn.rotation, weapon);
@@ -87,8 +87,6 @@ namespace Celeritas.Scriptables.Systems
 			else
 			{ 
 				// linear layout logic
-				
-
 				Vector3 bulletAlignment = new Vector3(1, 0, 0);
 				for (int i = 0; i < numberOfExtraProjectiles; i++)
 				{

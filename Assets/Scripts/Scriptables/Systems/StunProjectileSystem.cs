@@ -23,7 +23,7 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		public override string GetTooltip(ushort level) => $"Projectiles stun the target by <color=green>{(Duration + (DurationExtraPerLevel * level)):0}</color> seconds.";
+		public override string GetTooltip(int level) => $"Projectiles stun the target by <color=green>{(Duration + (DurationExtraPerLevel * level)):0}</color> seconds.";
 
 		/// <summary>
 		/// How long the target will get stunned by initially.
@@ -36,13 +36,13 @@ namespace Celeritas.Scriptables.Systems
 		/// </summary>
 		public float DurationExtraPerLevel { get => durationExtraPerLevel; }
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			var projectile = entity as ProjectileEntity;
 			projectile.StunDuration = projectile.StunDuration + (duration + durationExtraPerLevel);
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			var projectile = entity as ProjectileEntity;
 			projectile.StunDuration = projectile.StunDuration - (duration + durationExtraPerLevel);

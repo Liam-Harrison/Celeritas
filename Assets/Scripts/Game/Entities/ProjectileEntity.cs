@@ -121,7 +121,7 @@ namespace Celeritas.Game.Entities
 
 			//Tells target not to display damage from projectile
 			other.ShowDamageOnEntity = false;
-			other.ShowDamageLocation = this.transform.position;
+			other.ShowDamageLocation = transform.position;
 
 			base.OnEntityHit(other);
 
@@ -147,7 +147,6 @@ namespace Celeritas.Game.Entities
 			}
 
 			other.TakeDamage(this, damage);
-
 
 			if (ProjectileData.DestroyedOnHit)
 				KillEntity();

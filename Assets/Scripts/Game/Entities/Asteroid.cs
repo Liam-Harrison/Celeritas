@@ -56,19 +56,13 @@ namespace Celeritas.Game.Entities
 
 		public override void TakeDamage(Entity attackingEntity, float damage)
 		{
-			// uncomment if you'd like asteroids to collide with one-another
-			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity)// || attackingEntity is Asteroid) 
+			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity || attackingEntity == this)
 			{
 				base.TakeDamage(attackingEntity, damage);
 				if (Dying)
 					return;
 
-				if (ShowDamageOnEntity == true)
-				{
-					ShowDamageLocation = transform.position;
-				}
-
-				ShowDamage(damage, ShowDamageLocation);
+				ShowDamage(damage);
 
 				health.Damage(damage);
 
