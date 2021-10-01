@@ -119,7 +119,7 @@ Material:
     - Boolean_cf1311056a8b483fb0a3a75ee150f91f: 1
     - Boolean_ddb7d523623843baa2b99820371018af: 1
     - Vector1_0c5b235779934b64bc5892cad7276182: 0
-    - Vector1_112fb8b7c10b470793d35000c3cf5b9c: 0.4
+    - Vector1_112fb8b7c10b470793d35000c3cf5b9c: 0.646
     - Vector1_1b7391cf70e54130be7bacea62c28b99: 0.08
     - Vector1_2e81927ab6384af88a2d1ade4b449950: 1
     - Vector1_3aba78d7b3734eba99fe9ff3f0e7160f: 1
@@ -133,7 +133,7 @@ Material:
     - Vector1_cf43f77db0ad41eab85b1a602afe5938: 500
     - Vector1_d1b76a9da5e2431e96d3f4a0e85be464: 1000
     - Vector1_d2ab8b1e991e4ae69b8a0ffdc363a03c: 1000
-    - Vector1_dee60b2b21b349e7b2589051fde1e131: 1
+    - Vector1_dee60b2b21b349e7b2589051fde1e131: 1.07
     - Vector1_fc75a7b4d2d248eaad2c3e4dd36f1e6e: 55.3
     - _AlphaClip: 0
     - _Blend: 0
