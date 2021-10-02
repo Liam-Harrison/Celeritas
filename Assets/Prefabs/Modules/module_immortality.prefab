@@ -96,7 +96,7 @@ MonoBehaviour:
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
   level: 0
-  hasShipEffects: 1
+  hasShipEffects: 0
   shipEffects:
   - Level: 0
     EffectCollection: {fileID: 11400000, guid: 10e405e606ab4cf4fbd5f55936f9b0a9, type: 2}

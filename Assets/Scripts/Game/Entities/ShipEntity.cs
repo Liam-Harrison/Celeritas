@@ -5,6 +5,7 @@ using Celeritas.UI;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.UI;
 using UnityEngine;
 
 namespace Celeritas.Game.Entities

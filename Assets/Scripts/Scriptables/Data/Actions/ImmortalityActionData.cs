@@ -1,6 +1,7 @@
 using Celeritas.Game.Actions;
 using Sirenix.OdinInspector;
 using System;
+using UnityEngine.UI;
 using UnityEngine;
 
 namespace Celeritas.Scriptables

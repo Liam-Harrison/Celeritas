@@ -477,5 +477,10 @@ namespace Celeritas.Game
 		{
 			CombatHUD.Instance.PrintFloatingText(this, damage);
 		}
+
+		public void ColorFlash(float duration)
+		{
+			CombatHUD.Instance.ColorFlash(duration);
+		}
 	}
 }

@@ -21,7 +21,8 @@ namespace Celeritas.Game.Actions
 			if (ship.PlayerShip == true)
 			{
 				ship.Immortality(ImmortalityData.duration);
-                ImmortalityData.CooldownSeconds = originalCooldown - ((originalCooldown / 100) * (ImmortalityData.cooldownPerLevel * level));
+				ship.ColorFlash(ImmortalityData.duration);
+				ImmortalityData.CooldownSeconds = originalCooldown - ((originalCooldown / 100) * (ImmortalityData.cooldownPerLevel * level));
 			}
 		}
 
