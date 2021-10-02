@@ -202,7 +202,7 @@ namespace Celeritas.Game.Entities
 					{
 						if (a.Data == action)
 						{
-							AttatchedModule.Ship.Actions.Remove(a);
+							AttatchedModule.Ship.RemoveAction(a);
 						}
 					}
 				}
