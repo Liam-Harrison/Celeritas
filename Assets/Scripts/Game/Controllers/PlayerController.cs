@@ -297,7 +297,7 @@ namespace Celeritas.Game.Controllers
 
 		public void OnZoom(InputAction.CallbackContext context)
 		{
-			targetCameraZoom = Mathf.Clamp(targetCameraZoom + (-context.ReadValue<float>() * 50f * Time.smoothDeltaTime), PlayerShipEntity.GameViewSize, PlayerShipEntity.GameViewSize + 20);
+			targetCameraZoom = Mathf.Clamp(targetCameraZoom + (-context.ReadValue<float>() * 75f * Time.smoothDeltaTime), PlayerShipEntity.GameViewSize, PlayerShipEntity.GameViewSize + 20);
 			cameraZoom = Mathf.SmoothDamp(cameraZoom, targetCameraZoom, ref cameraZoomVel, 0.2f);
 			
 			virtualcamera.m_Lens.OrthographicSize = cameraZoom;
