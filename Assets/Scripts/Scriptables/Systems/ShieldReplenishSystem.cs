@@ -14,22 +14,25 @@ namespace Celeritas.Scriptables.Systems
 		private float shipShieldRegen;
 
 		/// <inheritdoc/>
-		public override bool Stacks => false;
+		public override bool Stacks => true;
 
 		/// <inheritdoc/>
 		public override SystemTargets Targets => SystemTargets.Ship;
 
 		/// <inheritdoc/>
-		public override string GetTooltip(ushort level) => $"Removes ships out of combat shield regeneration</color>.";
+		public override string GetTooltip(int level) => $"Removes ships out of combat shield regeneration.";
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
+			// TODO: may need to update effect when system levels up, depending on how game loop works.
+			// otherwise effects may not reflect levels
+
 			var ship = entity as ShipEntity;
 			shipShieldRegen = ship.ShieldRegenAmount;
 			ship.ShieldRegenAmount = 0;
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			var ship = entity as ShipEntity;
 			ship.ShieldRegenAmount = shipShieldRegen;

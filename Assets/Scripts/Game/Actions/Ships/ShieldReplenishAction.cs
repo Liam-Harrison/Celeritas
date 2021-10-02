@@ -11,7 +11,7 @@ namespace Celeritas.Game.Actions
 
 		public ShieldReplenishActionData ShieldReplenishData { get; private set; }
 
-		protected override void Execute(Entity entity)
+		protected override void Execute(Entity entity, int level)
 		{
 			var ship = entity as ShipEntity;
 
@@ -31,3 +31,4 @@ namespace Celeritas.Game.Actions
 		}
 	}
 }
+
