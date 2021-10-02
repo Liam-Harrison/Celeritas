@@ -3,7 +3,12 @@ guid: f07dfa1d16e8cd14e941747a813d8dcb
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - onDeath: {instanceID: 0}
+  - onDestroyEffectPrefab: {instanceID: 0}
+  - onHitEffectPrefab: {instanceID: 0}
+  - hullManager: {instanceID: 0}
+  - explosionScript: {fileID: 5552342880430941929, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
