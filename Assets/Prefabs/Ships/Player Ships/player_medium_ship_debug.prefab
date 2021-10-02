@@ -161,6 +161,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: ShieldRegenAmount
+      Entry: 4
+      Data: 50
+    - Name: ShieldRegenDelay
+      Entry: 4
+      Data: 4
     - Name: inventory
       Entry: 7
       Data: 0|Celeritas.Scriptables.ModuleData[,], Assembly-CSharp
@@ -247,7 +253,6 @@ MonoBehaviour:
   - {fileID: 6694158782653315799}
   - {fileID: 1971162901805115714}
   explosionScript: {fileID: 0}
-  damageModifierPercentage: 0
   selectionViewSize: 8
   gameViewSize: 25
   buildViewSize: 30
