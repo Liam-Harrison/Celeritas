@@ -146,13 +146,13 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: a4dfa5d3274ed674db3b5d2688a6667e, type: 2}
-    - {fileID: 11400000, guid: 6667795d5cd63e04eb980c3115a6e79f, type: 2}
+    - {fileID: 11400000, guid: f4b1030f7931e2346b365ac860c456df, type: 2}
     - {fileID: 11400000, guid: 551f9815f83843c4083869b9cc522d52, type: 2}
-    - {fileID: 11400000, guid: 700a3d56c6e840f4f982ce2b75fbd807, type: 2}
+    - {fileID: 11400000, guid: 3d8c8ad1c4c0c0e4cb5c762325704238, type: 2}
     - {fileID: 11400000, guid: 37a8333f3d207ce4d81cb5faa19d5389, type: 2}
+    - {fileID: 11400000, guid: 965c2321d0976cd458a9716871746b5d, type: 2}
     - {fileID: 11400000, guid: d09395ca3ec8a454c8932acb7dd201cd, type: 2}
     - {fileID: 11400000, guid: 25fe257e6aedb34499e4dd8d81b00da7, type: 2}
-    - {fileID: 11400000, guid: f4b1030f7931e2346b365ac860c456df, type: 2}
     - {fileID: 11400000, guid: b5684e958385a254cb2c5e106aa29937, type: 2}
     - {fileID: 11400000, guid: 4c32c870bdc025a41afc515c8f6b6d93, type: 2}
     - {fileID: 11400000, guid: 4b1f7686334068249871612315de6691, type: 2}
@@ -161,12 +161,6 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: ShieldRegenAmount
-      Entry: 4
-      Data: 50
-    - Name: ShieldRegenDelay
-      Entry: 4
-      Data: 4
     - Name: inventory
       Entry: 7
       Data: 0|Celeritas.Scriptables.ModuleData[,], Assembly-CSharp
@@ -193,9 +187,6 @@ MonoBehaviour:
       Data: 4
     - Name: 
       Entry: 10
-      Data: 1
-    - Name: 
-      Entry: 10
       Data: 5
     - Name: 
       Entry: 10
@@ -203,6 +194,9 @@ MonoBehaviour:
     - Name: 
       Entry: 10
       Data: 7
+    - Name: 
+      Entry: 10
+      Data: 1
     - Name: 
       Entry: 10
       Data: 8
@@ -225,8 +219,8 @@ MonoBehaviour:
   hasAudio: 0
   onDeath: {fileID: 0}
   hasGraphicalEffects: 0
-  onDestroyEffectPrefab: {fileID: 0}
-  timeToPlayOnDestroyEffect: 0
+  onDestroyEffectPrefab: {fileID: 9045051964202480741, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+  timeToPlayOnDestroyEffect: 10
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
   modules:
@@ -252,6 +246,8 @@ MonoBehaviour:
   - {fileID: 7706308572929834596}
   - {fileID: 6694158782653315799}
   - {fileID: 1971162901805115714}
+  explosionScript: {fileID: 0}
+  damageModifierPercentage: 0
   selectionViewSize: 8
   gameViewSize: 25
   buildViewSize: 30
@@ -324,7 +320,7 @@ MonoBehaviour:
   size: 1
   isWeapon: 1
   hasDefaultModule: 1
-  module: {fileID: 11400000, guid: 97a0c23b0a22f3147acd966f7f2e4a92, type: 2}
+  module: {fileID: 11400000, guid: ac5a40ce6d5064e43aa284a31cac4d40, type: 2}
   moduleEffects: []
   projectileEffects: []
 --- !u!1 &6803760354808902825
@@ -373,7 +369,7 @@ MonoBehaviour:
   size: 1
   isWeapon: 1
   hasDefaultModule: 1
-  module: {fileID: 11400000, guid: 97a0c23b0a22f3147acd966f7f2e4a92, type: 2}
+  module: {fileID: 11400000, guid: ac5a40ce6d5064e43aa284a31cac4d40, type: 2}
   moduleEffects: []
   projectileEffects: []
 --- !u!1 &8593195112231694218
