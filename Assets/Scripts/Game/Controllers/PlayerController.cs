@@ -49,6 +49,8 @@ namespace Celeritas.Game.Controllers
 		private float cameraZoom;
 		private float cameraZoomVel;
 
+		private Vector2 locomotion;
+
 		protected override void Awake()
 		{
 			actions = new InputActions.BasicActions(SettingsManager.InputActions);
@@ -72,6 +74,7 @@ namespace Celeritas.Game.Controllers
 			OnPlayerShipCreated?.Invoke();
 			PlayerShipEntity.OnKilled += OnKilled;
 			PlayerShipEntity.OnActionAdded += OnActionAdded;
+			PlayerShipEntity.OnActionRemoved += OnActionRemoved;
 
 			targetCameraZoom = cameraZoom = PlayerShipEntity.GameViewSize;
 		}
@@ -79,11 +82,6 @@ namespace Celeritas.Game.Controllers
 		private void Start()
 		{
 			virtualcamera = MainCinemachineCamera.Instance.VirtualCamera;
-		}
-
-		private void OnActionAdded(GameAction action)
-		{
-			BindAction(action);
 		}
 
 		protected override void OnDestroy()
@@ -107,8 +105,6 @@ namespace Celeritas.Game.Controllers
 			OnPlayerShipKilled?.Invoke();
 		}
 
-		private Vector2 locomotion;
-
 		protected void Update()
 		{
 			if (GameStateManager.Instance.GameState == GameState.BUILD || LockInput)
@@ -121,6 +117,32 @@ namespace Celeritas.Game.Controllers
 				var target = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 				PlayerShipEntity.AimTarget = Vector3.ProjectOnPlane(target, Vector3.forward);
 				PlayerShipEntity.Translation = locomotion;
+			}
+		}
+
+		private void OnActionAdded(GameAction action)
+		{
+			BindAction(action);
+		}
+
+		private void OnActionRemoved(GameAction action)
+		{
+			UnbindAction(action);
+		}
+
+		public void UnbindAction(GameAction action)
+		{
+			for (int i = 0; i < abilities.Length; i++)
+			{
+				if (abilities[i].primary == action)
+				{
+					UnbindAction(i, false);
+				}
+
+				if (abilities[i].alternate == action)
+				{
+					UnbindAction(i, true);
+				}
 			}
 		}
 
@@ -138,7 +160,7 @@ namespace Celeritas.Game.Controllers
 					return;
 				}
 
-				if (i == abilities.Length - 1)
+				if (i == abilities.Length - 1 && isAlt == false)
 				{
 					i = 0;
 					isAlt = true;
@@ -159,7 +181,7 @@ namespace Celeritas.Game.Controllers
 					return;
 				}
 
-				if (i == abilities.Length - 1)
+				if (i == abilities.Length - 1 && isAlt == false)
 				{
 					i = 0;
 					isAlt = true;
@@ -175,6 +197,16 @@ namespace Celeritas.Game.Controllers
 				abilities[index].primary = action;
 
 			OnActionLinked?.Invoke(index, isAlternate, action);
+		}
+
+		public void UnbindAction(int index, bool isAlternate)
+		{
+			if (isAlternate)
+				abilities[index].alternate = null;
+			else
+				abilities[index].primary = null;
+
+			OnActionUnlinked?.Invoke(index, isAlternate);
 		}
 
 		public bool TryGetBindedAction(int index, bool isAlternate, out GameAction action)
