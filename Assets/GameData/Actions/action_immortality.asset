@@ -17,4 +17,4 @@ MonoBehaviour:
   cooldownSeconds: 30
   isPassive: 0
   duration: 1.5
-  cooldownPerLevel: 2
+  durationPerLevel: 0.5

@@ -19,14 +19,14 @@ namespace Celeritas.Scriptables
 		public float duration;
 
 		[SerializeField]
-		public float cooldownPerLevel;
+		public float durationPerLevel;
 
 		/// <inheritdoc/>
 		public override Type ActionType => typeof(ImmortalityAction);
 
 		public override string GetTooltip(int level)
 		{
-			return $"Grants immortality for <color=\"green\">{duration:0} seconds</color> on a <color=\"green\">{CooldownSeconds - ((CooldownSeconds/100) * (cooldownPerLevel * (level))):0} second cooldown</color>. Further upgrades reduce the cooldown of ability.";
+			return $"Grants immortality for <color=\"green\">{duration:0} seconds</color> on a <color=\"green\">{CooldownSeconds:0} second cooldown</color>. Further upgrades increase the duration of the ability.";
 		}
 	}
 }

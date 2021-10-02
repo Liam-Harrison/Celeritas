@@ -15,10 +15,13 @@ namespace Celeritas.Scriptables.Systems
 
 	public class ImmortalitySystem : ModifierSystem
 	{
+		/// <inheritdoc/>
 		public override bool Stacks => true;
 
+		/// <inheritdoc/>
 		public override SystemTargets Targets => SystemTargets.Ship;
 
-		public override string GetTooltip(ushort level) => $"Grants temporary immortality.";
+		/// <inheritdoc/>
+		public override string GetTooltip(int level) => $"Grants temporary immortality.";
 	}
 }

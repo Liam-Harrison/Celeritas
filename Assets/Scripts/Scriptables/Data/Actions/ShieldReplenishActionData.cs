@@ -12,14 +12,15 @@ namespace Celeritas.Scriptables
 	public class ShieldReplenishActionData : ActionData
 	{
 		// Percentage cooldown is reduced by per level
-		public float cooldownPerLevel;
+		[SerializeField]
+		public float cooldownPercentagePerLevel;
 
 		/// <inheritdoc/>
 		public override Type ActionType => typeof(ShieldReplenishAction);
 
 		public override string GetTooltip(int level)
 		{
-			return $"Instantly replenish your shields. Ability is on a <color=\"green\">{cooldownPerLevel:0} second cooldown</color>. Additional levels decrease the cooldown.";
+			return $"Instantly replenish your shields. Further upgrades reduce the cooldown of ability.";
 		}
 	}
 }
