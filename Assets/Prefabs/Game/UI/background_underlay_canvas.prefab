@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 9a66bc0c7b989894abdd84b08e98fe0f, type: 2}
+  m_Material: {fileID: 2100000, guid: a62266451093f4e40aca51df53d312b5, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 0.039215688}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 556888613596414586}
   - component: {fileID: 556888613596414587}
   - component: {fileID: 556888613596414584}
+  - component: {fileID: 1709107160}
   m_Layer: 5
   m_Name: background_underlay_canvas
   m_TagString: Untagged
@@ -157,3 +158,15 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
+--- !u!114 &1709107160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556888613596414585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f28c156f7a9ed8b4bae883883f9c937d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
