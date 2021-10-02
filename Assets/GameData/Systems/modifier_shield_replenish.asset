@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68011bfcfb49c604fb4a47102617321d, type: 3}
-  m_Name: action_shield_replenish
+  m_Script: {fileID: 11500000, guid: d0b3af5536af00a49b9a7f0142da6f67, type: 3}
+  m_Name: modifier_shield_replenish
   m_EditorClassIdentifier: 
   title: Shield Replenish
-  icon: {fileID: 21300000, guid: 1dc64af4e33f845f6aa34f04a9f67676, type: 3}
-  cooldownSeconds: 5
-  isPassive: 0
-  cooldownPerLevel: 0
