@@ -58,6 +58,8 @@ MonoBehaviour:
     SerializationNodes: []
   hasDefaultEffects: 0
   defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
@@ -70,8 +72,10 @@ MonoBehaviour:
   shipWeaponEffects: []
   hasShipProjectileEffects: 0
   shipProjectileEffects: []
+  hasShipActions: 0
+  shipActions: []
   projectileSpawn: {fileID: 7882921223204810320}
-  fired: {fileID: 0}
+  fired: {fileID: 8300000, guid: 8a7f597c8ee936440aef07e974c66fc1, type: 3}
   hasDefaultProjectileEffects: 1
   projectileEffects:
   - Level: 0
@@ -88,7 +92,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -1,11 +1,19 @@
 using Celeritas.Game;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Celeritas
 {
+	public enum UISound
+	{
+		Hover,
+		Positive,
+		Negative
+	}
+
 	[System.Serializable]
 	public class SFXList
 	{
@@ -28,17 +36,29 @@ namespace Celeritas
 
 	public class SFX : Singleton<SFX>
 	{
-		[SerializeField]
+		[SerializeField, TabGroup("Music")]
 		private SFXList music;
 
-		[SerializeField]
+		[SerializeField, TabGroup("Music")]
 		private AudioSource primary;
 
-		[SerializeField]
+		[SerializeField, TabGroup("Music")]
 		private AudioSource secondary;
 
-		[SerializeField]
+		[SerializeField, TabGroup("Music")]
 		private AudioSource tetriary;
+
+		[SerializeField, TabGroup("Music")]
+		private AudioSource ui;
+
+		[SerializeField, TabGroup("UI SFX")]
+		private AudioClip hovered;
+
+		[SerializeField, TabGroup("UI SFX")]
+		private AudioClip positive;
+
+		[SerializeField, TabGroup("UI SFX")]
+		private AudioClip negative;
 
 		[SerializeField]
 		private float musicVolume = 0.2f;
@@ -88,6 +108,33 @@ namespace Celeritas
 					ChangeClipOverTime(sequence[i], i == sequence.Count - 1 && loopSequenceEnd);
 				else
 					ChangeClip(sequence[i], i == sequence.Count - 1 && loopSequenceEnd, false);
+			}
+		}
+
+		public void PlayUISFX(UISound sound)
+		{
+			var clip = GetAudio(sound);
+			if (clip != null)
+			{
+				ui.PlayOneShot(clip);
+			}
+		}
+
+		private AudioClip GetAudio(UISound sound)
+		{
+			switch (sound)
+			{
+				case UISound.Hover:
+					return hovered;
+
+				case UISound.Positive:
+					return positive;
+
+				case UISound.Negative:
+					return negative;
+
+				default:
+					return null;
 			}
 		}
 

@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 6515019441655529533}
   - component: {fileID: 4540613551421133395}
   m_Layer: 0
-  m_Name: weapon_charge
+  m_Name: weapon_sunburst
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,8 +153,10 @@ MonoBehaviour:
   shipWeaponEffects: []
   hasShipProjectileEffects: 0
   shipProjectileEffects: []
+  hasShipActions: 0
+  shipActions: []
   projectileSpawn: {fileID: 4712722839152337461}
-  fired: {fileID: 0}
+  fired: {fileID: 8300000, guid: 9e881690012b9d942979844bc1fbae58, type: 3}
   hasDefaultProjectileEffects: 1
   projectileEffects:
   - Level: 0
@@ -171,7 +173,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0
