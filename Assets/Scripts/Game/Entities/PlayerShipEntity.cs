@@ -41,12 +41,12 @@ namespace Celeritas.Game.Entities
 		public float GameViewSize { get => gameViewSize; }
 
 		/// <summary>
-		/// The ships hull data.
+		/// The ship's hull data.
 		/// </summary>
 		public HullManager HullManager { get => hullManager; }
 
 		/// <summary>
-		/// The inventory of the players ship.
+		/// The inventory of the player's ship.
 		/// </summary>
 		public List<ModuleData> Inventory { get; private set; } = new List<ModuleData>();
 
@@ -100,4 +100,5 @@ namespace Celeritas.Game.Entities
 			}
 		}
 	}
+
 }
