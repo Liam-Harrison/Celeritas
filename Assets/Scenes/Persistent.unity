@@ -336,6 +336,11 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!81 &541199795 stripped
+AudioListener:
+  m_CorrespondingSourceObject: {fileID: 8311238803889004187, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
+  m_PrefabInstance: {fileID: 8311238803136293577}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &580481486
 GameObject:
   m_ObjectHideFlags: 0
@@ -2330,6 +2335,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3580107039914516344, guid: ad00febccc0c45642b0e2e86ff2083d1, type: 3}
+      propertyPath: listener
+      value: 
+      objectReference: {fileID: 541199795}
     - target: {fileID: 6771433546541588235, guid: ad00febccc0c45642b0e2e86ff2083d1, type: 3}
       propertyPath: m_Name
       value: Persistent Managers
@@ -2387,14 +2396,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1177016442, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8311238803136293581, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
-      propertyPath: musicVolume
-      value: 0.05
-      objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004164, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: m_Name
       value: Camera
@@ -2405,11 +2406,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004166, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.14
+      value: 35.549488
       objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004166, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.09
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004166, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2442,10 +2443,6 @@ PrefabInstance:
     - target: {fileID: 8311238803889004166, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8311238803889004184, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
-      propertyPath: orthographic size
-      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}

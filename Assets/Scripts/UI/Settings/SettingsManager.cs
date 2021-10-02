@@ -12,6 +12,7 @@ namespace Celeritas
 		RefreshRate,
 		FullscreenMode,
 		StackingNumbers,
+		Volume,
 	}
 
 	public class SettingsManager : Singleton<SettingsManager>
@@ -34,7 +35,13 @@ namespace Celeritas
 			SetupScreen();
 			LoadKeybinds();
 			LoadGameplaySettings();
+			LoadAudioSettings();
 			PlayerPrefs.Save();
+		}
+
+		private void LoadAudioSettings()
+		{
+			AudioListener.volume = GetFloat(SettingKey.Volume, 1f);
 		}
 
 		private void LoadGameplaySettings()
@@ -123,6 +130,11 @@ namespace Celeritas
 			return PlayerPrefs.GetInt(key.ToString(), defaultValue);
 		}
 
+		public static float GetFloat(SettingKey key, float defaultValue)
+		{
+			return PlayerPrefs.GetFloat(key.ToString(), defaultValue);
+		}
+
 		public static bool GetBool(SettingKey key)
 		{
 			return PlayerPrefs.GetInt(key.ToString()) == 1;
@@ -158,6 +170,12 @@ namespace Celeritas
 		public static void SetString(SettingKey key, string value)
 		{
 			PlayerPrefs.SetString(key.ToString(), value);
+			PlayerPrefs.Save();
+		}
+
+		public static void SetFloat(SettingKey key, float value)
+		{
+			PlayerPrefs.SetFloat(key.ToString(), value);
 			PlayerPrefs.Save();
 		}
 	}
