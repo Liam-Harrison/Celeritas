@@ -99,6 +99,14 @@ namespace Celeritas
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Value"",
+                    ""id"": ""61d4ec2c-43eb-4b8b-a32e-a24eff921bcb"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -253,6 +261,17 @@ namespace Celeritas
                     ""processors"": """",
                     ""groups"": ""Controls"",
                     ""action"": ""Alternate Abilities"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8463639-b075-4af8-9505-5af5a91bc9a5"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls"",
+                    ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -444,6 +463,7 @@ namespace Celeritas
             m_Basic_AlternateAbilities = m_Basic.FindAction("Alternate Abilities", throwIfNotFound: true);
             m_Basic_TractorBeam = m_Basic.FindAction("Tractor Beam", throwIfNotFound: true);
             m_Basic_ToggleTutorial = m_Basic.FindAction("Toggle Tutorial", throwIfNotFound: true);
+            m_Basic_Zoom = m_Basic.FindAction("Zoom", throwIfNotFound: true);
             // Console
             m_Console = asset.FindActionMap("Console", throwIfNotFound: true);
             m_Console_Toggle = m_Console.FindAction("Toggle", throwIfNotFound: true);
@@ -514,6 +534,7 @@ namespace Celeritas
         private readonly InputAction m_Basic_AlternateAbilities;
         private readonly InputAction m_Basic_TractorBeam;
         private readonly InputAction m_Basic_ToggleTutorial;
+        private readonly InputAction m_Basic_Zoom;
         public struct BasicActions
         {
             private @InputActions m_Wrapper;
@@ -528,6 +549,7 @@ namespace Celeritas
             public InputAction @AlternateAbilities => m_Wrapper.m_Basic_AlternateAbilities;
             public InputAction @TractorBeam => m_Wrapper.m_Basic_TractorBeam;
             public InputAction @ToggleTutorial => m_Wrapper.m_Basic_ToggleTutorial;
+            public InputAction @Zoom => m_Wrapper.m_Basic_Zoom;
             public InputActionMap Get() { return m_Wrapper.m_Basic; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -567,6 +589,9 @@ namespace Celeritas
                     @ToggleTutorial.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnToggleTutorial;
                     @ToggleTutorial.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnToggleTutorial;
                     @ToggleTutorial.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnToggleTutorial;
+                    @Zoom.started -= m_Wrapper.m_BasicActionsCallbackInterface.OnZoom;
+                    @Zoom.performed -= m_Wrapper.m_BasicActionsCallbackInterface.OnZoom;
+                    @Zoom.canceled -= m_Wrapper.m_BasicActionsCallbackInterface.OnZoom;
                 }
                 m_Wrapper.m_BasicActionsCallbackInterface = instance;
                 if (instance != null)
@@ -601,6 +626,9 @@ namespace Celeritas
                     @ToggleTutorial.started += instance.OnToggleTutorial;
                     @ToggleTutorial.performed += instance.OnToggleTutorial;
                     @ToggleTutorial.canceled += instance.OnToggleTutorial;
+                    @Zoom.started += instance.OnZoom;
+                    @Zoom.performed += instance.OnZoom;
+                    @Zoom.canceled += instance.OnZoom;
                 }
             }
         }
@@ -732,6 +760,7 @@ namespace Celeritas
             void OnAlternateAbilities(InputAction.CallbackContext context);
             void OnTractorBeam(InputAction.CallbackContext context);
             void OnToggleTutorial(InputAction.CallbackContext context);
+            void OnZoom(InputAction.CallbackContext context);
         }
         public interface IConsoleActions
         {

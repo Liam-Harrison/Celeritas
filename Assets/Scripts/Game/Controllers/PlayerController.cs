@@ -4,6 +4,8 @@ using Celeritas.Game.Entities;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
+using Celeritas.UI;
 
 namespace Celeritas.Game.Controllers
 {
@@ -21,6 +23,7 @@ namespace Celeritas.Game.Controllers
 
 		private InputActions.BasicActions actions = default;
 		private Camera _camera;
+		private CinemachineVirtualCamera virtualcamera;
 
 		private readonly BindedAbilities[] abilities = new BindedAbilities[4];
 
@@ -42,6 +45,10 @@ namespace Celeritas.Game.Controllers
 		public static event Action<int, bool, GameAction> OnActionLinked;
 		public static event Action<int, bool> OnActionUnlinked;
 
+		private float targetCameraZoom;
+		private float cameraZoom;
+		private float cameraZoomVel;
+
 		protected override void Awake()
 		{
 			actions = new InputActions.BasicActions(SettingsManager.InputActions);
@@ -61,8 +68,22 @@ namespace Celeritas.Game.Controllers
 			{
 				BindAction(action);
 			}
+
 			OnPlayerShipCreated?.Invoke();
 			PlayerShipEntity.OnKilled += OnKilled;
+			PlayerShipEntity.OnActionAdded += OnActionAdded;
+
+			targetCameraZoom = cameraZoom = PlayerShipEntity.GameViewSize;
+		}
+
+		private void Start()
+		{
+			virtualcamera = MainCinemachineCamera.Instance.VirtualCamera;
+		}
+
+		private void OnActionAdded(GameAction action)
+		{
+			BindAction(action);
 		}
 
 		protected override void OnDestroy()
@@ -108,6 +129,25 @@ namespace Celeritas.Game.Controllers
 			bool isAlt = false;
 			for (int i = 0; i < abilities.Length; i++)
 			{
+				if (isAlt && abilities[i].primary == action)
+				{
+					return;
+				}
+				else if (abilities[i].alternate == action)
+				{
+					return;
+				}
+
+				if (i == abilities.Length - 1)
+				{
+					i = 0;
+					isAlt = true;
+				}
+			}
+
+			isAlt = false;
+			for (int i = 0; i < abilities.Length; i++)
+			{
 				if (isAlt && abilities[i].primary == null)
 				{
 					BindAction(i, isAlt, action);
@@ -117,6 +157,12 @@ namespace Celeritas.Game.Controllers
 				{
 					BindAction(i, isAlt, action);
 					return;
+				}
+
+				if (i == abilities.Length - 1)
+				{
+					i = 0;
+					isAlt = true;
 				}
 			}
 		}
@@ -129,16 +175,6 @@ namespace Celeritas.Game.Controllers
 				abilities[index].primary = action;
 
 			OnActionLinked?.Invoke(index, isAlternate, action);
-		}
-
-		private void UnbindAction(int index, bool isAlternate)
-		{
-			if (isAlternate)
-				abilities[index].alternate = null;
-			else
-				abilities[index].primary = null;
-
-			OnActionUnlinked?.Invoke(index, isAlternate);
 		}
 
 		public bool TryGetBindedAction(int index, bool isAlternate, out GameAction action)
@@ -254,9 +290,17 @@ namespace Celeritas.Game.Controllers
 		private void UseAbility(BindedAbilities ability)
 		{
 			if (IsAlternateMode == false && ability.primary != null)
-					ability.primary.ExecuteAction(PlayerShipEntity);
+				ability.primary.ExecuteAction(PlayerShipEntity);
 			else if (ability.alternate != null)
 				ability.alternate.ExecuteAction(PlayerShipEntity);
+		}
+
+		public void OnZoom(InputAction.CallbackContext context)
+		{
+			targetCameraZoom = Mathf.Clamp(targetCameraZoom + (-context.ReadValue<float>() * 75f * Time.smoothDeltaTime), PlayerShipEntity.GameViewSize, PlayerShipEntity.GameViewSize + 20);
+			cameraZoom = Mathf.SmoothDamp(cameraZoom, targetCameraZoom, ref cameraZoomVel, 0.2f);
+			
+			virtualcamera.m_Lens.OrthographicSize = cameraZoom;
 		}
 	}
 }
