@@ -6,6 +6,7 @@ using Celeritas.UI;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 namespace Celeritas.Game
@@ -478,9 +479,9 @@ namespace Celeritas.Game
 			CombatHUD.Instance.PrintFloatingText(this, damage);
 		}
 
-		public void ColorFlash(float duration)
+		public void ColorFlash(float duration, Color color)
 		{
-			CombatHUD.Instance.ColorFlash(duration);
+			CombatHUD.Instance.ColorFlash(duration, color);
 		}
 	}
 }

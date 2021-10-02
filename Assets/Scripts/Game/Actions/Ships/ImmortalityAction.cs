@@ -13,6 +13,8 @@ namespace Celeritas.Game.Actions
 
 		float originalCooldown;
 
+		public Color gold = new Color(255f, 211f, 0f);
+
 		protected override void Execute(Entity entity, int level)
 		{
 
@@ -21,8 +23,8 @@ namespace Celeritas.Game.Actions
 			if (ship.PlayerShip == true)
 			{
 				ship.Immortality(ImmortalityData.duration);
-				ship.ColorFlash(ImmortalityData.duration);
-				ImmortalityData.CooldownSeconds = originalCooldown - ((originalCooldown / 100) * (ImmortalityData.cooldownPerLevel * level));
+				ship.ColorFlash(ImmortalityData.duration, gold);
+				ImmortalityData.CooldownSeconds = originalCooldown - ((originalCooldown / 100) * (ImmortalityData.cooldownPerLevel * (level - 1)));
 			}
 		}
 
