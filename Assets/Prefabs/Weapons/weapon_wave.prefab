@@ -153,8 +153,10 @@ MonoBehaviour:
   shipWeaponEffects: []
   hasShipProjectileEffects: 0
   shipProjectileEffects: []
+  hasShipActions: 0
+  shipActions: []
   projectileSpawn: {fileID: 61269802584779653}
-  fired: {fileID: 0}
+  fired: {fileID: 8300000, guid: ee69cf6c7cc1515468860fbcf8196669, type: 3}
   hasDefaultProjectileEffects: 1
   projectileEffects:
   - Level: 0
@@ -171,7 +173,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0
