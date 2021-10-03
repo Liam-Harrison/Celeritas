@@ -28,7 +28,7 @@ namespace Celeritas.Scriptables
 		/// <summary>
 		/// The cooldown in seconds for this action.
 		/// </summary>
-		public float CooldownSeconds { get => cooldownSeconds; set => cooldownSeconds = value; }
+		public float CooldownSeconds { get => cooldownSeconds; }
 
 		/// <summary>
 		/// The icon for this action.

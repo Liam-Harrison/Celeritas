@@ -29,11 +29,16 @@ namespace Celeritas.Game.Actions
 		public float LastUsed { get; private set; }
 
 		/// <summary>
+		/// The time this action was last used.
+		/// </summary>
+		public float CooldownReduction { get; set; }
+
+		/// <summary>
 		/// Charge Percentage.
 		/// </summary>
-		public float PercentageReady { get => Mathf.Clamp01((Time.time - LastUsed) / Data.CooldownSeconds); }
+		public float PercentageReady { get => Mathf.Clamp01((Time.time - LastUsed) / (Data.CooldownSeconds - CooldownReduction)); }
 
-		public float TimeLeftOnCooldown { get => Mathf.Max(0, LastUsed + Data.CooldownSeconds - Time.time); }
+		public float TimeLeftOnCooldown { get => Mathf.Max(0, LastUsed + (Data.CooldownSeconds - CooldownReduction) - Time.time); }
 
 		public abstract SystemTargets Targets { get; }
 
@@ -45,7 +50,7 @@ namespace Celeritas.Game.Actions
 		/// <param name="entity">The entity to use for this action.</param>
 		public void ExecuteAction(Entity entity)
 		{
-			if (LastUsed + Data.CooldownSeconds > Time.time)
+			if (LastUsed + (Data.CooldownSeconds - CooldownReduction) > Time.time)
 				return;
 
 			LastUsed = Time.time;

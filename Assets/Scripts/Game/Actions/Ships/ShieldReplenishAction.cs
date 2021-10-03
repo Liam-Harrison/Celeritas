@@ -38,7 +38,7 @@ namespace Celeritas.Game.Actions
 					}
 				}
 
-				ShieldReplenishData.CooldownSeconds = currentCooldown;
+				CooldownReduction =  -(currentCooldown - originalCooldown);
 				//ShieldReplenishData.CooldownSeconds = originalCooldown - ((originalCooldown / 100) * (ShieldReplenishData.cooldownPercentagePerLevel * level));
 			}
 		}
