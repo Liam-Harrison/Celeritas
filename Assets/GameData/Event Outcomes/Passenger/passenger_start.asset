@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: passenger_start
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: A body appears
+    content: "Someone on board screams. A body is drifting outside, soft pinks and
+      blues reflecting off their body from the surrounding stars. Wait, no, the pink
+      is actually blobs of a strange infection. Their body seems motionless, but
+      they aren\u2019t crystallised or frozen. Perhaps they\u2019re actually still
+      alive, albeit on the brink of death? The infection pulses, slowly overtaking
+      every inch of skin as precious seconds pass."
+    options:
+    - type: 0
+      content: Leave them be
+      outcome: {fileID: 11400000, guid: 3e9a83c160fc94eab8967ab142ac5366, type: 2}
+    - type: 0
+      content: Bring them onboard
+      outcome: {fileID: 11400000, guid: c89949d1609ab4edbb191909fccce9c9, type: 2}
+    - type: 0
+      content: Try to get a closer look at the body
+      outcome: {fileID: 11400000, guid: d35cec08b24494aa3a8b8eb934d828f3, type: 2}
+  hasRewards: 0
+  lootType: 0
+  lootRewardRange: {x: 0, y: 0}
+  moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 0
+  waveOutcome: {fileID: 0}
+  waves: []

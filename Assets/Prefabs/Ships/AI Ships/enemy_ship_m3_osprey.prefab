@@ -102,6 +102,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -184,6 +185,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -307,7 +309,7 @@ MonoBehaviour:
   hasDefaultEffects: 0
   defaultEffects: []
   hasAudio: 0
-  onDeath: {fileID: 0}
+  onDeath: {fileID: 8300000, guid: cbb53e96dbcbc4b9282878ef680864ca, type: 3}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
@@ -497,6 +499,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -838,14 +841,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7407478660231959734, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
   m_PrefabInstance: {fileID: 4618106050666666264}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &857107037770587382 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 5472929849194317294, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
-  m_PrefabInstance: {fileID: 4618106050666666264}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &5501597239712452451 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 887023817262962299, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
+  m_PrefabInstance: {fileID: 4618106050666666264}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &857107037770587382 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5472929849194317294, guid: ee0af03888f4dd1439ad43a760e43cac, type: 3}
   m_PrefabInstance: {fileID: 4618106050666666264}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4911705089325577649

@@ -164,7 +164,7 @@ MonoBehaviour:
   hasDefaultEffects: 0
   defaultEffects: []
   hasAudio: 0
-  onDeath: {fileID: 0}
+  onDeath: {fileID: 8300000, guid: cbb53e96dbcbc4b9282878ef680864ca, type: 3}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
@@ -189,7 +189,6 @@ MonoBehaviour:
     isBoss: 0
   dropType: 0
   engineEffects: []
-  damageModifierPercentage: 0
 --- !u!50 &2516558698829045451
 Rigidbody2D:
   serializedVersion: 4
@@ -224,12 +223,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacle:
-    name: 
     sight: 15
     force: 4
     scale: 0.75
   approach:
-    name: 
     sight: 5
     force: 4
     scale: 0.75

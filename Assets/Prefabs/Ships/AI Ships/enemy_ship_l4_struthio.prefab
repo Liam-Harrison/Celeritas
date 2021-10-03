@@ -364,7 +364,7 @@ MonoBehaviour:
   hasDefaultEffects: 0
   defaultEffects: []
   hasAudio: 0
-  onDeath: {fileID: 0}
+  onDeath: {fileID: 8300000, guid: cbb53e96dbcbc4b9282878ef680864ca, type: 3}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0

@@ -60,7 +60,7 @@ MonoBehaviour:
   hasDefaultEffects: 0
   defaultEffects: []
   hasAudio: 1
-  onDeath: {fileID: 8300000, guid: ca865f82ccd5fe9459495f69f469b9df, type: 3}
+  onDeath: {fileID: 8300000, guid: 66cd7351ff05c49fbb6420e392736b55, type: 3}
   hasGraphicalEffects: 1
   onDestroyEffectPrefab: {fileID: 3745834012832840761, guid: 3ea10c9bd0cdad94b85d5038a50b62d2, type: 3}
   timeToPlayOnDestroyEffect: 4
@@ -300,6 +300,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

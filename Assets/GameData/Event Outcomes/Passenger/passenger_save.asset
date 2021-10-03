@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: passenger_save
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: Bringing them aboard
+    content: "You make the call to bring them aboard. After keeping watch for enemy
+      ships, you quickly pull them on with the tractor beam. After supplying them
+      with concentrated oxygen, they cough and splutter, blood immediately pouring
+      from their mouth. It isn\u2019t long before a few gurgles spill out, along
+      with the words \u201Cthey\u2019re back\u2026where are...\u201D. The man, an
+      elderly Ipan, stops mid sentence and goes limp, his yellow skin greying. His
+      pocket jangles, and inside are a number of rare metals that you guiltingly
+      take. \n\nAfter a strong silence, a crew member realises in shock that the
+      pink infection has spread to her skin. In horror, you begin to fly away just
+      in case more of the infection lies in the area. She begins to deteriorate immediately.
+      Everyone else starts feeling ill. You all feel a lot weaker and more frail."
+    options: []
+  hasRewards: 1
+  lootType: 1
+  lootRewardRange: {x: 4, y: 4}
+  moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 0
+  waveOutcome: {fileID: 0}
+  waves: []
