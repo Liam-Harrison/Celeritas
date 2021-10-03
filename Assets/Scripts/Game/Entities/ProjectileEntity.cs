@@ -11,21 +11,30 @@ namespace Celeritas.Game.Entities
 	public class ProjectileEntity : Entity
 	{
 		[SerializeField, PropertySpace]
+		private bool inheirtVelcoity;
+
+		[SerializeField, PropertySpace]
 		protected int damage;
 
 		[SerializeField, PropertySpace]
 		private TrailRenderer[] trails;
 
-		// used if projectile spawns other projectiles
-		// via a subprojectile system, with appropriate boolean ticked.
 		[SerializeField]
-		public Transform projectileSpawn; 
+		private Transform projectileSpawn;
+
+		public Transform ProjectileSpawn { get => projectileSpawn; }
 
 		/// <summary>
 		/// How much damage this entity does to another
 		/// when it hits
 		/// </summary>
 		public int Damage { get => damage; set => damage = value; }
+
+		/// <summary>
+		/// The lifetime of this projectile
+		/// (in seconds)
+		/// </summary>
+		public float Lifetime { get; set; }
 
 		/// <summary>
 		/// The attatched projectile data.
@@ -56,14 +65,31 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public ProjectileEntity ParentProjectile { get; set; }
 
+		public float BaseVelcoity { get; set; }
+
+		/// <summary>
+        /// Used to determine how long a project will stun the target for.
+        /// </summary>
+		public float StunDuration { get; set; }
+
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
 			ProjectileData = data as ProjectileData;
 			damage = ProjectileData.Damage;
+			Lifetime = ProjectileData.Lifetime;
 			Weapon = owner as WeaponEntity;
 			SpeedModifier = 1;
 			Following = null;
+
+			if (inheirtVelcoity && owner != null && !instanced)
+			{
+				if (owner is WeaponEntity weapon)
+					BaseVelcoity = Mathf.Clamp01(Vector3.Dot(Forward, weapon.AttatchedModule.Ship.Rigidbody.velocity.normalized)) * weapon.AttatchedModule.Ship.Rigidbody.velocity.magnitude;
+				else if (owner is ProjectileEntity projectile)
+					BaseVelcoity = projectile.BaseVelcoity;
+			}
+			StunDuration = 0;
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
@@ -91,27 +117,39 @@ namespace Celeritas.Game.Entities
 			if (other.IsPlayer == IsPlayer)
 				return;
 
+			//int calculatedDamage = damage;
+
+			//Tells target not to display damage from projectile
+			other.ShowDamageOnEntity = false;
+			other.ShowDamageLocation = transform.position;
+
+			base.OnEntityHit(other);
+
+			if (damageOverDistance)
+			{
+				damage = currentDamageOverDistance;
+			}
+
 			if (other is ShipEntity ship)
 			{
+				if (StunDuration != 0)
+				{
+					if (ship.Stunned == false)
+					{
+						ship.Stun(StunDuration);
+					}
+				}
+
 				if (ship.WeaponEntities.Contains(Weapon))
 				{
 					return;
 				}
 			}
 
-			if (damageOverDistance)
-			{
-				other.TakeDamage(this, currentDamageOverDistance);
-			}
-			else
-			{
-				other.TakeDamage(this, damage);
-			}
+			other.TakeDamage(this, damage);
 
 			if (ProjectileData.DestroyedOnHit)
 				KillEntity();
-
-			base.OnEntityHit(other);
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)
@@ -132,10 +170,11 @@ namespace Celeritas.Game.Entities
 				return;
 
 			Position += Forward * ProjectileData.Speed * SpeedModifier * Time.smoothDeltaTime;
+			Position += Forward * BaseVelcoity * Time.smoothDeltaTime;
 
-			if (TimeAlive >= ProjectileData.Lifetime)
+			if (TimeAlive >= Lifetime)
 			{
-				Dying = true; // workaround
+				Dying = true;
 				UnloadEntity();
 			}
 

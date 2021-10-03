@@ -34,25 +34,25 @@ namespace Celeritas.Scriptables.Systems
 		public override SystemTargets Targets => SystemTargets.Ship;
 
 		/// <inheritdoc/>
-		public override string GetTooltip(ushort level) => $"Increase shield capacity by <color=green>{(Amount + (AmountExtraPerLevel * level)) * 100:0}%</color>.";
+		public override string GetTooltip(int level) => $"Increase shield capacity by <color=green>{(Amount + (AmountExtraPerLevel * level)) * 100:0}%</color>.";
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			// TODO: may need to update effect when system levels up, depending on how game loop works.
 			// otherwise effects may not reflect levels
 
 			var ship = entity as ShipEntity;
-			float amountToAdd = 1 + amount + (level * amountExtraPerLevel);
+			float amountToAdd = 1 + amount + (wrapper.Level * amountExtraPerLevel);
 
 			uint newValue = (uint)(ship.Shield.MaxValue * amountToAdd);
 			ship.Shield.MaxValue = newValue;
 
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			var ship = entity as ShipEntity;
-			float amountToAdd = 1 + amount + (level * amountExtraPerLevel);
+			float amountToAdd = 1 + amount + (wrapper.Level * amountExtraPerLevel);
 
 			uint newValue = (uint)(ship.Shield.MaxValue / amountToAdd);
 

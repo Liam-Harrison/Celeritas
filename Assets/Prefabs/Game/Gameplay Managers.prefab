@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4477257796416552750}
   - component: {fileID: 896733420529650260}
   - component: {fileID: 852609842}
+  - component: {fileID: 2934228656961476985}
   m_Layer: 0
   m_Name: Gameplay Managers
   m_TagString: Untagged
@@ -65,22 +66,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
   - {fileID: 11400000, guid: c534f21239cfc18459775db6f709cdf4, type: 2}
-  - {fileID: 11400000, guid: e5dd586151a5f904eb02d838b94d58a6, type: 2}
-  - {fileID: 11400000, guid: 7535daca3b2d6a84db27017fc4437539, type: 2}
-  - {fileID: 11400000, guid: 635ce7d663b1466468e422a1d568600f, type: 2}
-  - {fileID: 11400000, guid: 6d5a66289cc7cda428c80cccc7167974, type: 2}
-  - {fileID: 11400000, guid: 5f3fd8a6d48e53c4ab0922b5a4ae6d57, type: 2}
-  - {fileID: 11400000, guid: 9259f43d060fc8d4f8681fd8477b01bb, type: 2}
-  - {fileID: 11400000, guid: 678df9090c342a7418800bcbf065aaea, type: 2}
-  - {fileID: 11400000, guid: 4aea9d59d619961488fbc475d08e207c, type: 2}
-  - {fileID: 11400000, guid: b8a3f85ae726e3043b365ad0b6f94cab, type: 2}
-  - {fileID: 11400000, guid: c32686ce95473734ba52821ac14e8b55, type: 2}
-  - {fileID: 11400000, guid: f5822b8594e2ea84fae7562ef87c7599, type: 2}
-  - {fileID: 11400000, guid: 1a80c84b858d89a47a0e93a61649071a, type: 2}
-  - {fileID: 11400000, guid: ac3b57eb093a3794782619bcafdb9113, type: 2}
-  - {fileID: 11400000, guid: 9a8793c3393a2274fa28ec0b3d13fe0e, type: 2}
-  - {fileID: 11400000, guid: 049ab8ecdb54eb8418a9b2db5a149739, type: 2}
-  - {fileID: 11400000, guid: b68ba4f10ba1a194cbf0c9ffbfba34d1, type: 2}
   MinShips: 1
 --- !u!114 &896733420529650260
 MonoBehaviour:
@@ -115,3 +100,21 @@ MonoBehaviour:
   numberOfAsteroidClusters: 2
   asteroidNumberPerCluster: 3
   minDistanceFromPlayer: 15
+--- !u!114 &2934228656961476985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4477257796416552756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5066621c47170444b86adfedf547bdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TRACTOR_RANGE_BASE: 10
+  TRACTOR_FORCE_MULTIPLIER: 20
+  TRACTOR_FORCE_CAP: 1000
+  TRACTOR_DEAD_ZONE_RADIUS: 0.1
+  MAX_NUMBER_OF_SIMULTANEOUS_TARGETS: 99
+  TargetMassMultiplier: 1

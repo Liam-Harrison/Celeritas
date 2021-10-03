@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3221458083514054062}
   m_Layer: 7
   m_Name: Asteroid
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,12 +58,15 @@ MonoBehaviour:
     SerializationNodes: []
   hasDefaultEffects: 0
   defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 1
-  onDestroyEffectPrefab: {fileID: 2516007055564396064, guid: cdbe87aa8fcee444f89240e0628f0cee, type: 3}
+  onDestroyEffectPrefab: {fileID: 3745834012832840761, guid: 3ea10c9bd0cdad94b85d5038a50b62d2, type: 3}
   timeToPlayOnDestroyEffect: 4
-  onHitEffectPrefab: {fileID: 0}
-  timeToPlayOnHitEffect: 0
-  startingHealth: 100
+  onHitEffectPrefab: {fileID: 944521539114987493, guid: 1ec5cd34395d64349b39cc84f22f8ff3, type: 3}
+  timeToPlayOnHitEffect: 4
+  floatingTextPrefab: {fileID: 0}
+  startingHealth: 35
   lootConfig:
     gain: 100
     isBoss: 0
@@ -95,7 +98,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 20
   m_LinearDrag: 0.1
   m_AngularDrag: 0.1
   m_GravityScale: 0

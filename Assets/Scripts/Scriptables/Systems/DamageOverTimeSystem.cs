@@ -11,13 +11,12 @@ namespace Assets.Scripts.Scriptables.Systems
 	/// The entity with this system will take a set amount of damage over a set amount of time (DoT)
 	/// </summary>
 	[CreateAssetMenu(fileName = "New DoT System", menuName = "Celeritas/Modifiers/Take DoT")]
-	class DamageOverTimeSystem : ModifierSystem, IEntityEffectAdded, IEntityUpdated, IEntityEffectRemoved
+	class DamageOverTimeSystem : ModifierSystem, IEntityEffectAdded, IEntityUpdated, IEntityEffectRemoved, IEntityResetable
 	{
 
 		public class DamageOverTimeData
 		{
-			public float startTime_s; // time the effect was added
-			public float damageRemainder; // used to preserve values lost after rounding float -> integer
+			public float timeApplied;
 		}
 
 		public override bool Stacks => true;
@@ -28,60 +27,60 @@ namespace Assets.Scripts.Scriptables.Systems
 		private float duration;
 
 		[SerializeField]
-		private float damage;
+		private float damagePerSecond;
 
 		[SerializeField]
-		private float durationReductionPerLevel;
+		private float durationIncreasePerLevel;
 
 		[SerializeField]
 		private float damageExtraPerLevel;
 
-		private float netDamage; // factoring in level
-		private float netDuration; // note: this must be > 0. If it is too close to 0, system will not have enough time to do any damage.
+		public override string GetTooltip(int level) => $"Deals <color=green>{GetDPS(level)}</color> damage per second over <color=green>{GetDuration(level)}</color> seconds.\n";
 
-		private float damagePerSecond;
-
-		public override string GetTooltip(ushort level) => $"Projectiles do <color=green>{damage + (damageExtraPerLevel * level)}</color> extra damage over <color=green>{duration - (durationReductionPerLevel * level)}</color> seconds.\n";
-
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			if (!entity.Components.TryGetComponent(this, out DamageOverTimeData data))
-			{ // if no data existed beforehand, create some
+			{
 				data = new DamageOverTimeData();
 				entity.Components.RegisterComponent(this, data);
 			}
-			data.startTime_s = entity.TimeAlive;
-			data.damageRemainder = 0;
 
-			// factor in level
-			netDamage = damage + (damageExtraPerLevel * level);
-			netDuration = duration - (durationReductionPerLevel * level); 
-
-			damagePerSecond = netDamage / netDuration;
+			data.timeApplied = entity.TimeAlive;
 		}
 
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			var data = entity.Components.GetComponent<DamageOverTimeData>(this);
 
-			if (entity.TimeAlive - data.startTime_s > netDuration)
-			{ // if DoT has expired, return
-				return; // how to remove system ?
+			if (entity.TimeAlive - data.timeApplied > GetDuration(wrapper.Level))
+			{
+				entity.EntityEffects.RemoveEffect(wrapper);
+				return;
 			}
 
-			float damageToDo = (Time.deltaTime * damagePerSecond) + data.damageRemainder;
-			
-			if ((int)damageToDo > 0) { 
-				entity.TakeDamage(entity, (int)damageToDo);
-				//Debug.Log((int)damageToDo);
-			}
-			data.damageRemainder = damageToDo - (int)damageToDo; // if damagetodo was < 1, store it as remainder
-			
+			float damage = Time.smoothDeltaTime * GetDPS(wrapper.Level);
+			entity.TakeDamage(entity, damage);
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			entity.Components.ReleaseComponent<DamageOverTimeData>(this);
+		}
+
+		public void OnReset(Entity entity, EffectWrapper wrapper)
+		{
+			var data = entity.Components.GetComponent<DamageOverTimeData>(this);
+			data.timeApplied = entity.TimeAlive;
+		}
+
+		private float GetDPS(int level)
+		{
+			return damagePerSecond + (damageExtraPerLevel * level);
+		}
+
+		private float GetDuration(int level)
+		{
+			return duration + (durationIncreasePerLevel * level);
 		}
 	}
 }

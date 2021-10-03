@@ -2,6 +2,7 @@ using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
 using Celeritas.Game.Entities;
+using Celeritas.Game.Events;
 
 namespace Celeritas.Scriptables
 {

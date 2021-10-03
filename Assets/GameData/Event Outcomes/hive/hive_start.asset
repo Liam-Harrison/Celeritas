@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: hive_start
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: Silent Station
+    content: "As you approach a nearby asteroid, you notice a small station built
+      into the side of the rock. \nIts weapon systems and reactors seem to be offline
+      and it's not broadcasting any IFF signal."
+    options:
+    - type: 0
+      content: Open comms and request repairs
+      outcome: {fileID: 11400000, guid: d571442ce0a824f45a056e90119567c3, type: 2}
+    - type: 0
+      content: Leave, nothing good can come of this
+      outcome: {fileID: 11400000, guid: 8fc5e606129a5a648a860943154055d7, type: 2}
+    - type: 0
+      content: Open fire! We take no chances!
+      outcome: {fileID: 11400000, guid: f74582a5744966e4cb23a26f53f5228a, type: 2}
+  hasRewards: 0
+  lootType: 0
+  lootRewardRange: {x: 0, y: 0}
+  moduleRewards: []
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 0
+  waveOutcome: {fileID: 11400000}
+  waves:
+  - {fileID: 11400000, guid: 678df9090c342a7418800bcbf065aaea, type: 2}

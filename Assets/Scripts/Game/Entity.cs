@@ -2,6 +2,7 @@ using Celeritas.Game.Actions;
 using Celeritas.Game.Entities;
 using Celeritas.Game.Interfaces;
 using Celeritas.Scriptables;
+using Celeritas.UI;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Celeritas.Game
 	/// <summary>
 	/// The Entity class provides basic functionality for on-screen objects.
 	/// </summary>
-	public abstract class Entity : SerializedMonoBehaviour, IPooledObject
+	public abstract class Entity : SerializedMonoBehaviour, IPooledObject<Entity>
 	{
 		private const float SCHEDULE_DIE_INVINCIBLE_TIME = 0.5f;
 
@@ -22,8 +23,16 @@ namespace Celeritas.Game
 		[SerializeField, ShowIf(nameof(hasDefaultEffects)), DisableInPlayMode]
 		private EffectWrapper[] defaultEffects;
 
+		[SerializeField, Title("Audio Effects", "(eg. on hit, on destroy)"), DisableInPlayMode]
+		private bool hasAudio;
+
+		[SerializeField, DisableInPlayMode]
+		private AudioClip onDeath;
+
 		[SerializeField, Title("Graphical Effects", "(eg. on hit, on destroy)"), DisableInPlayMode]
 		private bool hasGraphicalEffects;
+
+		public ObjectPool<Entity> OwningPool { get; set; }
 
 		/// <summary>
 		/// Effect that will play when the entity is destroyed.
@@ -100,6 +109,11 @@ namespace Celeritas.Game
 		public bool IsInitalized { get; protected set; } = false;
 
 		/// <summary>
+		/// Is this entity instanced.
+		/// </summary>
+		public bool Instanced { get; private set; }
+
+		/// <summary>
 		/// The data associated with this entity.
 		/// </summary>
 		public virtual EntityData Data { get; protected set; }
@@ -137,7 +151,7 @@ namespace Celeritas.Game
 		/// <summary>
 		/// Get all the actions on this entity.
 		/// </summary>
-		public IReadOnlyList<GameAction> Actions { get => actions.AsReadOnly(); }
+		public List<GameAction> Actions { get => actions; }
 
 		private readonly List<GameAction> actions = new List<GameAction>();
 
@@ -167,6 +181,22 @@ namespace Celeritas.Game
 		public virtual string Subheader { get; } = "Missing Subheader";
 
 		/// <summary>
+		/// Does this entity have audio effects.
+		/// </summary>
+		public bool HasAudio { get => hasAudio; }
+
+		
+		/// <summary>
+		/// Determines if this is the player ship
+		/// </summary>
+		public bool PlayerShip { get; set; }
+
+		/// <summary>
+		/// The floating text attatched to this ship, if any.
+		/// </summary>
+		public FloatingText AttatchedFloatingText { get; set; }
+
+		/// <summary>
 		/// Initalize this entity.
 		/// </summary>
 		/// <param name="data">The data to attatch this entity to.</param>
@@ -179,6 +209,8 @@ namespace Celeritas.Game
 			Spawned = Time.time;
 			Owner = owner;
 			IsInitalized = true;
+			Instanced = instanced;
+			PlayerShip = false;
 
 			if (forceIsPlayer)
 				IsPlayer = true;
@@ -197,6 +229,9 @@ namespace Celeritas.Game
 			{
 				EntityEffects.AddEffectRange(defaultEffects);
 			}
+
+			ShowDamageOnEntity = true;
+			ShowDamageLocation = this.transform.position;
 		}
 
 		public virtual void OnEntityKilled()
@@ -209,6 +244,12 @@ namespace Celeritas.Game
 				GameObject effect = Instantiate(onDestroyEffectPrefab, transform.position, transform.rotation, transform.parent);
 				effect.transform.localScale = transform.localScale;
 				Destroy(effect, timeToPlayOnDestroyEffect); // destroy after X seconds give effect time to play
+			}
+
+			if (hasAudio)
+			{
+				if (onDeath != null)
+					SFX.Instance.TetriaryDevice.PlayOneShot(onDeath);
 			}
 
 			if (Chunk != null)
@@ -375,7 +416,7 @@ namespace Celeritas.Game
 		/// </summary>
 		/// <param name="attackingEntity">the entity that is attacking this entity</param>
 		/// <param name="damage">the amount of damage being done</param>
-		public virtual void TakeDamage(Entity attackingEntity, int damage = 0)
+		public virtual void TakeDamage(Entity attackingEntity, float damage = 0)
 		{
 			// by default, entities have no health, so this does nothing. Will be overridden by children.
 		}
@@ -395,12 +436,29 @@ namespace Celeritas.Game
 			{
 				// momentum is velocity * mass
 				float force = ownerRigidBody.velocity.magnitude * ownerRigidBody.mass * collisionDamageMultiplier;
-
+				if ((int)force == 0)
+					return;
+				
 				other.TakeDamage(this, (int)force);
 
 				// take half damage yourself
 				TakeDamage(this, (int)force / 2);
 			}
+		}
+
+		/// <summary>
+        /// Used to determine if floating text will be shown on top of the entity.
+        /// </summary>
+		public bool ShowDamageOnEntity { get; set; }
+
+		public Vector3 ShowDamageLocation { get; set; }
+
+		/// <summary>
+		/// Displays floating text at the projectile's location.
+		/// </summary>
+		public void ShowDamage(float damage)
+		{
+			CombatHUD.Instance.PrintFloatingText(this, damage);
 		}
 	}
 }

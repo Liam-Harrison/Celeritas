@@ -1,3 +1,4 @@
+using Celeritas.Game.Actions;
 using Celeritas.Scriptables;
 using Celeritas.UI.Tooltips;
 using Sirenix.OdinInspector;
@@ -14,23 +15,29 @@ namespace Celeritas.Game.Entities
 		[SerializeField, Title("Module Settings")]
 		private int level;
 
-		[SerializeField, InfoBox("Effects on modules use the module level above, the effect level is un-used here. Modules here affect the ship, its weapons and projectiles. Use default effects to give this specific entity effects.", InfoMessageType = InfoMessageType.Info), PropertySpace]
+		[SerializeField, TitleGroup("Ship Effects"), InfoBox("Effects on modules use the module level above, the effect level is un-used here. Modules here affect the ship, its weapons and projectiles. Use default effects to give this specific entity effects.", InfoMessageType = InfoMessageType.Info), PropertySpace]
 		private bool hasShipEffects;
 
-		[SerializeField, ShowIf(nameof(hasShipEffects))]
+		[SerializeField, TitleGroup("Ship Effects"), ShowIf(nameof(hasShipEffects))]
 		private EffectWrapper[] shipEffects;
 
-		[SerializeField, PropertySpace]
+		[SerializeField, TitleGroup("Ship Weapon Effects")]
 		private bool hasShipWeaponEffects;
 
-		[SerializeField, ShowIf(nameof(hasShipWeaponEffects))]
+		[SerializeField, TitleGroup("Ship Weapon Effects"), ShowIf(nameof(hasShipWeaponEffects))]
 		private EffectWrapper[] shipWeaponEffects;
 
-		[SerializeField, PropertySpace]
+		[SerializeField, TitleGroup("Ship Projectile Effects")]
 		private bool hasShipProjectileEffects;
 
-		[SerializeField, ShowIf(nameof(hasShipProjectileEffects))]
+		[SerializeField, TitleGroup("Ship Projectile Effects"), ShowIf(nameof(hasShipProjectileEffects))]
 		private EffectWrapper[] shipProjectileEffects;
+
+		[SerializeField, TitleGroup("Ship Actions")]
+		private bool hasShipActions;
+
+		[SerializeField, TitleGroup("Ship Actions"), ShowIf(nameof(hasShipActions))]
+		private ActionData[] shipActions;
 
 		/// <summary>
 		/// Does this module add effects to the ship entity.
@@ -63,6 +70,16 @@ namespace Celeritas.Game.Entities
 		public EffectWrapper[] ShipProjectileEffects { get => shipProjectileEffects; }
 
 		/// <summary>
+		/// Does this module add actions to the ship.
+		/// </summary>
+		public bool HasShipActions { get => hasShipActions; }
+
+		/// <summary>
+		/// The actions to attach to the ship.
+		/// </summary>
+		public ActionData[] ShipActions {  get => shipActions; }
+
+		/// <summary>
 		/// The attatched module data.
 		/// </summary>
 		public ModuleData ModuleData { get; private set; }
@@ -85,6 +102,9 @@ namespace Celeritas.Game.Entities
 
 		///<inheritdoc/>
 		public ModuleEntity TooltipEntity => this;
+
+		///<inheritdoc/>
+		public GameAction TooltipAction => null;
 
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
@@ -141,6 +161,14 @@ namespace Celeritas.Game.Entities
 						entity.ProjectileEffects.AddEffectRange(ShipProjectileEffects);
 				}
 			}
+
+			if (HasShipActions)
+			{
+				foreach (var action in ShipActions)
+				{
+					AttatchedModule.Ship.AddAction(action);
+				}
+			}
 		}
 
 		/// <summary>
@@ -165,6 +193,20 @@ namespace Celeritas.Game.Entities
 						entity.ProjectileEffects.RemoveEffectRange(ShipProjectileEffects);
 				}
 			}
+
+			if (HasShipActions)
+			{
+				foreach (var action in ShipActions)
+				{
+					foreach (var a in AttatchedModule.Ship.Actions.ToArray())
+					{
+						if (a.Data == action)
+						{
+							AttatchedModule.Ship.RemoveAction(a);
+						}
+					}
+				}
+			}
 		}
 
 		/// <summary>
@@ -173,7 +215,7 @@ namespace Celeritas.Game.Entities
 		/// <param name="level">The level to set to.</param>
 		public void SetLevel(int level)
 		{
-			Level = (ushort)Mathf.Clamp(level, 0, Constants.MAX_EFFECT_LEVEL);
+			Level = Mathf.Clamp(level, 0, Constants.MAX_EFFECT_LEVEL);
 
 			if (HasShipEffects)
 				SetEffectLevel(Level, ShipEffects);
@@ -183,6 +225,20 @@ namespace Celeritas.Game.Entities
 
 			if (HasShipProjectileEffects)
 				SetEffectLevel(Level, ShipProjectileEffects);
+
+			if (hasShipActions)
+			{
+				foreach (var action in ShipActions)
+				{
+					foreach (var shipaction in AttatchedModule.Ship.Actions)
+					{
+						if (shipaction.Data == action)
+						{
+							shipaction.SetLevel(level);
+						}
+					}
+				}
+			}
 		}
 
 		/// <summary>
@@ -205,7 +261,9 @@ namespace Celeritas.Game.Entities
 		{
 			foreach (var wrapper in effects)
 			{
-				wrapper.Level = (ushort) level;
+				var prev = wrapper.Level;
+				wrapper.Level = level;
+				wrapper.EffectCollection.OnLevelChanged(this, prev, level, wrapper);
 			}
 		}
 	}

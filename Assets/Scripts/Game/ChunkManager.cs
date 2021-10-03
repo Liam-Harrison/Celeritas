@@ -43,6 +43,18 @@ namespace Celeritas.Game
 		}
 
 		/// <summary>
+		/// Get the world position of a chunk.
+		/// </summary>
+		/// <param name="index">The chunk index.</param>
+		/// <returns>The world position of the given index.</returns>
+		public Vector3 GetPositionFromIndex(Vector2Int index)
+		{
+			var x = index.x * ChunkSize.x;
+			var y = index.y * ChunkSize.y;
+			return new Vector3(x, y, 0);
+		}
+
+		/// <summary>
 		/// Get manhatten distance between two indexes.
 		/// </summary>
 		/// <param name="a">The first index.</param>
@@ -152,6 +164,19 @@ namespace Celeritas.Game
 		public void UnloadChunk(Chunk chunk)
 		{
 			UnloadChunk(chunk.Index);
+		}
+
+		/// <summary>
+		/// Unload all the chunks in the game and remove them.
+		/// </summary>
+		public void UnloadAllChunks()
+		{
+			var copy = new HashSet<Chunk>(Chunks);
+			foreach (var chunk in copy)
+			{
+				UnloadChunk(chunk);
+			}
+			chunks.Clear();
 		}
 
 		/// <summary>

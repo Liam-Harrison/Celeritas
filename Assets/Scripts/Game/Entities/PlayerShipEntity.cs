@@ -61,6 +61,8 @@ namespace Celeritas.Game.Entities
 			}
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
+
+			PlayerShip = true;
 		}
 
 		private ModuleData DrawModulePreview(Rect rect, ModuleData value, int x, int y)

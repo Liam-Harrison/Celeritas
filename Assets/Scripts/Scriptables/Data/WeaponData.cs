@@ -15,6 +15,8 @@ namespace Celeritas.Scriptables
 
 		[SerializeField, Title("Charge")] private bool charge;
 		[SerializeField, ShowIf(nameof(charge))] private float maxCharge;
+		[SerializeField, ShowIf(nameof(charge))] private bool autofire;
+		[SerializeField, Title("Placeholder", "used for player weapons in ship selection menu")] private bool placeholder;
 
 		/// <summary>
 		/// Get the projectile attatched to this weapon.
@@ -35,6 +37,17 @@ namespace Celeritas.Scriptables
 		/// The maximum limit to charge to.
 		/// </summary>
 		public float MaxCharge { get => maxCharge; }
+
+		/// <summary>
+		/// Used to ensure that players manually select their weapon in the selection menu
+		/// The vast majority of the time, this should be false
+		/// </summary>
+		public bool Placeholder { get => placeholder; set => placeholder = value; }
+
+		/// <summary>
+		/// For charge weapons only: does this weapon automatically fire when at max charge?
+		/// </summary>
+		public bool Autofire { get => autofire; }
 
 		protected override void OnValidate()
 		{

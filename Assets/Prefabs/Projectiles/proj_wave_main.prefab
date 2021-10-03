@@ -58,16 +58,18 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  hasDefaultEffects: 1
-  defaultEffects:
-  - Level: 0
-    EffectCollection: {fileID: 11400000, guid: 5f5146484eb77f84cbcb4135038c244f, type: 2}
+  hasDefaultEffects: 0
+  defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
-  damage: 10
+  floatingTextPrefab: {fileID: 4679094507319831066, guid: 287e23708f3f68242b6112d84df56568, type: 3}
+  inheirtVelcoity: 1
+  damage: 20
   trails: []
   projectileSpawn: {fileID: 0}
 --- !u!58 &3117257827407564721
@@ -240,7 +242,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: 4adeaf2d2b1c7417e89f026626d8264f, type: 3}
-  m_Color: {r: 0.78923416, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.78923416, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

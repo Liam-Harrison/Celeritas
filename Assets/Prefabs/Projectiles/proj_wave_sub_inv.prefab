@@ -51,7 +51,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -102,9 +102,9 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.9245283, g: 0.45790315, b: 0.48222822, a: 1}
-      key1: {r: 1, g: 0.90364325, b: 0.023584902, a: 1}
-      key2: {r: 0, g: 0.2602682, b: 1, a: 0.98039216}
+      key0: {r: 0, g: 0.9960785, b: 0.9803922, a: 1}
+      key1: {r: 0.0047169924, g: 0.6730832, b: 1, a: 1}
+      key2: {r: 0, g: 0.9960785, b: 0.9803922, a: 0.98039216}
       key3: {r: 0.040905975, g: 0.054517023, b: 0.19477698, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -198,12 +198,16 @@ MonoBehaviour:
   defaultEffects:
   - Level: 0
     EffectCollection: {fileID: 11400000, guid: 7555a9d063dd7ac48957016350dcf15f, type: 2}
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
-  damage: 15
+  floatingTextPrefab: {fileID: 4679094507319831066, guid: 287e23708f3f68242b6112d84df56568, type: 3}
+  inheirtVelcoity: 1
+  damage: 20
   trails:
   - {fileID: 6504427990470375925}
   - {fileID: 5264805449867955830}
@@ -275,7 +279,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -326,8 +330,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.9529412, g: 0.3118375, b: 0, a: 0.5529412}
-      key1: {r: 1, g: 0.7546391, b: 0.4575472, a: 0}
+      key0: {r: 0, g: 0.15188739, b: 0.99607843, a: 1}
+      key1: {r: 0, g: 0.084301665, b: 0.2830189, a: 0.5529412}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -344,7 +348,7 @@ TrailRenderer:
       ctime7: 0
       atime0: 0
       atime1: 65535
-      atime2: 0
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -434,7 +438,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: 4adeaf2d2b1c7417e89f026626d8264f, type: 3}
-  m_Color: {r: 0.74509805, g: 0.6117183, b: 0.08627451, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.98099947, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

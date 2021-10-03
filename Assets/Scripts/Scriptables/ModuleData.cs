@@ -1,5 +1,6 @@
 using AssetIcons;
 using Celeritas.Game.Entities;
+using Celeritas.Game.Events;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
@@ -41,7 +42,6 @@ namespace Celeritas.Scriptables
 		[SerializeField, Title("Module Layout")]
 		private TetrisShape shape;
 		
-
 		/// <summary>
 		/// The icon for the module.
 		/// </summary>

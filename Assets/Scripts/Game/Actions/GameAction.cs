@@ -37,6 +37,8 @@ namespace Celeritas.Game.Actions
 
 		public abstract SystemTargets Targets { get; }
 
+		public int Level { get; private set; }
+
 		/// <summary>
 		/// Execute this particular action.
 		/// </summary>
@@ -47,10 +49,8 @@ namespace Celeritas.Game.Actions
 				return;
 
 			LastUsed = Time.time;
-			Execute(entity);
+			Execute(entity, Level);
 		}
-
-		protected abstract void Execute(Entity entity);
 
 		public virtual void Initialize(ActionData data, bool isPlayer, Entity owner = null)
 		{
@@ -58,5 +58,12 @@ namespace Celeritas.Game.Actions
 			Owner = owner;
 			IsInitalized = true;
 		}
+
+		public void SetLevel(int level)
+		{
+			Level = level;
+		}
+
+		protected abstract void Execute(Entity entity, int level);
 	}
 }

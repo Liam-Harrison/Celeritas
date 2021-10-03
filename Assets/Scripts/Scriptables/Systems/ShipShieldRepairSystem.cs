@@ -36,59 +36,53 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Ship;
 
-		public override string GetTooltip(ushort level) => $"Repairs shields by <color=green>{(Amount + (AmountExtraPerLevel * level)):0}%</color> per second.";
-
-		/// <summary>
-		/// Determines whether the shield repairs or not.
-		/// </summary>
-		private bool IsActive = false;
-
-		public void OnEntityEffectAdded(Entity entity, ushort level)
-		{
-			var ship = entity as ShipEntity;
-			IsActive = true;
-			nextTime = (Time.time + interval);
-		}
-
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
-		{
-			var ship = entity as ShipEntity;
-			IsActive = false;
-		}
+		public override string GetTooltip(int level) => $"Repairs shields by <color=green>{(Amount + (AmountExtraPerLevel * level)):0}%</color> per second.";
 
 		/// <summary>
 		/// Seconds between repairs
 		/// </summary>
-		private int interval = 1;
+		private float interval = 1.0f;
+
+		[SerializeField, Title("Interval between repairs", "Seconds between each repair")]
+		public float Interval { get => interval; set => interval = value; }
 
 		/// <summary>
 		/// Timer
 		/// </summary>
-		private float nextTime = 0;
+		private float nextTime = 0.0f;
+
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
+		{
+			var ship = entity as ShipEntity;
+			nextTime = (Time.deltaTime + interval);
+		}
+
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
+		{
+			var ship = entity as ShipEntity;
+		}
 
 		/// <summary>
 		/// Checks if shield isn't full and will repair the ship by sending negative damage to the shield.
 		/// </summary>
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			var ship = entity as ShipEntity;
-
 			
-			float amountToAdd = (ship.Shield.MaxValue / 100) * (amount + (level * amountExtraPerLevel));
+			float amountToAdd = (ship.Shield.MaxValue / 100) * (amount + (wrapper.Level * amountExtraPerLevel));
 
-			if (IsActive == true)
+			nextTime = nextTime + Time.deltaTime;
+
+			if (nextTime >= interval)
 			{
-				if (Time.time > nextTime)
+				if (ship.Shield.CurrentValue < ship.Shield.MaxValue)
 				{
-					if (ship.Shield.CurrentValue < ship.Shield.MaxValue)
-					{
-						
-						ship.Shield.Damage(Mathf.RoundToInt(-1 * amountToAdd));
 
-					}
-					nextTime = (nextTime + interval);
-		
+					ship.Shield.Damage(Mathf.RoundToInt(-1 * amountToAdd));
+					//Debug.Log("Healed: " + Mathf.RoundToInt(-1 * amountToAdd));
+
 				}
+				nextTime = 0.0f;
 			}
 		}
 	}

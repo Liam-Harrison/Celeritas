@@ -1,7 +1,11 @@
+using Assets.Scripts.Game.Controllers;
+using Celeritas.Game.Actions;
 using Celeritas.Game.Entities;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
+using Celeritas.UI;
 
 namespace Celeritas.Game.Controllers
 {
@@ -11,28 +15,79 @@ namespace Celeritas.Game.Controllers
 	[RequireComponent(typeof(PlayerShipEntity))]
 	public class PlayerController : Singleton<PlayerController>, InputActions.IBasicActions
 	{
+		public class BindedAbilities
+		{
+			public GameAction primary;
+			public GameAction alternate;
+		}
+
 		private InputActions.BasicActions actions = default;
 		private Camera _camera;
+		private CinemachineVirtualCamera virtualcamera;
+
+		private readonly BindedAbilities[] abilities = new BindedAbilities[4];
+
 
 		/// <summary>
 		/// The ship entity that this controller is attatched to.
 		/// </summary>
 		public PlayerShipEntity PlayerShipEntity { get; private set; }
 
-		private Object tractorBeamEffectPrefab;
+		public bool LockInput { get; set; }
+
+		private bool IsAlternateMode { get; set; }
+
+		TractorBeamController tractorBeam;
+
+		public static event Action OnPlayerShipCreated;
+		public static event Action OnPlayerShipKilled;
+
+		public static event Action<int, bool, GameAction> OnActionLinked;
+		public static event Action<int, bool> OnActionUnlinked;
+
+		private float targetCameraZoom;
+		private float cameraZoom;
+		private float cameraZoomVel;
+
+		private Vector2 locomotion;
 
 		protected override void Awake()
 		{
-			actions = new InputActions.BasicActions(new InputActions());
+			actions = new InputActions.BasicActions(SettingsManager.InputActions);
 			actions.SetCallbacks(this);
 
 			PlayerShipEntity = GetComponent<PlayerShipEntity>();
-
 			_camera = Camera.main;
 
-			tractorBeamEffectPrefab = Resources.Load("TractorBeamEffect");
+			for (int i = 0; i < abilities.Length; i++)
+			{
+				abilities[i] = new BindedAbilities();
+			}
 
 			base.Awake();
+
+			foreach (var action in PlayerShipEntity.Actions)
+			{
+				BindAction(action);
+			}
+
+			OnPlayerShipCreated?.Invoke();
+			PlayerShipEntity.OnKilled += OnKilled;
+			PlayerShipEntity.OnActionAdded += OnActionAdded;
+			PlayerShipEntity.OnActionRemoved += OnActionRemoved;
+
+			targetCameraZoom = cameraZoom = PlayerShipEntity.GameViewSize;
+		}
+
+		private void Start()
+		{
+			virtualcamera = MainCinemachineCamera.Instance.VirtualCamera;
+		}
+
+		protected override void OnDestroy()
+		{
+			base.OnDestroy();
+			PlayerShipEntity.OnKilled -= OnKilled;
 		}
 
 		protected virtual void OnEnable()
@@ -45,27 +100,128 @@ namespace Celeritas.Game.Controllers
 			actions.Disable();
 		}
 
-		private Vector2 locomotion;
+		private void OnKilled(Entity entity)
+		{
+			OnPlayerShipKilled?.Invoke();
+		}
 
 		protected void Update()
 		{
-			if (GameStateManager.Instance.GameState == GameState.BUILD)
+			if (GameStateManager.Instance.GameState == GameState.BUILD || LockInput)
 			{
-				PlayerShipEntity.Target = transform.position + PlayerShipEntity.Forward * 50f;
+				PlayerShipEntity.AimTarget = transform.position + PlayerShipEntity.Forward * 50f;
 				PlayerShipEntity.Translation = Vector3.zero;
 			}
 			else
 			{
 				var target = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-				PlayerShipEntity.Target = Vector3.ProjectOnPlane(target, Vector3.forward);
+				PlayerShipEntity.AimTarget = Vector3.ProjectOnPlane(target, Vector3.forward);
 				PlayerShipEntity.Translation = locomotion;
-				TractorLogic();
 			}
+		}
+
+		private void OnActionAdded(GameAction action)
+		{
+			BindAction(action);
+		}
+
+		private void OnActionRemoved(GameAction action)
+		{
+			UnbindAction(action);
+		}
+
+		public void UnbindAction(GameAction action)
+		{
+			for (int i = 0; i < abilities.Length; i++)
+			{
+				if (abilities[i].primary == action)
+				{
+					UnbindAction(i, false);
+				}
+
+				if (abilities[i].alternate == action)
+				{
+					UnbindAction(i, true);
+				}
+			}
+		}
+
+		public void BindAction(GameAction action)
+		{
+			bool isAlt = false;
+			for (int i = 0; i < abilities.Length; i++)
+			{
+				if (isAlt && abilities[i].primary == action)
+				{
+					return;
+				}
+				else if (abilities[i].alternate == action)
+				{
+					return;
+				}
+
+				if (i == abilities.Length - 1 && isAlt == false)
+				{
+					i = 0;
+					isAlt = true;
+				}
+			}
+
+			isAlt = false;
+			for (int i = 0; i < abilities.Length; i++)
+			{
+				if (isAlt && abilities[i].primary == null)
+				{
+					BindAction(i, isAlt, action);
+					return;
+				}
+				else if (abilities[i].alternate == null)
+				{
+					BindAction(i, isAlt, action);
+					return;
+				}
+
+				if (i == abilities.Length - 1 && isAlt == false)
+				{
+					i = 0;
+					isAlt = true;
+				}
+			}
+		}
+
+		public void BindAction(int index, bool isAlternate, GameAction action)
+		{
+			if (isAlternate)
+				abilities[index].alternate = action;
+			else
+				abilities[index].primary = action;
+
+			OnActionLinked?.Invoke(index, isAlternate, action);
+		}
+
+		public void UnbindAction(int index, bool isAlternate)
+		{
+			if (isAlternate)
+				abilities[index].alternate = null;
+			else
+				abilities[index].primary = null;
+
+			OnActionUnlinked?.Invoke(index, isAlternate);
+		}
+
+		public bool TryGetBindedAction(int index, bool isAlternate, out GameAction action)
+		{
+			if (isAlternate)
+				action = abilities[index].alternate;
+			else
+				action = abilities[index].primary;
+
+			return action != null;
 		}
 
 		public void OnFire(InputAction.CallbackContext context)
 		{
-			if (GameStateManager.Instance.GameState == GameState.BUILD)
+			if (GameStateManager.Instance.GameState == GameState.BUILD || LockInput)
 				return;
 
 			if (context.performed)
@@ -85,67 +241,24 @@ namespace Celeritas.Game.Controllers
 			}
 		}
 
-		public void OnLocomotion(InputAction.CallbackContext context)
-		{
-			locomotion = context.ReadValue<Vector2>();
-		}
-
 		public void OnBuild(InputAction.CallbackContext context)
 		{
-			if (context.canceled && !WaveManager.Instance.WaveActive)
+			if (context.performed && WaveManager.Instance.WaveActive == false && LockInput == false)
 			{
 				if (GameStateManager.Instance.GameState == GameState.BACKGROUND)
 				{
 					GameStateManager.Instance.SetGameState(GameState.BUILD);
 				}
-				else
+				else if (GameStateManager.Instance.GameState == GameState.BUILD)
 				{
 					GameStateManager.Instance.SetGameState(GameState.BACKGROUND);
+
+					Instance.actions = new InputActions.BasicActions(SettingsManager.InputActions);
+					Instance.actions.SetCallbacks(Instance);
+					Instance.actions.Enable();
 				}
 			}
 		}
-
-		public void OnAction(InputAction.CallbackContext context)
-		{
-			PlayerShipEntity.UseActions();
-		}
-
-		int TRACTOR_RANGE = 10; // radius the tractor beam can reach, to lock onto a target
-		float TRACTOR_FORCE_MULTIPLIER = 0.5f;
-		float TRACTOR_FORCE_CAP = 100; // max force tractor beam can apply
-		float TRACTOR_DEAD_ZONE_RADIUS = 1; // if an object is this close to the cursor, tractor will stop applying force
-
-		bool tractorActive = false; 
-		ITractorBeamTarget tractorTarget; // the target the tractor beam is locked onto. Null if no valid target in range or tractor not active.
-
-		/// <summary>
-		/// Pull tractorTarget around if tractor beam is active.
-		/// </summary>
-		private void TractorLogic()
-		{
-			if (tractorActive)
-			{
-				if (tractorTarget != null && tractorTarget.Rigidbody != null)
-				{
-					Vector3 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-					Vector2 dirToPull = mousePos - tractorTarget.Rigidbody.transform.position;
-
-					// don't pull target if it's close to mouse (ie, in 'deadzone')
-					if (dirToPull.magnitude <= TRACTOR_DEAD_ZONE_RADIUS) 
-						return;
-
-					// move target towards mouse w force proportional to distance ^ 2 ( == dirToPull * dirToPull.magnitude)
-					Vector2 toApply = dirToPull * TRACTOR_FORCE_MULTIPLIER * dirToPull.magnitude;
-					if (toApply.magnitude > TRACTOR_FORCE_CAP)
-						toApply = toApply.normalized * TRACTOR_FORCE_CAP;
-
-					tractorTarget.Rigidbody.AddForce(toApply);
-
-				}
-			}
-		}
-
-		Object tractorGraphicalEffect;
 
 		/// <summary>
 		/// Toggles tractorActive on/off when corrosponding input is pressed/released.
@@ -154,82 +267,72 @@ namespace Celeritas.Game.Controllers
 		/// <param name="context"></param>
 		public void OnTractorBeam(InputAction.CallbackContext context)
 		{
-			if (context.performed)
+			if (tractorBeam == null && TractorBeamController.Instance != null)
+				tractorBeam = TractorBeamController.Instance;
+
+			if (tractorBeam != null)
 			{
-				// toggle tractorActive on
-				tractorActive = true;
-
-				// if no tractor target, find closest target within mouse range (if possible), and set it as tractorTarget
-				if (tractorTarget == null)
-				{
-					// Note: duplicated logic from GravityWell
-
-					// find all entities within radius, around the cursor
-					Vector3 mousePos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-					List<Collider2D> withinRange = new List<Collider2D>();
-					ContactFilter2D filter = new ContactFilter2D();
-					filter.NoFilter();
-					Physics2D.OverlapCircle(mousePos, TRACTOR_RANGE, filter, withinRange);
-
-					float lowestDistance = TRACTOR_RANGE + 1;
-
-					// loop through all entities, set the closest ship (within range) as tractorTarget
-					foreach (Collider2D collider in withinRange)
-					{
-						Rigidbody2D body = collider.attachedRigidbody;
-						if (body == null)
-							continue;
-
-						ITractorBeamTarget target = body.GetComponent<ShipEntity>();
-						if (target != null && (ShipEntity)target == PlayerShipEntity) // can't tractor beam yourself
-							continue;
-
-						if (target == null) // if not a ship, check if its an asteroid
-							target = body.GetComponent<Asteroid>();
-
-						if (target == null) // if not a ship or asteroid, move on to next target
-							continue;
-
-						float distance = Vector2.Distance(target.Rigidbody.transform.position, mousePos);
-						if (distance < lowestDistance)
-						{
-							lowestDistance = distance;
-							tractorTarget = target;
-						}
-					}
-				}
-
-				if (tractorTarget != null)
-				{
-					// add graphical effect
-					tractorGraphicalEffect = Instantiate(tractorBeamEffectPrefab, tractorTarget.Rigidbody.transform);
-					CombatHUD.Instance.TractorAimingLine.SetActive(true);
-					CombatHUD.Instance.TractorAimingLine.GetComponent<AimingLine>().TargetToAimAt = tractorTarget.Rigidbody;
-					// todo: scale effect depending on size of ship.
-				}
-			}
-
-			if (context.canceled)
-			{ 
-				tractorTarget = null;
-				tractorActive = false;
-				if (tractorGraphicalEffect != null)
-				{
-					Destroy(tractorGraphicalEffect);
-					CombatHUD.Instance.TractorAimingLine.SetActive(false);
-				}
+				tractorBeam = TractorBeamController.Instance;
+				tractorBeam.OnTractorBeam(context, PlayerShipEntity);
 			}
 		}
 
-		public void OnNewWave(InputAction.CallbackContext context)
+		public void OnToggleTutorial(InputAction.CallbackContext context)
 		{
-			if (GameStateManager.Instance.GameState == GameState.BUILD)
-				return;
+			CombatHUD.Instance.OnToggleTutorial();
+		}
 
+		public void OnMove(InputAction.CallbackContext context)
+		{
+			locomotion = context.ReadValue<Vector2>();
+		}
+
+		public void OnAbility1(InputAction.CallbackContext context)
+		{
+			UseAbility(abilities[0]);
+		}
+
+		public void OnAbility2(InputAction.CallbackContext context)
+		{
+			UseAbility(abilities[1]);
+		}
+
+		public void OnAbility3(InputAction.CallbackContext context)
+		{
+			UseAbility(abilities[2]);
+		}
+
+		public void OnAbility4(InputAction.CallbackContext context)
+		{
+			UseAbility(abilities[3]);
+		}
+
+		public void OnAlternateAbilities(InputAction.CallbackContext context)
+		{
 			if (context.performed)
 			{
-				WaveManager.Instance.StartWave();
+				IsAlternateMode = true;
 			}
+			else if (context.canceled)
+			{
+				IsAlternateMode = false;
+			}
+		}
+
+		private void UseAbility(BindedAbilities ability)
+		{
+			if (IsAlternateMode == false && ability.primary != null)
+				ability.primary.ExecuteAction(PlayerShipEntity);
+			else if (ability.alternate != null)
+				ability.alternate.ExecuteAction(PlayerShipEntity);
+		}
+
+		public void OnZoom(InputAction.CallbackContext context)
+		{
+			targetCameraZoom = Mathf.Clamp(targetCameraZoom + (-context.ReadValue<float>() * 75f * Time.smoothDeltaTime), PlayerShipEntity.GameViewSize, PlayerShipEntity.GameViewSize + 20);
+			cameraZoom = Mathf.SmoothDamp(cameraZoom, targetCameraZoom, ref cameraZoomVel, 0.2f);
+			
+			virtualcamera.m_Lens.OrthographicSize = cameraZoom;
 		}
 	}
 }

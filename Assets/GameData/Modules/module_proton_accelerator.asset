@@ -67,9 +67,9 @@ MonoBehaviour:
   prefab: {fileID: 209961586333920278, guid: 52dd421291329f94691b9fedf629263e, type: 3}
   capacityHint: 1
   useChunking: 0
-  size: 1
+  size: 0
   catagory: 0
   rarity: 0
   icon: {fileID: 21300000, guid: f72ea2651d81b2b45b0417f82681ddf9, type: 3}
   description: Increased rate of fire
-  shape: 3
+  shape: 1

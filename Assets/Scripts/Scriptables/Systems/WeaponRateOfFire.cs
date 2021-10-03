@@ -23,21 +23,21 @@ public class WeaponRateOfFire : ModifierSystem, IEntityEffectAdded, IEntityEffec
 	public override SystemTargets Targets => SystemTargets.Weapon;
 
 	/// <inheritdoc/>
-	public override string GetTooltip(ushort level) => $"Increase fire rate by <color=green>{(percentage + (percentageExtraPerLevel * level)) * 100:0}%</color>.";
+	public override string GetTooltip(int level) => $"Increase fire rate by <color=green>{(percentage + (percentageExtraPerLevel * level)) * 100:0}%</color>.";
 
-	public void OnEntityEffectAdded(Entity entity, ushort level)
+	public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 	{
 		WeaponEntity weapon = (WeaponEntity)entity;
-		float totalPercent = percentage + (level * percentageExtraPerLevel);
+		float totalPercent = percentage + (wrapper.Level * percentageExtraPerLevel);
 		float amountToAdd = totalPercent * weapon.RateOfFire;
-		weapon.RateOfFire += (uint)(amountToAdd);
+		weapon.RateOfFire += (uint)amountToAdd;
 	}
 
-	public void OnEntityEffectRemoved(Entity entity, ushort level)
+	public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 	{
 		WeaponEntity weapon = (WeaponEntity)entity;
-		float totalPercent = percentage + (level * percentageExtraPerLevel);
+		float totalPercent = percentage + (wrapper.Level * percentageExtraPerLevel);
 		float amountToSubtract = totalPercent * weapon.RateOfFire;
-		weapon.RateOfFire -= (uint)(amountToSubtract);
+		weapon.RateOfFire -= (uint)amountToSubtract;
 	}
 }

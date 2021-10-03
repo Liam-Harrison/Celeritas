@@ -1,3 +1,4 @@
+using Celeritas.Game;
 using Celeritas.Game.Entities;
 
 namespace Celeritas.Scriptables.Interfaces
@@ -12,7 +13,7 @@ namespace Celeritas.Scriptables.Interfaces
 		/// </summary>
 		/// <param name="entity">The target weapon entity.</param>
 		/// <param name="projectile">The fired projectile entity.</param>
-		/// <param name="level">The level of this effect.</param>
-		void OnEntityFired(WeaponEntity entity, ProjectileEntity projectile, ushort level);
+		/// <param name="weapper">The level of this effect.</param>
+		void OnEntityFired(WeaponEntity entity, ProjectileEntity projectile, EffectWrapper wrapper);
 	}
 }

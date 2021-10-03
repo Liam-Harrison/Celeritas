@@ -11,7 +11,7 @@ namespace Celeritas.Scriptables.Interfaces
 		/// Called when the entity is updated.
 		/// </summary>
 		/// <param name="entity">The entity which is updating.</param>
-		/// <param name="level">The level of the effect.</param>
-		void OnEntityUpdated(Entity entity, ushort level);
+		/// <param name="wrapper">The level of the effect.</param>
+		void OnEntityUpdated(Entity entity, EffectWrapper wrapper);
 	}
 }

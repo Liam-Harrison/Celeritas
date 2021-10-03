@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: sos_runaway
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: SOS Signal
+    content: You run away from the pirates, but you find a Homing module and 2 tons
+      of rare metals as you do so.
+    options: []
+  hasRewards: 1
+  lootType: 1
+  lootRewardRange: {x: 1, y: 2}
+  moduleRewards:
+  - chance: 0.76668173
+    module: {fileID: 11400000, guid: b5684e958385a254cb2c5e106aa29937, type: 2}
+  - chance: 0.23331833
+    module: {fileID: 11400000, guid: a4dfa5d3274ed674db3b5d2688a6667e, type: 2}
+  hasEvent: 0
+  eventData: {fileID: 11400000, guid: 824888e538696a44fb0b96953af8f4c6, type: 2}
+  hasWaves: 0
+  waveOutcome: {fileID: 0}
+  waves: []

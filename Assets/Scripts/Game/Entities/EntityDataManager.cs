@@ -1,3 +1,4 @@
+using Celeritas.Game.Events;
 using Celeritas.Scriptables;
 using System;
 using System.Collections.Generic;
@@ -13,178 +14,88 @@ namespace Celeritas.Game.Entities
 	/// </summary>
 	public class EntityDataManager : Singleton<EntityDataManager>
 	{
-		private const float CHUNK_SIZE = 100;
-
-		private const int DISABLE_CHUNK_DIST = 3;
-
-		private const int UNLOAD_CHUNK_DIST = 6;
-
-		private const float UPDATE_FREQ = 2;
-
-		private readonly List<ShipData> ships = new List<ShipData>();
-		private readonly List<WeaponData> weapons = new List<WeaponData>();
-		private readonly List<ModuleData> modules = new List<ModuleData>();
-		private readonly List<ModifierSystem> systems = new List<ModifierSystem>();
-		private readonly List<ProjectileData> projectiles = new List<ProjectileData>();
-		private readonly List<EffectCollection> effectColletions = new List<EffectCollection>();
-		private readonly List<ActionData> actions = new List<ActionData>();
-		private readonly List<HullData> hulls = new List<HullData>();
-		private readonly List<WaveData> waves = new List<WaveData>();
-		private readonly List<ShipData> playerShips = new List<ShipData>();
-		private readonly List<EntityData> enviormentEntities = new List<EntityData>();
+		private readonly HashSet<ShipData> ships = new HashSet<ShipData>();
+		private readonly HashSet<WeaponData> weapons = new HashSet<WeaponData>();
+		private readonly HashSet<ModuleData> modules = new HashSet<ModuleData>();
+		private readonly HashSet<ModifierSystem> systems = new HashSet<ModifierSystem>();
+		private readonly HashSet<ProjectileData> projectiles = new HashSet<ProjectileData>();
+		private readonly HashSet<EffectCollection> effectColletions = new HashSet<EffectCollection>();
+		private readonly HashSet<ActionData> actions = new HashSet<ActionData>();
+		private readonly HashSet<HullData> hulls = new HashSet<HullData>();
+		private readonly HashSet<WaveData> waves = new HashSet<WaveData>();
+		private readonly HashSet<ShipData> playerShips = new HashSet<ShipData>();
+		private readonly HashSet<EntityData> enviormentEntities = new HashSet<EntityData>();
+		private readonly HashSet<EventData> events = new HashSet<EventData>();
 
 		/// <summary>
 		/// All loaded ship data entites.
 		/// </summary>
-		public IReadOnlyList<ShipData> Ships { get => ships.AsReadOnly(); }
+		public IReadOnlyCollection<ShipData> Ships { get => ships; }
 
 		/// <summary>
 		/// All loaded weapon entites.
 		/// </summary>
-		public IReadOnlyList<WeaponData> Weapons { get => weapons.AsReadOnly(); }
+		public IReadOnlyCollection<WeaponData> Weapons { get => weapons; }
 
 		/// <summary>
 		/// All loaded module entites.
 		/// </summary>
-		public IReadOnlyList<ModuleData> Modules { get => modules.AsReadOnly(); }
+		public IReadOnlyCollection<ModuleData> Modules { get => modules; }
 
 		/// <summary>
 		/// All loaded system entites.
 		/// </summary>
-		public IReadOnlyList<ModifierSystem> Systems { get => systems.AsReadOnly(); }
+		public IReadOnlyCollection<ModifierSystem> Systems { get => systems; }
 
 		/// <summary>
 		/// All loaded projectile entites.
 		/// </summary>
-		public IReadOnlyList<ProjectileData> Projectiles { get => projectiles.AsReadOnly(); }
+		public IReadOnlyCollection<ProjectileData> Projectiles { get => projectiles; }
 
 		/// <summary>
 		/// All loaded effect collection entites.
 		/// </summary>
-		public IReadOnlyList<EffectCollection> EffectCollections { get => effectColletions.AsReadOnly(); }
+		public IReadOnlyCollection<EffectCollection> EffectCollections { get => effectColletions; }
 
 		/// <summary>
 		/// All the action entites.
 		/// </summary>
-		public IReadOnlyList<ActionData> Actions { get => actions.AsReadOnly(); }
+		public IReadOnlyCollection<ActionData> Actions { get => actions; }
 
 		/// <summary>
 		/// All the hull entites.
 		/// </summary>
-		public IReadOnlyList<HullData> Hulls { get => hulls.AsReadOnly(); }
+		public IReadOnlyCollection<HullData> Hulls { get => hulls; }
 
 		/// <summary>
 		/// All the wave entites.
 		/// </summary>
-		public IReadOnlyList<WaveData> Waves { get => waves.AsReadOnly(); }
+		public IReadOnlyCollection<WaveData> Waves { get => waves; }
 
 		/// <summary>
 		/// All the asteroid entites.
 		/// </summary>
-		public IReadOnlyList<EntityData> EnviromentEntities { get => enviormentEntities.AsReadOnly(); }
+		public IReadOnlyCollection<EntityData> EnviromentEntities { get => enviormentEntities; }
 
 		/// <summary>
 		/// All the player ship entries.
 		/// </summary>
-		public IReadOnlyList<ShipData> PlayerShips { get => playerShips.AsReadOnly(); }
+		public IReadOnlyCollection<ShipData> PlayerShips { get => playerShips; }
 
-		/// <summary>
-		/// Has the game loaded its assets.
-		/// </summary>
-		public bool Loaded { get; private set; } = false;
+		public IReadOnlyCollection<EventData> Events { get => events; }
 
-		/// <summary>
-		/// The chunk manager for the game.
-		/// </summary>
-		public static ChunkManager ChunkManager { get; private set; }
+		public bool Loaded { get; private set; }
 
 		public static event Action OnLoadedAssets;
 
 		public static event Action<Entity> OnCreatedEntity;
 
-		public static event Action<Chunk> OnCreatedChunk;
-
 		private static Dictionary<EntityData, ObjectPool<Entity>> entites = new Dictionary<EntityData, ObjectPool<Entity>>();
-
-		private float lastUpdate;
-
-		private new Camera camera;
 
 		protected override void Awake()
 		{
 			base.Awake();
-			camera = Camera.main;
-			ChunkManager = new ChunkManager(new Vector2(CHUNK_SIZE, CHUNK_SIZE));
 			LoadAssets();
-		}
-
-		private void FixedUpdate()
-		{
-			if (!Instance.Loaded || Time.unscaledTime < lastUpdate + (1f / UPDATE_FREQ))
-				return;
-
-			lastUpdate = Time.unscaledTime;
-			UpdateChunks();
-		}
-
-		private Color green = new Color(0, 1, 0, 0.1f);
-		private Color yellow = new Color(1, 0.92f, 0.016f, 0.1f);
-
-		private void OnDrawGizmosSelected()
-		{
-			if (ChunkManager == null)
-				return;
-
-			foreach (var chunk in ChunkManager.Chunks)
-			{
-				if (chunk.Active)
-					Gizmos.color = green;
-				else
-					Gizmos.color = yellow;
-
-				Gizmos.DrawCube(chunk.Center, new Vector3(chunk.Size.x, chunk.Size.y, 1));
-			}
-		}
-
-		private void UpdateChunks()
-		{
-			var middle = ChunkManager.GetChunkIndex(camera.transform.position);
-
-			for (int x = 0; x < UNLOAD_CHUNK_DIST * 2; x++)
-			{
-				for (int y = 0; y < UNLOAD_CHUNK_DIST * 2; y++)
-				{
-					var index = middle + new Vector2Int(x - UNLOAD_CHUNK_DIST, y - UNLOAD_CHUNK_DIST);
-
-					if (ChunkManager.GetManhattenDistance(middle, index) >= UNLOAD_CHUNK_DIST)
-						continue;
-
-					if (ChunkManager.TryGetChunk(index, out var chunk))
-					{
-						chunk.ChunkSetActive(ChunkManager.GetManhattenDistance(middle, index) < DISABLE_CHUNK_DIST);
-					}
-					else
-					{
-						chunk = ChunkManager.CreateChunk(index);
-						chunk.ChunkSetActive(ChunkManager.GetManhattenDistance(middle, index) < DISABLE_CHUNK_DIST);
-						OnCreatedChunk?.Invoke(chunk);
-					}
-				}
-			}
-
-			var toRemove = new HashSet<Vector2Int>();
-			foreach (var chunk in ChunkManager.Keys)
-			{
-				if (ChunkManager.GetManhattenDistance(middle, chunk) >= UNLOAD_CHUNK_DIST)
-				{
-					toRemove.Add(chunk);
-				}
-			}
-
-			foreach (var chunk in toRemove)
-			{
-				ChunkManager.UnloadChunk(chunk);
-			}
 		}
 
 		/// <summary>
@@ -198,14 +109,22 @@ namespace Celeritas.Game.Entities
 		/// <param name="effects">The effects to start this entity with.</param>
 		/// <param name="forceIsPlayer">Force this entity to be a player entity.</param>
 		/// <returns>Returns the created entity.</returns>
-		public static T InstantiateEntity<T>(EntityData data, Vector3 position, Quaternion rotation, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false) where T : Entity
+		public static T InstantiateEntity<T>(EntityData data, Vector3 position, Quaternion rotation, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool dontPool = false) where T : Entity
 		{
 			if (!entites.ContainsKey(data))
 			{
 				entites[data] = new ObjectPool<Entity>(data.CapacityHint, data.Prefab, Instance.transform);
 			}
 
-			var entity = entites[data].GetPooledObject().GetComponent<T>();
+			T entity;
+			if (dontPool)
+			{
+				entity = entites[data].CreateUnpooledObject().GetComponent<T>();
+			}
+			else
+			{
+				entity = entites[data].GetPooledObject().GetComponent<T>();
+			}
 
 			entity.transform.position = position;
 			entity.transform.rotation = rotation;
@@ -215,13 +134,13 @@ namespace Celeritas.Game.Entities
 
 			if (data.UseChunking)
 			{
-				if (ChunkManager.TryGetChunk(position, out var chunk))
+				if (Chunks.ChunkManager.TryGetChunk(position, out var chunk))
 				{
 					chunk.AddEntity(entity);
 				}
 				else
 				{
-					UnityEngine.Debug.LogError($"Tried to spawn \"{data.Title}\" in a chunk which does not exist ({ChunkManager.GetChunkIndex(position).x}, {ChunkManager.GetChunkIndex(position).y}). " +
+					UnityEngine.Debug.LogError($"Tried to spawn \"{data.Title}\" in a chunk which does not exist ({Chunks.ChunkManager.GetChunkIndex(position).x}, {Chunks.ChunkManager.GetChunkIndex(position).y}). " +
 						$"Check spawn logic or disable \"useChunking\" for this object.", entity.gameObject);
 				}
 			}
@@ -239,9 +158,9 @@ namespace Celeritas.Game.Entities
 		/// <param name="effects">The effects to start this entity with.</param>
 		/// <param name="forceIsPlayer">Force this entity to be a player entity.</param>
 		/// <returns>Returns the created entity.</returns>
-		public static T InstantiateEntity<T>(EntityData data, Vector3 position, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false) where T : Entity
+		public static T InstantiateEntity<T>(EntityData data, Vector3 position, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool dontPool = false) where T : Entity
 		{
-			return InstantiateEntity<T>(data, position, Quaternion.identity, owner, effects, forceIsPlayer);
+			return InstantiateEntity<T>(data, position, Quaternion.identity, owner, effects, forceIsPlayer, dontPool);
 		}
 
 		/// <summary>
@@ -253,9 +172,9 @@ namespace Celeritas.Game.Entities
 		/// <param name="effects">The effects to start this entity with.</param>
 		/// <param name="forceIsPlayer">Force this entity to be a player entity.</param>
 		/// <returns>Returns the created entity.</returns>
-		public static T InstantiateEntity<T>(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false) where T : Entity
+		public static T InstantiateEntity<T>(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool dontPool = false) where T : Entity
 		{
-			return InstantiateEntity<T>(data, Vector3.zero, Quaternion.identity, owner, effects, forceIsPlayer);
+			return InstantiateEntity<T>(data, Vector3.zero, Quaternion.identity, owner, effects, forceIsPlayer, dontPool);
 		}
 
 		/// <summary>
@@ -283,6 +202,17 @@ namespace Celeritas.Game.Entities
 		{
 			entity.OnEntityKilled();
 			UnloadEntity(entity);
+		}
+
+		/// <summary>
+		/// Unload all the entities in the game.
+		/// </summary>
+		public static void UnloadAllEntities()
+		{
+			foreach (var item in entites)
+			{
+				item.Value.ReleaseAllObjects();
+			}
 		}
 
 		/// <summary>
@@ -326,6 +256,7 @@ namespace Celeritas.Game.Entities
 				LoadTags(waves, Constants.WAVES_TAG),
 				LoadTags(playerShips, Constants.PLAYER_SHIP_TAG),
 				LoadTags(enviormentEntities, Constants.ENVIRONMENT_TAG),
+				LoadTags(events, Constants.EVENT_TAG),
 			};
 
 			await Task.WhenAll(tasks);
@@ -334,11 +265,10 @@ namespace Celeritas.Game.Entities
 			UnityEngine.Debug.Log($"load took: {watch.ElapsedMilliseconds}ms");
 
 			Loaded = true;
-			UpdateChunks();
 			OnLoadedAssets?.Invoke();
 		}
 
-		private async Task LoadTags<T>(IList<T> list, string tag)
+		private async Task LoadTags<T>(ICollection<T> list, string tag)
 		{
 			var handle = Addressables.LoadAssetsAsync<T>(tag, (_) => { });
 

@@ -43,10 +43,11 @@ namespace Celeritas.UI.Runstart
 		private readonly Dictionary<ShipData, PlayerShipEntity> shipObjects = new Dictionary<ShipData, PlayerShipEntity>();
 		private readonly List<WeaponData> weaponList = new List<WeaponData>();
 
-		private void Awake()
+		private void Start()
 		{
-			actions = new InputActions.NavigationActions(new InputActions());
+			actions = new InputActions.NavigationActions(SettingsManager.InputActions);
 			actions.SetCallbacks(this);
+			actions.Enable();
 
 			if (EntityDataManager.Instance != null && EntityDataManager.Instance.Loaded)
 				SetupData();
@@ -54,11 +55,24 @@ namespace Celeritas.UI.Runstart
 				EntityDataManager.OnLoadedAssets += SetupData;
 		}
 
+		private void OnDestroy()
+		{
+#if UNITY_EDITOR
+			if (UnityEditor.EditorApplication.isPlaying == false)
+				return;
+#endif
+
+			foreach (var ship in shipObjects)
+			{
+				ship.Value.UnloadEntity();
+			}
+			shipObjects.Clear();
+		}
+
 		private void OnEnable()
 		{
 			StopAllCoroutines();
 			ShipSpawn.rotation = Quaternion.Euler(rotation);
-			actions.Enable();
 		}
 
 		private void OnDisable()
@@ -80,6 +94,8 @@ namespace Celeritas.UI.Runstart
 		/// <param name="ship">The player ship data to select.</param>
 		public void SelectShip(ShipData ship)
 		{
+			GameStateManager.Instance.SetGameState(GameState.MAINMENU);
+
 			if (shipObjects.Count == 0)
 				SetupData();
 
@@ -145,11 +161,17 @@ namespace Celeritas.UI.Runstart
 		{
 			EntityDataManager.OnLoadedAssets -= SetupData;
 
+			shipObjects.Clear();
+			weaponList.Clear();
+
 			if (shipObjects.Count > 0)
 				return;
 
 			foreach (ShipData data in EntityDataManager.Instance.PlayerShips)
 			{
+				if (data.IsPlaceholder)
+					continue;
+
 				var ship = EntityDataManager.InstantiateEntity<PlayerShipEntity>(data, forceIsPlayer: true);
 
 				ship.IsStationary = true;
@@ -164,7 +186,7 @@ namespace Celeritas.UI.Runstart
 			}
 		}
 
-		public void OnNavigateForward(InputAction.CallbackContext context)
+		public void OnNavigateUI(InputAction.CallbackContext context)
 		{
 			if (context.started)
 			{
@@ -180,6 +202,11 @@ namespace Celeritas.UI.Runstart
 					}
 				}
 			}
+		}
+
+		public void OnPauseMenu(InputAction.CallbackContext context)
+		{
+			// Unused.
 		}
 	}
 }

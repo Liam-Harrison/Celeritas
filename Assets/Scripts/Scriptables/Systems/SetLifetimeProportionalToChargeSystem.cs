@@ -2,11 +2,6 @@
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Celeritas.Scriptables.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Scriptables.Systems
@@ -24,13 +19,13 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		public override string GetTooltip(ushort level) => $"";
+		public override string GetTooltip(int level) => $"Lifetime increases by <color=\"green\">{multiplier * 100:0}%</color> with weapon charge.";
 
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			ProjectileEntity projectile = entity as ProjectileEntity;
 			WeaponEntity weapon = projectile.Weapon;
-			projectile.ProjectileData.Lifetime = multiplier * weapon.Charge;
+			projectile.Lifetime = multiplier * weapon.Charge;
 		}
 	}
 }

@@ -9,13 +9,14 @@ namespace Celeritas.Game
 	/// Allows for the pooling and access of various objects.
 	/// </summary>
 	[System.Serializable]
-	public class ObjectPool<T> where T : MonoBehaviour, IPooledObject
+	public class ObjectPool<T> where T : MonoBehaviour, IPooledObject<T>
 	{
 		[SerializeField, Title("Pooled Object Settings"), DisableInPlayMode]
 		private int capacity = 16;
 
 		private readonly List<T> pool = new List<T>();
 		private readonly List<T> active = new List<T>();
+		private readonly HashSet<T> unpooled = new HashSet<T>();
 
 		private int _capacity;
 
@@ -28,15 +29,13 @@ namespace Celeritas.Game
 			set
 			{
 				_capacity = value;
-				pool.Capacity = _capacity;
-				active.Capacity = _capacity;
 			}
 		}
 
 		/// <summary>
 		/// Get all the current active objects in this pool.
 		/// </summary>
-		public IReadOnlyList<T> ActiveObjects { get => active.AsReadOnly(); }
+		public IReadOnlyList<T> ActiveObjects { get => active; }
 
 		private GameObject prefab;
 		private Transform parent;
@@ -70,9 +69,10 @@ namespace Celeritas.Game
 		{
 			for (int i = 0; i < Capacity; i++)
 			{
-				var item = Object.Instantiate(prefab, parent);
-				item.SetActive(false);
-				pool.Add(item.GetComponent<T>());
+				var item = Object.Instantiate(prefab, parent).GetComponent<T>();
+				item.gameObject.SetActive(false);
+				item.OwningPool = this;
+				pool.Add(item);
 			}
 		}
 
@@ -85,6 +85,7 @@ namespace Celeritas.Game
 			if (pool.Count == 0)
 			{
 				var item = Object.Instantiate(prefab, parent).GetComponent<T>();
+				item.OwningPool = this;
 				item.gameObject.SetActive(true);
 				active.Add(item);
 				item.OnSpawned();
@@ -101,6 +102,41 @@ namespace Celeritas.Game
 			}
 		}
 
+		public T CreateUnpooledObject()
+		{
+			var item = Object.Instantiate(prefab, parent).GetComponent<T>();
+			item.OwningPool = this;
+			item.gameObject.SetActive(true);
+			unpooled.Add(item);
+			return item;
+		}
+
+		public void ReleaseAllObjects()
+		{
+			foreach (var item in active)
+			{
+				if (item == null)
+					continue;
+
+				item.gameObject.SetActive(false);
+				pool.Add(item);
+				item.OnDespawned();
+				item.transform.parent = parent;
+			}
+			foreach (var item in unpooled)
+			{
+				if (item == null)
+					continue;
+
+				item.gameObject.SetActive(false);
+				item.OnDespawned();
+				Object.Destroy(item.gameObject);
+			}
+
+			active.Clear();
+			unpooled.Clear();
+		}
+
 		/// <summary>
 		/// Release an object and return it to the pool.
 		/// </summary>
@@ -113,14 +149,16 @@ namespace Celeritas.Game
 				active.Remove(item);
 				pool.Add(item);
 				item.OnDespawned();
+				item.transform.parent = parent;
 			}
-			else if (pool.Contains(item))
-			{
-				Debug.Log($"Attempted to release pool item which was already released", item.gameObject);
-			}
-			else
+			else if (pool.Contains(item) == false)
 			{
 				item.OnDespawned();
+				active.Remove(item);
+
+				if (unpooled.Contains(item))
+					unpooled.Remove(item);
+
 				Object.Destroy(item.gameObject);
 			}
 		}

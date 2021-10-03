@@ -1,5 +1,7 @@
 using Celeritas.Game;
+using Celeritas.Game.Actions;
 using Celeritas.Game.Entities;
+using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -78,6 +80,9 @@ namespace Celeritas.UI
 		[SerializeField, FoldoutGroup("Subheaders")]
 		private Transform projectileSubheader;
 
+		[SerializeField, FoldoutGroup("Subheaders")]
+		private Transform actionSubheader;
+
 		/// <summary>
 		/// Is the tooltip currently being shown to the user.
 		/// </summary>
@@ -101,7 +106,7 @@ namespace Celeritas.UI
 		{
 			if (IsShowing)
 			{
-				background.position = Vector3.Lerp(background.position, GetPosition(), 32f * Time.smoothDeltaTime);
+				background.position = Vector3.Lerp(background.position, GetPosition(), 48f * Time.smoothDeltaTime);
 			}
 		}
 
@@ -232,6 +237,9 @@ namespace Celeritas.UI
 			if (module is WeaponEntity weapon)
 				CreateEffectRows(weapon.ProjectileEffects, projectileSubheader);
 
+			if (module.HasShipActions)
+				CreateActionRows(module.ShipActions, actionSubheader, module.Level);
+
 			background.transform.position = GetPosition();
 
 			if (!background.gameObject.activeInHierarchy)
@@ -268,6 +276,7 @@ namespace Celeritas.UI
 			shipSubheader.gameObject.SetActive(false);
 			weaponSubheader.gameObject.SetActive(false);
 			projectileSubheader.gameObject.SetActive(false);
+			actionSubheader.gameObject.SetActive(false);
 
 			for (int i = 0; i < parent.childCount; i++)
 			{
@@ -286,7 +295,27 @@ namespace Celeritas.UI
 			return value == effectSubheader
 				|| value == shipSubheader
 				|| value == weaponSubheader
-				|| value == projectileSubheader;
+				|| value == projectileSubheader
+				|| value == actionSubheader;
+		}
+
+		private void CreateActionRows(ActionData[] actions, Transform subheader, int level)
+		{
+			if (actions.Length == 0)
+				return;
+
+			subheader.gameObject.SetActive(true);
+			Transform sibling = subheader;
+
+			foreach (var action in actions)
+			{
+				var row = Instantiate(textrow, parent).transform;
+				row.SetSiblingIndex(sibling.GetSiblingIndex() + 1);
+				sibling = row;
+				seperator.gameObject.SetActive(true);
+
+				row.GetComponent<TextMeshProUGUI>().text = $"• <indent=5%> {action.GetTooltip(level)}";
+			}
 		}
 
 		private void CreateEffectRows(EffectManager effects, Transform subheader)

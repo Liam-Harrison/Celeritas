@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22c348716c74c0549bd39aecb9a41c52, type: 3}
+  m_Name: effect_tractor_aoe
+  m_EditorClassIdentifier: 
+  title: Area Of Effect - Player's Tractor Beam
+  initialRangeMultiplier: 0.8
+  extraRangePerLevel: 0.5

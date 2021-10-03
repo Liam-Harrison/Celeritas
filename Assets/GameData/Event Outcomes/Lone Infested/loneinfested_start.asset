@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: loneinfested_start
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: A lone infested
+    content: Your scanners pick up a single small infested ship flying at low speeds
+      through blackspace. Whilst a lone infested isn't uncommon nearer to large pockets
+      of the infestation, this particular ship seems to be trully out on its own.
+    options:
+    - type: 0
+      content: Destroy it! An easy target for once.
+      outcome: {fileID: 11400000, guid: d2042a111b50f0a43b0105c1eed629be, type: 2}
+    - type: 0
+      content: Leave it alone, it could be bait.
+      outcome: {fileID: 11400000, guid: 52a9a48e0c25bcd4f91a9046c78a5dcc, type: 2}
+  hasRewards: 0
+  lootType: 0
+  lootRewardRange: {x: 0, y: 0}
+  moduleRewards: []
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 0
+  waveOutcome: {fileID: 0}
+  waves: []

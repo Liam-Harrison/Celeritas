@@ -6,6 +6,7 @@ using Celeritas.Game;
 using Celeritas.Scriptables;
 using Celeritas.UI.Tooltips;
 using Celeritas.Game.Entities;
+using Celeritas.Game.Actions;
 
 namespace Celeritas.UI.General
 {
@@ -31,6 +32,8 @@ namespace Celeritas.UI.General
 		}
 
 		public ModuleEntity TooltipEntity => (ModuleEntity) Item.EntityInstance;
+
+		public GameAction TooltipAction => null;
 
 		public void SetItem(ModuleData item)
 		{

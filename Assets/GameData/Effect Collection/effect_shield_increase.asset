@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Shield Booster
   targets: 4
-  stacks: 1
+  stacks: 0
   systems:
   - {fileID: 11400000, guid: 549639acd9f79f845a9e5282fcfd6113, type: 2}

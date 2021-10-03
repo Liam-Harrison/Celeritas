@@ -70,6 +70,6 @@ MonoBehaviour:
   size: 0
   catagory: 0
   rarity: 1
-  icon: {fileID: 21300000, guid: e0526b249dec66940adc72cf27447828, type: 3}
+  icon: {fileID: 21300000, guid: 377b7ec67530195498ff0ce681d913f5, type: 3}
   description: Increased projectile damage per metre travelled.
   shape: 4

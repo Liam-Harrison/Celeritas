@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: moduleLayout
+    - Name: iconLayout
       Entry: 7
       Data: 0|System.Boolean[,], mscorlib
     - Name: 
@@ -70,10 +70,13 @@ MonoBehaviour:
   size: 0
   catagory: 0
   rarity: 0
-  icon: {fileID: 21300000, guid: 3144f6c4f2f2d704db3a0e92791b3265, type: 3}
+  icon: {fileID: 21300000, guid: 6c296f6849647a241a0616828040c690, type: 3}
   description: A short-to-medium-ranged energy laser, typically used for mining,
     that has been retrofitted for combat.
+  shape: 0
   projectile: {fileID: 11400000, guid: 6d1a6b3c7877c2c4eaa8b10c24425a74, type: 2}
   rateOfFire: 10
   charge: 0
   maxCharge: 0
+  autofire: 0
+  placeholder: 0

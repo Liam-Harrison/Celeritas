@@ -15,12 +15,19 @@ namespace Celeritas.Game.Entities
 	{
 		public override SystemTargets TargetType { get => SystemTargets.Loot; }
 
-		public LootData lootData;
-		private uint pickupRadius; // player will pickup loot when within this radius of it
-		private PlayerShipEntity player;
+		public const float SUCK_DIST = 50;
 
-		private int amount; // quantity of loot player will get when picking this up
-		private LootType lootType; // type of loot player will get when picking this up
+		public const float MAX_VEL = 15;
+
+		public const float VEL_PER_SEC = 40;
+
+		public LootData lootData;
+		private uint pickupRadius;
+
+		private int amount;
+		private LootType lootType;
+
+		private Vector3 vel;
 
 		/// <summary>
 		/// How much loot is stored in this object. eg, 3 x rare metals
@@ -36,15 +43,26 @@ namespace Celeritas.Game.Entities
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
 
-		private void Start()
-		{
-			player = PlayerController.Instance.PlayerShipEntity;
-		}
-
 		protected override void Update()
 		{
-			// if player is within pickup radius, give player loot
-			if (Vector3.Distance(transform.position, player.transform.position) <= pickupRadius)
+			var d = PlayerController.Instance.PlayerShipEntity.Position - Position;
+			var m = d.magnitude;
+			var n = d.normalized;
+
+			if (m <= SUCK_DIST)
+			{
+				var p = Mathf.Sin(1 - Mathf.Clamp01(m / SUCK_DIST) * (Mathf.PI / 2));
+				var change = n * VEL_PER_SEC * p;
+				vel = Vector3.ClampMagnitude(vel + ((change - vel) * Time.smoothDeltaTime), MAX_VEL);
+			}
+			else 
+			{
+				vel = Vector3.Lerp(vel, Vector3.zero, 200f * Time.smoothDeltaTime);
+			}
+
+			transform.position += vel * Time.smoothDeltaTime;
+
+			if (m <= pickupRadius)
 			{
 				PickedUpByPlayer();
 			}

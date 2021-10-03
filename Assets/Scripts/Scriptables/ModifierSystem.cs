@@ -45,7 +45,7 @@ namespace Celeritas.Scriptables
 		/// <summary>
 		/// The tooltip for this system.
 		/// </summary>
-		public abstract string GetTooltip(ushort level);
+		public abstract string GetTooltip(int level);
 
 		/// <summary>
 		/// Check if this system includes a specific target.

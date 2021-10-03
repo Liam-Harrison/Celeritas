@@ -4,6 +4,7 @@ using Celeritas.Scriptables;
 using Celeritas.UI;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 namespace Celeritas.Game.Entities
@@ -120,7 +121,7 @@ namespace Celeritas.Game.Entities
 		/// <summary>
 		/// The current aim target for this ship.
 		/// </summary>
-		public Vector3 Target { get; set; }
+		public Vector3 AimTarget { get; set; }
 
 		/// <summary>
 		/// The current translation input for this ship.
@@ -150,6 +151,11 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public bool IsStationary { get; set; }
 
+		/// <summary>
+		/// Determines if the ship is currently stunned.
+		/// </summary>
+		public bool Stunned { get; set; }
+		
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
@@ -157,6 +163,10 @@ namespace Celeritas.Game.Entities
 
 			Rigidbody = GetComponent<Rigidbody2D>();
 			ShipData = data as ShipData;
+
+			var ai = GetComponent<AIBase>();
+			if (ai != null && instanced == false)
+				AttatchToAI(ai);
 
 			if (instanced == false)
 			{
@@ -170,6 +180,9 @@ namespace Celeritas.Game.Entities
 					module.Initalize(this);
 				}
 			}
+
+			Stunned = false;
+			IsStationary = false;
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
@@ -194,6 +207,9 @@ namespace Celeritas.Game.Entities
 				TranslationLogic();
 				RotationLogic();
 			}
+
+			shieldDelayTimer = Mathf.Max(shieldDelayTimer - Time.deltaTime, 0f);
+			RegenShield();
 		}
 
 		/// <summary>
@@ -212,13 +228,14 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		/// <param name="attackingEntity">The entity which has attacked.</param>
 		/// <param name="damage">The amount of damage to take.</param>
-		public override void TakeDamage(Entity attackingEntity, int damage)
+		public override void TakeDamage(Entity attackingEntity, float damage)
 		{
-			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity)
+			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity || attackingEntity == this)
 			{
 				base.TakeDamage(attackingEntity);
 
-				int calculatedDamage = CalculateDamage(damage);
+				float calculatedDamage = CalculateDamage(damage);
+				shieldDelayTimer = shieldRegenDelay;
 
 				// if damage will go beyond shields
 				if (calculatedDamage > shield.CurrentValue)
@@ -236,6 +253,8 @@ namespace Celeritas.Game.Entities
 					shield.Damage(calculatedDamage);
 				}
 
+				ShowDamage(calculatedDamage);
+
 				if (health.IsEmpty())
 				{
 					KillEntity();
@@ -244,11 +263,69 @@ namespace Celeritas.Game.Entities
 		}
 
 		/// <summary>
-        /// Current damage modifer on ship.
-        /// Default is 0, negative value = takes less damage, positive value = takes more damage.
-        /// </summary>
-		public int damageModifierPercentage = 0;
+		/// The amount of shields is regenerated per second
+		/// </summary>
+		private float shieldRegenAmount = 50.0f;
+		[SerializeField, Title("Base Shield Regeneration Amount", "The base amount of shields that is regenerated per second.")]
+		public float ShieldRegenAmount { get => shieldRegenAmount; set => shieldRegenAmount = value; }
 
+
+		/// <summary>
+		/// The amount of time the shield regeneration is delayed by after taking damage
+		/// </summary>
+		private float shieldRegenDelay = 4.0f;
+		[SerializeField, Title("Base Shield Regeneration Delay", "The timer in which the shield will not regenerate after taking damage.")]
+		public float ShieldRegenDelay { get => shieldRegenDelay; set => shieldRegenDelay = value; }
+
+		/// <summary>
+        /// Timer for the delayed shield regen
+        /// </summary>
+		private float shieldDelayTimer = 0.0f;
+
+		/// <summary>
+		/// Number of seconds between shield regen.
+		/// </summary>
+		private float timeBetweenShieldRegen = 1.0f;
+		public float TimeBetweenShieldRegen { get => timeBetweenShieldRegen; set => timeBetweenShieldRegen = value; }
+
+		private void RegenShield()
+		{
+			if (shieldDelayTimer == 0f)
+			{
+				if (shield.CurrentValue < shield.MaxValue)
+				{
+					shield.Damage(Mathf.RoundToInt(shieldRegenAmount * Time.smoothDeltaTime * -1));
+				}
+			}
+		}
+
+		/// <summary>
+		/// Starts coroutine for stun
+		/// </summary>
+		public void Stun(float duration)
+		{
+			StartCoroutine(StunTimer(duration));
+		}
+
+		/// <summary>
+        /// Coroutine that will set the ship to stationary for duration.
+        /// </summary>
+		public IEnumerator StunTimer(float duration)
+		{
+			Stunned = true;
+			IsStationary = true;
+			yield return new WaitForSeconds(duration);
+			IsStationary = false;
+			Stunned = false;
+		}
+
+		/// <summary>
+		/// Current damage modifer on ship.
+		/// Default is 0, negative value = takes less damage, positive value = takes more damage.
+		/// </summary>
+		private int damageModifierPercentage = 0;
+
+		public int DamageModifierPercentage { get => damageModifierPercentage; set => damageModifierPercentage = value; }
 
 		/// <summary>
 		///	Calculates the amount of damage to apply after the damage modifier has been applied.
@@ -257,7 +334,7 @@ namespace Celeritas.Game.Entities
 		/// <returns>The amount of damage to take after the damage modifier has been applied</returns>
 		private int CalculateDamage(float damage)
 		{
-			int calculatedDamage = calculatedDamage = Mathf.RoundToInt((damage + (damage / 100) * damageModifierPercentage));
+			int calculatedDamage = Mathf.RoundToInt(damage + damage / 100 * damageModifierPercentage);
 			return calculatedDamage;
 		}
 
@@ -320,7 +397,7 @@ namespace Celeritas.Game.Entities
 			Gizmos.color = Color.green;
 			Gizmos.DrawLine(transform.position, transform.position + Velocity);
 			Gizmos.color = Color.white;
-			Gizmos.DrawLine(transform.position, Target);
+			Gizmos.DrawLine(transform.position, AimTarget);
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawLine(transform.position, transform.position + Forward);
 		}
@@ -328,6 +405,7 @@ namespace Celeritas.Game.Entities
 		public void AttatchToAI(AIBase ai)
 		{
 			AttatchedAI = ai;
+			AttatchedAI.OnAttatched();
 		}
 
 		private void TranslationLogic()
@@ -342,7 +420,7 @@ namespace Celeritas.Game.Entities
 
 		private void RotationLogic()
 		{
-			var dir = (Target - transform.position).normalized;
+			var dir = (AimTarget - transform.position).normalized;
 			var dot = Vector3.Dot(Forward, dir);
 
 			if (dot < ShipData.MovementSettings.aimDeadzone)

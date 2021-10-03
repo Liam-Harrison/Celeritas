@@ -17,6 +17,9 @@ namespace Celeritas.Scriptables
 		[SerializeField]
 		private float cooldownSeconds;
 
+		[SerializeField]
+		private bool isPassive;
+
 		/// <summary>
 		/// The title of this action.
 		/// </summary>
@@ -33,8 +36,15 @@ namespace Celeritas.Scriptables
 		public Sprite Icon { get => icon; }
 
 		/// <summary>
+		/// Is this a passive action.
+		/// </summary>
+		public bool IsPassive {  get => isPassive; }
+
+		/// <summary>
 		/// The type of this action.
 		/// </summary>
 		public abstract Type ActionType { get; }
+
+		public abstract string GetTooltip(int level);
 	}
 }

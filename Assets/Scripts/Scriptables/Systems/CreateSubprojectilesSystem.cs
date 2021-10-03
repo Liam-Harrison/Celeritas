@@ -47,21 +47,29 @@ namespace Assets.Scripts.Scriptables.Systems
 		[SerializeField]
 		private bool useCustomProjectileSpawnLocation; // use projectileSpawn specified in ProjectileEntity
 
+		[SerializeField]
+		private bool setLifeTimeToBeProportionalToParent;
+
+		[SerializeField, ShowIf(nameof(setLifeTimeToBeProportionalToParent))]
+		private float lifeTimeMultiplier;
+
 		public override bool Stacks => false;
 
 		public override SystemTargets Targets => SystemTargets.Projectile;
 
-		public override string GetTooltip(ushort level)
+		public override string GetTooltip(int level)
 		{
 			string toReturn = "";
+			if (spawnOnCreation)
+				toReturn += $"Creates {numberToSpawn} subprojectile(s).";
 			if (spawnOnDeath)
-				toReturn += $"Explodes into {numberToSpawn} subprojectiles when destroyed";
+				toReturn += $"Explodes into {numberToSpawn} subprojectiles when destroyed.";
 			if (spawnContinuouslyThroughoutLife)
-				toReturn += $"Spawns {numberToSpawn} subprojectiles every {delayBetweenSpawns} second(s)";
+				toReturn += $"Spawns {numberToSpawn} subprojectiles every {delayBetweenSpawns} second{(delayBetweenSpawns == 1 ? "" : "s")}.";
 			return toReturn;
 		}
 
-		public void OnEntityKilled(Entity entity, ushort level)
+		public void OnEntityKilled(Entity entity, EffectWrapper wrapper)
 		{
 			if (spawnOnDeath)
 				SpawnProjectiles(entity);
@@ -93,19 +101,19 @@ namespace Assets.Scripts.Scriptables.Systems
 				float d = i - (numberToSpawn / 2f);
 				var q = entity.transform.rotation * Quaternion.Euler(0, 0, d * spacing);
 
-				ProjectileEntity proj;
-				if (useCustomProjectileSpawnLocation)
-					proj = EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnel, projectile.projectileSpawn.position, q, projectile.Weapon, effects);
-				else
-					proj = EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnel, entity.Position, q, projectile.Weapon, effects);
+				var pos = useCustomProjectileSpawnLocation ? projectile.ProjectileSpawn.position : entity.Position;
+				var proj = EntityDataManager.InstantiateEntity<ProjectileEntity>(shrapnel, pos, q, projectile.Weapon, effects);
 				proj.ParentProjectile = projectile;
 
+				if (setLifeTimeToBeProportionalToParent) // setup projectile data with updated lifetime
+				{
+					ProjectileEntity parent = entity as ProjectileEntity;
+					proj.Lifetime = parent.Lifetime * lifeTimeMultiplier;
+				}
 			}
 		}
 
-
-
-		public void OnEntityEffectAdded(Entity entity, ushort level)
+		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
 			if (spawnOnCreation)
 				SpawnProjectiles(entity);
@@ -113,7 +121,6 @@ namespace Assets.Scripts.Scriptables.Systems
 			if (!spawnContinuouslyThroughoutLife)
 				return;
 
-			//ProjectileEntity projectile = entity as ProjectileEntity;
 			if (entity.Components.TryGetComponent(this, out SpawnProjectilesData data))
 			{
 				data.lastTimeSpawned = entity.TimeAlive;
@@ -123,15 +130,16 @@ namespace Assets.Scripts.Scriptables.Systems
 				data = new SpawnProjectilesData();
 				entity.Components.RegisterComponent<SpawnProjectilesData>(this, data);
 			}
+
 		}
 
-		public void OnEntityEffectRemoved(Entity entity, ushort level)
+		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			if (entity.Components.TryGetComponent(this, out SpawnProjectilesData data))
 				entity.Components.ReleaseComponent<SpawnProjectilesData>(this);
 		}
 
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			if (!spawnContinuouslyThroughoutLife)
 				return;

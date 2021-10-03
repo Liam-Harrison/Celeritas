@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: enemyplanet_orbitwin
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: Time to go!
+    content: "You've destroyed the attacking ships, but several ships below are getting
+      ready for take off. \n\nYour scanners pick up a powerful energy signature coming
+      from a large building on the surface of the planet. With your tractor beam
+      you tear it free and quickly retreat.\n\nIt seems the arcane machinery torn
+      from the planet can be repurposed into {0} modules"
+    options: []
+  hasRewards: 1
+  lootType: 0
+  lootRewardRange: {x: 3, y: 4}
+  moduleRewards: []
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 0
+  waveOutcome: {fileID: 0}
+  waves: []

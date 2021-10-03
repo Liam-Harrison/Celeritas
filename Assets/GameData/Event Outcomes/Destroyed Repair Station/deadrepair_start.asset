@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: deadrepair_start
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: In Ruins...
+    content: "As you arrive at the repair station it very quickly becomes apparent
+      that it was destroyed some time ago. Small hints of infestation at the periphery
+      indicate that it may have self-detonated as the infestation was seeping in.\r\n\r\nYou
+      manage to scrap a module before you move on.\r"
+    options: []
+  hasRewards: 1
+  lootType: 0
+  lootRewardRange: {x: 1, y: 1}
+  moduleRewards: []
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 0
+  waveOutcome: {fileID: 0}
+  waves: []

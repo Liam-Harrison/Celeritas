@@ -34,6 +34,9 @@ namespace Celeritas.Scriptables
 		[SerializeField, TitleGroup("Ship"), TextArea]
 		private string description;
 
+		[SerializeField, TitleGroup("Ship")]
+		private bool isPlaceholder;
+
 		[SerializeField, TitleGroup("Ship Start Settings")]
 		private uint startingHealth;
 
@@ -75,6 +78,11 @@ namespace Celeritas.Scriptables
 		/// </summary>
 		public Rarity Rarity { get => rarity; }
 
+		/// <summary>
+		/// Is this a placeholder ship.
+		/// </summary>
+		public bool IsPlaceholder { get => isPlaceholder; }
+
 		public override string Tooltip => $"A <color=\"orange\">{ShipClass}</color> class ship.";
 
 		protected virtual void OnValidate()
@@ -82,10 +90,10 @@ namespace Celeritas.Scriptables
 			if (prefab != null)
 			{
 				if (prefab.HasComponent<ShipEntity>() == false)
-					Debug.LogError($"Assigned prefab must have a {nameof(ShipEntity)} attatched to it.", this);
+					Debug.LogError($"Assigned prefab must have a {nameof(ShipEntity)} attatched to it ({Title}).", this);
 
 				if (prefab.HasComponent<Rigidbody2D>() == false)
-					Debug.LogError($"Assigned prefab must have a {nameof(Rigidbody2D)} attatched to it.", this);
+					Debug.LogError($"Assigned prefab must have a {nameof(Rigidbody2D)} attatched to it ({Title}).", this);
 			}
 		}
 	}

@@ -43,19 +43,19 @@ namespace Celeritas.Scriptables.Systems
 		public override bool Stacks => false;
 
 		/// <inheritdoc/>
-		public override string GetTooltip(ushort level) => $"Chases target at <color=green>{AngPerSec + (AngPerLevel * level)}°</color> per second.";
+		public override string GetTooltip(int level) => $"Chases target at <color=green>{AngPerSec + (AngPerLevel * level)}°</color> per second.";
 
-		public void OnEntityUpdated(Entity entity, ushort level)
+		public void OnEntityUpdated(Entity entity, EffectWrapper wrapper)
 		{
 			Vector3 target = Vector3.zero;
 			
 			if (entity is ProjectileEntity projectile)
 			{
-				target = projectile.Weapon.AttatchedModule.Ship.Target;
+				target = projectile.Weapon.AttatchedModule.Ship.AimTarget;
 			}
 			else if (entity is WeaponEntity weapon)
 			{
-				target = weapon.AttatchedModule.Ship.Target;
+				target = weapon.AttatchedModule.Ship.AimTarget;
 			}
 
 			var dir = (target - entity.Position).normalized;
@@ -63,7 +63,7 @@ namespace Celeritas.Scriptables.Systems
 			if (Vector3.Dot(entity.Forward, dir) >= 0.975)
 				return;
 
-			var angle = (AngPerSec + AngPerLevel * level) * Time.smoothDeltaTime;
+			var angle = (AngPerSec + AngPerLevel * wrapper.Level) * Time.smoothDeltaTime;
 			if (Vector3.Dot(entity.Right, dir) > 0)
 			{
 				angle = -angle;

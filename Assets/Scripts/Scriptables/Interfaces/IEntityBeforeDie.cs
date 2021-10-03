@@ -11,7 +11,7 @@ namespace Celeritas.Scriptables.Interfaces
 		/// Called when the entity is scheduled to be destroyed.
 		/// </summary>
 		/// <param name="entity">The target entity.</param>
-		/// <param name="level">The level of this effect.</param>
-		void OnEntityBeforeDie(Entity entity, ushort level);
+		/// <param name="wrapper">The level of this effect.</param>
+		void OnEntityBeforeDie(Entity entity, EffectWrapper wrapper);
 	}
 }
