@@ -421,14 +421,11 @@ namespace Celeritas.Game
 			// by default, entities have no health, so this does nothing. Will be overridden by children.
 		}
 
-		protected float collisionDamageMultiplier = 5; // multiplier for all collision damage
-		protected float playerCollisionDamageMultiplier = 0.15f; // multiplier for reducing player damage
-
-		// max damage player can take from 1 collision, as a fraction of their health
-		protected float playerCollisionDamageCapMultiplier = 0.15f; 
+		protected float collisionDamageMultiplier = 10;
+		protected float playerCollisionDamageMultiplier = 0.15f;
 
 		/// <summary>
-		/// Damages other entity with collision damage.
+		/// Damages other entity with collision damage. Damage self with 50% of damage, too.
 		/// Designed to be put into OnEntityHit if you want an entity to apply collision damage.
 		/// </summary>
 		/// <param name="ownerRigidBody">the rigidBody of 'this'.</param>
@@ -446,20 +443,26 @@ namespace Celeritas.Game
 					multiplier *= playerCollisionDamageMultiplier;
 
 				float velocityDifference = Mathf.Abs((ownerRigidBody.velocity - target.Rigidbody.velocity).magnitude); // should always be positive but just in case
-				float averageMass = ((ownerRigidBody.mass + target.Rigidbody.mass) / 2);
+				float averageMass = (ownerRigidBody.mass + target.Rigidbody.mass / 2);
 
 				// momentum is velocity * mass
 				float force = velocityDifference * averageMass * multiplier;
 				if ((int)force == 0)
 					return;
+				
+				other.TakeDamage(this, (int)force);
+				Debug.Log($"{other} taking {force} damage, (multiplier = {multiplier}");
 
-				if (other.PlayerShip && force > (target.Health.MaxValue * playerCollisionDamageCapMultiplier))
-				{
-					//Debug.Log($"{force} exceeds max of {playerCollisionDamageCapMultiplier} * {target.Health.MaxValue}, so will be reduced to {target.Health.MaxValue * playerCollisionDamageCapMultiplier}");
-					force = target.Health.MaxValue * playerCollisionDamageCapMultiplier;
-				}
 
-				other.TakeDamage(this, force);
+				// take half damage yourself
+				// removing for now, as unsure if it is necessary
+				/*if (this.PlayerShip)
+					multiplier = collisionDamageMultiplier * playerCollisionDamageMultiplier;
+				else
+					multiplier = collisionDamageMultiplier;
+
+				force = velocityDifference * ownerRigidBody.mass * multiplier;
+				TakeDamage(this, (int)force / 2);*/
 			}
 		}
 
