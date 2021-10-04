@@ -422,7 +422,7 @@ namespace Celeritas.Game
 		}
 
 		protected float collisionDamageMultiplier = 10;
-		protected float playerCollisionDamageMultiplier = 0.15f;
+		protected float playerCollisionDamageMultiplier = 0.1f;
 
 		/// <summary>
 		/// Damages other entity with collision damage. Damage self with 50% of damage, too.
@@ -451,16 +451,6 @@ namespace Celeritas.Game
 					return;
 				
 				other.TakeDamage(this, (int)force);
-
-				// take half damage yourself
-				// removing for now, as unsure if it is necessary
-				/*if (this.PlayerShip)
-					multiplier = collisionDamageMultiplier * playerCollisionDamageMultiplier;
-				else
-					multiplier = collisionDamageMultiplier;
-
-				force = velocityDifference * ownerRigidBody.mass * multiplier;
-				TakeDamage(this, (int)force / 2);*/
 			}
 		}
 
