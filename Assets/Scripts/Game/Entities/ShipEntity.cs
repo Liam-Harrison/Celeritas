@@ -230,7 +230,7 @@ namespace Celeritas.Game.Entities
 		/// <param name="damage">The amount of damage to take.</param>
 		public override void TakeDamage(Entity attackingEntity, float damage)
 		{
-			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity || attackingEntity == this)
+			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity || attackingEntity is Asteroid || attackingEntity == this)
 			{
 				base.TakeDamage(attackingEntity);
 
