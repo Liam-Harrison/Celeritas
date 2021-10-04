@@ -451,8 +451,6 @@ namespace Celeritas.Game
 					return;
 				
 				other.TakeDamage(this, (int)force);
-				Debug.Log($"{other} taking {force} damage, (multiplier = {multiplier}");
-
 
 				// take half damage yourself
 				// removing for now, as unsure if it is necessary
