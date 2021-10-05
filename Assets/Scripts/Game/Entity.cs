@@ -421,7 +421,7 @@ namespace Celeritas.Game
 			// by default, entities have no health, so this does nothing. Will be overridden by children.
 		}
 
-		protected float collisionDamageMultiplier = 10;
+		protected float collisionDamageMultiplier = 5;
 		protected float playerCollisionDamageMultiplier = 0.15f;
 
 		/// <summary>
