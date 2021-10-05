@@ -428,7 +428,7 @@ namespace Celeritas.Game
 		protected float playerCollisionDamageCapMultiplier = 0.15f; 
 
 		/// <summary>
-		/// Damages other entity with collision damage. Damage self with 50% of damage, too.
+		/// Damages other entity with collision damage.
 		/// Designed to be put into OnEntityHit if you want an entity to apply collision damage.
 		/// </summary>
 		/// <param name="ownerRigidBody">the rigidBody of 'this'.</param>
