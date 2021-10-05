@@ -422,7 +422,7 @@ namespace Celeritas.Game
 		}
 
 		protected float collisionDamageMultiplier = 10;
-		protected float playerCollisionDamageMultiplier = 0.1f;
+		protected float playerCollisionDamageMultiplier = 0.15f;
 
 		/// <summary>
 		/// Damages other entity with collision damage. Damage self with 50% of damage, too.
@@ -443,7 +443,7 @@ namespace Celeritas.Game
 					multiplier *= playerCollisionDamageMultiplier;
 
 				float velocityDifference = Mathf.Abs((ownerRigidBody.velocity - target.Rigidbody.velocity).magnitude); // should always be positive but just in case
-				float averageMass = (ownerRigidBody.mass + target.Rigidbody.mass / 2);
+				float averageMass = ((ownerRigidBody.mass + target.Rigidbody.mass) / 2);
 
 				// momentum is velocity * mass
 				float force = velocityDifference * averageMass * multiplier;
