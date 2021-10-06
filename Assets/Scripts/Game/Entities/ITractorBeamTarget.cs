@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Celeritas.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ namespace Celeritas.Game.Entities
 	interface ITractorBeamTarget
 	{
 		public Rigidbody2D Rigidbody { get; }
+
+		public EntityStatBar Health { get; }
 
 	}
 }

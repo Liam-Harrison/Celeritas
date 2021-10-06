@@ -23,6 +23,8 @@ namespace Celeritas.Game.Entities
 
 		private EntityStatBar health;
 
+		public EntityStatBar Health { get => health; }
+
 		public AsteroidData AsteroidData { get; private set; }
 
 		public Rigidbody2D Rigidbody { get; private set; }
