@@ -259,7 +259,10 @@ namespace Celeritas.Game.Entities
 
 				if (health.IsEmpty())
 				{
-					explosionScript.Explode(this);
+					if (explosionScript != null)
+						explosionScript.Explode( );
+					else
+						KillEntity();
 				}
 			}
 		}
