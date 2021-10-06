@@ -8,17 +8,6 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-	private bool exploding = false;
-	private void Awake()
-	{
-		//exploding = false;
-	}
-
-	//blah blah add enemy options here
-	//[SerializeField]
-	//bool isEnemy;
-
-
 	[SerializeField]
 	protected GameObject smallExplosion;
 	[SerializeField]
@@ -31,20 +20,22 @@ public class Explosion : MonoBehaviour
 	protected int shrapnelMax;
 	[SerializeField]
 	protected int[] explosionsPerStage;
+	[SerializeField]
+	protected Collider2D shipCollider;
+	[SerializeField]
+	protected ShipEntity ship;
 
-	private ShipEntity ship;
-	private Collider2D shipCollider;
 	private float explosionStart;
 	private GameObject tempObject;
 	private int currentStage = 0;
-	public void Explode(ShipEntity ship)
+	private bool exploding = false;
+	public void Explode()
 	{
 		if (exploding == false)
 		{
 			exploding = true;
 			explosionStart = Time.time;
-			shipCollider = ship.GetComponentInChildren<Collider2D>();
-			//disable wsad etc
+			ship.IsStationary = true;
 		}
 	
 		Vector3 center = ship.Position;
@@ -61,14 +52,15 @@ public class Explosion : MonoBehaviour
 				{
 					rnd_point = getRandomPoint(shipCollider.bounds.min, shipCollider.bounds.max);
 					tempObject = Instantiate(smallExplosion);
+					Destroy(tempObject, 4f);
 					tempObject.transform.position = rnd_point;
 					tempObject.GetComponent<ParticleSystem>().Play(true);
-
 				}
 			}
 			else if (currentStage == explosionsPerStage.Length)
 			{
 				tempObject = Instantiate(bigExplosion);
+				Destroy(tempObject, 4f);
 				tempObject.transform.position = center;
 				tempObject.transform.position += new Vector3(0, 0, -5);
 				tempObject.GetComponent<ParticleSystem>().Play(true);
@@ -77,6 +69,7 @@ public class Explosion : MonoBehaviour
 				{
 					rnd_point = getRandomPoint(shipCollider.bounds.min, shipCollider.bounds.max);
 					tempObject = Instantiate(shrapnel[UnityEngine.Random.Range(0,shrapnel.Length-1)]);
+					Destroy(tempObject, 4f);
 					tempObject.GetComponent<Rigidbody2D>().AddForce(UnityEngine.Random.insideUnitCircle *500);
 				}
 				ship.KillEntity();
@@ -92,11 +85,9 @@ public class Explosion : MonoBehaviour
 
 	private void Update()
 	{
-		//Debug.Log("Is this thing on?");
-
 		if (exploding)
 		{
-			Explode(ship);
+			Explode();
 		}
 	}
 
