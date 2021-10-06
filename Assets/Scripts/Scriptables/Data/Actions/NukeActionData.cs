@@ -23,6 +23,9 @@ namespace Celeritas.Scriptables
 		[SerializeField]
 		public float scrapMetalCost;
 
+		[SerializeField]
+		public GameObject nukePrefab;
+
 		/// <inheritdoc/>
 		public override Type ActionType => typeof(NukeAction);
 

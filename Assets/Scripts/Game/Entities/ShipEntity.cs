@@ -520,6 +520,11 @@ namespace Celeritas.Game.Entities
 					LootController.Instance.LootDrop(gain, dropType, Position);
 			}
 		}
+
+		public void SetNuke(GameObject prefab)
+		{
+			Instantiate(prefab, this.transform.position, this.transform.rotation);
+		}
 	}
 
 	/// <summary>

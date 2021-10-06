@@ -1,5 +1,7 @@
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
+using UnityEngine;
+using System.Collections;
 
 namespace Celeritas.Game.Actions
 {
@@ -13,6 +15,10 @@ namespace Celeritas.Game.Actions
 		{
 			var ship = entity as ShipEntity;
 
+			if (ship.PlayerShip == true)
+			{
+				ship.SetNuke(NukeData.nukePrefab);
+			}
 		}
 
 		public override void Initialize(ActionData data, bool isPlayer, Entity owner = null)

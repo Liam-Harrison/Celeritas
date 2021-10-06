@@ -35,13 +35,13 @@ MonoBehaviour:
       Data: true
     - Name: 
       Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
       Data: true
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 5
       Data: false
@@ -64,7 +64,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   title: SHIVA Destruction Core
-  prefab: {fileID: 0}
+  prefab: {fileID: 9164612379305020707, guid: 3b6793f30af31ef489f07bd5f28fd192, type: 3}
   capacityHint: 1
   useChunking: 0
   size: 1
