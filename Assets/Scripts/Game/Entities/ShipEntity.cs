@@ -187,6 +187,26 @@ namespace Celeritas.Game.Entities
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
 
+		public override void OnSpawned()
+		{
+			if (ShipData != null)
+			{
+				foreach (var module in modules)
+				{
+					Debug.Log("Setting module");
+					module.Initalize(this);
+				}
+			}
+
+			base.OnSpawned();
+		}
+
+		public override void OnDespawned()
+		{
+			GenerateLootDrop();
+			base.OnDespawned();
+		}
+
 		protected override void Update()
 		{
 			if (!IsInitalized)
@@ -336,12 +356,6 @@ namespace Celeritas.Game.Entities
 		{
 			int calculatedDamage = Mathf.RoundToInt(damage + damage / 100 * damageModifierPercentage);
 			return calculatedDamage;
-		}
-
-		public override void OnDespawned()
-		{
-			GenerateLootDrop();
-			base.OnDespawned();
 		}
 
 		/// <summary>

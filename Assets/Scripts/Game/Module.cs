@@ -65,6 +65,9 @@ namespace Celeritas.Game
 			
 			if (hasDefaultModule)
 			{
+				if (AttatchedModule != null)
+					RemoveModule();
+
 				SetModule(module, moduleEffects);
 			}
 		}

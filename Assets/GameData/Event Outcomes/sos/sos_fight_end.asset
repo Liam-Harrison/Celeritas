@@ -22,6 +22,8 @@ MonoBehaviour:
   lootType: 0
   lootRewardRange: {x: 2, y: 4}
   moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 0
