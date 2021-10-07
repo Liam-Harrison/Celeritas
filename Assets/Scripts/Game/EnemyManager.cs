@@ -1,6 +1,7 @@
 using Celeritas.AI;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ namespace Celeritas.Game
 	public class EnemyManager : Singleton<EnemyManager>
 	{
 		private readonly List<ShipEntity> ships = new List<ShipEntity>(128);
+
+		public static event Action<int> OnEnemyShipDestroyed;
 
 		/// <summary>
 		/// Get a list of all current enemy ships.
@@ -61,6 +64,7 @@ namespace Celeritas.Game
 		{
 			var ship = entity as ShipEntity;
 			ships.Remove(ship);
+			OnEnemyShipDestroyed?.Invoke(ships.Count);
 
 			if (ships.Count < 1 && WaveManager.Instance != null)
 			{
