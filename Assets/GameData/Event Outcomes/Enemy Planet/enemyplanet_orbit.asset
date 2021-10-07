@@ -16,7 +16,7 @@ MonoBehaviour:
   dialogue:
     title: Writhing
     content: 'As you enter the orbit of the planet, a quick visual appraisal reveals
-      the enitre planet has been entirely overwhelmed by the infestation. Either
+      the entire planet has been entirely overwhelmed by the infestation. Either
       the infection spreads at impossible speeds or has been around a lot longer
       than you thought.
 
@@ -28,6 +28,8 @@ MonoBehaviour:
   lootType: 0
   lootRewardRange: {x: 0, y: 0}
   moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 1
