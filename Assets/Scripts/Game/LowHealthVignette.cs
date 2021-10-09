@@ -49,7 +49,7 @@ namespace Celeritas.Game
 		private float CalculateIntensity()
 		{
 			var p = 1 - Mathf.Clamp01(PlayerController.Instance.PlayerShipEntity.Health.CurrentValue / PlayerController.Instance.PlayerShipEntity.Health.MaxValue);
-			return Mathf.Lerp(0, 1, Mathf.Lerp(0, vignetteThreshold, p));
+			return p;
 		}
 
 		private void ModifyVignetteIntensity()

@@ -5071,6 +5071,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 226690503173609295, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
+      propertyPath: weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 226690503173609295, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 627083987495544363, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
       propertyPath: weight
       value: 0
@@ -5122,6 +5130,18 @@ PrefabInstance:
     - target: {fileID: 1764990478256428807, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
       propertyPath: m_Name
       value: Settings
+      objectReference: {fileID: 0}
+    - target: {fileID: 4911408777014643013, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8813669304308284252, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8813669304308284252, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
+      propertyPath: vignetteThreshold
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22ae3c427efc12146b42b59c4516353d, type: 3}
