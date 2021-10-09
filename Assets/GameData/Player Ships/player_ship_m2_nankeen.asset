@@ -70,5 +70,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: This destroyer focuses on ramming its huge mass into opponents for
     maximum damage.
-  startingHealth: 10000
-  startingShield: 5000
+  isPlaceholder: 0
+  startingHealth: 1000
+  startingShield: 500

@@ -71,5 +71,10 @@ MonoBehaviour:
   catagory: 1
   rarity: 2
   icon: {fileID: 21300000, guid: e5a70bd51f919bd48a7e45336ebfd09b, type: 3}
-  description: Restores health when hitting enemy ships but reduces damage dealt.
+  description: 'Restores health when hitting enemy ships but reduces damage dealt.
+    Leeches 3% of damage dealt to you as life.
+
+
+    Upgrade: 1% additional leech
+    per level.'
   shape: 1

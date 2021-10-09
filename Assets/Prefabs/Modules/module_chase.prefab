@@ -158,6 +158,8 @@ MonoBehaviour:
   shipProjectileEffects:
   - Level: 0
     EffectCollection: {fileID: 11400000, guid: 922abbef8ae38a54da55d963727be36a, type: 2}
+  hasShipActions: 0
+  shipActions: []
 --- !u!114 &4494443437856409355
 MonoBehaviour:
   m_ObjectHideFlags: 0

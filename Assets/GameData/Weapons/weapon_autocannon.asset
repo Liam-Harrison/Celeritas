@@ -71,7 +71,8 @@ MonoBehaviour:
   catagory: 0
   rarity: 0
   icon: {fileID: 21300000, guid: 10cbe54a77ab81f41b055ba452098c0a, type: 3}
-  description: Basic autocannon weapon.
+  description: Basic autocannon weapon. Fires a constant barrage of moderately fast
+    projectiles.
   shape: 0
   projectile: {fileID: 11400000, guid: 341054bb030d7954ea09976c07126d5b, type: 2}
   rateOfFire: 5

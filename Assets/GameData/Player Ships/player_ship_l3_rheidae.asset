@@ -62,5 +62,6 @@ MonoBehaviour:
   description: An experimental ship attempting to convert excess engine power to
     shields. Unfortunately the conversion process is inefficient, leaving you slow,
     but well protected.
-  startingHealth: 10000
-  startingShield: 100000
+  isPlaceholder: 0
+  startingHealth: 500
+  startingShield: 2500

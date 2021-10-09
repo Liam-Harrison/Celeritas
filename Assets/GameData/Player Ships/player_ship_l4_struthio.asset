@@ -62,5 +62,6 @@ MonoBehaviour:
   description: Less a ship and more an enormous hunk of metal rocketed through space
     by comically oversized engines. You may not have much in the way of guns, but
     you will win EVERY game of chicken.
-  startingHealth: 18000
-  startingShield: 25000
+  isPlaceholder: 0
+  startingHealth: 2500
+  startingShield: 1000

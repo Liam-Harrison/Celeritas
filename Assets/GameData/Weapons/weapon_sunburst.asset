@@ -75,8 +75,8 @@ MonoBehaviour:
     the enemy. Difficult to aim, but very good area damage.
   shape: 0
   projectile: {fileID: 11400000, guid: 5744994016ea6ce489185a43e351c253, type: 2}
-  rateOfFire: 20
+  rateOfFire: 15
   charge: 1
-  maxCharge: 15
+  maxCharge: 20
   autofire: 1
   placeholder: 0

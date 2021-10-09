@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Modify Projectile Count
   extraProjectileCount: 2
-  extraProjectilesPerLevel: 2
+  extraProjectilesPerLevel: 1
   spreadScale: 5
   randomSpread: 0
   customProjectile: 0

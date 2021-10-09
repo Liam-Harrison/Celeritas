@@ -71,5 +71,10 @@ MonoBehaviour:
   catagory: 0
   rarity: 1
   icon: {fileID: 21300000, guid: 377b7ec67530195498ff0ce681d913f5, type: 3}
-  description: Increased projectile damage per metre travelled.
+  description: 'Increased projectile damage per metre travelled. Projectiles gain
+    5% increased damage for each metre travelled up to 6 metres.
+
+
+    Upgrade: 2%
+    additional damage per metre per level. Cap remains at 6 metres. '
   shape: 4

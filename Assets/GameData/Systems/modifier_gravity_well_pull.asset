@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Gravity Well - pull enemies in
   flatForceMultiplier: 0.6
-  extraForceMultiplierPerLevel: 0.33
+  extraForceMultiplierPerLevel: 0.3
   forceVariation:
     serializedVersion: 2
     m_Curve:

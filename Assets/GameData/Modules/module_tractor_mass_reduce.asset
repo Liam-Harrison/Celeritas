@@ -71,7 +71,10 @@ MonoBehaviour:
   catagory: 2
   rarity: 1
   icon: {fileID: 21300000, guid: ae32df141ea3e7d41a16063c4a59bf42, type: 3}
-  description: Using the power of science, this module reduces the effective mass
-    of any object you grab with your tractor beam. This allows you to pull enemies
-    into the firing lines, or throw them into their allies with ease.
+  description: 'Using the power of science, this module reduces the effective mass
+    of any object you grab with your tractor beam. Mass reduced by 30%.
+
+
+    Upgrade:
+    Mass further reduced by 10% for each additional level.'
   shape: 1

@@ -61,5 +61,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: This ship pushes customizability and durability to limit of the corvette
     class, at the cost of offence and turning speed.
-  startingHealth: 2500
-  startingShield: 7500
+  isPlaceholder: 0
+  startingHealth: 250
+  startingShield: 625

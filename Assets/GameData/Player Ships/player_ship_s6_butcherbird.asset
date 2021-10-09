@@ -61,5 +61,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: An experimental prototype corvette sporting a range of bleeding edge
     technology. Unlocked in the very-late game.
-  startingHealth: 9000
-  startingShield: 15000
+  isPlaceholder: 0
+  startingHealth: 900
+  startingShield: 1500

@@ -61,5 +61,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: The down armoured destroyer hull has been somewhat gutted for shield
     generators and customizability.
-  startingHealth: 1500
-  startingShield: 35000
+  isPlaceholder: 0
+  startingHealth: 150
+  startingShield: 1500

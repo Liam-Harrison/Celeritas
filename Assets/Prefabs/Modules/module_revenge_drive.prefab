@@ -184,6 +184,8 @@ MonoBehaviour:
   shipWeaponEffects: []
   hasShipProjectileEffects: 0
   shipProjectileEffects: []
+  hasShipActions: 0
+  shipActions: []
 --- !u!114 &658031661430561142
 MonoBehaviour:
   m_ObjectHideFlags: 0

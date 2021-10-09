@@ -71,5 +71,9 @@ MonoBehaviour:
   catagory: 0
   rarity: 4
   icon: {fileID: 21300000, guid: a254ef51069cb5c47b0672194a4b34e6, type: 3}
-  description: Projectiles stun the target.
+  description: 'Projectiles stun the target on hit for 1 second.
+
+
+    Upgrade: Stun
+    duration increased by 0.5 seconds per level.'
   shape: 1

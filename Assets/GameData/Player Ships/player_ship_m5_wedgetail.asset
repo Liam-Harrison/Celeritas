@@ -61,5 +61,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: This powerful destroyer is slow, but can match some battleships in
     a slugfest.
-  startingHealth: 8000
-  startingShield: 40000
+  isPlaceholder: 0
+  startingHealth: 800
+  startingShield: 1100

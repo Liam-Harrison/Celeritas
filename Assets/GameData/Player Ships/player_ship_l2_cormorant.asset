@@ -61,5 +61,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: A generalist ship-of-the-line, used by militaries everywhere, before
     the plague.
-  startingHealth: 15000
-  startingShield: 25000
+  isPlaceholder: 0
+  startingHealth: 2000
+  startingShield: 1250

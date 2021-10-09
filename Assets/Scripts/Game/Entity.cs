@@ -425,7 +425,7 @@ namespace Celeritas.Game
 		protected float playerCollisionDamageMultiplier = 0.15f; // multiplier for reducing player damage
 
 		// max damage player can take from 1 collision, as a fraction of their health
-		protected float playerCollisionDamageCapMultiplier = 0.15f; 
+		protected float playerCollisionDamageCapMultiplier = 0.30f; 
 
 		/// <summary>
 		/// Damages other entity with collision damage.
