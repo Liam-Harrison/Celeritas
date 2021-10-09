@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vignetteVolume: {fileID: 226690503173609295}
-  vignetteThreshold: 0.8
+  vignetteThreshold: 0.5
   sfx: {fileID: 0}
 --- !u!82 &4210258547385732026
 AudioSource:

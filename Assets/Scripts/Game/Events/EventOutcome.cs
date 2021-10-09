@@ -104,32 +104,32 @@ namespace Celeritas.Game.Events
 			if (hasDialogue)
 			{
 				dialogue.DynamicContent = GetFullDialogueContent(dialogue.content, lootRewardOutcome, moduleDataRewardOutcome, healthChangeOutcome);
-				DialogueManager.Instance.ShowDialogue(dialogue, (i) => DialogueFinished(i, gameEvent));
+				DialogueManager.Instance.ShowDialogue(dialogue, (i) => DialogueFinished(i, gameEvent, lootRewardOutcome, moduleDataRewardOutcome, healthChangeOutcome));
 			}
 			else
 			{
-				CompleteOutcome(false, gameEvent);
+				CompleteOutcome(false, gameEvent, lootRewardOutcome, moduleDataRewardOutcome, healthChangeOutcome);
 			}
 		}
 
-		private void DialogueFinished(int i, GameEvent gameEvent)
+		private void DialogueFinished(int i, GameEvent gameEvent, int? lootRewardOutcome = null, ModuleData moduleDataRewardOutcome = null, float? healthChange = null)
 		{
 			if (i != -1)
 			{
 				var option = dialogue.options[i];
 				if (option.outcome != null)
 				{
-					CompleteOutcome(true, gameEvent);
+					CompleteOutcome(true, gameEvent, lootRewardOutcome, moduleDataRewardOutcome, healthChange);
 					option.outcome.DoEventOutcome(gameEvent);
 				}
 				else
 				{
-					CompleteOutcome(false, gameEvent);
+					CompleteOutcome(false, gameEvent, lootRewardOutcome, moduleDataRewardOutcome, healthChange);
 				}
 			}
 			else
 			{
-				CompleteOutcome(false, gameEvent);
+				CompleteOutcome(false, gameEvent, lootRewardOutcome, moduleDataRewardOutcome, healthChange);
 			}
 		}
 

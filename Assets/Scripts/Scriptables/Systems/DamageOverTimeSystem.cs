@@ -1,5 +1,4 @@
 ﻿using Celeritas.Game;
-using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
 using Celeritas.Scriptables.Interfaces;
 using Sirenix.OdinInspector;
@@ -13,7 +12,6 @@ namespace Assets.Scripts.Scriptables.Systems
 	[CreateAssetMenu(fileName = "New DoT System", menuName = "Celeritas/Modifiers/Take DoT")]
 	class DamageOverTimeSystem : ModifierSystem, IEntityEffectAdded, IEntityUpdated, IEntityEffectRemoved, IEntityResetable
 	{
-
 		public class DamageOverTimeData
 		{
 			public float timeApplied;
