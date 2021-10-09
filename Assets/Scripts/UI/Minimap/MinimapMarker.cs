@@ -1,4 +1,5 @@
 ﻿using Celeritas.Game;
+using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
 using Celeritas.Game.Interfaces;
 using Sirenix.OdinInspector;
@@ -21,6 +22,9 @@ namespace Celeritas.UI
 		[SerializeField]
 		private Color lootColor = Color.white;
 
+		[SerializeField]
+		private Color rareLootColor = Color.magenta;
+
 		public Entity Entity { get; private set; }
 
 		public RectTransform RectTransform { get; private set; }
@@ -31,8 +35,13 @@ namespace Celeritas.UI
 		{
 			Entity = entity;
 
-			if (entity is LootEntity)
-				sprite.color = lootColor;
+			if (entity is LootEntity loot)
+			{
+				if (loot.lootData.LootType == LootType.Module)
+					sprite.color = rareLootColor;
+				else
+					sprite.color = lootColor;
+			}
 			else if (entity.IsPlayer)
 				sprite.color = playerColor;
 			else

@@ -151,10 +151,15 @@ namespace Celeritas.Game.Events
 			{
 				waveParentEvent = gameEvent;
 				WaveManager.OnWaveEnded += WaveFinished;
+				
+				int numberOfEnemies = 0;
 				foreach (var wave in waves)
 				{
 					WaveManager.Instance.StartWave(wave);
+					numberOfEnemies += wave.ShipPool.Length;
 				}
+				CombatHUD.Instance.PrintNotification($"Defeat all enemies! {numberOfEnemies} remaining.");
+				EnemyManager.OnEnemyShipDestroyed += EnemyShipDestroyed;
 			}
 			else if (!hasOutcome)
 			{
@@ -165,6 +170,8 @@ namespace Celeritas.Game.Events
 		private void WaveFinished()
 		{
 			WaveManager.OnWaveEnded -= WaveFinished;
+			EnemyManager.OnEnemyShipDestroyed -= EnemyShipDestroyed;
+			CombatHUD.Instance.PrintNotification("All enemies defeated!");
 
 			if (waveOutcome != null)
 				waveOutcome.DoEventOutcome(waveParentEvent);
@@ -172,6 +179,14 @@ namespace Celeritas.Game.Events
 			{
 				waveParentEvent.EndEvent();
 			}
+		}
+
+		private void EnemyShipDestroyed(int count)
+		{
+			if (count == 1)
+				CombatHUD.Instance.PrintNotification($"{count} enemy remaining.");
+			else if (count != 0)
+				CombatHUD.Instance.PrintNotification($"{count} enemies remaining.");
 		}
 
 		private string GetFullDialogueContent(string content, int? modules, ModuleData reward, float? health)

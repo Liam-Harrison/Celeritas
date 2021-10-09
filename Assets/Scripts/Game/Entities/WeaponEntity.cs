@@ -87,6 +87,8 @@ namespace Celeritas.Game.Entities
 				return;
 
 			base.Update();
+			if (Time.deltaTime == 0) // if paused
+				return;
 
 			if (Firing)
 			{
@@ -120,10 +122,12 @@ namespace Celeritas.Game.Entities
 				}
 				//TODO: add animation to show weapon is charging (see: git issue #35)
 			}
-			else if (Time.time >= lastFired + (1f / rateOfFire))
+			//else if (Time.time >= lastFired + (1f / rateOfFire))
+			else if (TimeAlive >= lastFired + (1f / rateOfFire))
 			{
 				Fire();
-				lastFired = Time.time;
+				//lastFired = Time.time;
+				lastFired = TimeAlive;
 			}
 		}
 

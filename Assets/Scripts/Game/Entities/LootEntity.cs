@@ -51,7 +51,7 @@ namespace Celeritas.Game.Entities
 
 			if (m <= SUCK_DIST)
 			{
-				var p = Mathf.Sin(1 - Mathf.Clamp01(m / SUCK_DIST) * (Mathf.PI / 2));
+				var p = Mathf.Sin((1 - Mathf.Clamp01(m / SUCK_DIST)) * (Mathf.PI / 2));
 				var change = n * VEL_PER_SEC * p;
 				vel = Vector3.ClampMagnitude(vel + ((change - vel) * Time.smoothDeltaTime), MAX_VEL);
 			}

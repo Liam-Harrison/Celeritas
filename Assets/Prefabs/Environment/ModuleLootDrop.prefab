@@ -11,6 +11,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ModuleLootDrop
       objectReference: {fileID: 0}
+    - target: {fileID: 4878600871423341907, guid: a4cfd1b38baed4445935009c215a0ce7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878600871423341907, guid: a4cfd1b38baed4445935009c215a0ce7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5017682634858613763, guid: a4cfd1b38baed4445935009c215a0ce7, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -59,9 +67,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7142522418986918248, guid: a4cfd1b38baed4445935009c215a0ce7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0d7e4b41c6d3ab041bb26ffab0b1fef5, type: 3}
     - target: {fileID: 7432556271293789443, guid: a4cfd1b38baed4445935009c215a0ce7, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 29eb27f57699b5d47838dcff61ec13cc, type: 2}
+    - target: {fileID: 8355995794266707474, guid: a4cfd1b38baed4445935009c215a0ce7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4cfd1b38baed4445935009c215a0ce7, type: 3}

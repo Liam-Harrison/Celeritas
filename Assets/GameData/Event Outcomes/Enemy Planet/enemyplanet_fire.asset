@@ -15,7 +15,7 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: Huh...
-    content: 'Turns out planets are a bit big. You projectiles just fall into the
+    content: 'Turns out planets are a bit big. Your projectiles just fall into the
       atmosphere, seemingly achieving nothing.
 
 
@@ -27,6 +27,8 @@ MonoBehaviour:
   lootType: 0
   lootRewardRange: {x: 0, y: 0}
   moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 1
