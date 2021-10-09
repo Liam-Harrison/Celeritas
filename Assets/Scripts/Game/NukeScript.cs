@@ -3,7 +3,6 @@ using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Collections;
-using TMPro;
 using UnityEngine;
 
 namespace Celeritas.Game.Entities
@@ -25,13 +24,10 @@ namespace Celeritas.Game.Entities
 
 		private Material material;
 
-		private 
-
 		// Start is called before the first frame update
 		void Start()
 		{
 			material = GetComponent<MeshRenderer>().material;
-
 		}
 
 		// Update is called once per frame

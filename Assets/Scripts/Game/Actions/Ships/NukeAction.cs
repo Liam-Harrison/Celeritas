@@ -25,6 +25,7 @@ namespace Celeritas.Game.Actions
 					if (ship.PlayerShip == true)
 					{
 						ship.SetNuke(NukeData.nukePrefab, (NukeData.damage + (NukeData.damagePerLevel * level)), NukeData.duration);
+						ship.Immortality(NukeData.duration);
 						ship.ColorShift(NukeData.duration, Color.white);
 					}
 				//}
