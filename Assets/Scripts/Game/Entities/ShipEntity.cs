@@ -340,21 +340,20 @@ namespace Celeritas.Game.Entities
 
 		/// <summary>
 		/// Current damage modifer on ship.
-		/// Default is 0, negative value = takes less damage, positive value = takes more damage.
+		/// Default is 0, negative value = less damage, positive value = takes more damage.
 		/// </summary>
-		private int damageModifierPercentage = 0;
+		private float damageModifierPercentage = 0;
 
-		public int DamageModifierPercentage { get => damageModifierPercentage; set => damageModifierPercentage = value; }
+		public float DamageModifierPercentage { get => damageModifierPercentage; set => damageModifierPercentage = value; }
 
 		/// <summary>
 		///	Calculates the amount of damage to apply after the damage modifier has been applied.
 		/// </summary>
 		/// <param name="damage">The original amount of damage taken.</param>
 		/// <returns>The amount of damage to take after the damage modifier has been applied</returns>
-		private int CalculateDamage(float damage)
+		private float CalculateDamage(float damage)
 		{
-			int calculatedDamage = Mathf.RoundToInt(damage + damage / 100 * damageModifierPercentage);
-			return calculatedDamage;
+			return damage + (damage * damageModifierPercentage);
 		}
 
 		/// <summary>

@@ -16,27 +16,27 @@ namespace Celeritas.Scriptables.Systems
 	public class DamageResistanceSystem : ModifierSystem, IEntityEffectAdded, IEntityEffectRemoved
 	{
 
-		[SerializeField, PropertyRange(-100, 100), Title("Damage Taken Modifier Percentage", "Zero = no mutiplier, negative value = takes less damage, positive value = takes more damage.")]
-		private int amount;
+		[SerializeField, PropertyRange(-100, 100), Title("Damage Taken Modifier Percentage", "Zero = no mutiplier, -1 = 100% less damage, 1 = 100% more damage.")]
+		private float amount;
 
 		[SerializeField, PropertyRange(-100, 100), Title("Damage Taken Modifier Percentage added per level", "Amount given on top of the base amount.")]
-		private int amountExtraPerLevel;
+		private float amountExtraPerLevel;
 
 		/// <summary>
 		/// The amount this system modifies damage taken
 		/// </summary>
-		public int Amount { get => amount; }
+		public float Amount { get => amount; }
 
 		/// <summary>
 		/// How much the damage taken modifier increases per level
 		/// </summary>
-		public int AmountExtraPerLevel { get => amountExtraPerLevel; }
+		public float AmountExtraPerLevel { get => amountExtraPerLevel; }
 
 		public override bool Stacks => true;
 
 		public override SystemTargets Targets => SystemTargets.Ship;
 
-		public override string GetTooltip(int level) => $"Reduces amount of damage taken by <color=green>{(Amount + (AmountExtraPerLevel * level)):0}%</color>.";
+		public override string GetTooltip(int level) => $"Reduces amount of damage taken by <color=green>{Amount + (AmountExtraPerLevel * level):0}%</color>.";
 
 		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
