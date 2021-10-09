@@ -172,7 +172,7 @@ namespace Celeritas.UI.Runstart
 				if (data.IsPlaceholder)
 					continue;
 
-				var ship = EntityDataManager.InstantiateEntity<PlayerShipEntity>(data, forceIsPlayer: true);
+				var ship = EntityDataManager.InstantiateEntity<PlayerShipEntity>(data, forceIsPlayer: true, dontPool: true);
 
 				ship.IsStationary = true;
 				ship.gameObject.SetActive(false);

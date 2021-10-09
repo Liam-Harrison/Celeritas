@@ -1,3 +1,4 @@
+using Celeritas.Game.Controllers;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
@@ -97,6 +98,12 @@ namespace Celeritas.Game.Entities
 					if (module != null)
 						module.RemoveModule();
 				}
+			}
+
+			var pc = GetComponent<PlayerController>();
+			if (pc != null)
+			{
+				Destroy(pc);
 			}
 		}
 	}

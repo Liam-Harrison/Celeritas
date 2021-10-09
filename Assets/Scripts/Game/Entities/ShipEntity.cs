@@ -193,7 +193,6 @@ namespace Celeritas.Game.Entities
 			{
 				foreach (var module in modules)
 				{
-					Debug.Log("Setting module");
 					module.Initalize(this);
 				}
 			}
