@@ -58,11 +58,14 @@ public class ScreenShake : MonoBehaviour
 	private float time;
 	public void triggerShake(float shieldValue)
 	{
-		if (shieldValue == 0)
+		if (shieldValue <= 0)
 		{
 			isShaking = true;
 			shakeTime = time;
-			source.PlayOneShot(shakeSfx);
+			if (shakeSfx != null)
+			{
+				source.PlayOneShot(shakeSfx);
+			}
 		}
 	}
 }
