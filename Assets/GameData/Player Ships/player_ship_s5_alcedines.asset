@@ -63,4 +63,4 @@ MonoBehaviour:
     class, at the cost of offence and turning speed.
   isPlaceholder: 0
   startingHealth: 250
-  startingShield: 750
+  startingShield: 625

@@ -341,7 +341,7 @@ MonoBehaviour:
   timeToPlayOnDestroyEffect: 0
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
-  level: 1
+  level: 0
   hasShipEffects: 0
   shipEffects: []
   hasShipWeaponEffects: 0

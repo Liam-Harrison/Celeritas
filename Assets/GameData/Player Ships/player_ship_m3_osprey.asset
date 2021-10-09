@@ -62,5 +62,5 @@ MonoBehaviour:
   description: This destroyer eschews customizability and shield generators for maximum
     firepower.
   isPlaceholder: 0
-  startingHealth: 600
+  startingHealth: 2000
   startingShield: 0

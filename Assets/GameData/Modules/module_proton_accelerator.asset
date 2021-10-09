@@ -74,6 +74,6 @@ MonoBehaviour:
   description: 'Increases your weapons rate of fire by 25%.
 
 
-    Each additional
-    level increases rate of fire by a further 25% (Additively).'
+    Upgrade: increases
+    rate of fire by a further 25%.'
   shape: 1

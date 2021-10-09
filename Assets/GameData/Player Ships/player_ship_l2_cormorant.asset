@@ -62,5 +62,5 @@ MonoBehaviour:
   description: A generalist ship-of-the-line, used by militaries everywhere, before
     the plague.
   isPlaceholder: 0
-  startingHealth: 1500
-  startingShield: 2500
+  startingHealth: 2000
+  startingShield: 1250

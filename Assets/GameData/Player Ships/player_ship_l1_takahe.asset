@@ -62,5 +62,5 @@ MonoBehaviour:
   description: "This is a relatively small dreadnought, fast for it\u2019s class.
     Thankfully, it\u2019s still a dreadnought and therefore enormous."
   isPlaceholder: 0
-  startingHealth: 1000
-  startingShield: 2500
+  startingHealth: 1500
+  startingShield: 1500

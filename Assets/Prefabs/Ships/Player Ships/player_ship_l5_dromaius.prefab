@@ -495,13 +495,18 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 4c32c870bdc025a41afc515c8f6b6d93, type: 2}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: ShieldRegenAmount
+      Entry: 4
+      Data: 50
+    - Name: ShieldRegenDelay
+      Entry: 4
+      Data: 4
     - Name: inventory
       Entry: 7
       Data: 0|Celeritas.Scriptables.ModuleData[,], Assembly-CSharp
@@ -512,8 +517,8 @@ MonoBehaviour:
       Entry: 1
       Data: 8|4
     - Name: 
-      Entry: 10
-      Data: 0
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 6
       Data: 
@@ -650,7 +655,6 @@ MonoBehaviour:
   - {fileID: 7207974343857783261}
   - {fileID: 1387327797113249344}
   - {fileID: 6123858116073016789}
-  damageModifierPercentage: 0
   selectionViewSize: 8
   gameViewSize: 25
   buildViewSize: 30

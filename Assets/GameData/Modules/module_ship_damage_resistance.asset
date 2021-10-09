@@ -71,6 +71,9 @@ MonoBehaviour:
   catagory: 1
   rarity: 0
   icon: {fileID: 21300000, guid: d49094c1f2b72d847855d707b28d36c9, type: 3}
-  description: Reduces damage taken by 15% with an additional 10% for each level
-    of the module.
+  description: 'Reduces damage taken by 15%.
+
+
+    Upgrade: 5% additional damage
+    reduction per level of the module.'
   shape: 4

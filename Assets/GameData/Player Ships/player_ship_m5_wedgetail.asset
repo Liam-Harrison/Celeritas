@@ -63,4 +63,4 @@ MonoBehaviour:
     a slugfest.
   isPlaceholder: 0
   startingHealth: 800
-  startingShield: 4000
+  startingShield: 1100

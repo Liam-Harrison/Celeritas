@@ -1576,15 +1576,18 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 37a8333f3d207ce4d81cb5faa19d5389, type: 2}
-    - {fileID: 11400000, guid: 4c32c870bdc025a41afc515c8f6b6d93, type: 2}
-    - {fileID: 11400000, guid: e1db92f30cc85e0468276a73953ef7cc, type: 2}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: ShieldRegenAmount
+      Entry: 4
+      Data: 50
+    - Name: ShieldRegenDelay
+      Entry: 4
+      Data: 4
     - Name: inventory
       Entry: 7
       Data: 0|Celeritas.Scriptables.ModuleData[,], Assembly-CSharp
@@ -1595,20 +1598,20 @@ MonoBehaviour:
       Entry: 1
       Data: 6|2
     - Name: 
-      Entry: 10
-      Data: 0
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 6
       Data: 
     - Name: 
-      Entry: 10
-      Data: 1
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 6
       Data: 
     - Name: 
-      Entry: 10
-      Data: 2
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 6
       Data: 
@@ -1638,6 +1641,8 @@ MonoBehaviour:
       Data: 
   hasDefaultEffects: 0
   defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
@@ -1674,7 +1679,6 @@ MonoBehaviour:
   - {fileID: 470211447622177922}
   - {fileID: 6296071709792087800}
   - {fileID: 1215044021434596717}
-  damageModifierPercentage: 0
   selectionViewSize: 8
   gameViewSize: 25
   buildViewSize: 30

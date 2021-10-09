@@ -13,7 +13,5 @@ MonoBehaviour:
   m_Name: modifier_vampire_projectiles
   m_EditorClassIdentifier: 
   title: Vampiric Projectiles
-  percentage: 10
-  damageReducedBy: 15
-  percentageExtraPerLevel: 5
-  damageReducedByPerLevel: 5
+  percentage: 3
+  percentageExtraPerLevel: 1

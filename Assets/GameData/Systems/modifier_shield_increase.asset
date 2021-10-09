@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: modifier_shield_increase
   m_EditorClassIdentifier: 
   title: Shield Booster
-  amount: 0.5
-  amountExtraPerLevel: 0.33
+  amount: 0.33
+  amountExtraPerLevel: 0.1

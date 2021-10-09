@@ -62,5 +62,5 @@ MonoBehaviour:
   description: This fast and comparatively durable corvette sports 2 weapons at the
     cost of turn-speed and module slots.
   isPlaceholder: 0
-  startingHealth: 200
-  startingShield: 1000
+  startingHealth: 400
+  startingShield: 650

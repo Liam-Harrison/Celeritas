@@ -62,5 +62,5 @@ MonoBehaviour:
   description: Very basic and fast ship that will allow players to get a feel for
     the controls in their first few missions.
   isPlaceholder: 0
-  startingHealth: 200
+  startingHealth: 500
   startingShield: 500

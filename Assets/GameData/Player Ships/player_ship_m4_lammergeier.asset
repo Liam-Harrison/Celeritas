@@ -63,4 +63,4 @@ MonoBehaviour:
     generators and customizability.
   isPlaceholder: 0
   startingHealth: 150
-  startingShield: 3500
+  startingShield: 1500

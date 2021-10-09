@@ -63,4 +63,4 @@ MonoBehaviour:
     the right upgrades.
   isPlaceholder: 0
   startingHealth: 500
-  startingShield: 1500
+  startingShield: 1250

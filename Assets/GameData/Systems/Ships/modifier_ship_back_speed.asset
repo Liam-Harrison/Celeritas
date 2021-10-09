@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Ship Speed Back
   affectedDirections: 4
-  amount: 1.1
+  amount: 0.2
   amountExtraPerLevel: 0.1

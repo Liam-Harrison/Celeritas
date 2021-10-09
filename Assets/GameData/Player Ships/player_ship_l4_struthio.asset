@@ -63,5 +63,5 @@ MonoBehaviour:
     by comically oversized engines. You may not have much in the way of guns, but
     you will win EVERY game of chicken.
   isPlaceholder: 0
-  startingHealth: 1800
-  startingShield: 2500
+  startingHealth: 2500
+  startingShield: 1000

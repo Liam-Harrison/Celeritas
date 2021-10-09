@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Deflective Plating
   amount: -15
-  amountExtraPerLevel: -10
+  amountExtraPerLevel: -5

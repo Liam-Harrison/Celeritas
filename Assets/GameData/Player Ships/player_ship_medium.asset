@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: player_ship_medium
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 0
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -69,6 +69,6 @@ MonoBehaviour:
   shipClass: 0
   icon: {fileID: 21300000, guid: f714725e334a1174681c0dd57665666b, type: 3}
   description: Medium Ship Description
-  isPlaceholder: 0
+  isPlaceholder: 1
   startingHealth: 1000
   startingShield: 500

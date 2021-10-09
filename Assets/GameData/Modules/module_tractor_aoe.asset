@@ -71,7 +71,11 @@ MonoBehaviour:
   catagory: 2
   rarity: 1
   icon: {fileID: 21300000, guid: e3c0ea27e45e6f145aa99d2dc70b0087, type: 3}
-  description: Your tractor beam now effects all entities in an area around your
+  description: 'Your tractor beam now effects all entities in an area around your
     target, rather than a single entities. Note that different entities of differing
     mass may be moved at varying speeds by the beam.
+
+
+    Upgrade: Increases the
+    radius that the tractor beam targets.'
   shape: 1

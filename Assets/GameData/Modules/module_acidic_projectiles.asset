@@ -71,6 +71,10 @@ MonoBehaviour:
   catagory: 0
   rarity: 0
   icon: {fileID: 21300000, guid: b397717f6ae1d104692085f43338844f, type: 3}
-  description: Your projectiles are infused with acid, dealing Damage Over Time to
-    enemy ships
+  description: 'Your projectiles are infused with acid, dealing 4 Damage per second
+    to enemy ships for 4 seconds after they are hit.
+
+
+    Upgrade: +1 second duration
+    per level.'
   shape: 1

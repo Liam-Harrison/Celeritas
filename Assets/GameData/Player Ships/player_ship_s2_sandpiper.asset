@@ -63,4 +63,4 @@ MonoBehaviour:
     on a dime.
   isPlaceholder: 0
   startingHealth: 200
-  startingShield: 1000
+  startingShield: 650

@@ -71,6 +71,10 @@ MonoBehaviour:
   catagory: 1
   rarity: 4
   icon: {fileID: 21300000, guid: d8f1bee4770ec434083b24ce48178b5e, type: 3}
-  description: "When the player takes damage, they gets a temporary\n damage boost,
-    based on the amount of damage taken."
+  description: 'When the player takes damage, they gain a temporary damage boost,
+    based on the amount of damage taken.
+
+
+    Upgrade: Further increases damage
+    gained from damage taken.'
   shape: 4

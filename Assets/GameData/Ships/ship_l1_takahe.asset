@@ -62,5 +62,6 @@ MonoBehaviour:
   description: "Ship Desc: This is a relatively small dreadnought, fast for it\u2019s
     class. Thankfully, it\u2019s still a dreadnought and therefore enormous.\n\nAI
     Desc: [TBD]"
+  isPlaceholder: 0
   startingHealth: 250
-  startingShield: 625
+  startingShield: 500

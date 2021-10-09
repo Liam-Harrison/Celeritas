@@ -63,5 +63,5 @@ MonoBehaviour:
     shields. Unfortunately the conversion process is inefficient, leaving you slow,
     but well protected.
   isPlaceholder: 0
-  startingHealth: 1000
-  startingShield: 7500
+  startingHealth: 500
+  startingShield: 2500

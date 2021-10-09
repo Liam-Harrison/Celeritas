@@ -71,5 +71,10 @@ MonoBehaviour:
   catagory: 0
   rarity: 3
   icon: {fileID: 21300000, guid: 99639cdda4d4c23459349b762bad1143, type: 3}
-  description: Causes Projectiles to target your cursor
+  description: 'Causes Projectiles to follow your aim. (Not compatible with homing
+    projectiles). Projectiles follow your aim, turning up to 180 degrees per second.
+
+
+    Upgrade:
+    Turn speed increased by 50 degree per second per level.'
   shape: 2
