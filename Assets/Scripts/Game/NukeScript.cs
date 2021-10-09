@@ -3,6 +3,7 @@ using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 namespace Celeritas.Game.Entities
@@ -11,22 +12,38 @@ namespace Celeritas.Game.Entities
 	{
 		public float delay = 3f;
 
-		private float countDown;
+		public bool delaySet = false;
+
+		public float damage = 750;
+
+		private float countDown = 1;
 
 		private bool hasExploded = false;
 
-		public CircleCollider2D collider;
+		[SerializeField]
+		private CircleCollider2D collider;
+
+		private Material material;
+
+		private 
 
 		// Start is called before the first frame update
 		void Start()
 		{
-			countDown = delay;
+			material = GetComponent<MeshRenderer>().material;
+
 		}
 
 		// Update is called once per frame
 		void Update()
 		{
-			countDown -= Time.deltaTime;
+			if (delaySet == true)
+			{
+				countDown -= Time.deltaTime;
+			}
+
+			material.color = Color.Lerp(Color.red, Color.white, countDown);
+
 			if (countDown <= 0 && hasExploded == false)
 			{
 				Explode();
@@ -38,7 +55,7 @@ namespace Celeritas.Game.Entities
 		{
 			if (collider)
 			{
-				StartCoroutine(DeletionTimer(1f));
+				StartCoroutine(DeletionTimer(0.1f));
 			}
 		}
 
@@ -63,7 +80,7 @@ namespace Celeritas.Game.Entities
 			if (other.PlayerShip == true)
 				return;
 
-			other.TakeDamage(other, 750);
+			other.TakeDamage(other, damage);
 		}
 	}
 }

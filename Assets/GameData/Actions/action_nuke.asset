@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 1dc64af4e33f845f6aa34f04a9f67676, type: 3}
   cooldownSeconds: 5
   isPassive: 0
-  duration: 0.5
+  duration: 3
   damage: 750
   damagePerLevel: 250
   scrapMetalCost: 50

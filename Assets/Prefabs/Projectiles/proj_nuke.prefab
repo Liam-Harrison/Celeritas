@@ -96,7 +96,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 3
+  delaySet: 0
+  damage: 750
   collider: {fileID: 6259374363112183660}
+  lerpTime: 0.548
 --- !u!58 &6259374363112183660
 CircleCollider2D:
   m_ObjectHideFlags: 0

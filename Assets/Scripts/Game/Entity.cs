@@ -483,5 +483,10 @@ namespace Celeritas.Game
 		{
 			CombatHUD.Instance.ColorFlash(duration, color);
 		}
+
+		public void ColorShift(float duration, Color color)
+		{
+			CombatHUD.Instance.ColorShift(duration, color);
+		}
 	}
 }

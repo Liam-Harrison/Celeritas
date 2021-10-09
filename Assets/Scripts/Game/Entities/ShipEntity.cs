@@ -521,9 +521,12 @@ namespace Celeritas.Game.Entities
 			}
 		}
 
-		public void SetNuke(GameObject prefab)
+		public void SetNuke(GameObject prefab, float damage, float duration)
 		{
-			Instantiate(prefab, this.transform.position, this.transform.rotation);
+			GameObject nuke = Instantiate(prefab, this.transform.position, this.transform.rotation);
+			nuke.GetComponent<NukeScript>().damage = damage;
+			nuke.GetComponent<NukeScript>().delay = duration;
+			nuke.GetComponent<NukeScript>().delaySet = true;
 		}
 	}
 
