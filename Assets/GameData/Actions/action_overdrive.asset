@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: action_overdrive
   m_EditorClassIdentifier: 
   title: Overdrive
-  icon: {fileID: 21300000, guid: 1dc64af4e33f845f6aa34f04a9f67676, type: 3}
+  icon: {fileID: 21300000, guid: 8b54fb46ef6a23747b96e34e2f7766fd, type: 3}
   cooldownSeconds: 30
   isPassive: 0
   duration: 4

@@ -70,7 +70,7 @@ MonoBehaviour:
   size: 1
   catagory: 0
   rarity: 4
-  icon: {fileID: 21300000, guid: 1dc64af4e33f845f6aa34f04a9f67676, type: 3}
+  icon: {fileID: 21300000, guid: f3e8edfd4393bac4d9689ce9bd0d95b1, type: 3}
   description: Adds ability to convert a large amount of Scrap Metal into unstable
     quantum explosion.
   shape: 4

@@ -70,7 +70,7 @@ MonoBehaviour:
   size: 0
   catagory: 1
   rarity: 2
-  icon: {fileID: 21300000, guid: 1dc64af4e33f845f6aa34f04a9f67676, type: 3}
+  icon: {fileID: 21300000, guid: ff29beb67231082459818ab90fc88d3f, type: 3}
   description: 'Removes ships out of combat shield regeneration.
 
     Adds ability
