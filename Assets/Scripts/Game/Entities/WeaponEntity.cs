@@ -1,6 +1,7 @@
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 namespace Celeritas.Game.Entities
@@ -137,6 +138,19 @@ namespace Celeritas.Game.Entities
 
 			if (fired != null)
 				source.PlayOneShot(fired);
+		}
+
+		public void OverDrive(float percentageToAdd, float duration)
+		{
+			StartCoroutine(RunOverdrive(percentageToAdd, duration));
+		}
+
+		public IEnumerator RunOverdrive(float percentageToAdd, float duration)
+		{
+			uint originalRateOfFire = RateOfFire;
+			RateOfFire = (uint)((float)RateOfFire * percentageToAdd);
+			yield return new WaitForSeconds(duration);
+			RateOfFire = originalRateOfFire;
 		}
 	}
 }
