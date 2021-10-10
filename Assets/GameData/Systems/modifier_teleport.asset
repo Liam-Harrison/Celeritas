@@ -9,12 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddf418b5c3709064d8bf3c50102b40e1, type: 3}
-  m_Name: action_jump_normal
+  m_Script: {fileID: 11500000, guid: 8d5d9159804c08b4c8109a9c097e7509, type: 3}
+  m_Name: modifier_teleport
   m_EditorClassIdentifier: 
-  title: Jump
-  icon: {fileID: 21300000, guid: 1dc64af4e33f845f6aa34f04a9f67676, type: 3}
-  cooldownSeconds: 4
-  isPassive: 0
-  distance: 50
-  distancePerLevel: 0
+  title: Teleport
