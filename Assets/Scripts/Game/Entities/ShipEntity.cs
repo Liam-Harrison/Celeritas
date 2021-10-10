@@ -360,7 +360,7 @@ namespace Celeritas.Game.Entities
 
 		public IEnumerator ImmortalityTimer(float duration)
 		{
-			int currentDamageModifier = DamageModifierPercentage;
+			float currentDamageModifier = DamageModifierPercentage;
 			DamageModifierPercentage = -100;
 			yield return new WaitForSeconds(duration);
 			DamageModifierPercentage = currentDamageModifier;

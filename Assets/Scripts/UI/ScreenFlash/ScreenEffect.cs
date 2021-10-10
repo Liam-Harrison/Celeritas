@@ -12,11 +12,6 @@ public class ScreenEffect : MonoBehaviour
 	private Color transparent;
 	private Color flashColor;
 
-	public bool lerpOn = false;
-
-	[Range(0, 1)]
-	public float lerpTime;
-
 	// Start is called before the first frame update
 	void Start()
     {
