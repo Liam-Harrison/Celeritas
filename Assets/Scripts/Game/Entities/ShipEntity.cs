@@ -527,6 +527,9 @@ namespace Celeritas.Game.Entities
 			nuke.GetComponent<NukeScript>().damage = damage;
 			nuke.GetComponent<NukeScript>().delay = duration;
 			nuke.GetComponent<NukeScript>().delaySet = true;
+
+			Immortality(duration);
+			ColorShift(duration, Color.white);
 		}
 	}
 
