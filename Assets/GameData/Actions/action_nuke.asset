@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Nuke
   icon: {fileID: 21300000, guid: f3e8edfd4393bac4d9689ce9bd0d95b1, type: 3}
-  cooldownSeconds: 5
+  cooldownSeconds: 30
   isPassive: 0
   duration: 3
   damage: 750
