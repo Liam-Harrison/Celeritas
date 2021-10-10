@@ -26,7 +26,7 @@ namespace Celeritas.Scriptables
 
 		public override string GetTooltip(int level)
 		{
-			return $"Grants immortality for <color=\"green\">{duration:0} seconds</color> on a <color=\"green\">{CooldownSeconds:0} second cooldown</color>. Further upgrades increase the duration of the ability.";
+			return $"Grants immortality for <color=\"green\">{duration + (durationPerLevel * (level - 1))} seconds</color> on a <color=\"green\">{CooldownSeconds:0} second cooldown</color>. Further upgrades increase the duration of the ability.";
 		}
 	}
 }
