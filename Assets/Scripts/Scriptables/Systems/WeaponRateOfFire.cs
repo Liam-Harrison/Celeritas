@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Weapon Rate Of Fire Modifier", menuName = "Celeritas/Modifiers/Weapon Rate Of Fire")]
-public class WeaponRateOfFire : ModifierSystem, IEntityEffectAdded, IEntityEffectRemoved
+public class WeaponRateOfFire : ModifierSystem, IEntityEffectAdded, IEntityEffectRemoved, IEntityLevelChanged
 {
 	[SerializeField, Title("Rate Of Fire Percentage (0.5 would add 50%)")]
 	private float percentage;
@@ -27,6 +27,7 @@ public class WeaponRateOfFire : ModifierSystem, IEntityEffectAdded, IEntityEffec
 
 	public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 	{
+		Debug.Log("added");
 		WeaponEntity weapon = (WeaponEntity)entity;
 		float totalPercent = percentage + (wrapper.Level * percentageExtraPerLevel);
 		weapon.RateOfFire *= (totalPercent + 1);
@@ -34,8 +35,22 @@ public class WeaponRateOfFire : ModifierSystem, IEntityEffectAdded, IEntityEffec
 
 	public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 	{
+		Debug.Log("removed");
 		WeaponEntity weapon = (WeaponEntity)entity;
 		float totalPercent = percentage + (wrapper.Level * percentageExtraPerLevel);
 		weapon.RateOfFire /= (totalPercent + 1);
+	}
+
+	public void OnLevelChanged(Entity entity, int previous, int newLevel, EffectWrapper effectWrapper)
+	{
+		Debug.Log("levelchanged");
+		// revert rate of fire
+		WeaponEntity weapon = (WeaponEntity)entity;
+		float oldPercent = percentage + (previous * percentageExtraPerLevel);
+		weapon.RateOfFire /= (oldPercent + 1);
+
+		// apply new rate of fire
+		float newPercent = percentage + (newLevel * percentageExtraPerLevel);
+		weapon.RateOfFire *= (newPercent + 1);
 	}
 }
