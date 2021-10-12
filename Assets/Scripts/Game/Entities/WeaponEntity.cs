@@ -114,7 +114,6 @@ namespace Celeritas.Game.Entities
 					if (WeaponData.Autofire)
 					{
 						Fire();
-						//Debug.Log($"Weapon Fired. Time between fires: {TimeAlive - lastFired }");
 						lastFired = TimeAlive;
 						Charge = 0;
 					}
@@ -123,12 +122,9 @@ namespace Celeritas.Game.Entities
 				}
 				//TODO: add animation to show weapon is charging (see: git issue #35)
 			}
-			//else if (Time.time >= lastFired + (1f / rateOfFire))
 			else if (TimeAlive >= lastFired + (1f / rateOfFire))
 			{
 				Fire();
-				//lastFired = Time.time;
-				//Debug.Log($"Weapon Fired. Time between fires: {TimeAlive - lastFired }");
 				lastFired = TimeAlive;
 			}
 		}

@@ -30,7 +30,6 @@ public class WeaponRateOfFire : ModifierSystem, IEntityEffectAdded, IEntityEffec
 		WeaponEntity weapon = (WeaponEntity)entity;
 		float totalPercent = percentage + (wrapper.Level * percentageExtraPerLevel);
 		weapon.RateOfFire *= (totalPercent + 1);
-		//Debug.Log($"Module equipped. Weapon rate of fire: {weapon.RateOfFire}");
 	}
 
 	public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
@@ -38,6 +37,5 @@ public class WeaponRateOfFire : ModifierSystem, IEntityEffectAdded, IEntityEffec
 		WeaponEntity weapon = (WeaponEntity)entity;
 		float totalPercent = percentage + (wrapper.Level * percentageExtraPerLevel);
 		weapon.RateOfFire /= (totalPercent + 1);
-		//Debug.Log($"Module unequipped. Weapon rate of fire: {weapon.RateOfFire}");
 	}
 }
