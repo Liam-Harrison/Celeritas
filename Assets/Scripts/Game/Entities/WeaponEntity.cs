@@ -25,7 +25,7 @@ namespace Celeritas.Game.Entities
 
 		private AudioSource source;
 
-		private uint rateOfFire;
+		private float rateOfFire;
 		private float maxCharge = 10.0f;
 
 		/// <summary>
@@ -41,7 +41,7 @@ namespace Celeritas.Game.Entities
 		/// <summary>
 		/// The rate of fire of this weapon.
 		/// </summary>
-		public uint RateOfFire { get=> rateOfFire; set => rateOfFire = value; }
+		public float RateOfFire { get=> rateOfFire; set => rateOfFire = value; }
 
 		/// <summary>
 		/// Where the weapon's projectiles will spawn
