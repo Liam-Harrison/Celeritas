@@ -9,7 +9,7 @@ namespace Celeritas.UI
 
 	/// <summary>
 	/// Logic for moving a text component slightly, while making it fade.
-	/// Used for displaying temporary notifications to the player, via PrintNotification in HUDManager.
+	/// Used for displaying temporary notifications to the player, via PrintNotification in CombatHUD.
 	/// </summary>
 	[RequireComponent(typeof(TextMeshProUGUI))]
 	public class NotificationLabel : MonoBehaviour, IPooledObject<NotificationLabel>
