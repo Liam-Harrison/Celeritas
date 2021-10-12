@@ -108,13 +108,14 @@ namespace Celeritas.Game.Entities
 		{
 			if (WeaponData.Charge)
 			{
-				Charge += (1f / rateOfFire);
+				Charge += (1f * rateOfFire * Time.deltaTime); // high rate of fire should make weapon fire faster
 				if (Charge > maxCharge)
 				{
 					if (WeaponData.Autofire)
 					{
 						Fire();
-						lastFired = Time.time;
+						//Debug.Log($"Weapon Fired. Time between fires: {TimeAlive - lastFired }");
+						lastFired = TimeAlive;
 						Charge = 0;
 					}
 					else
@@ -127,6 +128,7 @@ namespace Celeritas.Game.Entities
 			{
 				Fire();
 				//lastFired = Time.time;
+				//Debug.Log($"Weapon Fired. Time between fires: {TimeAlive - lastFired }");
 				lastFired = TimeAlive;
 			}
 		}

@@ -11,7 +11,7 @@ namespace Celeritas.Scriptables
 	public class WeaponData : ModuleData
 	{
 		[SerializeField, Title("Projectile")] private ProjectileData projectile;
-		[SerializeField, Title("RateOfFire")] private uint rateOfFire;
+		[SerializeField, Title("RateOfFire")] private float rateOfFire;
 
 		[SerializeField, Title("Charge")] private bool charge;
 		[SerializeField, ShowIf(nameof(charge))] private float maxCharge;
@@ -26,7 +26,7 @@ namespace Celeritas.Scriptables
 		/// <summary>
 		/// The speed this weapon fires at.
 		/// </summary>
-		public uint RateOfFire { get => rateOfFire; }
+		public float RateOfFire { get => rateOfFire; }
 
 		/// <summary>
 		/// Is this a charge weapon?
