@@ -125,7 +125,6 @@ namespace Celeritas.Game.Entities
 			else if (TimeAlive >= lastFired + (1f / rateOfFire))
 			{
 				Fire();
-				Debug.Log($"Weapon Fired. Time between fires: {TimeAlive - lastFired }");
 				lastFired = TimeAlive;
 			}
 		}
