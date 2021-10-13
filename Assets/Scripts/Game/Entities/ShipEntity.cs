@@ -44,9 +44,6 @@ namespace Celeritas.Game.Entities
 		[SerializeField, Title("Effects")]
 		protected ParticleSystem[] engineEffects;
 
-		[SerializeField]
-		protected float collisionDamageMod = 1;
-
 		/// <summary>
 		/// The entity's health data
 		/// </summary>
@@ -110,7 +107,7 @@ namespace Celeritas.Game.Entities
 				return list;
 			}
 		}
-		
+
 		/// <summary>
 		/// The attatched ship data.
 		/// </summary>
@@ -158,7 +155,7 @@ namespace Celeritas.Game.Entities
 		/// Determines if the ship is currently stunned.
 		/// </summary>
 		public bool Stunned { get; set; }
-		
+
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
@@ -188,25 +185,6 @@ namespace Celeritas.Game.Entities
 			IsStationary = false;
 
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
-		}
-
-		public override void OnSpawned()
-		{
-			if (ShipData != null)
-			{
-				foreach (var module in modules)
-				{
-					module.Initalize(this);
-				}
-			}
-
-			base.OnSpawned();
-		}
-
-		public override void OnDespawned()
-		{
-			GenerateLootDrop();
-			base.OnDespawned();
 		}
 
 		protected override void Update()
@@ -259,12 +237,6 @@ namespace Celeritas.Game.Entities
 				base.TakeDamage(attackingEntity);
 
 				float calculatedDamage = CalculateDamage(damage);
-
-				if (attackingEntity is Asteroid)
-				{
-					calculatedDamage = calculatedDamage * collisionDamageMod;
-				}
-
 				shieldDelayTimer = shieldRegenDelay;
 
 				// if damage will go beyond shields
@@ -287,7 +259,10 @@ namespace Celeritas.Game.Entities
 
 				if (health.IsEmpty())
 				{
-					explosionScript.Explode();
+					if (explosionScript != null)
+						explosionScript.Explode( );
+					else
+						KillEntity();
 				}
 			}
 		}
@@ -308,8 +283,8 @@ namespace Celeritas.Game.Entities
 		public float ShieldRegenDelay { get => shieldRegenDelay; set => shieldRegenDelay = value; }
 
 		/// <summary>
-        /// Timer for the delayed shield regen
-        /// </summary>
+		/// Timer for the delayed shield regen
+		/// </summary>
 		private float shieldDelayTimer = 0.0f;
 
 		/// <summary>
@@ -338,8 +313,8 @@ namespace Celeritas.Game.Entities
 		}
 
 		/// <summary>
-        /// Coroutine that will set the ship to stationary for duration.
-        /// </summary>
+		/// Coroutine that will set the ship to stationary for duration.
+		/// </summary>
 		public IEnumerator StunTimer(float duration)
 		{
 			Stunned = true;
@@ -351,20 +326,27 @@ namespace Celeritas.Game.Entities
 
 		/// <summary>
 		/// Current damage modifer on ship.
-		/// Default is 0, negative value = less damage, positive value = takes more damage.
+		/// Default is 0, negative value = takes less damage, positive value = takes more damage.
 		/// </summary>
-		private float damageModifierPercentage = 0;
+		private int damageModifierPercentage = 0;
 
-		public float DamageModifierPercentage { get => damageModifierPercentage; set => damageModifierPercentage = value; }
+		public int DamageModifierPercentage { get => damageModifierPercentage; set => damageModifierPercentage = value; }
 
 		/// <summary>
 		///	Calculates the amount of damage to apply after the damage modifier has been applied.
 		/// </summary>
 		/// <param name="damage">The original amount of damage taken.</param>
 		/// <returns>The amount of damage to take after the damage modifier has been applied</returns>
-		private float CalculateDamage(float damage)
+		private int CalculateDamage(float damage)
 		{
-			return damage + (damage * damageModifierPercentage);
+			int calculatedDamage = Mathf.RoundToInt(damage + damage / 100 * damageModifierPercentage);
+			return calculatedDamage;
+		}
+
+		public override void OnDespawned()
+		{
+			GenerateLootDrop();
+			base.OnDespawned();
 		}
 
 		/// <summary>

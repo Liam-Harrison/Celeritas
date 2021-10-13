@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9045051964202480741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7928637719676951450}
+  - component: {fileID: 5552342880430941929}
+  m_Layer: 0
+  m_Name: ExplosionHere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7928637719676951450
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9045051964202480741}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 24.892456, y: -4.276596, z: 0}
+  m_LocalScale: {x: 1.4788824, y: 1.4788824, z: 1.4788824}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5552342880430941929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9045051964202480741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3069d9a87a2ece4e9196b3b9ff474c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smallExplosion: {fileID: 4577836351120916231, guid: 42c9e9ef55438dc45a3d3c4eb7e4d2c7, type: 3}
+  bigExplosion: {fileID: 2383371088112613431, guid: 0cfaf4d64651def489e53d21f6b098d3, type: 3}
+  shrapnel:
+  - {fileID: 7990673452365368062, guid: 8bcd700d95a277f47ba46026550f7406, type: 3}
+  - {fileID: 2643095697956615267, guid: c813494d02dbdd543bad5c7c1f4dade3, type: 3}
+  - {fileID: 7239492155838133670, guid: 2b2016806f64d32489734d425be18b48, type: 3}
+  - {fileID: 2443924639334083840, guid: fc99e439f20e6ad45ac2ae260375856f, type: 3}
+  - {fileID: 697468826054506586, guid: f1248336d1abaf9438e439af40ee62d3, type: 3}
+  - {fileID: 325561437034617719, guid: b2599e007290f194e965aacf75215d02, type: 3}
+  shrapnelMin: 10
+  shrapnelMax: 15
+  explosionsPerStage: 0300000005000000
