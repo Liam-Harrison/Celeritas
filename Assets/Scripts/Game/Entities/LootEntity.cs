@@ -45,29 +45,32 @@ namespace Celeritas.Game.Entities
 
 		protected override void Update()
 		{
-			var d = PlayerController.Instance.PlayerShipEntity.Position - Position;
-			var m = d.magnitude;
-			var n = d.normalized;
-
-			if (m <= SUCK_DIST)
+			if (PlayerController.Instance.PlayerShipEntity != null)
 			{
-				var p = Mathf.Sin((1 - Mathf.Clamp01(m / SUCK_DIST)) * (Mathf.PI / 2));
-				var change = n * VEL_PER_SEC * p;
-				vel = Vector3.ClampMagnitude(vel + ((change - vel) * Time.smoothDeltaTime), MAX_VEL);
-			}
-			else 
-			{
-				vel = Vector3.Lerp(vel, Vector3.zero, 200f * Time.smoothDeltaTime);
-			}
+				var d = PlayerController.Instance.PlayerShipEntity.Position - Position;
+				var m = d.magnitude;
+				var n = d.normalized;
 
-			transform.position += vel * Time.smoothDeltaTime;
+				if (m <= SUCK_DIST)
+				{
+					var p = Mathf.Sin((1 - Mathf.Clamp01(m / SUCK_DIST)) * (Mathf.PI / 2));
+					var change = n * VEL_PER_SEC * p;
+					vel = Vector3.ClampMagnitude(vel + ((change - vel) * Time.smoothDeltaTime), MAX_VEL);
+				}
+				else
+				{
+					vel = Vector3.Lerp(vel, Vector3.zero, 200f * Time.smoothDeltaTime);
+				}
 
-			if (m <= pickupRadius)
-			{
-				PickedUpByPlayer();
+				transform.position += vel * Time.smoothDeltaTime;
+
+				if (m <= pickupRadius)
+				{
+					PickedUpByPlayer();
+				}
+
+				base.Update();
 			}
-
-			base.Update();
 		}
 
 		/// <summary>
