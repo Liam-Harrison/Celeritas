@@ -176,7 +176,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 92754365}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -924.44446, y: -540, z: -10}
+  m_LocalPosition: {x: -892.27515, y: -540, z: -19.047619}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 574887180}
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.9882353}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2487,6 +2487,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3999310393697037033, guid: ebe83b46b58c04952bd2b7f57abf029b, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3999310393697037036, guid: ebe83b46b58c04952bd2b7f57abf029b, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
       value: 1
@@ -3007,6 +3011,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3999310393697037032, guid: ebe83b46b58c04952bd2b7f57abf029b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3999310393697037033, guid: ebe83b46b58c04952bd2b7f57abf029b, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3999310394627587449, guid: ebe83b46b58c04952bd2b7f57abf029b, type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
