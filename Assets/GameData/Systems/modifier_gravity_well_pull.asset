@@ -13,25 +13,25 @@ MonoBehaviour:
   m_Name: modifier_gravity_well_pull
   m_EditorClassIdentifier: 
   title: Gravity Well - pull enemies in
-  flatForceMultiplier: 0.6
-  extraForceMultiplierPerLevel: 0.3
+  flatForceMultiplier: 1
+  extraForceMultiplierPerLevel: -0.25
   forceVariation:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.008538116
-      value: 0.19918823
-      inSlope: 0
-      outSlope: 0
+      time: 0
+      value: 1.0032654
+      inSlope: 0.03159144
+      outSlope: 0.03159144
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.30616033
     - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
+      value: 0
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0

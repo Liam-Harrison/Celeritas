@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   title: Dromaius
-  prefab: {fileID: 4555157132269862269, guid: 20c3455f918b28b419af940e0506ed8f, type: 3}
+  prefab: {fileID: 4555157132269862269, guid: bf825194ee904674fbde0a7b20ac35fb, type: 3}
   capacityHint: 1
   useChunking: 0
   movementSettings:
@@ -54,8 +54,8 @@ MonoBehaviour:
     angularDrag: 5
     rotationMaximum: 180
     aimDeadzone: 0.995
-    forcePerSec: 2250
-    mass: 50
+    forcePerSec: 5000
+    mass: 20
   rarity: 0
   shipClass: 2
   icon: {fileID: 0}

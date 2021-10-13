@@ -44,6 +44,9 @@ namespace Celeritas.Game.Entities
 		[SerializeField, Title("Effects")]
 		protected ParticleSystem[] engineEffects;
 
+		[SerializeField]
+		protected float collisionDamageMod = 1;
+
 		/// <summary>
 		/// The entity's health data
 		/// </summary>
@@ -254,6 +257,12 @@ namespace Celeritas.Game.Entities
 				base.TakeDamage(attackingEntity);
 
 				float calculatedDamage = CalculateDamage(damage);
+
+				if (attackingEntity is Asteroid)
+				{
+					calculatedDamage = calculatedDamage * collisionDamageMod;
+				}
+
 				shieldDelayTimer = shieldRegenDelay;
 
 				// if damage will go beyond shields

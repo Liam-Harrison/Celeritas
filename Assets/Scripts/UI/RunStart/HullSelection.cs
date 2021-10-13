@@ -115,18 +115,34 @@ namespace Celeritas.UI.Runstart
 			setupStatUI();
 			setupHullUI();
 			maxStats = new Dictionary<string, float>();
+			PreCacheShipStats();
 			LoadClassHulls(ShipClass.Destroyer);
 			LoadClassHulls(ShipClass.Dreadnought);
-			LoadClassHulls(ShipClass.Corvette);
+			LoadClassHulls(ShipClass.Corvette, true);
+		}
+		private void PreCacheShipStats()
+		{
+		var ships = EntityDataManager.Instance.PlayerShips;
+
+		foreach (var ship in ships)
+			{
+				if (ship.IsPlaceholder)
+				{
+					continue;
+				}
+
+				checkShipForMaxStats(ship);
+			}
 		}
 
-		private void LoadClassHulls(ShipClass shipClass)
+		private void LoadClassHulls(ShipClass shipClass, bool select = false)
 		{
 			var ships = EntityDataManager.Instance.PlayerShips.Where((a) => a.ShipClass == shipClass);
 
 			hullParent.DestroyAllChildren();
 
 			bool added = false;
+			ShipData toSelect = null;
 			foreach (var ship in ships)
 			{
 				if (ship.IsPlaceholder)
@@ -136,18 +152,20 @@ namespace Celeritas.UI.Runstart
 				toggle.GetComponentInChildren<TextMeshProUGUI>().text = ship.Title;
 				toggle.group = hullGroup;
 
-				if (!added)
+				if (!added && select)
 				{
 					added = true;
 					toggle.isOn = true;
+					toSelect = ship;
 				}
 
 				toggle.onValueChanged.AddListener((b) => { if (b) SelectHull(ship); });
-
-				checkShipForMaxStats(ship);
 			}
 
-			SelectHull(ships.First());
+			if (toSelect != null && select)
+			{
+				SelectHull(toSelect);
+			}
 		}
 
 		private void SelectHull(ShipData ship)
