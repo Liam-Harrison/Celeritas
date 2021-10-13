@@ -1,3 +1,4 @@
+using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
 using Celeritas.Game.Events;
 using System.Collections;
@@ -23,6 +24,9 @@ namespace Celeritas.Game
 
 		private float lastUpdate;
 
+		[SerializeField]
+		private EventData tutorialEvent;
+
 		public IReadOnlyCollection<GameEvent> Events { get => events; }
 
 		private new Camera camera;
@@ -32,7 +36,11 @@ namespace Celeritas.Game
 			camera = Camera.main;
 			base.OnGameLoaded();
 
-			if (GameStateManager.Instance.GameState != GameState.MAINMENU)
+			if (SettingsManager.TutorialEvent && tutorialEvent != null)
+			{
+				CreateEvent(tutorialEvent, Vector2Int.zero, true);
+			}
+			else if (GameStateManager.Instance.GameState != GameState.MAINMENU)
 			{
 				for (int i = 0; i < MIN_EVENTS; i++)
 				{
@@ -75,24 +83,35 @@ namespace Celeritas.Game
 		{
 			if (old == GameState.MAINMENU)
 			{
-				for (int i = 0; i < MIN_EVENTS; i++)
+				if (SettingsManager.TutorialEvent && tutorialEvent != null)
 				{
-					CreateRandomEvent();
+					CreateEvent(tutorialEvent, Vector2Int.zero, true);
+				}
+				else
+				{
+					for (int i = 0; i < MIN_EVENTS; i++)
+					{
+						CreateRandomEvent();
+					}
 				}
 			}
 		}
 
 		private void CreateRandomEvent()
 		{
-			var e = EntityDataManager.Instance.Events.Where(x => events.Where(y => y.EventData == x).Count() == 0).OrderBy(x => Random.value).Take(1);
+			var e = EntityDataManager.Instance.Events.Where(x =>  x.CannotAppearRandomly == false && events.Where(y => y.EventData == x).Count() == 0).OrderBy(x => Random.value).Take(1);
 			CreateEvent(e.First());
 		}
 
-		public void CreateEvent(EventData data, Vector2Int chunk)
+		public void CreateEvent(EventData data, Vector2Int chunk, bool enter = false)
 		{
 			var gameEvent = new GameEvent();
 			gameEvent.Initalize(data, chunk);
 			events.Add(gameEvent);
+			if (enter)
+			{
+				gameEvent.EnterEventArea();
+			}
 		}
 
 		public void RemoveEvent(GameEvent gameEvent)

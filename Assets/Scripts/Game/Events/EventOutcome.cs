@@ -59,6 +59,13 @@ namespace Celeritas.Game.Events
 		[SerializeField, TitleGroup("Waves"), ShowIf(nameof(hasWaves))]
 		private WaveData[] waves;
 
+		[SerializeField, TitleGroup("Doom")]
+		private bool changeDoom;
+
+		[SerializeField, TitleGroup("Doom"), ShowIf(nameof(changeDoom)), PropertyRange(-5, 5)]
+		private int doom;
+
+
 		public bool HasRewards { get => hasRewards; }
 
 		public Vector2Int ModuleRewardRange { get => lootRewardRange; }
@@ -104,7 +111,21 @@ namespace Celeritas.Game.Events
 			if (hasDialogue)
 			{
 				dialogue.DynamicContent = GetFullDialogueContent(dialogue.content, lootRewardOutcome, moduleDataRewardOutcome, healthChangeOutcome);
-				DialogueManager.Instance.ShowDialogue(dialogue, (i) => DialogueFinished(i, gameEvent, lootRewardOutcome, moduleDataRewardOutcome, healthChangeOutcome));
+				if (DialogueManager.Instance != null)
+				{
+					DialogueManager.Instance.ShowDialogue(dialogue, (i) => DialogueFinished(i, gameEvent, lootRewardOutcome, moduleDataRewardOutcome, healthChangeOutcome));
+				}
+				else
+				{
+					System.Action<DialogueManager> handler = null;
+					handler = (_) =>
+					{
+						DialogueManager.Instance.ShowDialogue(dialogue, (i) => DialogueFinished(i, gameEvent, lootRewardOutcome, moduleDataRewardOutcome, healthChangeOutcome));
+						DialogueManager.OnCreated -= handler;
+					};
+					DialogueManager.OnCreated += handler;
+				}
+
 			}
 			else
 			{
@@ -146,6 +167,11 @@ namespace Celeritas.Game.Events
 
 			if (hasEvent && eventData != null)
 				EventManager.Instance.CreateEvent(eventData);
+
+			if (changeDoom)
+			{
+				DoomManager.Instance.ChangeDoomMeter(doom);
+			}
 
 			if (hasWaves)
 			{

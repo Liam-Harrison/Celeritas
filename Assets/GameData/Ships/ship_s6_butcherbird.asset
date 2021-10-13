@@ -55,7 +55,7 @@ MonoBehaviour:
     rotationMaximum: 180
     aimDeadzone: 0.995
     forcePerSec: 30000
-    mass: 3
+    mass: 1
   rarity: 0
   shipClass: 0
   icon: {fileID: 0}

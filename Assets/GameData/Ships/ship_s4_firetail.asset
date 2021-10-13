@@ -55,7 +55,7 @@ MonoBehaviour:
     rotationMaximum: 180
     aimDeadzone: 0.995
     forcePerSec: 10500
-    mass: 2
+    mass: 1
   rarity: 0
   shipClass: 0
   icon: {fileID: 0}
@@ -64,5 +64,6 @@ MonoBehaviour:
 
 
     AI Desc: [TBD]'
+  isPlaceholder: 0
   startingHealth: 38
   startingShield: 125

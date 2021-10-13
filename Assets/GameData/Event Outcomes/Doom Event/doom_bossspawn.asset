@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: doom_bossspawn
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: The Cold Fury
+    content: The cold fury has found you!
+    options: []
+  hasRewards: 0
+  lootType: 0
+  lootRewardRange: {x: 0, y: 0}
+  moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 1
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 1
+  waveOutcome: {fileID: 11400000, guid: 41e6ed91a14b72b44990c77bbae8cc71, type: 2}
+  waves:
+  - {fileID: 11400000, guid: 03ffae0c3152ab34a836a96f0d989539, type: 2}
+  changeDoom: 0
+  doom: 0

@@ -5476,6 +5476,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7597903825623518109, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
+      propertyPath: doomEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: c89299d8e747c4741886dd24ca5bd406, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
 --- !u!1001 &8531167039589270624

@@ -19,6 +19,9 @@ namespace Celeritas.Game.Events
 		[SerializeField, TitleGroup("Settings", "The general settings for this event.")]
 		private bool cannotUnloadDynamically = false;
 
+		[SerializeField, TitleGroup("Settings")]
+		private bool cannotAppearRandomly = false;
+
 		[SerializeField, TitleGroup("Settings"), Indent(11), TableMatrix(DrawElementMethod = "DrawCell", HideColumnIndices = true, HideRowIndices = true, SquareCells = true, HorizontalTitle = "X Axis", VerticalTitle = "Y Axis")]
 		private bool[,] grid;
 
@@ -44,6 +47,8 @@ namespace Celeritas.Game.Events
 		private EventOutcome eventOutcome;
 
 		public bool CannotUnloadDynamically { get => cannotUnloadDynamically; }
+
+		public bool CannotAppearRandomly { get => cannotAppearRandomly; }
 
 		public bool [,] Grid { get => grid; }
 

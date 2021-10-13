@@ -1,3 +1,4 @@
+using Celeritas.Game.Events;
 using Sirenix.OdinInspector;
 using System.Collections;
 using TMPro;
@@ -25,6 +26,9 @@ namespace Celeritas.Game
 
 		[SerializeField, TitleGroup("Assignments")]
 		protected Slider slider;
+
+		[SerializeField, TitleGroup("Assignments")]
+		protected EventData doomEvent;
 
 		private float elasped;
 
@@ -68,6 +72,11 @@ namespace Celeritas.Game
 		{
 			DoomLevel = Mathf.Clamp(DoomLevel + amount, 0, MAX_DOOM);
 			UpdateDoomGraphic();
+
+			if (DoomLevel == MAX_DOOM)
+			{
+				EventManager.Instance.CreateEvent(doomEvent, Chunks.ChunkManager.GetChunkIndex(Camera.main.transform.position), true);
+			}
 		}
 
 		private void UpdateDoomGraphic()

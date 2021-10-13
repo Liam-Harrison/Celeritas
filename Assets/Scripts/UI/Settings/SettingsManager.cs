@@ -13,6 +13,7 @@ namespace Celeritas
 		FullscreenMode,
 		StackingNumbers,
 		Volume,
+		Tutorial,
 	}
 
 	public class SettingsManager : Singleton<SettingsManager>
@@ -20,6 +21,7 @@ namespace Celeritas
 		public static InputActions InputActions { get; private set; }
 
 		public static bool StackingDamageNumbers { get; set; }
+		public static bool TutorialEvent { get; set; }
 
 		public static event Action OnKeybindChanged;
 
@@ -47,6 +49,7 @@ namespace Celeritas
 		private void LoadGameplaySettings()
 		{
 			StackingDamageNumbers = GetBool(SettingKey.StackingNumbers, true);
+			TutorialEvent = GetBool(SettingKey.Tutorial, true);
 		}
 
 		private void SetupScreen()
