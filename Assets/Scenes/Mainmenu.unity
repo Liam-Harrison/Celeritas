@@ -2531,6 +2531,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -1.25
       objectReference: {fileID: 0}
+    - target: {fileID: 3999310394627587449, guid: ebe83b46b58c04952bd2b7f57abf029b, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3999310394627587452, guid: ebe83b46b58c04952bd2b7f57abf029b, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
       value: 0
