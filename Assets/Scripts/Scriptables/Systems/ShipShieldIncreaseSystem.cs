@@ -8,7 +8,7 @@ using System;
 namespace Celeritas.Scriptables.Systems
 {
 	[CreateAssetMenu(fileName = "New Shield Increase Modifier", menuName = "Celeritas/Modifiers/Shield Increase")]
-	public class ShipShieldIncreaseSystem : ModifierSystem, IEntityEffectAdded, IEntityEffectRemoved
+	public class ShipShieldIncreaseSystem : ModifierSystem, IEntityEffectAdded, IEntityEffectRemoved, IEntityLevelChanged
 	{
 
 		[SerializeField, PropertyRange(0, 5), InfoBox("Percentage to add, 1 (default shield amount + 1 (value) = 2 (200% shield amount)")]
@@ -38,15 +38,11 @@ namespace Celeritas.Scriptables.Systems
 
 		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
-			// TODO: may need to update effect when system levels up, depending on how game loop works.
-			// otherwise effects may not reflect levels
-
 			var ship = entity as ShipEntity;
 			float amountToAdd = 1 + amount + (wrapper.Level * amountExtraPerLevel);
 
-			uint newValue = (uint)(ship.Shield.MaxValue * amountToAdd);
+			float newValue = (ship.Shield.MaxValue * amountToAdd);
 			ship.Shield.MaxValue = newValue;
-
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
@@ -54,9 +50,22 @@ namespace Celeritas.Scriptables.Systems
 			var ship = entity as ShipEntity;
 			float amountToAdd = 1 + amount + (wrapper.Level * amountExtraPerLevel);
 
-			uint newValue = (uint)(ship.Shield.MaxValue / amountToAdd);
+			float newValue = (ship.Shield.MaxValue / amountToAdd);
 
 			ship.Shield.MaxValue = newValue;
+		}
+
+		public void OnLevelChanged(Entity entity, int previous, int newLevel, EffectWrapper effectWrapper)
+		{
+			// revert to base value
+			var ship = entity as ShipEntity;
+			
+			float amountToAdd = 1 + amount + (previous * amountExtraPerLevel);
+			ship.Shield.MaxValue /= amountToAdd;
+
+			// apply new level changes
+			amountToAdd = 1 + amount + (newLevel * amountExtraPerLevel);
+			ship.Shield.MaxValue *= amountToAdd;
 		}
 	}
 }

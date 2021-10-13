@@ -19,7 +19,7 @@ namespace Celeritas.Scriptables.Systems
 	}
 
 	[CreateAssetMenu(fileName = "New Ship Speed Modifier", menuName = "Celeritas/Modifiers/Ship Speed")]
-	public class ShipSpeedSystem : ModifierSystem, IEntityEffectAdded, IEntityEffectRemoved
+	public class ShipSpeedSystem : ModifierSystem, IEntityEffectAdded, IEntityEffectRemoved, IEntityLevelChanged
 	{
 		[SerializeField, Title("Speed System")]
 		private ShipDirections affectedDirections;
@@ -56,8 +56,6 @@ namespace Celeritas.Scriptables.Systems
 
 		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
-			// TODO: may need to update effect when system levels up, depending on how game loop works.
-			// otherwise effects may not reflect levels
 
 			var ship = entity as ShipEntity;
 			float amountToAdd = amount + (wrapper.Level * amountExtraPerLevel);
@@ -75,15 +73,31 @@ namespace Celeritas.Scriptables.Systems
 		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 		{
 			var ship = entity as ShipEntity;
+			float amountToSubtract = amount + (wrapper.Level * amountExtraPerLevel);
 
 			if (affectedDirections.HasFlag(ShipDirections.Forward))
-				ship.MovementModifier.Forward -= amount;
+				ship.MovementModifier.Forward -= amountToSubtract;
 
 			if (affectedDirections.HasFlag(ShipDirections.Side))
-				ship.MovementModifier.Side -= amount;
+				ship.MovementModifier.Side -= amountToSubtract;
 
 			if (affectedDirections.HasFlag(ShipDirections.Back))
-				ship.MovementModifier.Back -= amount;
+				ship.MovementModifier.Back -= amountToSubtract;
+		}
+
+		public void OnLevelChanged(Entity entity, int previous, int newLevel, EffectWrapper effectWrapper)
+		{
+			var ship = entity as ShipEntity;
+			float amountToModify = (newLevel - previous) * amountExtraPerLevel;
+
+			if (affectedDirections.HasFlag(ShipDirections.Forward))
+				ship.MovementModifier.Forward += amountToModify;
+
+			if (affectedDirections.HasFlag(ShipDirections.Side))
+				ship.MovementModifier.Side += amountToModify;
+
+			if (affectedDirections.HasFlag(ShipDirections.Back))
+				ship.MovementModifier.Back += amountToModify;
 		}
 	}
 }
