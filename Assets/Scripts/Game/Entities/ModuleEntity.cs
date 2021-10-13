@@ -263,7 +263,14 @@ namespace Celeritas.Game.Entities
 			{
 				var prev = wrapper.Level;
 				wrapper.Level = level;
-				wrapper.EffectCollection.OnLevelChanged(this, prev, level, wrapper);
+
+				if (wrapper.EffectCollection.Targets == SystemTargets.Weapon)
+					foreach (WeaponEntity weapon in AttatchedModule.Ship.WeaponEntities)
+						wrapper.EffectCollection.OnLevelChanged(weapon, prev, level, wrapper);
+				if (wrapper.EffectCollection.Targets == SystemTargets.Ship)
+					wrapper.EffectCollection.OnLevelChanged(AttatchedModule.Ship, prev, level, wrapper);
+
+				//wrapper.EffectCollection.OnLevelChanged(this, prev, level, wrapper); // og code
 			}
 		}
 	}

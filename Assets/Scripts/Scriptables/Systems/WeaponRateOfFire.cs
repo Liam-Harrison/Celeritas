@@ -27,7 +27,6 @@ public class WeaponRateOfFire : ModifierSystem, IEntityEffectAdded, IEntityEffec
 
 	public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 	{
-		Debug.Log("added");
 		WeaponEntity weapon = (WeaponEntity)entity;
 		float totalPercent = percentage + (wrapper.Level * percentageExtraPerLevel);
 		weapon.RateOfFire *= (totalPercent + 1);
@@ -35,7 +34,6 @@ public class WeaponRateOfFire : ModifierSystem, IEntityEffectAdded, IEntityEffec
 
 	public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
 	{
-		Debug.Log("removed");
 		WeaponEntity weapon = (WeaponEntity)entity;
 		float totalPercent = percentage + (wrapper.Level * percentageExtraPerLevel);
 		weapon.RateOfFire /= (totalPercent + 1);
@@ -43,7 +41,6 @@ public class WeaponRateOfFire : ModifierSystem, IEntityEffectAdded, IEntityEffec
 
 	public void OnLevelChanged(Entity entity, int previous, int newLevel, EffectWrapper effectWrapper)
 	{
-		Debug.Log("levelchanged");
 		// revert rate of fire
 		WeaponEntity weapon = (WeaponEntity)entity;
 		float oldPercent = percentage + (previous * percentageExtraPerLevel);
