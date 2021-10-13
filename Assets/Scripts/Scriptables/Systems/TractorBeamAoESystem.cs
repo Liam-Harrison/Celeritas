@@ -19,7 +19,7 @@ namespace Assets.Scripts.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Ship;
 
-		public override string GetTooltip(int level) => $"Tractor beam now affects {(initialRangeMultiplier + (extraRangePerLevel * level))*100:0}% more area and can target multiple objects simultaneously.";
+		public override string GetTooltip(int level) => $"Tractor beam now affects <color=green>{(initialRangeMultiplier + (extraRangePerLevel * level))*100:0}%</color> more area and can target multiple objects simultaneously.";
 
 		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
