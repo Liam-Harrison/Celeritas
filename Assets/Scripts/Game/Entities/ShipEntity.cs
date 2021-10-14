@@ -44,6 +44,9 @@ namespace Celeritas.Game.Entities
 		[SerializeField, Title("Effects")]
 		protected ParticleSystem[] engineEffects;
 
+		[SerializeField]
+		protected float collisionDamageMod = 1;
+
 		/// <summary>
 		/// The entity's health data
 		/// </summary>
@@ -187,6 +190,25 @@ namespace Celeritas.Game.Entities
 			base.Initalize(data, owner, effects, forceIsPlayer, instanced);
 		}
 
+		public override void OnSpawned()
+		{
+			if (ShipData != null)
+			{
+				foreach (var module in modules)
+				{
+					module.Initalize(this);
+				}
+			}
+
+			base.OnSpawned();
+		}
+
+		public override void OnDespawned()
+		{
+			GenerateLootDrop();
+			base.OnDespawned();
+		}
+
 		protected override void Update()
 		{
 			if (!IsInitalized)
@@ -237,6 +259,12 @@ namespace Celeritas.Game.Entities
 				base.TakeDamage(attackingEntity);
 
 				float calculatedDamage = CalculateDamage(damage);
+
+				if (attackingEntity is Asteroid)
+				{
+					calculatedDamage = calculatedDamage * collisionDamageMod;
+				}
+
 				shieldDelayTimer = shieldRegenDelay;
 
 				// if damage will go beyond shields
@@ -260,7 +288,7 @@ namespace Celeritas.Game.Entities
 				if (health.IsEmpty())
 				{
 					if (explosionScript != null)
-						explosionScript.Explode( );
+						explosionScript.Explode();
 					else
 						KillEntity();
 				}
@@ -326,7 +354,7 @@ namespace Celeritas.Game.Entities
 
 		/// <summary>
 		/// Current damage modifer on ship.
-		/// Default is 0, negative value = takes less damage, positive value = takes more damage.
+		/// Default is 0, negative value = less damage, positive value = takes more damage.
 		/// </summary>
 		private float damageModifierPercentage = 0;
 
@@ -340,12 +368,6 @@ namespace Celeritas.Game.Entities
 		private float CalculateDamage(float damage)
 		{
 			return damage + (damage * damageModifierPercentage);
-		}
-
-		public override void OnDespawned()
-		{
-			GenerateLootDrop();
-			base.OnDespawned();
 		}
 
 		/// <summary>
