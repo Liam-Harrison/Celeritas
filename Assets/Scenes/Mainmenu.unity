@@ -1742,7 +1742,7 @@ RectTransform:
   - {fileID: 92754368}
   - {fileID: 82798953}
   m_Father: {fileID: 1566098732}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1873,7 +1873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a205707cc27c6c49addb64fd984a5c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitTime: 1
+  waitTime: 0
   animation: {fileID: 1196295720}
 --- !u!114 &1196295723
 MonoBehaviour:
@@ -2384,8 +2384,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 4000013581179519}
   - {fileID: 1196295719}
+  - {fileID: 4000013581179519}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3056,7 +3056,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 972855494398010597, guid: 584f2c1908a76284db42799a85a6e1e8, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 972855494398010597, guid: 584f2c1908a76284db42799a85a6e1e8, type: 3}
       propertyPath: m_LocalPosition.x
