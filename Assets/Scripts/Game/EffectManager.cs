@@ -68,7 +68,7 @@ namespace Celeritas.Game
 		/// <param name="wrapper">The effect collection to add.</param>
 		public void AddEffect(EffectWrapper wrapper)
 		{
-			Debug.Log($"added effect {wrapper.EffectCollection.Title} to {owner.gameObject.name}");
+			//Debug.Log($"added effect {wrapper.EffectCollection.Title} to {owner.gameObject.name}");
 
 			if (!wrapper.EffectCollection.Targets.HasFlag(TargetType))
 			{
