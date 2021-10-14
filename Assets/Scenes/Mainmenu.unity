@@ -1102,6 +1102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1013374398}
+  canvas: {fileID: 412759811}
 --- !u!1 &1022703218
 GameObject:
   m_ObjectHideFlags: 0
