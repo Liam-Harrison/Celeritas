@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{eccce693-1289-40ac-8c81-f9a88acf6233}">
+		<property name="assetPath">
+			<value>zapsplat_sound_design_cinematic_hit_hard_loud_metallic_reverb_002_30975.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>8.5440000000000005</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{8fb26d35-6d5c-4fab-96fc-ec615249a3dc}</destination>
+		</relationship>
+	</object>
+</objects>

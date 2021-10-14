@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{fd22eb9b-24e4-4e2b-be23-8f4eb2aff135}">
+		<property name="assetPath">
+			<value>Gameplay - Loop 3.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>54.25</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{8fb26d35-6d5c-4fab-96fc-ec615249a3dc}</destination>
+		</relationship>
+	</object>
+</objects>

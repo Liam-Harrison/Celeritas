@@ -6,6 +6,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using Celeritas.UI;
+using FMOD;
+using FMOD.Studio;
+using FMODUnity;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Celeritas.Game.Controllers
 {
@@ -20,6 +24,8 @@ namespace Celeritas.Game.Controllers
 			public GameAction primary;
 			public GameAction alternate;
 		}
+
+		private EventInstance thrusterSoundReference;
 
 		private InputActions.BasicActions actions = default;
 		private Camera _camera;
@@ -53,6 +59,7 @@ namespace Celeritas.Game.Controllers
 
 		protected override void Awake()
 		{
+			thrusterSoundReference = RuntimeManager.CreateInstance(RuntimeManager.PathToEventReference("event:/Ship/Thrusters"));
 			actions = new InputActions.BasicActions(SettingsManager.InputActions);
 			actions.SetCallbacks(this);
 
@@ -284,6 +291,10 @@ namespace Celeritas.Game.Controllers
 
 		public void OnMove(InputAction.CallbackContext context)
 		{
+			thrusterSoundReference.getPlaybackState(out var state);
+			if (context.performed && state == PLAYBACK_STATE.STOPPING || state == PLAYBACK_STATE.STOPPED) thrusterSoundReference.start();
+			if (context.canceled && state == PLAYBACK_STATE.PLAYING) thrusterSoundReference.stop(STOP_MODE.ALLOWFADEOUT);
+
 			locomotion = context.ReadValue<Vector2>();
 		}
 
@@ -331,7 +342,7 @@ namespace Celeritas.Game.Controllers
 		{
 			targetCameraZoom = Mathf.Clamp(targetCameraZoom + (-context.ReadValue<float>() * 75f * Time.smoothDeltaTime), PlayerShipEntity.GameViewSize, PlayerShipEntity.GameViewSize + 20);
 			cameraZoom = Mathf.SmoothDamp(cameraZoom, targetCameraZoom, ref cameraZoomVel, 0.2f);
-			
+
 			virtualcamera.m_Lens.OrthographicSize = cameraZoom;
 		}
 	}

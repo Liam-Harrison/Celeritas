@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{48aee3a5-14a5-4d56-a30c-717612b37596}">
+		<property name="assetPath">
+			<value>zapsplat_science_fiction_robot_power_up_60619.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.1120000000000001</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{8fb26d35-6d5c-4fab-96fc-ec615249a3dc}</destination>
+		</relationship>
+	</object>
+</objects>

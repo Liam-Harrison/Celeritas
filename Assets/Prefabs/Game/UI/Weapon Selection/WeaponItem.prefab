@@ -50,6 +50,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 7634062879645314063}
+  onDragSound:
+    Guid:
+      Data1: 343303457
+      Data2: 1297942032
+      Data3: 386554260
+      Data4: -45513041
+    Path: event:/UI/Slot Drag
+  onDropSound:
+    Guid:
+      Data1: -383933793
+      Data2: 1324317877
+      Data3: -921704310
+      Data4: -284749273
+    Path: event:/UI/Slot Drop
 --- !u!114 &1821902624116198615
 MonoBehaviour:
   m_ObjectHideFlags: 0

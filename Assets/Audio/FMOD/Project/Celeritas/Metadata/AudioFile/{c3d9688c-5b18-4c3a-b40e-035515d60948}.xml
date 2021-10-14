@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{c3d9688c-5b18-4c3a-b40e-035515d60948}">
+		<property name="assetPath">
+			<value>Sting 1 - Wave Start.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>7.125</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{8fb26d35-6d5c-4fab-96fc-ec615249a3dc}</destination>
+		</relationship>
+	</object>
+</objects>
