@@ -2,6 +2,7 @@ using Celeritas.AI;
 using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
 using Celeritas.Scriptables;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,14 +21,14 @@ namespace Celeritas.Game
 		[SerializeField]
 		public int MinShips = 1;
 
-		[SerializeField]
-		private float radiusAwayFromAsteroids = 10;
+		[SerializeField, TitleGroup("Enemy Spawn Settings")]
+		private float radiusAwayFromPlayer = 90f; // how far away from the player the enemies will spawn
 
-		[SerializeField]
-		private float radiusAwayFromPlayer = 90f;
+		[SerializeField, TitleGroup("Enemy Spawn Settings")]
+		private int maxNumberOfTriesToAvoidAsteroid = 3; // how many times a spawn location will be re-attempted if it is too close to an asteroid
 
-		[SerializeField]
-		private int maxNumberOfTriesToAvoidAsteroid = 3;
+		[SerializeField, TitleGroup("Enemy Spawn Settings")]
+		private float radiusAwayFromAsteroids = 10; // how far away (minimum) from asteroids enemies will try to spawn
 
 		public bool WaveActive { get; private set; }
 
