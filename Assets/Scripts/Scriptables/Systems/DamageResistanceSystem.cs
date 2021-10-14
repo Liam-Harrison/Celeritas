@@ -16,10 +16,10 @@ namespace Celeritas.Scriptables.Systems
 	public class DamageResistanceSystem : ModifierSystem, IEntityEffectAdded, IEntityEffectRemoved
 	{
 
-		[SerializeField, PropertyRange(-100, 100), Title("Damage Taken Modifier Percentage", "Zero = no mutiplier, -1 = 100% less damage, 1 = 100% more damage.")]
+		[SerializeField, PropertyRange(-1.0f, 1.0f), Title("Damage Taken Modifier Percentage", "Zero = no mutiplier, -1 = 100% less damage, 1 = 100% more damage.")]
 		private float amount;
 
-		[SerializeField, PropertyRange(-100, 100), Title("Damage Taken Modifier Percentage added per level", "Amount given on top of the base amount.")]
+		[SerializeField, PropertyRange(-1.0f, 1.0f), Title("Damage Taken Modifier Percentage added per level", "Amount given on top of the base amount.")]
 		private float amountExtraPerLevel;
 
 		/// <summary>
@@ -42,6 +42,10 @@ namespace Celeritas.Scriptables.Systems
 		{
 			var ship = entity as ShipEntity;
 			ship.DamageModifierPercentage = (Amount + (AmountExtraPerLevel * wrapper.Level));
+			Debug.Log("Amount" + Amount);
+			Debug.Log("Amountperlevel" + AmountExtraPerLevel);
+			Debug.Log("Wrapper" + wrapper.Level);
+			Debug.Log("Ship" + ship.DamageModifierPercentage);
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)

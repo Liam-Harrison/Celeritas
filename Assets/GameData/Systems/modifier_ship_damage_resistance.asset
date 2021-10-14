@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: modifier_ship_damage_resistance
   m_EditorClassIdentifier: 
   title: Deflective Plating
-  amount: -15
-  amountExtraPerLevel: -5
+  amount: -0.15
+  amountExtraPerLevel: -0.5
