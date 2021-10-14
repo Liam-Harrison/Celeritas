@@ -42,10 +42,6 @@ namespace Celeritas.Scriptables.Systems
 		{
 			var ship = entity as ShipEntity;
 			ship.DamageModifierPercentage = (Amount + (AmountExtraPerLevel * wrapper.Level));
-			Debug.Log("Amount" + Amount);
-			Debug.Log("Amountperlevel" + AmountExtraPerLevel);
-			Debug.Log("Wrapper" + wrapper.Level);
-			Debug.Log("Ship" + ship.DamageModifierPercentage);
 		}
 
 		public void OnEntityEffectRemoved(Entity entity, EffectWrapper wrapper)
