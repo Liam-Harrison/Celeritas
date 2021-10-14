@@ -186,7 +186,7 @@ MonoBehaviour:
   hasShipActions: 0
   shipActions: []
   projectileSpawn: {fileID: 8433288825458548499}
-  fired: {fileID: 8300000, guid: b4b8c2a2852867e49a4e2fb0b570658f, type: 3}
+  fired: {fileID: 8300000, guid: 025e7b0210c931248bca19d51b900103, type: 3}
   hasDefaultProjectileEffects: 1
   projectileEffects:
   - Level: 0
