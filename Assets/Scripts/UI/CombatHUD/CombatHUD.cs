@@ -148,7 +148,7 @@ public class CombatHUD : Singleton<CombatHUD>
 	{
 		if (gameObject.activeInHierarchy)
 		{ 
-			PrintNotification("+" + amount + " Modules!");
+			PrintNotification("<color=#c71585><b>+" + amount + " Modules!</b></color>");
 			buildModeHintText.SetActive(true);
 		}
 	}
