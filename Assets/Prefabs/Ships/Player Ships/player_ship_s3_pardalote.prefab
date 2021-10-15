@@ -35,6 +35,7 @@ Transform:
   - {fileID: 4823131157094010665}
   - {fileID: 4036122103421853701}
   - {fileID: 8898756747550372257}
+  - {fileID: 6794158325300807118}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -80,6 +81,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: ShieldRegenAmount
+      Entry: 4
+      Data: 50
+    - Name: ShieldRegenDelay
+      Entry: 4
+      Data: 4
     - Name: inventory
       Entry: 7
       Data: 0|Celeritas.Scriptables.ModuleData[,], Assembly-CSharp
@@ -193,6 +200,8 @@ MonoBehaviour:
       Data: 
   hasDefaultEffects: 0
   defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
@@ -219,7 +228,8 @@ MonoBehaviour:
   engineEffects:
   - {fileID: 6798630448132876635}
   - {fileID: 1865899381795093198}
-  damageModifierPercentage: 0
+  collisionDamageMod: 1
+  explosionScript: {fileID: 9028729267693533373}
   selectionViewSize: 8
   gameViewSize: 25
   buildViewSize: 30
@@ -542,6 +552,87 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e36be0a4ec90b0478c1b06d68028471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &3477235211354955348
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5379254196818789214}
+    m_Modifications:
+    - target: {fileID: 5552342880430941929, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+      propertyPath: ship
+      value: 
+      objectReference: {fileID: 3076751716027424283}
+    - target: {fileID: 5552342880430941929, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+      propertyPath: shipCollider
+      value: 
+      objectReference: {fileID: 7848446139261497888}
+    - target: {fileID: 7928637719676951450, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928637719676951450, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928637719676951450, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928637719676951450, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928637719676951450, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928637719676951450, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928637719676951450, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928637719676951450, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928637719676951450, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928637719676951450, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928637719676951450, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9045051964202480741, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+      propertyPath: m_Name
+      value: Player_Ship_Explosion
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+--- !u!4 &6794158325300807118 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7928637719676951450, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+  m_PrefabInstance: {fileID: 3477235211354955348}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9028729267693533373 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5552342880430941929, guid: 1901fcf683c312b45b90e61f3a71cf47, type: 3}
+  m_PrefabInstance: {fileID: 3477235211354955348}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3069d9a87a2ece4e9196b3b9ff474c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &7190602777213511957
