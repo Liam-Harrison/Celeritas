@@ -50,6 +50,9 @@ public class CombatHUD : Singleton<CombatHUD>
 	[SerializeField, TitleGroup("Floating Text")]
 	private GameObject floatingTextPrefab;
 
+	[SerializeField]
+	private GameObject buildModeHintText;
+
 	private ShipEntity playerShip;
 
 	public AbilityBar AbilityBar { get => abilityBar; }
@@ -127,6 +130,8 @@ public class CombatHUD : Singleton<CombatHUD>
 			playerMainShieldBar.EntityStats = playerShip.Shield;
 		}
 
+		if (buildModeHintText.activeSelf && LootController.Instance != null && LootController.Instance.ModuleComponents == 0)
+			buildModeHintText.SetActive(false);
 	}
 
 	private void OnWaveStarted()
@@ -142,7 +147,10 @@ public class CombatHUD : Singleton<CombatHUD>
 	private void OnModulesChanged(int modules, int amount)
 	{
 		if (gameObject.activeInHierarchy)
+		{ 
 			PrintNotification("+" + amount + " Modules!");
+			buildModeHintText.SetActive(true);
+		}
 	}
 
 	private void OnRareComponentsChanged(int components, int amount)
