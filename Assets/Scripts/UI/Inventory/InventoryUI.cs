@@ -59,6 +59,16 @@ namespace Celeritas.UI.Inventory
 			var ui = Instantiate(inventoryItem, parent).GetComponent<InventoryItemUI>();
 			ui.Module = module;
 			items.Add(ui);
+			SortList();
+		}
+
+		private void SortList()
+		{
+			items.Sort((x, y) => x.Module.Title.CompareTo(y.Module.Title)); // sort list alphabetically
+			foreach (InventoryItemUI item in items)
+			{
+				item.transform.SetAsLastSibling();
+			}
 		}
 	}
 }
