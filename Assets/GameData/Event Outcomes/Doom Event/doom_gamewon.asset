@@ -15,15 +15,20 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: Congratulations!
-    content: This is the end of the current version of Celeritas, we hope you enjoyed
+    content: 'This is the end of the current version of Celeritas, we hope you enjoyed
       our game!
+
+
+      We''ve given you some bonus modules to play with and a new
+      Cold Fury will spawn every 2 minutes from now on if you want to test new loadouts,
+      thanks for testing!'
     options: []
-  hasRewards: 0
+  hasRewards: 1
   lootType: 0
-  lootRewardRange: {x: 0, y: 0}
+  lootRewardRange: {x: 4, y: 4}
   moduleRewards: []
-  changeHealth: 0
-  percentChangeHealth: 0
+  changeHealth: 1
+  percentChangeHealth: 1
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 0
