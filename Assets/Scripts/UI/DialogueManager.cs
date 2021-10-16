@@ -88,7 +88,7 @@ namespace Celeritas.UI
 
 			StopAllCoroutines();
 			ChangeTimeScale(0);
-			background.SetActive(true);
+			StartCoroutine(RefreshUI());
 			CombatHUD.Instance.SetGameCursor(false);
 		}
 
@@ -130,6 +130,19 @@ namespace Celeritas.UI
 			Time.timeScale = value;
 
 			yield break;
+		}
+
+		private IEnumerator RefreshUI()
+		{
+			background.SetActive(true);
+
+			yield return new WaitForEndOfFrame();
+
+			background.SetActive(false);
+
+			yield return new WaitForEndOfFrame();
+
+			background.SetActive(true);
 		}
 	}
 }
