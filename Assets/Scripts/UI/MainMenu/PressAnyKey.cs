@@ -1,30 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using UnityEngine;
 
-public class PressAnyKey : MonoBehaviour
+namespace Celeritas.UI
 {
-	public Button button;
-	public CanvasGroup canvas;
+	public class PressAnyKey : MonoBehaviour
+	{
+		public Button button;
+		public CanvasGroup canvas;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-	}
-
-    // Update is called once per frame
-    void Update()
-    {
-		if (Keyboard.current.anyKey.wasPressedThisFrame)
+		void Update()
 		{
-			button.onClick.Invoke();
-		}
-		if (canvas.alpha > 0)
-		{
-			this.enabled = false;
+			if (Keyboard.current.anyKey.wasPressedThisFrame)
+			{
+				button.onClick.Invoke();
+			}
+			if (canvas.alpha > 0)
+			{
+				enabled = false;
+			}
 		}
 	}
 }
