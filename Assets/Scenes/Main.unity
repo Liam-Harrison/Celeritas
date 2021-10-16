@@ -5319,6 +5319,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4477257796416552750, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
+      propertyPath: maxNumberOfTriesToAvoidAsteroid
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4477257796416552756, guid: 6cd717d2d8734544281e5313ec627f85, type: 3}
       propertyPath: m_Name
       value: Gameplay Managers
