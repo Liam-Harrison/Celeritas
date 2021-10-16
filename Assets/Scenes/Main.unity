@@ -5336,6 +5336,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 737836300923066407, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
+      propertyPath: buildModeHintText
+      value: 
+      objectReference: {fileID: 5641295163935412966}
     - target: {fileID: 5641295164302884695, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -5482,6 +5486,11 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: c89299d8e747c4741886dd24ca5bd406, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
+--- !u!1 &5641295163935412966 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1046449283634322293, guid: 3873a34f86c4ca5439c25133c6908095, type: 3}
+  m_PrefabInstance: {fileID: 5641295163935412965}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8531167039589270624
 PrefabInstance:
   m_ObjectHideFlags: 0
