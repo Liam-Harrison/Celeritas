@@ -25,7 +25,7 @@ namespace Celeritas.Game.Entities
 
 		private AudioSource source;
 
-		private uint rateOfFire;
+		private float rateOfFire;
 		private float maxCharge = 10.0f;
 
 		/// <summary>
@@ -41,7 +41,7 @@ namespace Celeritas.Game.Entities
 		/// <summary>
 		/// The rate of fire of this weapon.
 		/// </summary>
-		public uint RateOfFire { get=> rateOfFire; set => rateOfFire = value; }
+		public float RateOfFire { get=> rateOfFire; set => rateOfFire = value; }
 
 		/// <summary>
 		/// Where the weapon's projectiles will spawn
@@ -108,13 +108,13 @@ namespace Celeritas.Game.Entities
 		{
 			if (WeaponData.Charge)
 			{
-				Charge += (1f / rateOfFire);
+				Charge += (1f * rateOfFire * Time.deltaTime); // high rate of fire should make weapon fire faster
 				if (Charge > maxCharge)
 				{
 					if (WeaponData.Autofire)
 					{
 						Fire();
-						lastFired = Time.time;
+						lastFired = TimeAlive;
 						Charge = 0;
 					}
 					else
@@ -122,11 +122,9 @@ namespace Celeritas.Game.Entities
 				}
 				//TODO: add animation to show weapon is charging (see: git issue #35)
 			}
-			//else if (Time.time >= lastFired + (1f / rateOfFire))
 			else if (TimeAlive >= lastFired + (1f / rateOfFire))
 			{
 				Fire();
-				//lastFired = Time.time;
 				lastFired = TimeAlive;
 			}
 		}
