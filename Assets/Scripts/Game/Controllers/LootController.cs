@@ -106,6 +106,12 @@ namespace Celeritas.Game.Controllers
 
 				case LootType.RareMetal:
 					RareMetals += amount;
+					if (RareMetals > 99)
+					{
+						RareMetals -= 100;
+						CombatHUD.Instance.PrintNotification("-100 Rare Metals!");
+						GivePlayerLoot(LootType.Module, 1);
+					}
 					OnRareComponentsChanged?.Invoke(RareMetals, amount);
 					break;
 			}
