@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 0
+    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -187,7 +187,7 @@ MonoBehaviour:
   hasShipActions: 0
   shipActions: []
   projectileSpawn: {fileID: 8433288825458548499}
-  fired: {fileID: 8300000, guid: 7467b19020b9c46e483dc6824b478387, type: 3}
+  fired: {fileID: 8300000, guid: 207d241ca7c6841e583dc0cfb7e34c60, type: 3}
   hasDefaultProjectileEffects: 1
   projectileEffects:
   - Level: 0
@@ -202,9 +202,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7467b19020b9c46e483dc6824b478387, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 207d241ca7c6841e583dc0cfb7e34c60, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_Volume: 0.01
   m_Pitch: 1
   Loop: 0
   Mute: 0
