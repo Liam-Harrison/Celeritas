@@ -50,6 +50,9 @@ public class CombatHUD : Singleton<CombatHUD>
 	[SerializeField, TitleGroup("Floating Text")]
 	private GameObject floatingTextPrefab;
 
+	[SerializeField, TitleGroup("Screen Effect")]
+	private GameObject screenEffect;
+
 	[SerializeField]
 	private GameObject buildModeHintText;
 
@@ -189,6 +192,26 @@ public class CombatHUD : Singleton<CombatHUD>
 		{
 			var floating = floatingTextPool.GetPooledObject();
 			floating.Initalize(entity, damage);
+		}
+	}
+
+	public void ColorFlash(float duration, Color color)
+	{
+		if (screenEffect != null)
+		{
+			ScreenEffect colorFlash;
+			colorFlash = screenEffect.GetComponent<ScreenEffect>();
+			colorFlash.RunFlash(duration, color);
+		}
+	}
+
+	public void ColorShift(float duration, Color color)
+	{
+		if (screenEffect != null)
+		{
+			ScreenEffect colorShift;
+			colorShift = screenEffect.GetComponent<ScreenEffect>();
+			colorShift.RunLerp(duration, color);
 		}
 	}
 }

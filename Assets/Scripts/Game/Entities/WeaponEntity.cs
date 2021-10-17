@@ -147,7 +147,7 @@ namespace Celeritas.Game.Entities
 
 		public IEnumerator RunOverdrive(float percentageToAdd, float duration)
 		{
-			uint originalRateOfFire = RateOfFire;
+			float originalRateOfFire = RateOfFire;
 			RateOfFire = (uint)((float)RateOfFire * percentageToAdd);
 			yield return new WaitForSeconds(duration);
 			RateOfFire = originalRateOfFire;
