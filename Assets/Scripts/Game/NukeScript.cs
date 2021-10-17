@@ -15,8 +15,6 @@ namespace Celeritas.Game.Entities
 
 		public float damage = 750;
 
-		private float countDown = 1;
-
 		private bool hasExploded = false;
 
 		[SerializeField]
@@ -35,13 +33,14 @@ namespace Celeritas.Game.Entities
 		{
 			if (delaySet == true)
 			{
-				countDown -= Time.deltaTime;
+				delay -= Time.deltaTime;
 			}
 
-			material.color = Color.Lerp(Color.red, Color.white, countDown);
+			material.color = Color.Lerp(Color.red, Color.white, delay);
 
-			if (countDown <= 0 && hasExploded == false)
+			if (delay <= 0 && hasExploded == false)
 			{
+				CombatHUD.Instance.ColorShift(1, Color.white);
 				Explode();
 				hasExploded = true;
 			}
