@@ -8,7 +8,7 @@ using System;
 namespace Celeritas.Scriptables.Systems
 {
 	[CreateAssetMenu(fileName = "New Health Increase Modifier", menuName = "Celeritas/Modifiers/Health Increase")]
-	public class ShipHealthIncreaseSystem : ModifierSystem, IEntityEffectAdded, IEntityEffectRemoved
+	public class ShipHealthIncreaseSystem : ModifierSystem, IEntityEffectAdded, IEntityEffectRemoved, IEntityLevelChanged
 	{
 
 		[SerializeField, PropertyRange(0, 1), InfoBox("Percentage to add")]
@@ -72,6 +72,37 @@ namespace Celeritas.Scriptables.Systems
 			//Calculates how much damage needs to be inflicted due to added health removal
 			float damageToInflict = ship.Health.CurrentValue - (ship.ShipData.StartingHealth * percentageToDamage);
 
+			ship.Health.Damage(damageToInflict);
+		}
+
+		public void OnLevelChanged(Entity entity, int previous, int newLevel, EffectWrapper effectWrapper)
+		{
+			// revert to base value
+			var ship = entity as ShipEntity;
+
+			float amountToRemove = 1 + amount + (previous * amountExtraPerLevel);
+
+			float shipCurrent = (float)ship.Health.CurrentValue;
+			float shipMax = (float)ship.Health.MaxValue;
+			float percentageToDamage = (shipCurrent / shipMax);
+
+			ship.Health.MaxValue /= amountToRemove;
+
+			//Calculates how much damage needs to be inflicted due to added health removal
+			float damageToInflict = ship.Health.CurrentValue - (ship.ShipData.StartingHealth * percentageToDamage);
+			ship.Health.Damage(damageToInflict);
+
+			// apply new level changes
+			float amountToAdd = 1 + amount + (newLevel * amountExtraPerLevel);
+
+			shipCurrent = (float)ship.Health.CurrentValue;
+			shipMax = (float)ship.Health.MaxValue;
+			float percentageToHeal = (shipCurrent / shipMax);
+
+			ship.Health.MaxValue *= amountToAdd;
+
+			//Calculates how much damage needs to be inflicted to heal the added health.
+			damageToInflict = ship.Health.CurrentValue - (ship.Health.MaxValue * percentageToHeal);
 			ship.Health.Damage(damageToInflict);
 		}
 	}
