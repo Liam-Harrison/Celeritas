@@ -245,6 +245,8 @@ namespace Celeritas.Game.Entities
 			base.OnEntityHit(other);
 		}
 
+		[SerializeField]
+		Explosion explosionScript;
 		/// <summary>
 		/// Register damage to this entity and update it internally.
 		/// </summary>
@@ -285,7 +287,10 @@ namespace Celeritas.Game.Entities
 
 				if (health.IsEmpty())
 				{
-					KillEntity();
+					if (explosionScript != null)
+						explosionScript.Explode();
+					else
+						KillEntity();
 				}
 			}
 		}
