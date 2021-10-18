@@ -300,7 +300,7 @@
 			<destination>{1585e3dc-c18d-4477-b66a-084c9ab25996}</destination>
 		</relationship>
 		<relationship name="triggerConditions">
-			<destination>{2f3b832f-3ed7-41e5-9731-a47280ab9679}</destination>
+			<destination>{af2fa372-8057-45dc-85b9-4accc8835d7f}</destination>
 		</relationship>
 	</object>
 	<object class="NamedMarker" id="{1585e3dc-c18d-4477-b66a-084c9ab25996}">
@@ -397,7 +397,7 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{e3c2fc4a-ca93-458d-be0c-19f2b726cafe}" />
-	<object class="EventCondition" id="{2f3b832f-3ed7-41e5-9731-a47280ab9679}">
+	<object class="EventCondition" id="{af2fa372-8057-45dc-85b9-4accc8835d7f}">
 		<property name="eventState">
 			<value>1</value>
 		</property>

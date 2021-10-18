@@ -79,4 +79,12 @@ MonoBehaviour:
   charge: 0
   maxCharge: 0
   autofire: 0
+  fireSound:
+    Guid:
+      Data1: 1694836458
+      Data2: 1240264308
+      Data3: 119903925
+      Data4: 57820705
+    Path: event:/Weapons/Standard Shot
+  isChargeUpSound: 0
   placeholder: 0

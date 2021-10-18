@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{646b94ef-4f8c-43a8-a36e-185dbc55fc98}">
+		<property name="name">
+			<value>ChargeDown</value>
+		</property>
+		<relationship name="folder">
+			<destination>{20faa312-6d51-4871-9518-fc2037556949}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{cb0fbd16-e621-4201-93b2-06b548c349cc}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{cb0fbd16-e621-4201-93b2-06b548c349cc}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

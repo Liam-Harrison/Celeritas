@@ -79,4 +79,12 @@ MonoBehaviour:
   charge: 0
   maxCharge: 0
   autofire: 0
+  fireSound:
+    Guid:
+      Data1: -27278409
+      Data2: 1187804776
+      Data3: 45485209
+      Data4: -1236864967
+    Path: event:/Weapons/Mining Laser
+  isChargeUpSound: 0
   placeholder: 0

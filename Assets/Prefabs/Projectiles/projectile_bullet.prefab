@@ -348,11 +348,11 @@ MonoBehaviour:
     Path: event:/Weapons/General Hit
   onSpawn:
     Guid:
-      Data1: 1694836458
-      Data2: 1240264308
-      Data3: 119903925
-      Data4: 57820705
-    Path: event:/Weapons/Standard Shot
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0

@@ -1,7 +1,9 @@
+using System;
 using Celeritas.Game.Controllers;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using FMOD.Studio;
 using UnityEngine;
 
 namespace Celeritas.Game.Entities
@@ -57,7 +59,7 @@ namespace Celeritas.Game.Entities
 			{
 				if (item == null)
 					continue;
-				
+
 				Inventory.Add(item);
 			}
 
@@ -71,6 +73,7 @@ namespace Celeritas.Game.Entities
 #if UNITY_EDITOR
 			if (value != null)
 			{
+
 				Texture2D preview = value.Icon.ToTexture2D();
 				value = (ModuleData)Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(rect, value, preview, typeof(ModuleData));
 			}
@@ -80,6 +83,19 @@ namespace Celeritas.Game.Entities
 			}
 #endif
 			return value;
+		}
+
+
+		public override void TakeDamage(Entity attackingEntity, float damage)
+		{
+			base.TakeDamage(attackingEntity, damage);
+			var p = Mathf.Clamp01(health.CurrentValue / health.MaxValue);
+			p = Mathf.Clamp01(Mathf.InverseLerp(0f,0.5f,p));
+			p = 1 - p;
+			var curve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+			p = curve.Evaluate(p);
+
+			FMODManager.Instance.InGameMusicInstance.setParameterByName("HealthIntensity", p);
 		}
 
 		private void onLayoutResolutionChange(Vector2Int value)

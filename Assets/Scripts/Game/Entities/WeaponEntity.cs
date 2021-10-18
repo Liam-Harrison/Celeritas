@@ -1,8 +1,12 @@
+using System;
 using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Collections;
+using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Celeritas.Game.Entities
 {
@@ -26,8 +30,9 @@ namespace Celeritas.Game.Entities
 
 		private AudioSource source;
 
-		private float rateOfFire;
+		private uint rateOfFire;
 		private float maxCharge = 10.0f;
+		private EventInstance fireSoundInstance;
 
 		/// <summary>
 		/// Get the effect manager for the projectiles on this entity.
@@ -54,7 +59,7 @@ namespace Celeritas.Game.Entities
 
 		private void Awake()
 		{
-			source = GetComponent<AudioSource>();
+			// if (!WeaponData.FireSound.IsNull ) fireSoundInstance = RuntimeManager.CreateInstance(WeaponData.FireSound);
 		}
 
 		/// <inheritdoc/>
@@ -101,6 +106,20 @@ namespace Celeritas.Game.Entities
 				Fire();
 				Charge = 0.0f;
 			}
+
+			// if (!WeaponData.FireSound.IsNull && WeaponData.IsChargeUpSound)
+			// {
+			// 	fireSoundInstance.getPlaybackState(out var state);
+			// 	switch (state)
+			// 	{
+			// 		case PLAYBACK_STATE.STOPPED when state == PLAYBACK_STATE.STOPPING && Firing:
+			// 			fireSoundInstance.start();
+			// 			break;
+			// 		case PLAYBACK_STATE.PLAYING when !Firing:
+			// 			fireSoundInstance.stop(STOP_MODE.ALLOWFADEOUT);
+			// 			break;
+			// 	}
+			// }
 		}
 
 		private float lastFired = 0.0f;
@@ -136,8 +155,8 @@ namespace Celeritas.Game.Entities
 			projectile.transform.localScale = projectileSpawn.localScale;
 			EntityEffects.EntityFired(projectile);
 
-			if (fired != null)
-				source.PlayOneShot(fired);
+			// if (fired != null && !WeaponData.FireSound.IsNull)
+				// if (!WeaponData.IsChargeUpSound) RuntimeManager.PlayOneShot(WeaponData.FireSound);
 		}
 
 		public void OverDrive(float percentageToAdd, float duration)
