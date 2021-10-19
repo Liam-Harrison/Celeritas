@@ -71,12 +71,12 @@ namespace Celeritas.UI
 		private void Update()
 		{
 			var mousepos = Mouse.current.position.ReadValue();
-
+			/*
 			if (moduleSelection.gameObject.activeInHierarchy)
 			{
 				tooltip.HideTooltip();
 				return;
-			}
+			}*/
 
 			if (dragging != null)
 			{

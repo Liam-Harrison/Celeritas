@@ -19,28 +19,34 @@ namespace Celeritas.Game.Controllers
 		/// </summary>
 		public int RareMetals { get; private set; }
 
+		[SerializeField, TitleGroup("Starting Equipment")]
+		private int startingRareMetalAmount;
+
+		[SerializeField, TitleGroup("Starting Equipment")]
+		private int startingModuleAmount;
+
 		/// <summary>
 		/// Data for creating dropped module loot
 		/// </summary>
-		[SerializeField]
+		[SerializeField, TitleGroup("Drop Data")]
 		private LootData moduleDropData;
 
 		/// <summary>
 		/// Data for creating dropped metal loot (appears on map, player can pick it up)
 		/// </summary>
-		[SerializeField]
+		[SerializeField, TitleGroup("Drop Data")]
 		private LootData rareMetalDropData;
 
 		/// <summary>
 		/// Max number of rare metals that will drop when an asteroid is destroyed
 		/// </summary>
-		[SerializeField, PropertyRange(1, 25)]
+		[SerializeField, PropertyRange(1, 25), TitleGroup("Drop Data")]
 		private int maxRareMetalDropAmount;
 
 		/// <summary>
 		/// Max number of modules that will drop when a ship is destroyed
 		/// </summary>
-		[SerializeField, PropertyRange(1, 25)]
+		[SerializeField, PropertyRange(1, 25), TitleGroup("Drop Data")]
 		private int maxModuleDropAmount;
 
 		/// <summary>
@@ -52,6 +58,12 @@ namespace Celeritas.Game.Controllers
 		/// Invoked when the amount of rare components changes.
 		/// </summary>
 		public static event System.Action<int, int> OnRareComponentsChanged;
+
+		private void Start()
+		{
+			ModuleComponents = startingModuleAmount;
+			RareMetals = startingRareMetalAmount;
+		}
 
 		/// <summary>
 		/// Generate a loot drop. Currently will automatically be picked up by the player
