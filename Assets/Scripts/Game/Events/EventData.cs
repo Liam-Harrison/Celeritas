@@ -25,6 +25,9 @@ namespace Celeritas.Game.Events
 		[SerializeField, TitleGroup("Settings"), Indent(11), TableMatrix(DrawElementMethod = "DrawCell", HideColumnIndices = true, HideRowIndices = true, SquareCells = true, HorizontalTitle = "X Axis", VerticalTitle = "Y Axis")]
 		private bool[,] grid;
 
+		[SerializeField, TitleGroup("Settings")]
+		private int spawnWeight = 100;
+
 		[SerializeField, TitleGroup("Map", "Information about the minimap and presentation.")]
 		private bool showOnMap;
 
@@ -53,6 +56,8 @@ namespace Celeritas.Game.Events
 		public bool [,] Grid { get => grid; }
 
 		public bool ShowOnMap { get => showOnMap; }
+
+		public int SpawnWeight { get => spawnWeight;  }
 
 		public bool ShowArrow { get => showArrow; }
 

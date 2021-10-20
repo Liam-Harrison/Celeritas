@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Celeritas.UI
 {
@@ -24,6 +25,9 @@ namespace Celeritas.UI
 	{
 		[PropertySpace]
 		public string title;
+
+		[PropertySpace]
+		public Sprite portrait;
 
 		[TextArea(6,12), InfoBox("You can use the standard string format to place variables in the dialogue content, by using the symbols {0}, {1}, ect. The symbols are in this order: Module Reward, Loot Drop Amount, Health Change")]
 		public string content;
@@ -51,6 +55,12 @@ namespace Celeritas.UI
 		[SerializeField, TitleGroup("Assignments")]
 		private GameObject background;
 
+		[SerializeField, TitleGroup("Assignments")]
+		private GameObject portrait;
+
+		[SerializeField, TitleGroup("Assignments")]
+		private Image image;
+
 		public DialogueInfo Dialogue { get; private set; }
 
 		private void OnDisable()
@@ -62,6 +72,16 @@ namespace Celeritas.UI
 		{
 			Dialogue = info;
 			title.text = info.title;
+
+			if (info.portrait != null)
+			{
+				image.sprite = info.portrait;
+				portrait.SetActive(true);
+			}
+			else
+			{
+				portrait.SetActive(false);
+			}
 
 			if (string.IsNullOrEmpty(info.DynamicContent))
 				content.text = info.content;

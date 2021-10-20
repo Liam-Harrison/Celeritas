@@ -39,6 +39,7 @@ namespace Celeritas.Game
 			if (SettingsManager.TutorialEvent && tutorialEvent != null)
 			{
 				CreateEvent(tutorialEvent, Vector2Int.zero, true);
+				PlayerController.OnPlayerShipCreated += OnPlayerShipCreated;
 			}
 			else if (GameStateManager.Instance.GameState != GameState.MAINMENU)
 			{
@@ -46,10 +47,17 @@ namespace Celeritas.Game
 				{
 					CreateRandomEvent();
 				}
+				PlayerController.OnPlayerShipCreated += OnPlayerShipCreated;
 			}
 
 			GameStateManager.onStateChanged += OnStateChanged;
 			Chunks.OnEnteredChunk += OnEnteredChunk;
+		}
+
+		private void OnPlayerShipCreated()
+		{
+			PlayerController.OnPlayerShipCreated -= OnPlayerShipCreated;
+			LootController.Instance.GivePlayerLoot(LootType.Module, 1);
 		}
 
 		private void OnDisable()
@@ -86,6 +94,7 @@ namespace Celeritas.Game
 				if (SettingsManager.TutorialEvent && tutorialEvent != null)
 				{
 					CreateEvent(tutorialEvent, Vector2Int.zero, true);
+					LootController.Instance.GivePlayerLoot(LootType.Module, 1);
 				}
 				else
 				{
@@ -93,14 +102,36 @@ namespace Celeritas.Game
 					{
 						CreateRandomEvent();
 					}
+					LootController.Instance.GivePlayerLoot(LootType.Module, 1);
 				}
 			}
 		}
 
 		private void CreateRandomEvent()
 		{
-			var e = EntityDataManager.Instance.Events.Where(x =>  x.CannotAppearRandomly == false && events.Where(y => y.EventData == x).Count() == 0).OrderBy(x => Random.value).Take(1);
-			CreateEvent(e.First());
+			var events = EntityDataManager.Instance.Events.Where(x => x.CannotAppearRandomly == false);
+
+			float sum = 0;
+
+			foreach (var e in events)
+			{
+				sum += e.SpawnWeight;
+			}
+
+			float i = Random.Range(0, sum);
+
+			sum = 0;
+
+			foreach (var e in events)
+			{
+				if (i >= sum && i < sum + e.SpawnWeight)
+				{
+					CreateEvent(e);
+					return;
+				}
+
+				sum += e.SpawnWeight;
+			}
 		}
 
 		public void CreateEvent(EventData data, Vector2Int chunk, bool enter = false)

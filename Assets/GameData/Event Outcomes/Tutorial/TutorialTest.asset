@@ -15,9 +15,10 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: Welcome to hell, pilot!
+    portrait: {fileID: 21300000, guid: d2947eae9cf3f58418e838c99419d359, type: 3}
     content: 'It''s good to see you alive pilot. Welcome to black space.
 
-      
+
 
       Out
       here on the fringes of the galaxy places of interest are going to be your only
@@ -26,30 +27,30 @@ MonoBehaviour:
       is hostile, green means (hopefully) friendly. But be careful! The scanners
       don''t get much detail and are really just guessing.
 
-      
 
-      Almost
-      everyone out here is infested, so be careful, you''re unlikely to encounter
-      a ship that doesn''t want you dead. There''s a big ship headed your way that
-      I don''t really want to mess with, so I''ll be sure to get in contact again
-      if you''re still alive after fighting it. There''s a countdown next to your
-      minimap, it ticks up every two minutes, indicating that stronger infested have
-      arrived, when the counter hits five, you''ll have to deal with the big one.
 
-      
+      Almost everyone
+      out here is infested, so be careful, you''re unlikely to encounter a ship that
+      doesn''t want you dead. There''s a big ship headed your way that I don''t really
+      want to mess with, so I''ll be sure to get in contact again if you''re still
+      alive after fighting it. There''s a countdown next to your minimap, it ticks
+      up every two minutes, indicating that stronger infested have arrived, when
+      the counter hits five, you''ll have to deal with the big one.
+
+
 
       Good
       luck, you''ll probably need it.
 
-      
+
 
       *END TRANSMISSION*
 
 '
     options: []
-  hasRewards: 0
+  hasRewards: 1
   lootType: 0
-  lootRewardRange: {x: 0, y: 0}
+  lootRewardRange: {x: 1, y: 1}
   moduleRewards: []
   changeHealth: 0
   percentChangeHealth: 0
