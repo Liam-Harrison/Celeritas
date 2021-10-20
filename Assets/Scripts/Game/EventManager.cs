@@ -27,6 +27,11 @@ namespace Celeritas.Game
 		[SerializeField]
 		private EventData tutorialEvent;
 
+		[SerializeField]
+		private GameObject backgroundPrefab;
+
+		private readonly List<GameObject> images = new List<GameObject>();
+
 		public IReadOnlyCollection<GameEvent> Events { get => events; }
 
 		private new Camera camera;
@@ -52,6 +57,34 @@ namespace Celeritas.Game
 
 			GameStateManager.onStateChanged += OnStateChanged;
 			Chunks.OnEnteredChunk += OnEnteredChunk;
+
+			Chunks.OnUnloadedChunk += OnUnloadedChunk;
+		}
+
+		private void OnUnloadedChunk(Chunk obj)
+		{
+			ClearImageInChunk(obj.Index);
+		}
+
+		public void ClearImageInChunk(Vector2Int p)
+		{
+			for (int i = images.Count - 1; i >= 0; i--)
+			{
+				var image = images[i];
+
+
+				if (image == null)
+				{
+					images.RemoveAt(i);
+					continue;
+				}
+
+				if (Chunks.ChunkManager == null || Chunks.ChunkManager.GetChunkIndex(image.transform.position) == p)
+				{
+					Destroy(image);
+					images.RemoveAt(i);
+				}
+			}
 		}
 
 		private void OnPlayerShipCreated()
@@ -64,6 +97,8 @@ namespace Celeritas.Game
 		{
 			GameStateManager.onStateChanged -= OnStateChanged;
 			Chunks.OnEnteredChunk -= OnEnteredChunk;
+			Chunks.OnUnloadedChunk -= OnUnloadedChunk;
+
 		}
 
 		private void FixedUpdate()
@@ -169,6 +204,14 @@ namespace Celeritas.Game
 		public void CreateEvent(EventData data)
 		{
 			CreateEvent(data, GetRandomLocation(data));
+		}
+
+		public GameObject CreateBackgroundPrefab()
+		{
+			var go = Instantiate(backgroundPrefab);
+			images.Add(go);
+
+			return go;
 		}
 
 		private Vector2Int GetRandomLocation(EventData data)

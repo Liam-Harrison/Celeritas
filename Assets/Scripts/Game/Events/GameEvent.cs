@@ -1,6 +1,8 @@
 using Celeritas.UI;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using CanvasScaler = Celeritas.UI.CanvasScaler;
 
 namespace Celeritas.Game.Events
 {
@@ -18,12 +20,33 @@ namespace Celeritas.Game.Events
 
 		public bool AreaEntered { get; private set; } = false;
 
+		private GameObject backgroundObject;
+
 		public virtual void Initalize(EventData data, Vector2Int chunk)
 		{
 			EventData = data;
 			OriginChunk = chunk;
 
 			ChunkIds.AddRange(GetChunks(OriginChunk, data));
+
+			foreach(var c in ChunkIds)
+			{
+				EventManager.Instance.ClearImageInChunk(c);
+			}
+
+			if (data.BackgroundSprite != null)
+			{
+				backgroundObject = EventManager.Instance.CreateBackgroundPrefab();
+
+				var pos = Chunks.ChunkManager.GetPositionFromIndex(chunk);
+
+				pos.z = 40;
+
+				backgroundObject.transform.position = pos;
+				backgroundObject.GetComponentInChildren<Image>().sprite = data.BackgroundSprite;
+
+				backgroundObject.GetComponent<CanvasScaler>().SetSize(data.BackgroundSize, data.BackgroundSize);
+			}
 
 			if (data.ShowArrow)
 			{

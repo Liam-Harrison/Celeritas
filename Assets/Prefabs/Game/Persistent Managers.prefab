@@ -76,6 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: 5
   mode: 1
+  unloadAllEntities: 0
   loadOnAwake: 1
 --- !u!114 &6771433546541588247
 MonoBehaviour:
@@ -138,6 +139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7455503ee810924386351266646c9cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialEvent: {fileID: 11400000, guid: 96d31745c7b4ef644af932d0180c7905, type: 2}
+  backgroundPrefab: {fileID: 5695339534136062427, guid: 51fdee5a99dded44da815ec8d232b381, type: 3}
 --- !u!114 &3580107039914516344
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -28,6 +28,8 @@ namespace Celeritas.Game
 
 		public static event Action<Chunk> OnEnteredChunk;
 
+		public static event Action<Chunk> OnUnloadedChunk;
+
 		private new Camera camera;
 
 		protected override void Awake()
@@ -141,6 +143,11 @@ namespace Celeritas.Game
 
 			foreach (var chunk in toRemove)
 			{
+				if (ChunkManager.TryGetChunk(chunk, out var c))
+				{
+					OnUnloadedChunk?.Invoke(c);
+				}
+
 				ChunkManager.UnloadChunk(chunk);
 			}
 
