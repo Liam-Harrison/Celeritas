@@ -109,8 +109,29 @@ namespace Celeritas.Game
 
 		private void CreateRandomEvent()
 		{
-			var e = EntityDataManager.Instance.Events.Where(x =>  x.CannotAppearRandomly == false && events.Where(y => y.EventData == x).Count() == 0).OrderBy(x => Random.value).Take(1);
-			CreateEvent(e.First());
+			var events = EntityDataManager.Instance.Events.Where(x => x.CannotAppearRandomly == false);
+
+			float sum = 0;
+
+			foreach (var e in events)
+			{
+				sum += e.SpawnWeight;
+			}
+
+			float i = Random.Range(0, sum);
+
+			sum = 0;
+
+			foreach (var e in events)
+			{
+				if (i >= sum && i < sum + e.SpawnWeight)
+				{
+					CreateEvent(e);
+					return;
+				}
+
+				sum += e.SpawnWeight;
+			}
 		}
 
 		public void CreateEvent(EventData data, Vector2Int chunk, bool enter = false)
