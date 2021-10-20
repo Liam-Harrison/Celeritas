@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc40aff5a1de86c4b9bb5a4b3556806d, type: 3}
+  m_Name: action_nuke
+  m_EditorClassIdentifier: 
+  title: Nuke
+  icon: {fileID: 21300000, guid: f3e8edfd4393bac4d9689ce9bd0d95b1, type: 3}
+  cooldownSeconds: 30
+  isPassive: 0
+  duration: 3
+  damage: 750
+  damagePerLevel: 250
+  scrapMetalCost: 50
+  nukePrefab: {fileID: 354325338351973123, guid: 88b5c2adb173f5e4498e07709fb65be9, type: 3}

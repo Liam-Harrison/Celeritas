@@ -102,6 +102,14 @@ namespace Celeritas.Game.Controllers
 			return roll;
 		}
 
+		public void SpendRareMetals(int amount)
+		{
+			if (amount <= RareMetals)
+			{
+				RareMetals = RareMetals - amount;
+			}
+		}
+
 		/// <summary>
 		/// Gives the player loot
 		/// </summary>

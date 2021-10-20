@@ -5,6 +5,7 @@ using Celeritas.UI;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.UI;
 using UnityEngine;
 
 namespace Celeritas.Game.Entities
@@ -352,6 +353,21 @@ namespace Celeritas.Game.Entities
 			Stunned = false;
 		}
 
+		public void Immortality(float duration)
+		{
+			StartCoroutine(ImmortalityTimer(duration));
+		}
+
+		public IEnumerator ImmortalityTimer(float duration)
+		{
+			float currentDamageModifier = DamageModifierPercentage;
+			DamageModifierPercentage = -1.0f;
+			Debug.Log(DamageModifierPercentage);
+			yield return new WaitForSeconds(duration);
+			DamageModifierPercentage = currentDamageModifier;
+			Debug.Log(DamageModifierPercentage);
+		}
+
 		/// <summary>
 		/// Current damage modifer on ship.
 		/// Default is 0, negative value = less damage, positive value = takes more damage.
@@ -505,6 +521,14 @@ namespace Celeritas.Game.Entities
 				if (LootController.Instance != null)
 					LootController.Instance.LootDrop(gain, dropType, Position);
 			}
+		}
+
+		public void SetNuke(GameObject prefab, float damage, float duration)
+		{
+			GameObject nuke = Instantiate(prefab, this.transform.position, this.transform.rotation);
+			nuke.GetComponent<NukeScript>().damage = damage;
+			nuke.GetComponent<NukeScript>().delay = duration;
+			nuke.GetComponent<NukeScript>().delaySet = true;
 		}
 	}
 

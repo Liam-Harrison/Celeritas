@@ -6,6 +6,7 @@ using Celeritas.UI;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 namespace Celeritas.Game
