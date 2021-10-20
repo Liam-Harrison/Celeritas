@@ -39,6 +39,7 @@ namespace Celeritas.Game
 			if (SettingsManager.TutorialEvent && tutorialEvent != null)
 			{
 				CreateEvent(tutorialEvent, Vector2Int.zero, true);
+				PlayerController.OnPlayerShipCreated += OnPlayerShipCreated;
 			}
 			else if (GameStateManager.Instance.GameState != GameState.MAINMENU)
 			{
@@ -46,10 +47,17 @@ namespace Celeritas.Game
 				{
 					CreateRandomEvent();
 				}
+				PlayerController.OnPlayerShipCreated += OnPlayerShipCreated;
 			}
 
 			GameStateManager.onStateChanged += OnStateChanged;
 			Chunks.OnEnteredChunk += OnEnteredChunk;
+		}
+
+		private void OnPlayerShipCreated()
+		{
+			PlayerController.OnPlayerShipCreated -= OnPlayerShipCreated;
+			LootController.Instance.GivePlayerLoot(LootType.Module, 1);
 		}
 
 		private void OnDisable()
@@ -86,6 +94,7 @@ namespace Celeritas.Game
 				if (SettingsManager.TutorialEvent && tutorialEvent != null)
 				{
 					CreateEvent(tutorialEvent, Vector2Int.zero, true);
+					LootController.Instance.GivePlayerLoot(LootType.Module, 1);
 				}
 				else
 				{
@@ -93,6 +102,7 @@ namespace Celeritas.Game
 					{
 						CreateRandomEvent();
 					}
+					LootController.Instance.GivePlayerLoot(LootType.Module, 1);
 				}
 			}
 		}
