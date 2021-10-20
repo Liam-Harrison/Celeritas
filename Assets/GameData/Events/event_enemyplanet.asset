@@ -112,6 +112,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
   cannotUnloadDynamically: 0
+  cannotAppearRandomly: 0
+  spawnWeight: 100
   showOnMap: 1
   mapColor: {r: 0.94509804, g: 0.34901962, b: 0.34901962, a: 0.47058824}
   showArrow: 0
@@ -119,3 +121,5 @@ MonoBehaviour:
   arrowText: 
   arrowIcon: {fileID: 0}
   eventOutcome: {fileID: 11400000, guid: b9832cd6b1cd089439cd0aa27b622e59, type: 2}
+  backgroundSprite: {fileID: 21300000, guid: 48902477e388857478189a3a1f7bf356, type: 3}
+  backgroundSize: 60

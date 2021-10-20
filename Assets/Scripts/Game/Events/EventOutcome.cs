@@ -163,7 +163,7 @@ namespace Celeritas.Game.Events
 				LootController.Instance.GivePlayerLoot(lootType, lootRewardOutcome.Value);
 
 			if (healthChange != null)
-				PlayerController.Instance.PlayerShipEntity.TakeDamage(PlayerController.Instance.PlayerShipEntity, PlayerController.Instance.PlayerShipEntity.Health.MaxValue * healthChange.Value);
+				PlayerController.Instance.PlayerShipEntity.Health.Damage(PlayerController.Instance.PlayerShipEntity.Health.MaxValue * -healthChange.Value);
 
 			if (hasEvent && eventData != null)
 				EventManager.Instance.CreateEvent(eventData);

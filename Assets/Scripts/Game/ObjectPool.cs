@@ -121,7 +121,7 @@ namespace Celeritas.Game
 				item.gameObject.SetActive(false);
 				pool.Add(item);
 				item.OnDespawned();
-				item.transform.parent = parent;
+				item.transform.SetParent(parent);
 			}
 			foreach (var item in unpooled)
 			{
@@ -149,7 +149,7 @@ namespace Celeritas.Game
 				active.Remove(item);
 				pool.Add(item);
 				item.OnDespawned();
-				item.transform.parent = parent;
+				item.transform.SetParent(parent);
 			}
 			else if (pool.Contains(item) == false)
 			{

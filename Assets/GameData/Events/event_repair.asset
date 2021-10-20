@@ -113,7 +113,7 @@ MonoBehaviour:
       Data: 
   cannotUnloadDynamically: 0
   cannotAppearRandomly: 0
-  spawnWeight: 100000000
+  spawnWeight: 300
   showOnMap: 1
   mapColor: {r: 0.11021712, g: 0.8113208, b: 0.11021712, a: 0.47058824}
   showArrow: 1
@@ -121,3 +121,5 @@ MonoBehaviour:
   arrowText: Repair
   arrowIcon: {fileID: 21300000, guid: 88acbbcea2e22184595defa3aa419521, type: 3}
   eventOutcome: {fileID: 11400000, guid: 1c283bf4457195142a7ca8e0e5b1e002, type: 2}
+  backgroundSprite: {fileID: 21300000, guid: 3ea44541172e58946aaf7319390656ca, type: 3}
+  backgroundSize: 25

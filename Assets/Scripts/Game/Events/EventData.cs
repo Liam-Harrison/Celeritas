@@ -49,6 +49,12 @@ namespace Celeritas.Game.Events
 		[SerializeField, TitleGroup("Event")]
 		private EventOutcome eventOutcome;
 
+		[SerializeField, TitleGroup("Background")]
+		private Sprite backgroundSprite;
+
+		[SerializeField, TitleGroup("Background")]
+		private float backgroundSize;
+
 		public bool CannotUnloadDynamically { get => cannotUnloadDynamically; }
 
 		public bool CannotAppearRandomly { get => cannotAppearRandomly; }
@@ -70,6 +76,11 @@ namespace Celeritas.Game.Events
 		public Sprite ArrowIcon { get => arrowIcon; }
 
 		public EventOutcome EventOutcome {  get => eventOutcome; }
+
+		public Sprite BackgroundSprite { get => backgroundSprite; }
+
+		public float BackgroundSize { get => backgroundSize; }
+
 
 		public Vector2Int GetRelativeToMiddle(int x, int y)
 		{
