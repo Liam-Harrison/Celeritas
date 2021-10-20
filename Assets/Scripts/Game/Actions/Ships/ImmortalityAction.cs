@@ -25,7 +25,7 @@ namespace Celeritas.Game.Actions
 			if (ship.PlayerShip == true)
 			{
 				ship.Immortality(totalDuration);
-				ship.ColorFlash(totalDuration, gold);
+				CombatHUD.Instance.ColorFlash(totalDuration, gold); 
 			}
 		}
 
