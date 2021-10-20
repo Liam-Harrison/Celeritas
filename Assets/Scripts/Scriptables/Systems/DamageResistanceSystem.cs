@@ -13,7 +13,7 @@ namespace Celeritas.Scriptables.Systems
 
 	[CreateAssetMenu(fileName = "New Ship Damage Resistance Modifier", menuName = "Celeritas/Modifiers/Ship Damage Resistance")]
 
-	public class DamageResistanceSystem : ModifierSystem, IEntityEffectAdded, IEntityEffectRemoved
+	public class DamageResistanceSystem : ModifierSystem, IEntityEffectAdded, IEntityEffectRemoved, IEntityLevelChanged
 	{
 
 		[SerializeField, PropertyRange(-1.0f, 1.0f), Title("Damage Taken Modifier Percentage", "Zero = no mutiplier, -1 = 100% less damage, 1 = 100% more damage.")]
@@ -36,7 +36,7 @@ namespace Celeritas.Scriptables.Systems
 
 		public override SystemTargets Targets => SystemTargets.Ship;
 
-		public override string GetTooltip(int level) => $"Reduces amount of damage taken by <color=green>{Amount + (AmountExtraPerLevel * level):0}%</color>.";
+		public override string GetTooltip(int level) => $"Reduces amount of damage taken by <color=green>{(Amount + (AmountExtraPerLevel * level))*100:0}%</color>.";
 
 		public void OnEntityEffectAdded(Entity entity, EffectWrapper wrapper)
 		{
@@ -48,6 +48,18 @@ namespace Celeritas.Scriptables.Systems
 		{
 			var ship = entity as ShipEntity;
 			ship.DamageModifierPercentage = (ship.DamageModifierPercentage - (Amount + (AmountExtraPerLevel * wrapper.Level)));
+		}
+
+		public void OnLevelChanged(Entity entity, int previous, int newLevel, EffectWrapper effectWrapper)
+		{
+			// revert to base value
+			var ship = entity as ShipEntity;
+
+			ship.DamageModifierPercentage = (Amount + (AmountExtraPerLevel * newLevel));
+			Debug.Log("Amount: " + Amount);
+			Debug.Log("Amount Extra: " + AmountExtraPerLevel);
+			Debug.Log("Level: " + newLevel);
+			Debug.Log(ship.DamageModifierPercentage);
 		}
 	}
 }
