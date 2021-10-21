@@ -94,6 +94,11 @@ namespace Celeritas.UI.Inventory
 
 				backgroundFill.enabled = upgradable;
 			}
+
+			if (upgradable)
+				title.text = module.Title + "<color=green>[U]</color>";
+			else
+				title.text = module.Title;
 		}
 
 		public void OnPointerDown(PointerEventData _)
