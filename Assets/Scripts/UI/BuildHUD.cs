@@ -251,11 +251,13 @@ namespace Celeritas.UI
 
 					BeginDraggingModule(entity.ModuleData);
 
+					hull.TryRemoveModule(entity);
+					/*
 					if (hull.TryGetModuleFromEntity(entity, out var module))
 					{
 						module.RemoveModule();
 						hull.GenerateModuleWalls();
-					}
+					}*/
 
 					PlayerController.Instance.PlayerShipEntity.Inventory.Add(dragging);
 				}
@@ -277,7 +279,8 @@ namespace Celeritas.UI
 			{
 				var ship = PlayerController.Instance.PlayerShipEntity;
 
-				ship.HullManager.Modules[grid.x, grid.y].SetModule(dragging);
+				//ship.HullManager.Modules[grid.x, grid.y].SetModule(dragging);
+				ship.HullManager.AddModule(grid.x, grid.y, dragging);
 				ship.HullManager.GenerateModuleWalls();
 
 				if (replacing)

@@ -50,7 +50,7 @@ namespace Celeritas.UI.Inventory
 
 		private BuildHUD hud;
 
-		private bool sameTypeEquippedOnShip;
+		private bool upgradable; // if same type of module is equipped on ship
 
 		public ModuleEntity TooltipEntity => (ModuleEntity)module.EntityInstance;
 
@@ -62,6 +62,7 @@ namespace Celeritas.UI.Inventory
 		{
 			hud = GetComponentInParent<BuildHUD>();
 			background.color = normal;
+			backgroundFill.enabled = false;
 		}
 
 		/// <summary>
@@ -70,6 +71,7 @@ namespace Celeritas.UI.Inventory
 		public ModuleData Module
 		{
 			get => module;
+
 			set
 			{
 				module = value;
@@ -81,6 +83,16 @@ namespace Celeritas.UI.Inventory
 
 				if (module.EntityInstance is ModuleEntity entity)
 					subtitle.text = $"{module.ModuleCatagory} - {module.ModuleSize} - Level {entity.Level + 1}";
+			}
+		}
+
+		public void SetUpgradable(bool upgradable)
+		{
+			if (upgradable != this.upgradable)
+			{ 
+				this.upgradable = upgradable;
+
+				backgroundFill.enabled = upgradable;
 			}
 		}
 
