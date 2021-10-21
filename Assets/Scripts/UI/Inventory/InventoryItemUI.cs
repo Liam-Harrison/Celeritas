@@ -34,6 +34,9 @@ namespace Celeritas.UI.Inventory
 		[SerializeField, TitleGroup("Assignments")]
 		private TextMeshProUGUI subtitle;
 
+		[SerializeField, TitleGroup("Assignments")]
+		private Image backgroundFill;
+
 		[SerializeField, TitleGroup("Colors")]
 		private Color normal = Color.white;
 
@@ -46,6 +49,8 @@ namespace Celeritas.UI.Inventory
 		private ModuleData module;
 
 		private BuildHUD hud;
+
+		private bool sameTypeEquippedOnShip;
 
 		public ModuleEntity TooltipEntity => (ModuleEntity)module.EntityInstance;
 
