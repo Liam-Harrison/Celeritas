@@ -274,7 +274,6 @@ namespace Celeritas.UI
 				var ship = PlayerController.Instance.PlayerShipEntity;
 
 				ship.HullManager.AddModule(grid.x, grid.y, dragging);
-				ship.HullManager.GenerateModuleWalls();
 
 				if (replacing)
 				{

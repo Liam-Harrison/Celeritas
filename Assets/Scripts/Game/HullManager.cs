@@ -94,6 +94,7 @@ namespace Celeritas.Game
 		{
 			Modules[x, y].SetModule(moduleToAdd);
 			equippedModules.Add(moduleToAdd);
+			GenerateModuleWalls();
 			OnModuleEquipped?.Invoke(moduleToAdd);
 		}
 
