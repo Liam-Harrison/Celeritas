@@ -71,7 +71,6 @@ namespace Celeritas.UI.Inventory
 		public ModuleData Module
 		{
 			get => module;
-
 			set
 			{
 				module = value;

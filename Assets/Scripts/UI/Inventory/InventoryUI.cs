@@ -97,13 +97,11 @@ namespace Celeritas.UI.Inventory
 		private void SortList()
 		{
 			items.Sort((x, y) => x.Module.Title.CompareTo(y.Module.Title)); // sort list alphabetically
-			List<ModuleData> equippedModules = PlayerController.Instance.PlayerShipEntity.HullManager.equippedModules;
 
 			foreach (InventoryItemUI item in items)
 			{
 				item.transform.SetAsLastSibling();
 			}
 		}
-
 	}
 }
