@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1689448017429384091}
   - component: {fileID: 3775852579406470964}
   - component: {fileID: 3766129434093229149}
+  - component: {fileID: 2008329890275153565}
   m_Layer: 7
   m_Name: proj_landmine
   m_TagString: Untagged
@@ -111,3 +112,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a4da9fb7b2891942968336eb5c6f43e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  hasDefaultEffects: 0
+  defaultEffects: []
+  hasAudio: 0
+  onDeath: {fileID: 0}
+  hasGraphicalEffects: 0
+  onDestroyEffectPrefab: {fileID: 0}
+  timeToPlayOnDestroyEffect: 0
+  onHitEffectPrefab: {fileID: 0}
+  timeToPlayOnHitEffect: 0
+--- !u!50 &2008329890275153565
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6300871317327536389}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 20
+  m_LinearDrag: 0.1
+  m_AngularDrag: 0.1
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

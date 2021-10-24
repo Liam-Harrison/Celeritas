@@ -17,9 +17,6 @@ namespace Celeritas.Game.Entities
 
 		private bool hasExploded = false;
 
-		[SerializeField]
-		private CircleCollider2D collider;
-
 		private Material material;
 
 		// Start is called before the first frame update
@@ -48,7 +45,7 @@ namespace Celeritas.Game.Entities
 
 		private void Explode()
 		{
-			if (collider)
+			if (GetComponent<CircleCollider2D>() != null)
 			{
 				StartCoroutine(DeletionTimer(0.1f));
 			}
@@ -56,7 +53,7 @@ namespace Celeritas.Game.Entities
 
 		private IEnumerator DeletionTimer(float timer)
 		{
-			collider.enabled = true;
+			GetComponent<CircleCollider2D>().enabled = true;
 			yield return new WaitForSeconds(timer);
 			Destroy(gameObject);
 		}

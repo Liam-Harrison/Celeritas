@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a429fe1d521d4744a7421bdac9623b6, type: 3}
   m_Name: action_landmine
   m_EditorClassIdentifier: 
-  title: Landmines
+  title: Landmine
   icon: {fileID: 21300000, guid: 1dc64af4e33f845f6aa34f04a9f67676, type: 3}
   cooldownSeconds: 5
   isPassive: 0
