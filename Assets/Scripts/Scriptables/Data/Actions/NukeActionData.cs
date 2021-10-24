@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Celeritas.Scriptables
 {
 	/// <summary>
-	/// A teleport action.
+	/// Creates a nuke that goes KABOOM!.
 	/// </summary>
 	[CreateAssetMenu(fileName = "New Nuke Action", menuName = "Celeritas/Actions/Nuke")]
 	public class NukeActionData : ActionData

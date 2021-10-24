@@ -24,7 +24,7 @@ namespace Celeritas.Game.Actions
 
 					if (ship.PlayerShip == true)
 					{
-						ship.SetNuke(NukeData.nukePrefab, (NukeData.damage + (NukeData.damagePerLevel * level)), NukeData.duration);
+						ship.DeployNuke(NukeData.nukePrefab, (NukeData.damage + (NukeData.damagePerLevel * level)), NukeData.duration);
 					}
 				//}
 				//else
