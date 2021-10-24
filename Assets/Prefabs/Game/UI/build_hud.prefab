@@ -298,6 +298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4954477764109027282}
   - component: {fileID: 6495965825552918508}
+  - component: {fileID: 5372813106723277960}
   - component: {fileID: 1952646238351823118}
   m_Layer: 5
   m_Name: label exit
@@ -333,6 +334,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3244789743363264351}
   m_CullTransparentMesh: 1
+--- !u!114 &5372813106723277960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3244789743363264351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 827fac28d9e37704a84372391d8a4f33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1952646238351823118
 MonoBehaviour:
   m_ObjectHideFlags: 0
