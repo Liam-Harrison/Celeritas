@@ -63,13 +63,13 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  title: Landmines
+  title: Scrap Mines
   prefab: {fileID: 7543111304695810671, guid: 71821917771c9d54d8fad807b07a24ff, type: 3}
   capacityHint: 1
   useChunking: 0
   size: 0
   catagory: 0
   rarity: 2
-  icon: {fileID: 21300000, guid: dcc3328fee5d20146a55709c18df41fd, type: 3}
+  icon: {fileID: 21300000, guid: ada76ce2f39499f4cb35d9af5ad67503, type: 3}
   description: 
   shape: 1
