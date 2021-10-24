@@ -34,6 +34,9 @@ namespace Celeritas.UI.Inventory
 		[SerializeField, TitleGroup("Assignments")]
 		private TextMeshProUGUI subtitle;
 
+		[SerializeField, TitleGroup("Assignments")]
+		private Image backgroundFill;
+
 		[SerializeField, TitleGroup("Colors")]
 		private Color normal = Color.white;
 
@@ -47,6 +50,8 @@ namespace Celeritas.UI.Inventory
 
 		private BuildHUD hud;
 
+		private bool upgradable; // if same type of module is equipped on ship
+
 		public ModuleEntity TooltipEntity => (ModuleEntity)module.EntityInstance;
 
 		public GameAction TooltipAction => null;
@@ -57,6 +62,7 @@ namespace Celeritas.UI.Inventory
 		{
 			hud = GetComponentInParent<BuildHUD>();
 			background.color = normal;
+			backgroundFill.enabled = false;
 		}
 
 		/// <summary>
@@ -77,6 +83,21 @@ namespace Celeritas.UI.Inventory
 				if (module.EntityInstance is ModuleEntity entity)
 					subtitle.text = $"{module.ModuleCatagory} - {module.ModuleSize} - Level {entity.Level + 1}";
 			}
+		}
+
+		public void SetUpgradable(bool upgradable)
+		{
+			if (upgradable != this.upgradable)
+			{ 
+				this.upgradable = upgradable;
+
+				backgroundFill.enabled = upgradable;
+			}
+
+			if (upgradable)
+				title.text = module.Title + "<color=green>[U]</color>";
+			else
+				title.text = module.Title;
 		}
 
 		public void OnPointerDown(PointerEventData _)

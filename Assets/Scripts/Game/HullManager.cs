@@ -44,6 +44,10 @@ namespace Celeritas.Game
 
 		public PlayerShipEntity PlayerShipEntity { get => playerShipEntity; }
 
+		public event System.Action<ModuleData> OnModuleEquipped;
+
+		public event System.Action<ModuleData> OnModuleUnequipped;
+
 		private enum Direction
 		{
 			North,
@@ -67,8 +71,11 @@ namespace Celeritas.Game
 		/// </summary>
 		public HullData HullData { get => hullData; }
 
+		public List<ModuleData> equippedModules;
+
 		private void Start()
 		{
+			equippedModules = new List<ModuleData>();
 			GenerateAll();
 			hullGroup.gameObject.SetActive(false);
 		}
@@ -81,6 +88,25 @@ namespace Celeritas.Game
 		private void OnDisable()
 		{
 			GameStateManager.onStateChanged -= OnStateChanged;
+		}
+
+		public void AddModule(int x, int y, ModuleData moduleToAdd)
+		{
+			Modules[x, y].SetModule(moduleToAdd);
+			equippedModules.Add(moduleToAdd);
+			GenerateModuleWalls();
+			OnModuleEquipped?.Invoke(moduleToAdd);
+		}
+
+		public void TryRemoveModule(ModuleEntity toRemove)
+		{
+			if (TryGetModuleFromEntity(toRemove, out var module))
+			{
+				equippedModules.Remove((ModuleData)toRemove.Data);
+				module.RemoveModule();
+				GenerateModuleWalls();
+				OnModuleUnequipped?.Invoke(toRemove.ModuleData);
+			}
 		}
 
 		public Vector3 GetWorldPositionGrid(int x, int y)

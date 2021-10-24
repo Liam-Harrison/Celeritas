@@ -27,6 +27,8 @@ namespace Celeritas.UI.Inventory
 		private void OnEnable()
 		{
 			var player = PlayerController.Instance.PlayerShipEntity;
+			player.HullManager.OnModuleEquipped += OnModuleEquipped;
+			player.HullManager.OnModuleUnequipped += OnModuleUnequipped;
 
 			parent.DestroyAllChildren();
 			items.Clear();
@@ -35,6 +37,15 @@ namespace Celeritas.UI.Inventory
 			{
 				AddInventoryItem(item);
 			}
+		}
+
+		private void OnDestroy()
+		{
+			if (PlayerController.Instance == null || PlayerController.Instance.PlayerShipEntity == null || PlayerController.Instance.PlayerShipEntity.HullManager == null)
+				return;
+			var player = PlayerController.Instance.PlayerShipEntity;
+			player.HullManager.OnModuleEquipped -= OnModuleEquipped;
+			player.HullManager.OnModuleUnequipped -= OnModuleUnequipped;
 		}
 
 		/// <summary>
@@ -58,13 +69,35 @@ namespace Celeritas.UI.Inventory
 		{
 			var ui = Instantiate(inventoryItem, parent).GetComponent<InventoryItemUI>();
 			ui.Module = module;
+
 			items.Add(ui);
+			if (PlayerController.Instance.PlayerShipEntity.HullManager.equippedModules.Contains(module))
+				ui.SetUpgradable(true);
+			else
+				ui.SetUpgradable(false);
 			SortList();
+		}
+
+		public void OnModuleEquipped(ModuleData module)
+		{
+			foreach (InventoryItemUI ui in items)
+				if (ui.Module.name == module.name)
+					ui.SetUpgradable(true);
+		}
+
+		public void OnModuleUnequipped(ModuleData module)
+		{
+			foreach (InventoryItemUI ui in items)
+				if (ui.Module.name == module.name)
+				{ 
+					ui.SetUpgradable(false);
+				}
 		}
 
 		private void SortList()
 		{
 			items.Sort((x, y) => x.Module.Title.CompareTo(y.Module.Title)); // sort list alphabetically
+
 			foreach (InventoryItemUI item in items)
 			{
 				item.transform.SetAsLastSibling();
