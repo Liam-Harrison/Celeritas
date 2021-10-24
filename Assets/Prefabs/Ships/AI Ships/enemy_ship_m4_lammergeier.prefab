@@ -231,6 +231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5658501702878605389}
   - component: {fileID: 7508233685855945174}
+  - component: {fileID: 3871066581224571555}
   m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
@@ -246,7 +247,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3925141969338166357}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5338, y: 2.3738, z: -0.27068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.88764, y: 0.88764, z: 0.88764}
   m_Children: []
   m_Father: {fileID: 7295775993103618229}
@@ -259,13 +260,13 @@ EdgeCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3925141969338166357}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 1.73, y: 2.73}
   m_EdgeRadius: 0
   m_Points:
   - {x: -2.3525069, y: 2.77876}
@@ -307,6 +308,45 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!60 &3871066581224571555
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3925141969338166357}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 3.602347, y: 2.3640978}
+      - {x: 2.5165462, y: 4.441979}
+      - {x: 0.7432283, y: 5.510838}
+      - {x: 0.69934624, y: 1.3785284}
+      - {x: -0.6017976, y: 1.3815506}
+      - {x: -0.69434994, y: 5.5468717}
+      - {x: -2.6017299, y: 4.2879353}
+      - {x: -3.475429, y: 2.5035362}
+      - {x: -3.6164644, y: -0.69891}
+      - {x: -1.4834007, y: -2.4551663}
+      - {x: -0.41656804, y: -7.951903}
+      - {x: 0.5144066, y: -7.9512177}
+      - {x: 1.5507952, y: -2.3844063}
+      - {x: 3.5940654, y: -0.6765116}
 --- !u!1 &4309704580445249230
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,14 +548,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d62cb0b2c64455741b1d95e2fcc3e28c, type: 3}
---- !u!199 &277717000086755051 stripped
-ParticleSystemRenderer:
-  m_CorrespondingSourceObject: {fileID: 973892418965765872, guid: d62cb0b2c64455741b1d95e2fcc3e28c, type: 3}
-  m_PrefabInstance: {fileID: 1033949798709094427}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1112103217462410762 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 87723602372072977, guid: d62cb0b2c64455741b1d95e2fcc3e28c, type: 3}
+  m_PrefabInstance: {fileID: 1033949798709094427}
+  m_PrefabAsset: {fileID: 0}
+--- !u!199 &277717000086755051 stripped
+ParticleSystemRenderer:
+  m_CorrespondingSourceObject: {fileID: 973892418965765872, guid: d62cb0b2c64455741b1d95e2fcc3e28c, type: 3}
   m_PrefabInstance: {fileID: 1033949798709094427}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2572885061134435486

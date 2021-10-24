@@ -449,6 +449,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5349120250563995341}
   - component: {fileID: 5884106286647984822}
+  - component: {fileID: 8551274668400302811}
   m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
@@ -477,7 +478,7 @@ EdgeCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7353135541129772288}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -522,6 +523,44 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!60 &8551274668400302811
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7353135541129772288}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 1}
+      - {x: -0.3038634, y: 3.389656}
+      - {x: -1.3403925, y: 3.3567786}
+      - {x: -1.9925566, y: 1.9949757}
+      - {x: -2.1250944, y: -0.35074008}
+      - {x: -4.411446, y: -1.9889979}
+      - {x: -4.39328, y: -3.1130245}
+      - {x: 4.3673935, y: -3.1648}
+      - {x: 4.3058376, y: -1.8004739}
+      - {x: 1.899028, y: 0.089774966}
+      - {x: 2.0035012, y: 1.8063425}
+      - {x: 1.3069732, y: 3.4375994}
+      - {x: 0.30386335, y: 3.4414318}
 --- !u!1001 &1040658311488994550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -664,14 +703,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d62cb0b2c64455741b1d95e2fcc3e28c, type: 3}
---- !u!199 &1324903205271107542 stripped
-ParticleSystemRenderer:
-  m_CorrespondingSourceObject: {fileID: 973892418965765872, guid: d62cb0b2c64455741b1d95e2fcc3e28c, type: 3}
-  m_PrefabInstance: {fileID: 2297105795060566310}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2222347925921308471 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 87723602372072977, guid: d62cb0b2c64455741b1d95e2fcc3e28c, type: 3}
+  m_PrefabInstance: {fileID: 2297105795060566310}
+  m_PrefabAsset: {fileID: 0}
+--- !u!199 &1324903205271107542 stripped
+ParticleSystemRenderer:
+  m_CorrespondingSourceObject: {fileID: 973892418965765872, guid: d62cb0b2c64455741b1d95e2fcc3e28c, type: 3}
   m_PrefabInstance: {fileID: 2297105795060566310}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3579705897268076770
