@@ -1,16 +1,15 @@
 using Celeritas.Game.Controllers;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class RareMetalCounter : MonoBehaviour
 {
 	TextMeshProUGUI counter;
+
 	private void Awake()
 	{
 		counter = gameObject.GetComponent<TextMeshProUGUI>();
-		setCounterText(0,0);
+		setCounterText(0, 0);
 	}
 
 	private void setCounterText(int type, int amount)
