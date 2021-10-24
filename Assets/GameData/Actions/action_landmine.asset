@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: action_landmine
   m_EditorClassIdentifier: 
   title: Landmine
-  icon: {fileID: 21300000, guid: 1dc64af4e33f845f6aa34f04a9f67676, type: 3}
+  icon: {fileID: 21300000, guid: dcc3328fee5d20146a55709c18df41fd, type: 3}
   cooldownSeconds: 5
   isPassive: 0
   duration: 10
