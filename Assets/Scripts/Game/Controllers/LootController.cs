@@ -1,5 +1,6 @@
 using Assets.Scripts.Scriptables.Data;
 using Celeritas.Game.Entities;
+using Celeritas.Game.Controllers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

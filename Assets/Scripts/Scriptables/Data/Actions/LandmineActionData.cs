@@ -27,9 +27,6 @@ namespace Celeritas.Scriptables
 		public float AmountPerLevel;
 
 		[SerializeField]
-		public float scrapMetalCost;
-
-		[SerializeField]
 		public GameObject LandminePrefab;
 
 		/// <inheritdoc/>
@@ -37,7 +34,7 @@ namespace Celeritas.Scriptables
 
 		public override string GetTooltip(int level)
 		{
-			return $"Convert <color=\"green\">{scrapMetalCost:0}</color> amount of Scrap Metal into Scrap Mines dealing <color=\"green\">{damage + (damagePerLevel * level)}</color> damage per mine.";
+			return $"Convert <color=\"green\">{RareMetalCost:0}</color> amount of Scrap Metal into Scrap Mines dealing <color=\"green\">{damage + (damagePerLevel * level)}</color> damage per mine.";
 		}
 	}
 }

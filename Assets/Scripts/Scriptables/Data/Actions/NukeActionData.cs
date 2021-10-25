@@ -21,9 +21,6 @@ namespace Celeritas.Scriptables
 		public float damagePerLevel;
 
 		[SerializeField]
-		public float scrapMetalCost;
-
-		[SerializeField]
 		public GameObject nukePrefab;
 
 		/// <inheritdoc/>
@@ -31,7 +28,7 @@ namespace Celeritas.Scriptables
 
 		public override string GetTooltip(int level)
 		{
-			return $"Convert <color=\"green\">{scrapMetalCost:0}</color> amount of Scrap Metal into unstable quantum explosion dealing <color=\"green\">{damage + (damagePerLevel * level)}</color> damage.";
+			return $"Convert <color=\"green\">{RareMetalCost:0}</color> amount of Scrap Metal into unstable quantum explosion dealing <color=\"green\">{damage + (damagePerLevel * level)}</color> damage.";
 		}
 	}
 }

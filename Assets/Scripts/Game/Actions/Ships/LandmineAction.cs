@@ -29,6 +29,8 @@ namespace Celeritas.Game.Actions
 		{
 			LandmineData = data as LandmineActionData;
 
+			RareMetalCost = LandmineData.RareMetalCost;
+
 			base.Initialize(data, isPlayer, owner);
 		}
 	}

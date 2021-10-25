@@ -37,6 +37,11 @@ namespace Celeritas.Game.Actions
 		public float CooldownReduction { get; set; }
 
 		/// <summary>
+		/// The time this action was last used.
+		/// </summary>
+		public int RareMetalCost { get; set; }
+
+		/// <summary>
 		/// Charge Percentage.
 		/// </summary>
 		public float PercentageReady { get => Mathf.Clamp01((Time.time - LastUsed) / (Data.CooldownSeconds - CooldownReduction)); }
@@ -53,6 +58,15 @@ namespace Celeritas.Game.Actions
 		/// <param name="entity">The entity to use for this action.</param>
 		public void ExecuteAction(Entity entity)
 		{
+			if (RareMetalCost > LootController.Instance.RareMetals)
+			{
+				return;
+			}
+			else
+			{
+				LootController.Instance.SpendRareMetals(RareMetalCost);
+			}
+
 			if (LastUsed + (Data.CooldownSeconds - CooldownReduction) > Time.time)
 				return;
 
