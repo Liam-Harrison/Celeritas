@@ -45,7 +45,7 @@ namespace Celeritas.Game.Entities
 		protected override void Update()
 		{
 
-			material.color = Color.Lerp(Color.red, Color.blue, Mathf.PingPong(Time.time, 1));
+			material.color = Color.Lerp(Color.red, Color.yellow, Mathf.PingPong(Time.time, 1));
 			this.transform.position = Vector3.MoveTowards(this.transform.position, moveToTarget, Time.deltaTime * 5);
 
 			base.Update();
@@ -111,12 +111,12 @@ namespace Celeritas.Game.Entities
 					}
 				}
 
-				if (other is ProjectileEntity projectile)
-				{
-					CombatHUD.Instance.PrintFloatingText(this, projectile.Damage);
-				}
-
 				return;
+			}
+
+			if (other is ProjectileEntity projectile)
+			{
+				CombatHUD.Instance.PrintFloatingText(this, projectile.Damage);
 			}
 
 			other.TakeDamage(other, damage);
