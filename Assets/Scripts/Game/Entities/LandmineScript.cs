@@ -33,6 +33,9 @@ namespace Celeritas.Game.Entities
 		[SerializeField]
 		private float healthStat;
 
+		[SerializeField]
+		private ParticleSystem explosion;
+
 		// Start is called before the first frame update
 		void Start()
 		{
@@ -83,7 +86,7 @@ namespace Celeritas.Game.Entities
 
 				if (health.IsEmpty())
 				{
-					Destroy(gameObject);
+					Explode();
 				}
 			}
 		}
@@ -95,7 +98,7 @@ namespace Celeritas.Game.Entities
 				if (other is Asteroid asteroid)
 				{
 					other.TakeDamage(other, damage);
-					Destroy(gameObject);
+					Explode();
 				}
 
 				if (other is ShipEntity ship)
@@ -107,7 +110,7 @@ namespace Celeritas.Game.Entities
 							ship.Stun(1.0f);
 						}
 						ship.TakeDamage(other, damage);
-						Destroy(gameObject);
+						Explode();
 					}
 				}
 
@@ -120,6 +123,13 @@ namespace Celeritas.Game.Entities
 			}
 
 			other.TakeDamage(other, damage);
+		}
+
+		public void Explode()
+		{
+			Instantiate(explosion, this.transform.position, this.transform.rotation);
+
+			Destroy(gameObject);
 		}
 	}
 }

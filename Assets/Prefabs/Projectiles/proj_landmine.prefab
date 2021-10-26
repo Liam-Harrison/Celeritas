@@ -131,6 +131,7 @@ MonoBehaviour:
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
   healthStat: 50
+  explosion: {fileID: 1001595472562877724, guid: 44aef5f1c3ec13940baf32684ba7c0a6, type: 3}
 --- !u!50 &2008329890275153565
 Rigidbody2D:
   serializedVersion: 4
