@@ -20,6 +20,6 @@ MonoBehaviour:
   duration: 10
   damage: 150
   damagePerLevel: 50
-  Amount: 4
-  AmountPerLevel: 1
+  Amount: 6
+  AmountPerLevel: 2
   LandminePrefab: {fileID: 6300871317327536389, guid: afe66adb7aacdde4293e92648642f7c4, type: 3}

@@ -68,11 +68,7 @@ namespace Celeritas.Game.Entities
 				{
 					return;
 				}
-				if (entity is ProjectileEntity)
-				{
-					var projectile = entity as ProjectileEntity;
-					CombatHUD.Instance.PrintFloatingText(this, projectile.Damage);
-				}
+
 				OnEntityHit(entity);
 			}
 		}
@@ -94,22 +90,33 @@ namespace Celeritas.Game.Entities
 
 		public override void OnEntityHit(Entity other)
 		{
-			if (other.IsPlayer == IsPlayer)
+			if (other.IsPlayer == false)
 			{
 				if (other is Asteroid asteroid)
 				{
 					other.TakeDamage(other, damage);
 					Destroy(gameObject);
 				}
-				return;
-			}
 
-			if (other is ShipEntity ship)
-			{
-				if (ship.Stunned == false)
+				if (other is ShipEntity ship)
 				{
-					ship.Stun(1.0f);
+					if (ship.PlayerShip == false)
+					{
+						if (ship.Stunned == false)
+						{
+							ship.Stun(1.0f);
+						}
+						ship.TakeDamage(other, damage);
+						Destroy(gameObject);
+					}
 				}
+
+				if (other is ProjectileEntity projectile)
+				{
+					CombatHUD.Instance.PrintFloatingText(this, projectile.Damage);
+				}
+
+				return;
 			}
 
 			other.TakeDamage(other, damage);
