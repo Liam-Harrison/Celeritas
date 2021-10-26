@@ -58,13 +58,9 @@ namespace Celeritas.Game.Actions
 		/// <param name="entity">The entity to use for this action.</param>
 		public void ExecuteAction(Entity entity)
 		{
-			if (RareMetalCost > LootController.Instance.RareMetals)
+			if (LootController.Instance.SpendRareMetals(RareMetalCost) == false)
 			{
 				return;
-			}
-			else
-			{
-				LootController.Instance.SpendRareMetals(RareMetalCost);
 			}
 
 			if (LastUsed + (Data.CooldownSeconds - CooldownReduction) > Time.time)

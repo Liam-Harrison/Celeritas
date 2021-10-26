@@ -26,6 +26,9 @@ namespace Celeritas.Game.Entities
 
 		public Rigidbody2D Rigidbody { get; private set; }
 
+		[SerializeField]
+		private float healthStat;
+
 		// Start is called before the first frame update
 		void Start()
 		{
@@ -33,16 +36,16 @@ namespace Celeritas.Game.Entities
 			material.color = Color.red;
 		}
 
-		// Update is called once per frame
-		//void Update()
-		//{
-		//	material.color = Color.Lerp(Color.red, Color.blue, Mathf.PingPong(Time.time, 1));
-		//}
+		
+		void Update()
+		{
+			material.color = Color.Lerp(Color.red, Color.blue, Mathf.PingPong(Time.time, 1));
+		}
 
 		public void initialize(float setDamage, float duration)
 		{
 			damage = setDamage;
-			health = new EntityStatBar(1.0f);
+			health = new EntityStatBar(healthStat);
 			Object.Destroy(gameObject, duration);
 		}
 

@@ -103,11 +103,23 @@ namespace Celeritas.Game.Controllers
 			return roll;
 		}
 
-		public void SpendRareMetals(int amount)
+
+		/// <summary>
+        /// Returns true if successful, returns false if you don't have enough Rare Metals
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+		public bool SpendRareMetals(int amount)
 		{
 			if (amount <= RareMetals)
 			{
 				RareMetals = RareMetals - amount;
+				return true;
+			}
+			else
+			{
+				CombatHUD.Instance.PrintNotification("Not enough metals.");
+				return false;
 			}
 		}
 
