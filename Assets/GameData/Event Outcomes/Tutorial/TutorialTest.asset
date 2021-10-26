@@ -15,7 +15,7 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: Welcome to hell, pilot!
-    portrait: {fileID: 21300000, guid: d2947eae9cf3f58418e838c99419d359, type: 3}
+    portrait: {fileID: 21300000, guid: 4a7cde0d7803c5a47b42c01d2f6a8d47, type: 3}
     content: 'It''s good to see you alive pilot. Welcome to black space.
 
 
