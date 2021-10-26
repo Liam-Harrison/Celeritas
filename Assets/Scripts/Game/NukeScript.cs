@@ -19,10 +19,17 @@ namespace Celeritas.Game.Entities
 
 		private Material material;
 
+		[SerializeField]
+		private float screenFlashAlpha;
+
+		private Color screenLerpColor;
+
 		// Start is called before the first frame update
 		void Start()
 		{
 			material = GetComponent<MeshRenderer>().material;
+			screenLerpColor = Color.white;
+			screenLerpColor.a = screenFlashAlpha;
 		}
 
 		// Update is called once per frame
@@ -37,10 +44,18 @@ namespace Celeritas.Game.Entities
 
 			if (delay <= 0 && hasExploded == false)
 			{
-				CombatHUD.Instance.ColorShift(1, Color.white);
+
+				CombatHUD.Instance.ColorShift(1, screenLerpColor);
 				Explode();
 				hasExploded = true;
 			}
+		}
+
+		public void initialize(float setDamage, float duration)
+		{
+			damage = setDamage;
+			delay = duration;
+			delaySet = true;
 		}
 
 		private void Explode()

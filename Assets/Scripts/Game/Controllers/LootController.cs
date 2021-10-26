@@ -105,7 +105,7 @@ namespace Celeritas.Game.Controllers
 
 
 		/// <summary>
-        /// Returns true if successful, returns false if you don't have enough Rare Metals
+        /// Spends Rare Metals and returns true if successful, returns false if you don't have enough Rare Metals
         /// </summary>
         /// <param name="amount"></param>
         /// <returns></returns>

@@ -26,6 +26,10 @@ namespace Celeritas.Game.Entities
 
 		public Rigidbody2D Rigidbody { get; private set; }
 
+		private Vector3 moveToTarget;
+
+		private float distanceApart;
+
 		[SerializeField]
 		private float healthStat;
 
@@ -34,18 +38,24 @@ namespace Celeritas.Game.Entities
 		{
 			material = GetComponent<MeshRenderer>().material;
 			material.color = Color.red;
+
+			moveToTarget = new Vector3(this.transform.position.x + Random.Range(distanceApart * -1.5f, distanceApart * 1.5f), this.transform.position.y + Random.Range(distanceApart * -1.5f, distanceApart * 1.5f), this.transform.position.z);
 		}
 
-		
-		void Update()
+		protected override void Update()
 		{
+
 			material.color = Color.Lerp(Color.red, Color.blue, Mathf.PingPong(Time.time, 1));
+			this.transform.position = Vector3.MoveTowards(this.transform.position, moveToTarget, Time.deltaTime * 5);
+
+			base.Update();
 		}
 
-		public void initialize(float setDamage, float duration)
+		public void initialize(float setDamage, float duration, float amount)
 		{
 			damage = setDamage;
 			health = new EntityStatBar(healthStat);
+			distanceApart = amount;
 			Object.Destroy(gameObject, duration);
 		}
 
@@ -67,17 +77,42 @@ namespace Celeritas.Game.Entities
 			}
 		}
 
+		public override void TakeDamage(Entity attackingEntity, float damage)
+		{
+			if (attackingEntity is ProjectileEntity || attackingEntity is ShipEntity || attackingEntity is Asteroid || attackingEntity == this)
+			{
+				base.TakeDamage(attackingEntity);
+
+				health.Damage(damage);
+
+				if (health.IsEmpty())
+				{
+					Destroy(gameObject);
+				}
+			}
+		}
+
 		public override void OnEntityHit(Entity other)
 		{
-			if (other.PlayerShip == true)
+			if (other.IsPlayer == IsPlayer)
 			{
+				if (other is Asteroid asteroid)
+				{
+					other.TakeDamage(other, damage);
+					Destroy(gameObject);
+				}
 				return;
 			}
-			else
+
+			if (other is ShipEntity ship)
 			{
-				other.TakeDamage(other, damage);
-				Destroy(gameObject);
+				if (ship.Stunned == false)
+				{
+					ship.Stun(1.0f);
+				}
 			}
+
+			other.TakeDamage(other, damage);
 		}
 	}
 }

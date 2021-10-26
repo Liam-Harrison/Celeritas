@@ -130,7 +130,7 @@ MonoBehaviour:
   timeToPlayOnDestroyEffect: 0
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
-  healthStat: 200
+  healthStat: 50
 --- !u!50 &2008329890275153565
 Rigidbody2D:
   serializedVersion: 4
