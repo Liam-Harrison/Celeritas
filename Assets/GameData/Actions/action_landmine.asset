@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Scrap Mines
   icon: {fileID: 21300000, guid: ada76ce2f39499f4cb35d9af5ad67503, type: 3}
-  cooldownSeconds: 5
+  cooldownSeconds: 15
   isPassive: 0
   rareMetalCost: 5
   duration: 10
@@ -22,5 +22,4 @@ MonoBehaviour:
   damagePerLevel: 50
   Amount: 4
   AmountPerLevel: 1
-  scrapMetalCost: 0
   LandminePrefab: {fileID: 6300871317327536389, guid: afe66adb7aacdde4293e92648642f7c4, type: 3}
