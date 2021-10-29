@@ -114,7 +114,9 @@ namespace Celeritas.UI
 
 		private void CreateOption(string text, int index, OptionType type, Action<int> callback)
 		{
-			var option = Instantiate(dialogueOptionPrefab, dialogueOptionParent).GetComponent<DialogueOption>();
+			GameObject prefab = Instantiate(dialogueOptionPrefab);
+			prefab.transform.SetParent(dialogueOptionParent, false);
+			var option = prefab.GetComponent<DialogueOption>();
 			option.SetOptionType(type);
 			option.Text = text;
 			option.OnClicked += () =>
