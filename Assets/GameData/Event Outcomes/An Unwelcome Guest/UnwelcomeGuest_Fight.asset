@@ -10,18 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
-  m_Name: repairtrue_start
+  m_Name: UnwelcomeGuest_Fight
   m_EditorClassIdentifier: 
   hasDialogue: 1
   dialogue:
-    title: Automated station!
+    title: Let's hope this was worth it!
     portrait: {fileID: 0}
-    content: 'There''s a poorly maintained auto-repair station here, no one to talk
-      to, but at least you can patch up a bit of the damage to your ship.
-
-
-      Health
-      restored by 25%!'
+    content: Just as the last drone hooks itself back into its charging alcove, a
+      missile streaks overhead and slams into a comm relay. Looks like the fight
+      begins now!
     options: []
   hasRewards: 0
   lootType: 0
@@ -31,8 +28,9 @@ MonoBehaviour:
   percentChangeHealth: 0.25
   hasEvent: 0
   eventData: {fileID: 0}
-  hasWaves: 0
+  hasWaves: 1
   waveOutcome: {fileID: 0}
-  waves: []
+  waves:
+  - {fileID: 11400000, guid: 9259f43d060fc8d4f8681fd8477b01bb, type: 2}
   changeDoom: 0
   doom: 0

@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: BlackBox_Start
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: The Black Box
+    portrait: {fileID: 0}
+    content: "There seems to a be a ships Black Box drifting through space, with
+      no trace of the ship it came from, floating just ahead of you.\r\n\r\nAs you
+      approach alarms briefly blare out, warning you of entering restricted airspace,
+      before quickly shutting off again. It seems the box was meant to warn civilians
+      away from it, but is malfunctioning.\r\n\r\nIt doesn\u2019t take long to get
+      the black box on board, where you can scan its contents, the results are somewhat
+      garbled, but what you can decipher is disturbing. It seems like Cygnius Hub
+      knew about this infection a long time ago. Missing ships on the edges of civilised
+      space and destroyed military outposts were just the start of it. For years
+      the Cygnius navy has been fighting against this infection\u2026 and losing\u2026
+      No wonder pirates and raiders have been such a huge problem for so long, the
+      navy was too busy getting butchered by their own infected ships to deal with
+      them.\r\n\r\nThere must be more to this, but for now all you can do is sigh,
+      dismantle the box for a meagre amount of scrap, and continue on your way.\r"
+    options: []
+  hasRewards: 1
+  lootType: 1
+  lootRewardRange: {x: 4, y: 4}
+  moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 0
+  waveOutcome: {fileID: 0}
+  waves: []
+  changeDoom: 0
+  doom: 0

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: OldGuard_Closer
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: More lives lost...
+    portrait: {fileID: 0}
+    content: "After maneuvering in it becomes clear that you were just a little late,
+      a swarm of infested ships dart about between the various ships of the patrol.
+      You watch as the lead patrol ships\u2019 bridge bursts open in a disgusting
+      hail of sickening goo, throwing a host of half-putrified soldiers out into
+      space.\r\n\r\nWith that disgusting display, it seems you were noticed, it\u2019s
+      a fight! "
+    options: []
+  hasRewards: 0
+  lootType: 0
+  lootRewardRange: {x: 0, y: 0}
+  moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 1
+  waveOutcome: {fileID: 11400000, guid: 6948e407cf09c8c4481e7f1d6082260a, type: 2}
+  waves:
+  - {fileID: 11400000, guid: c32686ce95473734ba52821ac14e8b55, type: 2}
+  changeDoom: 0
+  doom: 0

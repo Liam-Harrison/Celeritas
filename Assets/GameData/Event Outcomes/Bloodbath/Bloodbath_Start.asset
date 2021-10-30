@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: Bloodbath_Start
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: It's a bloodbath!
+    portrait: {fileID: 0}
+    content: "Just ahead of you is the distress signal of what claims to be a shelter
+      station, taking in civilians fleeing from the infestation. It seems that the
+      station has come under attack, though the distress signal is quite old so things
+      arn\u2019t looking good.\r\n\r\nWhen you arrive the scene is horrific. Space
+      for kilometres around is chocked in blood and gore, it seems like the station
+      itself was chewed open by some absurdly enormous beast. Of the corpses strewn
+      all about you witness not a single one that hasn\u2019t been torn into at least
+      3 different pieces with globules of blood and viscera forming a disgusting
+      orbit around them.\r\n\r\nWhatever did this didn\u2019t just want to kill these
+      people, it wanted to utterly destroy them.\r\n\r\nWhilst it is a bit of a struggle
+      to salvage anything without throwing up, you are able to grab a module before
+      you quickly leave.\r"
+    options: []
+  hasRewards: 1
+  lootType: 0
+  lootRewardRange: {x: 1, y: 1}
+  moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 0
+  waveOutcome: {fileID: 0}
+  waves: []
+  changeDoom: 0
+  doom: 0

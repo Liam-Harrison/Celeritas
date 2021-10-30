@@ -10,29 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
-  m_Name: repairtrue_start
+  m_Name: Reckoning_Fight
   m_EditorClassIdentifier: 
   hasDialogue: 1
   dialogue:
-    title: Automated station!
+    title: 
     portrait: {fileID: 0}
-    content: 'There''s a poorly maintained auto-repair station here, no one to talk
-      to, but at least you can patch up a bit of the damage to your ship.
-
-
-      Health
-      restored by 25%!'
+    content: "There\u2019s so many of them! This is bad! Fire everywhere!"
     options: []
   hasRewards: 0
   lootType: 0
-  lootRewardRange: {x: 0, y: 0}
+  lootRewardRange: {x: 0, y: 4}
   moduleRewards: []
-  changeHealth: 1
-  percentChangeHealth: 0.25
+  changeHealth: 0
+  percentChangeHealth: 0
   hasEvent: 0
   eventData: {fileID: 0}
-  hasWaves: 0
-  waveOutcome: {fileID: 0}
-  waves: []
+  hasWaves: 1
+  waveOutcome: {fileID: 11400000, guid: 5dd42e3da3a6ed94f84e58326d9a3fb2, type: 2}
+  waves:
+  - {fileID: 11400000, guid: 9a8793c3393a2274fa28ec0b3d13fe0e, type: 2}
+  - {fileID: 11400000, guid: ac3b57eb093a3794782619bcafdb9113, type: 2}
+  - {fileID: 11400000, guid: 049ab8ecdb54eb8418a9b2db5a149739, type: 2}
   changeDoom: 0
   doom: 0

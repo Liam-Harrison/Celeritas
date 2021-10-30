@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: OldSpeeder_Start
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: An old speeder
+    portrait: {fileID: 0}
+    content: "You seem to have come across the destroyed husk of an old black space
+      runner. These were ships known for racing through areas of uncharted space
+      to transport cargo, typically of the less-than-legal variety.\r\n\r\nWhilst
+      normally this would be a pretty useless find, with the sector in the state
+      it is, it probably wouldn\u2019t be a huge issue if you were using a few out
+      of regulation engine mods, mods that these speeders were renowned for.\r"
+    options:
+    - type: 0
+      content: Salvage some sketchy speed mods, might cause some engine damage
+      outcome: {fileID: 11400000, guid: 430ff41ecd62a664c94807bd56a5ed26, type: 2}
+    - type: 0
+      content: "Leave it where it is, the mod isn\u2019t worth the risk"
+      outcome: {fileID: 0}
+  hasRewards: 0
+  lootType: 0
+  lootRewardRange: {x: 0, y: 0}
+  moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 0
+  waveOutcome: {fileID: 0}
+  waves: []
+  changeDoom: 0
+  doom: 0

@@ -10,25 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
-  m_Name: repairtrue_start
+  m_Name: Reckoning_Reward
   m_EditorClassIdentifier: 
   hasDialogue: 1
   dialogue:
-    title: Automated station!
+    title: Well, atleast the scrap was good
     portrait: {fileID: 0}
-    content: 'There''s a poorly maintained auto-repair station here, no one to talk
-      to, but at least you can patch up a bit of the damage to your ship.
-
-
-      Health
-      restored by 25%!'
+    content: With the infested cleared out, there's a motherlode of scrap floating
+      around with no-one guarding it.
     options: []
-  hasRewards: 0
+  hasRewards: 1
   lootType: 0
-  lootRewardRange: {x: 0, y: 0}
+  lootRewardRange: {x: 4, y: 4}
   moduleRewards: []
-  changeHealth: 1
-  percentChangeHealth: 0.25
+  changeHealth: 0
+  percentChangeHealth: 0
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 0

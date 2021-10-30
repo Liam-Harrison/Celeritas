@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: Reckoning_Start
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: The Reckoning
+    portrait: {fileID: 0}
+    content: "Ahead of you is a massive battle taking place between what seems to
+      be a ragtag alliance of pirates, raiders and even a few military ships, against
+      an untold horde of infested. A quick glance tells you that the infested are
+      winning by an insurmountable margin. Just as you come to this conclusion an
+      enormous explosion rocks your ship, disrupting your sensors and knocking a
+      few systems offline. One you manage to get everything restarted you notice
+      the survivors are gone, along with a huge chunk of the infested. It seems like
+      the alliance wanted to take some of their enemies with them.\r\n\r\nThough
+      the infested were devastated by the explosion, they\u2019re numbers are still
+      overwhelming. Even if you try to escape immediately, you\u2019re likely to
+      still have to fight at least a few of them to get away. With that said, the
+      rewards for a total victory here would be immense, maybe it\u2019s worth trying
+      to wipe out them out? The battle would be extraordinarily difficult.\r\n"
+    options:
+    - type: 0
+      content: "Power to weapons, our odds are slim, but we can\u2019t let a sacrifice
+        like that go in vain!"
+      outcome: {fileID: 11400000, guid: 60535cc0e1ab8e04f8256874fd57faac, type: 2}
+    - type: 0
+      content: "Full power to engines, let\u2019s get out of here!"
+      outcome: {fileID: 11400000, guid: f67816d142ac7714087da9337813ca92, type: 2}
+  hasRewards: 0
+  lootType: 0
+  lootRewardRange: {x: 0, y: 0}
+  moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 0
+  waveOutcome: {fileID: 0}
+  waves: []
+  changeDoom: 0
+  doom: 0
