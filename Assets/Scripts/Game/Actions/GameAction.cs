@@ -37,7 +37,7 @@ namespace Celeritas.Game.Actions
 		public float CooldownReduction { get; set; }
 
 		/// <summary>
-		/// The time this action was last used.
+		/// The cost to use the action if there is any.
 		/// </summary>
 		public int RareMetalCost { get; set; }
 

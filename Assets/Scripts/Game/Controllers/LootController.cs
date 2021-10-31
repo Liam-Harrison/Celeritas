@@ -64,6 +64,7 @@ namespace Celeritas.Game.Controllers
 		{
 			ModuleComponents = startingModuleAmount;
 			RareMetals = startingRareMetalAmount;
+			OnRareComponentsChanged?.Invoke(RareMetals, +startingRareMetalAmount);
 		}
 
 		/// <summary>
@@ -114,6 +115,7 @@ namespace Celeritas.Game.Controllers
 			if (amount <= RareMetals)
 			{
 				RareMetals = RareMetals - amount;
+				OnRareComponentsChanged?.Invoke(RareMetals, amount);
 				return true;
 			}
 			else
