@@ -32,7 +32,7 @@ namespace Celeritas.Game.Actions
 		public float LastUsed { get; private set; }
 
 		/// <summary>
-		/// The time this action was last used.
+		/// How much the cooldown will be reduced by
 		/// </summary>
 		public float CooldownReduction { get; set; }
 

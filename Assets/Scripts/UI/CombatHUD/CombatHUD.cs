@@ -203,6 +203,9 @@ public class CombatHUD : Singleton<CombatHUD>
 		}
 	}
 
+	/// <summary>
+    /// Temporarily shifts the color of the screen.
+    /// </summary>
 	public void ColorFlash(float duration, Color color)
 	{
 		if (screenEffect != null)
@@ -213,6 +216,9 @@ public class CombatHUD : Singleton<CombatHUD>
 		}
 	}
 
+	/// <summary>
+	/// Lerps color of screen before lerping back.
+	/// </summary>
 	public void ColorShift(float duration, Color color)
 	{
 		if (screenEffect != null)
