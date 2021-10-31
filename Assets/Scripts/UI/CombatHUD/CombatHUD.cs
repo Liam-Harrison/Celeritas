@@ -159,7 +159,15 @@ public class CombatHUD : Singleton<CombatHUD>
 	private void OnRareComponentsChanged(int components, int amount)
 	{
 		if (gameObject.activeInHierarchy)
-			PrintNotification("+" + amount + " Rare Metals!");
+			if (amount > 0)
+			{
+				PrintNotification("+" + amount + " Rare Metals!");
+			}
+			else
+			{
+				PrintNotification(amount + " Rare Metals!");
+			}
+			
 	}
 
 	/// <summary>

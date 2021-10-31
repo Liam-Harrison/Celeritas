@@ -115,7 +115,7 @@ namespace Celeritas.Game.Controllers
 			if (amount <= RareMetals)
 			{
 				RareMetals = RareMetals - amount;
-				OnRareComponentsChanged?.Invoke(RareMetals, amount);
+				OnRareComponentsChanged?.Invoke(RareMetals, -amount);
 				return true;
 			}
 			else
