@@ -15,7 +15,8 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: Hardly a fight
-    content: 'The infested doesn''t even fire back as your blast it out of existence.
+    portrait: {fileID: 0}
+    content: 'The infested doesn''t even fire back as you blast it out of existence.
 
 '
     options: []
@@ -23,8 +24,12 @@ MonoBehaviour:
   lootType: 0
   lootRewardRange: {x: 0, y: 0}
   moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 0
   waveOutcome: {fileID: 0}
   waves: []
+  changeDoom: 0
+  doom: 0

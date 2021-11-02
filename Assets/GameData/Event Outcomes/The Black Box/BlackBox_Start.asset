@@ -16,16 +16,16 @@ MonoBehaviour:
   dialogue:
     title: The Black Box
     portrait: {fileID: 0}
-    content: "There seems to a be a ships Black Box drifting through space, with
-      no trace of the ship it came from, floating just ahead of you.\r\n\r\nAs you
-      approach alarms briefly blare out, warning you of entering restricted airspace,
+    content: "There seems to be a ship Black Box drifting through space, with no
+      trace of the ship it came from, floating just ahead of you.\r\n\r\nAs you approach
+      alarms briefly blare out, warning that you're entering restricted airspace,
       before quickly shutting off again. It seems the box was meant to warn civilians
       away from it, but is malfunctioning.\r\n\r\nIt doesn\u2019t take long to get
-      the black box on board, where you can scan its contents, the results are somewhat
-      garbled, but what you can decipher is disturbing. It seems like Cygnius Hub
+      the black box on board, where you can scan its contents - the results are somewhat
+      garbled, but what you can decipher is disturbing. It seems like Sygnius Hub
       knew about this infection a long time ago. Missing ships on the edges of civilised
       space and destroyed military outposts were just the start of it. For years
-      the Cygnius navy has been fighting against this infection\u2026 and losing\u2026
+      the Sygnius navy has been fighting against this infection\u2026 and losing\u2026
       No wonder pirates and raiders have been such a huge problem for so long, the
       navy was too busy getting butchered by their own infected ships to deal with
       them.\r\n\r\nThere must be more to this, but for now all you can do is sigh,

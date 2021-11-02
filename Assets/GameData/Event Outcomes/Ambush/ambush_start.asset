@@ -15,16 +15,21 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: Ambush!
+    portrait: {fileID: 0}
     content: It seems the Infested were waiting for you, they blast out from behind
-      various asteroids and debris, ready to your ship to wreckage.
+      various asteroids and debris, ready to reduce your ship to wreckage.
     options: []
   hasRewards: 0
   lootType: 0
   lootRewardRange: {x: 0, y: 0}
   moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 1
   waveOutcome: {fileID: 11400000, guid: 0145ba6592b2d4c4cad820b148803ba3, type: 2}
   waves:
   - {fileID: 11400000, guid: 678df9090c342a7418800bcbf065aaea, type: 2}
+  changeDoom: 0
+  doom: 0

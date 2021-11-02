@@ -16,11 +16,11 @@ MonoBehaviour:
   dialogue:
     title: More lives lost...
     portrait: {fileID: 0}
-    content: "After maneuvering in it becomes clear that you were just a little late,
-      a swarm of infested ships dart about between the various ships of the patrol.
+    content: "After maneuvering in it becomes clear that you were just a little late
+      - a swarm of infested ships dart about between the various ships of the patrol.
       You watch as the lead patrol ships\u2019 bridge bursts open in a disgusting
-      hail of sickening goo, throwing a host of half-putrified soldiers out into
-      space.\r\n\r\nWith that disgusting display, it seems you were noticed, it\u2019s
+      hail of sickening goo, throwing a host of half-putrefied soldiers out into
+      space.\r\n\r\nWith that horrific display, it seems you were noticed, it\u2019s
       a fight! "
     options: []
   hasRewards: 0

@@ -17,8 +17,8 @@ MonoBehaviour:
     title: Let's get out of here!
     portrait: {fileID: 0}
     content: "A few of the infested pull away from the larger group to chase after
-      you, whilst it\u2019s still a lot, it\u2019s nowhere close to what was in the
-      larger host."
+      you - whilst it\u2019s still a lot, it\u2019s nowhere close to what was in
+      the larger host."
     options: []
   hasRewards: 0
   lootType: 0

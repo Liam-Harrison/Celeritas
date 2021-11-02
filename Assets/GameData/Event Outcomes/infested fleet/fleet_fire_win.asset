@@ -15,15 +15,20 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: Victory!
-    content: With the enemy ships reduced to wrecks, you begin to search of valuables,
+    portrait: {fileID: 0}
+    content: With the enemy ships reduced to wrecks, you begin to search for valuables,
       finding {0} modules!
     options: []
   hasRewards: 1
   lootType: 0
   lootRewardRange: {x: 2, y: 3}
   moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 0
   waveOutcome: {fileID: 0}
   waves: []
+  changeDoom: 0
+  doom: 0

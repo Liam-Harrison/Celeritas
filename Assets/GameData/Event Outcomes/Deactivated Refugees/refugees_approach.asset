@@ -15,7 +15,8 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: A derelict fleet
-    content: 'It seems this is a trully ancient fleet of refugee vessels, fleeing
+    portrait: {fileID: 0}
+    content: 'It seems this is an extremely ancient fleet of refugee vessels, fleeing
       from some ancient war.
 
       The fleet ran out of fuel and has been drifting
@@ -30,8 +31,12 @@ MonoBehaviour:
   lootType: 0
   lootRewardRange: {x: 1, y: 1}
   moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 0
   waveOutcome: {fileID: 0}
   waves: []
+  changeDoom: 0
+  doom: 0

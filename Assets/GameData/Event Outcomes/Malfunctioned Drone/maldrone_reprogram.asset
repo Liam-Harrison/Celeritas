@@ -15,9 +15,10 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: I guess that works...
+    portrait: {fileID: 0}
     content: 'While reprogramming the drone you notice several failsafes to prevent
       exactly what you''re doing. Whilst you can''t gain the ships total cooperation,
-      you can atleast deactivate its weapon systems to allow you to scrap it without
+      you can at least deactivate its weapon systems to allow you to scrap it without
       risk of a weapon misfire.
 
 
@@ -28,8 +29,12 @@ MonoBehaviour:
   lootType: 0
   lootRewardRange: {x: 1, y: 2}
   moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 0
   waveOutcome: {fileID: 0}
   waves: []
+  changeDoom: 0
+  doom: 0

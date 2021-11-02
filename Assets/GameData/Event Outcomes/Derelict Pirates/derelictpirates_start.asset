@@ -15,10 +15,11 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: The Dreadfleet
+    portrait: {fileID: 0}
     content: As you continue on your journeys you're suddenly startled by an alarm
-      blaring, your IFF has picked up the telltale signature of the pirate dreadfleet!
+      blaring; your IFF has picked up the telltale signature of the Blackmarket dreadfleet!
       The dreadfleet was once renowned for destroying entire system fleets and raiding
-      whole sectors.
+      whole sectors for wares.
     options:
     - type: 0
       content: Out here in blackspace? Somethings off, let's take a look.
@@ -30,8 +31,12 @@ MonoBehaviour:
   lootType: 0
   lootRewardRange: {x: 0, y: 0}
   moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 0
   waveOutcome: {fileID: 0}
   waves: []
+  changeDoom: 0
+  doom: 0

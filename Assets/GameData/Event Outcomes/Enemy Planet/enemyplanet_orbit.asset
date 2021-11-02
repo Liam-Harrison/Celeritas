@@ -15,8 +15,9 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: Writhing
+    portrait: {fileID: 0}
     content: 'As you enter the orbit of the planet, a quick visual appraisal reveals
-      the entire planet has been entirely overwhelmed by the infestation. Either
+      the entire planet has been completely overwhelmed by the infestation. Either
       the infection spreads at impossible speeds or has been around a lot longer
       than you thought.
 
@@ -36,3 +37,5 @@ MonoBehaviour:
   waveOutcome: {fileID: 11400000, guid: 48e412f7cf79a1c4fa954ccef9e7dc3e, type: 2}
   waves:
   - {fileID: 11400000, guid: c32686ce95473734ba52821ac14e8b55, type: 2}
+  changeDoom: 0
+  doom: 0

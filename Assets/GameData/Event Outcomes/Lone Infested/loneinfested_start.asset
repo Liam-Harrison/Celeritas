@@ -15,9 +15,10 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: A lone infested
+    portrait: {fileID: 0}
     content: Your scanners pick up a single small infested ship flying at low speeds
       through blackspace. Whilst a lone infested isn't uncommon nearer to large pockets
-      of the infestation, this particular ship seems to be trully out on its own.
+      of the infestation, this particular ship seems to be truly out on its own.
     options:
     - type: 0
       content: Destroy it! An easy target for once.
@@ -29,8 +30,12 @@ MonoBehaviour:
   lootType: 0
   lootRewardRange: {x: 0, y: 0}
   moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 0
   waveOutcome: {fileID: 0}
   waves: []
+  changeDoom: 0
+  doom: 0

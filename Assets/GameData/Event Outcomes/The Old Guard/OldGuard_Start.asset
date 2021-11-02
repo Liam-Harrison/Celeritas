@@ -19,9 +19,9 @@ MonoBehaviour:
     content: "With a seemingly excited \u2018ping!\u2019 your sensors pick up what
       seems to be the signal of an old Enforcer patrol. Whilst their IFF\u2019s still
       seem to be working, broadcasting their status as a functional patrol, it seems
-      odd that they arn\u2019t seeming to be going anywhere. Your sensors tell you
-      that their engines are offline and their formation is off.\r\n\r\nIt could
-      be that they\u2019ve been infested, or they could just been letting discipline
+      odd that they aren\u2019t appearing to be going anywhere. Your sensors tell
+      you that their engines are offline and their formation is off.\r\n\r\nIt could
+      be that they\u2019ve been infested, or they could have just been letting discipline
       slip considering the state of the sector.\r"
     options:
     - type: 0

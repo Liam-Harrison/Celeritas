@@ -16,7 +16,7 @@ MonoBehaviour:
   dialogue:
     title: It's works... Kinda
     portrait: {fileID: 0}
-    content: "You manage to salvage the mod just find, but even installing the interfaces
+    content: "You manage to salvage the mod just fine, but even installing the interfaces
       for it was some risky work, it\u2019s looking like the ship took a bit of damage."
     options: []
   hasRewards: 1

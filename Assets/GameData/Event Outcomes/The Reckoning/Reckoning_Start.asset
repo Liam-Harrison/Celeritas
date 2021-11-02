@@ -24,11 +24,11 @@ MonoBehaviour:
       few systems offline. One you manage to get everything restarted you notice
       the survivors are gone, along with a huge chunk of the infested. It seems like
       the alliance wanted to take some of their enemies with them.\r\n\r\nThough
-      the infested were devastated by the explosion, they\u2019re numbers are still
-      overwhelming. Even if you try to escape immediately, you\u2019re likely to
-      still have to fight at least a few of them to get away. With that said, the
-      rewards for a total victory here would be immense, maybe it\u2019s worth trying
-      to wipe out them out? The battle would be extraordinarily difficult.\r\n"
+      the infested were devastated by the explosion, their numbers are still overwhelming.
+      Even if you try to escape immediately, you\u2019re likely to still have to
+      fight at least a few of them to get away. With that said, the rewards for a
+      total victory here would be immense, maybe it\u2019s worth trying to wipe them
+      out? The battle would be extraordinarily difficult.\r\n"
     options:
     - type: 0
       content: "Power to weapons, our odds are slim, but we can\u2019t let a sacrifice

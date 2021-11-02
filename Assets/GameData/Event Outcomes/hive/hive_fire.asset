@@ -15,17 +15,22 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: Infested!
+    portrait: {fileID: 0}
     content: You blast the station with a full volley of your weapons. A few infested
-      ships hidden within the station survive, but it seems like most of the infested,
+      ships hidden within the station survive, but it seems like most of the Infested,
       along with any valuables on the station, have been destroyed.
     options: []
   hasRewards: 0
   lootType: 0
   lootRewardRange: {x: 0, y: 0}
   moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 1
   waveOutcome: {fileID: 0}
   waves:
   - {fileID: 11400000, guid: 5f3fd8a6d48e53c4ab0922b5a4ae6d57, type: 2}
+  changeDoom: 0
+  doom: 0

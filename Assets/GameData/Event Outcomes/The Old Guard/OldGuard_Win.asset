@@ -17,7 +17,7 @@ MonoBehaviour:
     title: They won't need this anymore
     portrait: {fileID: 0}
     content: "With the destruction of the infested, it\u2019s worth a quick look
-      over the less-infested patrol ships for anything useful. Whilst there\u2019s
+      over of the less-infested patrol ships for anything useful. Whilst there\u2019s
       not much left, you are able to find a state-of-the-art weapon module."
     options: []
   hasRewards: 1

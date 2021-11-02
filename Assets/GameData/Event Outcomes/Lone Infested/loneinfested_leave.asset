@@ -15,8 +15,9 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: A terrible fate
-    content: 'As you begin to leave you receive a comms hail from the ship in question.
-      The camera feed flickers to life revealing a small cockpit drenched in the
+    portrait: {fileID: 0}
+    content: 'As you begin to leave, you receive a comms hail from the ship in question.
+      The camera feed flickers to life, revealing a small cockpit drenched in the
       seeping death of the infestation. Sitting, still seemingly alive, in the command
       chair is a terrified looking man, face twisted in pure agony, eyes wide in
       abject horror and legs partially melted into the infestation itself as it slowly
@@ -37,3 +38,5 @@ MonoBehaviour:
   hasWaves: 0
   waveOutcome: {fileID: 0}
   waves: []
+  changeDoom: 0
+  doom: 0
