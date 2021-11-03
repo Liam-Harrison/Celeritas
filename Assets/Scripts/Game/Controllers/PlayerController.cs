@@ -158,31 +158,12 @@ namespace Celeritas.Game.Controllers
 			bool isAlt = false;
 			for (int i = 0; i < abilities.Length; i++)
 			{
-				if (isAlt && abilities[i].primary == action)
-				{
-					return;
-				}
-				else if (abilities[i].alternate == action)
-				{
-					return;
-				}
-
-				if (i == abilities.Length - 1 && isAlt == false)
-				{
-					i = 0;
-					isAlt = true;
-				}
-			}
-
-			isAlt = false;
-			for (int i = 0; i < abilities.Length; i++)
-			{
-				if (isAlt && abilities[i].primary == null)
+				if (isAlt == false && abilities[i].primary == null)
 				{
 					BindAction(i, isAlt, action);
 					return;
 				}
-				else if (abilities[i].alternate == null)
+				else if (isAlt && abilities[i].alternate == null)
 				{
 					BindAction(i, isAlt, action);
 					return;
