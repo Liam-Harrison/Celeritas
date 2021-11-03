@@ -278,109 +278,6 @@ namespace Celeritas
             ]
         },
         {
-            ""name"": ""Console"",
-            ""id"": ""875b6a5b-638d-451c-8941-8ce7a939e654"",
-            ""actions"": [
-                {
-                    ""name"": ""Toggle"",
-                    ""type"": ""Button"",
-                    ""id"": ""0348849f-a555-4845-b721-8db5feedd879"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Submit"",
-                    ""type"": ""Button"",
-                    ""id"": ""438402b3-5d81-48f4-bf53-8894e98b239a"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""UpBuffer"",
-                    ""type"": ""Button"",
-                    ""id"": ""6c22b022-b53c-4ba6-9bac-2196244fea0a"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""DownBuffer"",
-                    ""type"": ""Button"",
-                    ""id"": ""e8be2aae-4ac8-4823-91b4-1783d3503448"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Focus"",
-                    ""type"": ""Button"",
-                    ""id"": ""5a3e8d15-5109-46e6-82a5-05e41f6ee981"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""c185f25e-a422-442b-a4ea-58c9c3dc6dd7"",
-                    ""path"": ""<Keyboard>/backquote"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controls"",
-                    ""action"": ""Toggle"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""868afe9f-4fde-4ca7-8bca-b80dfee0b918"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controls"",
-                    ""action"": ""Submit"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4ee0dc9f-77c8-441b-a2da-ccae5309a7ba"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controls"",
-                    ""action"": ""UpBuffer"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""01ab4e42-b7f4-4432-ba2e-73dbe6a35a02"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controls"",
-                    ""action"": ""DownBuffer"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""cf422c4c-e88f-4624-bdd4-e56266690814"",
-                    ""path"": ""<Keyboard>/tab"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controls"",
-                    ""action"": ""Focus"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
             ""name"": ""Navigation"",
             ""id"": ""3b84d1a5-c919-4cbd-ac8e-0adc7cebcdf8"",
             ""actions"": [
@@ -464,13 +361,6 @@ namespace Celeritas
             m_Basic_TractorBeam = m_Basic.FindAction("Tractor Beam", throwIfNotFound: true);
             m_Basic_ToggleTutorial = m_Basic.FindAction("Toggle Tutorial", throwIfNotFound: true);
             m_Basic_Zoom = m_Basic.FindAction("Zoom", throwIfNotFound: true);
-            // Console
-            m_Console = asset.FindActionMap("Console", throwIfNotFound: true);
-            m_Console_Toggle = m_Console.FindAction("Toggle", throwIfNotFound: true);
-            m_Console_Submit = m_Console.FindAction("Submit", throwIfNotFound: true);
-            m_Console_UpBuffer = m_Console.FindAction("UpBuffer", throwIfNotFound: true);
-            m_Console_DownBuffer = m_Console.FindAction("DownBuffer", throwIfNotFound: true);
-            m_Console_Focus = m_Console.FindAction("Focus", throwIfNotFound: true);
             // Navigation
             m_Navigation = asset.FindActionMap("Navigation", throwIfNotFound: true);
             m_Navigation_NavigateUI = m_Navigation.FindAction("Navigate UI", throwIfNotFound: true);
@@ -634,71 +524,6 @@ namespace Celeritas
         }
         public BasicActions @Basic => new BasicActions(this);
 
-        // Console
-        private readonly InputActionMap m_Console;
-        private IConsoleActions m_ConsoleActionsCallbackInterface;
-        private readonly InputAction m_Console_Toggle;
-        private readonly InputAction m_Console_Submit;
-        private readonly InputAction m_Console_UpBuffer;
-        private readonly InputAction m_Console_DownBuffer;
-        private readonly InputAction m_Console_Focus;
-        public struct ConsoleActions
-        {
-            private @InputActions m_Wrapper;
-            public ConsoleActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Toggle => m_Wrapper.m_Console_Toggle;
-            public InputAction @Submit => m_Wrapper.m_Console_Submit;
-            public InputAction @UpBuffer => m_Wrapper.m_Console_UpBuffer;
-            public InputAction @DownBuffer => m_Wrapper.m_Console_DownBuffer;
-            public InputAction @Focus => m_Wrapper.m_Console_Focus;
-            public InputActionMap Get() { return m_Wrapper.m_Console; }
-            public void Enable() { Get().Enable(); }
-            public void Disable() { Get().Disable(); }
-            public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(ConsoleActions set) { return set.Get(); }
-            public void SetCallbacks(IConsoleActions instance)
-            {
-                if (m_Wrapper.m_ConsoleActionsCallbackInterface != null)
-                {
-                    @Toggle.started -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnToggle;
-                    @Toggle.performed -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnToggle;
-                    @Toggle.canceled -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnToggle;
-                    @Submit.started -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnSubmit;
-                    @Submit.performed -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnSubmit;
-                    @Submit.canceled -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnSubmit;
-                    @UpBuffer.started -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnUpBuffer;
-                    @UpBuffer.performed -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnUpBuffer;
-                    @UpBuffer.canceled -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnUpBuffer;
-                    @DownBuffer.started -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnDownBuffer;
-                    @DownBuffer.performed -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnDownBuffer;
-                    @DownBuffer.canceled -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnDownBuffer;
-                    @Focus.started -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnFocus;
-                    @Focus.performed -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnFocus;
-                    @Focus.canceled -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnFocus;
-                }
-                m_Wrapper.m_ConsoleActionsCallbackInterface = instance;
-                if (instance != null)
-                {
-                    @Toggle.started += instance.OnToggle;
-                    @Toggle.performed += instance.OnToggle;
-                    @Toggle.canceled += instance.OnToggle;
-                    @Submit.started += instance.OnSubmit;
-                    @Submit.performed += instance.OnSubmit;
-                    @Submit.canceled += instance.OnSubmit;
-                    @UpBuffer.started += instance.OnUpBuffer;
-                    @UpBuffer.performed += instance.OnUpBuffer;
-                    @UpBuffer.canceled += instance.OnUpBuffer;
-                    @DownBuffer.started += instance.OnDownBuffer;
-                    @DownBuffer.performed += instance.OnDownBuffer;
-                    @DownBuffer.canceled += instance.OnDownBuffer;
-                    @Focus.started += instance.OnFocus;
-                    @Focus.performed += instance.OnFocus;
-                    @Focus.canceled += instance.OnFocus;
-                }
-            }
-        }
-        public ConsoleActions @Console => new ConsoleActions(this);
-
         // Navigation
         private readonly InputActionMap m_Navigation;
         private INavigationActions m_NavigationActionsCallbackInterface;
@@ -761,14 +586,6 @@ namespace Celeritas
             void OnTractorBeam(InputAction.CallbackContext context);
             void OnToggleTutorial(InputAction.CallbackContext context);
             void OnZoom(InputAction.CallbackContext context);
-        }
-        public interface IConsoleActions
-        {
-            void OnToggle(InputAction.CallbackContext context);
-            void OnSubmit(InputAction.CallbackContext context);
-            void OnUpBuffer(InputAction.CallbackContext context);
-            void OnDownBuffer(InputAction.CallbackContext context);
-            void OnFocus(InputAction.CallbackContext context);
         }
         public interface INavigationActions
         {
