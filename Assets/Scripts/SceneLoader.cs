@@ -1,6 +1,7 @@
 using Celeritas.Game.Entities;
 using Sirenix.OdinInspector;
 using System;
+using Celeritas.Game;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -69,11 +70,13 @@ namespace Celeritas
 
 			if (scene.HasFlag(Scene.Mainmenu))
 			{
+				GameStateManager.Instance.SetGameState(GameState.MAINMENU);
 				SceneManager.LoadSceneAsync(Constants.MAINMENU_SCENE_PATH, loaded ? LoadSceneMode.Additive : mode);
 			}
 
 			if (scene.HasFlag(Scene.RunStart))
 			{
+				GameStateManager.Instance.SetGameState(GameState.MAINMENU);
 				SceneManager.LoadSceneAsync(Constants.RUNSTART_PATH, loaded ? LoadSceneMode.Additive : mode);
 			}
 		}

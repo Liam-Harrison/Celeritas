@@ -338,17 +338,32 @@ MonoBehaviour:
   defaultEffects:
   - Level: 0
     EffectCollection: {fileID: 11400000, guid: 922abbef8ae38a54da55d963727be36a, type: 2}
+  hasAudio: 1
+  onDeath:
+    Guid:
+      Data1: 1203789947
+      Data2: 1121272973
+      Data3: -695223642
+      Data4: 447980423
+    Path: event:/Weapons/General Hit
+  onSpawn:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   hasGraphicalEffects: 0
   onDestroyEffectPrefab: {fileID: 0}
   timeToPlayOnDestroyEffect: 0
   onHitEffectPrefab: {fileID: 0}
   timeToPlayOnHitEffect: 0
+  inheirtVelcoity: 0
   damage: 10
   trails:
   - {fileID: 9010716631335087696}
   - {fileID: 6017573220271658692}
   projectileSpawn: {fileID: 0}
-  floatingTextPrefab: {fileID: 4679094507319831066, guid: 287e23708f3f68242b6112d84df56568, type: 3}
 --- !u!70 &5036293536032515086
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

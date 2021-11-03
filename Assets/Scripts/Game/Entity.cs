@@ -7,6 +7,7 @@ using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using FMODUnity;
 using UnityEngine;
 
 namespace Celeritas.Game
@@ -28,7 +29,10 @@ namespace Celeritas.Game
 		private bool hasAudio;
 
 		[SerializeField, DisableInPlayMode]
-		private AudioClip onDeath;
+		private EventReference onDeath;
+
+		[SerializeField, DisableInPlayMode]
+		private EventReference onSpawn;
 
 		[SerializeField, Title("Graphical Effects", "(eg. on hit, on destroy)"), DisableInPlayMode]
 		private bool hasGraphicalEffects;
@@ -186,7 +190,7 @@ namespace Celeritas.Game
 		/// </summary>
 		public bool HasAudio { get => hasAudio; }
 
-		
+
 		/// <summary>
 		/// Determines if this is the player ship
 		/// </summary>
@@ -233,6 +237,7 @@ namespace Celeritas.Game
 
 			ShowDamageOnEntity = true;
 			ShowDamageLocation = this.transform.position;
+
 		}
 
 		public virtual void OnEntityKilled()
@@ -249,8 +254,8 @@ namespace Celeritas.Game
 
 			if (hasAudio)
 			{
-				if (onDeath != null)
-					SFX.Instance.TetriaryDevice.PlayOneShot(onDeath);
+				if (!onDeath.IsNull)
+					RuntimeManager.PlayOneShot(onDeath);
 			}
 
 			if (Chunk != null)
@@ -259,7 +264,11 @@ namespace Celeritas.Game
 
 		public virtual void OnSpawned()
 		{
-
+			if (hasAudio)
+			{
+				if (!onSpawn.IsNull)
+					RuntimeManager.PlayOneShot(onSpawn);
+			}
 		}
 
 		public virtual void OnDespawned()
@@ -426,7 +435,7 @@ namespace Celeritas.Game
 		protected float playerCollisionDamageMultiplier = 0.15f; // multiplier for reducing player damage
 
 		// max damage player can take from 1 collision, as a fraction of their health
-		protected float playerCollisionDamageCapMultiplier = 0.30f; 
+		protected float playerCollisionDamageCapMultiplier = 0.30f;
 
 		/// <summary>
 		/// Damages other entity with collision damage.

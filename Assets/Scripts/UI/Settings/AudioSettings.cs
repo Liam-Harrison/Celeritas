@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,9 +10,12 @@ namespace Celeritas.UI
 		[SerializeField, TitleGroup("Assignments")]
 		private Slider volume;
 
+		private Bus Master;
+
 		private void Awake()
 		{
 			SetupUI();
+			Master = FMODUnity.RuntimeManager.GetBus("bus:/");
 			volume.onValueChanged.AddListener(OnStackingNumbersChanged);
 		}
 
@@ -22,6 +26,8 @@ namespace Celeritas.UI
 
 		private void OnStackingNumbersChanged(float value)
 		{
+			Master.setVolume(value);
+
 			AudioListener.volume = value;
 			SettingsManager.SetFloat(SettingKey.Volume, value);
 		}

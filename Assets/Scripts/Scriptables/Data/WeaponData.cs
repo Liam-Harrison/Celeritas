@@ -1,4 +1,6 @@
+using System;
 using Celeritas.Game.Entities;
+using FMODUnity;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -16,12 +18,18 @@ namespace Celeritas.Scriptables
 		[SerializeField, Title("Charge")] private bool charge;
 		[SerializeField, ShowIf(nameof(charge))] private float maxCharge;
 		[SerializeField, ShowIf(nameof(charge))] private bool autofire;
+		[SerializeField, Title("SoundFX")] private EventReference fireSound;
+		[SerializeField] private bool isChargeUpSound;
 		[SerializeField, Title("Placeholder", "used for player weapons in ship selection menu")] private bool placeholder;
 
 		/// <summary>
 		/// Get the projectile attatched to this weapon.
 		/// </summary>
 		public ProjectileData Projectile { get => projectile; }
+
+		public EventReference FireSound => fireSound;
+
+		public Boolean IsChargeUpSound => isChargeUpSound;
 
 		/// <summary>
 		/// The speed this weapon fires at.

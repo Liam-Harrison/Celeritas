@@ -281,7 +281,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 8311238803136293583}
+  m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1046,6 +1046,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 556888613249175929, guid: 618ee450bdf6d9c438cc6605939adb3d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: a62266451093f4e40aca51df53d312b5, type: 2}
     - target: {fileID: 556888613596414585, guid: 618ee450bdf6d9c438cc6605939adb3d, type: 3}
       propertyPath: m_Name
       value: background_underlay_canvas
@@ -1137,7 +1141,7 @@ PrefabInstance:
     - target: {fileID: 556888613596414587, guid: 618ee450bdf6d9c438cc6605939adb3d, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 8311238803136293583}
+      objectReference: {fileID: 2140405351}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 618ee450bdf6d9c438cc6605939adb3d, type: 3}
 --- !u!1 &1121583098
@@ -2161,6 +2165,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2105295934}
   m_CullTransparentMesh: 1
+--- !u!20 &2140405351 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8311238803889004184, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
+  m_PrefabInstance: {fileID: 8311238803136293577}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4576321260325985275
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2434,10 +2443,9 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 25
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
+    - {fileID: 8311238803136293581, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
+    - {fileID: 8311238803136293580, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
+    - {fileID: 1947675674362864990, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
---- !u!20 &8311238803136293583 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 8311238803889004184, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
-  m_PrefabInstance: {fileID: 8311238803136293577}
-  m_PrefabAsset: {fileID: 0}
