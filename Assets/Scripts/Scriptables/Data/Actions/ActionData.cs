@@ -20,6 +20,9 @@ namespace Celeritas.Scriptables
 		[SerializeField]
 		private bool isPassive;
 
+		[SerializeField]
+		private int rareMetalCost;
+
 		/// <summary>
 		/// The title of this action.
 		/// </summary>
@@ -39,6 +42,11 @@ namespace Celeritas.Scriptables
 		/// Is this a passive action.
 		/// </summary>
 		public bool IsPassive {  get => isPassive; }
+
+		/// <summary>
+		/// How much does this ability cost to use.
+		/// </summary>
+		public int RareMetalCost { get => rareMetalCost; }
 
 		/// <summary>
 		/// The type of this action.

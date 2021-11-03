@@ -1,5 +1,6 @@
 using Assets.Scripts.Scriptables.Data;
 using Celeritas.Game.Entities;
+using Celeritas.Game.Controllers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -63,6 +64,7 @@ namespace Celeritas.Game.Controllers
 		{
 			ModuleComponents = startingModuleAmount;
 			RareMetals = startingRareMetalAmount;
+			OnRareComponentsChanged?.Invoke(RareMetals, +startingRareMetalAmount);
 		}
 
 		/// <summary>
@@ -102,11 +104,24 @@ namespace Celeritas.Game.Controllers
 			return roll;
 		}
 
-		public void SpendRareMetals(int amount)
+
+		/// <summary>
+        /// Spends Rare Metals and returns true if successful, returns false if you don't have enough Rare Metals
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+		public bool SpendRareMetals(int amount)
 		{
 			if (amount <= RareMetals)
 			{
 				RareMetals = RareMetals - amount;
+				OnRareComponentsChanged?.Invoke(RareMetals, -amount);
+				return true;
+			}
+			else
+			{
+				CombatHUD.Instance.PrintNotification("Not enough metals.");
+				return false;
 			}
 		}
 

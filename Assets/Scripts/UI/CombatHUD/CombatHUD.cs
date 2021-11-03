@@ -159,7 +159,15 @@ public class CombatHUD : Singleton<CombatHUD>
 	private void OnRareComponentsChanged(int components, int amount)
 	{
 		if (gameObject.activeInHierarchy)
-			PrintNotification("+" + amount + " Rare Metals!");
+			if (amount > 0)
+			{
+				PrintNotification("+" + amount + " Rare Metals!");
+			}
+			else
+			{
+				PrintNotification(amount + " Rare Metals!");
+			}
+			
 	}
 
 	/// <summary>
@@ -195,6 +203,9 @@ public class CombatHUD : Singleton<CombatHUD>
 		}
 	}
 
+	/// <summary>
+    /// Temporarily shifts the color of the screen.
+    /// </summary>
 	public void ColorFlash(float duration, Color color)
 	{
 		if (screenEffect != null)
@@ -205,6 +216,9 @@ public class CombatHUD : Singleton<CombatHUD>
 		}
 	}
 
+	/// <summary>
+	/// Lerps color of screen before lerping back.
+	/// </summary>
 	public void ColorShift(float duration, Color color)
 	{
 		if (screenEffect != null)

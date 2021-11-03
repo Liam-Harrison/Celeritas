@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Celeritas.Scriptables
 {
 	/// <summary>
-	/// A teleport action.
+	/// Creates a nuke that goes KABOOM!.
 	/// </summary>
 	[CreateAssetMenu(fileName = "New Nuke Action", menuName = "Celeritas/Actions/Nuke")]
 	public class NukeActionData : ActionData
@@ -21,9 +21,6 @@ namespace Celeritas.Scriptables
 		public float damagePerLevel;
 
 		[SerializeField]
-		public float scrapMetalCost;
-
-		[SerializeField]
 		public GameObject nukePrefab;
 
 		/// <inheritdoc/>
@@ -31,7 +28,7 @@ namespace Celeritas.Scriptables
 
 		public override string GetTooltip(int level)
 		{
-			return $"Convert <color=\"green\">{scrapMetalCost:0}</color> amount of Scrap Metal into unstable quantum explosion dealing <color=\"green\">{damage + (damagePerLevel * level)}</color> damage.";
+			return $"Convert <color=\"green\">{RareMetalCost:0}</color> amount of Scrap Metal into unstable quantum explosion dealing <color=\"green\">{damage + (damagePerLevel * level)}</color> damage.";
 		}
 	}
 }

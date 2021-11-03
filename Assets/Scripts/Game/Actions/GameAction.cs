@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Celeritas.Scriptables;
+using Celeritas.Game.Controllers;
 using UnityEngine;
 
 namespace Celeritas.Game.Actions
@@ -31,9 +32,14 @@ namespace Celeritas.Game.Actions
 		public float LastUsed { get; private set; }
 
 		/// <summary>
-		/// The time this action was last used.
+		/// How much the cooldown will be reduced by
 		/// </summary>
 		public float CooldownReduction { get; set; }
+
+		/// <summary>
+		/// The cost to use the action if there is any.
+		/// </summary>
+		public int RareMetalCost { get; set; }
 
 		/// <summary>
 		/// Charge Percentage.
@@ -53,7 +59,14 @@ namespace Celeritas.Game.Actions
 		public void ExecuteAction(Entity entity)
 		{
 			if (LastUsed + (Data.CooldownSeconds - CooldownReduction) > Time.time)
+			{
 				return;
+			}
+
+			if (LootController.Instance.SpendRareMetals(RareMetalCost) == false)
+			{
+				return;
+			}
 
 			LastUsed = Time.time;
 			Execute(entity, Level);

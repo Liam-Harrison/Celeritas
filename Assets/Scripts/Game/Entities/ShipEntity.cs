@@ -523,12 +523,21 @@ namespace Celeritas.Game.Entities
 			}
 		}
 
-		public void SetNuke(GameObject prefab, float damage, float duration)
+		public void DeployNuke(GameObject prefab, float damage, float duration)
 		{
 			GameObject nuke = Instantiate(prefab, this.transform.position, this.transform.rotation);
-			nuke.GetComponent<NukeScript>().damage = damage;
-			nuke.GetComponent<NukeScript>().delay = duration;
-			nuke.GetComponent<NukeScript>().delaySet = true;
+			nuke.GetComponent<NukeScript>().initialize(damage, duration);
+		}
+
+		public void DeployMines(GameObject prefab, float damage, float duration, float amount)
+		{
+			float i = 0;
+			while (i < amount)
+			{
+				GameObject landmine = Instantiate(prefab, this.transform.position, this.transform.rotation);
+				landmine.GetComponent<LandmineScript>().initialize(damage, duration, amount);
+				i = i + 1;
+			}
 		}
 	}
 

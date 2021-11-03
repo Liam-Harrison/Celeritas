@@ -11,7 +11,7 @@ namespace Celeritas.Game.Entities
 	public class ProjectileEntity : Entity
 	{
 		[SerializeField, PropertySpace]
-		private bool inheirtVelcoity;
+		private bool inheritVelocity;
 
 		[SerializeField, PropertySpace]
 		protected int damage;
@@ -65,7 +65,7 @@ namespace Celeritas.Game.Entities
 		/// </summary>
 		public ProjectileEntity ParentProjectile { get; set; }
 
-		public float BaseVelcoity { get; set; }
+		public float BaseVelocity { get; set; }
 
 		/// <summary>
         /// Used to determine how long a project will stun the target for.
@@ -82,12 +82,12 @@ namespace Celeritas.Game.Entities
 			SpeedModifier = 1;
 			Following = null;
 
-			if (inheirtVelcoity && owner != null && !instanced)
+			if (inheritVelocity && owner != null && !instanced)
 			{
 				if (owner is WeaponEntity weapon)
-					BaseVelcoity = Mathf.Clamp01(Vector3.Dot(Forward, weapon.AttatchedModule.Ship.Rigidbody.velocity.normalized)) * weapon.AttatchedModule.Ship.Rigidbody.velocity.magnitude;
+					BaseVelocity = Mathf.Clamp01(Vector3.Dot(Forward, weapon.AttatchedModule.Ship.Rigidbody.velocity.normalized)) * weapon.AttatchedModule.Ship.Rigidbody.velocity.magnitude;
 				else if (owner is ProjectileEntity projectile)
-					BaseVelcoity = projectile.BaseVelcoity;
+					BaseVelocity = projectile.BaseVelocity;
 			}
 			StunDuration = 0;
 
@@ -170,7 +170,7 @@ namespace Celeritas.Game.Entities
 				return;
 
 			Position += Forward * ProjectileData.Speed * SpeedModifier * Time.smoothDeltaTime;
-			Position += Forward * BaseVelcoity * Time.smoothDeltaTime;
+			Position += Forward * BaseVelocity * Time.smoothDeltaTime;
 
 			if (TimeAlive >= Lifetime)
 			{
