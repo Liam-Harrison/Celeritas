@@ -43,30 +43,18 @@ public class FMODManager : Singleton<FMODManager>
     {
 	    switch (state)
 	    {
-		    case GameState.MAINMENU:
-			    // InGameMusicInstance.stop(STOP_MODE.ALLOWFADEOUT);
-			    InGameMusicInstance.setParameterByName("HealthIntensity", 0);
-			    break;
+		    // Mainmenu >> Ingame
 		    case GameState.BACKGROUND when old == GameState.MAINMENU:
-			    // InGameMusicInstance.stop(STOP_MODE.ALLOWFADEOUT);
-			    InGameMusicInstance.setParameterByName("HealthIntensity", 0);
-			    break;
-		    case GameState.BACKGROUND when old == GameState.WAVE:
 			    InGameMusicInstance.start();
+			    InGameMusicInstance.setParameterByName("HealthIntensity", 0);
 			    InGameMusicInstance.setParameterByName("Intensity", 0);
 			    break;
-		    case GameState.BACKGROUND when old != GameState.BUILD:
-			    break;
-		    case GameState.BOSS:
-			    break;
-		    case GameState.BUILD:
+		    case GameState.MAINMENU:
+			    InGameMusicInstance.stop(STOP_MODE.ALLOWFADEOUT);
+			    InGameMusicInstance.setParameterByName("HealthIntensity", 0);
 			    break;
 		    case GameState.WAVE:
 			    InGameMusicInstance.setParameterByName("Intensity", 1.0f);
-			    break;
-		    default:
-			    InGameMusicInstance.stop(STOP_MODE.ALLOWFADEOUT);
-			    InGameMusicInstance.setParameterByName("HealthIntensity", 0);
 			    break;
 	    }
     }

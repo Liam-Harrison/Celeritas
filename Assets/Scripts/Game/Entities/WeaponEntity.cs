@@ -3,6 +3,7 @@ using Celeritas.Scriptables;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Collections;
+using System.Net;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
@@ -155,8 +156,8 @@ namespace Celeritas.Game.Entities
 			projectile.transform.localScale = projectileSpawn.localScale;
 			EntityEffects.EntityFired(projectile);
 
-			// if (fired != null && !WeaponData.FireSound.IsNull)
-				// if (!WeaponData.IsChargeUpSound) RuntimeManager.PlayOneShot(WeaponData.FireSound);
+			if (fired != null && !WeaponData.FireSound.IsNull)
+				if (!WeaponData.IsChargeUpSound) RuntimeManager.PlayOneShot(WeaponData.FireSound);
 		}
 
 		public void OverDrive(float percentageToAdd, float duration)

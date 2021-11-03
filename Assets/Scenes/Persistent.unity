@@ -1141,7 +1141,7 @@ PrefabInstance:
     - target: {fileID: 556888613596414587, guid: 618ee450bdf6d9c438cc6605939adb3d, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2140405351}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 618ee450bdf6d9c438cc6605939adb3d, type: 3}
 --- !u!1 &1121583098
@@ -2165,6 +2165,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2105295934}
   m_CullTransparentMesh: 1
+--- !u!20 &2140405351 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8311238803889004184, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
+  m_PrefabInstance: {fileID: 8311238803136293577}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4576321260325985275
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2396,11 +2401,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004166, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 35.555557
+      value: -3.14
       objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004166, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4.09
       objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004166, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2436,7 +2441,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8311238803889004184, guid: d5696c20cddd7f442b79273e26b68e30, type: 3}
       propertyPath: orthographic size
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
