@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Celeritas.Game;
 using FMOD.Studio;
 using FMODUnity;
@@ -17,7 +14,8 @@ public class FMODManager : Singleton<FMODManager>
 	{
 		InGameMusicInstance = RuntimeManager.CreateInstance(inGameMusic);
 		InGameMusicInstance.start();
-		if (GameStateManager.Instance.GameState != GameState.MAINMENU)
+
+		if (GameStateManager.Instance != null && GameStateManager.Instance.GameState != GameState.MAINMENU)
 			OnGameStateChanged(GameState.MAINMENU, GameState.BACKGROUND);
 	}
 
