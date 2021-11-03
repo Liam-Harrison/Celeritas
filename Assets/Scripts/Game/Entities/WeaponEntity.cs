@@ -31,7 +31,7 @@ namespace Celeritas.Game.Entities
 
 		private AudioSource source;
 
-		private uint rateOfFire;
+		private float rateOfFire;
 		private float maxCharge = 10.0f;
 		private EventInstance fireSoundInstance;
 
