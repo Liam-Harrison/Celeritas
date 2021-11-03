@@ -15,8 +15,9 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: The Dark Fleet
-    content: Your scanners pick up a trully massive fleet ahead of you. As you approach
-      you notice that none of these ships are producing any kind of power signiture.
+    portrait: {fileID: 0}
+    content: Your scanners pick up a truly massive fleet ahead of you. As you approach
+      you notice that none of these ships are producing any kind of power signature.
     options:
     - type: 0
       content: Get closer, a visual inspection is required
@@ -31,8 +32,12 @@ MonoBehaviour:
   lootType: 0
   lootRewardRange: {x: 0, y: 0}
   moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 0
   waveOutcome: {fileID: 0}
   waves: []
+  changeDoom: 0
+  doom: 0

@@ -10,28 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
-  m_Name: enemyplanet_orbitwin
+  m_Name: UnwelcomeGuest_Fight
   m_EditorClassIdentifier: 
   hasDialogue: 1
   dialogue:
-    title: Time to go!
+    title: Let's hope this was worth it!
     portrait: {fileID: 0}
-    content: "You've destroyed the attacking ships, but several ships below are getting
-      ready for take off. \n\nYour scanners pick up a powerful energy signature coming
-      from a large building on the surface of the planet. With your tractor beam
-      you tear it free and quickly retreat.\n\nIt seems the arcane machinery torn
-      from the planet can be repurposed into {0} modules."
+    content: Just as the last drone hooks itself back into its charging alcove, a
+      missile streaks overhead and slams into a comm relay. Looks like the fight
+      begins now!
     options: []
-  hasRewards: 1
+  hasRewards: 0
   lootType: 0
-  lootRewardRange: {x: 3, y: 4}
+  lootRewardRange: {x: 0, y: 0}
   moduleRewards: []
-  changeHealth: 0
-  percentChangeHealth: 0
+  changeHealth: 1
+  percentChangeHealth: 0.25
   hasEvent: 0
   eventData: {fileID: 0}
-  hasWaves: 0
+  hasWaves: 1
   waveOutcome: {fileID: 0}
-  waves: []
+  waves:
+  - {fileID: 11400000, guid: 9259f43d060fc8d4f8681fd8477b01bb, type: 2}
   changeDoom: 0
   doom: 0

@@ -10,14 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
-  m_Name: ambush_start
+  m_Name: OldGuard_Closer
   m_EditorClassIdentifier: 
   hasDialogue: 1
   dialogue:
-    title: Ambush!
+    title: More lives lost...
     portrait: {fileID: 0}
-    content: It seems the Infested were waiting for you, they blast out from behind
-      various asteroids and debris, ready to reduce your ship to wreckage.
+    content: "After maneuvering in it becomes clear that you were just a little late
+      - a swarm of infested ships dart about between the various ships of the patrol.
+      You watch as the lead patrol ships\u2019 bridge bursts open in a disgusting
+      hail of sickening goo, throwing a host of half-putrefied soldiers out into
+      space.\r\n\r\nWith that horrific display, it seems you were noticed, it\u2019s
+      a fight! "
     options: []
   hasRewards: 0
   lootType: 0
@@ -28,8 +32,8 @@ MonoBehaviour:
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 1
-  waveOutcome: {fileID: 11400000, guid: 0145ba6592b2d4c4cad820b148803ba3, type: 2}
+  waveOutcome: {fileID: 11400000, guid: 6948e407cf09c8c4481e7f1d6082260a, type: 2}
   waves:
-  - {fileID: 11400000, guid: 678df9090c342a7418800bcbf065aaea, type: 2}
+  - {fileID: 11400000, guid: c32686ce95473734ba52821ac14e8b55, type: 2}
   changeDoom: 0
   doom: 0

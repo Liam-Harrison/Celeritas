@@ -17,7 +17,7 @@ MonoBehaviour:
     title: Automated station!
     portrait: {fileID: 0}
     content: 'There''s a poorly maintained auto-repair station here, no one to talk
-      to, but atleast you can patch up a bit of the damage to your ship.
+      to, but at least you can patch up a bit of the damage to your ship.
 
 
       Health

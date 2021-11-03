@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: UnwelcomeGuest_Start
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: Unwelcome Guests
+    portrait: {fileID: 0}
+    content: "There's a poorly maintained auto-repair station here, no one to talk
+      to, but at least you can patch up a bit of the damage to your ship.\r\n\r\nAs
+      you hook your ship into the docking clamps and a few drones begin lazily hovering
+      towards the various scars and tears along your hull, your sensors pick up a
+      few infested ships on approach. If you stick around for the repairs to finish,
+      a fight will be unavoidable, but leaving now would forgo any potential repairs.\r"
+    options:
+    - type: 0
+      content: "Stay for the repairs, we\u2019ll come out of this ahead."
+      outcome: {fileID: 11400000, guid: 637d95b02551873449d8bad3ee319e10, type: 2}
+    - type: 0
+      content: Getting a few repairs only to take more damage from a fight seems
+        like a bad deal, time to leave.
+      outcome: {fileID: 0}
+  hasRewards: 0
+  lootType: 0
+  lootRewardRange: {x: 0, y: 0}
+  moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 0
+  waveOutcome: {fileID: 0}
+  waves: []
+  changeDoom: 0
+  doom: 0

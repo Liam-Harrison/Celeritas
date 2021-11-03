@@ -15,15 +15,20 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: Someone elses problem
-    content: If there's any other survivors out here, hopefully they're better equiped
+    portrait: {fileID: 0}
+    content: If there's any other survivors out here, hopefully they're better equipped
       than you.
     options: []
   hasRewards: 0
   lootType: 0
   lootRewardRange: {x: 0, y: 0}
   moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 0
   waveOutcome: {fileID: 0}
   waves: []
+  changeDoom: 0
+  doom: 0

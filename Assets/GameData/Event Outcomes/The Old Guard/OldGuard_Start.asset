@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f71de3c309f6b4385793c9ac963311, type: 3}
+  m_Name: OldGuard_Start
+  m_EditorClassIdentifier: 
+  hasDialogue: 1
+  dialogue:
+    title: The Old Guard
+    portrait: {fileID: 0}
+    content: "With a seemingly excited \u2018ping!\u2019 your sensors pick up what
+      seems to be the signal of an old Enforcer patrol. Whilst their IFF\u2019s still
+      seem to be working, broadcasting their status as a functional patrol, it seems
+      odd that they aren\u2019t appearing to be going anywhere. Your sensors tell
+      you that their engines are offline and their formation is off.\r\n\r\nIt could
+      be that they\u2019ve been infested, or they could have just been letting discipline
+      slip considering the state of the sector.\r"
+    options:
+    - type: 0
+      content: "Get closer to investigate, even if they\u2019re infested, they\u2019ll
+        have good scrap."
+      outcome: {fileID: 11400000, guid: 99ab1e11d6bf7ec4faab7c9424052894, type: 2}
+    - type: 0
+      content: "Leave the patrol alone, even if they\u2019re friendly, the salvage
+        you\u2019ve picked up so far puts you far outside galactic regulation."
+      outcome: {fileID: 0}
+  hasRewards: 0
+  lootType: 0
+  lootRewardRange: {x: 0, y: 0}
+  moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
+  hasEvent: 0
+  eventData: {fileID: 0}
+  hasWaves: 0
+  waveOutcome: {fileID: 0}
+  waves: []
+  changeDoom: 0
+  doom: 0

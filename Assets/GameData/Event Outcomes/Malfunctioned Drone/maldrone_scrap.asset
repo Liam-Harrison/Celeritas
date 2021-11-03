@@ -15,9 +15,10 @@ MonoBehaviour:
   hasDialogue: 1
   dialogue:
     title: Not very subtle...
-    content: 'You land your ship and begin to scrap the drone for parts, as disconnect
+    portrait: {fileID: 0}
+    content: 'You land your ship and begin to scrap the drone for parts, as you disconnect
       the weapon a failsafe triggers and the drone attempts to fire a missile spraying
-      ignition fuel into the air and igniting in a massive burst of flame.
+      ignition fuel into the air and igniting it in a massive burst of flame.
 
       Whilst
       you are unharmed and in possesion of a new module, the infested certainly noticed,
@@ -27,9 +28,13 @@ MonoBehaviour:
   lootType: 0
   lootRewardRange: {x: 1, y: 1}
   moduleRewards: []
+  changeHealth: 0
+  percentChangeHealth: 0
   hasEvent: 0
   eventData: {fileID: 0}
   hasWaves: 1
   waveOutcome: {fileID: 11400000, guid: 709f6f4a4130b934396f1a657db472c9, type: 2}
   waves:
   - {fileID: 11400000, guid: 9259f43d060fc8d4f8681fd8477b01bb, type: 2}
+  changeDoom: 0
+  doom: 0
