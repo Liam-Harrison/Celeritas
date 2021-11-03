@@ -362,10 +362,8 @@ namespace Celeritas.Game.Entities
 		{
 			float currentDamageModifier = DamageModifierPercentage;
 			DamageModifierPercentage = -1.0f;
-			Debug.Log(DamageModifierPercentage);
 			yield return new WaitForSeconds(duration);
 			DamageModifierPercentage = currentDamageModifier;
-			Debug.Log(DamageModifierPercentage);
 		}
 
 		/// <summary>
