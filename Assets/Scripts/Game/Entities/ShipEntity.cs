@@ -185,6 +185,9 @@ namespace Celeritas.Game.Entities
 				}
 			}
 
+			if (explosionScript != null)
+				explosionScript.Initalize();
+
 			Stunned = false;
 			IsStationary = false;
 

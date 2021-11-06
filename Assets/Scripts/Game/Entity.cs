@@ -249,7 +249,7 @@ namespace Celeritas.Game
 			{
 				GameObject effect = Instantiate(onDestroyEffectPrefab, transform.position, transform.rotation, transform.parent);
 				effect.transform.localScale = transform.localScale;
-				Destroy(effect, timeToPlayOnDestroyEffect); // destroy after X seconds give effect time to play
+				Destroy(effect, timeToPlayOnDestroyEffect);
 			}
 
 			if (hasAudio)
@@ -308,6 +308,7 @@ namespace Celeritas.Game
 
 			if (!Dying)
 				EntityEffects.UpdateEntity();
+
 
 			if (Dying)
 				DoKillEvents();

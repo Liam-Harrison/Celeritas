@@ -1,27 +1,29 @@
-using Celeritas.Game;
-using Celeritas.Game.Controllers;
 using Celeritas.Game.Entities;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
 	[SerializeField]
 	protected GameObject smallExplosion;
+
 	[SerializeField]
 	protected GameObject bigExplosion;
+
 	[SerializeField]
 	protected GameObject[] shrapnel;
+
 	[SerializeField]
 	protected int shrapnelMin;
+
 	[SerializeField]
 	protected int shrapnelMax;
+
 	[SerializeField]
 	protected int[] explosionsPerStage;
+
 	[SerializeField]
 	protected Collider2D shipCollider;
+
 	[SerializeField]
 	protected ShipEntity ship;
 
@@ -29,6 +31,7 @@ public class Explosion : MonoBehaviour
 	private GameObject tempObject;
 	private int currentStage = 0;
 	private bool exploding = false;
+
 	public void Explode()
 	{
 		if (exploding == false)
@@ -36,6 +39,7 @@ public class Explosion : MonoBehaviour
 			exploding = true;
 			explosionStart = Time.time;
 			ship.IsStationary = true;
+			currentStage = 0;
 		}
 
 		Vector3 center = ship.Position;
@@ -74,13 +78,15 @@ public class Explosion : MonoBehaviour
 				}
 				ship.KillEntity();
 			}
-			else
-			{
-				exploding = false;
-			}
 			currentStage++;
 		}
 
+	}
+
+	public void Initalize()
+	{
+		currentStage = 0;
+		exploding = false;
 	}
 
 	private void Update()
