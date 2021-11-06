@@ -18,6 +18,9 @@ public class GoopRandomizer : MonoBehaviour
 
 	void Start()
 	{
+		if (goopShader == null)
+			return;
+
 		Material randomizedGoopShader = Instantiate(goopShader);
 		randomizedGoopShader.SetFloat("Vector1_c688aac08c1b4dee94f25807b45645e8", Random.Range(0f,2f));
 		List<Material> materialList = new List<Material>();

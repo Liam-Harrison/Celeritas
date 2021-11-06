@@ -104,6 +104,9 @@ namespace Celeritas.Game.Events
 
 		public void UnloadEvent()
 		{
+			if (Minimap.Instance == null)
+				return;
+
 			if (marker != null)
 				Minimap.Instance.RemoveDirectionMarker(marker);
 
