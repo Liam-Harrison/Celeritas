@@ -111,7 +111,7 @@ namespace Celeritas.Game.Entities
 				return list;
 			}
 		}
-		
+
 		/// <summary>
 		/// The attatched ship data.
 		/// </summary>
@@ -159,7 +159,7 @@ namespace Celeritas.Game.Entities
 		/// Determines if the ship is currently stunned.
 		/// </summary>
 		public bool Stunned { get; set; }
-		
+
 		/// <inheritdoc/>
 		public override void Initalize(EntityData data, Entity owner = null, IList<EffectWrapper> effects = null, bool forceIsPlayer = false, bool instanced = false)
 		{
@@ -458,7 +458,9 @@ namespace Celeritas.Game.Entities
 
 			Velocity += Vector3.right * Translation.x * ShipData.MovementSettings.forcePerSec * movementModifier.Side * Time.fixedDeltaTime;
 
+			Rigidbody.angularVelocity = 0;
 			Rigidbody.AddForce(Velocity, ForceMode2D.Force);
+			Rigidbody.angularVelocity = 0;
 		}
 
 		private void RotationLogic()
@@ -466,25 +468,28 @@ namespace Celeritas.Game.Entities
 			var dir = (AimTarget - transform.position).normalized;
 			var dot = Vector3.Dot(Forward, dir);
 
-			if (dot < ShipData.MovementSettings.aimDeadzone)
-			{
-				var torquePerSec = ShipData.MovementSettings.torquePerSec * movementModifier.Rotation;
-				var torque = Mathf.Lerp(torquePerSec.x, torquePerSec.y, ShipData.MovementSettings.rotationCurve.Evaluate(Mathf.InverseLerp(1, -1, dot))) * Time.smoothDeltaTime;
+			var rot = Quaternion.LookRotation(Vector3.forward, dir);
+			var smoothRot = Quaternion.Slerp(transform.rotation, rot, ShipData.MovementSettings.rotationMaximum * Time.smoothDeltaTime);
 
-				if (Vector3.Dot(Right, dir) >= 0)
-					torque = -torque;
-
-				var absAngular = Mathf.Abs(Rigidbody.angularVelocity);
-				if (absAngular < ShipData.MovementSettings.rotationMaximum || (absAngular < 1 && Mathf.Sign(torque) != Mathf.Sign(Rigidbody.angularVelocity)))
-				{
-					Rigidbody.AddTorque(torque, ForceMode2D.Force);
-				}
-			}
-			else
-			{
-				var rot = Quaternion.LookRotation(Vector3.forward, dir);
-				transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, ShipData.MovementSettings.rotationMaximum * Time.smoothDeltaTime);
-			}
+			// if (dot < ShipData.MovementSettings.aimDeadzone)
+			// {
+			// 	var torquePerSec = ShipData.MovementSettings.torquePerSec * movementModifier.Rotation;
+			// 	var torque = Mathf.Lerp(torquePerSec.x, torquePerSec.y, ShipData.MovementSettings.rotationCurve.Evaluate(Mathf.InverseLerp(1, -1, dot))) * Time.smoothDeltaTime;
+			//
+			// 	if (Vector3.Dot(Right, dir) >= 0)
+			// 		torque = -torque;
+			//
+			// 	var absAngular = Mathf.Abs(Rigidbody.angularVelocity);
+			// 	if (absAngular < ShipData.MovementSettings.rotationMaximum || (absAngular < 1 && Mathf.Sign(torque) != Mathf.Sign(Rigidbody.angularVelocity)))
+			// 	{
+			// 		Rigidbody.AddTorque(torque, ForceMode2D.Force);
+			// 	}
+			// }
+			// else
+			// {
+			// 	var rot = Quaternion.LookRotation(Vector3.forward, dir);
+			// 	transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, ShipData.MovementSettings.rotationMaximum * Time.smoothDeltaTime);
+			// }
 		}
 
 

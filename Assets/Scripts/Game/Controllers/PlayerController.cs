@@ -9,6 +9,7 @@ using Celeritas.UI;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
+using Debug = UnityEngine.Debug;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Celeritas.Game.Controllers
@@ -121,9 +122,15 @@ namespace Celeritas.Game.Controllers
 			}
 			else
 			{
-				var target = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-				PlayerShipEntity.AimTarget = Vector3.ProjectOnPlane(target, Vector3.forward);
+				var target = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+				if (Physics.Raycast(target, out var hit, 10f))
+				{
+					Debug.Log(hit.point);
+					PlayerShipEntity.AimTarget = Vector3.ProjectOnPlane(hit.point, Vector3.forward);
+				}
 				PlayerShipEntity.Translation = locomotion;
+
+
 			}
 		}
 
