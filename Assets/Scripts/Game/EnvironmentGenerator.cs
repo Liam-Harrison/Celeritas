@@ -114,7 +114,7 @@ namespace Assets.Scripts.Game
 			Vector3 playerPosition = PlayerSpawner.Instance.transform.position;
 			Vector3 toReturn;
 			float distanceToPlayer;
-			int count = 0; 
+			int count = 0;
 			do
 			{
 				toReturn = chunk.GetRandomPositionInChunk();
@@ -136,7 +136,8 @@ namespace Assets.Scripts.Game
 
 		private Asteroid SpawnAsteroid(Vector3 position)
 		{
-			Asteroid asteroid = EntityDataManager.InstantiateEntity<Asteroid>(asteroidPrefab, position, Random.rotation);
+			Asteroid asteroid = EntityDataManager.InstantiateEntity<Asteroid>(asteroidPrefab, position, Quaternion.identity);
+			asteroid.transform.Rotate(0f,0f, Random.Range(0f, 360f));
 			RandomiseAsteroidScale(asteroid, 0.5f, 2f);
 			return asteroid;
 		}

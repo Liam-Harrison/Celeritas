@@ -469,7 +469,7 @@ namespace Celeritas.Game.Entities
 			var dot = Vector3.Dot(Forward, dir);
 
 			var rot = Quaternion.LookRotation(Vector3.forward, dir);
-			var smoothRot = Quaternion.Slerp(transform.rotation, rot, ShipData.MovementSettings.rotationMaximum * Time.smoothDeltaTime);
+			transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, ShipData.MovementSettings.rotationMaximum * Time.smoothDeltaTime);
 
 			// if (dot < ShipData.MovementSettings.aimDeadzone)
 			// {
